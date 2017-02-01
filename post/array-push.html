@@ -68,7 +68,7 @@
 <link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="js," />
 
 
 
@@ -86,19 +86,25 @@
 
 
 
-<meta name="description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub.
-Quick">
+<meta name="description" content="从接口获取数据后，处理数据为我们需要的
+如果response.data全部需要，可以直接 showdata = response.data;
+如果只想其中一部，可以将需要的对象push到变量中123for(var i = 0;i &amp;lt; showdata.length;i++)&amp;#123;	list.push(showdata[i].someval);&amp;#125;
+或者123456for(var">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Hello World">
-<meta property="og:url" content="http://yoohannah.github.io/post/hello-world.html">
+<meta property="og:title" content="数组push操作">
+<meta property="og:url" content="http://yoohannah.github.io/post/array-push.html">
 <meta property="og:site_name" content="My Little World">
-<meta property="og:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub.
-Quick">
-<meta property="og:updated_time" content="2016-12-04T10:07:24.012Z">
+<meta property="og:description" content="从接口获取数据后，处理数据为我们需要的
+如果response.data全部需要，可以直接 showdata = response.data;
+如果只想其中一部，可以将需要的对象push到变量中123for(var i = 0;i &amp;lt; showdata.length;i++)&amp;#123;	list.push(showdata[i].someval);&amp;#125;
+或者123456for(var">
+<meta property="og:updated_time" content="2017-02-01T09:35:35.399Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hello World">
-<meta name="twitter:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub.
-Quick">
+<meta name="twitter:title" content="数组push操作">
+<meta name="twitter:description" content="从接口获取数据后，处理数据为我们需要的
+如果response.data全部需要，可以直接 showdata = response.data;
+如果只想其中一部，可以将需要的对象push到变量中123for(var i = 0;i &amp;lt; showdata.length;i++)&amp;#123;	list.push(showdata[i].someval);&amp;#125;
+或者123456for(var">
 
 
 
@@ -126,13 +132,13 @@ Quick">
 
 
 
-  <link rel="canonical" href="http://yoohannah.github.io/post/hello-world.html"/>
+  <link rel="canonical" href="http://yoohannah.github.io/post/array-push.html"/>
 
 
 
 
 
-  <title> Hello World | My Little World </title>
+  <title> 数组push操作 | My Little World </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -263,7 +269,7 @@ Quick">
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="http://yoohannah.github.io/post/hello-world.html">
+  <link itemprop="mainEntityOfPage" href="http://yoohannah.github.io/post/array-push.html">
 
   <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
     <meta itemprop="name" content="YooHannah">
@@ -287,7 +293,7 @@ Quick">
             
             
               
-                Hello World
+                数组push操作
               
             
           </h1>
@@ -300,8 +306,8 @@ Quick">
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-12-04T18:07:24+08:00">
-                2016-12-04
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-12-17T17:21:02+08:00">
+                2016-12-17
               </time>
             
 
@@ -336,15 +342,10 @@ Quick">
       
 
       
-        <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo new <span class="string">"My New Post"</span></div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo server</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo generate</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo deploy</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
+        <p>从接口获取数据后，处理数据为我们需要的</p>
+<p>如果response.data全部需要，可以直接<br> showdata = response.data;</p>
+<p>如果只想其中一部，可以将需要的对象push到变量中<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">for(var i = 0;i &lt; showdata.length;i++)&#123;</div><div class="line">	list.push(showdata[i].someval);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>或者<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">for(var i = 0;i &lt; showdata.length;i++)&#123;</div><div class="line">	list.push(&#123;</div><div class="line">	name:showdata[i].object.name;</div><div class="line">	val:showdata[i].object.val;</div><div class="line">	&#125;);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
 
       
     </div>
@@ -366,10 +367,20 @@ Quick">
 
     <footer class="post-footer">
       
+        <div class="post-tags">
+          
+            <a href="/tags/js/" rel="tag"># js</a>
+          
+        </div>
+      
 
       
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
+            
+              <a href="/post/transform.html" rel="next" title="转换">
+                <i class="fa fa-chevron-left"></i> 转换
+              </a>
             
           </div>
 
@@ -377,8 +388,8 @@ Quick">
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/post/My-New-post.html" rel="prev" title="My New post">
-                My New post <i class="fa fa-chevron-right"></i>
+              <a href="/post/css-circle.html" rel="prev" title="用css画圆">
+                用css画圆 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -426,17 +437,8 @@ Quick">
       
 
       
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
-            文章目录
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview">
-            站点概览
-          </li>
-        </ul>
-      
 
-      <section class="site-overview sidebar-panel">
+      <section class="site-overview sidebar-panel sidebar-panel-active">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/psb.jpg"
@@ -489,22 +491,6 @@ Quick">
 
       </section>
 
-      
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Quick-Start"><span class="nav-number">1.</span> <span class="nav-text">Quick Start</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Create-a-new-post"><span class="nav-number">1.1.</span> <span class="nav-text">Create a new post</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Run-server"><span class="nav-number">1.2.</span> <span class="nav-text">Run server</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Generate-static-files"><span class="nav-number">1.3.</span> <span class="nav-text">Generate static files</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Deploy-to-remote-sites"><span class="nav-number">1.4.</span> <span class="nav-text">Deploy to remote sites</span></a></li></ol></li></ol></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
       
 
     </div>

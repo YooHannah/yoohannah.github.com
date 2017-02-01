@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoohannah.github.io/"/>
-  <updated>2016-12-10T06:05:44.987Z</updated>
+  <updated>2017-02-01T09:59:53.636Z</updated>
   <id>http://yoohannah.github.io/</id>
   
   <author>
@@ -14,6 +14,362 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>打印文件</title>
+    <link href="http://yoohannah.github.io/post/print.html"/>
+    <id>http://yoohannah.github.io/post/print.html</id>
+    <published>2017-02-01T09:57:25.000Z</published>
+    <updated>2017-02-01T09:59:53.636Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="打印文件"><a href="#打印文件" class="headerlink" title="打印文件"></a>打印文件</h2><p>  Window.print();<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">$scope.print= function()&#123;</div><div class="line">      $(&quot;#noprint&quot;).css(&apos;display&apos;,&apos;none&apos;);</div><div class="line">      $(&quot;#print&quot;).css(&apos;display&apos;,&apos;block&apos;);</div><div class="line">      window.print();</div><div class="line">      $(&quot;#print&quot;).css(&apos;display&apos;,&apos;none&apos;);</div><div class="line">      $(&quot;#noprint&quot;).css(&apos;display&apos;,&apos;block&apos;);</div><div class="line">     &#125;</div></pre></td></tr></table></figure></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;打印文件&quot;&gt;&lt;a href=&quot;#打印文件&quot; class=&quot;headerlink&quot; title=&quot;打印文件&quot;&gt;&lt;/a&gt;打印文件&lt;/h2&gt;&lt;p&gt;  Window.print();&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;t
+    
+    </summary>
+    
+    
+      <category term="js" scheme="http://yoohannah.github.io/tags/js/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>链接(页面跳转)</title>
+    <link href="http://yoohannah.github.io/post/link.html"/>
+    <id>http://yoohannah.github.io/post/link.html</id>
+    <published>2016-12-17T16:20:07.000Z</published>
+    <updated>2017-02-01T09:01:30.389Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="跳转打开新页面"><a href="#跳转打开新页面" class="headerlink" title="跳转打开新页面"></a>跳转打开新页面</h1><pre><code>1.window.Open(url);
+2.&lt;a href= “” target=&quot;view_window&quot;&gt;&lt;/a&gt;
+</code></pre><p>a 标签的 target 属性规定在何处打开链接文档。<br>如果在一个 a 标签内包含一个 target 属性，浏览器将会载入和显示用这个标签的 href 属性命名的、名称与这个目标吻合的框架或者窗口中的文档。如果这个指定名称或 id 的框架或者窗口不存在，浏览器将打开一个新的窗口，给这个窗口一个指定的标记，然后将新的文档载入那个窗口。从此以后，超链接文档就可以指向这个新的窗口。</p>
+<h1 id="本页跳转"><a href="#本页跳转" class="headerlink" title="本页跳转"></a>本页跳转</h1><pre><code>&lt;a href=“”&gt;&lt;/a&gt;
+</code></pre>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;跳转打开新页面&quot;&gt;&lt;a href=&quot;#跳转打开新页面&quot; class=&quot;headerlink&quot; title=&quot;跳转打开新页面&quot;&gt;&lt;/a&gt;跳转打开新页面&lt;/h1&gt;&lt;pre&gt;&lt;code&gt;1.window.Open(url);
+2.&amp;lt;a href= “” targe
+    
+    </summary>
+    
+    
+      <category term="html" scheme="http://yoohannah.github.io/tags/html/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>图片显示</title>
+    <link href="http://yoohannah.github.io/post/imageshow.html"/>
+    <id>http://yoohannah.github.io/post/imageshow.html</id>
+    <published>2016-12-17T16:15:51.000Z</published>
+    <updated>2017-02-01T09:03:01.695Z</updated>
+    
+    <content type="html"><![CDATA[<p>1.按一定大小，直接在img 标签里设置style<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;img src=&quot;&#123;&#123;detaildata.image&#125;&#125;&quot; name=&quot;img&quot; style=&quot;width:32px;height: 32px;&quot;&gt;</div></pre></td></tr></table></figure></p>
+<p>2.按图片原本大小自适应显示，不在容器里设置任何大小</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;1.按一定大小，直接在img 标签里设置style&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td c
+    
+    </summary>
+    
+    
+      <category term="html" scheme="http://yoohannah.github.io/tags/html/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Angular 绑定</title>
+    <link href="http://yoohannah.github.io/post/Angular-binding.html"/>
+    <id>http://yoohannah.github.io/post/Angular-binding.html</id>
+    <published>2016-12-17T16:14:37.000Z</published>
+    <updated>2017-02-01T09:07:27.071Z</updated>
+    
+    <content type="html"><![CDATA[<p>数据: ng-model<br>点击: ng-click=”closeimg()”<br>鼠标经过: ng-mouseenter=”imgclick(item.img_url)”   ng-mouseleave=”closeimg()”<br>显示：ng-show   ng-if<br>禁用：ng-disabled</p>
+<p>select 数据绑定<br>1.显示name,绑定id;<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;select <span class="class"><span class="keyword">class</span></span>=<span class="string">"sel"</span> ng-model=<span class="string">"supplier.status"</span> ng-options=<span class="string">"item.id as item.name for item in statuss"</span> ng-disabled=<span class="string">"read2"</span>&gt;&lt;/select&gt;</div></pre></td></tr></table></figure></p>
+<p>2.显示title，绑定整个对象<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&lt;select <span class="class"><span class="keyword">class</span></span>=<span class="string">"col-md-1"</span> ng-model=<span class="string">"usertype"</span> ng-options=<span class="string">"item.title for item in usertypes"</span> ng-change=<span class="string">"usertypechange()"</span>&gt;</div><div class="line">&lt;option selected value=""&gt;请选择&lt;/option&gt;</div><div class="line">&lt;<span class="regexp">/select&gt;</span></div></pre></td></tr></table></figure></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;数据: ng-model&lt;br&gt;点击: ng-click=”closeimg()”&lt;br&gt;鼠标经过: ng-mouseenter=”imgclick(item.img_url)”   ng-mouseleave=”closeimg()”&lt;br&gt;显示：ng-show   ng
+    
+    </summary>
+    
+    
+      <category term="html" scheme="http://yoohannah.github.io/tags/html/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>表格处理</title>
+    <link href="http://yoohannah.github.io/post/tableshow.html"/>
+    <id>http://yoohannah.github.io/post/tableshow.html</id>
+    <published>2016-12-17T16:00:06.000Z</published>
+    <updated>2017-02-01T09:26:51.246Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="jquery获取表格"><a href="#jquery获取表格" class="headerlink" title="jquery获取表格"></a>jquery获取表格</h1><p>获取行: $(“#table tr”)[val+1];<br>获取改行第一列: $(“#table tr”)[val+1].children[0];<br>表格内容：$(“#table tr td:nth-child(4)”)[val].innerText</p>
+<h1 id="多表头，一行对应多列"><a href="#多表头，一行对应多列" class="headerlink" title="多表头，一行对应多列"></a>多表头，一行对应多列</h1><p>[相关链接]（<a href="http://www.jb51.net/web/138278.html" target="_blank" rel="external">http://www.jb51.net/web/138278.html</a>)<br><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div></pre></td><td class="code"><pre><div class="line">&lt;table class="table table-bordered table-hover no-footer"&gt;</div><div class="line">&lt;thead&gt;</div><div class="line">  &lt;tr role="row" class="heading"&gt;</div><div class="line">    &lt;th colspan="2"&gt;基本信息&lt;/th&gt;</div><div class="line">    &lt;th colspan="6"&gt;配送速度&lt;/th&gt;</div><div class="line">    &lt;th colspan="6"&gt;服务态度&lt;/th&gt;</div><div class="line">  &lt;/tr&gt;</div><div class="line">  &lt;tr role="row" class="heading"&gt;</div><div class="line">      &lt;th&gt;配送员&lt;/th&gt;</div><div class="line">      &lt;th&gt;服务社区&lt;/th&gt;</div><div class="line">      &lt;th&gt;5星&lt;/th&gt;</div><div class="line">      &lt;th&gt;4星&lt;/th&gt;</div><div class="line">      &lt;th&gt;3星&lt;/th&gt;</div><div class="line">      &lt;th&gt;2星&lt;/th&gt;</div><div class="line">      &lt;th&gt;1星&lt;/th&gt;</div><div class="line">      &lt;th&gt;未评论&lt;/th&gt;</div><div class="line">      &lt;th&gt;5星&lt;/th&gt;</div><div class="line">      &lt;th&gt;4星&lt;/th&gt;</div><div class="line">      &lt;th&gt;3星&lt;/th&gt;</div><div class="line">      &lt;th&gt;2星&lt;/th&gt;</div><div class="line">      &lt;th&gt;1星&lt;/th&gt;</div><div class="line">      &lt;th&gt;未评论&lt;/th&gt;</div><div class="line">  &lt;/tr&gt;</div><div class="line">&lt;/thead&gt;</div><div class="line">&lt;tbody ng-show="data.length&gt;0"&gt;</div><div class="line">  &lt;tr role="row" ng-repeat="item in data track by $index"&gt;</div><div class="line">      &lt;td&gt;&#123;&#123;item.id&#125;&#125;&lt;/td&gt;</div><div class="line">      &lt;td&gt;&#123;&#123;item.id&#125;&#125;&lt;/td&gt;</div><div class="line">      &lt;td&gt;&#123;&#123;item.id&#125;&#125;&lt;/td&gt;</div><div class="line">      &lt;td&gt;&#123;&#123;item.id&#125;&#125;&lt;/td&gt;</div><div class="line">      &lt;td&gt;&#123;&#123;item.id&#125;&#125;&lt;/td&gt;</div><div class="line">      &lt;td&gt;&#123;&#123;item.id&#125;&#125;&lt;/td&gt;</div><div class="line">      &lt;td&gt;&#123;&#123;item.id&#125;&#125;&lt;/td&gt;</div><div class="line">      &lt;td&gt;&#123;&#123;item.id&#125;&#125;&lt;/td&gt;</div><div class="line">      &lt;td&gt;&#123;&#123;item.id&#125;&#125;&lt;/td&gt;</div><div class="line">      &lt;td&gt;&#123;&#123;item.id&#125;&#125;&lt;/td&gt;</div><div class="line">      &lt;td&gt;&#123;&#123;item.id&#125;&#125;&lt;/td&gt;</div><div class="line">      &lt;td&gt;&#123;&#123;item.id&#125;&#125;&lt;/td&gt;</div><div class="line">      &lt;td&gt;&#123;&#123;item.id&#125;&#125;&lt;/td&gt;</div><div class="line">      &lt;td&gt;&#123;&#123;item.id&#125;&#125;&lt;/td&gt;</div><div class="line">  &lt;/tr&gt;</div><div class="line">&lt;/tbody&gt;</div><div class="line">&lt;/table&gt;</div></pre></td></tr></table></figure></p>
+<h1 id="一列对多行"><a href="#一列对多行" class="headerlink" title="一列对多行"></a>一列对多行</h1><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div></pre></td><td class="code"><pre><div class="line">&lt;table class="table  table-hover table-light"&gt;</div><div class="line">&lt;thead&gt;</div><div class="line">  &lt;tr role="row" class="heading"&gt;</div><div class="line">    &lt;th width="3.6%"&gt; 订单ID &lt;/th&gt;</div><div class="line">    &lt;th width="6.6%"&gt; 社区 &lt;/th&gt;</div><div class="line">    &lt;th width="6.6%"&gt; 供应商名称 &lt;/th&gt;</div><div class="line">    &lt;th width="6.6%"&gt; 商品名称 &lt;/th&gt;</div><div class="line">    &lt;th width="6.6%"&gt; 条码 &lt;/th&gt;</div><div class="line">    &lt;th width="6.6%"&gt; 批发价 &lt;/th&gt;</div><div class="line">    &lt;th width="6.6%"&gt; 预购价 &lt;/th&gt;</div><div class="line">    &lt;th width="5.6%"&gt; 数量 &lt;/th&gt;</div><div class="line">    &lt;th width="5.6%"&gt; 收货人 &lt;/th&gt;</div><div class="line">    &lt;th width="6.6%"&gt; 联系方式 &lt;/th&gt;</div><div class="line">    &lt;th width="7.6%"&gt; 收货地址 &lt;/th&gt;</div><div class="line">    &lt;th width="6.6%"&gt; 下单时间 &lt;/th&gt;</div><div class="line">    &lt;th width="6.6%"&gt; 配送方式 &lt;/th&gt;</div><div class="line">    &lt;th width="3.6%"&gt; 状态 &lt;/th&gt;</div><div class="line">    &lt;th width="14.6%"&gt; 操作 &lt;/th&gt;</div><div class="line">  &lt;/tr&gt;</div><div class="line">&lt;/thead&gt;</div><div class="line">&lt;tbody ng-if="data.length&gt;0" ng-repeat="x in data"&gt;</div><div class="line">  &lt;tr role="row" class="gradeX odd" ng-repeat="y in x.orders_items"&gt;</div><div class="line">    &lt;td ng-if="$index == 0" rowspan=&#123;&#123;x.orders_items.length&#125;&#125;&gt; &#123;&#123;x.order_id&#125;&#125;&lt;/td&gt;</div><div class="line">    &lt;td ng-if="$index == 0" rowspan=&#123;&#123;x.orders_items.length&#125;&#125;&gt; &#123;&#123;x.region_name&#125;&#125; &lt;/td&gt;</div><div class="line">    &lt;td ng-if="$index == 0" rowspan=&#123;&#123;x.orders_items.length&#125;&#125;&gt; &#123;&#123;x.vendor_name&#125;&#125; &lt;/td&gt;</div><div class="line">    &lt;td&gt;&lt;span ng-bind="y.name"&gt;&lt;/span&gt;&lt;/td&gt;</div><div class="line">    &lt;td&gt;&lt;span ng-bind="y.barcode"&gt;&lt;/span&gt;&lt;/td&gt;</div><div class="line">    &lt;td&gt;&lt;span ng-bind="y.trade_price"&gt;&lt;/span&gt;&lt;/td&gt;</div><div class="line">    &lt;td&gt;&lt;span ng-bind="y.pre_selling_price"&gt;&lt;/span&gt;&lt;/td&gt;</div><div class="line">    &lt;td&gt;&lt;span ng-bind="y.count"&gt;&lt;/span&gt;&lt;/td&gt;</div><div class="line">    &lt;td ng-if="$index == 0" rowspan=&#123;&#123;x.orders_items.length&#125;&#125;&gt; &#123;&#123;x.consignee&#125;&#125;&lt;/td&gt;</div><div class="line">    &lt;td ng-if="$index == 0" rowspan=&#123;&#123;x.orders_items.length&#125;&#125;&gt; &#123;&#123;x.contacts_tel&#125;&#125; &lt;/td&gt;</div><div class="line">    &lt;td ng-if="$index == 0" rowspan=&#123;&#123;x.orders_items.length&#125;&#125;&gt; &#123;&#123;x.address&#125;&#125; &lt;/td&gt;</div><div class="line">    &lt;td ng-if="$index == 0" rowspan=&#123;&#123;x.orders_items.length&#125;&#125;&gt; &#123;&#123;x.order_time&#125;&#125;&lt;/td&gt;</div><div class="line">    &lt;td ng-if="$index == 0" rowspan=&#123;&#123;x.orders_items.length&#125;&#125;&gt; &#123;&#123;x.transport_desc&#125;&#125; &lt;/td&gt;</div><div class="line">    &lt;td ng-if="$index == 0" rowspan=&#123;&#123;x.orders_items.length&#125;&#125;&gt; &lt;span class="label" ng-class="x.labelClass"&gt;&#123;&#123;x.export_status_desc&#125;&#125; &lt;/span&gt; &lt;/td&gt;</div><div class="line">    &lt;td ng-if="$index == 0" rowspan=&#123;&#123;x.orders_items.length&#125;&#125;&gt;</div><div class="line">     &lt;a class="btn btn-link font-purple-seance" href="/supply/order/&#123;&#123;x.order_id&#125;&#125;" target="view_window"&gt;&lt;i class="fa fa-eye"&gt;&lt;/i&gt; 详情&lt;/a&gt;</div><div class="line">   &lt;/td&gt;</div><div class="line"> &lt;/tr&gt;</div><div class="line">&lt;/tbody&gt;</div><div class="line">&lt;/table&gt;</div></pre></td></tr></table></figure>
+<h1 id="套嵌循环，三层一列多行用js-循环拼接实现"><a href="#套嵌循环，三层一列多行用js-循环拼接实现" class="headerlink" title="套嵌循环，三层一列多行用js 循环拼接实现"></a>套嵌循环，三层一列多行用js 循环拼接实现</h1><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div></pre></td><td class="code"><pre><div class="line">$scope.dealdata= <span class="function"><span class="keyword">function</span>(<span class="params">val</span>)</span>&#123;</div><div class="line">  <span class="keyword">if</span>(val.length&lt;<span class="number">1</span>)&#123;</div><div class="line">    <span class="keyword">return</span></div><div class="line">  &#125;</div><div class="line">  <span class="keyword">var</span> tabstring = <span class="string">""</span>;</div><div class="line">  <span class="keyword">for</span>(<span class="keyword">var</span> i = <span class="number">0</span>;i&lt;val.length;i++)&#123;</div><div class="line">    <span class="keyword">var</span> goodslength = <span class="number">0</span>;</div><div class="line">    <span class="keyword">for</span>(<span class="keyword">var</span> m = <span class="number">0</span>;m&lt;val[i].category.length;m++)&#123;</div><div class="line">      goodslength+=val[i].category[m].purchase.length</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">var</span> str1 = <span class="string">"&lt;td rowspan="</span>+goodslength+<span class="string">"&gt;"</span>+val[i].purchase_name+<span class="string">"&lt;/td&gt;"</span>;</div><div class="line">     <span class="keyword">for</span>(<span class="keyword">var</span> j = <span class="number">0</span>;j&lt;val[i].category.length;j++)&#123;</div><div class="line">        <span class="keyword">var</span> str2 = <span class="string">""</span>;</div><div class="line">        <span class="keyword">if</span>(j == <span class="number">0</span>)&#123;</div><div class="line">          str2 = str1 + <span class="string">"&lt;td rowspan="</span>+val[i].category[j].purchase.length+<span class="string">"&gt;"</span>+val[i].category[j].category_name+<span class="string">"&lt;/td&gt;"</span>;</div><div class="line">        &#125;<span class="keyword">else</span>&#123;</div><div class="line">          str2 = <span class="string">"&lt;td rowspan="</span>+val[i].category[j].purchase.length+<span class="string">"&gt;"</span>+val[i].category[j].category_name+<span class="string">"&lt;/td&gt;"</span>;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">for</span>(<span class="keyword">var</span> k = <span class="number">0</span>;k&lt;val[i].category[j].purchase.length;k++)&#123;</div><div class="line">          <span class="keyword">var</span> str3 = <span class="string">""</span>;</div><div class="line">          <span class="keyword">var</span> item = val[i].category[j].purchase[k];</div><div class="line">          <span class="keyword">if</span>(k == <span class="number">0</span>)&#123;</div><div class="line">            str3 = str2 + <span class="string">"&lt;td&gt;"</span>+item.product_name+<span class="string">"&lt;/td&gt;"</span>+</div><div class="line">                          <span class="string">"&lt;td&gt;"</span>+item.product_num+<span class="string">"&lt;/td&gt;"</span>+</div><div class="line">                          <span class="string">"&lt;td&gt;"</span>+item.unit+<span class="string">"&lt;/td&gt;"</span>+</div><div class="line">                          <span class="string">"&lt;td&gt;"</span>+item.price+<span class="string">"&lt;/td&gt;"</span>+</div><div class="line">                          <span class="string">"&lt;td&gt;"</span>+item.total_amount+<span class="string">"&lt;/td&gt;"</span></div><div class="line">          &#125;<span class="keyword">else</span>&#123;</div><div class="line">            str3 = <span class="string">"&lt;td&gt;"</span>+item.product_name+<span class="string">"&lt;/td&gt;"</span>+</div><div class="line">                    <span class="string">"&lt;td&gt;"</span>+item.product_num+<span class="string">"&lt;/td&gt;"</span>+</div><div class="line">                    <span class="string">"&lt;td&gt;"</span>+item.unit+<span class="string">"&lt;/td&gt;"</span>+</div><div class="line">                    <span class="string">"&lt;td&gt;"</span>+item.price+<span class="string">"&lt;/td&gt;"</span>+</div><div class="line">                    <span class="string">"&lt;td&gt;"</span>+item.total_amount+<span class="string">"&lt;/td&gt;"</span></div><div class="line">          &#125;</div><div class="line">          tabstring += <span class="string">"&lt;tr&gt;"</span> + str3 + <span class="string">"&lt;/tr&gt;"</span></div><div class="line">        &#125;</div><div class="line">     &#125;</div><div class="line">  &#125;</div><div class="line">  $(<span class="string">"#table"</span>).html(tabstring);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>效果如下<br><img src="/image/table3.png" alt="table"></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;jquery获取表格&quot;&gt;&lt;a href=&quot;#jquery获取表格&quot; class=&quot;headerlink&quot; title=&quot;jquery获取表格&quot;&gt;&lt;/a&gt;jquery获取表格&lt;/h1&gt;&lt;p&gt;获取行: $(“#table tr”)[val+1];&lt;br&gt;获取改行第一列
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>表单禁用</title>
+    <link href="http://yoohannah.github.io/post/formforbid.html"/>
+    <id>http://yoohannah.github.io/post/formforbid.html</id>
+    <published>2016-12-17T15:51:15.000Z</published>
+    <updated>2017-02-01T09:32:33.972Z</updated>
+    
+    <content type="html"><![CDATA[<p>var checkk = $(“#bossstorechose input”);<br>  checkk.setAttribute(“disabled”,”disabled”);</p>
+<p>$(“#unity button”).attr(“disabled”, true);</p>
+<p>HTML添加angular属性ng-diabled:”val”;<br>  js赋值变量值为true val=true;</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;var checkk = $(“#bossstorechose input”);&lt;br&gt;  checkk.setAttribute(“disabled”,”disabled”);&lt;/p&gt;
+&lt;p&gt;$(“#unity button”).attr(“disabled”, true
+    
+    </summary>
+    
+    
+      <category term="js" scheme="http://yoohannah.github.io/tags/js/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>上传</title>
+    <link href="http://yoohannah.github.io/post/upload.html"/>
+    <id>http://yoohannah.github.io/post/upload.html</id>
+    <published>2016-12-17T14:19:51.000Z</published>
+    <updated>2017-02-01T09:59:56.054Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="上传文件"><a href="#上传文件" class="headerlink" title="上传文件"></a>上传文件</h2><h3 id="方式一-用http方法，但需要写获取文件的指令"><a href="#方式一-用http方法，但需要写获取文件的指令" class="headerlink" title="方式一 用http方法，但需要写获取文件的指令"></a>方式一 用http方法，但需要写获取文件的指令</h3><p>[相关链接]（<a href="http://my.oschina.net/u/1453451/blog/502885" target="_blank" rel="external">http://my.oschina.net/u/1453451/blog/502885</a>)<br>  <figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line">$scope.fileupload = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">       <span class="keyword">var</span>  fd = <span class="keyword">new</span> FormData();</div><div class="line">        <span class="comment">//var file = document.querySelector('input[type=file]').files[0];</span></div><div class="line">       <span class="built_in">console</span>.log($scope.fileItem);</div><div class="line">       fd.append(<span class="string">'import_file'</span>, $scope.fileItem.import_file);</div><div class="line">        <span class="built_in">console</span>.log(fd)</div><div class="line">        $http(&#123;</div><div class="line">            <span class="attr">method</span>:<span class="string">'POST'</span>,</div><div class="line">            <span class="attr">url</span>:<span class="string">"http://172.16.0.207/py/erp/v1/credit_sell/import_files/"</span>,</div><div class="line">           <span class="comment">//url:"http://172.16.7.184:8000/py/erp/v1/credit_sell/import_files/",</span></div><div class="line">            data: fd,</div><div class="line">            <span class="attr">headers</span>: &#123;<span class="string">'Content-Type'</span>:<span class="literal">undefined</span>&#125;,</div><div class="line">            <span class="attr">transformRequest</span>: angular.identity</div><div class="line">             &#125;)</div><div class="line">            .success( <span class="function"><span class="keyword">function</span> (<span class="params"> response </span>)</span></div><div class="line">                     &#123;</div><div class="line">                      <span class="keyword">if</span>(response.statusCode===<span class="number">0</span>)&#123;</div><div class="line">                     <span class="comment">//上传成功的操作</span></div><div class="line">                     alert(<span class="string">"uplaod success"</span>);</div><div class="line">                   &#125;<span class="keyword">else</span>&#123;</div><div class="line">                    <span class="built_in">console</span>.log(response.msg)</div><div class="line">                   &#125;</div><div class="line">                     &#125;);</div><div class="line">   &#125;</div></pre></td></tr></table></figure></p>
+<h3 id="方式二-用angular-file-upload-插件，利用FileUploader-服务属性和方法进行上传"><a href="#方式二-用angular-file-upload-插件，利用FileUploader-服务属性和方法进行上传" class="headerlink" title="方式二  用angular-file-upload 插件，利用FileUploader 服务属性和方法进行上传"></a>方式二  用angular-file-upload 插件，利用FileUploader 服务属性和方法进行上传</h3><p>[相关链接]（<a href="http://blog.csdn.net/lai_xu/article/details/49535847" target="_blank" rel="external">http://blog.csdn.net/lai_xu/article/details/49535847</a>)<br>[相关链接]（<a href="http://www.cnblogs.com/aikewang/p/5691723.html" target="_blank" rel="external">http://www.cnblogs.com/aikewang/p/5691723.html</a>)</p>
+<h2 id="上传图片"><a href="#上传图片" class="headerlink" title="上传图片"></a>上传图片</h2><h3 id="使用-drop-master-插件"><a href="#使用-drop-master-插件" class="headerlink" title="使用 drop-master 插件"></a>使用 drop-master 插件</h3><h3 id="angular引入引入fileReader依赖"><a href="#angular引入引入fileReader依赖" class="headerlink" title="angular引入引入fileReader依赖"></a>angular引入引入fileReader依赖</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line">JS:</div><div class="line">$scope.getFile = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">  <span class="built_in">console</span>.log($scope.file);</div><div class="line">   <span class="keyword">var</span> postData = &#123;</div><div class="line">      <span class="attr">fileName</span>: $scope.file</div><div class="line">    &#125;;</div><div class="line"> fileReader.readAsDataUrl($rootScope.settings.url + <span class="string">"UPLOADURL"</span>, postData)</div><div class="line"> .success(<span class="function"><span class="keyword">function</span>(<span class="params">response</span>) </span>&#123;</div><div class="line">          $scope.detaildata.image=response;</div><div class="line">  &#125;);</div><div class="line"> &#125;;</div><div class="line"></div><div class="line">HTML:</div><div class="line">&lt;div class="col-md-4 fileinput"&gt;</div><div class="line">&lt;img src="&#123;&#123;detaildata.image&#125;&#125;" name="img" style="width:32px;height: 32px;"&gt;</div><div class="line">&lt;span class="btn red btn-outline btn-file"&gt;</div><div class="line">&lt;span class="fileinput-new"&gt; 重新上传 &lt;/span&gt;</div><div class="line">&lt;input type="hidden"&gt;</div><div class="line">&lt;input type="file" file-model="myFile" name="..." accept="image/*"&gt; </div><div class="line">&lt;/span&gt;</div><div class="line">&lt;/div&gt;</div></pre></td></tr></table></figure>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;上传文件&quot;&gt;&lt;a href=&quot;#上传文件&quot; class=&quot;headerlink&quot; title=&quot;上传文件&quot;&gt;&lt;/a&gt;上传文件&lt;/h2&gt;&lt;h3 id=&quot;方式一-用http方法，但需要写获取文件的指令&quot;&gt;&lt;a href=&quot;#方式一-用http方法，但需要写获取文件的指
+    
+    </summary>
+    
+    
+      <category term="js" scheme="http://yoohannah.github.io/tags/js/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>下载文件</title>
+    <link href="http://yoohannah.github.io/post/updownload.html"/>
+    <id>http://yoohannah.github.io/post/updownload.html</id>
+    <published>2016-12-17T14:19:51.000Z</published>
+    <updated>2017-02-01T09:53:31.257Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="下载-导出文件"><a href="#下载-导出文件" class="headerlink" title="下载/导出文件"></a>下载/导出文件</h2><h3 id="1-不带参数"><a href="#1-不带参数" class="headerlink" title="1.不带参数"></a>1.不带参数</h3><pre><code>window.open(url);
+</code></pre><h3 id="2-带参数"><a href="#2-带参数" class="headerlink" title="2.带参数"></a>2.带参数</h3><pre><code>window.open(&quot;.../?para1=&quot;+para1val+&quot;&amp;para2=&quot;+para2val);
+</code></pre>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;下载-导出文件&quot;&gt;&lt;a href=&quot;#下载-导出文件&quot; class=&quot;headerlink&quot; title=&quot;下载/导出文件&quot;&gt;&lt;/a&gt;下载/导出文件&lt;/h2&gt;&lt;h3 id=&quot;1-不带参数&quot;&gt;&lt;a href=&quot;#1-不带参数&quot; class=&quot;headerlink&quot; 
+    
+    </summary>
+    
+    
+      <category term="js" scheme="http://yoohannah.github.io/tags/js/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>用css画圆</title>
+    <link href="http://yoohannah.github.io/post/css-circle.html"/>
+    <id>http://yoohannah.github.io/post/css-circle.html</id>
+    <published>2016-12-17T09:28:58.000Z</published>
+    <updated>2016-12-17T09:35:50.212Z</updated>
+    
+    <content type="html"><![CDATA[<p>实心圆</p>
+<pre><code>.circle{
+    width: 16px;
+    height: 16px;
+    background-color: #fe6000;
+    -webkit-border-radius: 8px;
+    -moz-border-radius:8px;
+    border-radius:8px;
+    position: absolute;
+    margin-top: 4px;
+}
+</code></pre><p>空心圆</p>
+<pre><code>.circle1{
+    color:#fe6000;
+    font-size: 14px;
+    text-align: center;
+    width: 14px;
+    height: 14px;
+    line-height: 14px;
+    border:1px solid #fe6000; 
+    border-radius:7px;
+    position: absolute;
+    margin-top: 4px   
+}
+</code></pre><p>同心圆可利用边框</p>
+<pre><code>.noticebtn{
+    width: 90px;
+    height: 90px;
+    border-radius: 55px;
+    -webkit-border-radius: 55px;
+    background-color: rgb(255,106,0);
+    border:10px solid  rgba(255,106,0,.5);
+    background-clip:content-box;
+    color: #fff;
+    margin: 20px auto;
+    text-align: center;
+    line-height: 90px;
+}
+
+.noticebtn.noticeover{
+    background-color: rgb(130,223,20);
+    border:10px solid  rgba(130,223,20,.5);
+}
+</code></pre>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;实心圆&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;.circle{
+    width: 16px;
+    height: 16px;
+    background-color: #fe6000;
+    -webkit-border-radius: 8px;
+    -moz-bo
+    
+    </summary>
+    
+    
+      <category term="css" scheme="http://yoohannah.github.io/tags/css/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>数组push操作</title>
+    <link href="http://yoohannah.github.io/post/array-push.html"/>
+    <id>http://yoohannah.github.io/post/array-push.html</id>
+    <published>2016-12-17T09:21:02.000Z</published>
+    <updated>2017-02-01T09:35:35.399Z</updated>
+    
+    <content type="html"><![CDATA[<p>从接口获取数据后，处理数据为我们需要的</p>
+<p>如果response.data全部需要，可以直接<br> showdata = response.data;</p>
+<p>如果只想其中一部，可以将需要的对象push到变量中<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">for(var i = 0;i &lt; showdata.length;i++)&#123;</div><div class="line">	list.push(showdata[i].someval);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>或者<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">for(var i = 0;i &lt; showdata.length;i++)&#123;</div><div class="line">	list.push(&#123;</div><div class="line">	name:showdata[i].object.name;</div><div class="line">	val:showdata[i].object.val;</div><div class="line">	&#125;);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;从接口获取数据后，处理数据为我们需要的&lt;/p&gt;
+&lt;p&gt;如果response.data全部需要，可以直接&lt;br&gt; showdata = response.data;&lt;/p&gt;
+&lt;p&gt;如果只想其中一部，可以将需要的对象push到变量中&lt;br&gt;&lt;figure class=&quot;high
+    
+    </summary>
+    
+    
+      <category term="js" scheme="http://yoohannah.github.io/tags/js/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>转换</title>
+    <link href="http://yoohannah.github.io/post/transform.html"/>
+    <id>http://yoohannah.github.io/post/transform.html</id>
+    <published>2016-12-17T08:56:09.000Z</published>
+    <updated>2017-02-01T09:37:44.902Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="日期-时间戳"><a href="#日期-时间戳" class="headerlink" title="日期/时间戳"></a>日期/时间戳</h1><h2 id="时间戳转换日期"><a href="#时间戳转换日期" class="headerlink" title="时间戳转换日期"></a>时间戳转换日期</h2><p>日期 = new Date(时间戳*1000);</p>
+<h2 id="日期转换时间戳"><a href="#日期转换时间戳" class="headerlink" title="日期转换时间戳"></a>日期转换时间戳</h2><p>var val1 = 日期变量.replace(/-/g,’/‘);<br>var val2 = new Date(val1);<br>var val3 = date.getTime().toString();<br>var 时间戳1 = String(val3.substr(0,10));</p>
+<p>时间戳1的分秒转换时为00:00:00,如果时分秒取 23:59:59,则</p>
+<p>var 时间戳2 = String(parseInt(时间戳1)+86399);</p>
+<h1 id="json-字符串"><a href="#json-字符串" class="headerlink" title="json/字符串"></a>json/字符串</h1><p>json数据转换成字符串  JSON.stringify(val);<br>字符串转换成json数据  JSON.parse(val);</p>
+<h1 id="数组-字符串"><a href="#数组-字符串" class="headerlink" title="数组/字符串"></a>数组/字符串</h1><h2 id="数组转字符串"><a href="#数组转字符串" class="headerlink" title="数组转字符串"></a>数组转字符串</h2><p>需要将数组元素用某个字符连接成字符串，示例代码如下：<br>var a, b;<br>a = new Array(0,1,2,3,4);<br>b = a.join(“-“);</p>
+<h2 id="字符串转数组"><a href="#字符串转数组" class="headerlink" title="字符串转数组"></a>字符串转数组</h2><p>实现方法为将字符串按某个字符切割成若干个字符串，并以数组形式返回，示例代码如下：<br>var s = “abc,abcd,aaa”;<br>ss = s.split(“,”);// 在每个逗号(,)处进行分解。</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;日期-时间戳&quot;&gt;&lt;a href=&quot;#日期-时间戳&quot; class=&quot;headerlink&quot; title=&quot;日期/时间戳&quot;&gt;&lt;/a&gt;日期/时间戳&lt;/h1&gt;&lt;h2 id=&quot;时间戳转换日期&quot;&gt;&lt;a href=&quot;#时间戳转换日期&quot; class=&quot;headerlink&quot; ti
+    
+    </summary>
+    
+    
+      <category term="js" scheme="http://yoohannah.github.io/tags/js/"/>
+    
+      <category term="time" scheme="http://yoohannah.github.io/tags/time/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>常用命令</title>
+    <link href="http://yoohannah.github.io/post/gitcommand.html"/>
+    <id>http://yoohannah.github.io/post/gitcommand.html</id>
+    <published>2016-12-17T08:31:06.000Z</published>
+    <updated>2017-02-01T09:49:14.239Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="git"><a href="#git" class="headerlink" title="git"></a>git</h1><p>下载项目 git clone + 地址<br>进入环境 ssh + 地址<br>切换根目录/返回上一级 cd ..<br>仅查看本地分支：cd branch<br>查看远程分支 git branch -a<br>重新获取远程分支状态（有哪些远程分支）：git fetch -p origin<br>拉取远端分支更新服务器分支 git pull<br>切换分支 git checkout + 分支名<br>删除本地分支 Git branch -d 分支名<br>删除远程分支 git push –delete origin 远程分支名</p>
+<h1 id="cmd"><a href="#cmd" class="headerlink" title="cmd"></a>cmd</h1><p>切换目录 盘，直接“盘名：”，回车<br>进入文件夹，用 cd  路径。</p>
+<h1 id="hexo"><a href="#hexo" class="headerlink" title="hexo"></a>hexo</h1><p>hexo server     开启预览访问端口（默认端口4000，’ctrl + c’关闭server）<br>hexo clean      清除PUBLIC和编译文件<br>hexo generate   生成静态页面至public目录<br>hexo deploy     同步到GIT<br>hexo new ”postName” 新建文章 存放在主目录的source下的POST目录下<br>hexo new page”pageName”  新建页面<br>hexo help  查看帮助<br>hexo version 查看Hexo的版本</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;git&quot;&gt;&lt;a href=&quot;#git&quot; class=&quot;headerlink&quot; title=&quot;git&quot;&gt;&lt;/a&gt;git&lt;/h1&gt;&lt;p&gt;下载项目 git clone + 地址&lt;br&gt;进入环境 ssh + 地址&lt;br&gt;切换根目录/返回上一级 cd ..&lt;br&gt;仅查看本地
+    
+    </summary>
+    
+    
+      <category term="git" scheme="http://yoohannah.github.io/tags/git/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>数据暂存(localStorage)</title>
+    <link href="http://yoohannah.github.io/post/data-localStorage.html"/>
+    <id>http://yoohannah.github.io/post/data-localStorage.html</id>
+    <published>2016-12-17T08:31:06.000Z</published>
+    <updated>2017-02-01T08:29:44.689Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="使用loacalStorage"><a href="#使用loacalStorage" class="headerlink" title="使用loacalStorage"></a>使用loacalStorage</h1><h2 id="适用于保存的数据被多个页面公用"><a href="#适用于保存的数据被多个页面公用" class="headerlink" title="适用于保存的数据被多个页面公用"></a>适用于保存的数据被多个页面公用</h2><p>保存: localStorage.setItem(“name”,val);<br>获取: localStorage.getItem(“name”);</p>
+<p>例：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">localStorage.setItem(<span class="string">"tokken"</span>,usertokken);</div><div class="line"><span class="keyword">var</span> utokken = localStorage.getItem(<span class="string">"tokken"</span>);</div></pre></td></tr></table></figure></p>
+<p>如果需要保存json数据，可以在保存时将json数据转换成字符串，获取后再转回json</p>
+<p>例：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">localStorage.setItem(<span class="string">"name"</span>,<span class="built_in">JSON</span>.stringify(&#123;<span class="string">"id"</span>:someval.id,<span class="string">"name"</span>:someval.name&#125;));</div><div class="line"><span class="keyword">var</span> suppid = localStorage.getItem(<span class="string">"name"</span>); </div><div class="line"> suppid = <span class="built_in">JSON</span>.parse(suppid);</div></pre></td></tr></table></figure></p>
+<p>json数据转换成字符串:  JSON.stringify(val);<br>字符串转换成json数据:  JSON.parse(val);</p>
+<h1 id="定义临时变量专门用来存放"><a href="#定义临时变量专门用来存放" class="headerlink" title="定义临时变量专门用来存放"></a>定义临时变量专门用来存放</h1><h2 id="适用于单页面应用交互较多"><a href="#适用于单页面应用交互较多" class="headerlink" title="适用于单页面应用交互较多"></a>适用于单页面应用交互较多</h2><p>步骤N操作得到的数据在步骤N+2/3/4/…中用到，在步骤N时将数据赋值给定义的临时变量，<br>在进行步骤N+2/3/4/…时，直接从临时变量中取值。</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;使用loacalStorage&quot;&gt;&lt;a href=&quot;#使用loacalStorage&quot; class=&quot;headerlink&quot; title=&quot;使用loacalStorage&quot;&gt;&lt;/a&gt;使用loacalStorage&lt;/h1&gt;&lt;h2 id=&quot;适用于保存的数据被多个页面
+    
+    </summary>
+    
+    
+      <category term="data" scheme="http://yoohannah.github.io/tags/data/"/>
+    
+  </entry>
   
   <entry>
     <title>My New post</title>
