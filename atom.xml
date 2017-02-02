@@ -111,7 +111,7 @@
     <link href="http://yoohannah.github.io/post/tableshow.html"/>
     <id>http://yoohannah.github.io/post/tableshow.html</id>
     <published>2016-12-17T16:00:06.000Z</published>
-    <updated>2017-02-01T10:09:22.536Z</updated>
+    <updated>2017-02-01T10:10:31.002Z</updated>
     
     <content type="html"><![CDATA[<h1 id="jquery获取表格"><a href="#jquery获取表格" class="headerlink" title="jquery获取表格"></a>jquery获取表格</h1><p>获取行: $(“#table tr”)[val+1];<br>获取改行第一列: $(“#table tr”)[val+1].children[0];<br>表格内容：$(“#table tr td:nth-child(4)”)[val].innerText</p>
 <p>Jquery及时获取输入数据<br>$(‘#username’).bind(‘input propertychange’, function () {<br>    console.log($(“input[name=username]”).val());<br>    var iusername = $(“input[name=username]”).val();<br>    console.log(iusername);<br>});<br>html中用$parent.$index获取到父级的$index</p>
