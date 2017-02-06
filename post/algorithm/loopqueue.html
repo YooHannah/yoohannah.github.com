@@ -86,21 +86,23 @@
 
 
 
+<meta name="description" content="定义一个循环队列123456# define MAXSIZE 100typedef struct&amp;#123;	ElemType *base;	##存放内存分配基地址，也可以用数组存放	int front;	int rear;&amp;#125;
+初始化一个循环队列1234567initQueue(cyclQueue *q)&amp;#123;	q-&amp;gt;base = (ElemType *)malloc(MA">
 <meta property="og:type" content="article">
 <meta property="og:title" content="循环队列">
 <meta property="og:url" content="http://yoohannah.github.io/post/algorithm/loopqueue.html">
 <meta property="og:site_name" content="My Little World">
+<meta property="og:description" content="定义一个循环队列123456# define MAXSIZE 100typedef struct&amp;#123;	ElemType *base;	##存放内存分配基地址，也可以用数组存放	int front;	int rear;&amp;#125;
+初始化一个循环队列1234567initQueue(cyclQueue *q)&amp;#123;	q-&amp;gt;base = (ElemType *)malloc(MA">
 <meta property="og:image" content="http://yoohannah.github.io/image/queue9.png">
 <meta property="og:image" content="http://yoohannah.github.io/image/queue10.png">
 <meta property="og:image" content="http://yoohannah.github.io/image/queue11.png">
 <meta property="og:image" content="http://yoohannah.github.io/image/queue12.png">
-<meta property="og:image" content="http://yoohannah.github.io/image/queue13.png">
-<meta property="og:image" content="http://yoohannah.github.io/image/queue14.png">
-<meta property="og:image" content="http://yoohannah.github.io/image/queue15.png">
-<meta property="og:image" content="http://yoohannah.github.io/image/queue16.png">
-<meta property="og:updated_time" content="2017-02-02T04:54:37.287Z">
+<meta property="og:updated_time" content="2017-02-06T22:45:08.098Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="循环队列">
+<meta name="twitter:description" content="定义一个循环队列123456# define MAXSIZE 100typedef struct&amp;#123;	ElemType *base;	##存放内存分配基地址，也可以用数组存放	int front;	int rear;&amp;#125;
+初始化一个循环队列1234567initQueue(cyclQueue *q)&amp;#123;	q-&amp;gt;base = (ElemType *)malloc(MA">
 <meta name="twitter:image" content="http://yoohannah.github.io/image/queue9.png">
 
 
@@ -339,7 +341,11 @@
       
 
       
-        <p><img src="/image/queue9.png" alt="queue9"><br><img src="/image/queue10.png" alt="queue10"><br><img src="/image/queue11.png" alt="queue11"><br><img src="/image/queue12.png" alt="queue12"><br><img src="/image/queue13.png" alt="queue13"><br><img src="/image/queue14.png" alt="queue14"><br><img src="/image/queue15.png" alt="queue15"><br><img src="/image/queue16.png" alt="queue16"></p>
+        <p><img src="/image/queue9.png" alt="queue9"><br><img src="/image/queue10.png" alt="queue10"><br><img src="/image/queue11.png" alt="queue11"><br><img src="/image/queue12.png" alt="queue12"></p>
+<h1 id="定义一个循环队列"><a href="#定义一个循环队列" class="headerlink" title="定义一个循环队列"></a>定义一个循环队列</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"># define MAXSIZE 100</div><div class="line">typedef struct&#123;</div><div class="line">	ElemType *base;	##存放内存分配基地址，也可以用数组存放</div><div class="line">	int front;</div><div class="line">	int rear;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h1 id="初始化一个循环队列"><a href="#初始化一个循环队列" class="headerlink" title="初始化一个循环队列"></a>初始化一个循环队列</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">initQueue(cyclQueue *q)&#123;</div><div class="line">	q-&gt;base = (ElemType *)malloc(MAXSIZE sizeof(ElemType));</div><div class="line">	if(!q-&gt;base)&#123;</div><div class="line">	exit(0);</div><div class="line">	&#125;</div><div class="line">	q-&gt;front = q-&gt;rear = 0;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h1 id="入队列操作"><a href="#入队列操作" class="headerlink" title="入队列操作"></a>入队列操作</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">insertQueue(cyclQueue *q,ElemType e)&#123;</div><div class="line">	if((q-&gt;rear+1)%MAXSIZE == q-&gt;front)&#123;</div><div class="line">	return;	##队列已满</div><div class="line">	&#125;</div><div class="line">	q-&gt;base[q-&gt;rear] = e;</div><div class="line">	q-&gt;rear = (q-&gt;rear+1)%MAXSIZE;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h1 id="出队列操作"><a href="#出队列操作" class="headerlink" title="出队列操作"></a>出队列操作</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">DeleteQueue(cyclQueue *q,ElemType e)&#123;</div><div class="line">	if(q-&gt;rear == q-&gt;front)&#123;</div><div class="line">	return;	##队列为空</div><div class="line">	&#125;</div><div class="line">	*e = q-&gt;base[q-&gt;front];</div><div class="line">	q-&gt;front = (q-&gt;front+1)%MAXSIZE;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 
       
     </div>
@@ -372,8 +378,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/post/algorithm/Recursion.html" rel="next" title="递归">
-                <i class="fa fa-chevron-left"></i> 递归
+              <a href="/post/algorithm/queue.html" rel="next" title="队列">
+                <i class="fa fa-chevron-left"></i> 队列
               </a>
             
           </div>
@@ -431,8 +437,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/psb.jpg"
@@ -485,6 +500,22 @@
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#定义一个循环队列"><span class="nav-number">1.</span> <span class="nav-text">定义一个循环队列</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#初始化一个循环队列"><span class="nav-number">2.</span> <span class="nav-text">初始化一个循环队列</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#入队列操作"><span class="nav-number">3.</span> <span class="nav-text">入队列操作</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#出队列操作"><span class="nav-number">4.</span> <span class="nav-text">出队列操作</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
     </div>
