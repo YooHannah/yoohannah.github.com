@@ -86,20 +86,23 @@
 
 
 
-<meta name="description" content="双向链表插入s-&amp;gt;next = p;s-&amp;gt;prior = p-&amp;gt;prior;p-&amp;gt;prior-&amp;gt;next = s;p-&amp;gt;prior = s;双向链表删除p-&amp;gt;prior-&amp;gt;next = p-&amp;gt;next;p-&amp;gt;next -&amp;gt;prior = p-&amp;gt;prior;free(p)小结双向链表相对于单链表来说复杂一点，每个结点对了一个pr">
+<meta name="description" content="结构12345typedef struct DualNode&amp;#123;	ElemType data;	struct DualNode *prior;//前驱结点	struct DualNode *next;//后继结点&amp;#125;DualNode,*DuLinkList;
+双向链表插入s-&amp;gt;next = p;s-&amp;gt;prior = p-&amp;gt;prior;p-&amp;gt;prior-&amp;gt">
 <meta property="og:type" content="article">
 <meta property="og:title" content="双向循环链表">
 <meta property="og:url" content="http://yoohannah.github.io/post/algorithm/Doublylinkedlist.html">
 <meta property="og:site_name" content="My Little World">
-<meta property="og:description" content="双向链表插入s-&amp;gt;next = p;s-&amp;gt;prior = p-&amp;gt;prior;p-&amp;gt;prior-&amp;gt;next = s;p-&amp;gt;prior = s;双向链表删除p-&amp;gt;prior-&amp;gt;next = p-&amp;gt;next;p-&amp;gt;next -&amp;gt;prior = p-&amp;gt;prior;free(p)小结双向链表相对于单链表来说复杂一点，每个结点对了一个pr">
+<meta property="og:description" content="结构12345typedef struct DualNode&amp;#123;	ElemType data;	struct DualNode *prior;//前驱结点	struct DualNode *next;//后继结点&amp;#125;DualNode,*DuLinkList;
+双向链表插入s-&amp;gt;next = p;s-&amp;gt;prior = p-&amp;gt;prior;p-&amp;gt;prior-&amp;gt">
 <meta property="og:image" content="http://yoohannah.github.io/image/doublylinklist1.png">
 <meta property="og:image" content="http://yoohannah.github.io/image/doublylinklist2.png">
 <meta property="og:image" content="http://yoohannah.github.io/image/doublylinklist3.png">
 <meta property="og:image" content="http://yoohannah.github.io/image/doublylinklist4.png">
-<meta property="og:updated_time" content="2017-02-02T03:44:08.204Z">
+<meta property="og:updated_time" content="2017-02-06T14:31:58.480Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="双向循环链表">
-<meta name="twitter:description" content="双向链表插入s-&amp;gt;next = p;s-&amp;gt;prior = p-&amp;gt;prior;p-&amp;gt;prior-&amp;gt;next = s;p-&amp;gt;prior = s;双向链表删除p-&amp;gt;prior-&amp;gt;next = p-&amp;gt;next;p-&amp;gt;next -&amp;gt;prior = p-&amp;gt;prior;free(p)小结双向链表相对于单链表来说复杂一点，每个结点对了一个pr">
+<meta name="twitter:description" content="结构12345typedef struct DualNode&amp;#123;	ElemType data;	struct DualNode *prior;//前驱结点	struct DualNode *next;//后继结点&amp;#125;DualNode,*DuLinkList;
+双向链表插入s-&amp;gt;next = p;s-&amp;gt;prior = p-&amp;gt;prior;p-&amp;gt;prior-&amp;gt">
 <meta name="twitter:image" content="http://yoohannah.github.io/image/doublylinklist1.png">
 
 
@@ -338,7 +341,8 @@
       
 
       
-        <p><img src="/image/doublylinklist1.png" alt="doublylinklist1"><br><img src="/image/doublylinklist2.png" alt="doublylinklist2"><br>双向链表插入<br><img src="/image/doublylinklist3.png" alt="doublylinklist3"><br>s-&gt;next = p;<br>s-&gt;prior = p-&gt;prior;<br>p-&gt;prior-&gt;next = s;<br>p-&gt;prior = s;<br>双向链表删除<br><img src="/image/doublylinklist4.png" alt="doublylinklist4"><br>p-&gt;prior-&gt;next = p-&gt;next;<br>p-&gt;next -&gt;prior = p-&gt;prior;<br>free(p)<br>小结<br>双向链表相对于单链表来说复杂一点，每个结点对了一个prior指针，在进行插入和删除时需要注意;<br>双向链表可以有效提高算法的时间性能，用空间换取时间</p>
+        <p>结构<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">typedef struct DualNode&#123;</div><div class="line">	ElemType data;</div><div class="line">	struct DualNode *prior;//前驱结点</div><div class="line">	struct DualNode *next;//后继结点</div><div class="line">&#125;DualNode,*DuLinkList;</div></pre></td></tr></table></figure></p>
+<p><img src="/image/doublylinklist1.png" alt="doublylinklist1"><br><img src="/image/doublylinklist2.png" alt="doublylinklist2"><br>双向链表插入<br><img src="/image/doublylinklist3.png" alt="doublylinklist3"><br>s-&gt;next = p;<br>s-&gt;prior = p-&gt;prior;<br>p-&gt;prior-&gt;next = s;<br>p-&gt;prior = s;<br>双向链表删除<br><img src="/image/doublylinklist4.png" alt="doublylinklist4"><br>p-&gt;prior-&gt;next = p-&gt;next;<br>p-&gt;next -&gt;prior = p-&gt;prior;<br>free(p)<br>小结<br>双向链表相对于单链表来说复杂一点，每个结点对了一个prior指针，在进行插入和删除时需要注意;<br>双向链表可以有效提高算法的时间性能，用空间换取时间</p>
 
       
     </div>

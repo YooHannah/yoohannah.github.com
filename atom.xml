@@ -66,27 +66,6 @@
   </entry>
   
   <entry>
-    <title>队列</title>
-    <link href="http://yoohannah.github.io/post/algorithm/queue.html"/>
-    <id>http://yoohannah.github.io/post/algorithm/queue.html</id>
-    <published>2017-02-02T04:34:37.000Z</published>
-    <updated>2017-02-02T04:52:38.045Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="队列"><a href="#队列" class="headerlink" title="队列"></a>队列</h1><p>1.先进先出的线性表，有顺序表和链表<br>2.只允许在一段插入，另一端删除<br><img src="/image/queue1.png" alt="queue1"><br><img src="/image/queue2.png" alt="queue2"><br><img src="/image/queue3.png" alt="queue3"><br><img src="/image/queue4.png" alt="queue4"><br><img src="/image/queue5.png" alt="queue5"><br><img src="/image/queue6.png" alt="queue6"><br><img src="/image/queue7.png" alt="queue7"><br><img src="/image/queue8.png" alt="queue8"><br><a href="">题目：实现链队列结构</a></p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;h1 id=&quot;队列&quot;&gt;&lt;a href=&quot;#队列&quot; class=&quot;headerlink&quot; title=&quot;队列&quot;&gt;&lt;/a&gt;队列&lt;/h1&gt;&lt;p&gt;1.先进先出的线性表，有顺序表和链表&lt;br&gt;2.只允许在一段插入，另一端删除&lt;br&gt;&lt;img src=&quot;/image/queue1.png&quot;
-    
-    </summary>
-    
-    
-      <category term="js" scheme="http://yoohannah.github.io/tags/js/"/>
-    
-  </entry>
-  
-  <entry>
     <title>递归</title>
     <link href="http://yoohannah.github.io/post/algorithm/Recursion.html"/>
     <id>http://yoohannah.github.io/post/algorithm/Recursion.html</id>
@@ -105,6 +84,27 @@
     <summary type="html">
     
       &lt;h1 id=&quot;递归&quot;&gt;&lt;a href=&quot;#递归&quot; class=&quot;headerlink&quot; title=&quot;递归&quot;&gt;&lt;/a&gt;递归&lt;/h1&gt;&lt;p&gt;1.把有一个直接调用自己或通过一系列的调用语句间接的调用用自己的函数，称作递归函数&lt;br&gt;2.每个递归函数必须有一个终止调用的条件语句，否则
+    
+    </summary>
+    
+    
+      <category term="js" scheme="http://yoohannah.github.io/tags/js/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>队列</title>
+    <link href="http://yoohannah.github.io/post/algorithm/queue.html"/>
+    <id>http://yoohannah.github.io/post/algorithm/queue.html</id>
+    <published>2017-02-02T04:34:37.000Z</published>
+    <updated>2017-02-02T04:52:38.045Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="队列"><a href="#队列" class="headerlink" title="队列"></a>队列</h1><p>1.先进先出的线性表，有顺序表和链表<br>2.只允许在一段插入，另一端删除<br><img src="/image/queue1.png" alt="queue1"><br><img src="/image/queue2.png" alt="queue2"><br><img src="/image/queue3.png" alt="queue3"><br><img src="/image/queue4.png" alt="queue4"><br><img src="/image/queue5.png" alt="queue5"><br><img src="/image/queue6.png" alt="queue6"><br><img src="/image/queue7.png" alt="queue7"><br><img src="/image/queue8.png" alt="queue8"><br><a href="">题目：实现链队列结构</a></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;队列&quot;&gt;&lt;a href=&quot;#队列&quot; class=&quot;headerlink&quot; title=&quot;队列&quot;&gt;&lt;/a&gt;队列&lt;/h1&gt;&lt;p&gt;1.先进先出的线性表，有顺序表和链表&lt;br&gt;2.只允许在一段插入，另一端删除&lt;br&gt;&lt;img src=&quot;/image/queue1.png&quot;
     
     </summary>
     
@@ -144,11 +144,11 @@
     <link href="http://yoohannah.github.io/post/algorithm/stacklinked.html"/>
     <id>http://yoohannah.github.io/post/algorithm/stacklinked.html</id>
     <published>2017-02-02T03:48:37.000Z</published>
-    <updated>2017-02-02T04:27:11.538Z</updated>
+    <updated>2017-02-06T14:36:33.316Z</updated>
     
     <content type="html"><![CDATA[<h1 id="栈的链式存储结构"><a href="#栈的链式存储结构" class="headerlink" title="栈的链式存储结构"></a>栈的链式存储结构</h1><p><img src="/image/stack2.png" alt="stack2"><br><img src="/image/stack3.png" alt="stack3"><br><img src="/image/stack4.png" alt="stack4"><br><img src="/image/stack5.png" alt="stack5"></p>
 <h1 id="逆波兰表达式-后缀表达式"><a href="#逆波兰表达式-后缀表达式" class="headerlink" title="逆波兰表达式/后缀表达式"></a>逆波兰表达式/后缀表达式</h1><p>正常表达式–&gt;后缀表达式<br>（1-2)x(4+5）–&gt; 1 2 - 4 5 + x<br>1.计算后缀表达式<br>主要思想是判断字符是否为运算符，若为数字，则入栈，为运算符则连续出栈两次进行运算，再将运算结果入栈<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> list =[<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="string">'-'</span>,<span class="string">'*'</span>,<span class="string">'+'</span>]</div><div class="line"><span class="keyword">var</span> stack = [];</div><div class="line"><span class="keyword">for</span>(<span class="keyword">var</span> i = <span class="number">0</span>;i&lt;list.length;i++)&#123;</div><div class="line">  <span class="keyword">if</span>(!<span class="built_in">isNaN</span>(list[i]))&#123;</div><div class="line">      stack.push(list[i]);</div><div class="line">    &#125;<span class="keyword">else</span>&#123;</div><div class="line">       <span class="keyword">var</span> a = stack.pop();</div><div class="line">       <span class="keyword">var</span> b = stack.pop();</div><div class="line">       <span class="keyword">if</span>(list[i] ==<span class="string">"+"</span>)&#123;</div><div class="line">        stack.push(b+a);</div><div class="line">       &#125;<span class="keyword">else</span> <span class="keyword">if</span>(list[i] ==<span class="string">"-"</span>)&#123;</div><div class="line">        stack.push(b-a);</div><div class="line">       &#125;<span class="keyword">else</span> <span class="keyword">if</span>(list[i] ==<span class="string">"*"</span>)&#123;</div><div class="line">        stack.push(b*a);</div><div class="line">       &#125;<span class="keyword">else</span> <span class="keyword">if</span>(list[i] ==<span class="string">"/"</span>)&#123;</div><div class="line">        stack.push(b/a);</div><div class="line">       &#125;</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line"><span class="built_in">console</span>.log(stack);</div></pre></td></tr></table></figure></p>
-<p>2.计算表达式转后缀表达式<br>主要思路<br>1，表达式中参与运算的数字、运算符以及小括号分割，形成待处理数组<br>2，循环判断<br>  A.若字符为数字，入栈2，<br>  B.若字符为“+”、“-”，分情况讨论<br>（1）此时栈1为空，入栈；<br>（2）栈1不为空，将“（”左括号以上的符号从栈1 pop到栈2，“（”留          在栈1，处理完后，将“+”、“-”入栈1；<br>   C若字符为“）”，将“（”以上符号从栈1 pop到栈2，“（”也pop出来<br>     但不入栈2<br>   D若字符为“/”“*”“（”直接入栈2<br>   E其他情况，非法字符，抛出异常<br>3.将栈1元素pop到栈2；<br>栈2即后缀表达式<br>[代码链接]</p>
+<p>2.计算表达式转后缀表达式<br>主要思路<br>1，表达式中参与运算的数字、运算符以及小括号分割，形成待处理数组<br>2，循环判断<br>  A.若字符为数字，入栈2，<br>  B.若字符为“+”、“-”，分情况讨论<br>（1）此时栈1为空，入栈；<br>（2）栈1不为空，将“（”左括号以上的符号从栈1 pop到栈2，“（”留          在栈1，处理完后，将“+”、“-”入栈1；<br>   C若字符为“）”，将“（”以上符号从栈1 pop到栈2，“（”也pop出来<br>     但不入栈2<br>   D若字符为“/”“*”“（”直接入栈2<br>   E其他情况，非法字符，抛出异常<br>3.将栈1元素pop到栈2；<br>栈2即后缀表达式<br><a href="https://github.com/YooHannah/algorithm/blob/master/js/%E8%AE%A1%E7%AE%97%E5%BC%8F%E8%BD%AC%E5%90%8E%E7%BC%80%E8%A1%A8%E8%BE%BE%E5%BC%8F(%E6%A0%88%EF%BC%89.js" target="_blank" rel="external">代码链接</a></p>
 ]]></content>
     
     <summary type="html">
@@ -167,14 +167,15 @@
     <link href="http://yoohannah.github.io/post/algorithm/Doublylinkedlist.html"/>
     <id>http://yoohannah.github.io/post/algorithm/Doublylinkedlist.html</id>
     <published>2017-02-02T03:33:37.000Z</published>
-    <updated>2017-02-02T03:44:08.204Z</updated>
+    <updated>2017-02-06T14:31:58.480Z</updated>
     
-    <content type="html"><![CDATA[<p><img src="/image/doublylinklist1.png" alt="doublylinklist1"><br><img src="/image/doublylinklist2.png" alt="doublylinklist2"><br>双向链表插入<br><img src="/image/doublylinklist3.png" alt="doublylinklist3"><br>s-&gt;next = p;<br>s-&gt;prior = p-&gt;prior;<br>p-&gt;prior-&gt;next = s;<br>p-&gt;prior = s;<br>双向链表删除<br><img src="/image/doublylinklist4.png" alt="doublylinklist4"><br>p-&gt;prior-&gt;next = p-&gt;next;<br>p-&gt;next -&gt;prior = p-&gt;prior;<br>free(p)<br>小结<br>双向链表相对于单链表来说复杂一点，每个结点对了一个prior指针，在进行插入和删除时需要注意;<br>双向链表可以有效提高算法的时间性能，用空间换取时间</p>
+    <content type="html"><![CDATA[<p>结构<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">typedef struct DualNode&#123;</div><div class="line">	ElemType data;</div><div class="line">	struct DualNode *prior;//前驱结点</div><div class="line">	struct DualNode *next;//后继结点</div><div class="line">&#125;DualNode,*DuLinkList;</div></pre></td></tr></table></figure></p>
+<p><img src="/image/doublylinklist1.png" alt="doublylinklist1"><br><img src="/image/doublylinklist2.png" alt="doublylinklist2"><br>双向链表插入<br><img src="/image/doublylinklist3.png" alt="doublylinklist3"><br>s-&gt;next = p;<br>s-&gt;prior = p-&gt;prior;<br>p-&gt;prior-&gt;next = s;<br>p-&gt;prior = s;<br>双向链表删除<br><img src="/image/doublylinklist4.png" alt="doublylinklist4"><br>p-&gt;prior-&gt;next = p-&gt;next;<br>p-&gt;next -&gt;prior = p-&gt;prior;<br>free(p)<br>小结<br>双向链表相对于单链表来说复杂一点，每个结点对了一个prior指针，在进行插入和删除时需要注意;<br>双向链表可以有效提高算法的时间性能，用空间换取时间</p>
 ]]></content>
     
     <summary type="html">
     
-      &lt;p&gt;&lt;img src=&quot;/image/doublylinklist1.png&quot; alt=&quot;doublylinklist1&quot;&gt;&lt;br&gt;&lt;img src=&quot;/image/doublylinklist2.png&quot; alt=&quot;doublylinklist2&quot;&gt;&lt;br&gt;双向链表插入&lt;br
+      &lt;p&gt;结构&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;2&lt;/div&gt;&lt;div class=&quot;li
     
     </summary>
     
@@ -209,14 +210,14 @@
     <link href="http://yoohannah.github.io/post/algorithm/hascirclesinglelinkedlist.html"/>
     <id>http://yoohannah.github.io/post/algorithm/hascirclesinglelinkedlist.html</id>
     <published>2017-02-02T03:15:37.000Z</published>
-    <updated>2017-02-02T03:16:34.518Z</updated>
+    <updated>2017-02-06T14:30:39.878Z</updated>
     
-    <content type="html"><![CDATA[<p><img src="/image/iscircle1.png" alt="iscircle1"><br><img src="/image/iscircle2.png" alt="iscircle2"><br>[代码]<br><img src="/image/iscircle3.png" alt="iscircle3"><br><img src="/image/iscircle4.png" alt="iscircle4"><br>[代码]</p>
+    <content type="html"><![CDATA[<p>有环定义:链表的尾节点指向了链表中的某个结点<br><img src="/image/ishascircle.png" alt="ishascircle"><br>方法一：p、q指针同时向前走，但q每次都从头开始走，对于每个结点，若p、q走的步数不等则说明有环<br>方法二：快慢指针:使用p,q两个指针，p每次向前走一步，q每次向前走两步，若在某个时候p==q,则存在环<br><a href="https://github.com/YooHannah/algorithm/blob/master/js/%E5%8D%95%E9%93%BE%E8%A1%A8%E6%98%AF%E5%90%A6%E6%9C%89%E7%8E%AF.js" target="_blank" rel="external">代码</a></p>
 ]]></content>
     
     <summary type="html">
     
-      &lt;p&gt;&lt;img src=&quot;/image/iscircle1.png&quot; alt=&quot;iscircle1&quot;&gt;&lt;br&gt;&lt;img src=&quot;/image/iscircle2.png&quot; alt=&quot;iscircle2&quot;&gt;&lt;br&gt;[代码]&lt;br&gt;&lt;img src=&quot;/image/iscircle
+      &lt;p&gt;有环定义:链表的尾节点指向了链表中的某个结点&lt;br&gt;&lt;img src=&quot;/image/ishascircle.png&quot; alt=&quot;ishascircle&quot;&gt;&lt;br&gt;方法一：p、q指针同时向前走，但q每次都从头开始走，对于每个结点，若p、q走的步数不等则说明有环&lt;br&gt;方法二
     
     </summary>
     
@@ -252,6 +253,27 @@
   </entry>
   
   <entry>
+    <title>单循环链表</title>
+    <link href="http://yoohannah.github.io/post/algorithm/singlelooplinklist.html"/>
+    <id>http://yoohannah.github.io/post/algorithm/singlelooplinklist.html</id>
+    <published>2017-02-02T02:06:37.000Z</published>
+    <updated>2017-02-05T13:58:34.322Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="循环链表"><a href="#循环链表" class="headerlink" title="循环链表"></a>循环链表</h1><p>将单链表中终端结点的指针端由空指针改为指向头结点，就使整个单链表形成一个环，这种头尾相接的单链表成为单循环链表，简称循环链表<br><img src="/image/singlelooplinklist1.png" alt="singlelooplinklist1"><br>循环链表并不一定要有头结点<br>与单链表的主要差异为判断链表是否为空<br>单链表为空条件为head-&gt;next = null<br>循环链表为空条件为head-&gt;next = head<br>终端节点用尾指针rear指示，查找终端结点是O(1);开始结点是rear-&gt;next-&gt;next,也是O(1);<br>[插入、删除、返回位置 代码思路参考单链表]<br>Rear == rear-&gt;next 空循环链表<br><img src="/image/singlelooplinklist2.png" alt="singlelooplinklist2"><br>小结<br>循环链表的特点是无须增加存储量，仅对链接方式稍作改变，即可使得表处理更加方便灵活</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;循环链表&quot;&gt;&lt;a href=&quot;#循环链表&quot; class=&quot;headerlink&quot; title=&quot;循环链表&quot;&gt;&lt;/a&gt;循环链表&lt;/h1&gt;&lt;p&gt;将单链表中终端结点的指针端由空指针改为指向头结点，就使整个单链表形成一个环，这种头尾相接的单链表成为单循环链表，简称循环链表
+    
+    </summary>
+    
+    
+      <category term="js" scheme="http://yoohannah.github.io/tags/js/"/>
+    
+  </entry>
+  
+  <entry>
     <title>静态链表</title>
     <link href="http://yoohannah.github.io/post/algorithm/Staticlinkedlist.html"/>
     <id>http://yoohannah.github.io/post/algorithm/Staticlinkedlist.html</id>
@@ -275,18 +297,24 @@
   </entry>
   
   <entry>
-    <title>单循环链表</title>
-    <link href="http://yoohannah.github.io/post/algorithm/singlelooplinklist.html"/>
-    <id>http://yoohannah.github.io/post/algorithm/singlelooplinklist.html</id>
-    <published>2017-02-02T02:06:37.000Z</published>
-    <updated>2017-02-05T13:58:34.322Z</updated>
+    <title>线性表基本概念</title>
+    <link href="http://yoohannah.github.io/post/algorithm/lineartable.html"/>
+    <id>http://yoohannah.github.io/post/algorithm/lineartable.html</id>
+    <published>2017-02-02T01:12:37.000Z</published>
+    <updated>2017-02-02T01:21:52.612Z</updated>
     
-    <content type="html"><![CDATA[<h1 id="循环链表"><a href="#循环链表" class="headerlink" title="循环链表"></a>循环链表</h1><p>将单链表中终端结点的指针端由空指针改为指向头结点，就使整个单链表形成一个环，这种头尾相接的单链表成为单循环链表，简称循环链表<br><img src="/image/singlelooplinklist1.png" alt="singlelooplinklist1"><br>循环链表并不一定要有头结点<br>与单链表的主要差异为判断链表是否为空<br>单链表为空条件为head-&gt;next = null<br>循环链表为空条件为head-&gt;next = head<br>终端节点用尾指针rear指示，查找终端结点是O(1);开始结点是rear-&gt;next-&gt;next,也是O(1);<br>[插入、删除、返回位置 代码思路参考单链表]<br>Rear == rear-&gt;next 空循环链表<br><img src="/image/singlelooplinklist2.png" alt="singlelooplinklist2"><br>小结<br>循环链表的特点是无须增加存储量，仅对链接方式稍作改变，即可使得表处理更加方便灵活</p>
+    <content type="html"><![CDATA[<h1 id="线性表"><a href="#线性表" class="headerlink" title="线性表"></a>线性表</h1><p>由0个或多个数据元素组成的有限序列</p>
+<p>1.序列，有顺序<br>2.若元素存在多个，则第一个无前驱，而最后一个元素无后继，其他元素都有且只有一个前驱和后继<br>3.有限的，无论计算机发展到多强大，线性表处理的元素都是有限的</p>
+<p>(ai-1,ai,ai+1)  ai-1是ai 的直接前驱元素;ai+1是ai的直接后继元素<br>线性表长度即线性表元素个数,个数为0，即为空表</p>
+<h1 id="数据类型"><a href="#数据类型" class="headerlink" title="数据类型"></a>数据类型</h1><p>一组性质相同的值的集合及定义在此集合上的一些操作的总称（编程语言中的各种类型）</p>
+<p>抽象数据类型 把数据类型和操作结合捆绑在一起</p>
+<p>标准格式<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">ADT（抽象数据名）list</div><div class="line">Data（数据元素之间逻辑关系的定义）</div><div class="line">	  数据间关系一对一</div><div class="line">Operation（操作）</div><div class="line">	Initlist()初始化操作 新建一个空表</div><div class="line">	ListEmpty(list) 判断线性表list是否为空，空返回true</div><div class="line">	Clearlist(list) 清空线性表</div><div class="line">	Getitem(list,i,e) 获取线性表第i个位置元素并返回给e</div><div class="line">	Search(item,list) 在list里面查找item是否在里面，存在返回序号；否则返回0</div><div class="line">	  				 线性表从1 开始</div><div class="line">	Listinsert(item,i,list) 在list的第i个位置插入item</div><div class="line">	Listdelete(item,i,list) 删除list中第i个位置元素，并返回该元素给item</div><div class="line">	Listlength(list) 返回线性表list元素个数</div><div class="line">endADT</div></pre></td></tr></table></figure></p>
 ]]></content>
     
     <summary type="html">
     
-      &lt;h1 id=&quot;循环链表&quot;&gt;&lt;a href=&quot;#循环链表&quot; class=&quot;headerlink&quot; title=&quot;循环链表&quot;&gt;&lt;/a&gt;循环链表&lt;/h1&gt;&lt;p&gt;将单链表中终端结点的指针端由空指针改为指向头结点，就使整个单链表形成一个环，这种头尾相接的单链表成为单循环链表，简称循环链表
+      &lt;h1 id=&quot;线性表&quot;&gt;&lt;a href=&quot;#线性表&quot; class=&quot;headerlink&quot; title=&quot;线性表&quot;&gt;&lt;/a&gt;线性表&lt;/h1&gt;&lt;p&gt;由0个或多个数据元素组成的有限序列&lt;/p&gt;
+&lt;p&gt;1.序列，有顺序&lt;br&gt;2.若元素存在多个，则第一个无前驱，而最后一个元素无后继，
     
     </summary>
     
@@ -343,33 +371,6 @@
     <summary type="html">
     
       &lt;h1 id=&quot;顺序存储结构&quot;&gt;&lt;a href=&quot;#顺序存储结构&quot; class=&quot;headerlink&quot; title=&quot;顺序存储结构&quot;&gt;&lt;/a&gt;顺序存储结构&lt;/h1&gt;&lt;p&gt;结构struct{&lt;br&gt; 数据类型 数组名data[数组最大长度MAXSIZE]；&lt;br&gt; Int len
-    
-    </summary>
-    
-    
-      <category term="js" scheme="http://yoohannah.github.io/tags/js/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>线性表基本概念</title>
-    <link href="http://yoohannah.github.io/post/algorithm/lineartable.html"/>
-    <id>http://yoohannah.github.io/post/algorithm/lineartable.html</id>
-    <published>2017-02-02T01:12:37.000Z</published>
-    <updated>2017-02-02T01:21:52.612Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="线性表"><a href="#线性表" class="headerlink" title="线性表"></a>线性表</h1><p>由0个或多个数据元素组成的有限序列</p>
-<p>1.序列，有顺序<br>2.若元素存在多个，则第一个无前驱，而最后一个元素无后继，其他元素都有且只有一个前驱和后继<br>3.有限的，无论计算机发展到多强大，线性表处理的元素都是有限的</p>
-<p>(ai-1,ai,ai+1)  ai-1是ai 的直接前驱元素;ai+1是ai的直接后继元素<br>线性表长度即线性表元素个数,个数为0，即为空表</p>
-<h1 id="数据类型"><a href="#数据类型" class="headerlink" title="数据类型"></a>数据类型</h1><p>一组性质相同的值的集合及定义在此集合上的一些操作的总称（编程语言中的各种类型）</p>
-<p>抽象数据类型 把数据类型和操作结合捆绑在一起</p>
-<p>标准格式<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">ADT（抽象数据名）list</div><div class="line">Data（数据元素之间逻辑关系的定义）</div><div class="line">	  数据间关系一对一</div><div class="line">Operation（操作）</div><div class="line">	Initlist()初始化操作 新建一个空表</div><div class="line">	ListEmpty(list) 判断线性表list是否为空，空返回true</div><div class="line">	Clearlist(list) 清空线性表</div><div class="line">	Getitem(list,i,e) 获取线性表第i个位置元素并返回给e</div><div class="line">	Search(item,list) 在list里面查找item是否在里面，存在返回序号；否则返回0</div><div class="line">	  				 线性表从1 开始</div><div class="line">	Listinsert(item,i,list) 在list的第i个位置插入item</div><div class="line">	Listdelete(item,i,list) 删除list中第i个位置元素，并返回该元素给item</div><div class="line">	Listlength(list) 返回线性表list元素个数</div><div class="line">endADT</div></pre></td></tr></table></figure></p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;h1 id=&quot;线性表&quot;&gt;&lt;a href=&quot;#线性表&quot; class=&quot;headerlink&quot; title=&quot;线性表&quot;&gt;&lt;/a&gt;线性表&lt;/h1&gt;&lt;p&gt;由0个或多个数据元素组成的有限序列&lt;/p&gt;
-&lt;p&gt;1.序列，有顺序&lt;br&gt;2.若元素存在多个，则第一个无前驱，而最后一个元素无后继，
     
     </summary>
     
