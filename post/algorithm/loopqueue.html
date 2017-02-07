@@ -86,23 +86,18 @@
 
 
 
-<meta name="description" content="定义一个循环队列123456# define MAXSIZE 100typedef struct&amp;#123;	ElemType *base;	##存放内存分配基地址，也可以用数组存放	int front;	int rear;&amp;#125;
-初始化一个循环队列1234567initQueue(cyclQueue *q)&amp;#123;	q-&amp;gt;base = (ElemType *)malloc(MA">
+<meta name="description" content="假溢出循环队列的容量是固定的，并且它的对头和队尾指针都可以随着元素出入队列而发生改变，这样循环队列逻辑上就好像是一个环形存储空间,但在实际内存中，是不可能有真正的环形存储区的，我们只是用顺序表模拟逻辑上的循环因此,为防止发生假溢出,当我们采用循环队列时,front和rear不断加1,即使超出了地址范围，也会自动从头开始,判断溢出，可采用取模处理(rear+1)%QueueSize(front+1)">
 <meta property="og:type" content="article">
 <meta property="og:title" content="循环队列">
 <meta property="og:url" content="http://yoohannah.github.io/post/algorithm/loopqueue.html">
 <meta property="og:site_name" content="My Little World">
-<meta property="og:description" content="定义一个循环队列123456# define MAXSIZE 100typedef struct&amp;#123;	ElemType *base;	##存放内存分配基地址，也可以用数组存放	int front;	int rear;&amp;#125;
-初始化一个循环队列1234567initQueue(cyclQueue *q)&amp;#123;	q-&amp;gt;base = (ElemType *)malloc(MA">
+<meta property="og:description" content="假溢出循环队列的容量是固定的，并且它的对头和队尾指针都可以随着元素出入队列而发生改变，这样循环队列逻辑上就好像是一个环形存储空间,但在实际内存中，是不可能有真正的环形存储区的，我们只是用顺序表模拟逻辑上的循环因此,为防止发生假溢出,当我们采用循环队列时,front和rear不断加1,即使超出了地址范围，也会自动从头开始,判断溢出，可采用取模处理(rear+1)%QueueSize(front+1)">
 <meta property="og:image" content="http://yoohannah.github.io/image/queue9.png">
-<meta property="og:image" content="http://yoohannah.github.io/image/queue10.png">
-<meta property="og:image" content="http://yoohannah.github.io/image/queue11.png">
 <meta property="og:image" content="http://yoohannah.github.io/image/queue12.png">
-<meta property="og:updated_time" content="2017-02-06T22:45:08.098Z">
+<meta property="og:updated_time" content="2017-02-07T14:43:29.988Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="循环队列">
-<meta name="twitter:description" content="定义一个循环队列123456# define MAXSIZE 100typedef struct&amp;#123;	ElemType *base;	##存放内存分配基地址，也可以用数组存放	int front;	int rear;&amp;#125;
-初始化一个循环队列1234567initQueue(cyclQueue *q)&amp;#123;	q-&amp;gt;base = (ElemType *)malloc(MA">
+<meta name="twitter:description" content="假溢出循环队列的容量是固定的，并且它的对头和队尾指针都可以随着元素出入队列而发生改变，这样循环队列逻辑上就好像是一个环形存储空间,但在实际内存中，是不可能有真正的环形存储区的，我们只是用顺序表模拟逻辑上的循环因此,为防止发生假溢出,当我们采用循环队列时,front和rear不断加1,即使超出了地址范围，也会自动从头开始,判断溢出，可采用取模处理(rear+1)%QueueSize(front+1)">
 <meta name="twitter:image" content="http://yoohannah.github.io/image/queue9.png">
 
 
@@ -341,8 +336,8 @@
       
 
       
-        <p><img src="/image/queue9.png" alt="queue9"><br><img src="/image/queue10.png" alt="queue10"><br><img src="/image/queue11.png" alt="queue11"><br><img src="/image/queue12.png" alt="queue12"></p>
-<h1 id="定义一个循环队列"><a href="#定义一个循环队列" class="headerlink" title="定义一个循环队列"></a>定义一个循环队列</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"># define MAXSIZE 100</div><div class="line">typedef struct&#123;</div><div class="line">	ElemType *base;	##存放内存分配基地址，也可以用数组存放</div><div class="line">	int front;</div><div class="line">	int rear;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+        <h1 id="假溢出"><a href="#假溢出" class="headerlink" title="假溢出"></a>假溢出</h1><p><img src="/image/queue9.png" alt="queue9"><br>循环队列的容量是固定的，并且它的对头和队尾指针都可以随着元素出入队列而发生改变，<br>这样循环队列逻辑上就好像是一个环形存储空间,但在实际内存中，是不可能有真正的环形存储区的，<br>我们只是用顺序表模拟逻辑上的循环<br>因此,为防止发生假溢出,当我们采用循环队列时,front和rear不断加1,即使超出了地址范围，<br>也会自动从头开始,判断溢出，可采用取模处理<br>(rear+1)%QueueSize<br>(front+1)%QueueSize<br>取模即取余数，取得的值永远不会大于除数</p>
+<h1 id="定义一个循环队列"><a href="#定义一个循环队列" class="headerlink" title="定义一个循环队列"></a>定义一个循环队列</h1><p><img src="/image/queue12.png" alt="queue12"><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"># define MAXSIZE 100</div><div class="line">typedef struct&#123;</div><div class="line">	ElemType *base;	##存放内存分配基地址，也可以用数组存放</div><div class="line">	int front;</div><div class="line">	int rear;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
 <h1 id="初始化一个循环队列"><a href="#初始化一个循环队列" class="headerlink" title="初始化一个循环队列"></a>初始化一个循环队列</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">initQueue(cyclQueue *q)&#123;</div><div class="line">	q-&gt;base = (ElemType *)malloc(MAXSIZE sizeof(ElemType));</div><div class="line">	if(!q-&gt;base)&#123;</div><div class="line">	exit(0);</div><div class="line">	&#125;</div><div class="line">	q-&gt;front = q-&gt;rear = 0;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <h1 id="入队列操作"><a href="#入队列操作" class="headerlink" title="入队列操作"></a>入队列操作</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">insertQueue(cyclQueue *q,ElemType e)&#123;</div><div class="line">	if((q-&gt;rear+1)%MAXSIZE == q-&gt;front)&#123;</div><div class="line">	return;	##队列已满</div><div class="line">	&#125;</div><div class="line">	q-&gt;base[q-&gt;rear] = e;</div><div class="line">	q-&gt;rear = (q-&gt;rear+1)%MAXSIZE;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <h1 id="出队列操作"><a href="#出队列操作" class="headerlink" title="出队列操作"></a>出队列操作</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">DeleteQueue(cyclQueue *q,ElemType e)&#123;</div><div class="line">	if(q-&gt;rear == q-&gt;front)&#123;</div><div class="line">	return;	##队列为空</div><div class="line">	&#125;</div><div class="line">	*e = q-&gt;base[q-&gt;front];</div><div class="line">	q-&gt;front = (q-&gt;front+1)%MAXSIZE;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
@@ -378,8 +373,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/post/algorithm/queue.html" rel="next" title="队列">
-                <i class="fa fa-chevron-left"></i> 队列
+              <a href="/post/algorithm/Recursion.html" rel="next" title="递归">
+                <i class="fa fa-chevron-left"></i> 递归
               </a>
             
           </div>
@@ -458,7 +453,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">31</span>
+              <span class="site-state-item-count">32</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -510,7 +505,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#定义一个循环队列"><span class="nav-number">1.</span> <span class="nav-text">定义一个循环队列</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#初始化一个循环队列"><span class="nav-number">2.</span> <span class="nav-text">初始化一个循环队列</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#入队列操作"><span class="nav-number">3.</span> <span class="nav-text">入队列操作</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#出队列操作"><span class="nav-number">4.</span> <span class="nav-text">出队列操作</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#假溢出"><span class="nav-number">1.</span> <span class="nav-text">假溢出</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#定义一个循环队列"><span class="nav-number">2.</span> <span class="nav-text">定义一个循环队列</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#初始化一个循环队列"><span class="nav-number">3.</span> <span class="nav-text">初始化一个循环队列</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#入队列操作"><span class="nav-number">4.</span> <span class="nav-text">入队列操作</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#出队列操作"><span class="nav-number">5.</span> <span class="nav-text">出队列操作</span></a></li></ol></div>
             
 
           </div>

@@ -94,16 +94,17 @@
 <meta property="og:site_name" content="My Little World">
 <meta property="og:description" content="队列1.先进先出的线性表，有顺序表和链表2.只允许在一段插入，另一端删除
 队列的链式存储结构和栈相反，队列常用链表实现12345678typedef sruct QNode&amp;#123;	ElemType data;	struct QNode *next;&amp;#125;QNode,*QueuePrt;typedef struct &amp;#123;	QueuePrt front;	##队头指针指向链队列的头">
+<meta property="og:image" content="http://yoohannah.github.io/image/queue1.png">
 <meta property="og:image" content="http://yoohannah.github.io/image/queue2.png">
 <meta property="og:image" content="http://yoohannah.github.io/image/queue3.png">
 <meta property="og:image" content="http://yoohannah.github.io/image/queue5.png">
 <meta property="og:image" content="http://yoohannah.github.io/image/queue6.png">
-<meta property="og:updated_time" content="2017-02-06T22:32:00.441Z">
+<meta property="og:updated_time" content="2017-02-07T14:46:48.223Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="队列">
 <meta name="twitter:description" content="队列1.先进先出的线性表，有顺序表和链表2.只允许在一段插入，另一端删除
 队列的链式存储结构和栈相反，队列常用链表实现12345678typedef sruct QNode&amp;#123;	ElemType data;	struct QNode *next;&amp;#125;QNode,*QueuePrt;typedef struct &amp;#123;	QueuePrt front;	##队头指针指向链队列的头">
-<meta name="twitter:image" content="http://yoohannah.github.io/image/queue2.png">
+<meta name="twitter:image" content="http://yoohannah.github.io/image/queue1.png">
 
 
 
@@ -343,11 +344,11 @@
       
         <h1 id="队列"><a href="#队列" class="headerlink" title="队列"></a>队列</h1><p>1.先进先出的线性表，有顺序表和链表<br>2.只允许在一段插入，另一端删除</p>
 <h1 id="队列的链式存储结构"><a href="#队列的链式存储结构" class="headerlink" title="队列的链式存储结构"></a>队列的链式存储结构</h1><p>和栈相反，队列常用链表实现<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">typedef sruct QNode&#123;</div><div class="line">	ElemType data;</div><div class="line">	struct QNode *next;</div><div class="line">&#125;QNode,*QueuePrt;</div><div class="line">typedef struct &#123;</div><div class="line">	QueuePrt front;	##队头指针指向链队列的头结点(头结点不是必要的)</div><div class="line">	QueuePrt rear;	##队尾指针指向终端结点，空队列时，front，rear都指向头结点</div><div class="line">&#125;LinkQueue;</div></pre></td></tr></table></figure></p>
-<p><img src="/image/queue2.png" alt="queue2"></p>
+<p><img src="/image/queue1.png" alt="queue1"><br><img src="/image/queue2.png" alt="queue2"></p>
 <h1 id="入队列"><a href="#入队列" class="headerlink" title="入队列"></a>入队列</h1><p><img src="/image/queue3.png" alt="queue3"><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">InsertQueue(LinkQueue *q,ElemType e)&#123;</div><div class="line">	QueuePrt p;</div><div class="line">	p = (QueuePtr)malloc(sizeof(QNode));</div><div class="line">	if(p==NULL)&#123;</div><div class="line">		exit(0);</div><div class="line">	&#125;</div><div class="line">	p-&gt;data = e;</div><div class="line">	p-&gt;next = NULL;</div><div class="line">	q-&gt;rear-&gt;next = p;</div><div class="line">	q-&gt;rear = p;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
 <h1 id="出队列"><a href="#出队列" class="headerlink" title="出队列"></a>出队列</h1><p><img src="/image/queue5.png" alt="queue5"><br><img src="/image/queue6.png" alt="queue6"><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">DeleteQueue(LinkQueue *q,ElemType e)&#123;</div><div class="line">	QueuePrt p;</div><div class="line">	if(q-&gt;front ==q-&gt;rear)</div><div class="line">	&#123;</div><div class="line">		retrun;</div><div class="line">	&#125;</div><div class="line">	p=q-&gt;front-&gt;next;</div><div class="line">	*e=p-&gt;data;</div><div class="line">	q-&gt;front-&gt;next = p-&gt;next;</div><div class="line">	if(q-&gt;rear ==p)&#123;</div><div class="line">		q-&gt;rear = q-&gt;front;</div><div class="line">	&#125;</div><div class="line">	free(p);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
 <h1 id="销毁一个队列"><a href="#销毁一个队列" class="headerlink" title="销毁一个队列"></a>销毁一个队列</h1><p>由于链队列建立在内存的动态区，因此当一个队列<br>不在有用时，应当及时销毁掉，以免过多占用内存空间<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">DestroyQueue(LinkQueue *q)&#123;</div><div class="line">	while(q-&gt;front)&#123;</div><div class="line">	q-&gt;rear = q-&gt;front-&gt;next;</div><div class="line">	free(q-&gt;front):</div><div class="line">	q-&gt;front = q-&gt;rear;</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p><a href="">题目：实现链队列结构</a></p>
+<p>简单实现<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> list = [];</div><div class="line"><span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>;i&lt;<span class="number">5</span>;i++)&#123;</div><div class="line">  list.push(&#123;</div><div class="line">    <span class="attr">next</span>:i+<span class="number">1</span></div><div class="line">  &#125;)</div><div class="line">&#125;</div><div class="line">list[<span class="number">4</span>].next = <span class="literal">null</span>;</div><div class="line"><span class="built_in">console</span>.log(list);</div><div class="line"><span class="comment">//入队列</span></div><div class="line"><span class="keyword">var</span> length = list.length;</div><div class="line">list.push(&#123;</div><div class="line">  <span class="attr">next</span>:<span class="literal">null</span></div><div class="line">&#125;)</div><div class="line">list[length<span class="number">-1</span>].next=length;</div><div class="line"><span class="built_in">console</span>.log(list);</div><div class="line"><span class="comment">//出队列</span></div><div class="line">list.splice(<span class="number">0</span>,<span class="number">1</span>);</div><div class="line"><span class="built_in">console</span>.log(list);</div><div class="line"><span class="comment">//清空</span></div><div class="line">list=[];</div></pre></td></tr></table></figure></p>
 
       
     </div>
@@ -380,8 +381,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/post/algorithm/Recursion.html" rel="next" title="递归">
-                <i class="fa fa-chevron-left"></i> 递归
+              <a href="/post/algorithm/stacklinked.html" rel="next" title="逆波兰表达式/后缀表达式">
+                <i class="fa fa-chevron-left"></i> 逆波兰表达式/后缀表达式
               </a>
             
           </div>
@@ -390,8 +391,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/post/algorithm/loopqueue.html" rel="prev" title="循环队列">
-                循环队列 <i class="fa fa-chevron-right"></i>
+              <a href="/post/algorithm/Recursion.html" rel="prev" title="递归">
+                递归 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -460,7 +461,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">31</span>
+              <span class="site-state-item-count">32</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>

@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoohannah.github.io/"/>
-  <updated>2017-02-03T06:36:38.000Z</updated>
+  <updated>2017-02-07T14:54:25.095Z</updated>
   <id>http://yoohannah.github.io/</id>
   
   <author>
@@ -14,6 +14,28 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>字符串(串结构)</title>
+    <link href="http://yoohannah.github.io/post/algorithm/string.html"/>
+    <id>http://yoohannah.github.io/post/algorithm/string.html</id>
+    <published>2017-02-07T14:54:37.000Z</published>
+    <updated>2017-02-07T14:54:25.095Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="字符串"><a href="#字符串" class="headerlink" title="字符串"></a>字符串</h1><p>定义：串是由0个或多个字符组成的有限序列，又名字符串<br>1.空串：没有字符，直接由””表示<br>2.主串与子串：”hello”是”helloworld”的子串,”helloworld”是”hello”主串<br>3.字符串比较：比较字符串里每个字符的ASCII码大小,没有意义，一般看是否相等<br>4.存储结构<br>    顺序存储：用一组地址连续的存储单元来存储串中的字符序列，<br>    按照预定义大小，为每个定义的字符串变量分配一个固定长度的存储区，一般用定长数组来定义<br>  链式存储：不常用<br>5.BF算法：<br>    有两个字符串S和T，长度为N和M，首先S[1]和T[1]比较，若相等，则再比较S[2]和T[2],一直到T[M-1]为止;<br>    若S[1]和T[1]不等，则T向右移动一个字符的位置，再依次进行比较<br>6.字符串模式匹配：依据BF算法,S是主串,T是子串这种定位操作即字符串模式匹配</p>
+<h1 id="BF算法"><a href="#BF算法" class="headerlink" title="BF算法"></a>BF算法</h1><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> string1=<span class="string">"hellohannahworld"</span>;</div><div class="line"><span class="keyword">var</span> string2=<span class="string">"hannah"</span>;</div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">BF</span>(<span class="params">str1,str2</span>)</span>&#123;</div><div class="line">  <span class="keyword">var</span> i = <span class="number">0</span>;</div><div class="line">  <span class="keyword">var</span> j = <span class="number">0</span>;</div><div class="line">  <span class="keyword">while</span>(i&lt;str2.length)&#123;</div><div class="line">    <span class="keyword">while</span>(j&lt;str1.length)&#123;</div><div class="line">      <span class="keyword">if</span>(str2[i]==str1[j])&#123;</div><div class="line">        <span class="keyword">if</span>(i==str2.length<span class="number">-1</span>)&#123;</div><div class="line">          <span class="keyword">var</span> temp=j-str2.length+<span class="number">1</span>;</div><div class="line">          <span class="built_in">console</span>.log(<span class="string">"字符串匹配的起始位置为"</span>+temp);</div><div class="line">          <span class="keyword">return</span></div><div class="line">        &#125;</div><div class="line">        j++;</div><div class="line">        i++;</div><div class="line">      &#125;<span class="keyword">else</span>&#123;</div><div class="line">        <span class="keyword">if</span>(i&gt;<span class="number">0</span>)&#123;</div><div class="line">          i=<span class="number">0</span>;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">if</span>(i==<span class="number">0</span>)&#123;</div><div class="line">          j++</div><div class="line">        &#125;</div><div class="line">      &#125;</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">  <span class="built_in">console</span>.log(<span class="string">"两字符串一点也不匹配!"</span>)</div><div class="line">  <span class="keyword">return</span></div><div class="line">&#125;</div><div class="line">BF(string1,string2);</div></pre></td></tr></table></figure>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;字符串&quot;&gt;&lt;a href=&quot;#字符串&quot; class=&quot;headerlink&quot; title=&quot;字符串&quot;&gt;&lt;/a&gt;字符串&lt;/h1&gt;&lt;p&gt;定义：串是由0个或多个字符组成的有限序列，又名字符串&lt;br&gt;1.空串：没有字符，直接由””表示&lt;br&gt;2.主串与子串：”hello”
+    
+    </summary>
+    
+    
+      <category term="js" scheme="http://yoohannah.github.io/tags/js/"/>
+    
+  </entry>
   
   <entry>
     <title>使用Git Bash建立本地仓库并同步github仓库</title>
@@ -49,10 +71,10 @@
     <link href="http://yoohannah.github.io/post/algorithm/loopqueue.html"/>
     <id>http://yoohannah.github.io/post/algorithm/loopqueue.html</id>
     <published>2017-02-02T04:47:37.000Z</published>
-    <updated>2017-02-06T22:45:08.098Z</updated>
+    <updated>2017-02-07T14:43:29.988Z</updated>
     
-    <content type="html"><![CDATA[<p><img src="/image/queue9.png" alt="queue9"><br><img src="/image/queue10.png" alt="queue10"><br><img src="/image/queue11.png" alt="queue11"><br><img src="/image/queue12.png" alt="queue12"></p>
-<h1 id="定义一个循环队列"><a href="#定义一个循环队列" class="headerlink" title="定义一个循环队列"></a>定义一个循环队列</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"># define MAXSIZE 100</div><div class="line">typedef struct&#123;</div><div class="line">	ElemType *base;	##存放内存分配基地址，也可以用数组存放</div><div class="line">	int front;</div><div class="line">	int rear;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+    <content type="html"><![CDATA[<h1 id="假溢出"><a href="#假溢出" class="headerlink" title="假溢出"></a>假溢出</h1><p><img src="/image/queue9.png" alt="queue9"><br>循环队列的容量是固定的，并且它的对头和队尾指针都可以随着元素出入队列而发生改变，<br>这样循环队列逻辑上就好像是一个环形存储空间,但在实际内存中，是不可能有真正的环形存储区的，<br>我们只是用顺序表模拟逻辑上的循环<br>因此,为防止发生假溢出,当我们采用循环队列时,front和rear不断加1,即使超出了地址范围，<br>也会自动从头开始,判断溢出，可采用取模处理<br>(rear+1)%QueueSize<br>(front+1)%QueueSize<br>取模即取余数，取得的值永远不会大于除数</p>
+<h1 id="定义一个循环队列"><a href="#定义一个循环队列" class="headerlink" title="定义一个循环队列"></a>定义一个循环队列</h1><p><img src="/image/queue12.png" alt="queue12"><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"># define MAXSIZE 100</div><div class="line">typedef struct&#123;</div><div class="line">	ElemType *base;	##存放内存分配基地址，也可以用数组存放</div><div class="line">	int front;</div><div class="line">	int rear;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
 <h1 id="初始化一个循环队列"><a href="#初始化一个循环队列" class="headerlink" title="初始化一个循环队列"></a>初始化一个循环队列</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">initQueue(cyclQueue *q)&#123;</div><div class="line">	q-&gt;base = (ElemType *)malloc(MAXSIZE sizeof(ElemType));</div><div class="line">	if(!q-&gt;base)&#123;</div><div class="line">	exit(0);</div><div class="line">	&#125;</div><div class="line">	q-&gt;front = q-&gt;rear = 0;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <h1 id="入队列操作"><a href="#入队列操作" class="headerlink" title="入队列操作"></a>入队列操作</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">insertQueue(cyclQueue *q,ElemType e)&#123;</div><div class="line">	if((q-&gt;rear+1)%MAXSIZE == q-&gt;front)&#123;</div><div class="line">	return;	##队列已满</div><div class="line">	&#125;</div><div class="line">	q-&gt;base[q-&gt;rear] = e;</div><div class="line">	q-&gt;rear = (q-&gt;rear+1)%MAXSIZE;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <h1 id="出队列操作"><a href="#出队列操作" class="headerlink" title="出队列操作"></a>出队列操作</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">DeleteQueue(cyclQueue *q,ElemType e)&#123;</div><div class="line">	if(q-&gt;rear == q-&gt;front)&#123;</div><div class="line">	return;	##队列为空</div><div class="line">	&#125;</div><div class="line">	*e = q-&gt;base[q-&gt;front];</div><div class="line">	q-&gt;front = (q-&gt;front+1)%MAXSIZE;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
@@ -60,35 +82,7 @@
     
     <summary type="html">
     
-      &lt;p&gt;&lt;img src=&quot;/image/queue9.png&quot; alt=&quot;queue9&quot;&gt;&lt;br&gt;&lt;img src=&quot;/image/queue10.png&quot; alt=&quot;queue10&quot;&gt;&lt;br&gt;&lt;img src=&quot;/image/queue11.png&quot; alt=&quot;queue11&quot;
-    
-    </summary>
-    
-    
-      <category term="js" scheme="http://yoohannah.github.io/tags/js/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>队列</title>
-    <link href="http://yoohannah.github.io/post/algorithm/queue.html"/>
-    <id>http://yoohannah.github.io/post/algorithm/queue.html</id>
-    <published>2017-02-02T04:34:37.000Z</published>
-    <updated>2017-02-06T22:32:00.441Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="队列"><a href="#队列" class="headerlink" title="队列"></a>队列</h1><p>1.先进先出的线性表，有顺序表和链表<br>2.只允许在一段插入，另一端删除</p>
-<h1 id="队列的链式存储结构"><a href="#队列的链式存储结构" class="headerlink" title="队列的链式存储结构"></a>队列的链式存储结构</h1><p>和栈相反，队列常用链表实现<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">typedef sruct QNode&#123;</div><div class="line">	ElemType data;</div><div class="line">	struct QNode *next;</div><div class="line">&#125;QNode,*QueuePrt;</div><div class="line">typedef struct &#123;</div><div class="line">	QueuePrt front;	##队头指针指向链队列的头结点(头结点不是必要的)</div><div class="line">	QueuePrt rear;	##队尾指针指向终端结点，空队列时，front，rear都指向头结点</div><div class="line">&#125;LinkQueue;</div></pre></td></tr></table></figure></p>
-<p><img src="/image/queue2.png" alt="queue2"></p>
-<h1 id="入队列"><a href="#入队列" class="headerlink" title="入队列"></a>入队列</h1><p><img src="/image/queue3.png" alt="queue3"><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">InsertQueue(LinkQueue *q,ElemType e)&#123;</div><div class="line">	QueuePrt p;</div><div class="line">	p = (QueuePtr)malloc(sizeof(QNode));</div><div class="line">	if(p==NULL)&#123;</div><div class="line">		exit(0);</div><div class="line">	&#125;</div><div class="line">	p-&gt;data = e;</div><div class="line">	p-&gt;next = NULL;</div><div class="line">	q-&gt;rear-&gt;next = p;</div><div class="line">	q-&gt;rear = p;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<h1 id="出队列"><a href="#出队列" class="headerlink" title="出队列"></a>出队列</h1><p><img src="/image/queue5.png" alt="queue5"><br><img src="/image/queue6.png" alt="queue6"><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">DeleteQueue(LinkQueue *q,ElemType e)&#123;</div><div class="line">	QueuePrt p;</div><div class="line">	if(q-&gt;front ==q-&gt;rear)</div><div class="line">	&#123;</div><div class="line">		retrun;</div><div class="line">	&#125;</div><div class="line">	p=q-&gt;front-&gt;next;</div><div class="line">	*e=p-&gt;data;</div><div class="line">	q-&gt;front-&gt;next = p-&gt;next;</div><div class="line">	if(q-&gt;rear ==p)&#123;</div><div class="line">		q-&gt;rear = q-&gt;front;</div><div class="line">	&#125;</div><div class="line">	free(p);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<h1 id="销毁一个队列"><a href="#销毁一个队列" class="headerlink" title="销毁一个队列"></a>销毁一个队列</h1><p>由于链队列建立在内存的动态区，因此当一个队列<br>不在有用时，应当及时销毁掉，以免过多占用内存空间<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">DestroyQueue(LinkQueue *q)&#123;</div><div class="line">	while(q-&gt;front)&#123;</div><div class="line">	q-&gt;rear = q-&gt;front-&gt;next;</div><div class="line">	free(q-&gt;front):</div><div class="line">	q-&gt;front = q-&gt;rear;</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p><a href="">题目：实现链队列结构</a></p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;h1 id=&quot;队列&quot;&gt;&lt;a href=&quot;#队列&quot; class=&quot;headerlink&quot; title=&quot;队列&quot;&gt;&lt;/a&gt;队列&lt;/h1&gt;&lt;p&gt;1.先进先出的线性表，有顺序表和链表&lt;br&gt;2.只允许在一段插入，另一端删除&lt;/p&gt;
-&lt;h1 id=&quot;队列的链式存储结构&quot;&gt;&lt;a href=
+      &lt;h1 id=&quot;假溢出&quot;&gt;&lt;a href=&quot;#假溢出&quot; class=&quot;headerlink&quot; title=&quot;假溢出&quot;&gt;&lt;/a&gt;假溢出&lt;/h1&gt;&lt;p&gt;&lt;img src=&quot;/image/queue9.png&quot; alt=&quot;queue9&quot;&gt;&lt;br&gt;循环队列的容量是固定的，并且它的对头和队
     
     </summary>
     
@@ -102,20 +96,49 @@
     <link href="http://yoohannah.github.io/post/algorithm/Recursion.html"/>
     <id>http://yoohannah.github.io/post/algorithm/Recursion.html</id>
     <published>2017-02-02T04:34:37.000Z</published>
-    <updated>2017-02-02T05:13:11.194Z</updated>
+    <updated>2017-02-07T14:52:17.787Z</updated>
     
     <content type="html"><![CDATA[<h1 id="递归"><a href="#递归" class="headerlink" title="递归"></a>递归</h1><p>1.把有一个直接调用自己或通过一系列的调用语句间接的调用用自己的函数，称作递归函数<br>2.每个递归函数必须有一个终止调用的条件语句，否则陷入永不结束的无穷递归</p>
 <h1 id="斐波那契数列"><a href="#斐波那契数列" class="headerlink" title="斐波那契数列"></a>斐波那契数列</h1><p>迭代实现<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">var a=[];</div><div class="line">a[0] = 1;</div><div class="line">a[1] = 1;</div><div class="line">for(var i =2;i&lt;40;i++)&#123;</div><div class="line">  a[i]=a[i-1]+a[i-2];</div><div class="line">&#125;</div><div class="line">for(var j=0;j&lt;40;j++)&#123;</div><div class="line">  console.log(j,a[j]);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
 <p>递归实现<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">function fib(n)&#123;</div><div class="line">  if(n&lt;2)&#123;</div><div class="line">    return 1;</div><div class="line">  &#125;</div><div class="line">  if(n&gt;1 &amp;&amp; n&lt;40)&#123;</div><div class="line">    return fib(n-1)+fib(n-2);</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line">console.log(fib(4));</div></pre></td></tr></table></figure></p>
-<p>n!阶乘递归算法<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">function fib(n)&#123;</div><div class="line">    if(n&gt;0)&#123;</div><div class="line">      return n*fib(n-1);</div><div class="line">    &#125;else&#123;</div><div class="line">      return 1;</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">&#125;</div><div class="line">console.log(fib(4));</div></pre></td></tr></table></figure></p>
-<p>汉诺塔问题<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">function hanoita(n,x,y,z)&#123;</div><div class="line">  if(n==1)&#123;</div><div class="line">    console.log(x+&quot;-&gt;&quot;+z);</div><div class="line">  &#125;else&#123;</div><div class="line">    hanoita(n-1,x,z,y);</div><div class="line">    console.log(x+&quot;-&gt;&quot;+z);</div><div class="line">    hanoita(n-1,y,x,z);</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">hanoita(3,&quot;x&quot;,&quot;y&quot;,&apos;z&apos;);</div></pre></td></tr></table></figure></p>
-<p><a href="">递归字符串翻转</a><br><a href="">折中查找法递归迭代</a></p>
+<h1 id="n-阶乘递归算法"><a href="#n-阶乘递归算法" class="headerlink" title="n!阶乘递归算法"></a>n!阶乘递归算法</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">function fib(n)&#123;</div><div class="line">    if(n&gt;0)&#123;</div><div class="line">      return n*fib(n-1);</div><div class="line">    &#125;else&#123;</div><div class="line">      return 1;</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">&#125;</div><div class="line">console.log(fib(4));</div></pre></td></tr></table></figure>
+<h1 id="汉诺塔问题"><a href="#汉诺塔问题" class="headerlink" title="汉诺塔问题"></a>汉诺塔问题</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">function hanoita(n,x,y,z)&#123;</div><div class="line">  if(n==1)&#123;</div><div class="line">    console.log(x+&quot;-&gt;&quot;+z);</div><div class="line">  &#125;else&#123;</div><div class="line">    hanoita(n-1,x,z,y);</div><div class="line">    console.log(x+&quot;-&gt;&quot;+z);</div><div class="line">    hanoita(n-1,y,x,z);</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">hanoita(3,&quot;x&quot;,&quot;y&quot;,&apos;z&apos;);</div></pre></td></tr></table></figure>
+<h1 id="递归字符串翻转"><a href="#递归字符串翻转" class="headerlink" title="递归字符串翻转"></a>递归字符串翻转</h1><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> string = <span class="string">"hello#"</span>;</div><div class="line"><span class="keyword">var</span> count = <span class="number">0</span>;</div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">print</span>(<span class="params"></span>)</span>&#123;</div><div class="line">  <span class="keyword">if</span>(string[count]!=<span class="string">"#"</span>)&#123;</div><div class="line">    count++;</div><div class="line">    print();</div><div class="line">  &#125;</div><div class="line">  count--;</div><div class="line">  <span class="keyword">if</span>(count&gt;<span class="number">-1</span> &amp;&amp; string[count]!=<span class="string">"#"</span>)&#123;</div><div class="line">    <span class="built_in">console</span>.log(string[count]);</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line">print();</div></pre></td></tr></table></figure>
+<h1 id="折中查找法递归迭代"><a href="#折中查找法递归迭代" class="headerlink" title="折中查找法递归迭代"></a>折中查找法递归迭代</h1><p><a href="https://github.com/YooHannah/algorithm/blob/master/js/compromisefind(Recursion" target="_blank" rel="external">代码链接</a>.js)</p>
 <h1 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h1><p>1.迭代使用循环结构，递归使用选择结构<br>2.递归能使程序结构更清晰、简洁、容易让人理解，从而减少读懂代码的时间<br>3.大量的递归会建立函数的副本，会消耗大量时间和内存，而迭代不需要<br>4.递归函数分为调用和回退阶段，递归的回退顺序是它调用顺序的逆序</p>
 ]]></content>
     
     <summary type="html">
     
       &lt;h1 id=&quot;递归&quot;&gt;&lt;a href=&quot;#递归&quot; class=&quot;headerlink&quot; title=&quot;递归&quot;&gt;&lt;/a&gt;递归&lt;/h1&gt;&lt;p&gt;1.把有一个直接调用自己或通过一系列的调用语句间接的调用用自己的函数，称作递归函数&lt;br&gt;2.每个递归函数必须有一个终止调用的条件语句，否则
+    
+    </summary>
+    
+    
+      <category term="js" scheme="http://yoohannah.github.io/tags/js/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>队列</title>
+    <link href="http://yoohannah.github.io/post/algorithm/queue.html"/>
+    <id>http://yoohannah.github.io/post/algorithm/queue.html</id>
+    <published>2017-02-02T04:34:37.000Z</published>
+    <updated>2017-02-07T14:46:48.223Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="队列"><a href="#队列" class="headerlink" title="队列"></a>队列</h1><p>1.先进先出的线性表，有顺序表和链表<br>2.只允许在一段插入，另一端删除</p>
+<h1 id="队列的链式存储结构"><a href="#队列的链式存储结构" class="headerlink" title="队列的链式存储结构"></a>队列的链式存储结构</h1><p>和栈相反，队列常用链表实现<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">typedef sruct QNode&#123;</div><div class="line">	ElemType data;</div><div class="line">	struct QNode *next;</div><div class="line">&#125;QNode,*QueuePrt;</div><div class="line">typedef struct &#123;</div><div class="line">	QueuePrt front;	##队头指针指向链队列的头结点(头结点不是必要的)</div><div class="line">	QueuePrt rear;	##队尾指针指向终端结点，空队列时，front，rear都指向头结点</div><div class="line">&#125;LinkQueue;</div></pre></td></tr></table></figure></p>
+<p><img src="/image/queue1.png" alt="queue1"><br><img src="/image/queue2.png" alt="queue2"></p>
+<h1 id="入队列"><a href="#入队列" class="headerlink" title="入队列"></a>入队列</h1><p><img src="/image/queue3.png" alt="queue3"><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">InsertQueue(LinkQueue *q,ElemType e)&#123;</div><div class="line">	QueuePrt p;</div><div class="line">	p = (QueuePtr)malloc(sizeof(QNode));</div><div class="line">	if(p==NULL)&#123;</div><div class="line">		exit(0);</div><div class="line">	&#125;</div><div class="line">	p-&gt;data = e;</div><div class="line">	p-&gt;next = NULL;</div><div class="line">	q-&gt;rear-&gt;next = p;</div><div class="line">	q-&gt;rear = p;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h1 id="出队列"><a href="#出队列" class="headerlink" title="出队列"></a>出队列</h1><p><img src="/image/queue5.png" alt="queue5"><br><img src="/image/queue6.png" alt="queue6"><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">DeleteQueue(LinkQueue *q,ElemType e)&#123;</div><div class="line">	QueuePrt p;</div><div class="line">	if(q-&gt;front ==q-&gt;rear)</div><div class="line">	&#123;</div><div class="line">		retrun;</div><div class="line">	&#125;</div><div class="line">	p=q-&gt;front-&gt;next;</div><div class="line">	*e=p-&gt;data;</div><div class="line">	q-&gt;front-&gt;next = p-&gt;next;</div><div class="line">	if(q-&gt;rear ==p)&#123;</div><div class="line">		q-&gt;rear = q-&gt;front;</div><div class="line">	&#125;</div><div class="line">	free(p);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h1 id="销毁一个队列"><a href="#销毁一个队列" class="headerlink" title="销毁一个队列"></a>销毁一个队列</h1><p>由于链队列建立在内存的动态区，因此当一个队列<br>不在有用时，应当及时销毁掉，以免过多占用内存空间<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">DestroyQueue(LinkQueue *q)&#123;</div><div class="line">	while(q-&gt;front)&#123;</div><div class="line">	q-&gt;rear = q-&gt;front-&gt;next;</div><div class="line">	free(q-&gt;front):</div><div class="line">	q-&gt;front = q-&gt;rear;</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>简单实现<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> list = [];</div><div class="line"><span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>;i&lt;<span class="number">5</span>;i++)&#123;</div><div class="line">  list.push(&#123;</div><div class="line">    <span class="attr">next</span>:i+<span class="number">1</span></div><div class="line">  &#125;)</div><div class="line">&#125;</div><div class="line">list[<span class="number">4</span>].next = <span class="literal">null</span>;</div><div class="line"><span class="built_in">console</span>.log(list);</div><div class="line"><span class="comment">//入队列</span></div><div class="line"><span class="keyword">var</span> length = list.length;</div><div class="line">list.push(&#123;</div><div class="line">  <span class="attr">next</span>:<span class="literal">null</span></div><div class="line">&#125;)</div><div class="line">list[length<span class="number">-1</span>].next=length;</div><div class="line"><span class="built_in">console</span>.log(list);</div><div class="line"><span class="comment">//出队列</span></div><div class="line">list.splice(<span class="number">0</span>,<span class="number">1</span>);</div><div class="line"><span class="built_in">console</span>.log(list);</div><div class="line"><span class="comment">//清空</span></div><div class="line">list=[];</div></pre></td></tr></table></figure></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;队列&quot;&gt;&lt;a href=&quot;#队列&quot; class=&quot;headerlink&quot; title=&quot;队列&quot;&gt;&lt;/a&gt;队列&lt;/h1&gt;&lt;p&gt;1.先进先出的线性表，有顺序表和链表&lt;br&gt;2.只允许在一段插入，另一端删除&lt;/p&gt;
+&lt;h1 id=&quot;队列的链式存储结构&quot;&gt;&lt;a href=
     
     </summary>
     
@@ -266,6 +289,27 @@
   </entry>
   
   <entry>
+    <title>单循环链表</title>
+    <link href="http://yoohannah.github.io/post/algorithm/singlelooplinklist.html"/>
+    <id>http://yoohannah.github.io/post/algorithm/singlelooplinklist.html</id>
+    <published>2017-02-02T02:06:37.000Z</published>
+    <updated>2017-02-05T13:58:34.322Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="循环链表"><a href="#循环链表" class="headerlink" title="循环链表"></a>循环链表</h1><p>将单链表中终端结点的指针端由空指针改为指向头结点，就使整个单链表形成一个环，这种头尾相接的单链表成为单循环链表，简称循环链表<br><img src="/image/singlelooplinklist1.png" alt="singlelooplinklist1"><br>循环链表并不一定要有头结点<br>与单链表的主要差异为判断链表是否为空<br>单链表为空条件为head-&gt;next = null<br>循环链表为空条件为head-&gt;next = head<br>终端节点用尾指针rear指示，查找终端结点是O(1);开始结点是rear-&gt;next-&gt;next,也是O(1);<br>[插入、删除、返回位置 代码思路参考单链表]<br>Rear == rear-&gt;next 空循环链表<br><img src="/image/singlelooplinklist2.png" alt="singlelooplinklist2"><br>小结<br>循环链表的特点是无须增加存储量，仅对链接方式稍作改变，即可使得表处理更加方便灵活</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;循环链表&quot;&gt;&lt;a href=&quot;#循环链表&quot; class=&quot;headerlink&quot; title=&quot;循环链表&quot;&gt;&lt;/a&gt;循环链表&lt;/h1&gt;&lt;p&gt;将单链表中终端结点的指针端由空指针改为指向头结点，就使整个单链表形成一个环，这种头尾相接的单链表成为单循环链表，简称循环链表
+    
+    </summary>
+    
+    
+      <category term="js" scheme="http://yoohannah.github.io/tags/js/"/>
+    
+  </entry>
+  
+  <entry>
     <title>静态链表</title>
     <link href="http://yoohannah.github.io/post/algorithm/Staticlinkedlist.html"/>
     <id>http://yoohannah.github.io/post/algorithm/Staticlinkedlist.html</id>
@@ -289,18 +333,26 @@
   </entry>
   
   <entry>
-    <title>单循环链表</title>
-    <link href="http://yoohannah.github.io/post/algorithm/singlelooplinklist.html"/>
-    <id>http://yoohannah.github.io/post/algorithm/singlelooplinklist.html</id>
-    <published>2017-02-02T02:06:37.000Z</published>
-    <updated>2017-02-05T13:58:34.322Z</updated>
+    <title>线性表链式存储结构</title>
+    <link href="http://yoohannah.github.io/post/algorithm/lineartable-chain.html"/>
+    <id>http://yoohannah.github.io/post/algorithm/lineartable-chain.html</id>
+    <published>2017-02-02T01:12:37.000Z</published>
+    <updated>2017-02-05T13:35:31.735Z</updated>
     
-    <content type="html"><![CDATA[<h1 id="循环链表"><a href="#循环链表" class="headerlink" title="循环链表"></a>循环链表</h1><p>将单链表中终端结点的指针端由空指针改为指向头结点，就使整个单链表形成一个环，这种头尾相接的单链表成为单循环链表，简称循环链表<br><img src="/image/singlelooplinklist1.png" alt="singlelooplinklist1"><br>循环链表并不一定要有头结点<br>与单链表的主要差异为判断链表是否为空<br>单链表为空条件为head-&gt;next = null<br>循环链表为空条件为head-&gt;next = head<br>终端节点用尾指针rear指示，查找终端结点是O(1);开始结点是rear-&gt;next-&gt;next,也是O(1);<br>[插入、删除、返回位置 代码思路参考单链表]<br>Rear == rear-&gt;next 空循环链表<br><img src="/image/singlelooplinklist2.png" alt="singlelooplinklist2"><br>小结<br>循环链表的特点是无须增加存储量，仅对链接方式稍作改变，即可使得表处理更加方便灵活</p>
+    <content type="html"><![CDATA[<h1 id="链式存储结构"><a href="#链式存储结构" class="headerlink" title="链式存储结构"></a>链式存储结构</h1><p>用一组任意的存储单元存储线性表数据元素，这组存储单元可以存在内存中未被占用的任意位置；每个元素需要两个位置，一个存储元素本身，一个存储它后继元素的存储地址（指针）<br>数据域：存储数据元素信息的域；<br>指针域：存储直接后继位置的域；<br>指针/链：指针域中存储的信息<br>存储映像/结点（node）：数据域和指针域这两部分信息组成的数据元素<br>链式存储结构：n个结点连接成一个链表<br>单链表：链表中每个结点中只包含一个指针域<br><img src="/image/chaintable1.png" alt="chaintable1"><br>头指针：链表中第一个结点的存储位置<br>最后一个结点指针为空<br><img src="/image/chaintable2.png" alt="chaintable2"><br>头结点的数据域一般不存储任何信息<br>头指针<br>—— 指 指向链表第一个结点的指针，若链表有头结点，则是指向头结点的指针<br>在头结点之前<br>—— 头指针具有标志作用，所以常用头指针冠以链表的名字（指针变量的名字）<br>—— 无论链表是否为空，头指针均不为空<br>—— 头指针是链表的必要元素<br>头结点<br>—— 为了操作统一和方便而设立，放在第一个元素的结点之前，其数据域一般无<br>    意义（但也可以用来存放链表的长度）<br>—— 有了头结点，对第一个元素节点前插入结点和删除第一个结点操作与其他结<br>点的操作就统一了<br>——头结点不一定是链表的必须要素<br><img src="/image/chaintable3.png" alt="chaintable3"><br>用结构指针来描述单链表<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">typedef struct Node</div><div class="line">&#123;</div><div class="line">	ElemType data;//数据域</div><div class="line">	struct Node* Next;//指针域</div><div class="line">&#125;Node;</div><div class="line">Typedef struct Node* LinkList</div></pre></td></tr></table></figure></p>
+<p>Typedef struct Node<em>  LinkList 将Node</em>取别名为LinkList<br>结点由存放数据元素的数据域和存放后继结点的地址指针组成</p>
+<p>假设P是指向线性表第i个元素的指针，则该结点ai的数据域为p-&gt;data<br>指针域为p-&gt;next,因为p-&gt;next是一个指针，它指向第i+1个元素ai+1<br>因此，如果p-&gt;data=ai,那么p-&gt;next-&gt;data=ai+1</p>
+<h1 id="单链表元素读取"><a href="#单链表元素读取" class="headerlink" title="单链表元素读取"></a>单链表元素读取</h1><p>链表元素不像顺序存储线性表通过位置计算可以得到，需要一个一个找<br><img src="/image/chaintable6.png" alt="chaintable6"></p>
+<p>时间复杂度为O（n）;核心思想：“工作指针后移”</p>
+<h1 id="单链表元素插入O-n"><a href="#单链表元素插入O-n" class="headerlink" title="单链表元素插入O(n)"></a>单链表元素插入O(n)</h1><p><img src="/image/chaintable8.png" alt="chaintable8"><br><img src="/image/chaintable9.png" alt="chaintable9"></p>
+<h1 id="单链表元素删除O-n"><a href="#单链表元素删除O-n" class="headerlink" title="单链表元素删除O(n)"></a>单链表元素删除O(n)</h1><p><img src="/image/chaintable11.png" alt="chaintable11"><br><img src="/image/chaintable12.png" alt="chaintable12"><br><img src="/image/chaintable13.png" alt="chaintable13"></p>
+<p><a href="https://github.com/YooHannah/algorithm/blob/master/C/%E5%8D%95%E9%93%BE%E8%A1%A8.c" target="_blank" rel="external">以上操作代码链接</a></p>
+<h1 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h1><p>如果我们想从第i个位置开始，插入连续10个元素，<br>对顺序存储结构意味着，每次插入都需要移动n-i个位置,所以每次都是O(n);<br>而单链表，只需要在第一次找到第i个位置的指针，此时时间复杂度为O(n),<br>接下来只是简单的赋值移动指针而已，时间复杂度都是O(1)<br>因此对于频繁插入或删除数据来说，单链表效率更高。</p>
 ]]></content>
     
     <summary type="html">
     
-      &lt;h1 id=&quot;循环链表&quot;&gt;&lt;a href=&quot;#循环链表&quot; class=&quot;headerlink&quot; title=&quot;循环链表&quot;&gt;&lt;/a&gt;循环链表&lt;/h1&gt;&lt;p&gt;将单链表中终端结点的指针端由空指针改为指向头结点，就使整个单链表形成一个环，这种头尾相接的单链表成为单循环链表，简称循环链表
+      &lt;h1 id=&quot;链式存储结构&quot;&gt;&lt;a href=&quot;#链式存储结构&quot; class=&quot;headerlink&quot; title=&quot;链式存储结构&quot;&gt;&lt;/a&gt;链式存储结构&lt;/h1&gt;&lt;p&gt;用一组任意的存储单元存储线性表数据元素，这组存储单元可以存在内存中未被占用的任意位置；每个元素需要两个位置，
     
     </summary>
     
@@ -355,35 +407,6 @@
     <summary type="html">
     
       &lt;h1 id=&quot;顺序存储结构&quot;&gt;&lt;a href=&quot;#顺序存储结构&quot; class=&quot;headerlink&quot; title=&quot;顺序存储结构&quot;&gt;&lt;/a&gt;顺序存储结构&lt;/h1&gt;&lt;p&gt;结构struct{&lt;br&gt; 数据类型 数组名data[数组最大长度MAXSIZE]；&lt;br&gt; Int len
-    
-    </summary>
-    
-    
-      <category term="js" scheme="http://yoohannah.github.io/tags/js/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>线性表链式存储结构</title>
-    <link href="http://yoohannah.github.io/post/algorithm/lineartable-chain.html"/>
-    <id>http://yoohannah.github.io/post/algorithm/lineartable-chain.html</id>
-    <published>2017-02-02T01:12:37.000Z</published>
-    <updated>2017-02-05T13:35:31.735Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="链式存储结构"><a href="#链式存储结构" class="headerlink" title="链式存储结构"></a>链式存储结构</h1><p>用一组任意的存储单元存储线性表数据元素，这组存储单元可以存在内存中未被占用的任意位置；每个元素需要两个位置，一个存储元素本身，一个存储它后继元素的存储地址（指针）<br>数据域：存储数据元素信息的域；<br>指针域：存储直接后继位置的域；<br>指针/链：指针域中存储的信息<br>存储映像/结点（node）：数据域和指针域这两部分信息组成的数据元素<br>链式存储结构：n个结点连接成一个链表<br>单链表：链表中每个结点中只包含一个指针域<br><img src="/image/chaintable1.png" alt="chaintable1"><br>头指针：链表中第一个结点的存储位置<br>最后一个结点指针为空<br><img src="/image/chaintable2.png" alt="chaintable2"><br>头结点的数据域一般不存储任何信息<br>头指针<br>—— 指 指向链表第一个结点的指针，若链表有头结点，则是指向头结点的指针<br>在头结点之前<br>—— 头指针具有标志作用，所以常用头指针冠以链表的名字（指针变量的名字）<br>—— 无论链表是否为空，头指针均不为空<br>—— 头指针是链表的必要元素<br>头结点<br>—— 为了操作统一和方便而设立，放在第一个元素的结点之前，其数据域一般无<br>    意义（但也可以用来存放链表的长度）<br>—— 有了头结点，对第一个元素节点前插入结点和删除第一个结点操作与其他结<br>点的操作就统一了<br>——头结点不一定是链表的必须要素<br><img src="/image/chaintable3.png" alt="chaintable3"><br>用结构指针来描述单链表<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">typedef struct Node</div><div class="line">&#123;</div><div class="line">	ElemType data;//数据域</div><div class="line">	struct Node* Next;//指针域</div><div class="line">&#125;Node;</div><div class="line">Typedef struct Node* LinkList</div></pre></td></tr></table></figure></p>
-<p>Typedef struct Node<em>  LinkList 将Node</em>取别名为LinkList<br>结点由存放数据元素的数据域和存放后继结点的地址指针组成</p>
-<p>假设P是指向线性表第i个元素的指针，则该结点ai的数据域为p-&gt;data<br>指针域为p-&gt;next,因为p-&gt;next是一个指针，它指向第i+1个元素ai+1<br>因此，如果p-&gt;data=ai,那么p-&gt;next-&gt;data=ai+1</p>
-<h1 id="单链表元素读取"><a href="#单链表元素读取" class="headerlink" title="单链表元素读取"></a>单链表元素读取</h1><p>链表元素不像顺序存储线性表通过位置计算可以得到，需要一个一个找<br><img src="/image/chaintable6.png" alt="chaintable6"></p>
-<p>时间复杂度为O（n）;核心思想：“工作指针后移”</p>
-<h1 id="单链表元素插入O-n"><a href="#单链表元素插入O-n" class="headerlink" title="单链表元素插入O(n)"></a>单链表元素插入O(n)</h1><p><img src="/image/chaintable8.png" alt="chaintable8"><br><img src="/image/chaintable9.png" alt="chaintable9"></p>
-<h1 id="单链表元素删除O-n"><a href="#单链表元素删除O-n" class="headerlink" title="单链表元素删除O(n)"></a>单链表元素删除O(n)</h1><p><img src="/image/chaintable11.png" alt="chaintable11"><br><img src="/image/chaintable12.png" alt="chaintable12"><br><img src="/image/chaintable13.png" alt="chaintable13"></p>
-<p><a href="https://github.com/YooHannah/algorithm/blob/master/C/%E5%8D%95%E9%93%BE%E8%A1%A8.c" target="_blank" rel="external">以上操作代码链接</a></p>
-<h1 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h1><p>如果我们想从第i个位置开始，插入连续10个元素，<br>对顺序存储结构意味着，每次插入都需要移动n-i个位置,所以每次都是O(n);<br>而单链表，只需要在第一次找到第i个位置的指针，此时时间复杂度为O(n),<br>接下来只是简单的赋值移动指针而已，时间复杂度都是O(1)<br>因此对于频繁插入或删除数据来说，单链表效率更高。</p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;h1 id=&quot;链式存储结构&quot;&gt;&lt;a href=&quot;#链式存储结构&quot; class=&quot;headerlink&quot; title=&quot;链式存储结构&quot;&gt;&lt;/a&gt;链式存储结构&lt;/h1&gt;&lt;p&gt;用一组任意的存储单元存储线性表数据元素，这组存储单元可以存在内存中未被占用的任意位置；每个元素需要两个位置，
     
     </summary>
     
@@ -483,29 +506,6 @@
     <summary type="html">
     
       &lt;p&gt;1.按一定大小，直接在img 标签里设置style&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td c
-    
-    </summary>
-    
-    
-      <category term="html" scheme="http://yoohannah.github.io/tags/html/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Angular 绑定</title>
-    <link href="http://yoohannah.github.io/post/knowledge/Angular-binding.html"/>
-    <id>http://yoohannah.github.io/post/knowledge/Angular-binding.html</id>
-    <published>2016-12-17T16:14:37.000Z</published>
-    <updated>2017-02-01T09:07:27.071Z</updated>
-    
-    <content type="html"><![CDATA[<p>数据: ng-model<br>点击: ng-click=”closeimg()”<br>鼠标经过: ng-mouseenter=”imgclick(item.img_url)”   ng-mouseleave=”closeimg()”<br>显示：ng-show   ng-if<br>禁用：ng-disabled</p>
-<p>select 数据绑定<br>1.显示name,绑定id;<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;select <span class="class"><span class="keyword">class</span></span>=<span class="string">"sel"</span> ng-model=<span class="string">"supplier.status"</span> ng-options=<span class="string">"item.id as item.name for item in statuss"</span> ng-disabled=<span class="string">"read2"</span>&gt;&lt;/select&gt;</div></pre></td></tr></table></figure></p>
-<p>2.显示title，绑定整个对象<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&lt;select <span class="class"><span class="keyword">class</span></span>=<span class="string">"col-md-1"</span> ng-model=<span class="string">"usertype"</span> ng-options=<span class="string">"item.title for item in usertypes"</span> ng-change=<span class="string">"usertypechange()"</span>&gt;</div><div class="line">&lt;option selected value=""&gt;请选择&lt;/option&gt;</div><div class="line">&lt;<span class="regexp">/select&gt;</span></div></pre></td></tr></table></figure></p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;数据: ng-model&lt;br&gt;点击: ng-click=”closeimg()”&lt;br&gt;鼠标经过: ng-mouseenter=”imgclick(item.img_url)”   ng-mouseleave=”closeimg()”&lt;br&gt;显示：ng-show   ng
     
     </summary>
     
