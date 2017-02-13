@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoohannah.github.io/"/>
-  <updated>2017-02-12T07:58:13.873Z</updated>
+  <updated>2017-02-13T09:50:42.000Z</updated>
   <id>http://yoohannah.github.io/</id>
   
   <author>
@@ -14,6 +14,25 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title></title>
+    <link href="http://yoohannah.github.io/post/knowledge/pscutpicture.html"/>
+    <id>http://yoohannah.github.io/post/knowledge/pscutpicture.html</id>
+    <published>2017-02-13T12:06:32.147Z</published>
+    <updated>2017-02-13T09:50:42.000Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="ps简单切图"><a href="#ps简单切图" class="headerlink" title="ps简单切图"></a>ps简单切图</h1><p>1.用PS打开图片；<br>2.在视图中打开标尺，并设置单位为像素；<br>3.选取切图目标<br>方法一：直接使用选框工具选取目标<br><img src="" alt="ps1"><br>方法二：使用“新建参考线”<br>        新建参考线可以点击菜单“视图”获得，也可以直接从标尺拽取；<br><img src="" alt="ps2"><br>4.在右侧图层部分通过点击可见不可见按钮即小眼睛，找到选取目标对应图层文件夹，鼠标右键，在菜单栏中点击“合并组”<br>5.如果是按参考线截取目标需要按ctrl键，同时右键单击阴影图标<br>6.在菜单栏中点击图像——&gt;裁剪<br>7.文件——&gt;存储为web所用格式——&gt;PNG-8<br>8.www.tinypng.com进行压缩。</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;ps简单切图&quot;&gt;&lt;a href=&quot;#ps简单切图&quot; class=&quot;headerlink&quot; title=&quot;ps简单切图&quot;&gt;&lt;/a&gt;ps简单切图&lt;/h1&gt;&lt;p&gt;1.用PS打开图片；&lt;br&gt;2.在视图中打开标尺，并设置单位为像素；&lt;br&gt;3.选取切图目标&lt;br&gt;方法一：
+    
+    </summary>
+    
+    
+  </entry>
   
   <entry>
     <title>赫夫曼编码</title>
@@ -822,27 +841,6 @@
   </entry>
   
   <entry>
-    <title>单循环链表</title>
-    <link href="http://yoohannah.github.io/post/algorithm/singlelooplinklist.html"/>
-    <id>http://yoohannah.github.io/post/algorithm/singlelooplinklist.html</id>
-    <published>2017-02-02T02:06:37.000Z</published>
-    <updated>2017-02-05T13:58:34.322Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="循环链表"><a href="#循环链表" class="headerlink" title="循环链表"></a>循环链表</h1><p>将单链表中终端结点的指针端由空指针改为指向头结点，就使整个单链表形成一个环，这种头尾相接的单链表成为单循环链表，简称循环链表<br><img src="/image/singlelooplinklist1.png" alt="singlelooplinklist1"><br>循环链表并不一定要有头结点<br>与单链表的主要差异为判断链表是否为空<br>单链表为空条件为head-&gt;next = null<br>循环链表为空条件为head-&gt;next = head<br>终端节点用尾指针rear指示，查找终端结点是O(1);开始结点是rear-&gt;next-&gt;next,也是O(1);<br>[插入、删除、返回位置 代码思路参考单链表]<br>Rear == rear-&gt;next 空循环链表<br><img src="/image/singlelooplinklist2.png" alt="singlelooplinklist2"><br>小结<br>循环链表的特点是无须增加存储量，仅对链接方式稍作改变，即可使得表处理更加方便灵活</p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;h1 id=&quot;循环链表&quot;&gt;&lt;a href=&quot;#循环链表&quot; class=&quot;headerlink&quot; title=&quot;循环链表&quot;&gt;&lt;/a&gt;循环链表&lt;/h1&gt;&lt;p&gt;将单链表中终端结点的指针端由空指针改为指向头结点，就使整个单链表形成一个环，这种头尾相接的单链表成为单循环链表，简称循环链表
-    
-    </summary>
-    
-    
-      <category term="js" scheme="http://yoohannah.github.io/tags/js/"/>
-    
-  </entry>
-  
-  <entry>
     <title>静态链表</title>
     <link href="http://yoohannah.github.io/post/algorithm/Staticlinkedlist.html"/>
     <id>http://yoohannah.github.io/post/algorithm/Staticlinkedlist.html</id>
@@ -866,26 +864,18 @@
   </entry>
   
   <entry>
-    <title>线性表链式存储结构</title>
-    <link href="http://yoohannah.github.io/post/algorithm/lineartable-chain.html"/>
-    <id>http://yoohannah.github.io/post/algorithm/lineartable-chain.html</id>
-    <published>2017-02-02T01:12:37.000Z</published>
-    <updated>2017-02-05T13:35:31.735Z</updated>
+    <title>单循环链表</title>
+    <link href="http://yoohannah.github.io/post/algorithm/singlelooplinklist.html"/>
+    <id>http://yoohannah.github.io/post/algorithm/singlelooplinklist.html</id>
+    <published>2017-02-02T02:06:37.000Z</published>
+    <updated>2017-02-05T13:58:34.322Z</updated>
     
-    <content type="html"><![CDATA[<h1 id="链式存储结构"><a href="#链式存储结构" class="headerlink" title="链式存储结构"></a>链式存储结构</h1><p>用一组任意的存储单元存储线性表数据元素，这组存储单元可以存在内存中未被占用的任意位置；每个元素需要两个位置，一个存储元素本身，一个存储它后继元素的存储地址（指针）<br>数据域：存储数据元素信息的域；<br>指针域：存储直接后继位置的域；<br>指针/链：指针域中存储的信息<br>存储映像/结点（node）：数据域和指针域这两部分信息组成的数据元素<br>链式存储结构：n个结点连接成一个链表<br>单链表：链表中每个结点中只包含一个指针域<br><img src="/image/chaintable1.png" alt="chaintable1"><br>头指针：链表中第一个结点的存储位置<br>最后一个结点指针为空<br><img src="/image/chaintable2.png" alt="chaintable2"><br>头结点的数据域一般不存储任何信息<br>头指针<br>—— 指 指向链表第一个结点的指针，若链表有头结点，则是指向头结点的指针<br>在头结点之前<br>—— 头指针具有标志作用，所以常用头指针冠以链表的名字（指针变量的名字）<br>—— 无论链表是否为空，头指针均不为空<br>—— 头指针是链表的必要元素<br>头结点<br>—— 为了操作统一和方便而设立，放在第一个元素的结点之前，其数据域一般无<br>    意义（但也可以用来存放链表的长度）<br>—— 有了头结点，对第一个元素节点前插入结点和删除第一个结点操作与其他结<br>点的操作就统一了<br>——头结点不一定是链表的必须要素<br><img src="/image/chaintable3.png" alt="chaintable3"><br>用结构指针来描述单链表<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">typedef struct Node</div><div class="line">&#123;</div><div class="line">	ElemType data;//数据域</div><div class="line">	struct Node* Next;//指针域</div><div class="line">&#125;Node;</div><div class="line">Typedef struct Node* LinkList</div></pre></td></tr></table></figure></p>
-<p>Typedef struct Node<em>  LinkList 将Node</em>取别名为LinkList<br>结点由存放数据元素的数据域和存放后继结点的地址指针组成</p>
-<p>假设P是指向线性表第i个元素的指针，则该结点ai的数据域为p-&gt;data<br>指针域为p-&gt;next,因为p-&gt;next是一个指针，它指向第i+1个元素ai+1<br>因此，如果p-&gt;data=ai,那么p-&gt;next-&gt;data=ai+1</p>
-<h1 id="单链表元素读取"><a href="#单链表元素读取" class="headerlink" title="单链表元素读取"></a>单链表元素读取</h1><p>链表元素不像顺序存储线性表通过位置计算可以得到，需要一个一个找<br><img src="/image/chaintable6.png" alt="chaintable6"></p>
-<p>时间复杂度为O（n）;核心思想：“工作指针后移”</p>
-<h1 id="单链表元素插入O-n"><a href="#单链表元素插入O-n" class="headerlink" title="单链表元素插入O(n)"></a>单链表元素插入O(n)</h1><p><img src="/image/chaintable8.png" alt="chaintable8"><br><img src="/image/chaintable9.png" alt="chaintable9"></p>
-<h1 id="单链表元素删除O-n"><a href="#单链表元素删除O-n" class="headerlink" title="单链表元素删除O(n)"></a>单链表元素删除O(n)</h1><p><img src="/image/chaintable11.png" alt="chaintable11"><br><img src="/image/chaintable12.png" alt="chaintable12"><br><img src="/image/chaintable13.png" alt="chaintable13"></p>
-<p><a href="https://github.com/YooHannah/algorithm/blob/master/C/%E5%8D%95%E9%93%BE%E8%A1%A8.c" target="_blank" rel="external">以上操作代码链接</a></p>
-<h1 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h1><p>如果我们想从第i个位置开始，插入连续10个元素，<br>对顺序存储结构意味着，每次插入都需要移动n-i个位置,所以每次都是O(n);<br>而单链表，只需要在第一次找到第i个位置的指针，此时时间复杂度为O(n),<br>接下来只是简单的赋值移动指针而已，时间复杂度都是O(1)<br>因此对于频繁插入或删除数据来说，单链表效率更高。</p>
+    <content type="html"><![CDATA[<h1 id="循环链表"><a href="#循环链表" class="headerlink" title="循环链表"></a>循环链表</h1><p>将单链表中终端结点的指针端由空指针改为指向头结点，就使整个单链表形成一个环，这种头尾相接的单链表成为单循环链表，简称循环链表<br><img src="/image/singlelooplinklist1.png" alt="singlelooplinklist1"><br>循环链表并不一定要有头结点<br>与单链表的主要差异为判断链表是否为空<br>单链表为空条件为head-&gt;next = null<br>循环链表为空条件为head-&gt;next = head<br>终端节点用尾指针rear指示，查找终端结点是O(1);开始结点是rear-&gt;next-&gt;next,也是O(1);<br>[插入、删除、返回位置 代码思路参考单链表]<br>Rear == rear-&gt;next 空循环链表<br><img src="/image/singlelooplinklist2.png" alt="singlelooplinklist2"><br>小结<br>循环链表的特点是无须增加存储量，仅对链接方式稍作改变，即可使得表处理更加方便灵活</p>
 ]]></content>
     
     <summary type="html">
     
-      &lt;h1 id=&quot;链式存储结构&quot;&gt;&lt;a href=&quot;#链式存储结构&quot; class=&quot;headerlink&quot; title=&quot;链式存储结构&quot;&gt;&lt;/a&gt;链式存储结构&lt;/h1&gt;&lt;p&gt;用一组任意的存储单元存储线性表数据元素，这组存储单元可以存在内存中未被占用的任意位置；每个元素需要两个位置，
+      &lt;h1 id=&quot;循环链表&quot;&gt;&lt;a href=&quot;#循环链表&quot; class=&quot;headerlink&quot; title=&quot;循环链表&quot;&gt;&lt;/a&gt;循环链表&lt;/h1&gt;&lt;p&gt;将单链表中终端结点的指针端由空指针改为指向头结点，就使整个单链表形成一个环，这种头尾相接的单链表成为单循环链表，简称循环链表
     
     </summary>
     
