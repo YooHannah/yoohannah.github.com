@@ -92,7 +92,7 @@
 <meta property="og:url" content="http://yoohannah.github.io/post/algorithm/kmp.html">
 <meta property="og:site_name" content="My Little World">
 <meta property="og:description" content="next数组经推导发现,进行模式匹配时,子串的移位规律与主串内容无关，与子串的内容有关,因此根据子串的内容,生成基于子串的next数组，用来存放在对应位置如果发生失配,应该将子串的哪个位置移动到失配位置1.失配位置的前缀：永远是子串第一位2.失配位置的后缀：失配位置的前一位3.失配位置的前后缀相同位数：从第一位开始的n位和从后缀开始倒数的n位相同,但前缀连续长度最长不能包含后缀那一位,后缀也不能包">
-<meta property="og:updated_time" content="2017-02-11T02:58:27.783Z">
+<meta property="og:updated_time" content="2017-02-15T14:31:16.642Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="KMP算法">
 <meta name="twitter:description" content="next数组经推导发现,进行模式匹配时,子串的移位规律与主串内容无关，与子串的内容有关,因此根据子串的内容,生成基于子串的next数组，用来存放在对应位置如果发生失配,应该将子串的哪个位置移动到失配位置1.失配位置的前缀：永远是子串第一位2.失配位置的后缀：失配位置的前一位3.失配位置的前后缀相同位数：从第一位开始的n位和从后缀开始倒数的n位相同,但前缀连续长度最长不能包含后缀那一位,后缀也不能包">
@@ -412,7 +412,7 @@
 </tbody>
 </table>
 <figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">var string = "9ababaaaba"; //第一位存放字符串长度</div><div class="line">function getnext(T)&#123;</div><div class="line">  var next=[];</div><div class="line">  next[0]=T.length-1;</div><div class="line">  var i = 1;## 前缀</div><div class="line">  var j = 0;## 后缀</div><div class="line">  next[1] = 0;</div><div class="line">  while(i&lt;T[0])&#123;</div><div class="line">    if(j==0 || T[i] == T[j])&#123;// 子串自己匹配自己</div><div class="line">      i++;</div><div class="line">      j++;</div><div class="line">      next[i]=j;</div><div class="line">    &#125;else&#123;</div><div class="line">      j = next[j]; // 自己匹配发生失配,则视前缀为子串,后缀为主串,将前缀回溯</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">  console.log(next);</div><div class="line">&#125;</div><div class="line">getnext(string);</div></pre></td></tr></table></figure>
-<h1 id="KMP算法"><a href="#KMP算法" class="headerlink" title="KMP算法"></a>KMP算法</h1><p><a href="">代码链接</a></p>
+<h1 id="KMP算法"><a href="#KMP算法" class="headerlink" title="KMP算法"></a>KMP算法</h1><p><a href="https://github.com/YooHannah/algorithm/blob/master/js/KMP.js" target="_blank" rel="external">代码链接</a></p>
 
       
     </div>
@@ -445,8 +445,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/post/algorithm/queue.html" rel="next" title="队列">
-                <i class="fa fa-chevron-left"></i> 队列
+              <a href="/post/algorithm/stacklinked.html" rel="next" title="逆波兰表达式/后缀表达式">
+                <i class="fa fa-chevron-left"></i> 逆波兰表达式/后缀表达式
               </a>
             
           </div>
@@ -525,7 +525,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">39</span>
+              <span class="site-state-item-count">42</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
