@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoohannah.github.io/"/>
-  <updated>2017-02-18T02:21:55.538Z</updated>
+  <updated>2017-02-18T02:41:49.200Z</updated>
   <id>http://yoohannah.github.io/</id>
   
   <author>
@@ -14,6 +14,31 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>阿里巴巴iconfont使用</title>
+    <link href="http://yoohannah.github.io/post/knowledge/iconfont.html"/>
+    <id>http://yoohannah.github.io/post/knowledge/iconfont.html</id>
+    <published>2017-02-18T02:41:51.000Z</published>
+    <updated>2017-02-18T02:41:49.200Z</updated>
+    
+    <content type="html"><![CDATA[<p>1.登录<a href="http://iconfont.cn/plus/home/index?spm=a313x.7781069.1998910419.2.QImsN2" target="_blank" rel="external">http://iconfont.cn/plus/home/index?spm=a313x.7781069.1998910419.2.QImsN2</a> 进入搜索界面<br>2.通过输入关键字搜索自己想要的图标<br>3.将鼠标放到自己想要的图标会出现选择层，点击第一个购物车图标，添加入库<br>4.将所有想要的图标添加完后，点击右上角购物车图标打开项目添加页，点击“加入项目”右侧图标，为选择的图标新建项目,点确定<br><img src="/image/iconfont1.png" alt="iconfont1"><br><img src="/image/iconfont2.png" alt="iconfont2"><br>5.关闭项目添加页，点击导航栏的“图标管理”，进入“我的项目”栏目</p>
+<p><div><br> <img src="/image/iconfont3.png" style="width: 250px;height: 50px;margin-left: 20px" alt="图片名称" align="left"><br> <img src="/image/iconfont4.png" alt="图片名称" align="right" style="width: 150px;height: 60px;margin-top: -30px;margin-right: 80px"><br></div><br>6.使用图标到我们的HTML代码中，可以通过线上链接使用，也可以通过下载至本地使用</p>
+<h2 id="通过线上链接使用"><a href="#通过线上链接使用" class="headerlink" title="通过线上链接使用"></a>通过线上链接使用</h2><p>1.点击查看在线链接,复制代码到项目的静态资源的css文件中一般在src/assets/css路径下的文件<br>2.设置一个类icon，通过这个类的属性改变图标样式，同时在HTML中引用这个类<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">.icon &#123;</div><div class="line">  font-family: &quot;iconfont&quot; !important;</div><div class="line">  font-style: normal;</div><div class="line">  display: inline-block;</div><div class="line">  vertical-align: middle;</div><div class="line">  background-size: 100% auto;</div><div class="line">  background-position: center;</div><div class="line">  -webkit-font-smoothing: asntialiased;</div><div class="line">  -webkit-text-stroke-width: 0.2px;</div><div class="line">  -moz-osx-font-smoothing: grayscale;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>3.在标签中添加icon类,在标签中间加入图标代码，例如：<i class="icon"> &#xe6ac; </i></p>
+<h2 id="下载至本地"><a href="#下载至本地" class="headerlink" title="下载至本地"></a>下载至本地</h2><p>1.点击下载至本地<br>2.将在线链接代码中用到的文件放到项目静态文件夹中，<br>3.将在线链接代码中文件的路径更改为项目中的文件路径，<br>4.其他步骤同线上路径<br>5.也可直接打开下载文件的IconFontDemo/assets/iconfont/的demo.html代码，看如何使用</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;1.登录&lt;a href=&quot;http://iconfont.cn/plus/home/index?spm=a313x.7781069.1998910419.2.QImsN2&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;http://iconfont.cn/
+    
+    </summary>
+    
+    
+      <category term="knowledge" scheme="http://yoohannah.github.io/tags/knowledge/"/>
+    
+  </entry>
   
   <entry>
     <title>git问题处理</title>
@@ -756,31 +781,6 @@
   </entry>
   
   <entry>
-    <title>逆波兰表达式/后缀表达式</title>
-    <link href="http://yoohannah.github.io/post/algorithm/stacklinked.html"/>
-    <id>http://yoohannah.github.io/post/algorithm/stacklinked.html</id>
-    <published>2017-02-02T03:48:37.000Z</published>
-    <updated>2017-02-06T22:08:09.967Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="栈的链式存储结构"><a href="#栈的链式存储结构" class="headerlink" title="栈的链式存储结构"></a>栈的链式存储结构</h1><h2 id="栈的链式存储结构-1"><a href="#栈的链式存储结构-1" class="headerlink" title="栈的链式存储结构"></a>栈的链式存储结构</h2><p><img src="/image/stack2.png" alt="stack2"><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">typedef struct StackNode&#123;</div><div class="line">  ElemType data;          ##存放栈的数据</div><div class="line">  struct StackNode *next;</div><div class="line">&#125;StackNode,*LinkStackPtr;</div><div class="line">typedef struct LinkStack&#123;</div><div class="line">  LinkStackPrt top;        ##top指针</div><div class="line">  int count;               ##栈元素计数器</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<h2 id="栈链的入栈操作"><a href="#栈链的入栈操作" class="headerlink" title="栈链的入栈操作"></a>栈链的入栈操作</h2><p>假设元素值e的新结点是s,top为栈顶指针<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">Status Push(LinkStack *s,ElemType e)&#123;</div><div class="line">  LinkStackPtr p=(LinkStackPtr)malloc(sizeof(StackNode));</div><div class="line">  p-&gt;data = e;</div><div class="line">  p-&gt;next = s-&gt;top;</div><div class="line">  s-&gt;top = p;</div><div class="line">  s-&gt;count++;</div><div class="line">  <span class="keyword">return</span> OK;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<h2 id="栈的出栈操作"><a href="#栈的出栈操作" class="headerlink" title="栈的出栈操作"></a>栈的出栈操作</h2><p>假设变量p用来存储要删除的栈顶结点，将栈顶指针下移一位，最后释放p<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">Status Pop(LinkStack *s,ElemType e)&#123;</div><div class="line">  LinkStackPtr p;</div><div class="line">  <span class="keyword">if</span>(StackEmpty(*s))&#123;</div><div class="line">  <span class="keyword">return</span> ERROR;</div><div class="line">  &#125;</div><div class="line">  *e=s-&gt;top-&gt;data;</div><div class="line">  p=s-&gt;top;</div><div class="line">  s-&gt;top = s-&gt;top-&gt;next;</div><div class="line">  free(p);</div><div class="line">  s-&gt;count--;</div><div class="line">  <span class="keyword">return</span> OK;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<h1 id="逆波兰表达式-后缀表达式"><a href="#逆波兰表达式-后缀表达式" class="headerlink" title="逆波兰表达式/后缀表达式"></a>逆波兰表达式/后缀表达式</h1><p>正常表达式–&gt;后缀表达式<br>（1-2)x(4+5）–&gt; 1 2 - 4 5 + x<br>1.计算后缀表达式<br>主要思想是判断字符是否为运算符，若为数字，则入栈，为运算符则连续出栈两次进行运算，再将运算结果入栈<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> list =[<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="string">'-'</span>,<span class="string">'*'</span>,<span class="string">'+'</span>]</div><div class="line"><span class="keyword">var</span> stack = [];</div><div class="line"><span class="keyword">for</span>(<span class="keyword">var</span> i = <span class="number">0</span>;i&lt;list.length;i++)&#123;</div><div class="line">  <span class="keyword">if</span>(!<span class="built_in">isNaN</span>(list[i]))&#123;</div><div class="line">      stack.push(list[i]);</div><div class="line">    &#125;<span class="keyword">else</span>&#123;</div><div class="line">       <span class="keyword">var</span> a = stack.pop();</div><div class="line">       <span class="keyword">var</span> b = stack.pop();</div><div class="line">       <span class="keyword">if</span>(list[i] ==<span class="string">"+"</span>)&#123;</div><div class="line">        stack.push(b+a);</div><div class="line">       &#125;<span class="keyword">else</span> <span class="keyword">if</span>(list[i] ==<span class="string">"-"</span>)&#123;</div><div class="line">        stack.push(b-a);</div><div class="line">       &#125;<span class="keyword">else</span> <span class="keyword">if</span>(list[i] ==<span class="string">"*"</span>)&#123;</div><div class="line">        stack.push(b*a);</div><div class="line">       &#125;<span class="keyword">else</span> <span class="keyword">if</span>(list[i] ==<span class="string">"/"</span>)&#123;</div><div class="line">        stack.push(b/a);</div><div class="line">       &#125;</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line"><span class="built_in">console</span>.log(stack);</div></pre></td></tr></table></figure></p>
-<p>2.计算表达式转后缀表达式<br>主要思路<br>1，表达式中参与运算的数字、运算符以及小括号分割，形成待处理数组<br>2，循环判断<br>  A.若字符为数字，入栈2，<br>  B.若字符为“+”、“-”，分情况讨论<br>（1）此时栈1为空，入栈；<br>（2）栈1不为空，将“（”左括号以上的符号从栈1 pop到栈2，“（”留          在栈1，处理完后，将“+”、“-”入栈1；<br>   C若字符为“）”，将“（”以上符号从栈1 pop到栈2，“（”也pop出来<br>     但不入栈2<br>   D若字符为“/”“*”“（”直接入栈2<br>   E其他情况，非法字符，抛出异常<br>3.将栈1元素pop到栈2；<br>栈2即后缀表达式<br><a href="https://github.com/YooHannah/algorithm/blob/master/js/%E8%AE%A1%E7%AE%97%E5%BC%8F%E8%BD%AC%E5%90%8E%E7%BC%80%E8%A1%A8%E8%BE%BE%E5%BC%8F(%E6%A0%88%EF%BC%89.js" target="_blank" rel="external">代码链接</a></p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;h1 id=&quot;栈的链式存储结构&quot;&gt;&lt;a href=&quot;#栈的链式存储结构&quot; class=&quot;headerlink&quot; title=&quot;栈的链式存储结构&quot;&gt;&lt;/a&gt;栈的链式存储结构&lt;/h1&gt;&lt;h2 id=&quot;栈的链式存储结构-1&quot;&gt;&lt;a href=&quot;#栈的链式存储结构-1&quot; class=&quot;
-    
-    </summary>
-    
-    
-      <category term="js" scheme="http://yoohannah.github.io/tags/js/"/>
-    
-  </entry>
-  
-  <entry>
     <title>栈</title>
     <link href="http://yoohannah.github.io/post/algorithm/stack.html"/>
     <id>http://yoohannah.github.io/post/algorithm/stack.html</id>
@@ -798,6 +798,31 @@
     <summary type="html">
     
       &lt;h1 id=&quot;栈&quot;&gt;&lt;a href=&quot;#栈&quot; class=&quot;headerlink&quot; title=&quot;栈&quot;&gt;&lt;/a&gt;栈&lt;/h1&gt;&lt;p&gt;1.特殊线性表,所以也分为顺序存储和链式存储结构&lt;br&gt;2.表尾称为栈尾，表头称为栈底&lt;br&gt;3.元素必须后进先出;所有操作只能在表尾进行&lt;br&gt;4
+    
+    </summary>
+    
+    
+      <category term="js" scheme="http://yoohannah.github.io/tags/js/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>逆波兰表达式/后缀表达式</title>
+    <link href="http://yoohannah.github.io/post/algorithm/stacklinked.html"/>
+    <id>http://yoohannah.github.io/post/algorithm/stacklinked.html</id>
+    <published>2017-02-02T03:48:37.000Z</published>
+    <updated>2017-02-06T22:08:09.967Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="栈的链式存储结构"><a href="#栈的链式存储结构" class="headerlink" title="栈的链式存储结构"></a>栈的链式存储结构</h1><h2 id="栈的链式存储结构-1"><a href="#栈的链式存储结构-1" class="headerlink" title="栈的链式存储结构"></a>栈的链式存储结构</h2><p><img src="/image/stack2.png" alt="stack2"><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">typedef struct StackNode&#123;</div><div class="line">  ElemType data;          ##存放栈的数据</div><div class="line">  struct StackNode *next;</div><div class="line">&#125;StackNode,*LinkStackPtr;</div><div class="line">typedef struct LinkStack&#123;</div><div class="line">  LinkStackPrt top;        ##top指针</div><div class="line">  int count;               ##栈元素计数器</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h2 id="栈链的入栈操作"><a href="#栈链的入栈操作" class="headerlink" title="栈链的入栈操作"></a>栈链的入栈操作</h2><p>假设元素值e的新结点是s,top为栈顶指针<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">Status Push(LinkStack *s,ElemType e)&#123;</div><div class="line">  LinkStackPtr p=(LinkStackPtr)malloc(sizeof(StackNode));</div><div class="line">  p-&gt;data = e;</div><div class="line">  p-&gt;next = s-&gt;top;</div><div class="line">  s-&gt;top = p;</div><div class="line">  s-&gt;count++;</div><div class="line">  <span class="keyword">return</span> OK;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h2 id="栈的出栈操作"><a href="#栈的出栈操作" class="headerlink" title="栈的出栈操作"></a>栈的出栈操作</h2><p>假设变量p用来存储要删除的栈顶结点，将栈顶指针下移一位，最后释放p<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">Status Pop(LinkStack *s,ElemType e)&#123;</div><div class="line">  LinkStackPtr p;</div><div class="line">  <span class="keyword">if</span>(StackEmpty(*s))&#123;</div><div class="line">  <span class="keyword">return</span> ERROR;</div><div class="line">  &#125;</div><div class="line">  *e=s-&gt;top-&gt;data;</div><div class="line">  p=s-&gt;top;</div><div class="line">  s-&gt;top = s-&gt;top-&gt;next;</div><div class="line">  free(p);</div><div class="line">  s-&gt;count--;</div><div class="line">  <span class="keyword">return</span> OK;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h1 id="逆波兰表达式-后缀表达式"><a href="#逆波兰表达式-后缀表达式" class="headerlink" title="逆波兰表达式/后缀表达式"></a>逆波兰表达式/后缀表达式</h1><p>正常表达式–&gt;后缀表达式<br>（1-2)x(4+5）–&gt; 1 2 - 4 5 + x<br>1.计算后缀表达式<br>主要思想是判断字符是否为运算符，若为数字，则入栈，为运算符则连续出栈两次进行运算，再将运算结果入栈<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> list =[<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="string">'-'</span>,<span class="string">'*'</span>,<span class="string">'+'</span>]</div><div class="line"><span class="keyword">var</span> stack = [];</div><div class="line"><span class="keyword">for</span>(<span class="keyword">var</span> i = <span class="number">0</span>;i&lt;list.length;i++)&#123;</div><div class="line">  <span class="keyword">if</span>(!<span class="built_in">isNaN</span>(list[i]))&#123;</div><div class="line">      stack.push(list[i]);</div><div class="line">    &#125;<span class="keyword">else</span>&#123;</div><div class="line">       <span class="keyword">var</span> a = stack.pop();</div><div class="line">       <span class="keyword">var</span> b = stack.pop();</div><div class="line">       <span class="keyword">if</span>(list[i] ==<span class="string">"+"</span>)&#123;</div><div class="line">        stack.push(b+a);</div><div class="line">       &#125;<span class="keyword">else</span> <span class="keyword">if</span>(list[i] ==<span class="string">"-"</span>)&#123;</div><div class="line">        stack.push(b-a);</div><div class="line">       &#125;<span class="keyword">else</span> <span class="keyword">if</span>(list[i] ==<span class="string">"*"</span>)&#123;</div><div class="line">        stack.push(b*a);</div><div class="line">       &#125;<span class="keyword">else</span> <span class="keyword">if</span>(list[i] ==<span class="string">"/"</span>)&#123;</div><div class="line">        stack.push(b/a);</div><div class="line">       &#125;</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line"><span class="built_in">console</span>.log(stack);</div></pre></td></tr></table></figure></p>
+<p>2.计算表达式转后缀表达式<br>主要思路<br>1，表达式中参与运算的数字、运算符以及小括号分割，形成待处理数组<br>2，循环判断<br>  A.若字符为数字，入栈2，<br>  B.若字符为“+”、“-”，分情况讨论<br>（1）此时栈1为空，入栈；<br>（2）栈1不为空，将“（”左括号以上的符号从栈1 pop到栈2，“（”留          在栈1，处理完后，将“+”、“-”入栈1；<br>   C若字符为“）”，将“（”以上符号从栈1 pop到栈2，“（”也pop出来<br>     但不入栈2<br>   D若字符为“/”“*”“（”直接入栈2<br>   E其他情况，非法字符，抛出异常<br>3.将栈1元素pop到栈2；<br>栈2即后缀表达式<br><a href="https://github.com/YooHannah/algorithm/blob/master/js/%E8%AE%A1%E7%AE%97%E5%BC%8F%E8%BD%AC%E5%90%8E%E7%BC%80%E8%A1%A8%E8%BE%BE%E5%BC%8F(%E6%A0%88%EF%BC%89.js" target="_blank" rel="external">代码链接</a></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;栈的链式存储结构&quot;&gt;&lt;a href=&quot;#栈的链式存储结构&quot; class=&quot;headerlink&quot; title=&quot;栈的链式存储结构&quot;&gt;&lt;/a&gt;栈的链式存储结构&lt;/h1&gt;&lt;h2 id=&quot;栈的链式存储结构-1&quot;&gt;&lt;a href=&quot;#栈的链式存储结构-1&quot; class=&quot;
     
     </summary>
     
@@ -862,32 +887,6 @@
     <summary type="html">
     
       &lt;p&gt;有环定义:链表的尾节点指向了链表中的某个结点&lt;br&gt;&lt;img src=&quot;/image/ishascircle.png&quot; alt=&quot;ishascircle&quot;&gt;&lt;br&gt;方法一：p、q指针同时向前走，但q每次都从头开始走，对于每个结点，若p、q走的步数不等则说明有环&lt;br&gt;方法二
-    
-    </summary>
-    
-    
-      <category term="js" scheme="http://yoohannah.github.io/tags/js/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>单链表</title>
-    <link href="http://yoohannah.github.io/post/algorithm/Singlelinkedlist.html"/>
-    <id>http://yoohannah.github.io/post/algorithm/Singlelinkedlist.html</id>
-    <published>2017-02-02T02:06:56.000Z</published>
-    <updated>2017-02-05T13:51:57.010Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="头插法建立单链表"><a href="#头插法建立单链表" class="headerlink" title="头插法建立单链表"></a>头插法建立单链表</h1><p><img src="/image/chaintable17.png" alt="chaintable17"><br><img src="/image/chaintable18.png" alt="chaintable18"><br><a href="https://github.com/YooHannah/algorithm/blob/master/C/%E5%8D%95%E9%93%BE%E8%A1%A8.c" target="_blank" rel="external">代码链接</a></p>
-<h1 id="尾插法建立单链表"><a href="#尾插法建立单链表" class="headerlink" title="尾插法建立单链表"></a>尾插法建立单链表</h1><p>头插法建立的链表输入顺序与结点次序相反，尾插法可以使二者顺序相同<br><img src="/image/chaintable20.png" alt="chaintable20"><br>R做索引，S做中介节点<br><a href="https://github.com/YooHannah/algorithm/blob/master/C/%E5%8D%95%E9%93%BE%E8%A1%A8.c" target="_blank" rel="external">代码链接</a><br>重点r=p;将尾节点更新为r</p>
-<h1 id="整表删除"><a href="#整表删除" class="headerlink" title="整表删除"></a>整表删除</h1><p><img src="/image/chaintable21.png" alt="chaintable21"><br>参照删除单链表制定位置结点代码<a href="https://github.com/YooHannah/algorithm/blob/master/C/%E5%8D%95%E9%93%BE%E8%A1%A8.c" target="_blank" rel="external">代码链接</a></p>
-<h1 id="快慢指针—-gt-标尺思想"><a href="#快慢指针—-gt-标尺思想" class="headerlink" title="快慢指针—&gt;标尺思想"></a>快慢指针—&gt;标尺思想</h1><p><img src="/image/staticlinklist3.png" alt="staticlinklist3"><br><a href="https://github.com/YooHannah/algorithm/blob/master/C/%E5%8D%95%E9%93%BE%E8%A1%A8.c" target="_blank" rel="external">快速找到未知长度单链表的中间结点  代码链接</a></p>
-<h1 id="单链表与顺序存储结构优缺点"><a href="#单链表与顺序存储结构优缺点" class="headerlink" title="单链表与顺序存储结构优缺点"></a>单链表与顺序存储结构优缺点</h1><p>1.存储分配方式：<br>  顺序存储结构用一段连续的存储单元依次存储线性表的数据元素;<br>  单链表采用链式存储结构,用一组任意的存储单元存放线性表的元素<br>2.时间性能：<br>—查找<br>顺序存储结构O(1);<br>单链表O(n)<br>—插入和删除<br>顺序存储结构需要平均移动表长一半的元素，时间为O(n);<br>单链表在计算出某位置的指针后，插入和删除时间仅为O(1)<br>3.空间性能<br>顺序存储结构需要预分配存储空间，分大了容易造成空间浪费，分小了容易发生溢出<br>单链表不需要分配存储空间，只要有就可以分配，元素个数也不受限制。</p>
-<h1 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h1><p>1.频繁查找，较少插入删除操作，宜用顺序存储结构，如，游戏开发时用户注册的个人信息的存储<br>2.频繁插入删除操作，较少查找，宜用单链表结构，如游戏中的玩家的装备列表<br>3.当线性表大致长度已知，宜用顺序存储结构，反之，长度变化大或未知，则用单链表</p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;h1 id=&quot;头插法建立单链表&quot;&gt;&lt;a href=&quot;#头插法建立单链表&quot; class=&quot;headerlink&quot; title=&quot;头插法建立单链表&quot;&gt;&lt;/a&gt;头插法建立单链表&lt;/h1&gt;&lt;p&gt;&lt;img src=&quot;/image/chaintable17.png&quot; alt=&quot;chaint
     
     </summary>
     
