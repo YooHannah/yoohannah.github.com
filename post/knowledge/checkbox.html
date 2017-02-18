@@ -95,7 +95,7 @@
 <meta property="og:image" content="http://yoohannah.github.io/image/checkbox1.png">
 <meta property="og:image" content="http://yoohannah.github.io/image/checkbox2.png">
 <meta property="og:image" content="http://yoohannah.github.io/image/checkbox.png">
-<meta property="og:updated_time" content="2017-02-15T14:17:09.483Z">
+<meta property="og:updated_time" content="2017-02-18T01:22:30.336Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="利用checkbox进行各种勾选">
 <meta name="twitter:description" content="单选12345html:&amp;lt;div ng-repeat=&amp;quot;item in labels track by $index&amp;quot; style=&amp;quot;padding-left: 50px&amp;quot;&amp;gt;  &amp;lt;label class=&amp;quot;mt-checkbox mt-checkbox-single mt-checkbox-outline&amp;quot; &amp;gt;&amp;l">
@@ -343,7 +343,7 @@
 <p><img src="/image/checkbox1.png" alt="checkbox1"></p>
 <h1 id="多选"><a href="#多选" class="headerlink" title="多选"></a>多选</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">&lt;div class=&quot;portlet-body dataTables_wrapper&quot; style=&quot;margin: -20px 20px 0px 20px;&quot; ng-if=&quot;detaildata.goods.length&gt;0&quot;&gt;</div><div class="line">	&lt;div class=&quot;table-scrollable&quot;&gt;</div><div class="line">		&lt;table class=&quot;table table-bordered table-hover no-footer&quot;&gt;</div><div class="line">			&lt;thead&gt;</div><div class="line">				&lt;tr role=&quot;row&quot; class=&quot;heading&quot;&gt;</div><div class="line">					&lt;th&gt;ID&lt;/th&gt;</div><div class="line">					&lt;th&gt;</div><div class="line">						&lt;label class=&quot;mt-checkbox mt-checkbox-single mt-checkbox-outline&quot;&gt;&lt;input type=&quot;checkbox&quot; ng-model=&quot;detaildata.goods.allchecked&quot; ng-change=&quot;selectall()&quot;/&gt;&lt;span&gt;&lt;/span&gt;&lt;/label&gt;</div><div class="line">					&lt;/th&gt;</div><div class="line">				&lt;/tr&gt;</div><div class="line">			&lt;/thead&gt;</div><div class="line">			&lt;tbody&gt;</div><div class="line">				&lt;tr role=&quot;row&quot; ng-repeat=&quot;item in detaildata.goods track by $index&quot;&gt;</div><div class="line">					&lt;td&gt;&#123;&#123;item.id&#125;&#125;&lt;/td&gt;</div><div class="line">					&lt;td&gt;</div><div class="line">						&lt;label class=&quot;mt-checkbox mt-checkbox-single mt-checkbox-outline&quot;&gt;&lt;input  type=&quot;checkbox&quot; ng-model=&quot;item.checked&quot; ng-click=&quot;UpdateSelection($index)&quot;/&gt;&lt;span&gt;&lt;/span&gt;&lt;/label&gt;</div><div class="line">					&lt;/td&gt;</div><div class="line">				&lt;/tr&gt;</div><div class="line">			&lt;/tbody&gt;</div><div class="line">		&lt;/table&gt;</div><div class="line">	&lt;/div&gt;</div><div class="line">&lt;/div&gt;</div></pre></td></tr></table></figure>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"> $scope.UpdateSelection = function(index)&#123;</div><div class="line">    if($scope.detaildata.goods[index].checked)&#123;</div><div class="line"></div><div class="line">      tempdata2.push($scope.detaildata.goods[index]); 					//处理选中项</div><div class="line"></div><div class="line">      if(tempdata2.length == $scope.detaildata.goods.length)&#123;   //判断是否满足全选条件，						$scope.detaildata.goods.allchecked = true;                //满足则将全选按钮设置为勾选状态</div><div class="line">      &#125;else&#123;</div><div class="line">        $scope.detaildata.goods.allchecked = false;             //否则为未选状态</div><div class="line">      &#125;</div><div class="line">    &#125; else &#123;</div><div class="line">      $scope.alldata.goods[index].checked = false; //全选按钮设为</div><div class="line">      angular.forEach(tempdata2, function(list,num)&#123;</div><div class="line">        if($scope.detaildata.goods[index].deal_id == list.deal_id)&#123;</div><div class="line">         tempdata2.splice(num,1);</div><div class="line">         $scope.detaildata.goods.allchecked = false;</div><div class="line">         return;</div><div class="line">       &#125;</div><div class="line">     &#125;);</div><div class="line"></div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p><div style="margin-bottom: 200px"><br> <img src="/image/checkbox2.png" style="width: 150px;height: 300px;margin-left: 80px" alt="图片名称" align="left"><br> <img src="/image/checkbox.png" alt="图片名称" align="right" style="width: 150px;height: 300px;margin-top: -30px;margin-right: 80px"><br></div></p>
+<p><div style="margin-bottom: 250px"><br> <img src="/image/checkbox2.png" style="width: 150px;height: 300px;margin-left: 80px" alt="图片名称" align="left"><br> <img src="/image/checkbox.png" alt="图片名称" align="right" style="width: 150px;height: 300px;margin-top: -30px;margin-right: 80px"><br></div></p>
 <h1 id="全选"><a href="#全选" class="headerlink" title="全选"></a>全选</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line">$scope.selectall = function()&#123;</div><div class="line"> if($scope.detaildata.goods.allchecked)&#123;</div><div class="line">  for(var i = 0;i &lt; $scope.detaildata.goods.length;i++)&#123;</div><div class="line">    $scope.detaildata.goods[i].checked = true;       //把每个备选项处理为已选状态</div><div class="line">    var num = 0;</div><div class="line">    for(var j = 0;j &lt; tempdata2.length;j++)&#123;</div><div class="line">      if($scope.detaildata.goods[i].deal_id != tempdata2[j].deal_id)&#123;</div><div class="line">        num = num+1;</div><div class="line">      &#125;else&#123;</div><div class="line">        num = num;</div><div class="line">      &#125;</div><div class="line">    &#125;</div><div class="line">    if(num == tempdata2.length)&#123;</div><div class="line">      tempdata2.push($scope.detaildata.goods[i]); //将所有为选择的数据处理到临时集合</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">&#125;else&#123;</div><div class="line">  for(var i = 0;i &lt; $scope.detaildata.goods.length;i++)&#123;</div><div class="line">    $scope.detaildata.goods[i].checked = false; //把每个备选项处理为未选状态</div><div class="line">  &#125;</div><div class="line">  tempdata2 = []; //清空临时集合</div><div class="line">&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
       
     </div>
@@ -376,8 +376,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/post/algorithm/Huffman.html" rel="next" title="赫夫曼编码">
-                <i class="fa fa-chevron-left"></i> 赫夫曼编码
+              <a href="/post/algorithm/treetransform.html" rel="next" title="树、森林和二叉树的转换与遍历">
+                <i class="fa fa-chevron-left"></i> 树、森林和二叉树的转换与遍历
               </a>
             
           </div>
@@ -385,6 +385,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/post/algorithm/Huffman.html" rel="prev" title="赫夫曼编码">
+                赫夫曼编码 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -452,17 +456,24 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">42</span>
+              <span class="site-state-item-count">44</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
 
           
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">1</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
 
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-count">9</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
