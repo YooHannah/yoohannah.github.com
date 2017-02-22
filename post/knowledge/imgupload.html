@@ -68,7 +68,7 @@
 <link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="git," />
+  <meta name="keywords" content="js," />
 
 
 
@@ -86,16 +86,16 @@
 
 
 
-<meta name="description" content="git下载项目 git clone + 地址进入环境 ssh + 地址切换根目录/返回上一级 cd ..仅查看本地分支：cd branch查看远程分支 git branch -a重新获取远程分支状态（有哪些远程分支）：git fetch -p origin拉取远端分支更新服务器分支 git pull切换分支 git checkout + 分支名删除本地分支 Git branch -d 分支名删除远">
+<meta name="description" content="//定义file-Model指令的代码12345678910111213141516171819MetronicApp.directive(&apos;fileModel&apos;, [&apos;$parse&apos;, function ($parse) &amp;#123;  return &amp;#123;    restrict: &apos;A&apos;,    link: function(scope, element, attrs, ngModel">
 <meta property="og:type" content="article">
-<meta property="og:title" content="常用命令">
-<meta property="og:url" content="http://yoohannah.github.io/post/knowledge/gitcommand.html">
+<meta property="og:title" content="AngularJs自定义指令实现图片上传">
+<meta property="og:url" content="http://yoohannah.github.io/post/knowledge/imgupload.html">
 <meta property="og:site_name" content="My Little World">
-<meta property="og:description" content="git下载项目 git clone + 地址进入环境 ssh + 地址切换根目录/返回上一级 cd ..仅查看本地分支：cd branch查看远程分支 git branch -a重新获取远程分支状态（有哪些远程分支）：git fetch -p origin拉取远端分支更新服务器分支 git pull切换分支 git checkout + 分支名删除本地分支 Git branch -d 分支名删除远">
-<meta property="og:updated_time" content="2017-02-06T14:18:46.866Z">
+<meta property="og:description" content="//定义file-Model指令的代码12345678910111213141516171819MetronicApp.directive(&apos;fileModel&apos;, [&apos;$parse&apos;, function ($parse) &amp;#123;  return &amp;#123;    restrict: &apos;A&apos;,    link: function(scope, element, attrs, ngModel">
+<meta property="og:updated_time" content="2017-02-22T14:15:15.227Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="常用命令">
-<meta name="twitter:description" content="git下载项目 git clone + 地址进入环境 ssh + 地址切换根目录/返回上一级 cd ..仅查看本地分支：cd branch查看远程分支 git branch -a重新获取远程分支状态（有哪些远程分支）：git fetch -p origin拉取远端分支更新服务器分支 git pull切换分支 git checkout + 分支名删除本地分支 Git branch -d 分支名删除远">
+<meta name="twitter:title" content="AngularJs自定义指令实现图片上传">
+<meta name="twitter:description" content="//定义file-Model指令的代码12345678910111213141516171819MetronicApp.directive(&apos;fileModel&apos;, [&apos;$parse&apos;, function ($parse) &amp;#123;  return &amp;#123;    restrict: &apos;A&apos;,    link: function(scope, element, attrs, ngModel">
 
 
 
@@ -123,13 +123,13 @@
 
 
 
-  <link rel="canonical" href="http://yoohannah.github.io/post/knowledge/gitcommand.html"/>
+  <link rel="canonical" href="http://yoohannah.github.io/post/knowledge/imgupload.html"/>
 
 
 
 
 
-  <title> 常用命令 | My Little World </title>
+  <title> AngularJs自定义指令实现图片上传 | My Little World </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -260,7 +260,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="http://yoohannah.github.io/post/knowledge/gitcommand.html">
+  <link itemprop="mainEntityOfPage" href="http://yoohannah.github.io/post/knowledge/imgupload.html">
 
   <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
     <meta itemprop="name" content="YooHannah">
@@ -284,7 +284,7 @@
             
             
               
-                常用命令
+                AngularJs自定义指令实现图片上传
               
             
           </h1>
@@ -297,8 +297,8 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-12-17T16:31:06+08:00">
-                2016-12-17
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-02-22T22:14:30+08:00">
+                2017-02-22
               </time>
             
 
@@ -333,9 +333,12 @@
       
 
       
-        <h1 id="git"><a href="#git" class="headerlink" title="git"></a>git</h1><p>下载项目 git clone + 地址<br>进入环境 ssh + 地址<br>切换根目录/返回上一级 cd ..<br>仅查看本地分支：cd branch<br>查看远程分支 git branch -a<br>重新获取远程分支状态（有哪些远程分支）：git fetch -p origin<br>拉取远端分支更新服务器分支 git pull<br>切换分支 git checkout + 分支名<br>删除本地分支 Git branch -d 分支名<br>删除远程分支 git push –delete origin 远程分支名</p>
-<h1 id="cmd"><a href="#cmd" class="headerlink" title="cmd"></a>cmd</h1><p>切换目录 盘，直接“盘名：”，回车<br>进入文件夹，用 cd  路径。</p>
-<h1 id="hexo"><a href="#hexo" class="headerlink" title="hexo"></a>hexo</h1><p>hexo server     开启预览访问端口（默认端口4000，’ctrl + c’关闭server）<br>hexo clean      清除PUBLIC和编译文件<br>hexo generate   生成静态页面至public目录<br>hexo deploy     同步到GITHUB<br>hexo new ”postName” 新建文章 存放在主目录的source下的POST目录下<br>hexo new page”pageName”  新建页面<br>hexo help  查看帮助<br>hexo version 查看Hexo的版本</p>
+        <p>//定义file-Model指令的代码<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">MetronicApp.directive(<span class="string">'fileModel'</span>, [<span class="string">'$parse'</span>, <span class="function"><span class="keyword">function</span> (<span class="params">$parse</span>) </span>&#123;</div><div class="line">  <span class="keyword">return</span> &#123;</div><div class="line">    <span class="attr">restrict</span>: <span class="string">'A'</span>,</div><div class="line">    <span class="attr">link</span>: <span class="function"><span class="keyword">function</span>(<span class="params">scope, element, attrs, ngModel</span>) </span>&#123;</div><div class="line">      <span class="keyword">var</span> model = $parse(attrs.fileModel);</div><div class="line">      <span class="keyword">var</span> modelSetter = model.assign;</div><div class="line">      element.bind(<span class="string">'change'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">event</span>)</span>&#123;</div><div class="line">        scope.$apply(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">          modelSetter(scope, element[<span class="number">0</span>].files[<span class="number">0</span>]);</div><div class="line">        &#125;);</div><div class="line">        <span class="comment">//附件预览</span></div><div class="line">           scope.file = (event.srcElement || event.target).files[<span class="number">0</span>];</div><div class="line">            scope.getFile();</div><div class="line">            <span class="keyword">this</span>.value = <span class="string">''</span>; <span class="comment">//清除已上传的文件，否则无法连续上传相同文件</span></div><div class="line">      &#125;);</div><div class="line">    &#125;</div><div class="line">  &#125;;</div><div class="line">&#125;</div><div class="line">])</div></pre></td></tr></table></figure></p>
+<p>//在HTML使用时的代码<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"> &lt;div class=&quot;form-group&quot;&gt;</div><div class="line">    &lt;label class=&quot;control-label col-md-3&quot;&gt;图片上传&lt;/label&gt;</div><div class="line">     &lt;div class=&quot;col-md-9 fileinput&quot;&gt;</div><div class="line">         &lt;img src=&quot;&#123;&#123;detaildata.banner&#125;&#125;&quot; name=&quot;img&quot; style=&quot;width:40px;height: 40px;&quot;&gt;</div><div class="line">        &lt;span class=&quot;btn red btn-outline btn-file&quot; style=&quot;margin-left: 10px;margin-top:0px;&quot;&gt;</div><div class="line">        &lt;span class=&quot;fileinput-new&quot;&gt; 重新上传 &lt;/span&gt;</div><div class="line">        &lt;input type=&quot;hidden&quot;&gt;&lt;input id=&quot;upload&quot; type=&quot;file&quot; file-model=&quot;myFile&quot; name=&quot;...&quot; accept=&quot;image/*&quot; &gt;</div><div class="line">        &lt;/span&gt;</div><div class="line">    &lt;/div&gt;</div><div class="line">&lt;/div&gt;</div></pre></td></tr></table></figure></p>
+<p>//Controller中上传图片时的js函数<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">$scope.getFile = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">   <span class="keyword">var</span> postData = &#123;</div><div class="line">            <span class="attr">fileName</span>: $scope.file</div><div class="line">          &#125;;</div><div class="line">       fileReader.readAsDataUrl($rootScope.settings.url + <span class="string">""</span>, postData).success( <span class="function"><span class="keyword">function</span>(<span class="params">response</span>) </span>&#123;</div><div class="line">                $scope.detaildata.banner = response;</div><div class="line">        &#125;);</div><div class="line"> &#125;;</div></pre></td></tr></table></figure></p>
+<p> //定义fileReader服务的代码<br> <figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">angular.module(<span class="string">'MetronicApp'</span>)</div><div class="line">.factory(<span class="string">'fileReader'</span>, [<span class="string">"$http"</span>, <span class="function"><span class="keyword">function</span>(<span class="params">$http</span>)</span>&#123;</div><div class="line">  <span class="keyword">var</span> readAsDataURL = <span class="function"><span class="keyword">function</span> (<span class="params">url, data</span>) </span>&#123;</div><div class="line">    <span class="keyword">var</span> fd = <span class="keyword">new</span> FormData();</div><div class="line">          angular.forEach(data, <span class="function"><span class="keyword">function</span>(<span class="params">val, key</span>) </span>&#123;</div><div class="line">            fd.append(key, val);</div><div class="line">          &#125;);</div><div class="line">          <span class="keyword">var</span> args = &#123;</div><div class="line">            <span class="attr">method</span>: <span class="string">'POST'</span>,</div><div class="line">            <span class="attr">url</span>: url,</div><div class="line">            <span class="attr">data</span>: fd,</div><div class="line">            <span class="attr">headers</span>: &#123;<span class="string">'Content-Type'</span>: <span class="literal">undefined</span>&#125;,</div><div class="line">            <span class="attr">transformRequest</span>: angular.identity</div><div class="line">          &#125;;</div><div class="line">          <span class="keyword">return</span> $http(args);</div><div class="line">  &#125;;</div><div class="line">  <span class="keyword">return</span> &#123;</div><div class="line">    <span class="attr">readAsDataUrl</span>: readAsDataURL</div><div class="line">  &#125;;</div><div class="line">&#125;])</div></pre></td></tr></table></figure></p>
+<p>整个上传的过程，点击“重新上传”按钮，file-model指令绑定的change事件会检测本次选择的图片与上次是否为一致，不一致则会执行file-model定义时的代码<br> element.bind(‘change’, function(event){<br>        scope.$apply(function(){<br>          modelSetter(scope, element[0].files[0]);<br>        });<br>        //附件预览<br>           scope.file = (event.srcElement || event.target).files[0];      //给Controller 中$scope.file赋值<br>            scope.getFile();    //调用Controller 中 $scope.getFile();<br>          this.value = ‘’; //清除已上传的文件，否则无法连续上传相同文件<br>      });<br>控制器中的$scope.getFile()函数用到fileReader.readAsDataUrl函数上传图片给后台，这个函数在定义fileReader时被定义</p>
+<p>定义指令时，若没有清除已上传文件，连续多次上传时，将导致无法连续上传相同图片的bug.</p>
 
       
     </div>
@@ -359,7 +362,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/git/" rel="tag"># git</a>
+            <a href="/tags/js/" rel="tag"># js</a>
           
         </div>
       
@@ -368,8 +371,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/post/knowledge/data-localStorage.html" rel="next" title="数据暂存(localStorage)">
-                <i class="fa fa-chevron-left"></i> 数据暂存(localStorage)
+              <a href="/post/algorithm/graph.html" rel="next" title="图">
+                <i class="fa fa-chevron-left"></i> 图
               </a>
             
           </div>
@@ -377,10 +380,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/post/knowledge/angularforeach.html" rel="prev" title="angular.forEach">
-                angular.forEach <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -427,17 +426,8 @@
       
 
       
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
-            文章目录
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview">
-            站点概览
-          </li>
-        </ul>
-      
 
-      <section class="site-overview sidebar-panel">
+      <section class="site-overview sidebar-panel sidebar-panel-active">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/psb.jpg"
@@ -497,22 +487,6 @@
 
       </section>
 
-      
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#git"><span class="nav-number">1.</span> <span class="nav-text">git</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#cmd"><span class="nav-number">2.</span> <span class="nav-text">cmd</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#hexo"><span class="nav-number">3.</span> <span class="nav-text">hexo</span></a></li></ol></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
       
 
     </div>

@@ -86,18 +86,16 @@
 
 
 
-<meta name="description" content="栈的链式存储结构栈的链式存储结构12345678typedef struct StackNode&amp;#123;  ElemType data;          ##存放栈的数据  struct StackNode *next;&amp;#125;StackNode,*LinkStackPtr;typedef struct LinkStack&amp;#123;  LinkStackPrt top;">
+<meta name="description" content="图的定义图:由顶点的有穷非空集合和顶点之间边的集合组成，通常表示为：G(V,E),     —-G表示一个图，V是图G中顶点的集合，E是图G中边的集合|                | 线性表           | 树                |           图           || ————-  |:—————-:| —————–:|| 数据元素       | 元素">
 <meta property="og:type" content="article">
-<meta property="og:title" content="逆波兰表达式/后缀表达式">
-<meta property="og:url" content="http://yoohannah.github.io/post/algorithm/stacklinked.html">
+<meta property="og:title" content="图">
+<meta property="og:url" content="http://yoohannah.github.io/post/algorithm/graph.html">
 <meta property="og:site_name" content="My Little World">
-<meta property="og:description" content="栈的链式存储结构栈的链式存储结构12345678typedef struct StackNode&amp;#123;  ElemType data;          ##存放栈的数据  struct StackNode *next;&amp;#125;StackNode,*LinkStackPtr;typedef struct LinkStack&amp;#123;  LinkStackPrt top;">
-<meta property="og:image" content="http://yoohannah.github.io/image/stack2.png">
-<meta property="og:updated_time" content="2017-02-06T22:08:09.967Z">
+<meta property="og:description" content="图的定义图:由顶点的有穷非空集合和顶点之间边的集合组成，通常表示为：G(V,E),     —-G表示一个图，V是图G中顶点的集合，E是图G中边的集合|                | 线性表           | 树                |           图           || ————-  |:—————-:| —————–:|| 数据元素       | 元素">
+<meta property="og:updated_time" content="2017-02-22T13:59:53.108Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="逆波兰表达式/后缀表达式">
-<meta name="twitter:description" content="栈的链式存储结构栈的链式存储结构12345678typedef struct StackNode&amp;#123;  ElemType data;          ##存放栈的数据  struct StackNode *next;&amp;#125;StackNode,*LinkStackPtr;typedef struct LinkStack&amp;#123;  LinkStackPrt top;">
-<meta name="twitter:image" content="http://yoohannah.github.io/image/stack2.png">
+<meta name="twitter:title" content="图">
+<meta name="twitter:description" content="图的定义图:由顶点的有穷非空集合和顶点之间边的集合组成，通常表示为：G(V,E),     —-G表示一个图，V是图G中顶点的集合，E是图G中边的集合|                | 线性表           | 树                |           图           || ————-  |:—————-:| —————–:|| 数据元素       | 元素">
 
 
 
@@ -125,13 +123,13 @@
 
 
 
-  <link rel="canonical" href="http://yoohannah.github.io/post/algorithm/stacklinked.html"/>
+  <link rel="canonical" href="http://yoohannah.github.io/post/algorithm/graph.html"/>
 
 
 
 
 
-  <title> 逆波兰表达式/后缀表达式 | My Little World </title>
+  <title> 图 | My Little World </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -262,7 +260,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="http://yoohannah.github.io/post/algorithm/stacklinked.html">
+  <link itemprop="mainEntityOfPage" href="http://yoohannah.github.io/post/algorithm/graph.html">
 
   <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
     <meta itemprop="name" content="YooHannah">
@@ -286,7 +284,7 @@
             
             
               
-                逆波兰表达式/后缀表达式
+                图
               
             
           </h1>
@@ -299,8 +297,8 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-02-02T11:48:37+08:00">
-                2017-02-02
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-02-22T21:59:30+08:00">
+                2017-02-22
               </time>
             
 
@@ -335,11 +333,7 @@
       
 
       
-        <h1 id="栈的链式存储结构"><a href="#栈的链式存储结构" class="headerlink" title="栈的链式存储结构"></a>栈的链式存储结构</h1><h2 id="栈的链式存储结构-1"><a href="#栈的链式存储结构-1" class="headerlink" title="栈的链式存储结构"></a>栈的链式存储结构</h2><p><img src="/image/stack2.png" alt="stack2"><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">typedef struct StackNode&#123;</div><div class="line">  ElemType data;          ##存放栈的数据</div><div class="line">  struct StackNode *next;</div><div class="line">&#125;StackNode,*LinkStackPtr;</div><div class="line">typedef struct LinkStack&#123;</div><div class="line">  LinkStackPrt top;        ##top指针</div><div class="line">  int count;               ##栈元素计数器</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<h2 id="栈链的入栈操作"><a href="#栈链的入栈操作" class="headerlink" title="栈链的入栈操作"></a>栈链的入栈操作</h2><p>假设元素值e的新结点是s,top为栈顶指针<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">Status Push(LinkStack *s,ElemType e)&#123;</div><div class="line">  LinkStackPtr p=(LinkStackPtr)malloc(sizeof(StackNode));</div><div class="line">  p-&gt;data = e;</div><div class="line">  p-&gt;next = s-&gt;top;</div><div class="line">  s-&gt;top = p;</div><div class="line">  s-&gt;count++;</div><div class="line">  <span class="keyword">return</span> OK;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<h2 id="栈的出栈操作"><a href="#栈的出栈操作" class="headerlink" title="栈的出栈操作"></a>栈的出栈操作</h2><p>假设变量p用来存储要删除的栈顶结点，将栈顶指针下移一位，最后释放p<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">Status Pop(LinkStack *s,ElemType e)&#123;</div><div class="line">  LinkStackPtr p;</div><div class="line">  <span class="keyword">if</span>(StackEmpty(*s))&#123;</div><div class="line">  <span class="keyword">return</span> ERROR;</div><div class="line">  &#125;</div><div class="line">  *e=s-&gt;top-&gt;data;</div><div class="line">  p=s-&gt;top;</div><div class="line">  s-&gt;top = s-&gt;top-&gt;next;</div><div class="line">  free(p);</div><div class="line">  s-&gt;count--;</div><div class="line">  <span class="keyword">return</span> OK;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<h1 id="逆波兰表达式-后缀表达式"><a href="#逆波兰表达式-后缀表达式" class="headerlink" title="逆波兰表达式/后缀表达式"></a>逆波兰表达式/后缀表达式</h1><p>正常表达式–&gt;后缀表达式<br>（1-2)x(4+5）–&gt; 1 2 - 4 5 + x<br>1.计算后缀表达式<br>主要思想是判断字符是否为运算符，若为数字，则入栈，为运算符则连续出栈两次进行运算，再将运算结果入栈<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> list =[<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="string">'-'</span>,<span class="string">'*'</span>,<span class="string">'+'</span>]</div><div class="line"><span class="keyword">var</span> stack = [];</div><div class="line"><span class="keyword">for</span>(<span class="keyword">var</span> i = <span class="number">0</span>;i&lt;list.length;i++)&#123;</div><div class="line">  <span class="keyword">if</span>(!<span class="built_in">isNaN</span>(list[i]))&#123;</div><div class="line">      stack.push(list[i]);</div><div class="line">    &#125;<span class="keyword">else</span>&#123;</div><div class="line">       <span class="keyword">var</span> a = stack.pop();</div><div class="line">       <span class="keyword">var</span> b = stack.pop();</div><div class="line">       <span class="keyword">if</span>(list[i] ==<span class="string">"+"</span>)&#123;</div><div class="line">        stack.push(b+a);</div><div class="line">       &#125;<span class="keyword">else</span> <span class="keyword">if</span>(list[i] ==<span class="string">"-"</span>)&#123;</div><div class="line">        stack.push(b-a);</div><div class="line">       &#125;<span class="keyword">else</span> <span class="keyword">if</span>(list[i] ==<span class="string">"*"</span>)&#123;</div><div class="line">        stack.push(b*a);</div><div class="line">       &#125;<span class="keyword">else</span> <span class="keyword">if</span>(list[i] ==<span class="string">"/"</span>)&#123;</div><div class="line">        stack.push(b/a);</div><div class="line">       &#125;</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line"><span class="built_in">console</span>.log(stack);</div></pre></td></tr></table></figure></p>
-<p>2.计算表达式转后缀表达式<br>主要思路<br>1，表达式中参与运算的数字、运算符以及小括号分割，形成待处理数组<br>2，循环判断<br>  A.若字符为数字，入栈2，<br>  B.若字符为“+”、“-”，分情况讨论<br>（1）此时栈1为空，入栈；<br>（2）栈1不为空，将“（”左括号以上的符号从栈1 pop到栈2，“（”留          在栈1，处理完后，将“+”、“-”入栈1；<br>   C若字符为“）”，将“（”以上符号从栈1 pop到栈2，“（”也pop出来<br>     但不入栈2<br>   D若字符为“/”“*”“（”直接入栈2<br>   E其他情况，非法字符，抛出异常<br>3.将栈1元素pop到栈2；<br>栈2即后缀表达式<br><a href="https://github.com/YooHannah/algorithm/blob/master/js/%E8%AE%A1%E7%AE%97%E5%BC%8F%E8%BD%AC%E5%90%8E%E7%BC%80%E8%A1%A8%E8%BE%BE%E5%BC%8F(%E6%A0%88%EF%BC%89.js" target="_blank" rel="external">代码链接</a></p>
+        <h1 id="图的定义"><a href="#图的定义" class="headerlink" title="图的定义"></a>图的定义</h1><p>图:由顶点的有穷非空集合和顶点之间边的集合组成，通常表示为：G(V,E),<br>     —-G表示一个图，V是图G中顶点的集合，E是图G中边的集合<br>|                | 线性表           | 树                |           图           |<br>| ————-  |:—————-:| —————–:|<br>| 数据元素       | 元素             | 结点              |           顶点         |<br>| 没有数据元素   | 空表             | 空树              | 不能没有顶点，有穷非空 |<br>| 数据元素间关系 | 相邻之间:线性关系| 相邻两层:层次关系 | 任意两个顶点之间都可能有关系顶点之间逻辑关系用边表示，边集可以是空的|<br>无向边：顶点Vi到Vj之间的边没有方向,用无序偶(Vi,Vj)表示<br>有向边/弧：顶点Vi到Vj之间的边有方向,用有序偶<vi,vj>表示,Vi称为弧尾，Vj称为弧头<br>简单图：在该类图结构中，不存在顶点到其自身的边(自己指向自己)且同一条边不重复出现<br>无向完全图:在该类图结构中，任意两个顶点之间都存在边，含n个顶点的无向完全图有n<em>(n-1)/2条边<br>有向完全图:在该类图结构中，任意两个顶点之间都存在方向互为相反的两条弧，含n个顶点的有向完全图有n</em>(n-1)条边<br>稀疏图：边或弧数小于n<em>logn(n是顶点的个数)<br>稠密图：边或弧数大于n</em>logn(n是顶点的个数)<br>权：图的边或弧带有的与它相关的数字<br>网：带权的图<br>子图：图G1(V1,E1),和G2(V2,E2),如果V2 \subseteq V1，E2 \subseteq E1 ,V2 属于 V1，E2 属于 E1则称G2为G1的子图<br><a href="http://blog.csdn.net/sanqima/article/details/48576361" target="_blank" rel="external">http://blog.csdn.net/sanqima/article/details/48576361</a><br>邻接点：无向图G=(V,E),如果边(V1,V2)属于E，则称顶点V1和V2互为邻接点，即V1和V2相邻接<br>——-边(V1,V2)依附于顶点V1和V2，或者说边(V1,V2)与顶点V1和V2相关联<br>顶点V的度：和顶点V相关联的边的数目，记为TD(V)<br>邻接：有向图G=(V,E),如果边<v1,v2>属于E，则称顶点V1邻接到顶点V2,顶点V2邻接自顶点V1<br>顶点V的入度:以顶点V为头的弧的数目，记为    ID(V)<br>顶点V的出度:以顶点V为尾的弧的数目，记为    OD(V)<br>TD(V) = ID(V) + OD(V);<br>路径:图G=(V,E)中从顶点V1到顶点V2的路线叫从顶点V1到顶点V2的路径，注意有向图和无向图的区别<br>路径的长度：路径上边/弧的数目<br>回路/环：第一个顶点和最后一个顶点相同的路径<br>简单路径：序列中顶点不重复出现的路径<br>简单回路/简单环:除了第一个顶点和最后一个顶点之外，其余顶点不重复出现的回路<br>连通：在无向图G中，如果顶点V1到顶点V2有路径则称V1和V2是连通的<br>连通图：图中任意两个顶点Vi和Vj都是连通的，则称G是连通图<br>连通分量：无向图中的极大连通子图<br>—-连通的子图<br>—-连通子图含有极大顶点数<br>—-具有极大顶点数的连通子图包含依附于这些顶点的所有边<br>强连通图：在该类有向图G中，每一对Vi到Vj都存在路径<br>强连通分量：有向图中的极大强连通子图<br>非强连通图有强连通分量，强连通分量不止属于强连通图<br>连通图的生成树：极小的连通子图，它含有图中全部n个顶点，但只有足以构成一棵树的n-1条边<br>有向树：如果一个有向图恰有一个顶点入度为0，其余顶点入度为1，则该图将生成有向树，从而构成森林</v1,v2></vi,vj></p>
 
       
     </div>
@@ -372,8 +366,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/post/algorithm/stack.html" rel="next" title="栈">
-                <i class="fa fa-chevron-left"></i> 栈
+              <a href="/post/knowledge/iconfont.html" rel="next" title="阿里巴巴iconfont使用">
+                <i class="fa fa-chevron-left"></i> 阿里巴巴iconfont使用
               </a>
             
           </div>
@@ -382,8 +376,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/post/algorithm/kmp.html" rel="prev" title="KMP算法">
-                KMP算法 <i class="fa fa-chevron-right"></i>
+              <a href="/post/knowledge/imgupload.html" rel="prev" title="AngularJs自定义指令实现图片上传">
+                AngularJs自定义指令实现图片上传 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -511,7 +505,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#栈的链式存储结构"><span class="nav-number">1.</span> <span class="nav-text">栈的链式存储结构</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#栈的链式存储结构-1"><span class="nav-number">1.1.</span> <span class="nav-text">栈的链式存储结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#栈链的入栈操作"><span class="nav-number">1.2.</span> <span class="nav-text">栈链的入栈操作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#栈的出栈操作"><span class="nav-number">1.3.</span> <span class="nav-text">栈的出栈操作</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#逆波兰表达式-后缀表达式"><span class="nav-number">2.</span> <span class="nav-text">逆波兰表达式/后缀表达式</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#图的定义"><span class="nav-number">1.</span> <span class="nav-text">图的定义</span></a></li></ol></div>
             
 
           </div>
