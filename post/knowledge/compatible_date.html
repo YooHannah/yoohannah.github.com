@@ -68,7 +68,7 @@
 <link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="js," />
+  <meta name="keywords" content="html," />
 
 
 
@@ -86,25 +86,19 @@
 
 
 
-<meta name="description" content="从接口获取数据后，处理数据为我们需要的
-如果response.data全部需要，可以直接 showdata = response.data;
-如果只想其中一部，可以将需要的对象push到变量中123for(var i = 0;i &amp;lt; showdata.length;i++)&amp;#123;	list.push(showdata[i].someval);&amp;#125;
-或者123456for(var">
+<meta name="description" content="IE11/chrome/360/火狐兼容日期格式兼容 $scope.date= new Date().toLocaleDateString().replace(/\//g,’-‘); 获取到的”year-month-day”格式支持/chrome/360/火狐，但到了IE11就变成”year年month月day”
+ var date = new Date(); var y = date.getFu">
 <meta property="og:type" content="article">
-<meta property="og:title" content="数组push操作">
-<meta property="og:url" content="http://yoohannah.github.io/post/knowledge/array-push.html">
+<meta property="og:title" content="日期格式兼容">
+<meta property="og:url" content="http://yoohannah.github.io/post/knowledge/compatible_date.html">
 <meta property="og:site_name" content="My Little World">
-<meta property="og:description" content="从接口获取数据后，处理数据为我们需要的
-如果response.data全部需要，可以直接 showdata = response.data;
-如果只想其中一部，可以将需要的对象push到变量中123for(var i = 0;i &amp;lt; showdata.length;i++)&amp;#123;	list.push(showdata[i].someval);&amp;#125;
-或者123456for(var">
-<meta property="og:updated_time" content="2017-02-01T09:35:35.399Z">
+<meta property="og:description" content="IE11/chrome/360/火狐兼容日期格式兼容 $scope.date= new Date().toLocaleDateString().replace(/\//g,’-‘); 获取到的”year-month-day”格式支持/chrome/360/火狐，但到了IE11就变成”year年month月day”
+ var date = new Date(); var y = date.getFu">
+<meta property="og:updated_time" content="2017-02-26T13:24:56.255Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="数组push操作">
-<meta name="twitter:description" content="从接口获取数据后，处理数据为我们需要的
-如果response.data全部需要，可以直接 showdata = response.data;
-如果只想其中一部，可以将需要的对象push到变量中123for(var i = 0;i &amp;lt; showdata.length;i++)&amp;#123;	list.push(showdata[i].someval);&amp;#125;
-或者123456for(var">
+<meta name="twitter:title" content="日期格式兼容">
+<meta name="twitter:description" content="IE11/chrome/360/火狐兼容日期格式兼容 $scope.date= new Date().toLocaleDateString().replace(/\//g,’-‘); 获取到的”year-month-day”格式支持/chrome/360/火狐，但到了IE11就变成”year年month月day”
+ var date = new Date(); var y = date.getFu">
 
 
 
@@ -132,13 +126,13 @@
 
 
 
-  <link rel="canonical" href="http://yoohannah.github.io/post/knowledge/array-push.html"/>
+  <link rel="canonical" href="http://yoohannah.github.io/post/knowledge/compatible_date.html"/>
 
 
 
 
 
-  <title> 数组push操作 | My Little World </title>
+  <title> 日期格式兼容 | My Little World </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -269,7 +263,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="http://yoohannah.github.io/post/knowledge/array-push.html">
+  <link itemprop="mainEntityOfPage" href="http://yoohannah.github.io/post/knowledge/compatible_date.html">
 
   <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
     <meta itemprop="name" content="YooHannah">
@@ -293,7 +287,7 @@
             
             
               
-                数组push操作
+                日期格式兼容
               
             
           </h1>
@@ -306,8 +300,8 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-12-17T17:21:02+08:00">
-                2016-12-17
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-02-26T21:14:37+08:00">
+                2017-02-26
               </time>
             
 
@@ -342,10 +336,9 @@
       
 
       
-        <p>从接口获取数据后，处理数据为我们需要的</p>
-<p>如果response.data全部需要，可以直接<br> showdata = response.data;</p>
-<p>如果只想其中一部，可以将需要的对象push到变量中<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">for(var i = 0;i &lt; showdata.length;i++)&#123;</div><div class="line">	list.push(showdata[i].someval);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>或者<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">for(var i = 0;i &lt; showdata.length;i++)&#123;</div><div class="line">	list.push(&#123;</div><div class="line">	name:showdata[i].object.name;</div><div class="line">	val:showdata[i].object.val;</div><div class="line">	&#125;);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+        <h1 id="IE11-chrome-360-火狐兼容日期格式兼容"><a href="#IE11-chrome-360-火狐兼容日期格式兼容" class="headerlink" title="IE11/chrome/360/火狐兼容日期格式兼容"></a>IE11/chrome/360/火狐兼容日期格式兼容</h1><p> $scope.date= new Date().toLocaleDateString().replace(/\//g,’-‘);<br> 获取到的”year-month-day”格式支持/chrome/360/火狐，但到了IE11就变成”year年month月day”</p>
+<p> var date = new Date();<br> var y = date.getFullYear();<br> var m = date.getMonth()+1;<br> var d = date.getDate();<br> var day = date.getDay();<br> var dateString=y+”-“+m+”-“+d;<br> $scope.date= dateString;</p>
+<p> 这样获取的”year-month-day”格式支持以上四种浏览器</p>
 
       
     </div>
@@ -369,7 +362,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/js/" rel="tag"># js</a>
+            <a href="/tags/html/" rel="tag"># html</a>
           
         </div>
       
@@ -378,8 +371,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/post/knowledge/ps.html" rel="next" title="ps相关">
-                <i class="fa fa-chevron-left"></i> ps相关
+              <a href="/post/knowledge/imgupload.html" rel="next" title="AngularJs自定义指令实现图片上传">
+                <i class="fa fa-chevron-left"></i> AngularJs自定义指令实现图片上传
               </a>
             
           </div>
@@ -387,10 +380,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/post/knowledge/css-circle.html" rel="prev" title="用css画圆">
-                用css画圆 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -437,8 +426,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/psb.jpg"
@@ -498,6 +496,22 @@
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#IE11-chrome-360-火狐兼容日期格式兼容"><span class="nav-number">1.</span> <span class="nav-text">IE11/chrome/360/火狐兼容日期格式兼容</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
     </div>
