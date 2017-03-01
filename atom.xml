@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoohannah.github.io/"/>
-  <updated>2017-02-26T13:24:56.255Z</updated>
+  <updated>2017-03-01T14:22:41.858Z</updated>
   <id>http://yoohannah.github.io/</id>
   
   <author>
@@ -14,6 +14,265 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>图的存储结构</title>
+    <link href="http://yoohannah.github.io/post/algorithm/graphstruct.html"/>
+    <id>http://yoohannah.github.io/post/algorithm/graphstruct.html</id>
+    <published>2017-03-01T13:59:30.000Z</published>
+    <updated>2017-03-01T14:22:41.858Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="1-邻接矩阵"><a href="#1-邻接矩阵" class="headerlink" title="1.邻接矩阵"></a>1.邻接矩阵</h1><h2 id="1-无向图"><a href="#1-无向图" class="headerlink" title="1.无向图"></a>1.无向图</h2><p><img src="/image/graph1.png" alt="graph1"><br>一个一维数组存储图中顶点信息，</p>
+<table>
+<thead>
+<tr>
+<th>顶点数组</th>
+<th>v0</th>
+<th>v1</th>
+<th>v2</th>
+<th>v3</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>一个二维数组(邻接矩阵)存储图中边或弧的信息<br>0表示不存在顶点间的边，1表示顶点间存在边</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>v0</th>
+<th>v1</th>
+<th>v2</th>
+<th>v3</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>v0</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+</tr>
+<tr>
+<td>v1</td>
+<td>1</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+</tr>
+<tr>
+<td>v2</td>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+<td>1</td>
+</tr>
+<tr>
+<td>v3</td>
+<td>1</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+</tr>
+</tbody>
+</table>
+<p>无向图构成的邻接矩阵为对称矩阵，对角线值为0<br>—–顶点Vi在邻接矩阵中第i行(或第i列)的元素之和为该顶点的度<br>—–扫描矩阵中第i行元素，元素为1的列为顶点Vi的邻接点</p>
+<h2 id="2-有向图"><a href="#2-有向图" class="headerlink" title="2.有向图"></a>2.有向图</h2><p><img src="/image/graph2.png" alt="graph2"><br>一个一维数组存储图中顶点信息，</p>
+<table>
+<thead>
+<tr>
+<th>顶点数组</th>
+<th>v0</th>
+<th>v1</th>
+<th>v2</th>
+<th>v3</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>坐标[Vi][Vj]的值，1表示Vi指向Vj的弧存在，0表示不存在</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>v0</th>
+<th>v1</th>
+<th>v2</th>
+<th>v3</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>v0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+</tr>
+<tr>
+<td>v1</td>
+<td>1</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+</tr>
+<tr>
+<td>v2</td>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td>v3</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+</tbody>
+</table>
+<p>第Vi列的元素之和为顶点Vi的入度<br>第Vi行的元素之和为顶点Vi的出度</p>
+<h2 id="3-网"><a href="#3-网" class="headerlink" title="3.网"></a>3.网</h2><p><img src="/image/tu3.png" alt="tu3"><br>邻接矩阵各元素的值不再用0/1表示，而是用权表示<br>顶点间若不存在弧，则用\infty无穷表示,顶点自己到自己的权为0</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>v0</th>
+<th>v1</th>
+<th>v2</th>
+<th>v3</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>v0</td>
+<td>0</td>
+<td>\infty</td>
+<td>\infty</td>
+<td>18</td>
+</tr>
+<tr>
+<td>v1</td>
+<td>8</td>
+<td>0</td>
+<td>2</td>
+<td>\infty</td>
+</tr>
+<tr>
+<td>v2</td>
+<td>4</td>
+<td>\infty</td>
+<td>0</td>
+<td>\infty</td>
+</tr>
+<tr>
+<td>v3</td>
+<td>\infty</td>
+<td>\infty</td>
+<td>\infty</td>
+<td>0</td>
+</tr>
+</tbody>
+</table>
+<h1 id="2-邻接表"><a href="#2-邻接表" class="headerlink" title="2.邻接表"></a>2.邻接表</h1><h2 id="无向图"><a href="#无向图" class="headerlink" title="无向图"></a>无向图</h2><p>顶点用一个一维数组存储<br>每个顶点Vi的所有邻接点构成一个线性表，由于个数不确定，用单链表来表示<br><img src="/image/tu4.png" alt="tu4"><br><img src="/image/tu5.png" alt="tu5"></p>
+<h2 id="有向图"><a href="#有向图" class="headerlink" title="有向图"></a>有向图</h2><p>把顶点当弧尾建立邻接表，邻接表长度就是该顶点出度<br><img src="/image/tu6.png" alt="tu6"><br>把顶点当弧头建的表叫逆邻接表，邻接表长度就是该顶点入度<br><img src="/image/tu7.png" alt="tu7"></p>
+<h2 id="网"><a href="#网" class="headerlink" title="网"></a>网</h2><p>在边表结点定义中再增加一个数据域来存储权值<br><img src="/image/tu8.png" alt="tu8"></p>
+<h1 id="3-十字链表-有向图"><a href="#3-十字链表-有向图" class="headerlink" title="3.十字链表(有向图)"></a>3.十字链表(有向图)</h1><p>顶点表结构</p>
+<p>|data|firstIn|firstOut|<br>data：顶点数据<br>firstIn:第一个入边表的指针<br>firstOut:第一个出边表的指针</p>
+<p>边表结点结构 表示以条边</p>
+<table>
+<thead>
+<tr>
+<th>tailVex</th>
+<th>headVex</th>
+<th>headLink</th>
+<th>tailLink</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>tailVex:该弧起点的顶点在顶点表的下标<br>headVex:该弧终点的顶点在顶点表的下标<br>headLink:指向headVex的弧的指针<br>tailLink: 从tailVex出发的弧的指针<br><img src="/image/graph2.png" alt="graph2"><br><img src="/image/tu9.png" alt="tu9"></p>
+<h1 id="4-邻接多重表-无向表"><a href="#4-邻接多重表-无向表" class="headerlink" title="4.邻接多重表(无向表)"></a>4.邻接多重表(无向表)</h1><p>关注对象是图中的表不是顶点<br>|iVex|iLink|jVex|jLink|<br>iVex和jVex是与某条边依附的两个顶点在顶点表中的下标<br>iLink：指向依附顶点iVex的下一条边，<br>jLink：指向依附顶点jVex的下一条边，<br><img src="/image/tu10.png" alt="tu10"></p>
+<h1 id="5-边集数组"><a href="#5-边集数组" class="headerlink" title="5.边集数组"></a>5.边集数组</h1><p>由两个一维数组构成<br>一个是存储顶点的信息<br>另一个存储边的信息<br>边数组的每个数据元素由一条边的起点下标(begin)、终点下标(end)和权(weight)组成</p>
+<p><img src="/image/tu11.png" alt="tu11"></p>
+<table>
+<thead>
+<tr>
+<th>顶点数组</th>
+<th>v0</th>
+<th>v1</th>
+<th>v2</th>
+<th>v3</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>边数组</th>
+<th>begin</th>
+<th>end</th>
+<th>weight</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>edges[0]</td>
+<td>0</td>
+<td>3</td>
+<td>5</td>
+</tr>
+<tr>
+<td>edges[1]</td>
+<td>1</td>
+<td>0</td>
+<td>4</td>
+</tr>
+<tr>
+<td>edges[2]</td>
+<td>1</td>
+<td>2</td>
+<td>3</td>
+</tr>
+<tr>
+<td>edges[3]</td>
+<td>2</td>
+<td>0</td>
+<td>8</td>
+</tr>
+</tbody>
+</table>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;1-邻接矩阵&quot;&gt;&lt;a href=&quot;#1-邻接矩阵&quot; class=&quot;headerlink&quot; title=&quot;1.邻接矩阵&quot;&gt;&lt;/a&gt;1.邻接矩阵&lt;/h1&gt;&lt;h2 id=&quot;1-无向图&quot;&gt;&lt;a href=&quot;#1-无向图&quot; class=&quot;headerlink&quot; title=
+    
+    </summary>
+    
+    
+      <category term="js" scheme="http://yoohannah.github.io/tags/js/"/>
+    
+  </entry>
   
   <entry>
     <title>日期格式兼容</title>
@@ -115,11 +374,13 @@
     <link href="http://yoohannah.github.io/post/knowledge/gittrouble.html"/>
     <id>http://yoohannah.github.io/post/knowledge/gittrouble.html</id>
     <published>2017-02-18T01:50:30.000Z</published>
-    <updated>2017-02-18T02:21:55.538Z</updated>
+    <updated>2017-03-01T14:01:40.430Z</updated>
     
     <content type="html"><![CDATA[<h1 id="git-pull-更新代码出现问题"><a href="#git-pull-更新代码出现问题" class="headerlink" title="git pull 更新代码出现问题"></a>git pull 更新代码出现问题</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">There is no tracking information for the current branch.</div><div class="line">Please specify which branch you want to merge with.</div><div class="line">See git-pull(1) for details</div><div class="line"></div><div class="line">    git pull &lt;remote&gt; &lt;branch&gt;</div><div class="line"></div><div class="line">If you wish to set tracking information for this branch you can do so with:</div><div class="line"></div><div class="line">    git branch --set-upstream-to=origin/&lt;branch&gt; develop_hotfix</div></pre></td></tr></table></figure>
 <p>解决办法<br>git branch -D 分支名  ##删除本地待更新分支<br>git checkout 分支名 ##将待更新分支切回来<br>Git pull 再更新</p>
 <h1 id="git-remote-add-origin-遇到远程分支已存在的情况"><a href="#git-remote-add-origin-遇到远程分支已存在的情况" class="headerlink" title="git remote add origin 遇到远程分支已存在的情况"></a>git remote add origin 遇到远程分支已存在的情况</h1><p>解决办法<br>git remote rm origin ##先删除远程分支<br>git remote add origin 地址 ## 再修改远程仓库地址</p>
+<h1 id="git-push-遇到问题"><a href="#git-push-遇到问题" class="headerlink" title="git push 遇到问题"></a>git push 遇到问题</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">fatal: unable to access &apos;https://github.com/YooHannah/WeiXindemo.git/&apos;: Failed to connect to github.com port 443: Timed out</div></pre></td></tr></table></figure>
+<p>解决办法<br>先删除远程分支 git remote rm origin<br>再将本地分支的上游分支设置为远程分支同时push<br>git push –set-upstream origin master<br>以后再执行git push 就不会出现报以上错误或一直没反应的状况</p>
 ]]></content>
     
     <summary type="html">
@@ -843,32 +1104,6 @@
     <summary type="html">
     
       &lt;h1 id=&quot;next数组&quot;&gt;&lt;a href=&quot;#next数组&quot; class=&quot;headerlink&quot; title=&quot;next数组&quot;&gt;&lt;/a&gt;next数组&lt;/h1&gt;&lt;p&gt;经推导发现,进行模式匹配时,子串的移位规律与主串内容无关，与子串的内容有关,&lt;br&gt;因此根据子串的内容,生成
-    
-    </summary>
-    
-    
-      <category term="js" scheme="http://yoohannah.github.io/tags/js/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>栈</title>
-    <link href="http://yoohannah.github.io/post/algorithm/stack.html"/>
-    <id>http://yoohannah.github.io/post/algorithm/stack.html</id>
-    <published>2017-02-02T03:48:37.000Z</published>
-    <updated>2017-02-06T21:50:58.017Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="栈"><a href="#栈" class="headerlink" title="栈"></a>栈</h1><p>1.特殊线性表,所以也分为顺序存储和链式存储结构<br>2.表尾称为栈尾，表头称为栈底<br>3.元素必须后进先出;所有操作只能在表尾进行<br>4.插入操作叫做进栈/入栈/压栈，删除操作叫出栈/弹栈<br>5.最开始栈中不含有任何数据，叫空栈，此时栈顶就是栈底，<br>  然后数据从栈顶进入，栈顶栈底分离，整个栈的当前容量变大，<br>  数据出栈时从栈顶弹出，栈顶下移，整个栈的当前容量变小<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">栈的顺序存储结构</div><div class="line">typedef struct</div><div class="line">&#123;</div><div class="line">  ElemType *base; ##指向栈底的指针变量</div><div class="line">  ElemType *top;  ##指向栈顶的指针变量</div><div class="line">  int stackSize;  ##栈当前可使用的最大容量</div><div class="line">&#125;sqStack;</div></pre></td></tr></table></figure></p>
-<h1 id="入栈操作"><a href="#入栈操作" class="headerlink" title="入栈操作"></a>入栈操作</h1><p>  每次向栈中压入一个数据，top指针+1，直到栈满为止</p>
-<h1 id="出栈操作"><a href="#出栈操作" class="headerlink" title="出栈操作"></a>出栈操作</h1><p>  在栈顶取数，栈顶指针随之下移，当前容量-1，</p>
-<h1 id="JS数组push和pop方法对数组处理"><a href="#JS数组push和pop方法对数组处理" class="headerlink" title="JS数组push和pop方法对数组处理"></a>JS数组push和pop方法对数组处理</h1><p>二进制转10进制<br>主要思想，每次pop数组最后一项，即二进制的位数依次增长，顺序i正好为指数<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> list = [<span class="number">1</span>,<span class="number">1</span>,<span class="number">0</span>,<span class="number">1</span>,<span class="number">0</span>,<span class="number">1</span>,<span class="number">0</span>,<span class="number">1</span>];</div><div class="line"><span class="keyword">var</span> sum = <span class="number">0</span>;</div><div class="line"><span class="keyword">var</span> length = list.length;</div><div class="line"><span class="keyword">for</span>(<span class="keyword">var</span> i = <span class="number">0</span>;i&lt;length;i++)&#123;</div><div class="line">  <span class="keyword">var</span> pop = list.pop();</div><div class="line">  sum+= pop*<span class="built_in">Math</span>.pow(<span class="number">2</span>,i);</div><div class="line">&#125;</div><div class="line"><span class="built_in">console</span>.log(sum);</div></pre></td></tr></table></figure></p>
-<p>二进制转8进制<br>主要思想，三位一组生成10进制，最后十进制按位数相加<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> list = [<span class="number">1</span>,<span class="number">1</span>,<span class="number">0</span>,<span class="number">1</span>,<span class="number">0</span>,<span class="number">1</span>,<span class="number">0</span>,<span class="number">1</span>];</div><div class="line"><span class="keyword">var</span> hex = <span class="number">0</span>;</div><div class="line"><span class="keyword">var</span> length = list.length;</div><div class="line"><span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>;i&lt;length/<span class="number">3</span>+<span class="number">1</span>;i++)&#123;</div><div class="line">  <span class="keyword">var</span> sum = <span class="number">0</span>;</div><div class="line">   <span class="keyword">for</span>(<span class="keyword">var</span> j = <span class="number">0</span>;j&lt;<span class="number">3</span>;j++)&#123;</div><div class="line">    <span class="keyword">if</span>(list.length&gt;<span class="number">0</span>)&#123;</div><div class="line">      sum+=list.pop()*<span class="built_in">Math</span>.pow(<span class="number">2</span>,j);</div><div class="line">    &#125;</div><div class="line">   &#125;</div><div class="line">   hex +=sum*<span class="built_in">Math</span>.pow(<span class="number">10</span>,i);</div><div class="line">&#125;</div><div class="line"><span class="built_in">console</span>.log(hex);</div></pre></td></tr></table></figure></p>
-<p>二进制转16进制<br>注意 &gt;9时，转换成字母，pop，进行反序链接<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> list = [<span class="number">1</span>,<span class="number">1</span>,<span class="number">0</span>,<span class="number">1</span>,<span class="number">0</span>,<span class="number">1</span>,<span class="number">0</span>,<span class="number">1</span>];</div><div class="line"><span class="keyword">var</span> hex = [];</div><div class="line"><span class="keyword">var</span> length = list.length;</div><div class="line"><span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>;i&lt;length/<span class="number">4</span>+<span class="number">1</span>;i++)&#123;</div><div class="line">  <span class="keyword">var</span> sum = <span class="number">0</span>;</div><div class="line">   <span class="keyword">if</span>(list.length&gt;<span class="number">0</span>)&#123;</div><div class="line">   <span class="keyword">for</span>(<span class="keyword">var</span> j = <span class="number">0</span>;j&lt;<span class="number">4</span>;j++)&#123;</div><div class="line">    <span class="keyword">if</span>(list.length&gt;<span class="number">0</span>)&#123;</div><div class="line">      sum+=list.pop()*<span class="built_in">Math</span>.pow(<span class="number">2</span>,j);</div><div class="line">    &#125;</div><div class="line">   &#125;</div><div class="line">   <span class="keyword">if</span> (sum &gt;<span class="number">-1</span>&amp;&amp;sum&lt;<span class="number">10</span>) &#123;</div><div class="line">    hex.push(<span class="built_in">String</span>.fromCharCode(sum+<span class="number">48</span>));</div><div class="line">   &#125;</div><div class="line">   <span class="keyword">if</span>(sum &gt;<span class="number">9</span> &amp;&amp; sum &lt;<span class="number">16</span>)&#123;</div><div class="line">     hex.push(<span class="built_in">String</span>.fromCharCode(sum+<span class="number">55</span>));</div><div class="line">   &#125;</div><div class="line">&#125;</div><div class="line">&#125;</div><div class="line"><span class="keyword">var</span> str = <span class="string">""</span>;</div><div class="line"><span class="keyword">for</span>(<span class="keyword">var</span> l = hex.length<span class="number">-1</span>;l&gt;<span class="number">-1</span>;l--)&#123;</div><div class="line">  str+=hex[l];</div><div class="line">&#125;</div><div class="line"><span class="built_in">console</span>.log(str);</div></pre></td></tr></table></figure></p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;h1 id=&quot;栈&quot;&gt;&lt;a href=&quot;#栈&quot; class=&quot;headerlink&quot; title=&quot;栈&quot;&gt;&lt;/a&gt;栈&lt;/h1&gt;&lt;p&gt;1.特殊线性表,所以也分为顺序存储和链式存储结构&lt;br&gt;2.表尾称为栈尾，表头称为栈底&lt;br&gt;3.元素必须后进先出;所有操作只能在表尾进行&lt;br&gt;4
     
     </summary>
     
