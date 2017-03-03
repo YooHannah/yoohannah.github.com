@@ -1681,7 +1681,7 @@ pre .javascript .function {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: #3841ff;
+  background: #18aa47;
 }
 .links-of-blogroll {
   font-size: 13px;
@@ -2825,4 +2825,103 @@ body {
   .post-body {
     text-align: justify;
   }
+}
+#menu_document {
+  font-family: 'Lato', "PingFang SC", "Microsoft YaHei", sans-serif;
+  font-size: 14px;
+  line-height: 0;
+  color: #555;
+}
+#menu_document ul {
+  list-style: none;
+  padding: 0;
+}
+#menu_document .tree1 {
+  padding: 14px 14px 14px 39px;
+  color: #6f93ff;
+  font-size: 16px;
+  font-family: "黑体";
+  border-bottom: solid 1px #eee;
+}
+#menu_document #tree_root {
+  overflow: auto;
+}
+#menu_document #tree_root li span {
+  display: block;
+  height: 18px;
+  line-height: 18px;
+  color: #222;
+  cursor: pointer;
+}
+#menu_document #tree_root li span.tree2 {
+  padding: 6px 6px 6px 20px;
+}
+#menu_document #tree_root li span.tree3 {
+  padding: 6px 6px 6px 34px;
+}
+#menu_document #tree_root li span.tree4 {
+  padding: 6px 6px 6px 48px;
+}
+#menu_document #tree_root li span.tree5 {
+  padding: 6px 6px 6px 62px;
+}
+#menu_document #tree_root li span.tree6 {
+  padding: 6px 6px 6px 76px;
+}
+#menu_document #tree_root li span.tree7 {
+  padding: 6px 6px 6px 90px;
+}
+#menu_document li .hover,
+#menu_document li span:hover {
+  background-color: #e9edf6;
+}
+#menu_document ul {
+  overflow: hidden;
+}
+#menu_document ul li b {
+  font-weight: normal;
+  position: relative;
+  padding-left: 16px;
+}
+#menu_document ul li b:before {
+  display: block;
+  font-size: 0;
+  top: 5px;
+  left: 0;
+  content: "";
+  width: 4px;
+  height: 4px;
+  border: solid 1px transparent;
+  -webkit-transform: rotate(45deg);
+  -moz-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  -o-transform: rotate(45deg);
+  transform: rotate(45deg);
+  -o-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  -moz-transform: rotate(45deg);
+  -webkit-transform: rotate(45deg);
+  position: absolute;
+}
+#menu_document ul li .On:before,
+#menu_document ul li .On2Off:before {
+  top: 3px;
+  border-bottom-color: #999;
+  border-right-color: #999;
+}
+#menu_document ul li .Off:before {
+  top: 5px;
+  border-top-color: #999;
+  border-right-color: #999;
+}
+#menu_document ul li .On2Off:before {
+  -webkit-transform: rotate(0deg);
+  -moz-transform: rotate(0deg);
+  -ms-transform: rotate(0deg);
+  -o-transform: rotate(0deg);
+  transform: rotate(0deg);
+  -o-transform: rotate(0deg);
+  -ms-transform: rotate(0deg);
+  -moz-transform: rotate(0deg);
+  -webkit-transform: rotate(0deg);
 }
