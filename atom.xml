@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoohannah.github.io/"/>
-  <updated>2017-03-01T14:22:41.858Z</updated>
+  <updated>2017-03-05T23:12:23.622Z</updated>
   <id>http://yoohannah.github.io/</id>
   
   <author>
@@ -14,6 +14,363 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>ES6</title>
+    <link href="http://yoohannah.github.io/post/knowledge/es6.html"/>
+    <id>http://yoohannah.github.io/post/knowledge/es6.html</id>
+    <published>2017-03-05T23:12:37.000Z</published>
+    <updated>2017-03-05T23:12:23.622Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="let"><a href="#let" class="headerlink" title="let"></a>let</h1><p>1.let 声明的变量在let 命令所在的代码快内有效<br>2.不声明直接用变量或者先用再声明都会报错<br>3.暂时性死区:在变量声明之前就使用变量的代码块<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">暂时性死区的本质就是，只要一进入当前作用域，所要使用的变量就已经存在了，但是不可获取，只有等到声明变量的那一行代码出现，才可以获取和使用该变量。</div></pre></td></tr></table></figure></p>
+<p>4.不允许在同一级别块域内重复声明一个变量<br>5.let 声明的变量,外层代码块不受内层代码块的影响<br>—-外层作用域无法读取内层作用域的变量<br>—-内层作用域可以定义外层作用域的同名变量<br>6.块级作用域内声明的函数，行为类似于var声明的变量,仅在所在的代码块内有效</p>
+<h1 id="const"><a href="#const" class="headerlink" title="const"></a>const</h1><p>1.声明的同时进行复制<br>2.作用域特征同let<br>3.当声明的变量为对象或者数组时，只可以改变对象属性或数组元素的值，但不可以将变量重新赋值</p>
+<p>ES6 6种声明变量的方法：var、function、let、const、import、class<br>var命令和function命令声明的全局变量，依旧是顶层对象的属性;let命令、const命令、class命令声明的全局变量，不属于顶层对象的属性。</p>
+<h1 id="解构赋值"><a href="#解构赋值" class="headerlink" title="解构赋值"></a>解构赋值</h1><h2 id="数组"><a href="#数组" class="headerlink" title="数组"></a>数组</h2><p>1.‘模式匹配’，左右对应相等，变量取值由位置决定<br>2.当右边的数据量大于左边变量数，如果是单层数组，则依次匹配，多余形成数组赋给最后一个变量<br>—-如果变量组成多层数组，则依次匹配，剩余的舍弃<br>3.当右边小于左边变量数，多余的变量的值就等于undefined<br>4.可以提前给变量赋默认值，默认值可以是已声明的其他变量，<br>–注意给变量赋‘undefined’的值的时候，如果变量原来的值不严格等于‘===’undefined，将不会被赋值为undefined</p>
+<h2 id="对象"><a href="#对象" class="headerlink" title="对象"></a>对象</h2><p>1.对象的属性没有次序，变量必须与属性同名，才能取到正确的值，属性是匹配的标志<br>2.若变量与属性名不一致，则先找到同名属性，然后再赋给对应的变量。真正被赋值的是后者(变量)，而不是前者(属性)<br>3.如果在声明对象变量的时候为属性值的变量赋值，则相当于同时声明属性值的变量<br>4.进行套嵌赋值时，注意分清属性名和变量名，被赋值的是变量名，不是属性名<br>5.进行默认值赋值规则同数组，赋空不会生效<br>6.属性名表达式<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">let arr = [1, 2, 3];</div><div class="line">let &#123;0 : first, [arr.length - 1] : last&#125; = arr;</div><div class="line">first // 1</div><div class="line">last // 3</div></pre></td></tr></table></figure></p>
+<p>数组arr的0键对应的值是1，[arr.length - 1]就是2键，对应的值是3</p>
+<h2 id="函数参数"><a href="#函数参数" class="headerlink" title="函数参数"></a>函数参数</h2><p>类似数组，但注意下面两种写法<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">function move(&#123;x = 0, y = 0&#125; = &#123;&#125;) &#123;</div><div class="line">  return [x, y];</div><div class="line">&#125;</div><div class="line"></div><div class="line">move(&#123;x: 3, y: 8&#125;); // [3, 8]</div><div class="line">move(&#123;x: 3&#125;); // [3, 0]</div><div class="line">move(&#123;&#125;); // [0, 0]</div><div class="line">move(); // [0, 0]</div></pre></td></tr></table></figure></p>
+<p>为变量x和y赋值<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">function move(&#123;x, y&#125; = &#123; x: 0, y: 0 &#125;) &#123;</div><div class="line">  return [x, y];</div><div class="line">&#125;</div><div class="line"></div><div class="line">move(&#123;x: 3, y: 8&#125;); // [3, 8]</div><div class="line">move(&#123;x: 3&#125;); // [3, undefined]</div><div class="line">move(&#123;&#125;); // [undefined, undefined]</div><div class="line">move(); // [0, 0]</div></pre></td></tr></table></figure></p>
+<p>为x,y的默认值赋值</p>
+<h2 id="字符串、数字、布尔"><a href="#字符串、数字、布尔" class="headerlink" title="字符串、数字、布尔"></a>字符串、数字、布尔</h2><p>字符串：字符串被转换成数组<br>数字/布尔：先转换成对象</p>
+<h1 id="字符串方法"><a href="#字符串方法" class="headerlink" title="字符串方法"></a>字符串方法</h1><table>
+<thead>
+<tr>
+<th>方法</th>
+<th style="text-align:right">es5/js</th>
+<th style="text-align:center">es6</th>
+<th>2017</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Unicode表示法</td>
+<td style="text-align:right">只限于\u0000——\uFFFF之间的字符</td>
+<td style="text-align:center">只要将码点放入大括号，就能正确解读该字符</td>
+<td></td>
+</tr>
+<tr>
+<td>charCodeAt</td>
+<td style="text-align:right">只会正确返回16位的UTF-16字符的码点</td>
+<td style="text-align:center"></td>
+<td></td>
+</tr>
+<tr>
+<td>codePointAt</td>
+<td style="text-align:right"></td>
+<td style="text-align:center">会正确返回32位的UTF-16字符的码点</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td style="text-align:right"></td>
+<td style="text-align:center"></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td style="text-align:right"></td>
+<td style="text-align:center"></td>
+<td></td>
+</tr>
+<tr>
+<td>String.fromCharCode</td>
+<td style="text-align:right">只会识别16位的UTF-16字符</td>
+<td style="text-align:center"></td>
+<td></td>
+</tr>
+<tr>
+<td>String.fromCodePoint</td>
+<td style="text-align:right"></td>
+<td style="text-align:center">会会识别32位的UTF-16字符</td>
+<td></td>
+</tr>
+<tr>
+<td>for</td>
+<td style="text-align:right">不可以识别大于0xFFFF的码点</td>
+<td style="text-align:center"></td>
+<td></td>
+</tr>
+<tr>
+<td>for…of</td>
+<td style="text-align:right"></td>
+<td style="text-align:center">可以识别大于0xFFFF的码点</td>
+<td></td>
+</tr>
+<tr>
+<td>charAt</td>
+<td style="text-align:right">不能识别码点大于0xFFFF的字符</td>
+<td style="text-align:center"></td>
+<td></td>
+</tr>
+<tr>
+<td>at</td>
+<td style="text-align:right"></td>
+<td style="text-align:center">能识别码点大于0xFFFF的字符</td>
+<td></td>
+</tr>
+<tr>
+<td>normalize</td>
+<td style="text-align:right">‘\u01D1’===’\u004F\u030C’ //false</td>
+<td style="text-align:center">‘\u01D1’.normalize() === ‘\u004F\u030C’.normalize()// true</td>
+<td></td>
+</tr>
+<tr>
+<td>indexOf</td>
+<td style="text-align:right">确定一个字符串是否包含在另一个字符串中</td>
+<td style="text-align:center"></td>
+<td></td>
+</tr>
+<tr>
+<td>includes()</td>
+<td style="text-align:right"></td>
+<td style="text-align:center">返回布尔值，表示是否找到了参数字符串</td>
+<td></td>
+</tr>
+<tr>
+<td>startsWith</td>
+<td style="text-align:right"></td>
+<td style="text-align:center">返回布尔值，表示参数字符串是否在源字符串的头部</td>
+<td></td>
+</tr>
+<tr>
+<td>endsWith</td>
+<td style="text-align:right"></td>
+<td style="text-align:center">返回布尔值，表示参数字符串是否在源字符串的尾部</td>
+<td></td>
+</tr>
+<tr>
+<td>repeat(n)</td>
+<td style="text-align:right"></td>
+<td style="text-align:center">返回一个新字符串，表示将原字符串重复n次。</td>
+<td></td>
+</tr>
+<tr>
+<td>padStart()，padEnd()</td>
+<td style="text-align:right"></td>
+<td style="text-align:center"></td>
+<td>padStart()用于头部补全，padEnd()用于尾部补全</td>
+</tr>
+<tr>
+<td>模板字符串</td>
+<td style="text-align:right"></td>
+<td style="text-align:center">反引号(`),保留空格和换行,变量名写在${}中</td>
+</tr>
+</tbody>
+</table>
+<h1 id="数值处理方法"><a href="#数值处理方法" class="headerlink" title="数值处理方法"></a>数值处理方法</h1><table>
+<thead>
+<tr>
+<th>方法</th>
+<th style="text-align:right">es5/js</th>
+<th style="text-align:center">es6</th>
+<th>2017</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>二进制和八进制表示法</td>
+<td style="text-align:right">在严格模式之中，八进制就不再允许使用前缀0表示</td>
+<td style="text-align:center">二进制0b或0B、八进制0o或0O</td>
+<td></td>
+</tr>
+<tr>
+<td>isFinite()/isNaN()</td>
+<td style="text-align:right">先调用Number()将非数值的值转为数值，再进行判断</td>
+<td style="text-align:center"></td>
+<td></td>
+</tr>
+<tr>
+<td>Number.isFinite()</td>
+<td style="text-align:right"></td>
+<td style="text-align:center">检查一个数值是否为有限的,非数值一律返回false。</td>
+<td></td>
+</tr>
+<tr>
+<td>Number.isNaN()</td>
+<td style="text-align:right"></td>
+<td style="text-align:center">检查一个值是否为NaN,非数值一律返回false。</td>
+<td></td>
+</tr>
+<tr>
+<td>parseInt()、parseFloat()</td>
+<td style="text-align:right"></td>
+<td style="text-align:center">移植到Number对象上面，行为完全保持不变。</td>
+<td></td>
+</tr>
+<tr>
+<td>Number.isInteger()</td>
+<td style="text-align:right"></td>
+<td style="text-align:center">判断一个值是否为整数</td>
+<td></td>
+</tr>
+<tr>
+<td>Number.EPSILON</td>
+<td style="text-align:right"></td>
+<td style="text-align:center">极小的常量,为浮点数计算设置一个误差范围</td>
+<td></td>
+</tr>
+<tr>
+<td>Number.isSafeInteger</td>
+<td style="text-align:right"></td>
+<td style="text-align:center">判断一个整数是否落在整数范围之内</td>
+<td></td>
+</tr>
+<tr>
+<td>Number.MAX_SAFE_INTEGER、Number.MIN_SAFE_INTEGER</td>
+<td style="text-align:right"></td>
+<td style="text-align:center">表示整数范围的上下限</td>
+<td></td>
+</tr>
+<tr>
+<td>Math.trunc</td>
+<td style="text-align:right"></td>
+<td style="text-align:center">去除一个数的小数部分，返回整数部分</td>
+<td></td>
+</tr>
+<tr>
+<td>Math.sign</td>
+<td style="text-align:right"></td>
+<td style="text-align:center">判断一个数到底是正数、负数、还是零</td>
+<td></td>
+</tr>
+<tr>
+<td>Math.cbrt</td>
+<td style="text-align:right"></td>
+<td style="text-align:center">计算一个数的立方根</td>
+<td></td>
+</tr>
+<tr>
+<td>Math.clz32</td>
+<td style="text-align:right"></td>
+<td style="text-align:center">返回一个数的32位无符号整数形式有多少个前导0</td>
+<td></td>
+</tr>
+<tr>
+<td>Math.imul</td>
+<td style="text-align:right"></td>
+<td style="text-align:center">返回两个数以32位带符号整数形式相乘的结果，返回的也是一个32位的带符号整数。</td>
+<td></td>
+</tr>
+<tr>
+<td>Math.fround</td>
+<td style="text-align:right"></td>
+<td style="text-align:center">返回一个数的单精度浮点数形式</td>
+<td></td>
+</tr>
+<tr>
+<td>Math.hypot</td>
+<td style="text-align:right"></td>
+<td style="text-align:center">返回所有参数的平方和的平方根</td>
+<td></td>
+</tr>
+<tr>
+<td>Math.expm1(x)</td>
+<td style="text-align:right"></td>
+<td style="text-align:center">返回Math.exp(x) - 1</td>
+<td></td>
+</tr>
+<tr>
+<td>Math.log1p(x)</td>
+<td style="text-align:right"></td>
+<td style="text-align:center">返回1 + x的自然对数</td>
+<td></td>
+</tr>
+<tr>
+<td>Math.log10(x)</td>
+<td style="text-align:right"></td>
+<td style="text-align:center">返回以10为底的x的对数</td>
+<td></td>
+</tr>
+<tr>
+<td>Math.log2(x)</td>
+<td style="text-align:right"></td>
+<td style="text-align:center">返回以2为底的x的对数</td>
+<td></td>
+</tr>
+<tr>
+<td>Math.sign()</td>
+<td style="text-align:right"></td>
+<td style="text-align:center">判断一个值的正负</td>
+<td></td>
+</tr>
+<tr>
+<td>指数运算符(**)</td>
+<td style="text-align:right"></td>
+<td style="text-align:center">指数运算符与Math.pow的实现不相同</td>
+<td></td>
+</tr>
+<tr>
+<td>Math.sinh(x)</td>
+<td style="text-align:right"></td>
+<td style="text-align:center">返回x的双曲正弦</td>
+<td></td>
+</tr>
+<tr>
+<td>Math.cosh(x)</td>
+<td style="text-align:right"></td>
+<td style="text-align:center">返回x的双曲余弦</td>
+<td></td>
+</tr>
+<tr>
+<td>Math.tanh(x)</td>
+<td style="text-align:right"></td>
+<td style="text-align:center">返回x的双曲正切</td>
+<td></td>
+</tr>
+<tr>
+<td>Math.asinh(x)</td>
+<td style="text-align:right"></td>
+<td style="text-align:center">返回x的反双曲正弦</td>
+<td></td>
+</tr>
+<tr>
+<td>Math.acosh(x)</td>
+<td style="text-align:right"></td>
+<td style="text-align:center">返回x的反双曲余弦</td>
+<td></td>
+</tr>
+<tr>
+<td>Math.atanh(x)</td>
+<td style="text-align:right"></td>
+<td style="text-align:center">返回x的反双曲正切</td>
+</tr>
+</tbody>
+</table>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;let&quot;&gt;&lt;a href=&quot;#let&quot; class=&quot;headerlink&quot; title=&quot;let&quot;&gt;&lt;/a&gt;let&lt;/h1&gt;&lt;p&gt;1.let 声明的变量在let 命令所在的代码快内有效&lt;br&gt;2.不声明直接用变量或者先用再声明都会报错&lt;br&gt;3.暂时性死区:在变
+    
+    </summary>
+    
+    
+      <category term="js" scheme="http://yoohannah.github.io/tags/js/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>正则表达式</title>
+    <link href="http://yoohannah.github.io/post/knowledge/ze.html"/>
+    <id>http://yoohannah.github.io/post/knowledge/ze.html</id>
+    <published>2017-03-05T23:05:37.000Z</published>
+    <updated>2017-03-05T23:06:06.234Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="判断邮箱格式"><a href="#判断邮箱格式" class="headerlink" title="判断邮箱格式"></a>判断邮箱格式</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">if($scope.supplier.email ==&quot;&quot; || ( $scope.supplier.email!=&quot;&quot; &amp;&amp; !/.+@.+\.[a-zA-Z]&#123;2,4&#125;$/.test($scope.supplier.email) ))&#123;</div><div class="line">         toastr.warning(&apos;请输入正确的E-Mail地址!&apos;,&apos;警告&apos;);</div><div class="line">         return;</div><div class="line">       &#125;</div></pre></td></tr></table></figure>
+<h1 id="输入框input只允许输入数字"><a href="#输入框input只允许输入数字" class="headerlink" title="输入框input只允许输入数字"></a>输入框input只允许输入数字</h1><p>在input标签里添加：<br>onKeyUp=”value=value.replace(/[^\d]/g,’’)”</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;判断邮箱格式&quot;&gt;&lt;a href=&quot;#判断邮箱格式&quot; class=&quot;headerlink&quot; title=&quot;判断邮箱格式&quot;&gt;&lt;/a&gt;判断邮箱格式&lt;/h1&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gut
+    
+    </summary>
+    
+    
+      <category term="js" scheme="http://yoohannah.github.io/tags/js/"/>
+    
+  </entry>
   
   <entry>
     <title>图的存储结构</title>
@@ -341,6 +698,65 @@
     
     
       <category term="js" scheme="http://yoohannah.github.io/tags/js/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>《穷爸爸富爸爸》摘抄</title>
+    <link href="http://yoohannah.github.io/post/reading/Poordaddyrichdaddy.html"/>
+    <id>http://yoohannah.github.io/post/reading/Poordaddyrichdaddy.html</id>
+    <published>2017-02-18T13:14:37.000Z</published>
+    <updated>2017-03-06T14:30:33.360Z</updated>
+    
+    <content type="html"><![CDATA[<ol>
+<li>富人买入资产，穷人只有支出，中产阶级购买自以为是资产的负债</li>
+<li>资产是能把钱放进你口袋里的东西，负债是把钱从你口袋里取走的东西</li>
+<li>为了财务安全，人们需要关注自己的事业，你的事业的重心是你的资产项，而不是你的的收入项。要知道资产与负债的区别，并且去买入资产。富人关心的焦点是资产而其他人关注的是收入。</li>
+<li>资产分类：<br>a.不需要我到场就可以正常运作的业务。我拥有他们，但由别人经营和管理。如果我必须在那里，那它就不是我的事业而是我的职业了<br>b.股票<br>c.债券<br>d.共同基金<br>e.能够产生收入的房地产<br>f.票据(收据)<br>g.版税，如音乐，手稿，专利<br>h.其他任何有价值，可产生收入或有增值潜力，并且有良好的销路的东西<br>5.</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">拥有公司的富人</th>
+<th style="text-align:center">为公司工作的人</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">挣钱</td>
+<td style="text-align:center">挣钱</td>
+</tr>
+<tr>
+<td style="text-align:center">支出</td>
+<td style="text-align:center">缴税</td>
+</tr>
+<tr>
+<td style="text-align:center">缴税</td>
+<td style="text-align:center">支出</td>
+</tr>
+</tbody>
+</table>
+<p>=&gt;拥有由资产组成的公司</p>
+<ol>
+<li>财商：<br>a.财务知识，会计，阅读理解数字的能力<br>b.投资策略<br>c.市场，供给，与需求<br>d.法律规章</li>
+<li>理财能手：<br>a.如何寻找其他人都忽视的机会<br>b.如何增加资金<br>c.怎样把精明的人组织起来</li>
+<li>管理技能：<br>a.对现金流的管理<br>b.对系统(你本人，时间及家庭)的管理<br>c.对人员的管理</li>
+<li>克服困难：恐惧心理、愤世嫉俗、懒惰、不良习惯、自负</li>
+<li>开发<br>我需要一个超现实的理由—-精神的力量<br>每天做出自己的选择—-选择的力量<br>慎重的选择朋友—-关系的力量<br>掌握一种模式，然后在学习一种模式—-快速学习的力量<br>首先支付自己—-自律的力量<br>给你的经纪人以优厚的报酬—-好建议的力量<br>用资产来购买奢侈品—-专注的力量<br>对英雄的崇拜—-神话的力量<br>先予后取—-给予的力量</li>
+</ol>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;ol&gt;
+&lt;li&gt;富人买入资产，穷人只有支出，中产阶级购买自以为是资产的负债&lt;/li&gt;
+&lt;li&gt;资产是能把钱放进你口袋里的东西，负债是把钱从你口袋里取走的东西&lt;/li&gt;
+&lt;li&gt;为了财务安全，人们需要关注自己的事业，你的事业的重心是你的资产项，而不是你的的收入项。要知道资产与负债
+    
+    </summary>
+    
+    
+      <category term="reading" scheme="http://yoohannah.github.io/tags/reading/"/>
     
   </entry>
   
@@ -1048,87 +1464,6 @@
     <summary type="html">
     
       &lt;h1 id=&quot;next数组&quot;&gt;&lt;a href=&quot;#next数组&quot; class=&quot;headerlink&quot; title=&quot;next数组&quot;&gt;&lt;/a&gt;next数组&lt;/h1&gt;&lt;p&gt;经推导发现,进行模式匹配时,子串的移位规律与主串内容无关，与子串的内容有关,&lt;br&gt;因此根据子串的内容,生成
-    
-    </summary>
-    
-    
-      <category term="js" scheme="http://yoohannah.github.io/tags/js/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>队列</title>
-    <link href="http://yoohannah.github.io/post/algorithm/queue.html"/>
-    <id>http://yoohannah.github.io/post/algorithm/queue.html</id>
-    <published>2017-02-02T04:34:37.000Z</published>
-    <updated>2017-02-07T14:46:48.223Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="队列"><a href="#队列" class="headerlink" title="队列"></a>队列</h1><p>1.先进先出的线性表，有顺序表和链表<br>2.只允许在一段插入，另一端删除</p>
-<h1 id="队列的链式存储结构"><a href="#队列的链式存储结构" class="headerlink" title="队列的链式存储结构"></a>队列的链式存储结构</h1><p>和栈相反，队列常用链表实现<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">typedef sruct QNode&#123;</div><div class="line">	ElemType data;</div><div class="line">	struct QNode *next;</div><div class="line">&#125;QNode,*QueuePrt;</div><div class="line">typedef struct &#123;</div><div class="line">	QueuePrt front;	##队头指针指向链队列的头结点(头结点不是必要的)</div><div class="line">	QueuePrt rear;	##队尾指针指向终端结点，空队列时，front，rear都指向头结点</div><div class="line">&#125;LinkQueue;</div></pre></td></tr></table></figure></p>
-<p><img src="/image/queue1.png" alt="queue1"><br><img src="/image/queue2.png" alt="queue2"></p>
-<h1 id="入队列"><a href="#入队列" class="headerlink" title="入队列"></a>入队列</h1><p><img src="/image/queue3.png" alt="queue3"><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">InsertQueue(LinkQueue *q,ElemType e)&#123;</div><div class="line">	QueuePrt p;</div><div class="line">	p = (QueuePtr)malloc(sizeof(QNode));</div><div class="line">	if(p==NULL)&#123;</div><div class="line">		exit(0);</div><div class="line">	&#125;</div><div class="line">	p-&gt;data = e;</div><div class="line">	p-&gt;next = NULL;</div><div class="line">	q-&gt;rear-&gt;next = p;</div><div class="line">	q-&gt;rear = p;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<h1 id="出队列"><a href="#出队列" class="headerlink" title="出队列"></a>出队列</h1><p><img src="/image/queue5.png" alt="queue5"><br><img src="/image/queue6.png" alt="queue6"><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">DeleteQueue(LinkQueue *q,ElemType e)&#123;</div><div class="line">	QueuePrt p;</div><div class="line">	if(q-&gt;front ==q-&gt;rear)</div><div class="line">	&#123;</div><div class="line">		retrun;</div><div class="line">	&#125;</div><div class="line">	p=q-&gt;front-&gt;next;</div><div class="line">	*e=p-&gt;data;</div><div class="line">	q-&gt;front-&gt;next = p-&gt;next;</div><div class="line">	if(q-&gt;rear ==p)&#123;</div><div class="line">		q-&gt;rear = q-&gt;front;</div><div class="line">	&#125;</div><div class="line">	free(p);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<h1 id="销毁一个队列"><a href="#销毁一个队列" class="headerlink" title="销毁一个队列"></a>销毁一个队列</h1><p>由于链队列建立在内存的动态区，因此当一个队列<br>不在有用时，应当及时销毁掉，以免过多占用内存空间<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">DestroyQueue(LinkQueue *q)&#123;</div><div class="line">	while(q-&gt;front)&#123;</div><div class="line">	q-&gt;rear = q-&gt;front-&gt;next;</div><div class="line">	free(q-&gt;front):</div><div class="line">	q-&gt;front = q-&gt;rear;</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>简单实现<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> list = [];</div><div class="line"><span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>;i&lt;<span class="number">5</span>;i++)&#123;</div><div class="line">  list.push(&#123;</div><div class="line">    <span class="attr">next</span>:i+<span class="number">1</span></div><div class="line">  &#125;)</div><div class="line">&#125;</div><div class="line">list[<span class="number">4</span>].next = <span class="literal">null</span>;</div><div class="line"><span class="built_in">console</span>.log(list);</div><div class="line"><span class="comment">//入队列</span></div><div class="line"><span class="keyword">var</span> length = list.length;</div><div class="line">list.push(&#123;</div><div class="line">  <span class="attr">next</span>:<span class="literal">null</span></div><div class="line">&#125;)</div><div class="line">list[length<span class="number">-1</span>].next=length;</div><div class="line"><span class="built_in">console</span>.log(list);</div><div class="line"><span class="comment">//出队列</span></div><div class="line">list.splice(<span class="number">0</span>,<span class="number">1</span>);</div><div class="line"><span class="built_in">console</span>.log(list);</div><div class="line"><span class="comment">//清空</span></div><div class="line">list=[];</div></pre></td></tr></table></figure></p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;h1 id=&quot;队列&quot;&gt;&lt;a href=&quot;#队列&quot; class=&quot;headerlink&quot; title=&quot;队列&quot;&gt;&lt;/a&gt;队列&lt;/h1&gt;&lt;p&gt;1.先进先出的线性表，有顺序表和链表&lt;br&gt;2.只允许在一段插入，另一端删除&lt;/p&gt;
-&lt;h1 id=&quot;队列的链式存储结构&quot;&gt;&lt;a href=
-    
-    </summary>
-    
-    
-      <category term="js" scheme="http://yoohannah.github.io/tags/js/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>递归</title>
-    <link href="http://yoohannah.github.io/post/algorithm/Recursion.html"/>
-    <id>http://yoohannah.github.io/post/algorithm/Recursion.html</id>
-    <published>2017-02-02T04:34:37.000Z</published>
-    <updated>2017-02-15T14:28:55.756Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="递归"><a href="#递归" class="headerlink" title="递归"></a>递归</h1><p>1.把有一个直接调用自己或通过一系列的调用语句间接的调用用自己的函数，称作递归函数<br>2.每个递归函数必须有一个终止调用的条件语句，否则陷入永不结束的无穷递归</p>
-<h1 id="斐波那契数列"><a href="#斐波那契数列" class="headerlink" title="斐波那契数列"></a>斐波那契数列</h1><p>迭代实现<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">var a=[];</div><div class="line">a[0] = 1;</div><div class="line">a[1] = 1;</div><div class="line">for(var i =2;i&lt;40;i++)&#123;</div><div class="line">  a[i]=a[i-1]+a[i-2];</div><div class="line">&#125;</div><div class="line">for(var j=0;j&lt;40;j++)&#123;</div><div class="line">  console.log(j,a[j]);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>递归实现<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">function fib(n)&#123;</div><div class="line">  if(n&lt;2)&#123;</div><div class="line">    return 1;</div><div class="line">  &#125;</div><div class="line">  if(n&gt;1 &amp;&amp; n&lt;40)&#123;</div><div class="line">    return fib(n-1)+fib(n-2);</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line">console.log(fib(4));</div></pre></td></tr></table></figure></p>
-<h1 id="n-阶乘递归算法"><a href="#n-阶乘递归算法" class="headerlink" title="n!阶乘递归算法"></a>n!阶乘递归算法</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">function fib(n)&#123;</div><div class="line">    if(n&gt;0)&#123;</div><div class="line">      return n*fib(n-1);</div><div class="line">    &#125;else&#123;</div><div class="line">      return 1;</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">&#125;</div><div class="line">console.log(fib(4));</div></pre></td></tr></table></figure>
-<h1 id="汉诺塔问题"><a href="#汉诺塔问题" class="headerlink" title="汉诺塔问题"></a>汉诺塔问题</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">function hanoita(n,x,y,z)&#123;</div><div class="line">  if(n==1)&#123;</div><div class="line">    console.log(x+&quot;-&gt;&quot;+z);</div><div class="line">  &#125;else&#123;</div><div class="line">    hanoita(n-1,x,z,y);</div><div class="line">    console.log(x+&quot;-&gt;&quot;+z);</div><div class="line">    hanoita(n-1,y,x,z);</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">hanoita(3,&quot;x&quot;,&quot;y&quot;,&apos;z&apos;);</div></pre></td></tr></table></figure>
-<h1 id="递归字符串翻转"><a href="#递归字符串翻转" class="headerlink" title="递归字符串翻转"></a>递归字符串翻转</h1><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> string = <span class="string">"hello#"</span>;</div><div class="line"><span class="keyword">var</span> count = <span class="number">0</span>;</div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">print</span>(<span class="params"></span>)</span>&#123;</div><div class="line">  <span class="keyword">if</span>(string[count]!=<span class="string">"#"</span>)&#123;</div><div class="line">    count++;</div><div class="line">    print();</div><div class="line">  &#125;</div><div class="line">  count--;</div><div class="line">  <span class="keyword">if</span>(count&gt;<span class="number">-1</span> &amp;&amp; string[count]!=<span class="string">"#"</span>)&#123;</div><div class="line">    <span class="built_in">console</span>.log(string[count]);</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line">print();</div></pre></td></tr></table></figure>
-<h1 id="折中查找法递归"><a href="#折中查找法递归" class="headerlink" title="折中查找法递归"></a>折中查找法递归</h1><p><a href="https://github.com/YooHannah/algorithm/blob/master/js/Recursion_compromisefind.js" target="_blank" rel="external">代码链接</a></p>
-<h1 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h1><p>1.迭代使用循环结构，递归使用选择结构<br>2.递归能使程序结构更清晰、简洁、容易让人理解，从而减少读懂代码的时间<br>3.大量的递归会建立函数的副本，会消耗大量时间和内存，而迭代不需要<br>4.递归函数分为调用和回退阶段，递归的回退顺序是它调用顺序的逆序</p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;h1 id=&quot;递归&quot;&gt;&lt;a href=&quot;#递归&quot; class=&quot;headerlink&quot; title=&quot;递归&quot;&gt;&lt;/a&gt;递归&lt;/h1&gt;&lt;p&gt;1.把有一个直接调用自己或通过一系列的调用语句间接的调用用自己的函数，称作递归函数&lt;br&gt;2.每个递归函数必须有一个终止调用的条件语句，否则
-    
-    </summary>
-    
-    
-      <category term="js" scheme="http://yoohannah.github.io/tags/js/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>逆波兰表达式/后缀表达式</title>
-    <link href="http://yoohannah.github.io/post/algorithm/stacklinked.html"/>
-    <id>http://yoohannah.github.io/post/algorithm/stacklinked.html</id>
-    <published>2017-02-02T03:48:37.000Z</published>
-    <updated>2017-02-06T22:08:09.967Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="栈的链式存储结构"><a href="#栈的链式存储结构" class="headerlink" title="栈的链式存储结构"></a>栈的链式存储结构</h1><h2 id="栈的链式存储结构-1"><a href="#栈的链式存储结构-1" class="headerlink" title="栈的链式存储结构"></a>栈的链式存储结构</h2><p><img src="/image/stack2.png" alt="stack2"><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">typedef struct StackNode&#123;</div><div class="line">  ElemType data;          ##存放栈的数据</div><div class="line">  struct StackNode *next;</div><div class="line">&#125;StackNode,*LinkStackPtr;</div><div class="line">typedef struct LinkStack&#123;</div><div class="line">  LinkStackPrt top;        ##top指针</div><div class="line">  int count;               ##栈元素计数器</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<h2 id="栈链的入栈操作"><a href="#栈链的入栈操作" class="headerlink" title="栈链的入栈操作"></a>栈链的入栈操作</h2><p>假设元素值e的新结点是s,top为栈顶指针<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">Status Push(LinkStack *s,ElemType e)&#123;</div><div class="line">  LinkStackPtr p=(LinkStackPtr)malloc(sizeof(StackNode));</div><div class="line">  p-&gt;data = e;</div><div class="line">  p-&gt;next = s-&gt;top;</div><div class="line">  s-&gt;top = p;</div><div class="line">  s-&gt;count++;</div><div class="line">  <span class="keyword">return</span> OK;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<h2 id="栈的出栈操作"><a href="#栈的出栈操作" class="headerlink" title="栈的出栈操作"></a>栈的出栈操作</h2><p>假设变量p用来存储要删除的栈顶结点，将栈顶指针下移一位，最后释放p<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">Status Pop(LinkStack *s,ElemType e)&#123;</div><div class="line">  LinkStackPtr p;</div><div class="line">  <span class="keyword">if</span>(StackEmpty(*s))&#123;</div><div class="line">  <span class="keyword">return</span> ERROR;</div><div class="line">  &#125;</div><div class="line">  *e=s-&gt;top-&gt;data;</div><div class="line">  p=s-&gt;top;</div><div class="line">  s-&gt;top = s-&gt;top-&gt;next;</div><div class="line">  free(p);</div><div class="line">  s-&gt;count--;</div><div class="line">  <span class="keyword">return</span> OK;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<h1 id="逆波兰表达式-后缀表达式"><a href="#逆波兰表达式-后缀表达式" class="headerlink" title="逆波兰表达式/后缀表达式"></a>逆波兰表达式/后缀表达式</h1><p>正常表达式–&gt;后缀表达式<br>（1-2)x(4+5）–&gt; 1 2 - 4 5 + x<br>1.计算后缀表达式<br>主要思想是判断字符是否为运算符，若为数字，则入栈，为运算符则连续出栈两次进行运算，再将运算结果入栈<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> list =[<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="string">'-'</span>,<span class="string">'*'</span>,<span class="string">'+'</span>]</div><div class="line"><span class="keyword">var</span> stack = [];</div><div class="line"><span class="keyword">for</span>(<span class="keyword">var</span> i = <span class="number">0</span>;i&lt;list.length;i++)&#123;</div><div class="line">  <span class="keyword">if</span>(!<span class="built_in">isNaN</span>(list[i]))&#123;</div><div class="line">      stack.push(list[i]);</div><div class="line">    &#125;<span class="keyword">else</span>&#123;</div><div class="line">       <span class="keyword">var</span> a = stack.pop();</div><div class="line">       <span class="keyword">var</span> b = stack.pop();</div><div class="line">       <span class="keyword">if</span>(list[i] ==<span class="string">"+"</span>)&#123;</div><div class="line">        stack.push(b+a);</div><div class="line">       &#125;<span class="keyword">else</span> <span class="keyword">if</span>(list[i] ==<span class="string">"-"</span>)&#123;</div><div class="line">        stack.push(b-a);</div><div class="line">       &#125;<span class="keyword">else</span> <span class="keyword">if</span>(list[i] ==<span class="string">"*"</span>)&#123;</div><div class="line">        stack.push(b*a);</div><div class="line">       &#125;<span class="keyword">else</span> <span class="keyword">if</span>(list[i] ==<span class="string">"/"</span>)&#123;</div><div class="line">        stack.push(b/a);</div><div class="line">       &#125;</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line"><span class="built_in">console</span>.log(stack);</div></pre></td></tr></table></figure></p>
-<p>2.计算表达式转后缀表达式<br>主要思路<br>1，表达式中参与运算的数字、运算符以及小括号分割，形成待处理数组<br>2，循环判断<br>  A.若字符为数字，入栈2，<br>  B.若字符为“+”、“-”，分情况讨论<br>（1）此时栈1为空，入栈；<br>（2）栈1不为空，将“（”左括号以上的符号从栈1 pop到栈2，“（”留          在栈1，处理完后，将“+”、“-”入栈1；<br>   C若字符为“）”，将“（”以上符号从栈1 pop到栈2，“（”也pop出来<br>     但不入栈2<br>   D若字符为“/”“*”“（”直接入栈2<br>   E其他情况，非法字符，抛出异常<br>3.将栈1元素pop到栈2；<br>栈2即后缀表达式<br><a href="https://github.com/YooHannah/algorithm/blob/master/js/%E8%AE%A1%E7%AE%97%E5%BC%8F%E8%BD%AC%E5%90%8E%E7%BC%80%E8%A1%A8%E8%BE%BE%E5%BC%8F(%E6%A0%88%EF%BC%89.js" target="_blank" rel="external">代码链接</a></p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;h1 id=&quot;栈的链式存储结构&quot;&gt;&lt;a href=&quot;#栈的链式存储结构&quot; class=&quot;headerlink&quot; title=&quot;栈的链式存储结构&quot;&gt;&lt;/a&gt;栈的链式存储结构&lt;/h1&gt;&lt;h2 id=&quot;栈的链式存储结构-1&quot;&gt;&lt;a href=&quot;#栈的链式存储结构-1&quot; class=&quot;
     
     </summary>
     
