@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoohannah.github.io/"/>
-  <updated>2017-03-07T13:21:18.941Z</updated>
+  <updated>2017-03-11T01:47:56.054Z</updated>
   <id>http://yoohannah.github.io/</id>
   
   <author>
@@ -14,6 +14,62 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>同步/异步和使用</title>
+    <link href="http://yoohannah.github.io/post/knowledge/sync.html"/>
+    <id>http://yoohannah.github.io/post/knowledge/sync.html</id>
+    <published>2017-03-11T01:31:15.000Z</published>
+    <updated>2017-03-11T01:47:56.054Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="同步-异步"><a href="#同步-异步" class="headerlink" title="同步/异步"></a>同步/异步</h1><p>同步读取一个文件<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//readfile.js</span></div><div class="line"><span class="keyword">var</span> fs = <span class="built_in">require</span>(<span class="string">'fs'</span>);</div><div class="line"><span class="keyword">var</span> data = fs.readFileSync(<span class="string">'file.txt'</span>,<span class="string">'utf-8'</span>);</div><div class="line"><span class="built_in">console</span>.log(data);</div><div class="line"><span class="built_in">console</span>.log(<span class="string">'end.'</span>);</div><div class="line"><span class="comment">//执行</span></div><div class="line">$node readfile.js</div><div class="line">contents <span class="keyword">of</span> the file.</div><div class="line">end.</div></pre></td></tr></table></figure></p>
+<p>异步读取一个文件<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//readfile.js</span></div><div class="line"><span class="keyword">var</span> fs = <span class="built_in">require</span>(<span class="string">'fs'</span>);</div><div class="line">fs.readFile(<span class="string">'file.txt'</span>,<span class="string">'utf-8'</span>,<span class="function"><span class="keyword">function</span>(<span class="params">err,data</span>) </span>&#123;</div><div class="line">	<span class="keyword">if</span> (err) &#123;</div><div class="line">	  <span class="built_in">console</span>.log(err);</div><div class="line">	&#125; <span class="keyword">else</span> &#123;</div><div class="line">	  <span class="built_in">console</span>.log(data);</div><div class="line">	&#125;</div><div class="line">&#125;)</div><div class="line"><span class="built_in">console</span>.log(<span class="string">'end.'</span>);</div><div class="line"><span class="comment">//执行</span></div><div class="line">$node readfile.js</div><div class="line">end.</div><div class="line">contents <span class="keyword">of</span> the file.</div></pre></td></tr></table></figure></p>
+<h1 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h1><h2 id="node的REPL模式"><a href="#node的REPL模式" class="headerlink" title="node的REPL模式"></a>node的REPL模式</h2><p>即输入代码回车立即执行的模式<br>在command prompt中直接输入node进入该模式，连续两次Ctrl+C可退出</p>
+<h2 id="监视代码改动"><a href="#监视代码改动" class="headerlink" title="监视代码改动"></a>监视代码改动</h2><p>npm install -g supervisor //安装supervisor<br>supervisor app.js //代替node app.js，修改代码后自动终止进程并重启</p>
+<h2 id="包"><a href="#包" class="headerlink" title="包"></a>包</h2><p>把文件夹封装为一个模块，即所谓的包，包通常是一些模块的集合，在模块的基础上提供了更高层的抽象，相当于一些固定接口的函数库<br>包安装：作为工程运行，通过本地安装;如果要在命令行下使用,则使用全局模式安装</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;同步-异步&quot;&gt;&lt;a href=&quot;#同步-异步&quot; class=&quot;headerlink&quot; title=&quot;同步/异步&quot;&gt;&lt;/a&gt;同步/异步&lt;/h1&gt;&lt;p&gt;同步读取一个文件&lt;br&gt;&lt;figure class=&quot;highlight javascript&quot;&gt;&lt;table&gt;&lt;t
+    
+    </summary>
+    
+    
+      <category term="js" scheme="http://yoohannah.github.io/tags/js/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>js理解</title>
+    <link href="http://yoohannah.github.io/post/knowledge/jssummary.html"/>
+    <id>http://yoohannah.github.io/post/knowledge/jssummary.html</id>
+    <published>2017-03-11T00:23:09.000Z</published>
+    <updated>2017-03-11T01:23:47.456Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="作用域"><a href="#作用域" class="headerlink" title="作用域"></a>作用域</h1><p>不通过花括号来界定，通过函数来定义，<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">if</span>(<span class="literal">true</span>)&#123;</div><div class="line">	<span class="keyword">var</span> somevar = <span class="string">"value"</span>;</div><div class="line">&#125;</div><div class="line"><span class="built_in">console</span>.log(somevar);<span class="comment">//value</span></div></pre></td></tr></table></figure></p>
+<p>在访问未定义的变量或定义了但没有初始化的变量时都会获得undefined<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> scope = <span class="string">"1111"</span>;</div><div class="line"><span class="keyword">var</span> f = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">	<span class="built_in">console</span>.log(scope); <span class="comment">//undefined</span></div><div class="line">	<span class="keyword">var</span> scope = <span class="string">'f'</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>作用域的嵌套关系在定义时确定，不在调用时确定<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> scope = <span class="string">"top"</span>;</div><div class="line"><span class="keyword">var</span> f1 = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">	<span class="built_in">console</span>.log(scope);</div><div class="line">&#125;;</div><div class="line">f1();<span class="comment">//top</span></div><div class="line"><span class="keyword">var</span> f2 = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">	<span class="keyword">var</span> scope = <span class="string">'f2'</span>;</div><div class="line">	f1();</div><div class="line">&#125;;</div><div class="line">f2(); <span class="comment">//top</span></div></pre></td></tr></table></figure></p>
+<p>全局作用域是个对象，这个对象叫全局对象，nodejs是global对象，浏览器是window对象，包括<br>在最外层定义的变量<br>全局对象的属性<br>未用var定义直接赋值的变量</p>
+<h1 id="闭包"><a href="#闭包" class="headerlink" title="闭包"></a>闭包</h1><p>由函数(环境)及其封闭的自由变量组成的集合体，<br>可以想象成一个容器，里面包括一个函数和它用到的变量，每当想使用一次这个容器里的函数，就将这个容器复制一次给调用者：<br>1.不通调用者得到的容器相互隔离，没有关系，<br>2.被复制到调用者的函数，会自己形成一个独立的运行环境，每次调用完会根据变量性质，更新变量值,不会释放变量<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> generateClosuer = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">  <span class="keyword">var</span> count = <span class="number">0</span>;</div><div class="line">  <span class="keyword">var</span> get = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">    count++;</div><div class="line">    <span class="keyword">return</span> count;</div><div class="line">  &#125;</div><div class="line">  <span class="keyword">return</span> get;</div><div class="line">&#125;</div><div class="line"><span class="keyword">var</span> counter1 = generateClosuer();</div><div class="line"><span class="keyword">var</span> counter2 = generateClosuer();</div><div class="line"><span class="built_in">console</span>.log(counter1()); <span class="comment">//1</span></div><div class="line"><span class="built_in">console</span>.log(counter1()); <span class="comment">//2</span></div><div class="line"><span class="built_in">console</span>.log(counter2()); <span class="comment">//1</span></div><div class="line"><span class="built_in">console</span>.log(counter1()); <span class="comment">//3</span></div></pre></td></tr></table></figure></p>
+<h1 id="对象"><a href="#对象" class="headerlink" title="对象"></a>对象</h1><p>上下文对象即this指针，即被调用函数所处的环境，<br>上下文对象的作用是在一个函数内部引用调用它的对象本身。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">User</span>(<span class="params">name,url</span>)</span>&#123;</div><div class="line">	<span class="keyword">this</span>.name = name;</div><div class="line">	<span class="keyword">this</span>.url = url;</div><div class="line">	<span class="keyword">this</span>.diaplay = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">	<span class="built_in">console</span>.log(<span class="keyword">this</span>.name);</div><div class="line">	&#125;</div><div class="line">&#125;</div><div class="line"><span class="keyword">var</span> someuser = <span class="keyword">new</span> User(<span class="string">'byvoid'</span>,<span class="string">'http://www.byvoid.com'</span>);</div></pre></td></tr></table></figure></p>
+<p>创建someuser对象时，构造函数的this指调用它的someuser<br>函数类型的变量指向这个函数实体的一个引用，在引用之间赋值不会对对象产生复制行为。<br>我们可以通过函数的任何一个引用调用这个函数，但该函数的上下文即this不同<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> someuser = &#123;</div><div class="line">	<span class="attr">name</span>:<span class="string">'byvoid'</span>,</div><div class="line">	<span class="attr">func</span>: <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">	<span class="built_in">console</span>.log(<span class="keyword">this</span>.name);</div><div class="line">&#125;</div><div class="line">&#125;;</div><div class="line"><span class="keyword">var</span> foo = &#123;</div><div class="line">	<span class="attr">name</span>:<span class="string">'foobar'</span></div><div class="line">&#125;;</div><div class="line">someuser.func();<span class="comment">//byvoid</span></div><div class="line">foo.func = someuser.func; <span class="comment">//引用someuser.func这个函数实体，其实就是someuser.func的代码内容</span></div><div class="line">foo.func();<span class="comment">//foobar this是foo</span></div><div class="line"></div><div class="line">name = <span class="string">'global'</span>;</div><div class="line">func = someuser.func;</div><div class="line">func();<span class="comment">//global</span></div></pre></td></tr></table></figure></p>
+<h2 id="call-apply"><a href="#call-apply" class="headerlink" title="call/apply"></a>call/apply</h2><p>让其他对象调用本对象的方法<br>A对象名.函数属性名.call(B对象名,函数参数表(逗号隔开)); //B调用A的方法<br>A对象名.函数属性名.apply(B对象名,函数参数数组);//B调用A的方法</p>
+<h2 id="bind"><a href="#bind" class="headerlink" title="bind"></a>bind</h2><p>永久绑定函数的上下文，使其无论被谁调用，上下文都是固定的<br>A对象名.函数属性名.bind(B对象名,函数参数表(逗号隔开));<br>bind方法返回上下文为B对象的A对象的函数<br>如果在使用bind时，绑定了参数表，则在调用返回函数时，只需要传入未绑定的参数即可<br>注意不能重复绑定<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> someuser = &#123;</div><div class="line">	<span class="attr">name</span>:<span class="string">'byvoid'</span>,</div><div class="line">	<span class="attr">func</span>:<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">		<span class="built_in">console</span>.log(<span class="keyword">this</span>.name);</div><div class="line"> &#125;</div><div class="line">&#125;;</div><div class="line"><span class="keyword">var</span> foo = &#123;</div><div class="line">	<span class="attr">name</span>:<span class="string">'foobar'</span></div><div class="line">&#125;;</div><div class="line">func = someuser.func.bind(foo);</div><div class="line">func();<span class="comment">//foobar</span></div><div class="line"></div><div class="line">func2 = func.bind(someuser);</div><div class="line">func2();<span class="comment">//foobar;</span></div></pre></td></tr></table></figure></p>
+<h2 id="原型"><a href="#原型" class="headerlink" title="原型"></a>原型</h2><p>构造函数创建属性<br>除非必须用构造函数闭包，否则尽量用原型定义成员函数<br>原型定义的成员是多个实例共享的，因此尽量在构造函数内定义一般成员尤其是对象或数组<br>原型链<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">function Foo()&#123;</div><div class="line">&#125;</div><div class="line">object.prototype.name = &apos;my object&apos;;</div><div class="line">Foo.prototype.name = &apos;Bar&apos;;</div><div class="line">var obj = new object();</div><div class="line">var foo = new Foo();</div><div class="line">console.log(obj.name);//my object</div><div class="line">console.log(foo.name);//Bar</div><div class="line">console.log(foo.__proto__.name);//Bar</div><div class="line">console.log(foo.__proto__.__proto__.name);//my object</div><div class="line">console.log(foo.__proto__.constructor.prototype.name);//Bar</div></pre></td></tr></table></figure></p>
+<p>!(typeof)[/image/typeof.png]</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;作用域&quot;&gt;&lt;a href=&quot;#作用域&quot; class=&quot;headerlink&quot; title=&quot;作用域&quot;&gt;&lt;/a&gt;作用域&lt;/h1&gt;&lt;p&gt;不通过花括号来界定，通过函数来定义，&lt;br&gt;&lt;figure class=&quot;highlight javascript&quot;&gt;&lt;table&gt;
+    
+    </summary>
+    
+    
+      <category term="js" scheme="http://yoohannah.github.io/tags/js/"/>
+    
+  </entry>
   
   <entry>
     <title>深度优先遍历(马踏棋盘算法)</title>
@@ -1336,60 +1392,6 @@
     <summary type="html">
     
       &lt;h1 id=&quot;字符串&quot;&gt;&lt;a href=&quot;#字符串&quot; class=&quot;headerlink&quot; title=&quot;字符串&quot;&gt;&lt;/a&gt;字符串&lt;/h1&gt;&lt;p&gt;定义：串是由0个或多个字符组成的有限序列，又名字符串&lt;br&gt;1.空串：没有字符，直接由””表示&lt;br&gt;2.主串与子串：”hello”
-    
-    </summary>
-    
-    
-      <category term="js" scheme="http://yoohannah.github.io/tags/js/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>使用Git Bash建立本地仓库并同步github仓库</title>
-    <link href="http://yoohannah.github.io/post/knowledge/gitrepository.html"/>
-    <id>http://yoohannah.github.io/post/knowledge/gitrepository.html</id>
-    <published>2017-02-05T02:43:04.465Z</published>
-    <updated>2017-02-03T06:36:38.000Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="建立本地仓库"><a href="#建立本地仓库" class="headerlink" title="建立本地仓库"></a>建立本地仓库</h1><p>1.选择仓库存放位置,新建文件夹,用作本地仓库<br>2.打开Git bash,cd 切换路径到该文件夹<br>3.执行以下命令<br><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">echo "该项目简短说明" &gt;&gt; README.md     ##输入“该项目简短说明”内容到README.md文件</div><div class="line">git init</div><div class="line">git add README.md                      ##将提交的文件(README.md)的信息添加到索引库</div><div class="line">git commit -m "第一次提交"             ##依据索引库中的内容来进行文件的提交</div><div class="line">																			 ##同时提交更改描述“第一次提交”</div></pre></td></tr></table></figure></p>
-<p>以上步骤完成本地仓库建立和将文件提交到本地仓库的工作</p>
-<h1 id="建立远成仓库"><a href="#建立远成仓库" class="headerlink" title="建立远成仓库"></a>建立远成仓库</h1><p>1.登录github账号,点击右上角“+”,选择“New repository”<br>2.填写仓库名称,简单描述<br>3.为避免与本地仓库READMD.md冲突，初始化时不勾选“Initialize this repository with a README”<br>4.点击“Create repository”,生成远程仓库</p>
-<h1 id="同步仓库"><a href="#同步仓库" class="headerlink" title="同步仓库"></a>同步仓库</h1><p>1.点击“Clone or download”, 复制远程仓库地址<br>2.执行以下代码<br><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">git remote add origin 远程仓库地址     ##将本地仓库推送到远成仓库</div><div class="line">git push -u origin master              ##将本地仓库推送到远程分支</div></pre></td></tr></table></figure></p>
-<p>以上步骤即完成本地仓库同步到远程仓库</p>
-<p>执行git remote时，<br>若出现提示出错信息：fatal: remote origin already exists.<br>则先输入<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git remote rm origin ##删除远程仓库</div></pre></td></tr></table></figure></p>
-<p>再执行推送语句 “git remote add origin 远程仓库地址”</p>
-<h1 id="更新远成仓库"><a href="#更新远成仓库" class="headerlink" title="更新远成仓库"></a>更新远成仓库</h1><p>若对本地仓库进行了修改<br>git add &lt;文件名&gt; 只是添加一个文件<br>git add .  可添加全部仓库文件<br>若执行“git add .”时，总出现警告：warning: LF will be replaced by CRLF in XXXXXXXXXXXXXX.<br>可执行语句 “git config core.autocrlf false”<br>添加完文件后执行提交操作<br>git commit -m “”<br>最后推送到远程仓库<br>git push -u origin master</p>
-<p>[资源共享]（<a href="http://www.cnblogs.com/len0031/p/5831571.html" target="_blank" rel="external">http://www.cnblogs.com/len0031/p/5831571.html</a>)</p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;h1 id=&quot;建立本地仓库&quot;&gt;&lt;a href=&quot;#建立本地仓库&quot; class=&quot;headerlink&quot; title=&quot;建立本地仓库&quot;&gt;&lt;/a&gt;建立本地仓库&lt;/h1&gt;&lt;p&gt;1.选择仓库存放位置,新建文件夹,用作本地仓库&lt;br&gt;2.打开Git bash,cd 切换路径到该文件夹&lt;b
-    
-    </summary>
-    
-    
-      <category term="git" scheme="http://yoohannah.github.io/tags/git/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>循环队列</title>
-    <link href="http://yoohannah.github.io/post/algorithm/loopqueue.html"/>
-    <id>http://yoohannah.github.io/post/algorithm/loopqueue.html</id>
-    <published>2017-02-02T04:47:37.000Z</published>
-    <updated>2017-02-07T14:43:29.988Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="假溢出"><a href="#假溢出" class="headerlink" title="假溢出"></a>假溢出</h1><p><img src="/image/queue9.png" alt="queue9"><br>循环队列的容量是固定的，并且它的对头和队尾指针都可以随着元素出入队列而发生改变，<br>这样循环队列逻辑上就好像是一个环形存储空间,但在实际内存中，是不可能有真正的环形存储区的，<br>我们只是用顺序表模拟逻辑上的循环<br>因此,为防止发生假溢出,当我们采用循环队列时,front和rear不断加1,即使超出了地址范围，<br>也会自动从头开始,判断溢出，可采用取模处理<br>(rear+1)%QueueSize<br>(front+1)%QueueSize<br>取模即取余数，取得的值永远不会大于除数</p>
-<h1 id="定义一个循环队列"><a href="#定义一个循环队列" class="headerlink" title="定义一个循环队列"></a>定义一个循环队列</h1><p><img src="/image/queue12.png" alt="queue12"><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"># define MAXSIZE 100</div><div class="line">typedef struct&#123;</div><div class="line">	ElemType *base;	##存放内存分配基地址，也可以用数组存放</div><div class="line">	int front;</div><div class="line">	int rear;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<h1 id="初始化一个循环队列"><a href="#初始化一个循环队列" class="headerlink" title="初始化一个循环队列"></a>初始化一个循环队列</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">initQueue(cyclQueue *q)&#123;</div><div class="line">	q-&gt;base = (ElemType *)malloc(MAXSIZE sizeof(ElemType));</div><div class="line">	if(!q-&gt;base)&#123;</div><div class="line">	exit(0);</div><div class="line">	&#125;</div><div class="line">	q-&gt;front = q-&gt;rear = 0;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h1 id="入队列操作"><a href="#入队列操作" class="headerlink" title="入队列操作"></a>入队列操作</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">insertQueue(cyclQueue *q,ElemType e)&#123;</div><div class="line">	if((q-&gt;rear+1)%MAXSIZE == q-&gt;front)&#123;</div><div class="line">	return;	##队列已满</div><div class="line">	&#125;</div><div class="line">	q-&gt;base[q-&gt;rear] = e;</div><div class="line">	q-&gt;rear = (q-&gt;rear+1)%MAXSIZE;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h1 id="出队列操作"><a href="#出队列操作" class="headerlink" title="出队列操作"></a>出队列操作</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">DeleteQueue(cyclQueue *q,ElemType e)&#123;</div><div class="line">	if(q-&gt;rear == q-&gt;front)&#123;</div><div class="line">	return;	##队列为空</div><div class="line">	&#125;</div><div class="line">	*e = q-&gt;base[q-&gt;front];</div><div class="line">	q-&gt;front = (q-&gt;front+1)%MAXSIZE;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;h1 id=&quot;假溢出&quot;&gt;&lt;a href=&quot;#假溢出&quot; class=&quot;headerlink&quot; title=&quot;假溢出&quot;&gt;&lt;/a&gt;假溢出&lt;/h1&gt;&lt;p&gt;&lt;img src=&quot;/image/queue9.png&quot; alt=&quot;queue9&quot;&gt;&lt;br&gt;循环队列的容量是固定的，并且它的对头和队
     
     </summary>
     

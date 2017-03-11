@@ -92,7 +92,7 @@
 <meta property="og:url" content="http://yoohannah.github.io/post/knowledge/transform.html">
 <meta property="og:site_name" content="My Little World">
 <meta property="og:description" content="日期/时间戳时间戳转换日期日期 = new Date(时间戳1000);再根据需求转换不同形式例：var timestamp = ‘1425553097‘;var d = new Date(timestamp  1000);    //根据时间戳生成的时间对象var date = (d.getFullYear()) + “-“ +           (d.getMonth() + 1) + “-">
-<meta property="og:updated_time" content="2017-02-18T01:43:24.830Z">
+<meta property="og:updated_time" content="2017-03-11T01:17:52.337Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="转换">
 <meta name="twitter:description" content="日期/时间戳时间戳转换日期日期 = new Date(时间戳1000);再根据需求转换不同形式例：var timestamp = ‘1425553097‘;var d = new Date(timestamp  1000);    //根据时间戳生成的时间对象var date = (d.getFullYear()) + “-“ +           (d.getMonth() + 1) + “-">
@@ -343,6 +343,7 @@
 <h1 id="数组-字符串"><a href="#数组-字符串" class="headerlink" title="数组/字符串"></a>数组/字符串</h1><h2 id="数组转字符串"><a href="#数组转字符串" class="headerlink" title="数组转字符串"></a>数组转字符串</h2><p>需要将数组元素用某个字符连接成字符串，示例代码如下：<br>var a, b;<br>a = new Array(0,1,2,3,4);<br>b = a.join(“-“);</p>
 <h2 id="字符串转数组"><a href="#字符串转数组" class="headerlink" title="字符串转数组"></a>字符串转数组</h2><p>实现方法为将字符串按某个字符切割成若干个字符串，并以数组形式返回，示例代码如下：<br>var s = “abc,abcd,aaa”;<br>ss = s.split(“,”);// 在每个逗号(,)处进行分解。</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"> <span class="comment">//获取字符串中数字包括小数点</span></div><div class="line">str = str.replace(<span class="regexp">/[^\d\.]/g</span>, <span class="string">''</span>);</div></pre></td></tr></table></figure>
+<h1 id="js取整"><a href="#js取整" class="headerlink" title="js取整"></a>js取整</h1><p>Math.ceil(val)向上取整<br>Math.floor(val)向下取整<br>Math.round(val)四舍五入</p>
 
       
     </div>
@@ -457,7 +458,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">54</span>
+              <span class="site-state-item-count">56</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -516,7 +517,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#日期-时间戳"><span class="nav-number">1.</span> <span class="nav-text">日期/时间戳</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#时间戳转换日期"><span class="nav-number">1.1.</span> <span class="nav-text">时间戳转换日期</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#日期转换时间戳"><span class="nav-number">1.2.</span> <span class="nav-text">日期转换时间戳</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#日期增加1天"><span class="nav-number">1.3.</span> <span class="nav-text">日期增加1天</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#json-字符串"><span class="nav-number">2.</span> <span class="nav-text">json/字符串</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#数组-字符串"><span class="nav-number">3.</span> <span class="nav-text">数组/字符串</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#数组转字符串"><span class="nav-number">3.1.</span> <span class="nav-text">数组转字符串</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#字符串转数组"><span class="nav-number">3.2.</span> <span class="nav-text">字符串转数组</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#日期-时间戳"><span class="nav-number">1.</span> <span class="nav-text">日期/时间戳</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#时间戳转换日期"><span class="nav-number">1.1.</span> <span class="nav-text">时间戳转换日期</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#日期转换时间戳"><span class="nav-number">1.2.</span> <span class="nav-text">日期转换时间戳</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#日期增加1天"><span class="nav-number">1.3.</span> <span class="nav-text">日期增加1天</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#json-字符串"><span class="nav-number">2.</span> <span class="nav-text">json/字符串</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#数组-字符串"><span class="nav-number">3.</span> <span class="nav-text">数组/字符串</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#数组转字符串"><span class="nav-number">3.1.</span> <span class="nav-text">数组转字符串</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#字符串转数组"><span class="nav-number">3.2.</span> <span class="nav-text">字符串转数组</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#js取整"><span class="nav-number">4.</span> <span class="nav-text">js取整</span></a></li></ol></div>
             
 
           </div>
