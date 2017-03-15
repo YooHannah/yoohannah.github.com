@@ -94,11 +94,13 @@
 <meta property="og:site_name" content="My Little World">
 <meta property="og:description" content="作用域不通过花括号来界定，通过函数来定义，1234if(true)&amp;#123;	var somevar = &quot;value&quot;;&amp;#125;console.log(somevar);//value
 在访问未定义的变量或定义了但没有初始化的变量时都会获得undefined12345var scope = &quot;1111&quot;;var f = function()&amp;#123;	console.log(scope)">
-<meta property="og:updated_time" content="2017-03-11T01:23:47.456Z">
+<meta property="og:image" content="http://yoohannah.github.io/image/typeof.png">
+<meta property="og:updated_time" content="2017-03-15T13:55:26.522Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="js理解">
 <meta name="twitter:description" content="作用域不通过花括号来界定，通过函数来定义，1234if(true)&amp;#123;	var somevar = &quot;value&quot;;&amp;#125;console.log(somevar);//value
 在访问未定义的变量或定义了但没有初始化的变量时都会获得undefined12345var scope = &quot;1111&quot;;var f = function()&amp;#123;	console.log(scope)">
+<meta name="twitter:image" content="http://yoohannah.github.io/image/typeof.png">
 
 
 
@@ -346,7 +348,7 @@
 <h2 id="call-apply"><a href="#call-apply" class="headerlink" title="call/apply"></a>call/apply</h2><p>让其他对象调用本对象的方法<br>A对象名.函数属性名.call(B对象名,函数参数表(逗号隔开)); //B调用A的方法<br>A对象名.函数属性名.apply(B对象名,函数参数数组);//B调用A的方法</p>
 <h2 id="bind"><a href="#bind" class="headerlink" title="bind"></a>bind</h2><p>永久绑定函数的上下文，使其无论被谁调用，上下文都是固定的<br>A对象名.函数属性名.bind(B对象名,函数参数表(逗号隔开));<br>bind方法返回上下文为B对象的A对象的函数<br>如果在使用bind时，绑定了参数表，则在调用返回函数时，只需要传入未绑定的参数即可<br>注意不能重复绑定<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> someuser = &#123;</div><div class="line">	<span class="attr">name</span>:<span class="string">'byvoid'</span>,</div><div class="line">	<span class="attr">func</span>:<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">		<span class="built_in">console</span>.log(<span class="keyword">this</span>.name);</div><div class="line"> &#125;</div><div class="line">&#125;;</div><div class="line"><span class="keyword">var</span> foo = &#123;</div><div class="line">	<span class="attr">name</span>:<span class="string">'foobar'</span></div><div class="line">&#125;;</div><div class="line">func = someuser.func.bind(foo);</div><div class="line">func();<span class="comment">//foobar</span></div><div class="line"></div><div class="line">func2 = func.bind(someuser);</div><div class="line">func2();<span class="comment">//foobar;</span></div></pre></td></tr></table></figure></p>
 <h2 id="原型"><a href="#原型" class="headerlink" title="原型"></a>原型</h2><p>构造函数创建属性<br>除非必须用构造函数闭包，否则尽量用原型定义成员函数<br>原型定义的成员是多个实例共享的，因此尽量在构造函数内定义一般成员尤其是对象或数组<br>原型链<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">function Foo()&#123;</div><div class="line">&#125;</div><div class="line">object.prototype.name = &apos;my object&apos;;</div><div class="line">Foo.prototype.name = &apos;Bar&apos;;</div><div class="line">var obj = new object();</div><div class="line">var foo = new Foo();</div><div class="line">console.log(obj.name);//my object</div><div class="line">console.log(foo.name);//Bar</div><div class="line">console.log(foo.__proto__.name);//Bar</div><div class="line">console.log(foo.__proto__.__proto__.name);//my object</div><div class="line">console.log(foo.__proto__.constructor.prototype.name);//Bar</div></pre></td></tr></table></figure></p>
-<p>!(typeof)[/image/typeof.png]</p>
+<p><img src="/image/typeof.png" alt="typeof"></p>
 
       
     </div>
@@ -459,7 +461,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">57</span>
+              <span class="site-state-item-count">59</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
