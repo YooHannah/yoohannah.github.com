@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoohannah.github.io/"/>
-  <updated>2017-03-15T13:50:19.964Z</updated>
+  <updated>2017-03-19T13:48:54.808Z</updated>
   <id>http://yoohannah.github.io/</id>
   
   <author>
@@ -14,6 +14,37 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>mongoDB使用</title>
+    <link href="http://yoohannah.github.io/post/knowledge/mongoDB.html"/>
+    <id>http://yoohannah.github.io/post/knowledge/mongoDB.html</id>
+    <published>2017-03-19T13:45:37.000Z</published>
+    <updated>2017-03-19T13:48:54.808Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="启动"><a href="#启动" class="headerlink" title="启动"></a>启动</h1><p>cmd到mongoDB的bin文件夹,执行<br>mongod –dbpath data文件夹路径（例：D:\MongoDB\data）//运行<br>再打开一个cmd,同样切目录到bin文件夹下,执行<br>mongo //连接到数据库</p>
+<h1 id="命令"><a href="#命令" class="headerlink" title="命令"></a>命令</h1><h2 id="基础命令"><a href="#基础命令" class="headerlink" title="基础命令"></a>基础命令</h2><p>use dbname    //名为dbname的数据库若存在就将当前数据库切换到该数据库，若不存在，则新建该数据库并切换至该数据库<br>db   //查看当前数据库<br>show dbs    //查看所有数据库,新建的库，在插入数据后才会显示<br>db.dropDatabase() //删除当前数据库,但用db查看当前库，还是被删的这个库<br>db.tablename.drop() //删除数据库中名为tablename的集合<br>db.tablename.insert({“key”:”value”}) //创建名为objectname的表(对象),并插入数据,批量操作时可以直接在shell里面写for循环<br>show tables //查看该库中所有表(对象)<br>db.tablename.find() //在仓库中查找名为tablename的表，如果有就会将表中内容打印出来<br>db.tablename.find({“key”:”value”}) //在tablename表中查找具体数据，注意格式<br><img src="/image/mongodb1.png" alt="mongodb1"><br>db.tablename.update({查找值},{替换值}) //将查找值所在的集合替换为替换值<br><img src="/image/mongodb2.png" alt="mongodb2"><br>db.tablename.remove({查找值}) //删除查找值所在对象的全部数据，若为空，则将整表清空<br><img src="/image/mongodb3.png" alt="mongodb3"></p>
+<h2 id="条件查找"><a href="#条件查找" class="headerlink" title="条件查找"></a>条件查找</h2><p>1.比较查询<br>将查找条件放在value部分，用{}括起来<br>下图查询条件为age大于”$gt”22, 大于等于”$gte”22, 小于”$lt”22, 小于等于”$lte”22, 不等于”$ne”20,等于20的查询格式<br><img src="/image/mongodb4.png" alt="mongodb4"><br>使用正则表达式匹配时同样将正则表达式放在value的位置，而且不用{}或者””包括，直接/开始/结束<br>2.逻辑查询<br>下图查询条件分别为且，或者$or,在氛围内$in,不在范围内$nin<br><img src="/image/mongodb5.png" alt="mongodb5"></p>
+<h2 id="局部修改"><a href="#局部修改" class="headerlink" title="局部修改"></a>局部修改</h2><p>$inc 属性不存在就创建并赋值，如果存在，就在原来的基础上增加要修改的值<br>$set 仅修改<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">&gt; db.person.find()</div><div class="line">&#123; &quot;_id&quot; : ObjectId(&quot;58ccdcb002efa48d7589f2ae&quot;), &quot;name&quot; : &quot;jack&quot;, &quot;age&quot; : 20 &#125;</div><div class="line">&#123; &quot;_id&quot; : ObjectId(&quot;58ccdcb502efa48d7589f2af&quot;), &quot;name&quot; : &quot;joe&quot;, &quot;age&quot; : 25 &#125;</div><div class="line">&#123; &quot;_id&quot; : ObjectId(&quot;58ccdcd302efa48d7589f2b0&quot;), &quot;name&quot; : &quot;mark&quot;, &quot;age&quot; : 15 &#125;</div><div class="line">&gt; db.person.update(&#123;&quot;name&quot;:&quot;jack&quot;&#125;,&#123;$inc:&#123;&quot;age&quot;:10&#125;&#125;)</div><div class="line">WriteResult(&#123; &quot;nMatched&quot; : 1, &quot;nUpserted&quot; : 0, &quot;nModified&quot; : 1 &#125;)</div><div class="line">&gt; db.person.update(&#123;&quot;name&quot;:&quot;mark&quot;&#125;,&#123;$set:&#123;&quot;age&quot;:10&#125;&#125;)</div><div class="line">WriteResult(&#123; &quot;nMatched&quot; : 1, &quot;nUpserted&quot; : 0, &quot;nModified&quot; : 1 &#125;)</div><div class="line">&gt; db.person.find()</div><div class="line">&#123; &quot;_id&quot; : ObjectId(&quot;58ccdcb002efa48d7589f2ae&quot;), &quot;name&quot; : &quot;jack&quot;, &quot;age&quot; : 30 &#125;</div><div class="line">&#123; &quot;_id&quot; : ObjectId(&quot;58ccdcb502efa48d7589f2af&quot;), &quot;name&quot; : &quot;joe&quot;, &quot;age&quot; : 25 &#125;</div><div class="line">&#123; &quot;_id&quot; : ObjectId(&quot;58ccdcd302efa48d7589f2b0&quot;), &quot;name&quot; : &quot;mark&quot;, &quot;age&quot; : 10 &#125;</div><div class="line">&gt;</div></pre></td></tr></table></figure></p>
+<p>特殊情况：update的第一个参数不存在，即查找值不在person中，可以如下设置，将其新增<br>db.person.update({“name”:”jackson”},{$inc:{“age”:10}},true)<br>注意：update默认仅更新匹配得到的第一个集合，如果想更新全部匹配得到的结果，<br>可以将第四个参数设为true</p>
+<h2 id="数据处理"><a href="#数据处理" class="headerlink" title="数据处理"></a>数据处理</h2><p>1.计数<br>db.person.count()  //获取person中数据条数<br>db.person.count({“age”:20}) // 获取person中age等于20的数据条数<br>2.统计<br>db.person.distinct(“age”) //获取person中所有age的值，重复的值只取一次<br>3.分组<br>db.person.group({<br>    “key”:{“age”:true},//按age分组，age相同的分一组<br>    “initial”:{“person”:[]}, //分组内容<br>    “$reduce”:function(cur,prev){ //符合分组条件，将该条数据放入该组集合中，cur指当前处理的该条数据，prev指上次函数的累计对象，第一次为initial的值。<br>        prev.person.push(cur.name);<br>    },<br>  “finalize”:function(out){//将一条数据划分到一组后执行的处理<br>  out.count = out.person.length;<br>  },<br>  “condition”:{“age”:{$lt:25}}//分组条件，对什么样的数据进行分组<br>})<br>4.映射<br>通过map对集合进行分组，通过reduce对分组结果进行处理，理解为复杂的重组处理，最后会生成一个全新的集合<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">var map = function()&#123;</div><div class="line">	emit(this.name,&#123;count:1&#125;);  //集合按照name分组，分组内容均为&#123;count：1&#125;</div><div class="line">&#125;</div><div class="line">var reduce = function(key,value)&#123;  //对分组结果进行处理</div><div class="line">	var result = &#123;count:0&#125;;</div><div class="line">	for(var i = 0;i&lt;value.length;i++)&#123;</div><div class="line">		result.count +=value[i].count;</div><div class="line">	&#125;</div><div class="line">	return result;</div><div class="line">&#125;</div><div class="line">db.person.mapReduce(map,reduce,&#123;&quot;out&quot;:&quot;collection&quot;&#125;)</div><div class="line">db.collection.find()</div></pre></td></tr></table></figure></p>
+<p>5.循环处理<br>可以将集合赋值给一个变量然后进行循环处理，<br>var list = db.person.find();<br>list.forEach(function(x){<br>    print(x.name):<br>})</p>
+<p>6.可以多操作查询<br>对person集合数据按name排序然后分页<br>var single=db.person.find().sort({“name”,1}).skip(2).limit(2);</p>
+<p>7.索引查询<br>建立索引：<br>db.person.ensureIndex({“name”:1}) //建立按照name进行排序的索引，1为升序，-1为降序<br>db.person.ensureIndex({“name”:1},{“unique”:true}) //建立唯一索引，集合中不能出现重复键值对<br>db.person.ensureIndex({“name”:1,”birthday”:1}) //组合索引<br>查询优化器做出的选择往往是最优的，因为我们做查询时，查询优化器会使用我们建立的这些索引来创建查询方案，<br>如果某一个先执行完则其他查询方案被close掉，这种方案会被mongodb保存起来，当然如果非要用自己指定的查询方案，这也是可以的，在mongodb中给我们提供了hint方法让我们可以暴力执行。<br>db.person.find({“name”:”jack”,”birthday”:”1998-3-2”}).hint({“name”:1,”birthday”:1})</p>
+<p>删除索引：<br>db.person.dropIndexes(“name_1”)</p>
+<p><a href="http://www.cnblogs.com/huangxincheng/archive/2012/02/29/2372699.html" target="_blank" rel="external">http://www.cnblogs.com/huangxincheng/archive/2012/02/29/2372699.html</a></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;启动&quot;&gt;&lt;a href=&quot;#启动&quot; class=&quot;headerlink&quot; title=&quot;启动&quot;&gt;&lt;/a&gt;启动&lt;/h1&gt;&lt;p&gt;cmd到mongoDB的bin文件夹,执行&lt;br&gt;mongod –dbpath data文件夹路径（例：D:\MongoDB\data）//
+    
+    </summary>
+    
+    
+      <category term="nodejs" scheme="http://yoohannah.github.io/tags/nodejs/"/>
+    
+  </entry>
   
   <entry>
     <title>开发小结</title>
@@ -81,9 +112,9 @@
     <link href="http://yoohannah.github.io/post/knowledge/step.html"/>
     <id>http://yoohannah.github.io/post/knowledge/step.html</id>
     <published>2017-03-12T13:33:37.000Z</published>
-    <updated>2017-03-14T14:32:28.780Z</updated>
+    <updated>2017-03-19T13:37:07.189Z</updated>
     
-    <content type="html"><![CDATA[<h1 id="搭建"><a href="#搭建" class="headerlink" title="搭建"></a>搭建</h1><p>express –view=ejs microblog //在当前文件夹创建文件夹microblog，并在里面部署express<br>cd microblog //进入microblog<br>npm install //安装nodejs包<br>DEBUG=microblog:* npm start //运行<br>npm install -g supervisor //安装supervisor，监视代码改动<br>supervisor ./bin/www //运行，会提示输入rs重新开始，输入’rs’回车即可，<br>//这里就不用每次改完都去手动中断进程再重新开始</p>
+    <content type="html"><![CDATA[<h1 id="搭建"><a href="#搭建" class="headerlink" title="搭建"></a>搭建</h1><p>如果全局安装express 使用npm install -g express 语句安装后，无法使用express命令<br>则先执行npm install express-generator -g<br>express在4.0之后，需要安装the executable（执行器express-generator）才能执行express命令<br>express –view=ejs microblog //在当前文件夹创建文件夹microblog，并在里面部署express<br>cd microblog //进入microblog<br>npm install //安装nodejs包<br>DEBUG=microblog:* npm start //运行<br>npm install -g supervisor //安装supervisor，监视代码改动<br>supervisor ./bin/www //运行，会提示输入rs重新开始，输入’rs’回车即可，<br>//这里就不用每次改完都去手动中断进程再重新开始</p>
 <h1 id="路由初步配置"><a href="#路由初步配置" class="headerlink" title="路由初步配置"></a>路由初步配置</h1><h2 id="匹配"><a href="#匹配" class="headerlink" title="匹配"></a>匹配</h2><p>打开app.js文件<br>var index = require(‘./routes/index’); //引入不同访问路径的回调函数所在文件<br>app.use(‘/‘, index); //为回调函数配置访问路径</p>
 <p>如果要建立分支路径，可以在回调函数文件中配置相应分支路径的回调函数<br>假如我想访问<a href="http://localhost:3000/users/111" target="_blank" rel="external">http://localhost:3000/users/111</a> 和 <a href="http://localhost:3000/users/id/111" target="_blank" rel="external">http://localhost:3000/users/id/111</a><br>首先在app.js中配置<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">var users = require(&apos;./routes/users&apos;);</div><div class="line">app.use(&apos;/users&apos;, users);</div></pre></td></tr></table></figure></p>
 <p>然后配置routes路径下的users.js<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> express = <span class="built_in">require</span>(<span class="string">'express'</span>);</div><div class="line"><span class="keyword">var</span> router = express.Router();</div><div class="line"></div><div class="line"><span class="comment">/* GET users listing. */</span></div><div class="line">router.get(<span class="string">'/:id'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">req, res, next</span>) </span>&#123;</div><div class="line">  res.send(<span class="string">'USER:'</span>+req.params.id);</div><div class="line">&#125;);</div><div class="line"></div><div class="line">router.get(<span class="string">'/id/:id'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">req, res, next</span>) </span>&#123;</div><div class="line">  res.send(<span class="string">'USERID:'</span>+req.params.id);</div><div class="line">&#125;);</div><div class="line"></div><div class="line"><span class="built_in">module</span>.exports = router;</div></pre></td></tr></table></figure></p>
@@ -111,7 +142,7 @@
     
     <summary type="html">
     
-      &lt;h1 id=&quot;搭建&quot;&gt;&lt;a href=&quot;#搭建&quot; class=&quot;headerlink&quot; title=&quot;搭建&quot;&gt;&lt;/a&gt;搭建&lt;/h1&gt;&lt;p&gt;express –view=ejs microblog //在当前文件夹创建文件夹microblog，并在里面部署express&lt;br&gt;cd
+      &lt;h1 id=&quot;搭建&quot;&gt;&lt;a href=&quot;#搭建&quot; class=&quot;headerlink&quot; title=&quot;搭建&quot;&gt;&lt;/a&gt;搭建&lt;/h1&gt;&lt;p&gt;如果全局安装express 使用npm install -g express 语句安装后，无法使用express命令&lt;br&gt;则先执行npm 
     
     </summary>
     
@@ -1023,33 +1054,6 @@
   </entry>
   
   <entry>
-    <title>赫夫曼编码</title>
-    <link href="http://yoohannah.github.io/post/algorithm/Huffman.html"/>
-    <id>http://yoohannah.github.io/post/algorithm/Huffman.html</id>
-    <published>2017-02-12T07:33:37.000Z</published>
-    <updated>2017-02-18T01:43:01.215Z</updated>
-    
-    <content type="html"><![CDATA[<p>赫夫曼编码可以构造出一种不等长的二进制，使编码后的电文长度最短，且保证不产生二义性</p>
-<h1 id="赫夫曼树"><a href="#赫夫曼树" class="headerlink" title="赫夫曼树"></a>赫夫曼树</h1><h2 id="相关定义"><a href="#相关定义" class="headerlink" title="相关定义"></a>相关定义</h2><p>权：树结点间的连线相关的数<br>结点的路径长度：从根结点到该结点的路径上的连接数<br>树的路径长度：树中每个叶子结点的路径长度之和<br>结点带权路径长度：结点的路径长度与结点权值的乘积<br>树的带权路径长度(WPL)：树中所有叶子结点的带权路径长度之和。    WPL越小,说明二叉树性能越优。</p>
-<h2 id="构造赫夫曼树"><a href="#构造赫夫曼树" class="headerlink" title="构造赫夫曼树"></a>构造赫夫曼树</h2><p>1.在森林中选出两颗根结点的权值最小的二叉树，权值小的放左边，权值大的放右边<br>2.合并两颗选出的二叉树：增加一个新结点n作为新二叉树的根，权值为左右孩子权值之和<br>3.回到森林中，选出权值最小的根结点，与刚刚形成的结点n比较，小的放左边，大的放右边<br>4.返回步骤二，直到森林中的树被选完</p>
-<p><div style="margin-bottom: 125px"><br> <img src="/image/tree7.png" style="width: 300px;height: 100px;" alt="图片名称" align="left"><br> <img src="/image/tree8.png" alt="图片名称" align="right" style="width: 300px;height: 180px;margin-top: -30px"><br></div></p>
-<h1 id="赫夫曼编码"><a href="#赫夫曼编码" class="headerlink" title="赫夫曼编码"></a>赫夫曼编码</h1><h2 id="一些名词"><a href="#一些名词" class="headerlink" title="一些名词"></a>一些名词</h2><p>定长编码：规定位数表示字符<br>变长编码：单个编码长度不一字，可以根据整体出现频率来调节<br>前缀码：没有任何码字是其他码字的前缀</p>
-<h2 id="赫夫曼编码思路"><a href="#赫夫曼编码思路" class="headerlink" title="赫夫曼编码思路"></a>赫夫曼编码思路</h2><p>1.根据输入字符串，统计字符出现次数，建立优先级队列<br>2.根据优先级队列建立输入字符串的赫夫曼树<br>3.遍历赫夫曼树，左1右0，建立字符编码表<br>4.编码encode:根据字符编码形成字符串编码<br>5.解码decode：根据编码字符串遍历赫夫曼树，左0右1，找到叶子结点的字符，从而解码字符。<br><a href="">代码待写</a></p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;赫夫曼编码可以构造出一种不等长的二进制，使编码后的电文长度最短，且保证不产生二义性&lt;/p&gt;
-&lt;h1 id=&quot;赫夫曼树&quot;&gt;&lt;a href=&quot;#赫夫曼树&quot; class=&quot;headerlink&quot; title=&quot;赫夫曼树&quot;&gt;&lt;/a&gt;赫夫曼树&lt;/h1&gt;&lt;h2 id=&quot;相关定义&quot;&gt;&lt;a
-    
-    </summary>
-    
-    
-      <category term="js" scheme="http://yoohannah.github.io/tags/js/"/>
-    
-  </entry>
-  
-  <entry>
     <title>利用checkbox进行各种勾选</title>
     <link href="http://yoohannah.github.io/post/knowledge/checkbox.html"/>
     <id>http://yoohannah.github.io/post/knowledge/checkbox.html</id>
@@ -1078,6 +1082,33 @@
   </entry>
   
   <entry>
+    <title>赫夫曼编码</title>
+    <link href="http://yoohannah.github.io/post/algorithm/Huffman.html"/>
+    <id>http://yoohannah.github.io/post/algorithm/Huffman.html</id>
+    <published>2017-02-12T07:33:37.000Z</published>
+    <updated>2017-02-18T01:43:01.215Z</updated>
+    
+    <content type="html"><![CDATA[<p>赫夫曼编码可以构造出一种不等长的二进制，使编码后的电文长度最短，且保证不产生二义性</p>
+<h1 id="赫夫曼树"><a href="#赫夫曼树" class="headerlink" title="赫夫曼树"></a>赫夫曼树</h1><h2 id="相关定义"><a href="#相关定义" class="headerlink" title="相关定义"></a>相关定义</h2><p>权：树结点间的连线相关的数<br>结点的路径长度：从根结点到该结点的路径上的连接数<br>树的路径长度：树中每个叶子结点的路径长度之和<br>结点带权路径长度：结点的路径长度与结点权值的乘积<br>树的带权路径长度(WPL)：树中所有叶子结点的带权路径长度之和。    WPL越小,说明二叉树性能越优。</p>
+<h2 id="构造赫夫曼树"><a href="#构造赫夫曼树" class="headerlink" title="构造赫夫曼树"></a>构造赫夫曼树</h2><p>1.在森林中选出两颗根结点的权值最小的二叉树，权值小的放左边，权值大的放右边<br>2.合并两颗选出的二叉树：增加一个新结点n作为新二叉树的根，权值为左右孩子权值之和<br>3.回到森林中，选出权值最小的根结点，与刚刚形成的结点n比较，小的放左边，大的放右边<br>4.返回步骤二，直到森林中的树被选完</p>
+<p><div style="margin-bottom: 125px"><br> <img src="/image/tree7.png" style="width: 300px;height: 100px;" alt="图片名称" align="left"><br> <img src="/image/tree8.png" alt="图片名称" align="right" style="width: 300px;height: 180px;margin-top: -30px"><br></div></p>
+<h1 id="赫夫曼编码"><a href="#赫夫曼编码" class="headerlink" title="赫夫曼编码"></a>赫夫曼编码</h1><h2 id="一些名词"><a href="#一些名词" class="headerlink" title="一些名词"></a>一些名词</h2><p>定长编码：规定位数表示字符<br>变长编码：单个编码长度不一字，可以根据整体出现频率来调节<br>前缀码：没有任何码字是其他码字的前缀</p>
+<h2 id="赫夫曼编码思路"><a href="#赫夫曼编码思路" class="headerlink" title="赫夫曼编码思路"></a>赫夫曼编码思路</h2><p>1.根据输入字符串，统计字符出现次数，建立优先级队列<br>2.根据优先级队列建立输入字符串的赫夫曼树<br>3.遍历赫夫曼树，左1右0，建立字符编码表<br>4.编码encode:根据字符编码形成字符串编码<br>5.解码decode：根据编码字符串遍历赫夫曼树，左0右1，找到叶子结点的字符，从而解码字符。<br><a href="">代码待写</a></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;赫夫曼编码可以构造出一种不等长的二进制，使编码后的电文长度最短，且保证不产生二义性&lt;/p&gt;
+&lt;h1 id=&quot;赫夫曼树&quot;&gt;&lt;a href=&quot;#赫夫曼树&quot; class=&quot;headerlink&quot; title=&quot;赫夫曼树&quot;&gt;&lt;/a&gt;赫夫曼树&lt;/h1&gt;&lt;h2 id=&quot;相关定义&quot;&gt;&lt;a
+    
+    </summary>
+    
+    
+      <category term="js" scheme="http://yoohannah.github.io/tags/js/"/>
+    
+  </entry>
+  
+  <entry>
     <title>树、森林和二叉树的转换与遍历</title>
     <link href="http://yoohannah.github.io/post/algorithm/treetransform.html"/>
     <id>http://yoohannah.github.io/post/algorithm/treetransform.html</id>
@@ -1097,30 +1128,6 @@
     <summary type="html">
     
       &lt;h1 id=&quot;树转化为二叉树&quot;&gt;&lt;a href=&quot;#树转化为二叉树&quot; class=&quot;headerlink&quot; title=&quot;树转化为二叉树&quot;&gt;&lt;/a&gt;树转化为二叉树&lt;/h1&gt;&lt;div style=&quot;margin-bottom: 125px&quot;&gt;&lt;br&gt; &lt;img src=&quot;/ima
-    
-    </summary>
-    
-    
-      <category term="js" scheme="http://yoohannah.github.io/tags/js/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>线索二叉树</title>
-    <link href="http://yoohannah.github.io/post/algorithm/Cluebinarytree.html"/>
-    <id>http://yoohannah.github.io/post/algorithm/Cluebinarytree.html</id>
-    <published>2017-02-11T09:47:37.000Z</published>
-    <updated>2017-02-12T06:37:15.771Z</updated>
-    
-    <content type="html"><![CDATA[<p>节省叶子结点空指针浪费的空间，来记录该结点按遍历顺序的前驱后继<br>只有中序遍历满足每隔一个结点会出现一个浪费空间的结点</p>
-<p>结点由五个属性组成；{<br>  lchild:取决于ltag<br>  ltag:为0时，lchild指向该结点左孩子，为1时lchild指向该结点的前驱<br>  data:该结点数据<br>  rchild:取决于rtag<br>  rtag:为0时，rchild指向该结点右孩子，为1时rchild指向该结点的后继<br>}</p>
-<p><a href="">代码链接</a></p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;节省叶子结点空指针浪费的空间，来记录该结点按遍历顺序的前驱后继&lt;br&gt;只有中序遍历满足每隔一个结点会出现一个浪费空间的结点&lt;/p&gt;
-&lt;p&gt;结点由五个属性组成；{&lt;br&gt;  lchild:取决于ltag&lt;br&gt;  ltag:为0时，lchild指向该结点左孩子，为1时lchi
     
     </summary>
     

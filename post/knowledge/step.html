@@ -86,18 +86,18 @@
 
 
 
-<meta name="description" content="搭建express –view=ejs microblog //在当前文件夹创建文件夹microblog，并在里面部署expresscd microblog //进入microblognpm install //安装nodejs包DEBUG=microblog:* npm start //运行npm install -g supervisor //安装supervisor，监视代码改动superv">
+<meta name="description" content="搭建如果全局安装express 使用npm install -g express 语句安装后，无法使用express命令则先执行npm install express-generator -gexpress在4.0之后，需要安装the executable（执行器express-generator）才能执行express命令express –view=ejs microblog //在当前文件夹创">
 <meta property="og:type" content="article">
 <meta property="og:title" content="搭建博客步骤">
 <meta property="og:url" content="http://yoohannah.github.io/post/knowledge/step.html">
 <meta property="og:site_name" content="My Little World">
-<meta property="og:description" content="搭建express –view=ejs microblog //在当前文件夹创建文件夹microblog，并在里面部署expresscd microblog //进入microblognpm install //安装nodejs包DEBUG=microblog:* npm start //运行npm install -g supervisor //安装supervisor，监视代码改动superv">
+<meta property="og:description" content="搭建如果全局安装express 使用npm install -g express 语句安装后，无法使用express命令则先执行npm install express-generator -gexpress在4.0之后，需要安装the executable（执行器express-generator）才能执行express命令express –view=ejs microblog //在当前文件夹创">
 <meta property="og:image" content="http://yoohannah.github.io/image/node1.png">
 <meta property="og:image" content="http://yoohannah.github.io/image/mongodb.png">
-<meta property="og:updated_time" content="2017-03-14T14:32:28.780Z">
+<meta property="og:updated_time" content="2017-03-19T13:37:07.189Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="搭建博客步骤">
-<meta name="twitter:description" content="搭建express –view=ejs microblog //在当前文件夹创建文件夹microblog，并在里面部署expresscd microblog //进入microblognpm install //安装nodejs包DEBUG=microblog:* npm start //运行npm install -g supervisor //安装supervisor，监视代码改动superv">
+<meta name="twitter:description" content="搭建如果全局安装express 使用npm install -g express 语句安装后，无法使用express命令则先执行npm install express-generator -gexpress在4.0之后，需要安装the executable（执行器express-generator）才能执行express命令express –view=ejs microblog //在当前文件夹创">
 <meta name="twitter:image" content="http://yoohannah.github.io/image/node1.png">
 
 
@@ -336,7 +336,7 @@
       
 
       
-        <h1 id="搭建"><a href="#搭建" class="headerlink" title="搭建"></a>搭建</h1><p>express –view=ejs microblog //在当前文件夹创建文件夹microblog，并在里面部署express<br>cd microblog //进入microblog<br>npm install //安装nodejs包<br>DEBUG=microblog:* npm start //运行<br>npm install -g supervisor //安装supervisor，监视代码改动<br>supervisor ./bin/www //运行，会提示输入rs重新开始，输入’rs’回车即可，<br>//这里就不用每次改完都去手动中断进程再重新开始</p>
+        <h1 id="搭建"><a href="#搭建" class="headerlink" title="搭建"></a>搭建</h1><p>如果全局安装express 使用npm install -g express 语句安装后，无法使用express命令<br>则先执行npm install express-generator -g<br>express在4.0之后，需要安装the executable（执行器express-generator）才能执行express命令<br>express –view=ejs microblog //在当前文件夹创建文件夹microblog，并在里面部署express<br>cd microblog //进入microblog<br>npm install //安装nodejs包<br>DEBUG=microblog:* npm start //运行<br>npm install -g supervisor //安装supervisor，监视代码改动<br>supervisor ./bin/www //运行，会提示输入rs重新开始，输入’rs’回车即可，<br>//这里就不用每次改完都去手动中断进程再重新开始</p>
 <h1 id="路由初步配置"><a href="#路由初步配置" class="headerlink" title="路由初步配置"></a>路由初步配置</h1><h2 id="匹配"><a href="#匹配" class="headerlink" title="匹配"></a>匹配</h2><p>打开app.js文件<br>var index = require(‘./routes/index’); //引入不同访问路径的回调函数所在文件<br>app.use(‘/‘, index); //为回调函数配置访问路径</p>
 <p>如果要建立分支路径，可以在回调函数文件中配置相应分支路径的回调函数<br>假如我想访问<a href="http://localhost:3000/users/111" target="_blank" rel="external">http://localhost:3000/users/111</a> 和 <a href="http://localhost:3000/users/id/111" target="_blank" rel="external">http://localhost:3000/users/id/111</a><br>首先在app.js中配置<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">var users = require(&apos;./routes/users&apos;);</div><div class="line">app.use(&apos;/users&apos;, users);</div></pre></td></tr></table></figure></p>
 <p>然后配置routes路径下的users.js<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> express = <span class="built_in">require</span>(<span class="string">'express'</span>);</div><div class="line"><span class="keyword">var</span> router = express.Router();</div><div class="line"></div><div class="line"><span class="comment">/* GET users listing. */</span></div><div class="line">router.get(<span class="string">'/:id'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">req, res, next</span>) </span>&#123;</div><div class="line">  res.send(<span class="string">'USER:'</span>+req.params.id);</div><div class="line">&#125;);</div><div class="line"></div><div class="line">router.get(<span class="string">'/id/:id'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">req, res, next</span>) </span>&#123;</div><div class="line">  res.send(<span class="string">'USERID:'</span>+req.params.id);</div><div class="line">&#125;);</div><div class="line"></div><div class="line"><span class="built_in">module</span>.exports = router;</div></pre></td></tr></table></figure></p>
@@ -472,7 +472,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">59</span>
+              <span class="site-state-item-count">60</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
