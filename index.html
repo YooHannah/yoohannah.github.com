@@ -258,6 +258,123 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://yoohannah.github.io/post/algorithm/Breadthfirsttraversal.html">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="YooHannah">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="/psb.jpg">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="My Little World">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="My Little World" src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/post/algorithm/Breadthfirsttraversal.html" itemprop="url">
+                  图的遍历(广度优先遍历)
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-03-20T22:21:30+08:00">
+                2017-03-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>主要思路：树的层序遍历<br>结构：队列<br>原则：右手原则<br>将复杂的图调整结构为层的形状，从最上一层结点唯一结点出发，入队列<br><img src="/image/tug1.png" alt="tug1"><br>遍历第二层，从与上一层结点相连的右手边的结点开始遍历，先将上一层相连的结点出队列，然后第二层结点入队列<br>以此类推，即在本层遍历时，先将与将要遍历的结点的上层结点出队列，然后将本层结点入队列，<br>遍历完一个上层结点的本层连接点，先将上层下一个结点出队列，在将上层下一个节点的本层链接点入队列<br>出队列顺序即遍历顺序<br><img src="/image/tug2.png" alt="tug2"></p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
   <link itemprop="mainEntityOfPage" href="http://yoohannah.github.io/post/knowledge/mongoDB.html">
 
   <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -346,7 +463,10 @@
 <p>6.可以多操作查询<br>对person集合数据按name排序然后分页<br>var single=db.person.find().sort({“name”,1}).skip(2).limit(2);</p>
 <p>7.索引查询<br>建立索引：<br>db.person.ensureIndex({“name”:1}) //建立按照name进行排序的索引，1为升序，-1为降序<br>db.person.ensureIndex({“name”:1},{“unique”:true}) //建立唯一索引，集合中不能出现重复键值对<br>db.person.ensureIndex({“name”:1,”birthday”:1}) //组合索引<br>查询优化器做出的选择往往是最优的，因为我们做查询时，查询优化器会使用我们建立的这些索引来创建查询方案，<br>如果某一个先执行完则其他查询方案被close掉，这种方案会被mongodb保存起来，当然如果非要用自己指定的查询方案，这也是可以的，在mongodb中给我们提供了hint方法让我们可以暴力执行。<br>db.person.find({“name”:”jack”,”birthday”:”1998-3-2”}).hint({“name”:1,”birthday”:1})</p>
 <p>删除索引：<br>db.person.dropIndexes(“name_1”)</p>
-<p><a href="http://www.cnblogs.com/huangxincheng/archive/2012/02/29/2372699.html" target="_blank" rel="external">http://www.cnblogs.com/huangxincheng/archive/2012/02/29/2372699.html</a></p>
+<h1 id="主从复制"><a href="#主从复制" class="headerlink" title="主从复制"></a>主从复制</h1><p>将数据库数据复制到多台服务器上，防止因为一台服务器死机而导致数据无法使用的问题出现<br>将安装文件复制到其他磁盘上，模拟不同的服务器<br>启动H盘上的mongodb，把该数据库指定为主数据库<br>H:\mongoDB\bin&gt;mongod –dbpath H:\mongoDB\data –master<br>启动D盘上的mongodb，把该数据库指定为从属数据库<br>D:\mongoDB\bin&gt;mongod –dbpath D:\mongoDB\data –port 8888 –slave –source=127.0.0.1:27017<br>更换端口为8888，source表示主数据库地址<br>2017-03-20T10:12:17.424+0800 I REPL     [replslave] syncing from host:127.0.0.1:<br>27017<br>然后分别打开主shell(mongo 127.0.0.1:27017)和从shell(mongo 127.0.0.1:8888)查看所有集合<br>show dbs<br>因为从服务器上的数据库是不允许进行读写操作,所以从shell中会报错<br><img src="/image/mongodb7.png" alt="mongodb7"><br>解决，先执行：rs.slaveOk()<br>现在主shell中更改数据，在从shell中查看，看是否进行了同步<br>但有可能因为服务连接状态问题导致数据内容不同<br><img src="/image/mongodb8.png" alt="mongodb8"></p>
+<h1 id="集群"><a href="#集群" class="headerlink" title="集群"></a>集群</h1><p>不设定特定主数据库，如果哪个数据库死机了，集群就会推选一个从属数据库作为主数据库顶上，实现自动修复的效果<br>1.建立集群，命名集群名为shopex,replSet让服务器知道shopex下有端口为3333的另一个数据库服务器<br>新打开cmd<br>H:\mongoDB\bin&gt;mongod –dbpath H:\mongoDB\data –port 2222 –replSet shopex/127.0.0.1:3333<br>2.打开端口为3333的另一个数据库服务器<br>新打开cmd<br>D:\mongoDB\bin&gt;mongod –dbpath D:\mongoDB\data –port 3333 –replSet shopex/127.0.0.1:2222<br>3.在admin集合中初始化“副本集”<br>新打开cmd,开启shell<br>H:\mongoDB\bin&gt;mongo 127.0.0.1:2222/admin<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">&gt; db.runCommand(&#123;&quot;replSetInitiate&quot;:&#123;</div><div class="line">... &quot;_id&quot;:&quot;shopex&quot;,</div><div class="line">... &quot;members&quot;:[</div><div class="line">... &#123;</div><div class="line">... &quot;_id&quot;:1,</div><div class="line">... &quot;host&quot;:&quot;127.0.0.1:2222&quot;</div><div class="line">... &#125;,</div><div class="line">... &#123;</div><div class="line">... &quot;_id&quot;:2,</div><div class="line">... &quot;host&quot;:&quot;127.0.0.1:3333&quot;</div><div class="line">... &#125;</div><div class="line">... ]&#125;&#125;)</div><div class="line">&#123; &quot;ok&quot; : 1 &#125;</div></pre></td></tr></table></figure></p>
+<p>4.设置仲裁服务器<br>新打开cmd,开启服务<br>D:\mongoDB\bin&gt;mongod –dbpath F:\mongoDB\data –port 4444 –replSet shopex/127.0.0.1:2222<br>开启shell,设置及产看结果<br>H:\mongoDB\bin&gt;mongo 127.0.0.1:2222/admin<br>shopex:PRIMARY&gt; rs.addArb(“127.0.0.1:4444”)<br>{ “ok” : 1 }<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div></pre></td><td class="code"><pre><div class="line">shopex:PRIMARY&gt; rs.status()</div><div class="line">&#123;</div><div class="line">        &quot;set&quot; : &quot;shopex&quot;,</div><div class="line">        &quot;date&quot; : ISODate(&quot;2017-03-20T05:55:12.742Z&quot;),</div><div class="line">        &quot;myState&quot; : 1,</div><div class="line">        &quot;term&quot; : NumberLong(1),</div><div class="line">        &quot;heartbeatIntervalMillis&quot; : NumberLong(2000),</div><div class="line">        &quot;optimes&quot; : &#123;</div><div class="line">                &quot;lastCommittedOpTime&quot; : &#123;</div><div class="line">                        &quot;ts&quot; : Timestamp(1489989307, 1),</div><div class="line">                        &quot;t&quot; : NumberLong(1)</div><div class="line">                &#125;,</div><div class="line">                &quot;appliedOpTime&quot; : &#123;</div><div class="line">                        &quot;ts&quot; : Timestamp(1489989307, 1),</div><div class="line">                        &quot;t&quot; : NumberLong(1)</div><div class="line">                &#125;,</div><div class="line">                &quot;durableOpTime&quot; : &#123;</div><div class="line">                        &quot;ts&quot; : Timestamp(1489989307, 1),</div><div class="line">                        &quot;t&quot; : NumberLong(1)</div><div class="line">                &#125;</div><div class="line">        &#125;,</div><div class="line">        &quot;members&quot; : [</div><div class="line">                &#123;</div><div class="line">                        &quot;_id&quot; : 1,</div><div class="line">                        &quot;name&quot; : &quot;127.0.0.1:2222&quot;,</div><div class="line">                        &quot;health&quot; : 1,</div><div class="line">                        &quot;state&quot; : 1,</div><div class="line">                        &quot;stateStr&quot; : &quot;PRIMARY&quot;,</div><div class="line">                        &quot;uptime&quot; : 596,</div><div class="line">                        &quot;optime&quot; : &#123;</div><div class="line">                                &quot;ts&quot; : Timestamp(1489989307, 1),</div><div class="line">                                &quot;t&quot; : NumberLong(1)</div><div class="line">                        &#125;,</div><div class="line">                        &quot;optimeDate&quot; : ISODate(&quot;2017-03-20T05:55:07Z&quot;),</div><div class="line">                        &quot;electionTime&quot; : Timestamp(1489989026, 1),</div><div class="line">                        &quot;electionDate&quot; : ISODate(&quot;2017-03-20T05:50:26Z&quot;),</div><div class="line">                        &quot;configVersion&quot; : 2,</div><div class="line">                        &quot;self&quot; : true</div><div class="line">                &#125;,</div><div class="line">                &#123;</div><div class="line">                        &quot;_id&quot; : 2,</div><div class="line">                        &quot;name&quot; : &quot;127.0.0.1:3333&quot;,</div><div class="line">                        &quot;health&quot; : 1,</div><div class="line">                        &quot;state&quot; : 2,</div><div class="line">                        &quot;stateStr&quot; : &quot;SECONDARY&quot;,</div><div class="line">                        &quot;uptime&quot; : 296,</div><div class="line">                        &quot;optime&quot; : &#123;</div><div class="line">                                &quot;ts&quot; : Timestamp(1489989307, 1),</div><div class="line">                                &quot;t&quot; : NumberLong(1)</div><div class="line">                        &#125;,</div><div class="line">                        &quot;optimeDurable&quot; : &#123;</div><div class="line">                                &quot;ts&quot; : Timestamp(1489989307, 1),</div><div class="line">                                &quot;t&quot; : NumberLong(1)</div><div class="line">                        &#125;,</div><div class="line">                        &quot;optimeDate&quot; : ISODate(&quot;2017-03-20T05:55:07Z&quot;),</div><div class="line">                        &quot;optimeDurableDate&quot; : ISODate(&quot;2017-03-20T05:55:07Z&quot;),</div><div class="line">                        &quot;lastHeartbeat&quot; : ISODate(&quot;2017-03-20T05:55:11.766Z&quot;),</div><div class="line">                        &quot;lastHeartbeatRecv&quot; : ISODate(&quot;2017-03-20T05:55:10.786Z&quot;</div><div class="line">),</div><div class="line">                        &quot;pingMs&quot; : NumberLong(0),</div><div class="line">                        &quot;syncingTo&quot; : &quot;127.0.0.1:2222&quot;,</div><div class="line">                        &quot;configVersion&quot; : 2</div><div class="line">                &#125;,</div><div class="line">                &#123;</div><div class="line">                        &quot;_id&quot; : 3,</div><div class="line">                        &quot;name&quot; : &quot;127.0.0.1:4444&quot;,</div><div class="line">                        &quot;health&quot; : 1,</div><div class="line">                        &quot;state&quot; : 7,</div><div class="line">                        &quot;stateStr&quot; : &quot;ARBITER&quot;,</div><div class="line">                        &quot;uptime&quot; : 44,</div><div class="line">                        &quot;lastHeartbeat&quot; : ISODate(&quot;2017-03-20T05:55:11.765Z&quot;),</div><div class="line">                        &quot;lastHeartbeatRecv&quot; : ISODate(&quot;2017-03-20T05:55:07.948Z&quot;</div><div class="line">),</div><div class="line">                        &quot;pingMs&quot; : NumberLong(0),</div><div class="line">                        &quot;configVersion&quot; : 2</div><div class="line">                &#125;</div><div class="line">        ],</div><div class="line">        &quot;ok&quot; : 1</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>现在如果关掉2222端口服务器，再打开，在执行rs.status(),可以看到2222的“stateStr”变成”SECONDARY”<br>“3333”的变成”PRIMARY”<br><a href="http://www.cnblogs.com/huangxincheng/archive/2012/02/29/2372699.html" target="_blank" rel="external">相关链接</a></p>
 
           
         
@@ -1688,366 +1808,11 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="http://yoohannah.github.io/post/algorithm/graphstruct.html">
-
-  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
-    <meta itemprop="name" content="YooHannah">
-    <meta itemprop="description" content="">
-    <meta itemprop="image" content="/psb.jpg">
-  </span>
-
-  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-    <meta itemprop="name" content="My Little World">
-    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
-      <img style="display:none;" itemprop="url image" alt="My Little World" src="">
-    </span>
-  </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/post/algorithm/graphstruct.html" itemprop="url">
-                  图的存储结构
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-03-01T21:59:30+08:00">
-                2017-03-01
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="1-邻接矩阵"><a href="#1-邻接矩阵" class="headerlink" title="1.邻接矩阵"></a>1.邻接矩阵</h1><h2 id="1-无向图"><a href="#1-无向图" class="headerlink" title="1.无向图"></a>1.无向图</h2><p><img src="/image/graph1.png" alt="graph1"><br>一个一维数组存储图中顶点信息，</p>
-<table>
-<thead>
-<tr>
-<th>顶点数组</th>
-<th>v0</th>
-<th>v1</th>
-<th>v2</th>
-<th>v3</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td></td>
-</tr>
-</tbody>
-</table>
-<p>一个二维数组(邻接矩阵)存储图中边或弧的信息<br>0表示不存在顶点间的边，1表示顶点间存在边</p>
-<table>
-<thead>
-<tr>
-<th></th>
-<th>v0</th>
-<th>v1</th>
-<th>v2</th>
-<th>v3</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>v0</td>
-<td>0</td>
-<td>1</td>
-<td>1</td>
-<td>1</td>
-</tr>
-<tr>
-<td>v1</td>
-<td>1</td>
-<td>0</td>
-<td>1</td>
-<td>0</td>
-</tr>
-<tr>
-<td>v2</td>
-<td>1</td>
-<td>1</td>
-<td>0</td>
-<td>1</td>
-</tr>
-<tr>
-<td>v3</td>
-<td>1</td>
-<td>0</td>
-<td>1</td>
-<td>0</td>
-</tr>
-</tbody>
-</table>
-<p>无向图构成的邻接矩阵为对称矩阵，对角线值为0<br>—–顶点Vi在邻接矩阵中第i行(或第i列)的元素之和为该顶点的度<br>—–扫描矩阵中第i行元素，元素为1的列为顶点Vi的邻接点</p>
-<h2 id="2-有向图"><a href="#2-有向图" class="headerlink" title="2.有向图"></a>2.有向图</h2><p><img src="/image/graph2.png" alt="graph2"><br>一个一维数组存储图中顶点信息，</p>
-<table>
-<thead>
-<tr>
-<th>顶点数组</th>
-<th>v0</th>
-<th>v1</th>
-<th>v2</th>
-<th>v3</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td></td>
-</tr>
-</tbody>
-</table>
-<p>坐标[Vi][Vj]的值，1表示Vi指向Vj的弧存在，0表示不存在</p>
-<table>
-<thead>
-<tr>
-<th></th>
-<th>v0</th>
-<th>v1</th>
-<th>v2</th>
-<th>v3</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>v0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>1</td>
-</tr>
-<tr>
-<td>v1</td>
-<td>1</td>
-<td>0</td>
-<td>1</td>
-<td>0</td>
-</tr>
-<tr>
-<td>v2</td>
-<td>1</td>
-<td>1</td>
-<td>0</td>
-<td>0</td>
-</tr>
-<tr>
-<td>v3</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-</tr>
-</tbody>
-</table>
-<p>第Vi列的元素之和为顶点Vi的入度<br>第Vi行的元素之和为顶点Vi的出度</p>
-<h2 id="3-网"><a href="#3-网" class="headerlink" title="3.网"></a>3.网</h2><p><img src="/image/tu3.png" alt="tu3"><br>邻接矩阵各元素的值不再用0/1表示，而是用权表示<br>顶点间若不存在弧，则用\infty无穷表示,顶点自己到自己的权为0</p>
-<table>
-<thead>
-<tr>
-<th></th>
-<th>v0</th>
-<th>v1</th>
-<th>v2</th>
-<th>v3</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>v0</td>
-<td>0</td>
-<td>\infty</td>
-<td>\infty</td>
-<td>18</td>
-</tr>
-<tr>
-<td>v1</td>
-<td>8</td>
-<td>0</td>
-<td>2</td>
-<td>\infty</td>
-</tr>
-<tr>
-<td>v2</td>
-<td>4</td>
-<td>\infty</td>
-<td>0</td>
-<td>\infty</td>
-</tr>
-<tr>
-<td>v3</td>
-<td>\infty</td>
-<td>\infty</td>
-<td>\infty</td>
-<td>0</td>
-</tr>
-</tbody>
-</table>
-<h1 id="2-邻接表"><a href="#2-邻接表" class="headerlink" title="2.邻接表"></a>2.邻接表</h1><h2 id="无向图"><a href="#无向图" class="headerlink" title="无向图"></a>无向图</h2><p>顶点用一个一维数组存储<br>每个顶点Vi的所有邻接点构成一个线性表，由于个数不确定，用单链表来表示<br><img src="/image/tu4.png" alt="tu4"><br><img src="/image/tu5.png" alt="tu5"></p>
-<h2 id="有向图"><a href="#有向图" class="headerlink" title="有向图"></a>有向图</h2><p>把顶点当弧尾建立邻接表，邻接表长度就是该顶点出度<br><img src="/image/tu6.png" alt="tu6"><br>把顶点当弧头建的表叫逆邻接表，邻接表长度就是该顶点入度<br><img src="/image/tu7.png" alt="tu7"></p>
-<h2 id="网"><a href="#网" class="headerlink" title="网"></a>网</h2><p>在边表结点定义中再增加一个数据域来存储权值<br><img src="/image/tu8.png" alt="tu8"></p>
-<h1 id="3-十字链表-有向图"><a href="#3-十字链表-有向图" class="headerlink" title="3.十字链表(有向图)"></a>3.十字链表(有向图)</h1><p>顶点表结构</p>
-<p>|data|firstIn|firstOut|<br>data：顶点数据<br>firstIn:第一个入边表的指针<br>firstOut:第一个出边表的指针</p>
-<p>边表结点结构 表示以条边</p>
-<table>
-<thead>
-<tr>
-<th>tailVex</th>
-<th>headVex</th>
-<th>headLink</th>
-<th>tailLink</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td></td>
-</tr>
-</tbody>
-</table>
-<p>tailVex:该弧起点的顶点在顶点表的下标<br>headVex:该弧终点的顶点在顶点表的下标<br>headLink:指向headVex的弧的指针<br>tailLink: 从tailVex出发的弧的指针<br><img src="/image/graph2.png" alt="graph2"><br><img src="/image/tu9.png" alt="tu9"></p>
-<h1 id="4-邻接多重表-无向表"><a href="#4-邻接多重表-无向表" class="headerlink" title="4.邻接多重表(无向表)"></a>4.邻接多重表(无向表)</h1><p>关注对象是图中的表不是顶点<br>|iVex|iLink|jVex|jLink|<br>iVex和jVex是与某条边依附的两个顶点在顶点表中的下标<br>iLink：指向依附顶点iVex的下一条边，<br>jLink：指向依附顶点jVex的下一条边，<br><img src="/image/tu10.png" alt="tu10"></p>
-<h1 id="5-边集数组"><a href="#5-边集数组" class="headerlink" title="5.边集数组"></a>5.边集数组</h1><p>由两个一维数组构成<br>一个是存储顶点的信息<br>另一个存储边的信息<br>边数组的每个数据元素由一条边的起点下标(begin)、终点下标(end)和权(weight)组成</p>
-<p><img src="/image/tu11.png" alt="tu11"></p>
-<table>
-<thead>
-<tr>
-<th>顶点数组</th>
-<th>v0</th>
-<th>v1</th>
-<th>v2</th>
-<th>v3</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td></td>
-</tr>
-</tbody>
-</table>
-<table>
-<thead>
-<tr>
-<th>边数组</th>
-<th>begin</th>
-<th>end</th>
-<th>weight</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>edges[0]</td>
-<td>0</td>
-<td>3</td>
-<td>5</td>
-</tr>
-<tr>
-<td>edges[1]</td>
-<td>1</td>
-<td>0</td>
-<td>4</td>
-</tr>
-<tr>
-<td>edges[2]</td>
-<td>1</td>
-<td>2</td>
-<td>3</td>
-</tr>
-<tr>
-<td>edges[3]</td>
-<td>2</td>
-<td>0</td>
-<td>8</td>
-</tr>
-</tbody>
-</table>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -2088,7 +1853,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">60</span>
+              <span class="site-state-item-count">61</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
