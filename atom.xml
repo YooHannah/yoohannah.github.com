@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoohannah.github.io/"/>
-  <updated>2017-03-20T14:02:33.051Z</updated>
+  <updated>2017-03-21T14:16:41.343Z</updated>
   <id>http://yoohannah.github.io/</id>
   
   <author>
@@ -14,6 +14,29 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>关于commonjs、MVC、模板引擎</title>
+    <link href="http://yoohannah.github.io/post/knowledge/commonjs.html"/>
+    <id>http://yoohannah.github.io/post/knowledge/commonjs.html</id>
+    <published>2017-03-21T14:16:37.000Z</published>
+    <updated>2017-03-21T14:16:41.343Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="commonjs理解"><a href="#commonjs理解" class="headerlink" title="commonjs理解"></a>commonjs理解</h1><p>是一种编写API的标准，根据该标准写的API可以在任何支持JavaScript的环境中使用，尤其是可以满足服务端的应用<br>四个个关键词<br>modules：模块，外部用 JavaScript 封装，具有对外接口并有一定功能作用的一个文件<br>packages：包，多个module的集合，相当于提供了一些固定接口的函数库，提供更高层的的抽象<br>exports：模块对外的接口对象，在模块文件中编写的功能函数作为它的属性函数，不同写法，使用规则不一样<br>require：当我们要使用某个模块时，用来获取/加载模块接口的对象,获取模块的 exports 对象。</p>
+<h1 id="MVC"><a href="#MVC" class="headerlink" title="MVC"></a>MVC</h1><p>MODEL-VIEW-CONTROLL，模型-视图-控制器，是一种软件的设计模式<br>模型:对象及其数据结构的实现，通常包含数据库的操作<br>视图：表示用户界面，在网站中通常就是HTML的组织结构<br>控制器：用于处理用户请求和数据流，复杂模型，将输出传递给视图<br><img src="/image/noun2.png" alt="noun2"></p>
+<h1 id="模板引擎"><a href="#模板引擎" class="headerlink" title="模板引擎"></a>模板引擎</h1><p>是一个生成HTML的工具<br>其功能是将页面模板和要显示的数据结合起来生成HTML页面<br>既可以运行在服务端又可以运行在客户端，<br>大多数时候它都在服务器端直接被解析为HTML，解析完后再传输给客户端<br>有时候也可以运行在客户端，即浏览器中<br>MVC架构中，模板引擎包含在服务器端，流程如下：<br>控制器得到用户请求后，从模型(原来页面)获取数据，调用模板引擎<br>模板引擎以数据(经过后台处理，要传递给客户端的)和页面模板为输入，生成HTML页面<br>返回给控制器，由控制器交会回给客户端<br><img src="/image/noun1.png" alt="noun1"></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;commonjs理解&quot;&gt;&lt;a href=&quot;#commonjs理解&quot; class=&quot;headerlink&quot; title=&quot;commonjs理解&quot;&gt;&lt;/a&gt;commonjs理解&lt;/h1&gt;&lt;p&gt;是一种编写API的标准，根据该标准写的API可以在任何支持JavaScrip
+    
+    </summary>
+    
+    
+      <category term="nodejs" scheme="http://yoohannah.github.io/tags/nodejs/"/>
+    
+  </entry>
   
   <entry>
     <title>图的遍历(广度优先遍历)</title>
@@ -1096,34 +1119,6 @@
     
       &lt;p&gt;赫夫曼编码可以构造出一种不等长的二进制，使编码后的电文长度最短，且保证不产生二义性&lt;/p&gt;
 &lt;h1 id=&quot;赫夫曼树&quot;&gt;&lt;a href=&quot;#赫夫曼树&quot; class=&quot;headerlink&quot; title=&quot;赫夫曼树&quot;&gt;&lt;/a&gt;赫夫曼树&lt;/h1&gt;&lt;h2 id=&quot;相关定义&quot;&gt;&lt;a
-    
-    </summary>
-    
-    
-      <category term="js" scheme="http://yoohannah.github.io/tags/js/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>利用checkbox进行各种勾选</title>
-    <link href="http://yoohannah.github.io/post/knowledge/checkbox.html"/>
-    <id>http://yoohannah.github.io/post/knowledge/checkbox.html</id>
-    <published>2017-02-12T07:33:37.000Z</published>
-    <updated>2017-02-18T02:51:27.344Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="单选"><a href="#单选" class="headerlink" title="单选"></a>单选</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">html:</div><div class="line">&lt;div ng-repeat=&quot;item in labels track by $index&quot; style=&quot;padding-left: 50px&quot;&gt;</div><div class="line">  &lt;label class=&quot;mt-checkbox mt-checkbox-single mt-checkbox-outline&quot; &gt;&lt;input  type=&quot;checkbox&quot; ng-model=&quot;item.isSelected&quot; ng-click=&quot;updateSingelSelection($index,labels)&quot; /&gt;&lt;span&gt;&lt;/span&gt;&lt;/label&gt;</div><div class="line">  &lt;label&gt;&#123;&#123;item.name&#125;&#125;&lt;/label&gt;</div><div class="line">&lt;/div&gt;</div></pre></td></tr></table></figure>
-<p>val1为选定值的key,或者叫序号,val2为选项集合</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"> $scope.updateSingelSelection = <span class="function"><span class="keyword">function</span>(<span class="params">val1, val2</span>) </span>&#123;</div><div class="line">  $scope.label = val2[val1];  												<span class="comment">//对选定的值做处理</span></div><div class="line">  angular.forEach(val2, <span class="function"><span class="keyword">function</span>(<span class="params">x, index</span>) </span>&#123;				 <span class="comment">//处理其他选项为未选状态</span></div><div class="line">    <span class="keyword">if</span> (val1 != index)</div><div class="line">      x.isSelected = <span class="literal">false</span>;</div><div class="line">  &#125;);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p><img src="/image/checkbox1.png" alt="checkbox1"></p>
-<h1 id="多选"><a href="#多选" class="headerlink" title="多选"></a>多选</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">&lt;div class=&quot;portlet-body dataTables_wrapper&quot; style=&quot;margin: -20px 20px 0px 20px;&quot; ng-if=&quot;detaildata.goods.length&gt;0&quot;&gt;</div><div class="line">	&lt;div class=&quot;table-scrollable&quot;&gt;</div><div class="line">		&lt;table class=&quot;table table-bordered table-hover no-footer&quot;&gt;</div><div class="line">			&lt;thead&gt;</div><div class="line">				&lt;tr role=&quot;row&quot; class=&quot;heading&quot;&gt;</div><div class="line">					&lt;th&gt;ID&lt;/th&gt;</div><div class="line">					&lt;th&gt;</div><div class="line">						&lt;label class=&quot;mt-checkbox mt-checkbox-single mt-checkbox-outline&quot;&gt;&lt;input type=&quot;checkbox&quot; ng-model=&quot;detaildata.goods.allchecked&quot; ng-change=&quot;selectall()&quot;/&gt;&lt;span&gt;&lt;/span&gt;&lt;/label&gt;</div><div class="line">					&lt;/th&gt;</div><div class="line">				&lt;/tr&gt;</div><div class="line">			&lt;/thead&gt;</div><div class="line">			&lt;tbody&gt;</div><div class="line">				&lt;tr role=&quot;row&quot; ng-repeat=&quot;item in detaildata.goods track by $index&quot;&gt;</div><div class="line">					&lt;td&gt;&#123;&#123;item.id&#125;&#125;&lt;/td&gt;</div><div class="line">					&lt;td&gt;</div><div class="line">						&lt;label class=&quot;mt-checkbox mt-checkbox-single mt-checkbox-outline&quot;&gt;&lt;input  type=&quot;checkbox&quot; ng-model=&quot;item.checked&quot; ng-click=&quot;UpdateSelection($index)&quot;/&gt;&lt;span&gt;&lt;/span&gt;&lt;/label&gt;</div><div class="line">					&lt;/td&gt;</div><div class="line">				&lt;/tr&gt;</div><div class="line">			&lt;/tbody&gt;</div><div class="line">		&lt;/table&gt;</div><div class="line">	&lt;/div&gt;</div><div class="line">&lt;/div&gt;</div></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"> $scope.UpdateSelection = function(index)&#123;</div><div class="line">    if($scope.detaildata.goods[index].checked)&#123;</div><div class="line"></div><div class="line">      tempdata2.push($scope.detaildata.goods[index]); 					//处理选中项</div><div class="line"></div><div class="line">      if(tempdata2.length == $scope.detaildata.goods.length)&#123;   //判断是否满足全选条件，						$scope.detaildata.goods.allchecked = true;                //满足则将全选按钮设置为勾选状态</div><div class="line">      &#125;else&#123;</div><div class="line">        $scope.detaildata.goods.allchecked = false;             //否则为未选状态</div><div class="line">      &#125;</div><div class="line">    &#125; else &#123;</div><div class="line">      $scope.alldata.goods[index].checked = false; //全选按钮设为</div><div class="line">      angular.forEach(tempdata2, function(list,num)&#123;</div><div class="line">        if($scope.detaildata.goods[index].deal_id == list.deal_id)&#123;</div><div class="line">         tempdata2.splice(num,1);</div><div class="line">         $scope.detaildata.goods.allchecked = false;</div><div class="line">         return;</div><div class="line">       &#125;</div><div class="line">     &#125;);</div><div class="line"></div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p><div style="margin-bottom: 250px"><br> <img src="/image/checkbox2.png" style="width: 150px;height: 300px;margin-left: 80px" alt="图片名称" align="left"><br> <img src="/image/checkbox.png" alt="图片名称" align="right" style="width: 150px;height: 300px;margin-top: -30px;margin-right: 80px"><br></div></p>
-<h1 id="全选"><a href="#全选" class="headerlink" title="全选"></a>全选</h1><p>注意：若全选按钮放在表格里，那全选按钮的绑定值S也一定要是整个表格绑定值A的一个属性,即，A.S是全选按钮绑定值<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line">$scope.selectall = function()&#123;</div><div class="line"> if($scope.detaildata.goods.allchecked)&#123;</div><div class="line">  for(var i = 0;i &lt; $scope.detaildata.goods.length;i++)&#123;</div><div class="line">    $scope.detaildata.goods[i].checked = true;       //把每个备选项处理为已选状态</div><div class="line">    var num = 0;</div><div class="line">    for(var j = 0;j &lt; tempdata2.length;j++)&#123;</div><div class="line">      if($scope.detaildata.goods[i].deal_id != tempdata2[j].deal_id)&#123;</div><div class="line">        num = num+1;</div><div class="line">      &#125;else&#123;</div><div class="line">        num = num;</div><div class="line">      &#125;</div><div class="line">    &#125;</div><div class="line">    if(num == tempdata2.length)&#123;</div><div class="line">      tempdata2.push($scope.detaildata.goods[i]); //将所有为选择的数据处理到临时集合</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">&#125;else&#123;</div><div class="line">  for(var i = 0;i &lt; $scope.detaildata.goods.length;i++)&#123;</div><div class="line">    $scope.detaildata.goods[i].checked = false; //把每个备选项处理为未选状态</div><div class="line">  &#125;</div><div class="line">  tempdata2 = []; //清空临时集合</div><div class="line">&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;h1 id=&quot;单选&quot;&gt;&lt;a href=&quot;#单选&quot; class=&quot;headerlink&quot; title=&quot;单选&quot;&gt;&lt;/a&gt;单选&lt;/h1&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div c
     
     </summary>
     
