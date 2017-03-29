@@ -98,7 +98,7 @@
 构造赫夫曼树1.在森林中选出">
 <meta property="og:image" content="http://yoohannah.github.io/image/tree7.png">
 <meta property="og:image" content="http://yoohannah.github.io/image/tree8.png">
-<meta property="og:updated_time" content="2017-02-18T01:43:01.215Z">
+<meta property="og:updated_time" content="2017-03-29T13:53:10.261Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="赫夫曼编码">
 <meta name="twitter:description" content="赫夫曼编码可以构造出一种不等长的二进制，使编码后的电文长度最短，且保证不产生二义性
@@ -347,7 +347,7 @@
 <h2 id="构造赫夫曼树"><a href="#构造赫夫曼树" class="headerlink" title="构造赫夫曼树"></a>构造赫夫曼树</h2><p>1.在森林中选出两颗根结点的权值最小的二叉树，权值小的放左边，权值大的放右边<br>2.合并两颗选出的二叉树：增加一个新结点n作为新二叉树的根，权值为左右孩子权值之和<br>3.回到森林中，选出权值最小的根结点，与刚刚形成的结点n比较，小的放左边，大的放右边<br>4.返回步骤二，直到森林中的树被选完</p>
 <p><div style="margin-bottom: 125px"><br> <img src="/image/tree7.png" style="width: 300px;height: 100px;" alt="图片名称" align="left"><br> <img src="/image/tree8.png" alt="图片名称" align="right" style="width: 300px;height: 180px;margin-top: -30px"><br></div></p>
 <h1 id="赫夫曼编码"><a href="#赫夫曼编码" class="headerlink" title="赫夫曼编码"></a>赫夫曼编码</h1><h2 id="一些名词"><a href="#一些名词" class="headerlink" title="一些名词"></a>一些名词</h2><p>定长编码：规定位数表示字符<br>变长编码：单个编码长度不一字，可以根据整体出现频率来调节<br>前缀码：没有任何码字是其他码字的前缀</p>
-<h2 id="赫夫曼编码思路"><a href="#赫夫曼编码思路" class="headerlink" title="赫夫曼编码思路"></a>赫夫曼编码思路</h2><p>1.根据输入字符串，统计字符出现次数，建立优先级队列<br>2.根据优先级队列建立输入字符串的赫夫曼树<br>3.遍历赫夫曼树，左1右0，建立字符编码表<br>4.编码encode:根据字符编码形成字符串编码<br>5.解码decode：根据编码字符串遍历赫夫曼树，左0右1，找到叶子结点的字符，从而解码字符。<br><a href="">代码待写</a></p>
+<h2 id="赫夫曼编码思路"><a href="#赫夫曼编码思路" class="headerlink" title="赫夫曼编码思路"></a>赫夫曼编码思路</h2><p>1.根据输入字符串，统计字符出现次数，建立优先级队列<br>2.根据优先级队列建立输入字符串的赫夫曼树<br>3.遍历赫夫曼树，左1右0，建立字符编码表<br>4.编码encode:根据字符编码形成字符串编码<br>5.解码decode：根据编码字符串遍历赫夫曼树，左0右1，找到叶子结点的字符，从而解码字符。<br><a href="https://github.com/YooHannah/algorithm/blob/master/js/heffman.js" target="_blank" rel="external">代码链接</a></p>
 
       
     </div>
@@ -380,8 +380,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/post/algorithm/treetransform.html" rel="next" title="树、森林和二叉树的转换与遍历">
-                <i class="fa fa-chevron-left"></i> 树、森林和二叉树的转换与遍历
+              <a href="/post/knowledge/checkbox.html" rel="next" title="利用checkbox进行各种勾选">
+                <i class="fa fa-chevron-left"></i> 利用checkbox进行各种勾选
               </a>
             
           </div>
@@ -390,8 +390,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/post/knowledge/checkbox.html" rel="prev" title="利用checkbox进行各种勾选">
-                利用checkbox进行各种勾选 <i class="fa fa-chevron-right"></i>
+              <a href="/post/knowledge/gituse.html" rel="prev" title="git使用">
+                git使用 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
