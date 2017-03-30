@@ -68,7 +68,7 @@
 <link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="html," />
+  <meta name="keywords" content="js," />
 
 
 
@@ -89,7 +89,7 @@
 <meta name="description" content="深度优先遍历/深度优化搜索DFS右手原则：在没有碰到重复顶点的1情况下，分叉路口始终是向右手边走，没路过一个顶点就做一个记号
 主要思路是右手原则，把自己想象成从一个顶点出发的小人,每次选择下一步要走的路径时，就选择右手方向的路径，并给自己即将离开的顶点做一个已经遍历过的标记，直到碰到右手选择的路径将要到达的顶点是已经遍历过的顶点，这时则判断从右手方向开始的路径的终点顶点是否已遍历，若没有遍历，则选">
 <meta property="og:type" content="article">
-<meta property="og:title" content="深度优先遍历(马踏棋盘算法)">
+<meta property="og:title" content="深度广度优先遍历+马踏棋盘算法">
 <meta property="og:url" content="http://yoohannah.github.io/post/algorithm/deepTraversal.html">
 <meta property="og:site_name" content="My Little World">
 <meta property="og:description" content="深度优先遍历/深度优化搜索DFS右手原则：在没有碰到重复顶点的1情况下，分叉路口始终是向右手边走，没路过一个顶点就做一个记号
@@ -97,9 +97,9 @@
 <meta property="og:image" content="http://yoohannah.github.io/image/Traversal1.png">
 <meta property="og:image" content="http://yoohannah.github.io/image/Traversal2.png">
 <meta property="og:image" content="http://yoohannah.github.io/image/chess.png">
-<meta property="og:updated_time" content="2017-03-29T13:51:51.611Z">
+<meta property="og:updated_time" content="2017-03-30T14:13:06.673Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="深度优先遍历(马踏棋盘算法)">
+<meta name="twitter:title" content="深度广度优先遍历+马踏棋盘算法">
 <meta name="twitter:description" content="深度优先遍历/深度优化搜索DFS右手原则：在没有碰到重复顶点的1情况下，分叉路口始终是向右手边走，没路过一个顶点就做一个记号
 主要思路是右手原则，把自己想象成从一个顶点出发的小人,每次选择下一步要走的路径时，就选择右手方向的路径，并给自己即将离开的顶点做一个已经遍历过的标记，直到碰到右手选择的路径将要到达的顶点是已经遍历过的顶点，这时则判断从右手方向开始的路径的终点顶点是否已遍历，若没有遍历，则选">
 <meta name="twitter:image" content="http://yoohannah.github.io/image/Traversal1.png">
@@ -136,7 +136,7 @@
 
 
 
-  <title> 深度优先遍历(马踏棋盘算法) | My Little World </title>
+  <title> 深度广度优先遍历+马踏棋盘算法 | My Little World </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -291,7 +291,7 @@
             
             
               
-                深度优先遍历(马踏棋盘算法)
+                深度广度优先遍历+马踏棋盘算法
               
             
           </h1>
@@ -346,6 +346,7 @@
 <p>编程思路：<br>遍历图的邻接矩阵，邻接矩阵建立时注意选择是使用右手原则还是左手原则，从起点开始遍历该顶点所在行，便利到非0值且对应的列顶点未访问过就开始遍历该列顶点对应顶点所在的行，同样遍历非0未遍历过的顶点，如果该行所有顶点都遍历过则返回上一顶点继续重复遍历找未遍历的顶点，直到返回起点位置<br><a href="https://github.com/YooHannah/algorithm/blob/master/js/MapDeepTraversal.js" target="_blank" rel="external">代码链接</a></p>
 <h1 id="马踏棋盘问题"><a href="#马踏棋盘问题" class="headerlink" title="马踏棋盘问题"></a>马踏棋盘问题</h1><p>国际象棋的棋盘为8*8的方格棋盘，现将“马”放在任意指定的方格中，按照“马”走棋的规则将“马”进行移动<br>要求每个方格只能进入一次，最终使得“马”走遍棋盘64个方格</p>
 <p>一个位置最多有八种选择，如下<br><img src="/image/chess.png" alt="chess"><br><a href="https://github.com/YooHannah/algorithm/blob/master/C/checkerboard.c" target="_blank" rel="external">代码链接</a></p>
+<h1 id="图的广度优先遍历"><a href="#图的广度优先遍历" class="headerlink" title="图的广度优先遍历"></a>图的广度优先遍历</h1><p>类似于树的层序遍历<br>!(tug1)[/image/tug1.png]<br>主要思路：<br>选定一个起点结点(A)，依次遍历与该结点相连结点(B、F)，每个结点遍历完后添加遍历标记，<br>再依次遍历刚刚遍历过的结点(先B后F)的相连结点(CIG、E),同样遍历完要加标记<br>以此类推，再遍历C的连接点D，G的连接点H<br>!(BreadthMaptraversal2)[/image/BreadthMaptraversal2.png]<br>编程思路：<br>将每次遍历的结点入队列，每遍历完一层，出一次队列，出队列顺序即遍历顺序<br><a href="https://github.com/YooHannah/algorithm/blob/master/js/BreadthMaptraversal.js" target="_blank" rel="external">代码链接</a></p>
 
       
     </div>
@@ -369,7 +370,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/html/" rel="tag"># html</a>
+            <a href="/tags/js/" rel="tag"># js</a>
           
         </div>
       
@@ -458,7 +459,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">63</span>
+              <span class="site-state-item-count">65</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -517,7 +518,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#深度优先遍历-深度优化搜索DFS"><span class="nav-number">1.</span> <span class="nav-text">深度优先遍历/深度优化搜索DFS</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#马踏棋盘问题"><span class="nav-number">2.</span> <span class="nav-text">马踏棋盘问题</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#深度优先遍历-深度优化搜索DFS"><span class="nav-number">1.</span> <span class="nav-text">深度优先遍历/深度优化搜索DFS</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#马踏棋盘问题"><span class="nav-number">2.</span> <span class="nav-text">马踏棋盘问题</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#图的广度优先遍历"><span class="nav-number">3.</span> <span class="nav-text">图的广度优先遍历</span></a></li></ol></div>
             
 
           </div>
