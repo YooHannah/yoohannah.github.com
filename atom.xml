@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoohannah.github.io/"/>
-  <updated>2017-03-30T14:10:19.887Z</updated>
+  <updated>2017-04-03T07:49:03.160Z</updated>
   <id>http://yoohannah.github.io/</id>
   
   <author>
@@ -16,16 +16,94 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title></title>
-    <link href="http://yoohannah.github.io/post/algorithm/BreadthMaptraversal.html"/>
-    <id>http://yoohannah.github.io/post/algorithm/BreadthMaptraversal.html</id>
-    <published>2017-03-30T13:58:49.547Z</published>
-    <updated>2017-03-30T14:10:19.887Z</updated>
+    <title>查找</title>
+    <link href="http://yoohannah.github.io/post/algorithm/search.html"/>
+    <id>http://yoohannah.github.io/post/algorithm/search.html</id>
+    <published>2017-04-02T11:24:37.000Z</published>
+    <updated>2017-04-03T07:49:03.160Z</updated>
+    
+    <content type="html"><![CDATA[<p>静态查找: 数据集合稳定，不需要添加，删除元素的查找操作<br>– 组织数据宜用线性表结构<br>– 如果要对关键字排序，折半查找算法或斐波那契查找算法<br>动态查找：数据集合在查找过程中需要同时添加或删除元素的查找操作<br>– 二叉排序树，散列表结构</p>
+<h1 id="顺序查找"><a href="#顺序查找" class="headerlink" title="顺序查找"></a>顺序查找</h1><p>顺序查找/线性查找:从第一个(或者最后一个)记录开始，逐个进行记录的关键字和给定值进行比较，若某个记录的关键字和给定值相等，则查找成功。<br>—如果查找了所有的记录仍然找不到与给定值相等的关键字，则查找不成功<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//方式一</span></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">search</span>(<span class="params">array,key</span>)</span>&#123;</div><div class="line">	<span class="keyword">var</span> i;</div><div class="line">	<span class="keyword">for</span>(<span class="keyword">var</span> i = <span class="number">0</span>;i&lt;= array.length;i++)&#123;</div><div class="line">		<span class="keyword">if</span>(a[i] == key)&#123;</div><div class="line">			<span class="keyword">return</span> i;</div><div class="line">		&#125;</div><div class="line">  &#125;</div><div class="line">  <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">&#125;</div><div class="line"><span class="comment">//方式二</span></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">search</span>(<span class="params">array,key</span>)</span>&#123;</div><div class="line">	<span class="keyword">var</span> i= array.length;</div><div class="line">	a[<span class="number">0</span>] = key;</div><div class="line">	<span class="keyword">while</span>(a[i] != key)&#123;</div><div class="line">	  i--</div><div class="line">  &#125;</div><div class="line">  <span class="keyword">return</span> i;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h1 id="插值查找-按比例查找"><a href="#插值查找-按比例查找" class="headerlink" title="插值查找(按比例查找)"></a>插值查找(按比例查找)</h1><p>查找方法类似于折半查找，只不过mid的值不再取low和high的中间值，<br>而是根据查找值在low和hight中间的大概位置确定mid<br>var mid = low +(high-low)*(num-list[low])/(list[high]-list[low]);<br>因此插值查找适用于有一定顺序规律的数组<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div></pre></td><td class="code"><pre><div class="line">var list=[1,4,5,12,15,22,34,37,55,65,78,89];</div><div class="line">console.log(list);</div><div class="line">var low =0;</div><div class="line">var high = list.length-1;</div><div class="line">function Interpolationsearch(num)&#123;</div><div class="line"> var mid = Math.floor(low +(high-low)*(num-list[low])/(list[high]-list[low]));</div><div class="line">  if(num == list[mid])&#123;</div><div class="line">    mid++</div><div class="line">    console.log(num+&quot;是数组第&quot;+mid+&quot;个数&quot;);</div><div class="line">    return 1;</div><div class="line">  &#125;</div><div class="line">  if(num &lt; list[mid])&#123;</div><div class="line">    high = mid-1;</div><div class="line">  &#125;</div><div class="line">  if(num&gt;list[mid])&#123;</div><div class="line">    low =mid+1;</div><div class="line">  &#125;</div><div class="line">  if(low &lt; high)&#123;</div><div class="line">    Interpolationsearch(num);</div><div class="line">  &#125;else if(low == high &amp;&amp; num == list[high])&#123;</div><div class="line">  	console.log(num+&quot;是数组第&quot;+low+&quot;个数&quot;);</div><div class="line">    return 1;</div><div class="line">  &#125;else&#123;</div><div class="line">    console.log(&quot;该值不存在数组中！&quot;);</div><div class="line">    return 0;</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line">Interpolationsearch(79)</div></pre></td></tr></table></figure></p>
+<h1 id="斐波那契查找-黄金查找"><a href="#斐波那契查找-黄金查找" class="headerlink" title="斐波那契查找(黄金查找)"></a>斐波那契查找(黄金查找)</h1><p>在折半查找的基础上根据斐波那契数列进行分割。<br>在斐波那契数列找一个等于略大于查找表中元素个数的数F[k]，<br>将原查找表扩展为长度为F[k]-1(如果要补充元素，则补充重复最后一个元素，直到满足F[k]-1个元素)<br>进行斐波那契分割，即F[k]-1个元素分割为前半部分F[k-1]-1个元素，后半部分F[n-2]-1个元素，剩一个做mid<br>找出要查找的元素在那一部分并递归，直到找到。<br><img src="/image/fiobsearch.png" alt="fiobsearch"></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div></pre></td><td class="code"><pre><div class="line">var list=[1,4,5,12,15,22,34,37,55,65,78,89];</div><div class="line">console.log(list);</div><div class="line">function compromisefind(num)&#123;</div><div class="line">//建立一定长度斐波那契数列</div><div class="line">var fiob = [];</div><div class="line">fiob[0] = 0;</div><div class="line">fiob[1] = 1;</div><div class="line">for(var i = 2;i&lt;15;i++)&#123;</div><div class="line">    fiob[i] = fiob[i-1]+fiob[i-2]</div><div class="line">&#125;</div><div class="line">console.log(fiob);</div><div class="line">//寻找查询数组长度在斐波那契数列的位置k</div><div class="line">var k = 0;</div><div class="line">while(list.length&gt;fiob[k]-1)&#123;</div><div class="line">    ++k;</div><div class="line">&#125;</div><div class="line">//借用新建数组，补齐数组长度fiob[k]-1</div><div class="line">var temp = [];</div><div class="line">temp = list.slice();</div><div class="line">for(var i=list.length;i&lt; fiob[k]-1;i++)&#123;</div><div class="line">  temp[i]=list[list.length-1];</div><div class="line">&#125;</div><div class="line">//开始查询</div><div class="line">var low = 0;</div><div class="line">var high = list.length-1;</div><div class="line">while(low&lt;=high)&#123;</div><div class="line">  var mid = low+fiob[k-1]-1; </div><div class="line">  //将数组分为fiob[k-1]-1和fiob[k-2]-1两部分</div><div class="line">  //原本fiob[k] = fiob[k-1] 和fiob[k-2]</div><div class="line">  //fiob[k-1]-1+fiob[k-2]-1 = fiob[k]-2</div><div class="line">  //temp.length = fiob[k]-1,剩一个,即给mid</div><div class="line">  //因此 mid = low+fiob[k-1]-1;low一开始为0</div><div class="line">  if(num &lt; temp[mid])&#123;</div><div class="line">    high=mid-1;</div><div class="line">    k-=1;//查询值在前半部分，将k-1取代k,重新按k-1分成两部分</div><div class="line">  &#125;</div><div class="line">  if(num &gt; temp[mid])&#123;</div><div class="line">    low =mid+1;</div><div class="line">    k-=2;//查询值在后半部分，将k-2取代k,重新按k-2分成两部分</div><div class="line">  &#125;</div><div class="line">  if(num == temp[mid])&#123;</div><div class="line">    if(mid&lt; list.length)&#123;</div><div class="line">       mid++</div><div class="line">       console.log(num+&quot;是数组第&quot;+mid+&quot;个数&quot;);</div><div class="line">       return 1;</div><div class="line">      &#125;else&#123;</div><div class="line">       console.log(&quot;该值不存在数组中！&quot;);</div><div class="line">       return 0;</div><div class="line">      &#125;</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line"> console.log(&quot;该值不存在数组中！&quot;);</div><div class="line"> return 0;</div><div class="line">&#125;</div><div class="line">compromisefind(79);</div></pre></td></tr></table></figure>]]></content>
     
     <summary type="html">
     
+      &lt;p&gt;静态查找: 数据集合稳定，不需要添加，删除元素的查找操作&lt;br&gt;– 组织数据宜用线性表结构&lt;br&gt;– 如果要对关键字排序，折半查找算法或斐波那契查找算法&lt;br&gt;动态查找：数据集合在查找过程中需要同时添加或删除元素的查找操作&lt;br&gt;– 二叉排序树，散列表结构&lt;/p&gt;
+&lt;h1 
+    
     </summary>
     
+    
+      <category term="js" scheme="http://yoohannah.github.io/tags/js/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>关键路径</title>
+    <link href="http://yoohannah.github.io/post/algorithm/keypath.html"/>
+    <id>http://yoohannah.github.io/post/algorithm/keypath.html</id>
+    <published>2017-04-02T11:15:37.000Z</published>
+    <updated>2017-04-02T11:16:00.925Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="关键路径"><a href="#关键路径" class="headerlink" title="关键路径"></a>关键路径</h1><p>AOE网：在一个表示工程的带权有向图中，用顶点表示事件，用有向边表示活动，用边上的权值表示活动的持续时间，<br>这种有向图的边表示活动的网，我们称之为AOE网(Activity On Edge Network)<br>始点/源点:AOE网中没有入边的顶点<br>终点/汇点:AOE网中没有出边的顶点<br><img src="/image/keypath.png" alt="keypath"><br>etv:时间最早发生时间,顶点的最早发生时间<br>ltv:事件最晚发生时间，每个顶点对应事件最晚需要开始的时间，如果超出此时间将会延误着整个工期<br>ete:活动最早开工时间，弧的最早发生时间<br>lte:活动最晚发生时间，不推迟工期的最晚开工时间<br>关键路径的目的是在规划工程各项活动执行的顺序时，找出关键的活动，保证工程不延期<br><img src="/image/keypath1.png" alt="keypath1"><br><img src="/image/keypath2.png" alt="keypath2"><br><a href="https://github.com/YooHannah/algorithm/blob/master/js/CriticalPath.js" target="_blank" rel="external">代码链接</a></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;关键路径&quot;&gt;&lt;a href=&quot;#关键路径&quot; class=&quot;headerlink&quot; title=&quot;关键路径&quot;&gt;&lt;/a&gt;关键路径&lt;/h1&gt;&lt;p&gt;AOE网：在一个表示工程的带权有向图中，用顶点表示事件，用有向边表示活动，用边上的权值表示活动的持续时间，&lt;br&gt;这种有向图
+    
+    </summary>
+    
+    
+      <category term="js" scheme="http://yoohannah.github.io/tags/js/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>拓扑排序</title>
+    <link href="http://yoohannah.github.io/post/algorithm/TopologySorting.html"/>
+    <id>http://yoohannah.github.io/post/algorithm/TopologySorting.html</id>
+    <published>2017-04-02T11:14:37.000Z</published>
+    <updated>2017-04-02T11:14:47.197Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h1><p>DAG(Directed Acyclic)图/无环图：无环的有向图<br>‘活动’：所有的工程或者某种流程都可以分为的若干个小的工程或者阶段<br>AOV(Active On Vertex Network)网：在一个表示工程的有向图中，用顶点表示活动，用弧表示活动之间的优先关系<br>这样的有向图为顶点表示活动的网即AOV网<br>拓扑序列：设G=(V,E)是一个具有n个顶点的有向图，V中的顶点序列V1，V2，……Vn满足若从顶点Vi到Vj有一条路径，则在顶点序列中顶点Vi必在顶点Vj之前,我们称这样的顶点序列为一个拓扑序列,<br>拓扑排序：所谓的拓扑排序，其实就是对一个有向图构造拓扑序列的过程,保证活动是按一定顺序进行<br><img src="/image/tuopu1.png" alt="tuopu1"></p>
+<h1 id="对AOV网进行拓扑排序的方法和步骤"><a href="#对AOV网进行拓扑排序的方法和步骤" class="headerlink" title="对AOV网进行拓扑排序的方法和步骤"></a>对AOV网进行拓扑排序的方法和步骤</h1><p>——从AOV网中选择一个没有前驱的顶点(入度为0的顶点),并且输出它；<br>——从网中删去该顶点，并且删去从该顶点发出的全部有向边(将有向边终点入度减一)<br>——重复上述两步，直到剩余网中不再没有前驱的顶点为止。<br><a href="https://github.com/YooHannah/algorithm/blob/master/js/TopologicalSort.js" target="_blank" rel="external">代码链接</a></p>
+<h1 id="算法时间复杂度"><a href="#算法时间复杂度" class="headerlink" title="算法时间复杂度"></a>算法时间复杂度</h1><p>对一个具有n个顶点，e条边的网来说，初始建立入度为0的顶点栈，要检查所有顶点一次，执行时间为O(n);<br>排序中，若AOV网无回路，则每个顶点入、出栈各一次，每个表结点被检查一次，因而执行时间是O(n+e);<br>因此整个算法时间复杂度是O(n+e)</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;背景&quot;&gt;&lt;a href=&quot;#背景&quot; class=&quot;headerlink&quot; title=&quot;背景&quot;&gt;&lt;/a&gt;背景&lt;/h1&gt;&lt;p&gt;DAG(Directed Acyclic)图/无环图：无环的有向图&lt;br&gt;‘活动’：所有的工程或者某种流程都可以分为的若干个小的工程或者阶段
+    
+    </summary>
+    
+    
+      <category term="js" scheme="http://yoohannah.github.io/tags/js/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>最短路径</title>
+    <link href="http://yoohannah.github.io/post/algorithm/shortestpath.html"/>
+    <id>http://yoohannah.github.io/post/algorithm/shortestpath.html</id>
+    <published>2017-04-02T11:12:37.000Z</published>
+    <updated>2017-04-02T11:12:41.152Z</updated>
+    
+    <content type="html"><![CDATA[<p>网图：两个顶点经过的边上权值之和最少的路径<br>非网图：两个顶点之间经过的边数最少的路径<br>源点：路径起始的第一个顶点<br>终点：最后一个顶点<br><img src="/image/shortestpath1.png" alt="shortestpath1"></p>
+<h1 id="迪杰斯特拉-Dijkstra-算法"><a href="#迪杰斯特拉-Dijkstra-算法" class="headerlink" title="迪杰斯特拉(Dijkstra)算法"></a>迪杰斯特拉(Dijkstra)算法</h1><p>一个顶点到所有顶点的最短路径<br>主要思路：一步步求出它们之间顶点的最短路径，过程中都是基于已经求出的最短路径的基础上，求得更远顶点的最短路径<br>编程思路：类似于最小生成树普里姆算法<br><a href="https://github.com/YooHannah/algorithm/blob/master/js/ShortestPath_Dijkstra.js" target="_blank" rel="external">代码链接</a></p>
+<h1 id="佛洛依德-Floyd-算法"><a href="#佛洛依德-Floyd-算法" class="headerlink" title="佛洛依德(Floyd)算法"></a>佛洛依德(Floyd)算法</h1><p>扩展版迪杰斯特拉(Dijkstra)算法，求图中所有结点到所有结点的最大路径，结果由二维数组展现<br><a href="https://github.com/YooHannah/algorithm/blob/master/js/ShortestPath_Floyd.js" target="_blank" rel="external">代码链接</a><br><img src="/image/shortestpath2.png" alt="shortestpath2"></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;网图：两个顶点经过的边上权值之和最少的路径&lt;br&gt;非网图：两个顶点之间经过的边数最少的路径&lt;br&gt;源点：路径起始的第一个顶点&lt;br&gt;终点：最后一个顶点&lt;br&gt;&lt;img src=&quot;/image/shortestpath1.png&quot; alt=&quot;shortestpath1&quot;&gt;&lt;/
+    
+    </summary>
+    
+    
+      <category term="js" scheme="http://yoohannah.github.io/tags/js/"/>
     
   </entry>
   
@@ -73,27 +151,6 @@
     
     
       <category term="nodejs" scheme="http://yoohannah.github.io/tags/nodejs/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>图的遍历(广度优先遍历)</title>
-    <link href="http://yoohannah.github.io/post/algorithm/Breadthfirsttraversal.html"/>
-    <id>http://yoohannah.github.io/post/algorithm/Breadthfirsttraversal.html</id>
-    <published>2017-03-20T14:21:30.000Z</published>
-    <updated>2017-03-20T14:02:33.051Z</updated>
-    
-    <content type="html"><![CDATA[<p>主要思路：树的层序遍历<br>结构：队列<br>原则：右手原则<br>将复杂的图调整结构为层的形状，从最上一层结点唯一结点出发，入队列<br><img src="/image/tug1.png" alt="tug1"><br>遍历第二层，从与上一层结点相连的右手边的结点开始遍历，先将上一层相连的结点出队列，然后第二层结点入队列<br>以此类推，即在本层遍历时，先将与将要遍历的结点的上层结点出队列，然后将本层结点入队列，<br>遍历完一个上层结点的本层连接点，先将上层下一个结点出队列，在将上层下一个节点的本层链接点入队列<br>出队列顺序即遍历顺序<br><img src="/image/tug2.png" alt="tug2"></p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;主要思路：树的层序遍历&lt;br&gt;结构：队列&lt;br&gt;原则：右手原则&lt;br&gt;将复杂的图调整结构为层的形状，从最上一层结点唯一结点出发，入队列&lt;br&gt;&lt;img src=&quot;/image/tug1.png&quot; alt=&quot;tug1&quot;&gt;&lt;br&gt;遍历第二层，从与上一层结点相连的右手边的结点开始
-    
-    </summary>
-    
-    
-      <category term="js" scheme="http://yoohannah.github.io/tags/js/"/>
     
   </entry>
   
@@ -294,10 +351,10 @@
   
   <entry>
     <title>深度广度优先遍历+马踏棋盘算法</title>
-    <link href="http://yoohannah.github.io/post/algorithm/deepTraversal.html"/>
-    <id>http://yoohannah.github.io/post/algorithm/deepTraversal.html</id>
+    <link href="http://yoohannah.github.io/post/algorithm/MapTraversal.html"/>
+    <id>http://yoohannah.github.io/post/algorithm/MapTraversal.html</id>
     <published>2017-03-07T13:06:37.000Z</published>
-    <updated>2017-03-30T14:13:06.673Z</updated>
+    <updated>2017-04-02T11:09:27.585Z</updated>
     
     <content type="html"><![CDATA[<h1 id="深度优先遍历-深度优化搜索DFS"><a href="#深度优先遍历-深度优化搜索DFS" class="headerlink" title="深度优先遍历/深度优化搜索DFS"></a>深度优先遍历/深度优化搜索DFS</h1><p><img src="/image/Traversal1.png" alt="Traversal1"><br>右手原则：在没有碰到重复顶点的1情况下，分叉路口始终是向右手边走，没路过一个顶点就做一个记号</p>
 <p>主要思路是右手原则，把自己想象成从一个顶点出发的小人,每次选择下一步要走的路径时，就选择右手方向的路径，并给自己即将离开的顶点做一个已经遍历过的标记，直到碰到右手选择的路径将要到达的顶点是已经遍历过的顶点，这时则判断从右手方向开始的路径的终点顶点是否已遍历，若没有遍历，则选择该路径继续往下，若碰到所有路径终点顶点都是已经遍历过的，则沿到达该顶点的路径返回上一个顶点，检查上一顶点的其他路径顶点是否已经遍历，未遍历的话，则沿该路径走下去，即碰到所有路径顶点都遍历过则返回上一顶点，以此类推，直到返回起点顶点</p>
@@ -305,7 +362,7 @@
 <p>编程思路：<br>遍历图的邻接矩阵，邻接矩阵建立时注意选择是使用右手原则还是左手原则，从起点开始遍历该顶点所在行，便利到非0值且对应的列顶点未访问过就开始遍历该列顶点对应顶点所在的行，同样遍历非0未遍历过的顶点，如果该行所有顶点都遍历过则返回上一顶点继续重复遍历找未遍历的顶点，直到返回起点位置<br><a href="https://github.com/YooHannah/algorithm/blob/master/js/MapDeepTraversal.js" target="_blank" rel="external">代码链接</a></p>
 <h1 id="马踏棋盘问题"><a href="#马踏棋盘问题" class="headerlink" title="马踏棋盘问题"></a>马踏棋盘问题</h1><p>国际象棋的棋盘为8*8的方格棋盘，现将“马”放在任意指定的方格中，按照“马”走棋的规则将“马”进行移动<br>要求每个方格只能进入一次，最终使得“马”走遍棋盘64个方格</p>
 <p>一个位置最多有八种选择，如下<br><img src="/image/chess.png" alt="chess"><br><a href="https://github.com/YooHannah/algorithm/blob/master/C/checkerboard.c" target="_blank" rel="external">代码链接</a></p>
-<h1 id="图的广度优先遍历"><a href="#图的广度优先遍历" class="headerlink" title="图的广度优先遍历"></a>图的广度优先遍历</h1><p>类似于树的层序遍历<br>!(tug1)[/image/tug1.png]<br>主要思路：<br>选定一个起点结点(A)，依次遍历与该结点相连结点(B、F)，每个结点遍历完后添加遍历标记，<br>再依次遍历刚刚遍历过的结点(先B后F)的相连结点(CIG、E),同样遍历完要加标记<br>以此类推，再遍历C的连接点D，G的连接点H<br>!(BreadthMaptraversal2)[/image/BreadthMaptraversal2.png]<br>编程思路：<br>将每次遍历的结点入队列，每遍历完一层，出一次队列，出队列顺序即遍历顺序<br><a href="https://github.com/YooHannah/algorithm/blob/master/js/BreadthMaptraversal.js" target="_blank" rel="external">代码链接</a></p>
+<h1 id="图的广度优先遍历"><a href="#图的广度优先遍历" class="headerlink" title="图的广度优先遍历"></a>图的广度优先遍历</h1><p>主要思路：树的层序遍历<br>结构：队列<br>原则：右手原则<br>将复杂的图调整结构为层的形状，从最上一层结点唯一结点出发，入队列<br>遍历第二层，从与上一层结点相连的右手边的结点开始遍历，先将上一层相连的结点出队列，然后第二层结点入队列<br>以此类推，即在本层遍历时，先将与将要遍历的结点的上层结点出队列，然后将本层结点入队列，<br>遍历完一个上层结点的本层连接点，先将上层下一个结点出队列，在将上层下一个节点的本层链接点入队列<br>出队列顺序即遍历顺序<br><img src="/image/tug1.png" alt="tug1"><br>选定一个起点结点(A)，依次遍历与该结点相连结点(B、F)，每个结点遍历完后添加遍历标记，<br>再依次遍历刚刚遍历过的结点(先B后F)的相连结点(CIG、E),同样遍历完要加标记<br>以此类推，再遍历C的连接点D，G的连接点H<br><img src="/image/BreadthMaptraversal2.png" alt="BreadthMaptraversal2"><br>编程思路：<br>将每次遍历的结点入队列，每遍历完一层，出一次队列，出队列顺序即遍历顺序<br><a href="https://github.com/YooHannah/algorithm/blob/master/js/BreadthMaptraversal.js" target="_blank" rel="external">代码链接</a></p>
 ]]></content>
     
     <summary type="html">
@@ -1061,58 +1118,6 @@
     
     
       <category term="reading" scheme="http://yoohannah.github.io/tags/reading/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>阿里巴巴iconfont使用</title>
-    <link href="http://yoohannah.github.io/post/knowledge/iconfont.html"/>
-    <id>http://yoohannah.github.io/post/knowledge/iconfont.html</id>
-    <published>2017-02-18T02:41:51.000Z</published>
-    <updated>2017-02-18T02:41:49.200Z</updated>
-    
-    <content type="html"><![CDATA[<p>1.登录<a href="http://iconfont.cn/plus/home/index?spm=a313x.7781069.1998910419.2.QImsN2" target="_blank" rel="external">http://iconfont.cn/plus/home/index?spm=a313x.7781069.1998910419.2.QImsN2</a> 进入搜索界面<br>2.通过输入关键字搜索自己想要的图标<br>3.将鼠标放到自己想要的图标会出现选择层，点击第一个购物车图标，添加入库<br>4.将所有想要的图标添加完后，点击右上角购物车图标打开项目添加页，点击“加入项目”右侧图标，为选择的图标新建项目,点确定<br><img src="/image/iconfont1.png" alt="iconfont1"><br><img src="/image/iconfont2.png" alt="iconfont2"><br>5.关闭项目添加页，点击导航栏的“图标管理”，进入“我的项目”栏目</p>
-<p><div><br> <img src="/image/iconfont3.png" style="width: 250px;height: 50px;margin-left: 20px" alt="图片名称" align="left"><br> <img src="/image/iconfont4.png" alt="图片名称" align="right" style="width: 150px;height: 60px;margin-top: -30px;margin-right: 80px"><br></div><br>6.使用图标到我们的HTML代码中，可以通过线上链接使用，也可以通过下载至本地使用</p>
-<h2 id="通过线上链接使用"><a href="#通过线上链接使用" class="headerlink" title="通过线上链接使用"></a>通过线上链接使用</h2><p>1.点击查看在线链接,复制代码到项目的静态资源的css文件中一般在src/assets/css路径下的文件<br>2.设置一个类icon，通过这个类的属性改变图标样式，同时在HTML中引用这个类<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">.icon &#123;</div><div class="line">  font-family: &quot;iconfont&quot; !important;</div><div class="line">  font-style: normal;</div><div class="line">  display: inline-block;</div><div class="line">  vertical-align: middle;</div><div class="line">  background-size: 100% auto;</div><div class="line">  background-position: center;</div><div class="line">  -webkit-font-smoothing: asntialiased;</div><div class="line">  -webkit-text-stroke-width: 0.2px;</div><div class="line">  -moz-osx-font-smoothing: grayscale;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>3.在标签中添加icon类,在标签中间加入图标代码，例如：<i class="icon"> &#xe6ac; </i></p>
-<h2 id="下载至本地"><a href="#下载至本地" class="headerlink" title="下载至本地"></a>下载至本地</h2><p>1.点击下载至本地<br>2.将在线链接代码中用到的文件放到项目静态文件夹中，<br>3.将在线链接代码中文件的路径更改为项目中的文件路径，<br>4.其他步骤同线上路径<br>5.也可直接打开下载文件的IconFontDemo/assets/iconfont/的demo.html代码，看如何使用</p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;1.登录&lt;a href=&quot;http://iconfont.cn/plus/home/index?spm=a313x.7781069.1998910419.2.QImsN2&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;http://iconfont.cn/
-    
-    </summary>
-    
-    
-      <category term="knowledge" scheme="http://yoohannah.github.io/tags/knowledge/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>git问题处理</title>
-    <link href="http://yoohannah.github.io/post/knowledge/gittrouble.html"/>
-    <id>http://yoohannah.github.io/post/knowledge/gittrouble.html</id>
-    <published>2017-02-18T01:50:30.000Z</published>
-    <updated>2017-03-12T13:31:47.796Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="git-pull-更新代码出现问题"><a href="#git-pull-更新代码出现问题" class="headerlink" title="git pull 更新代码出现问题"></a>git pull 更新代码出现问题</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">There is no tracking information for the current branch.</div><div class="line">Please specify which branch you want to merge with.</div><div class="line">See git-pull(1) for details</div><div class="line"></div><div class="line">    git pull &lt;remote&gt; &lt;branch&gt;</div><div class="line"></div><div class="line">If you wish to set tracking information for this branch you can do so with:</div><div class="line"></div><div class="line">    git branch --set-upstream-to=origin/&lt;branch&gt; develop_hotfix</div></pre></td></tr></table></figure>
-<p>解决办法<br>git branch -D 分支名  ##删除本地待更新分支<br>git checkout 分支名 ##将待更新分支切回来<br>Git pull 再更新</p>
-<h1 id="git-remote-add-origin-遇到远程分支已存在的情况"><a href="#git-remote-add-origin-遇到远程分支已存在的情况" class="headerlink" title="git remote add origin 遇到远程分支已存在的情况"></a>git remote add origin 遇到远程分支已存在的情况</h1><p>解决办法<br>git remote rm origin ##先删除远程分支<br>git remote add origin 地址 ## 再修改远程仓库地址</p>
-<h1 id="git-push-遇到问题"><a href="#git-push-遇到问题" class="headerlink" title="git push 遇到问题"></a>git push 遇到问题</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">fatal: unable to access &apos;https://github.com/YooHannah/WeiXindemo.git/&apos;: Failed to connect to github.com port 443: Timed out</div></pre></td></tr></table></figure>
-<p>解决办法<br>先删除远程分支 git remote rm origin<br>再将本地分支的上游分支设置为远程分支同时push<br>git push –set-upstream origin master<br>以后再执行git push 就不会出现报以上错误或一直没反应的状况</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">error:src refspec master does not match any</div></pre></td></tr></table></figure>
-<p>只进行了init,没有add和commit,本地版本库为空, 空只进行了init,目录不能提交  </p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;h1 id=&quot;git-pull-更新代码出现问题&quot;&gt;&lt;a href=&quot;#git-pull-更新代码出现问题&quot; class=&quot;headerlink&quot; title=&quot;git pull 更新代码出现问题&quot;&gt;&lt;/a&gt;git pull 更新代码出现问题&lt;/h1&gt;&lt;figure class
-    
-    </summary>
-    
-      <category term="categories" scheme="http://yoohannah.github.io/categories/categories/"/>
-    
     
   </entry>
   
