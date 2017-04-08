@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoohannah.github.io/"/>
-  <updated>2017-04-04T11:54:00.004Z</updated>
+  <updated>2017-04-08T06:34:43.258Z</updated>
   <id>http://yoohannah.github.io/</id>
   
   <author>
@@ -16,66 +16,41 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>二叉排序树</title>
-    <link href="http://yoohannah.github.io/post/algorithm/sortbtree.html"/>
-    <id>http://yoohannah.github.io/post/algorithm/sortbtree.html</id>
-    <published>2017-04-03T08:51:37.000Z</published>
-    <updated>2017-04-04T11:54:00.004Z</updated>
+    <title>平衡二叉排序树</title>
+    <link href="http://yoohannah.github.io/post/algorithm/blancesortbtree.html"/>
+    <id>http://yoohannah.github.io/post/algorithm/blancesortbtree.html</id>
+    <published>2017-04-08T06:51:37.000Z</published>
+    <updated>2017-04-08T06:34:43.258Z</updated>
     
-    <content type="html"><![CDATA[<p>将无序的数组，把首项当做根结点开始，按照比双亲结点小的做左子树，比双亲结点大的做右子树的规则<br>建立一颗二叉树，对二叉树进行中序遍历，即得到无序数组从小到大的排序</p>
-<pre><code class="javascript"><span class="comment">// 二叉树操作</span>
- <span class="keyword">var</span> numbers=[<span class="number">70</span>,<span class="number">105</span>,<span class="number">115</span>,<span class="number">104</span>,<span class="number">67</span>,<span class="number">46</span>,<span class="number">99</span>,<span class="number">111</span>,<span class="number">109</span>];
- <span class="keyword">var</span> btree = {
-        <span class="attr">data</span>:numbers[<span class="number">0</span>],
-        <span class="attr">right</span>:<span class="literal">null</span>,
-        <span class="attr">left</span>:<span class="literal">null</span>
-      };
-  <span class="keyword">var</span> i = <span class="number">1</span>;
-  <span class="keyword">var</span> parent = btree;
-  <span class="function"><span class="keyword">function</span> <span class="title">creatbtree</span>(<span class="params"></span>)</span>{
-      <span class="keyword">if</span>(i&gt;=numbers.length){
-        <span class="keyword">return</span> <span class="number">0</span>;
-      }
-        <span class="keyword">for</span>(<span class="keyword">var</span> j = <span class="number">0</span>;j &lt; i;j++){
-          <span class="keyword">if</span>(numbers[i]&lt; numbers[j]){
-            <span class="keyword">if</span>(parent.left == <span class="literal">null</span>){
-              parent.left = {
-                <span class="attr">data</span>:numbers[i],
-                <span class="attr">right</span>:<span class="literal">null</span>,
-                <span class="attr">left</span>:<span class="literal">null</span>
-              }
-              i++;
-              parent = btree;
-              creatbtree();
-            }<span class="keyword">else</span>{
-              parent = parent.left;
-            }
-          }<span class="keyword">else</span>{
-             <span class="keyword">if</span>(parent.right == <span class="literal">null</span>){
-              parent.right = {
-                <span class="attr">data</span>:numbers[i],
-                <span class="attr">right</span>:<span class="literal">null</span>,
-                <span class="attr">left</span>:<span class="literal">null</span>
-              }
-              i++;
-              parent = btree;
-              creatbtree();
-             }<span class="keyword">else</span>{
-               parent = parent.right;
-             }
-
-          }
-        }
-    }
-  creatbtree();
-  <span class="built_in">console</span>.log(btree);
-</code></pre>
+    <content type="html"><![CDATA[<h1 id="特征"><a href="#特征" class="headerlink" title="特征"></a>特征</h1><p>首先得是一颗二叉排序树<br>左子树与右子树都是平衡二叉树<br>每个结点左子树与右子树的深度差的绝对值不能大于1<br>结点左子树深度减右子树深度的差叫做平衡因子BF，即|BF|&lt;=1，BF=-1/1/0<br>平衡二叉树就是一颗二叉树上所有结点的平衡因子的绝对值小于等于1 的树</p>
+<h1 id="关键操作"><a href="#关键操作" class="headerlink" title="关键操作"></a>关键操作</h1><p>左子树bf大于右子树bf，右旋<br>左子树bf小于右子树bf，左旋<br>左旋的子树的右子树若存在左子树，将该左子树做左旋子树根结点的右子树，左旋子树根结点做其右子树的左子树<br>右旋的子树的左子树若存在右子树，将该右子树做右旋子树根结点的左结点，右旋子树根结点做其左子树的右子树</p>
+<h1 id="构建"><a href="#构建" class="headerlink" title="构建"></a>构建</h1><p>现用以下数据构建平衡二叉树<br>3,2,1,4,5,6,7,10,9,8<br><img src="/image/balancebtree.png" alt="balance"><br>按照大于父节点做右子树小于父结点做左子树原则,将3,2,1构建树，当1进入树之后3的左子树深度2减右子树深度0大于1，以2为中心进行右旋，如图1<br>继续添加4和5，当5进入树之后，3的左右子树深度差为-2，断开2,3链接，将3,4,5,以4为中心左旋，再与2相连，如图2<br>继续添加6，当6进入树之后,这时2的bf为-2，以2的右子树根结点为中心左旋，此时1,2和3均为4的左子树，则将4的原左子树做新左子树的右子树，如图3<br>添加7,当7进入树之后,5的bf为-2，断开4,5链接，以6为中心左旋，再与4相连，如图4<br>添加10、9,当9进入树之后,6的bf为-2,断开6、7，因为10有左结点，先将9、10关系转换，让10做9孩子结点，然后以9为中心左旋，再与6相连,如图5<br>添加8,4、6的bf又变为-2,断开4、6,9的bf为1，因为将来要对6左旋，所以先将9右旋，使9的bf变成0或负值，再对6以7为中心左旋，如图6<br>最终结果如图7</p>
 ]]></content>
     
     <summary type="html">
     
-      &lt;p&gt;将无序的数组，把首项当做根结点开始，按照比双亲结点小的做左子树，比双亲结点大的做右子树的规则&lt;br&gt;建立一颗二叉树，对二叉树进行中序遍历，即得到无序数组从小到大的排序&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&quot;javascript&quot;&gt;&lt;span class=&quot;commen
+      &lt;h1 id=&quot;特征&quot;&gt;&lt;a href=&quot;#特征&quot; class=&quot;headerlink&quot; title=&quot;特征&quot;&gt;&lt;/a&gt;特征&lt;/h1&gt;&lt;p&gt;首先得是一颗二叉排序树&lt;br&gt;左子树与右子树都是平衡二叉树&lt;br&gt;每个结点左子树与右子树的深度差的绝对值不能大于1&lt;br&gt;结点左子树深度减右
+    
+    </summary>
+    
+    
+      <category term="js" scheme="http://yoohannah.github.io/tags/js/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>二叉排序树</title>
+    <link href="http://yoohannah.github.io/post/algorithm/sortbtree.html"/>
+    <id>http://yoohannah.github.io/post/algorithm/sortbtree.html</id>
+    <published>2017-04-03T08:51:37.000Z</published>
+    <updated>2017-04-08T06:20:02.969Z</updated>
+    
+    <content type="html"><![CDATA[<p>将无序的数组，把首项当做根结点开始，按照比双亲结点小的做左子树，比双亲结点大的做右子树的规则<br>建立一颗二叉树，对二叉树进行中序遍历，即得到无序数组从小到大的排序<br>二叉排序树特点<br>—- 若它的左子树不为空，则左子树上所有结点的值均小于它的根结构的值<br>—- 若它的右子树不为空，则右子树上所有结点的值均大于它的根结构的值<br>—- 它的左右子树也分别为二叉排序树(递归)<br><a href="https://github.com/YooHannah/algorithm/blob/master/js/SortingBtree.js" target="_blank" rel="external">代码链接</a></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;将无序的数组，把首项当做根结点开始，按照比双亲结点小的做左子树，比双亲结点大的做右子树的规则&lt;br&gt;建立一颗二叉树，对二叉树进行中序遍历，即得到无序数组从小到大的排序&lt;br&gt;二叉排序树特点&lt;br&gt;—- 若它的左子树不为空，则左子树上所有结点的值均小于它的根结构的值&lt;br&gt;—
     
     </summary>
     
@@ -1103,32 +1078,6 @@
     
     
       <category term="html" scheme="http://yoohannah.github.io/tags/html/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>AngularJs自定义指令实现图片上传</title>
-    <link href="http://yoohannah.github.io/post/knowledge/imgupload.html"/>
-    <id>http://yoohannah.github.io/post/knowledge/imgupload.html</id>
-    <published>2017-02-22T14:14:30.000Z</published>
-    <updated>2017-02-22T14:15:15.227Z</updated>
-    
-    <content type="html"><![CDATA[<p>//定义file-Model指令的代码<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">MetronicApp.directive(<span class="string">'fileModel'</span>, [<span class="string">'$parse'</span>, <span class="function"><span class="keyword">function</span> (<span class="params">$parse</span>) </span>&#123;</div><div class="line">  <span class="keyword">return</span> &#123;</div><div class="line">    <span class="attr">restrict</span>: <span class="string">'A'</span>,</div><div class="line">    <span class="attr">link</span>: <span class="function"><span class="keyword">function</span>(<span class="params">scope, element, attrs, ngModel</span>) </span>&#123;</div><div class="line">      <span class="keyword">var</span> model = $parse(attrs.fileModel);</div><div class="line">      <span class="keyword">var</span> modelSetter = model.assign;</div><div class="line">      element.bind(<span class="string">'change'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">event</span>)</span>&#123;</div><div class="line">        scope.$apply(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">          modelSetter(scope, element[<span class="number">0</span>].files[<span class="number">0</span>]);</div><div class="line">        &#125;);</div><div class="line">        <span class="comment">//附件预览</span></div><div class="line">           scope.file = (event.srcElement || event.target).files[<span class="number">0</span>];</div><div class="line">            scope.getFile();</div><div class="line">            <span class="keyword">this</span>.value = <span class="string">''</span>; <span class="comment">//清除已上传的文件，否则无法连续上传相同文件</span></div><div class="line">      &#125;);</div><div class="line">    &#125;</div><div class="line">  &#125;;</div><div class="line">&#125;</div><div class="line">])</div></pre></td></tr></table></figure></p>
-<p>//在HTML使用时的代码<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"> &lt;div class=&quot;form-group&quot;&gt;</div><div class="line">    &lt;label class=&quot;control-label col-md-3&quot;&gt;图片上传&lt;/label&gt;</div><div class="line">     &lt;div class=&quot;col-md-9 fileinput&quot;&gt;</div><div class="line">         &lt;img src=&quot;&#123;&#123;detaildata.banner&#125;&#125;&quot; name=&quot;img&quot; style=&quot;width:40px;height: 40px;&quot;&gt;</div><div class="line">        &lt;span class=&quot;btn red btn-outline btn-file&quot; style=&quot;margin-left: 10px;margin-top:0px;&quot;&gt;</div><div class="line">        &lt;span class=&quot;fileinput-new&quot;&gt; 重新上传 &lt;/span&gt;</div><div class="line">        &lt;input type=&quot;hidden&quot;&gt;&lt;input id=&quot;upload&quot; type=&quot;file&quot; file-model=&quot;myFile&quot; name=&quot;...&quot; accept=&quot;image/*&quot; &gt;</div><div class="line">        &lt;/span&gt;</div><div class="line">    &lt;/div&gt;</div><div class="line">&lt;/div&gt;</div></pre></td></tr></table></figure></p>
-<p>//Controller中上传图片时的js函数<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">$scope.getFile = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">   <span class="keyword">var</span> postData = &#123;</div><div class="line">            <span class="attr">fileName</span>: $scope.file</div><div class="line">          &#125;;</div><div class="line">       fileReader.readAsDataUrl($rootScope.settings.url + <span class="string">""</span>, postData).success( <span class="function"><span class="keyword">function</span>(<span class="params">response</span>) </span>&#123;</div><div class="line">                $scope.detaildata.banner = response;</div><div class="line">        &#125;);</div><div class="line"> &#125;;</div></pre></td></tr></table></figure></p>
-<p> //定义fileReader服务的代码<br> <figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">angular.module(<span class="string">'MetronicApp'</span>)</div><div class="line">.factory(<span class="string">'fileReader'</span>, [<span class="string">"$http"</span>, <span class="function"><span class="keyword">function</span>(<span class="params">$http</span>)</span>&#123;</div><div class="line">  <span class="keyword">var</span> readAsDataURL = <span class="function"><span class="keyword">function</span> (<span class="params">url, data</span>) </span>&#123;</div><div class="line">    <span class="keyword">var</span> fd = <span class="keyword">new</span> FormData();</div><div class="line">          angular.forEach(data, <span class="function"><span class="keyword">function</span>(<span class="params">val, key</span>) </span>&#123;</div><div class="line">            fd.append(key, val);</div><div class="line">          &#125;);</div><div class="line">          <span class="keyword">var</span> args = &#123;</div><div class="line">            <span class="attr">method</span>: <span class="string">'POST'</span>,</div><div class="line">            <span class="attr">url</span>: url,</div><div class="line">            <span class="attr">data</span>: fd,</div><div class="line">            <span class="attr">headers</span>: &#123;<span class="string">'Content-Type'</span>: <span class="literal">undefined</span>&#125;,</div><div class="line">            <span class="attr">transformRequest</span>: angular.identity</div><div class="line">          &#125;;</div><div class="line">          <span class="keyword">return</span> $http(args);</div><div class="line">  &#125;;</div><div class="line">  <span class="keyword">return</span> &#123;</div><div class="line">    <span class="attr">readAsDataUrl</span>: readAsDataURL</div><div class="line">  &#125;;</div><div class="line">&#125;])</div></pre></td></tr></table></figure></p>
-<p>整个上传的过程，点击“重新上传”按钮，file-model指令绑定的change事件会检测本次选择的图片与上次是否为一致，不一致则会执行file-model定义时的代码<br> element.bind(‘change’, function(event){<br>        scope.$apply(function(){<br>          modelSetter(scope, element[0].files[0]);<br>        });<br>        //附件预览<br>           scope.file = (event.srcElement || event.target).files[0];      //给Controller 中$scope.file赋值<br>            scope.getFile();    //调用Controller 中 $scope.getFile();<br>          this.value = ‘’; //清除已上传的文件，否则无法连续上传相同文件<br>      });<br>控制器中的$scope.getFile()函数用到fileReader.readAsDataUrl函数上传图片给后台，这个函数在定义fileReader时被定义</p>
-<p>定义指令时，若没有清除已上传文件，连续多次上传时，将导致无法连续上传相同图片的bug.</p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;//定义file-Model指令的代码&lt;br&gt;&lt;figure class=&quot;highlight javascript&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div class=&quot;line&quot;
-    
-    </summary>
-    
-    
-      <category term="js" scheme="http://yoohannah.github.io/tags/js/"/>
     
   </entry>
   
