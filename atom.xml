@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoohannah.github.io/"/>
-  <updated>2017-04-08T09:04:19.540Z</updated>
+  <updated>2017-04-09T14:02:16.070Z</updated>
   <id>http://yoohannah.github.io/</id>
   
   <author>
@@ -14,6 +14,54 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>散列表(哈希表)</title>
+    <link href="http://yoohannah.github.io/post/algorithm/hash.html"/>
+    <id>http://yoohannah.github.io/post/algorithm/hash.html</id>
+    <published>2017-04-09T10:21:37.000Z</published>
+    <updated>2017-04-09T14:02:16.070Z</updated>
+    
+    <content type="html"><![CDATA[<p>记录的存储位置 = f(关键字)<br>散列技术是在存储位置和它的关键字之间建立一个确定的对应关系f,使得每个关键字key对应一个存储位置f(key)<br>对应关系函数f称为散列函数(哈希函数)<br>采用三列技术将记录存储在一块连续的存储空间中，这块连续存储空间称为散列表(哈希表)</p>
+<h1 id="查找步骤"><a href="#查找步骤" class="headerlink" title="查找步骤"></a>查找步骤</h1><p>当存储记录时，通过散列函数计算出记录的散列地址<br>当查找记录时，通过散列函数计算记录的散列地址，并按此散列地址访问该记录<br>各记录之间没有任何关系<br>散列表适合1对1查找，不适合查找范围，也不适合关键字对应多个结果的查找<br>散列函数通过不同的关键字，计算出了相同地址，称之为冲突</p>
+<h1 id="构建散列函数"><a href="#构建散列函数" class="headerlink" title="构建散列函数"></a>构建散列函数</h1><p>散列函数原则=计算简单+分布均匀(散列地址)<br>直接定址法<br>取关键字的某个线性函数值为散列地址：f(key)=a*key+b<br>适合查找表小，key比较连续的情况，不常用<br>数字分析法<br>适合处理关键字位数比较大的情况<br>抽取关键字的某几位作为散列地址<br>平方取中法<br>平方取中法是将关键字平方之后取中间若干位数字作为散列地址<br>适合不知道关键字的分布，关键字位数不是很大的情况<br>折叠法<br>将关键字从左到右分割成位数相等的几部分，然后将这几部分叠加求和，并按散列表表长取后几位作为散列地址<br>除留余数法<br>f(key) = key mod p(p &lt;= m)<br>m为表长<br>这个方法不仅可以对关键字直接取模，也可以通过折叠、平方取中后再取模<br>p的取值是关键，最好接近m的最小质数<br>随机数法<br>选择一个随机数，取关键字的随机函数值为它的散列地址<br>f(key) = random(key)<br>random为随机函数，适合关键字长度不等的情况<br>选取方法时要考虑的因素：<br>计算散列地址所需时间<br>关键字长度<br>散列表大小<br>关键字分布情况<br>记录查找频率</p>
+<h1 id="处理散列冲突的方法"><a href="#处理散列冲突的方法" class="headerlink" title="处理散列冲突的方法"></a>处理散列冲突的方法</h1><p>开放定址法<br>一旦发生了冲突，就去寻找下一个空的散列地址，只要散列表足够大，空的散列地址总能找到，并将记录存入<br>1.线性探测法<br>fi(key) = (f(key)+di) mod m<br>其中di = 1,2,…,m-1<br>意思是，散列函数计算的地址已经被其他记录占据，就将散列函数计算的地址每次次加1到m-1的一个数,<br>再mod表长，将每次计算的结果当做新地址去探测有没有记录，如果没有就将该地址做为记录的地址<br>2.二次探测法<br>修改一次探测法di的取值<br>另di = 1^2,-1^2,2^2,-2^2,q^2,-q^2,其中q&lt;=m/2<br>3.随机探测法<br>对di采用随机函数计算得到<br>再散列函数法<br>fi(key) = RHi(key)(i=1,2,3,…k)<br>就是用第一个散列函数计算的地址发生冲突就换第二个散列函数，如果第二个也发生冲突，则换第三个，以此类推<br>链地址法<br>地址处不存放单一记录，而是存放记录的链表，记录1指向记录2，计算得到地址相同，就继续指下去<br>公共溢出区法<br>不发生冲突的关键字放在基本表，将发生冲突的记录依次存放在溢出表，<br>查找时基本表找不到时就去查溢出表，溢出表找不到再宣告失败</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;记录的存储位置 = f(关键字)&lt;br&gt;散列技术是在存储位置和它的关键字之间建立一个确定的对应关系f,使得每个关键字key对应一个存储位置f(key)&lt;br&gt;对应关系函数f称为散列函数(哈希函数)&lt;br&gt;采用三列技术将记录存储在一块连续的存储空间中，这块连续存储空间称为散列
+    
+    </summary>
+    
+    
+      <category term="js" scheme="http://yoohannah.github.io/tags/js/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>多路查找树</title>
+    <link href="http://yoohannah.github.io/post/algorithm/multliwaysearchtree.html"/>
+    <id>http://yoohannah.github.io/post/algorithm/multliwaysearchtree.html</id>
+    <published>2017-04-08T12:59:37.000Z</published>
+    <updated>2017-04-09T10:18:15.011Z</updated>
+    
+    <content type="html"><![CDATA[<p>特点：<br>每个结点的孩子可以多于两个，且每一个结点处可以存储多个元素<br>所有元素之间存在某种特定的排序关系<br>2-3树：每一个结点都具有两个或者三个孩子的多路查找树，所有叶子结点都在同一层次上<br>2结点：拥有两个孩子和一个元素，左子树包含元素小于结点元素，右子树则大于，要么有两个孩子，要么一个孩子也没有<br>3结点：拥有三个孩子两个元素，孩子和结点元素呈一定顺序，要么有三个孩子，要么一个孩子也没有<br>2-3-4树：每一个结点都具有两个或者三个孩子或四个孩子的多路查找树，所有叶子结点都在同一层次上<br>4结点：拥有四个个孩子三个元素，孩子和结点元素呈一定顺序，要么有四个孩子，要么一个孩子也没有</p>
+<h1 id="2-3树插入原理"><a href="#2-3树插入原理" class="headerlink" title="2-3树插入原理"></a>2-3树插入原理</h1><p>1.如果是一个空树，直接插入形成一个2结点，即根结点<br>2.插入到一个结构为2结点的叶子上，直接将该2结点转为3结点<br>3.插入到一个结构为3结点的叶子结点，而该叶子结点双亲为2结点，则将该双亲2结点扩展为3结点，将元素插进去<br>4.插入到一个结构为3结点的叶子结点，而其双亲也为3结点，则继续往上找其双亲的双亲是否为2结点，若是，则将该2结点扩展为3结点，将双亲的一个元素挪上去，将3结点的元素挪到双亲，然后插入元素<br>5.插入到一个结构为3结点的叶子结点，往上追溯到根结点也为3结点，则说明该子树已满，需要增加树的高度，即将树每个结点拆都分成2结点，从而保证，所有叶结点在统一层次</p>
+<h1 id="2-3树删除原理"><a href="#2-3树删除原理" class="headerlink" title="2-3树删除原理"></a>2-3树删除原理</h1><p>1.删除的元素位于结构为3结点的叶子上，直接删掉就好，3结点变2结点<br>2.删除元素位于结构为2结点的叶子上，<br>若双亲也为2结点结构，且双亲另一个孩子为3结点，则将元素删除后，左旋或右旋，将原来双亲移下来做孩子，将原来3结点一个元素移上去做双亲，另一个不动继续做孩子<br>若双亲为2结点结构，且双亲另一个孩子也为2结点,假设删除的是左子树的元素，则寻找双亲的双亲的直接后继元素来填充双亲的双亲的元素位置，将双亲的双亲的元素做双亲元素的孩子，将双亲元素移下来做孩子，将双亲原来的孩子移上去做双亲<br>若双亲是一个3结点结构，则将双亲一个元素移下来，3结点变2结点<br>若删除时，整颗树是一个满2叉树状态，则将树的深度变小，2结点变3结点<br>3.删除元素位于结构为2结点的双亲位置，若其右孩子为3结点则将其直接后继结点顶上去，3结点孩子变2结点<br>4.删除元素位于结构为3结点的双亲位置，若其直接前驱位于3结点结构，则将前驱顶上去，3结点变2结点<br>若其直接前驱位于2结点结构，则将前驱与直接后继合并为3结点，双亲变2结点</p>
+<h1 id="B树"><a href="#B树" class="headerlink" title="B树"></a>B树</h1><p>一种平衡的多路查找树，2-3树和2-3-4树都是B树的特例<br>把结点最大的孩子树数目称为B树的阶，因此2-3树是3阶B树，2-3-4树是4阶B树<br>一个m阶的B树有如下属性<br>如果根结点不是叶结点，则其至少有两颗子树<br>每一个非根的分支节点都有K-1个元素和K个孩子，其中K满足：m/2向上取整 &lt;= K &lt;= m<br>所有叶子结点都位于同一层次<br>每个分支结点包含元素个数，该结点各元素及其孩子的信息</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;特点：&lt;br&gt;每个结点的孩子可以多于两个，且每一个结点处可以存储多个元素&lt;br&gt;所有元素之间存在某种特定的排序关系&lt;br&gt;2-3树：每一个结点都具有两个或者三个孩子的多路查找树，所有叶子结点都在同一层次上&lt;br&gt;2结点：拥有两个孩子和一个元素，左子树包含元素小于结点元素，右
+    
+    </summary>
+    
+    
+      <category term="js" scheme="http://yoohannah.github.io/tags/js/"/>
+    
+  </entry>
   
   <entry>
     <title>平衡二叉排序树</title>
@@ -796,288 +844,6 @@
     
     
       <category term="js" scheme="http://yoohannah.github.io/tags/js/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>图的存储结构</title>
-    <link href="http://yoohannah.github.io/post/algorithm/graphstruct.html"/>
-    <id>http://yoohannah.github.io/post/algorithm/graphstruct.html</id>
-    <published>2017-03-01T13:59:30.000Z</published>
-    <updated>2017-03-01T14:22:41.858Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="1-邻接矩阵"><a href="#1-邻接矩阵" class="headerlink" title="1.邻接矩阵"></a>1.邻接矩阵</h1><h2 id="1-无向图"><a href="#1-无向图" class="headerlink" title="1.无向图"></a>1.无向图</h2><p><img src="/image/graph1.png" alt="graph1"><br>一个一维数组存储图中顶点信息，</p>
-<table>
-<thead>
-<tr>
-<th>顶点数组</th>
-<th>v0</th>
-<th>v1</th>
-<th>v2</th>
-<th>v3</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td></td>
-</tr>
-</tbody>
-</table>
-<p>一个二维数组(邻接矩阵)存储图中边或弧的信息<br>0表示不存在顶点间的边，1表示顶点间存在边</p>
-<table>
-<thead>
-<tr>
-<th></th>
-<th>v0</th>
-<th>v1</th>
-<th>v2</th>
-<th>v3</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>v0</td>
-<td>0</td>
-<td>1</td>
-<td>1</td>
-<td>1</td>
-</tr>
-<tr>
-<td>v1</td>
-<td>1</td>
-<td>0</td>
-<td>1</td>
-<td>0</td>
-</tr>
-<tr>
-<td>v2</td>
-<td>1</td>
-<td>1</td>
-<td>0</td>
-<td>1</td>
-</tr>
-<tr>
-<td>v3</td>
-<td>1</td>
-<td>0</td>
-<td>1</td>
-<td>0</td>
-</tr>
-</tbody>
-</table>
-<p>无向图构成的邻接矩阵为对称矩阵，对角线值为0<br>—–顶点Vi在邻接矩阵中第i行(或第i列)的元素之和为该顶点的度<br>—–扫描矩阵中第i行元素，元素为1的列为顶点Vi的邻接点</p>
-<h2 id="2-有向图"><a href="#2-有向图" class="headerlink" title="2.有向图"></a>2.有向图</h2><p><img src="/image/graph2.png" alt="graph2"><br>一个一维数组存储图中顶点信息，</p>
-<table>
-<thead>
-<tr>
-<th>顶点数组</th>
-<th>v0</th>
-<th>v1</th>
-<th>v2</th>
-<th>v3</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td></td>
-</tr>
-</tbody>
-</table>
-<p>坐标[Vi][Vj]的值，1表示Vi指向Vj的弧存在，0表示不存在</p>
-<table>
-<thead>
-<tr>
-<th></th>
-<th>v0</th>
-<th>v1</th>
-<th>v2</th>
-<th>v3</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>v0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>1</td>
-</tr>
-<tr>
-<td>v1</td>
-<td>1</td>
-<td>0</td>
-<td>1</td>
-<td>0</td>
-</tr>
-<tr>
-<td>v2</td>
-<td>1</td>
-<td>1</td>
-<td>0</td>
-<td>0</td>
-</tr>
-<tr>
-<td>v3</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-</tr>
-</tbody>
-</table>
-<p>第Vi列的元素之和为顶点Vi的入度<br>第Vi行的元素之和为顶点Vi的出度</p>
-<h2 id="3-网"><a href="#3-网" class="headerlink" title="3.网"></a>3.网</h2><p><img src="/image/tu3.png" alt="tu3"><br>邻接矩阵各元素的值不再用0/1表示，而是用权表示<br>顶点间若不存在弧，则用\infty无穷表示,顶点自己到自己的权为0</p>
-<table>
-<thead>
-<tr>
-<th></th>
-<th>v0</th>
-<th>v1</th>
-<th>v2</th>
-<th>v3</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>v0</td>
-<td>0</td>
-<td>\infty</td>
-<td>\infty</td>
-<td>18</td>
-</tr>
-<tr>
-<td>v1</td>
-<td>8</td>
-<td>0</td>
-<td>2</td>
-<td>\infty</td>
-</tr>
-<tr>
-<td>v2</td>
-<td>4</td>
-<td>\infty</td>
-<td>0</td>
-<td>\infty</td>
-</tr>
-<tr>
-<td>v3</td>
-<td>\infty</td>
-<td>\infty</td>
-<td>\infty</td>
-<td>0</td>
-</tr>
-</tbody>
-</table>
-<h1 id="2-邻接表"><a href="#2-邻接表" class="headerlink" title="2.邻接表"></a>2.邻接表</h1><h2 id="无向图"><a href="#无向图" class="headerlink" title="无向图"></a>无向图</h2><p>顶点用一个一维数组存储<br>每个顶点Vi的所有邻接点构成一个线性表，由于个数不确定，用单链表来表示<br><img src="/image/tu4.png" alt="tu4"><br><img src="/image/tu5.png" alt="tu5"></p>
-<h2 id="有向图"><a href="#有向图" class="headerlink" title="有向图"></a>有向图</h2><p>把顶点当弧尾建立邻接表，邻接表长度就是该顶点出度<br><img src="/image/tu6.png" alt="tu6"><br>把顶点当弧头建的表叫逆邻接表，邻接表长度就是该顶点入度<br><img src="/image/tu7.png" alt="tu7"></p>
-<h2 id="网"><a href="#网" class="headerlink" title="网"></a>网</h2><p>在边表结点定义中再增加一个数据域来存储权值<br><img src="/image/tu8.png" alt="tu8"></p>
-<h1 id="3-十字链表-有向图"><a href="#3-十字链表-有向图" class="headerlink" title="3.十字链表(有向图)"></a>3.十字链表(有向图)</h1><p>顶点表结构</p>
-<p>|data|firstIn|firstOut|<br>data：顶点数据<br>firstIn:第一个入边表的指针<br>firstOut:第一个出边表的指针</p>
-<p>边表结点结构 表示以条边</p>
-<table>
-<thead>
-<tr>
-<th>tailVex</th>
-<th>headVex</th>
-<th>headLink</th>
-<th>tailLink</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td></td>
-</tr>
-</tbody>
-</table>
-<p>tailVex:该弧起点的顶点在顶点表的下标<br>headVex:该弧终点的顶点在顶点表的下标<br>headLink:指向headVex的弧的指针<br>tailLink: 从tailVex出发的弧的指针<br><img src="/image/graph2.png" alt="graph2"><br><img src="/image/tu9.png" alt="tu9"></p>
-<h1 id="4-邻接多重表-无向表"><a href="#4-邻接多重表-无向表" class="headerlink" title="4.邻接多重表(无向表)"></a>4.邻接多重表(无向表)</h1><p>关注对象是图中的表不是顶点<br>|iVex|iLink|jVex|jLink|<br>iVex和jVex是与某条边依附的两个顶点在顶点表中的下标<br>iLink：指向依附顶点iVex的下一条边，<br>jLink：指向依附顶点jVex的下一条边，<br><img src="/image/tu10.png" alt="tu10"></p>
-<h1 id="5-边集数组"><a href="#5-边集数组" class="headerlink" title="5.边集数组"></a>5.边集数组</h1><p>由两个一维数组构成<br>一个是存储顶点的信息<br>另一个存储边的信息<br>边数组的每个数据元素由一条边的起点下标(begin)、终点下标(end)和权(weight)组成</p>
-<p><img src="/image/tu11.png" alt="tu11"></p>
-<table>
-<thead>
-<tr>
-<th>顶点数组</th>
-<th>v0</th>
-<th>v1</th>
-<th>v2</th>
-<th>v3</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td></td>
-</tr>
-</tbody>
-</table>
-<table>
-<thead>
-<tr>
-<th>边数组</th>
-<th>begin</th>
-<th>end</th>
-<th>weight</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>edges[0]</td>
-<td>0</td>
-<td>3</td>
-<td>5</td>
-</tr>
-<tr>
-<td>edges[1]</td>
-<td>1</td>
-<td>0</td>
-<td>4</td>
-</tr>
-<tr>
-<td>edges[2]</td>
-<td>1</td>
-<td>2</td>
-<td>3</td>
-</tr>
-<tr>
-<td>edges[3]</td>
-<td>2</td>
-<td>0</td>
-<td>8</td>
-</tr>
-</tbody>
-</table>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;h1 id=&quot;1-邻接矩阵&quot;&gt;&lt;a href=&quot;#1-邻接矩阵&quot; class=&quot;headerlink&quot; title=&quot;1.邻接矩阵&quot;&gt;&lt;/a&gt;1.邻接矩阵&lt;/h1&gt;&lt;h2 id=&quot;1-无向图&quot;&gt;&lt;a href=&quot;#1-无向图&quot; class=&quot;headerlink&quot; title=
-    
-    </summary>
-    
-    
-      <category term="js" scheme="http://yoohannah.github.io/tags/js/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>日期格式兼容</title>
-    <link href="http://yoohannah.github.io/post/knowledge/compatible_date.html"/>
-    <id>http://yoohannah.github.io/post/knowledge/compatible_date.html</id>
-    <published>2017-02-26T13:14:37.000Z</published>
-    <updated>2017-02-26T13:24:56.255Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="IE11-chrome-360-火狐兼容日期格式兼容"><a href="#IE11-chrome-360-火狐兼容日期格式兼容" class="headerlink" title="IE11/chrome/360/火狐兼容日期格式兼容"></a>IE11/chrome/360/火狐兼容日期格式兼容</h1><p> $scope.date= new Date().toLocaleDateString().replace(/\//g,’-‘);<br> 获取到的”year-month-day”格式支持/chrome/360/火狐，但到了IE11就变成”year年month月day”</p>
-<p> var date = new Date();<br> var y = date.getFullYear();<br> var m = date.getMonth()+1;<br> var d = date.getDate();<br> var day = date.getDay();<br> var dateString=y+”-“+m+”-“+d;<br> $scope.date= dateString;</p>
-<p> 这样获取的”year-month-day”格式支持以上四种浏览器</p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;h1 id=&quot;IE11-chrome-360-火狐兼容日期格式兼容&quot;&gt;&lt;a href=&quot;#IE11-chrome-360-火狐兼容日期格式兼容&quot; class=&quot;headerlink&quot; title=&quot;IE11/chrome/360/火狐兼容日期格式兼容&quot;&gt;&lt;/a&gt;IE11/chr
-    
-    </summary>
-    
-    
-      <category term="html" scheme="http://yoohannah.github.io/tags/html/"/>
     
   </entry>
   
