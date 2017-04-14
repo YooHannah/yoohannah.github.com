@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoohannah.github.io/"/>
-  <updated>2017-04-09T14:02:16.070Z</updated>
+  <updated>2017-04-14T14:24:36.250Z</updated>
   <id>http://yoohannah.github.io/</id>
   
   <author>
@@ -14,6 +14,38 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>排序</title>
+    <link href="http://yoohannah.github.io/post/algorithm/sort.html"/>
+    <id>http://yoohannah.github.io/post/algorithm/sort.html</id>
+    <published>2017-04-14T14:18:37.000Z</published>
+    <updated>2017-04-14T14:24:36.250Z</updated>
+    
+    <content type="html"><![CDATA[<p>记录：在排序问题中，通常将数据元素称为记录<br>–输入一个记录集合，排序后输出也是一个记录集合<br>–将排序看成是线性表的一种操作<br>排序依据关键字之间的大小关系，那么对同一记录集合，针对不同的关键字进行排序，可以得到不同的序列</p>
+<h1 id="排序稳定性"><a href="#排序稳定性" class="headerlink" title="排序稳定性"></a>排序稳定性</h1><p>假设Ki=Kj(1&lt;=i&lt;=n,1&lt;=j&lt;=n,i!=j),且在排序前的序列中ri领先于rj(即i&lt;j)<br>–如果排序后ri仍领先于rj,则称所用排序方法是稳定的<br>–反之，若排序后rj仍领先于ri,则称所用排序方法是不稳定的<br>即原来值相同的两个值A和B,排序前A在B前面，排序后位置不变则说排序算法是稳定的，否则是不稳定的</p>
+<h1 id="影响排序算法性能的几个要素"><a href="#影响排序算法性能的几个要素" class="headerlink" title="影响排序算法性能的几个要素"></a>影响排序算法性能的几个要素</h1><p>时间性能(比较，移动)<br>辅助空间(存放临时变量)<br>算法的复杂性</p>
+<h1 id="冒泡排序算法n-2"><a href="#冒泡排序算法n-2" class="headerlink" title="冒泡排序算法n^2"></a>冒泡排序算法n^2</h1><p>两两相邻记录的关键字，如果反序则交换，直到没有反序记录为止<br>注意点：<br>– 每次比较相邻两个元素<br>– 如果有n个元素,比较n-1次，每次减少1次比较<br>– 从下往上比较，即从后往前比较<br><a href="https://github.com/YooHannah/algorithm/blob/master/js/bubblesort.js" target="_blank" rel="external">代码链接</a></p>
+<h1 id="选择排序法n-2"><a href="#选择排序法n-2" class="headerlink" title="选择排序法n^2"></a>选择排序法n^2</h1><p>通过n-i次关键字间的比较，从n-i+1个记录中选出关键字最小的记录，并和第i(1=&lt;i&lt;=n)个记录交换<br><a href="https://github.com/YooHannah/algorithm/blob/master/js/SelectSort.js" target="_blank" rel="external">代码链接</a></p>
+<h1 id="直接插入排序n-2"><a href="#直接插入排序n-2" class="headerlink" title="直接插入排序n^2"></a>直接插入排序n^2</h1><p>连续两个值比较若后面的比前面的小，就将后面的值移到比它大的值的前面<br>适用于记录本身就是有序的,记录数少<br><a href="https://github.com/YooHannah/algorithm/blob/master/js/InsertSort.js" target="_blank" rel="external">代码链接</a></p>
+<h1 id="希尔排序n-logn"><a href="#希尔排序n-logn" class="headerlink" title="希尔排序n*logn"></a>希尔排序n*logn</h1><p>将所有元素按一定间隔f取出n/f个进行比较，再按顺序放回对应的位置，直到所有元素参与完比较之后，算完成一轮比较，<br>再改变间隔进行下一轮比较，直到间隔为1<br>可以将该处理方法套进冒泡、选择和直接插入的方法中<br><a href="https://github.com/YooHannah/algorithm/blob/master/js/shellsort.js" target="_blank" rel="external">代码链接</a></p>
+<h1 id="堆排序n-logn"><a href="#堆排序n-logn" class="headerlink" title="堆排序n*logn"></a>堆排序n*logn</h1><p>大顶堆；每个结点大于等于其左右孩子的完全二叉树<br>小顶堆：每个结点小于等于其左右孩子的完全二叉树<br>各结点一定是堆中所有结点的最大或最小者，如果按照层序遍历方式给结点从1开始编号，则结点之间满足如下关系<br>大顶堆：Ki&gt;=K2i &amp;&amp; Ki&gt;=K2i+1<br>大顶堆：Ki&lt;=K2i &amp;&amp; Ki&lt;=K2i+1<br>其中(1&lt;=i&lt;=n/2取下限)<br>下标i与2i和2i+1是双亲和子女关系<br>堆排序：利用堆进行排序<br>– 将待排序的序列构造成一个大顶堆(从小到大)(或小顶堆(从大到小))<br>– 此时整个序列的最大值就是堆顶的根结点。将它移走(就是将其与堆数组的末尾元素交换，此时末尾元素就是最大值)<br>– 然后将剩余的n-1个序列重新构造成一个堆，这样就会得到n个元素中的此最大值<br>– 如此反复执行，便能得到一个有序序列了<br><a href="https://github.com/YooHannah/algorithm/blob/master/js/HeapSort.js" target="_blank" rel="external">代码链接</a></p>
+<h1 id="归并排序"><a href="#归并排序" class="headerlink" title="归并排序"></a>归并排序</h1><p>将待排序数组每次一份为2，直到每一份的数组长度为1，<br>对拆分的两份结果排序合成一个新数组，参与下次下一次比较排序合并<br><a href="https://github.com/YooHannah/algorithm/blob/master/js/MergeSort.js" target="_blank" rel="external">代码链接</a></p>
+<h1 id="快速排序"><a href="#快速排序" class="headerlink" title="快速排序"></a>快速排序</h1><p>每趟排序指定一个基准点，把比基准点小的元素放在基准点左边，比基准点大的元素放在基准点右边<br>再以基准点为界，把前面的数据(都比基准点小)和后面的数据(都比基准点大)按两部分的最小下标为基准准进行移动,<br>优化<br>选取基准点<br>不必要的交换<br>小数组时的排序方案(使用直接插入排序)<br>递归操作<br>尾递归：函数递归形式的调用出现在函数末尾，可以大大缩减栈空间<br><a href="https://github.com/YooHannah/algorithm/blob/master/js/QuickSort.js" target="_blank" rel="external">代码链接</a></p>
+<h1 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h1><p><img src="/image/qsort.png" alt="qsort"><br>插入排序类:直接插入排序、希尔排序<br>选择排序类：选择排序、堆排序<br>交换排序类：冒泡排序、快速排序<br>归并排序类：归并排序<br><img src="/image/sort.png" alt="sort"></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;记录：在排序问题中，通常将数据元素称为记录&lt;br&gt;–输入一个记录集合，排序后输出也是一个记录集合&lt;br&gt;–将排序看成是线性表的一种操作&lt;br&gt;排序依据关键字之间的大小关系，那么对同一记录集合，针对不同的关键字进行排序，可以得到不同的序列&lt;/p&gt;
+&lt;h1 id=&quot;排序稳定性&quot;
+    
+    </summary>
+    
+    
+      <category term="js" scheme="http://yoohannah.github.io/tags/js/"/>
+    
+  </entry>
   
   <entry>
     <title>散列表(哈希表)</title>
@@ -817,28 +849,6 @@
     <summary type="html">
     
       &lt;h1 id=&quot;let&quot;&gt;&lt;a href=&quot;#let&quot; class=&quot;headerlink&quot; title=&quot;let&quot;&gt;&lt;/a&gt;let&lt;/h1&gt;&lt;p&gt;1.let 声明的变量在let 命令所在的代码快内有效&lt;br&gt;2.不声明直接用变量或者先用再声明都会报错&lt;br&gt;3.暂时性死区:在变
-    
-    </summary>
-    
-    
-      <category term="js" scheme="http://yoohannah.github.io/tags/js/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>正则表达式</title>
-    <link href="http://yoohannah.github.io/post/knowledge/ze.html"/>
-    <id>http://yoohannah.github.io/post/knowledge/ze.html</id>
-    <published>2017-03-05T23:05:37.000Z</published>
-    <updated>2017-03-05T23:06:06.234Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="判断邮箱格式"><a href="#判断邮箱格式" class="headerlink" title="判断邮箱格式"></a>判断邮箱格式</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">if($scope.supplier.email ==&quot;&quot; || ( $scope.supplier.email!=&quot;&quot; &amp;&amp; !/.+@.+\.[a-zA-Z]&#123;2,4&#125;$/.test($scope.supplier.email) ))&#123;</div><div class="line">         toastr.warning(&apos;请输入正确的E-Mail地址!&apos;,&apos;警告&apos;);</div><div class="line">         return;</div><div class="line">       &#125;</div></pre></td></tr></table></figure>
-<h1 id="输入框input只允许输入数字"><a href="#输入框input只允许输入数字" class="headerlink" title="输入框input只允许输入数字"></a>输入框input只允许输入数字</h1><p>在input标签里添加：<br>onKeyUp=”value=value.replace(/[^\d]/g,’’)”</p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;h1 id=&quot;判断邮箱格式&quot;&gt;&lt;a href=&quot;#判断邮箱格式&quot; class=&quot;headerlink&quot; title=&quot;判断邮箱格式&quot;&gt;&lt;/a&gt;判断邮箱格式&lt;/h1&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gut
     
     </summary>
     
