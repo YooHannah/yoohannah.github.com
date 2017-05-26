@@ -68,7 +68,7 @@
 <link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="knowledge," />
+  <meta name="keywords" content="php," />
 
 
 
@@ -86,16 +86,19 @@
 
 
 
-<meta name="description" content="对于路由的理解123官方定义：路由是指如何定义应用的端点（URIs）以及如何响应客户端的请求。路由是由一个 URI、HTTP 请求（GET、POST等）和若干个句柄组成，它的结构如下： app.METHOD(path, [callback...], callback)， app 是 express 对象的一个实例， METHOD 是一个 HTTP 请求方法， path 是服务器上的路径， call">
+<meta name="description" content="php连接数据库查看数据库主机，用户名use myaql；select Host from user;select user from user;
+1.连接数据库服务器mysql_connect函数$con = mysql_connect(“localhost”,”peter”,”abc123”);参数1    主机参数2    数据库服务器登陆名参数3    密码参数4    数据库的名称参数5">
 <meta property="og:type" content="article">
-<meta property="og:title" content="开发小结">
-<meta property="og:url" content="http://yoohannah.github.io/post/knowledge/prehensive.html">
+<meta property="og:title" content="php中MySQL的使用">
+<meta property="og:url" content="http://yoohannah.github.io/post/php/php_MySQLuse.html">
 <meta property="og:site_name" content="My Little World">
-<meta property="og:description" content="对于路由的理解123官方定义：路由是指如何定义应用的端点（URIs）以及如何响应客户端的请求。路由是由一个 URI、HTTP 请求（GET、POST等）和若干个句柄组成，它的结构如下： app.METHOD(path, [callback...], callback)， app 是 express 对象的一个实例， METHOD 是一个 HTTP 请求方法， path 是服务器上的路径， call">
-<meta property="og:updated_time" content="2017-03-15T13:50:19.964Z">
+<meta property="og:description" content="php连接数据库查看数据库主机，用户名use myaql；select Host from user;select user from user;
+1.连接数据库服务器mysql_connect函数$con = mysql_connect(“localhost”,”peter”,”abc123”);参数1    主机参数2    数据库服务器登陆名参数3    密码参数4    数据库的名称参数5">
+<meta property="og:updated_time" content="2017-05-26T13:41:44.789Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="开发小结">
-<meta name="twitter:description" content="对于路由的理解123官方定义：路由是指如何定义应用的端点（URIs）以及如何响应客户端的请求。路由是由一个 URI、HTTP 请求（GET、POST等）和若干个句柄组成，它的结构如下： app.METHOD(path, [callback...], callback)， app 是 express 对象的一个实例， METHOD 是一个 HTTP 请求方法， path 是服务器上的路径， call">
+<meta name="twitter:title" content="php中MySQL的使用">
+<meta name="twitter:description" content="php连接数据库查看数据库主机，用户名use myaql；select Host from user;select user from user;
+1.连接数据库服务器mysql_connect函数$con = mysql_connect(“localhost”,”peter”,”abc123”);参数1    主机参数2    数据库服务器登陆名参数3    密码参数4    数据库的名称参数5">
 
 
 
@@ -123,13 +126,13 @@
 
 
 
-  <link rel="canonical" href="http://yoohannah.github.io/post/knowledge/prehensive.html"/>
+  <link rel="canonical" href="http://yoohannah.github.io/post/php/php_MySQLuse.html"/>
 
 
 
 
 
-  <title> 开发小结 | My Little World </title>
+  <title> php中MySQL的使用 | My Little World </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -260,7 +263,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="http://yoohannah.github.io/post/knowledge/prehensive.html">
+  <link itemprop="mainEntityOfPage" href="http://yoohannah.github.io/post/php/php_MySQLuse.html">
 
   <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
     <meta itemprop="name" content="YooHannah">
@@ -284,7 +287,7 @@
             
             
               
-                开发小结
+                php中MySQL的使用
               
             
           </h1>
@@ -297,8 +300,8 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-03-15T21:42:51+08:00">
-                2017-03-15
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-05-26T21:37:37+08:00">
+                2017-05-26
               </time>
             
 
@@ -333,10 +336,34 @@
       
 
       
-        <h1 id="对于路由的理解"><a href="#对于路由的理解" class="headerlink" title="对于路由的理解"></a>对于路由的理解</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">官方定义：</div><div class="line">路由是指如何定义应用的端点（URIs）以及如何响应客户端的请求。</div><div class="line">路由是由一个 URI、HTTP 请求（GET、POST等）和若干个句柄组成，它的结构如下： app.METHOD(path, [callback...], callback)， app 是 express 对象的一个实例， METHOD 是一个 HTTP 请求方法， path 是服务器上的路径， callback 是当路由匹配时要执行的函数。</div></pre></td></tr></table></figure>
-<p>当浏览器向服务器发过来一个http请求时，会携带请求路径和请求方法,服务器根据发过来的路径和请求方法进行匹配,二者都匹配的话，就执行对应的回调函数<br>请求的目的在客户端看来可能多种多样，比如单纯的访问页面，重新获取页面数据，向后台传递数据，但是在服务端看来都是一样的处理方法，匹配路径和方法，进行回调函数，<br>即通过匹配执行相应的动作，比如<br>客户端想访问一个页面，回调函数就执行渲染页面的操作<br>客户端要传递数据给数据库，回调函数就获取传递的数据然后给到数据库<br>作用就像一个指南针，根据客户端不同的请求，执行不同的操作<br>但涉及到的具体操作（数据处理）可能会通过其他文件的处理函数来实现<br><a href="http://www.expressjs.com.cn/guide/routing.html" target="_blank" rel="external">官方文档</a></p>
-<h1 id="对于中间件的理解"><a href="#对于中间件的理解" class="headerlink" title="对于中间件的理解"></a>对于中间件的理解</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">官方定义</div><div class="line">中间件（Middleware） 是一个函数，它可以访问请求对象（request object (req)）, 响应对象（response object (res)）, 和 web 应用中处于请求-响应循环流程中的中间件，一般被命名为 next 的变量。</div><div class="line">中间件的功能包括：</div><div class="line">执行任何代码。</div><div class="line">修改请求和响应对象。</div><div class="line">终结请求-响应循环。</div><div class="line">调用堆栈中的下一个中间件。</div><div class="line">如果当前中间件没有终结请求-响应循环，则必须调用 next() 方法将控制权交给下一个中间件，否则请求就会挂起。</div></pre></td></tr></table></figure>
-<p>粗浅的理解为功能处理函数，比如路由匹配里的回调函数，根据功能和使用方式不同分成多种<br>1.应用级中间件， app.use() 和 app.METHOD()的回调函数<br>2.路由级中间件，var router = express.Router()， router.use() 或 router.VERB() 的回调函数<br>3.错误处理中间件，进行错误处理的的函数，参数与其他不同<br>4.内置中间件, express.static<br>5.第三方中间件,通过npm安装的模块，即我们使用的模块也算是中间件<br><a href="http://www.expressjs.com.cn/guide/using-middleware.html#middleware.application" target="_blank" rel="external">官方文档</a></p>
+        <h1 id="php连接数据库"><a href="#php连接数据库" class="headerlink" title="php连接数据库"></a>php连接数据库</h1><p>查看数据库主机，用户名<br>use myaql；<br>select Host from user;<br>select user from user;</p>
+<h2 id="1-连接数据库服务器"><a href="#1-连接数据库服务器" class="headerlink" title="1.连接数据库服务器"></a>1.连接数据库服务器</h2><p>mysql_connect函数<br>$con = mysql_connect(“localhost”,”peter”,”abc123”);<br>参数1    主机<br>参数2    数据库服务器登陆名<br>参数3    密码<br>参数4    数据库的名称<br>参数5    数据库服务器端口不填默认3306</p>
+<p>若参数4，数据库名称在此步已填并择，不需要执行第三步</p>
+<h2 id="2-判断链接是否正常"><a href="#2-判断链接是否正常" class="headerlink" title="2.判断链接是否正常"></a>2.判断链接是否正常</h2><p>如果有错误，存在错误号<br>if (mysql_errno($conn)) {<br>   echo mysql_error($conn);<br>   exit;<br>}</p>
+<p>mysql_errno 返回连接错误号，无错误返回0<br>参数1    传入mysql_connect返回的资源</p>
+<p>mysql_error 返回连接错误字符串<br>参数1    传入mysql_connect返回的资源</p>
+<h2 id="3-选择数据库"><a href="#3-选择数据库" class="headerlink" title="3.选择数据库"></a>3.选择数据库</h2><p>mysql_select_db函数<br>mysql_select_db(‘user’,$conn);<br>参数1    传入mysql_connect返回的资源<br>参数2    需要连接的数据库名</p>
+<h2 id="4-设置字符集"><a href="#4-设置字符集" class="headerlink" title="4.设置字符集"></a>4.设置字符集</h2><p>mysql_set_charset<br>mysql_set_charset(‘utf8’,$conn);<br>参数1    字符集类型<br>参数2    传入mysql_connect返回的资源</p>
+<h2 id="5-准备SQL语句"><a href="#5-准备SQL语句" class="headerlink" title="5.准备SQL语句"></a>5.准备SQL语句</h2><p>要传入数据库的操作语句<br>注意参数如何拼接</p>
+<p>如果是int类型的就使用<br>$sql=”insert into user(mycon) values(“.$my_con.”)”;<br>//或者<br>$sql=’insert into user(mycon) values(‘.$my_con.’)’;</p>
+<p>如果是字符型的就要使用单引号或者双引号括起来<br>$sql=”insert into user(mycon) values(‘“.$my_con.”‘)”;<br>//或者这样写<br>$sql=’insert into user(mycon) values(“‘.$my_con.’”)’;</p>
+<p>多个<br>$sql = “INSERT INTO user (username,password,createtime,createip)<br>values<br>(‘“ . $username . “‘,’” . $password . “‘,” . $time . “,’” . $ip . “‘)”;</p>
+<h2 id="6-发送SQL语句"><a href="#6-发送SQL语句" class="headerlink" title="6.发送SQL语句"></a>6.发送SQL语句</h2><p>$result = mysql_query($sql,$conn);</p>
+<h2 id="7-根据不同操作，判断执行是否正常或者遍历数据"><a href="#7-根据不同操作，判断执行是否正常或者遍历数据" class="headerlink" title="7.根据不同操作，判断执行是否正常或者遍历数据"></a>7.根据不同操作，判断执行是否正常或者遍历数据</h2><p>发送的是select类别的语句，通常需要将结果输出显示出来。就需要用到遍历显示数据的函数<br>函数    mysql_fetch_array<br>功能    得到result结果集中的数据，返回数组进行便利<br>参数1    传入查询出来的结果变量<br>参数2    传入MYSQLI_NUM返回索引数组，MYSQLI_ASSOC返回关联数组，MYSQLI_BOTH返回索引和关联</p>
+<p>函数    mysql_fetch_assoc<br>功能    得到result结果集中的数据，返回关联数组进行便利<br>参数1    传入查询出来的结果变量</p>
+<p>函数    mysql_fetch_row<br>功能    得到result结果集中的数据，返回索引数组进行便利<br>参数1    传入查询出来的结果变量</p>
+<p>函数    mysql_fetch_object<br>功能    得到result结果集中的数据，返回对象进行遍历<br>参数1    传入查询出来的结果变量</p>
+<p>函数    mysql_num_rows<br>功能    返回查询出来的结果总数<br>参数1    传入查询出来的结果变量</p>
+<p>函数    sql_num_rows<br>功能    返回查询出来的结果总数<br>参数1    传入查询出来的结果变量</p>
+<p>如果发送的是insert的语句，通常需要得到是否执行成功，或者同时拿到自增的ID。<br>函数    mysqli_fetch_field<br>功能    遍历数据行<br>参数1    传入查询出来的结果变量</p>
+<p>如果发送的是update和delete类别的语句。只需要判断是否执行成功即可。</p>
+<p>if ($result) {<br>   echo ‘成功’;<br>} else {<br>    echo $sql;//查看是否是SQL语句拼接有问题<br>  echo ‘失败’;<br>}</p>
+<h2 id="8-关闭数据库"><a href="#8-关闭数据库" class="headerlink" title="8.关闭数据库"></a>8.关闭数据库</h2><p>函数    mysqli_close<br>功能    关闭数据库连接<br>参数1    传入mysqli_connect返回的资源</p>
+<p>mysql_close($conn);//关闭数据库</p>
+<h2 id="显示服务器信息函数"><a href="#显示服务器信息函数" class="headerlink" title="显示服务器信息函数"></a>显示服务器信息函数</h2><p>函数    mysqli_get_server_info<br>功能    返回服务器信息<br>参数1    传入mysqli_connect返回的资源</p>
+<p>函数    mysqli_get_server_version<br>功能    返回服务器版本<br>参数1    传入mysqli_connect返回的资源</p>
+<p><a href="https://github.com/YooHannah/algorithm/blob/master/php/registration/connect.php" target="_blank" rel="external">一个用户注册的代码链接</a></p>
+<h2 id="数据显示乱码终极解决办法"><a href="#数据显示乱码终极解决办法" class="headerlink" title="数据显示乱码终极解决办法"></a>数据显示乱码终极解决办法</h2><p>多个不同的文件系统中一定要统一编码。<br>9个要点分别是：<br>    1.html编码与MySQL编码一致<br>    2.PHP编码与MySQL编码一致<br>    3.若有header头发送字符集，请与数据库一样<br>      如果php中有header头，一定要是utf-8的<br>      header(‘content-type:text/html;charset=utf-8’);<br>    4.<meta http-equiv="“Content-Type”content=“text/html;" charset="utf-8”">要和页面的文字编码一致<br>    5.数据库建库的字符集要统一<br>    6.表的字符集要统一<br>    7.列的字符集要统一(表设了,列就默认写表的)<br>    8.连接,校验的字符集要统一<br>      通过mysqli_set_charset(‘utf8’)来MySQL连接、结果和校验的字符集设置。<br>      注：数据库的字符集声明和文件中的略有不同。utf8为mysql数据库的，utf-8为文件中使用的<br>    9.结果集的字符集要统一</p>
 
       
     </div>
@@ -360,7 +387,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/knowledge/" rel="tag"># knowledge</a>
+            <a href="/tags/php/" rel="tag"># php</a>
           
         </div>
       
@@ -369,8 +396,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/post/knowledge/Middleware.html" rel="next" title="对于一些模块的探究">
-                <i class="fa fa-chevron-left"></i> 对于一些模块的探究
+              <a href="/post/php/php_imge.html" rel="next" title="图片上传">
+                <i class="fa fa-chevron-left"></i> 图片上传
               </a>
             
           </div>
@@ -379,8 +406,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/post/knowledge/mongoDB.html" rel="prev" title="mongoDB使用">
-                mongoDB使用 <i class="fa fa-chevron-right"></i>
+              <a href="/post/php/php_MySQL.html" rel="prev" title="MySQL的基本知识">
+                MySQL的基本知识 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -508,7 +535,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#对于路由的理解"><span class="nav-number">1.</span> <span class="nav-text">对于路由的理解</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#对于中间件的理解"><span class="nav-number">2.</span> <span class="nav-text">对于中间件的理解</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#php连接数据库"><span class="nav-number">1.</span> <span class="nav-text">php连接数据库</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-连接数据库服务器"><span class="nav-number">1.1.</span> <span class="nav-text">1.连接数据库服务器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-判断链接是否正常"><span class="nav-number">1.2.</span> <span class="nav-text">2.判断链接是否正常</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-选择数据库"><span class="nav-number">1.3.</span> <span class="nav-text">3.选择数据库</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-设置字符集"><span class="nav-number">1.4.</span> <span class="nav-text">4.设置字符集</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-准备SQL语句"><span class="nav-number">1.5.</span> <span class="nav-text">5.准备SQL语句</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-发送SQL语句"><span class="nav-number">1.6.</span> <span class="nav-text">6.发送SQL语句</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7-根据不同操作，判断执行是否正常或者遍历数据"><span class="nav-number">1.7.</span> <span class="nav-text">7.根据不同操作，判断执行是否正常或者遍历数据</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#8-关闭数据库"><span class="nav-number">1.8.</span> <span class="nav-text">8.关闭数据库</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#显示服务器信息函数"><span class="nav-number">1.9.</span> <span class="nav-text">显示服务器信息函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数据显示乱码终极解决办法"><span class="nav-number">1.10.</span> <span class="nav-text">数据显示乱码终极解决办法</span></a></li></ol></li></ol></div>
             
 
           </div>

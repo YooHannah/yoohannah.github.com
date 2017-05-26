@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoohannah.github.io/"/>
-  <updated>2017-05-02T14:21:36.294Z</updated>
+  <updated>2017-05-26T13:41:47.610Z</updated>
   <id>http://yoohannah.github.io/</id>
   
   <author>
@@ -14,6 +14,146 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>cookie和session</title>
+    <link href="http://yoohannah.github.io/post/php/CookieAndSession.html"/>
+    <id>http://yoohannah.github.io/post/php/CookieAndSession.html</id>
+    <published>2017-05-26T13:38:37.000Z</published>
+    <updated>2017-05-26T13:41:47.610Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="cookie"><a href="#cookie" class="headerlink" title="cookie"></a>cookie</h1><p>设置cookie<br>bool setcookie  (<br>        string $名字<br>        [, string $值]<br>        [, int $过期时间  = 0]<br>        [, string $路径]<br>        [, string $域名]<br>        [, bool $安全  = false]<br>        [, bool $http只读  = false]<br>    );</p>
+<p> 参数 描述<br>$名字 必需。规定 cookie 的名称。<br>$值 可选。规定 cookie 的值。<br>$有效期 可选。规定 cookie 的有效期。<br>$路径 可选。规定 cookie 的服务器路径。<br>$域名 可选。规定 cookie 的域名。<br>$安全 可选。规定是否通过安全的 HTTPS 连接来传输 cookie。<br>$http安读 可选。如果true，那么js就无法读取改cookie，增加安全性。</p>
+<p>在服务端通过$_COOKIE[‘name’] 来读取cookie了。</p>
+<p><a href="https://github.com/YooHannah/algorithm/tree/master/php/cookie" target="_blank" rel="external">使用cookie例子</a></p>
+<h1 id="session"><a href="#session" class="headerlink" title="session"></a>session</h1><p> session_start(); //开启session<br> $_SESSION[‘userName’] = ‘wang’; //添加session数据<br> $userName = $_SESSION[‘userName’]; //读取session数据<br> unset($_SESSION[‘XXX’]);//销毁单个session数据<br> $_SESSION = array();//销毁全部session数据<br> session_destory();//这个函数会销毁当前会话中的全部数据，并结束当前会话。但是不会重置当前会话所关联的全局变量， 也不会重置会话 cookie<br> 在php.ini配置文件中，<br> 在php.ini配置文件中有这么一行 session.save_handler = files,<br>files，说明了php默认的是用文件读写的方式来保存session的<br>session.save_path = “/tmp”, “/tmp”即存储路径<br><a href="https://github.com/YooHannah/algorithm/tree/master/php/shoppingcart" target="_blank" rel="external">使用session例子</a></p>
+<p>#curl<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">&lt;?php</div><div class="line"><span class="comment">//初始化</span></div><div class="line">$ch = curl_init();</div><div class="line"><span class="comment">//设置选项，包括URL</span></div><div class="line">curl_setopt($ch, CURLOPT_URL, <span class="string">"http://www.php.cn"</span>);</div><div class="line">curl_setopt($ch, CURLOPT_RETURNTRANSFER, <span class="number">1</span>);</div><div class="line">curl_setopt($ch, CURLOPT_HEADER, <span class="number">0</span>);</div><div class="line"><span class="comment">//执行并获取HTML文档内容</span></div><div class="line">$output = curl_exec($ch);</div><div class="line"><span class="comment">//释放curl句柄</span></div><div class="line">curl_close($ch);</div><div class="line"><span class="comment">//打印获得的数据</span></div><div class="line">print_r($output);</div><div class="line">?&gt;</div></pre></td></tr></table></figure></p>
+<p>函数    curl_setopt<br>参数1    curl资源变量<br>参数2    curl参数选项<br>参数3    curl参数值</p>
+<p>CURLOPT_URL           这个参数选项规定了请求的url地址。<br>CURLOPT_RETURNTRANSFER   curl请求后返回对应的结果 若需要返回值即为1。不需请求后返回的结果可设置为0。</p>
+<p>如果是get请求，我们不需要设置发送的参数。在post等请求的时候，我们需要设置发送方法为post方法。并设置发送的数据。<br>CURLOPT_POST    值设为1是使用POST方法，0为不使用POST方法<br>CURLOPT_POSTFIELDS  设置传递的数据<br>//声明使用POST方式来进行发送<br>    curl_setopt($ch, CURLOPT_POST, 1);<br>//发送什么数据呢<br>curl_setopt($ch, CURLOPT_POSTFIELDS, $data);</p>
+<p>如果是https有的时候需要忽略https的安全证书。</p>
+<p>CURLOPT_SSL_VERIFYPEER和CURLOPT_SSL_VERIFYHOST 两个参数改为false即忽略了证书。<br>curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);<br>curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);<br>CURLOPT_HEADER  决定是是否处理http的头信息，不接收处理的话可将这个值设置为0。<br>CURLOPT_TIMEOUT 设置请求的超时时间</p>
+<p>$output = curl_exec($ch); 如果执行的结果有数据。使用curl_exec执行后，会将结果返回给$output变量。<br>curl_close($ch); 关闭curl资源。<br><a href="https://github.com/YooHannah/algorithm/blob/master/php/curl1.php" target="_blank" rel="external">curlget 截取页面例子</a><br><a href="https://github.com/YooHannah/algorithm/blob/master/php/curlpost.php" target="_blank" rel="external">curlpost例子</a></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;cookie&quot;&gt;&lt;a href=&quot;#cookie&quot; class=&quot;headerlink&quot; title=&quot;cookie&quot;&gt;&lt;/a&gt;cookie&lt;/h1&gt;&lt;p&gt;设置cookie&lt;br&gt;bool setcookie  (&lt;br&gt;        string $名字&lt;br
+    
+    </summary>
+    
+    
+      <category term="php" scheme="http://yoohannah.github.io/tags/php/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>MySQL的基本知识</title>
+    <link href="http://yoohannah.github.io/post/php/php_MySQL.html"/>
+    <id>http://yoohannah.github.io/post/php/php_MySQL.html</id>
+    <published>2017-05-26T13:37:37.000Z</published>
+    <updated>2017-05-26T13:41:46.124Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="五个基本单位"><a href="#五个基本单位" class="headerlink" title="五个基本单位"></a>五个基本单位</h1><p>数据库服务器:指用来运行数据库服务的一台电脑<br>数据库:一个数据库服务器里面有可以有多个数据库。主要用来分类使用。<br>数据表:专门用来区分一个数据库中的不同数据<br>数据字段:也叫数据列,日常所见表格里面的列<br>数据行:真正的数据存在每一个表的行里面</p>
+<h1 id="语句类别"><a href="#语句类别" class="headerlink" title="语句类别"></a>语句类别</h1><p>1.数据定义语言(DDL ，Data Defintion Language)语句：数据定义语句，用于定义不同的数据段、数据库、表、列、索引等。常用的语句关键字包括create、drop、alter等。<br>2.数据操作语言(DML ， Data Manipulation Language)语句：数据操纵语句，用于添加、删除、更新和查询数据库记录，并检查数据的完整性。常用的语句关键字主要包括insert、delete、update和select等。<br>3.数据控制语言(DCL， Data Control Language)<br>语句：数据控制语句，用于控制不同数据段直接的许可和访问级别的语句。<br>这些语句定义了数据库、表、字段、用户的访问权限和安全级别。主要的语句关键字包括grant、revoke等。</p>
+<h1 id="操作语句"><a href="#操作语句" class="headerlink" title="操作语句"></a>操作语句</h1><p>create database 数据库名;      创建数据库<br>show databases;                查看当前服务器有哪些数据库，显示所有数据库名<br>use 数据库名;                  选中数据库，进入到相应的数据库中<br>show tables;                   显示当前数据库下的所有表<br>drop database 数据库名;        删除数据库<br>create table 表名(字段名1 字段类型,….字段名n 字段类型n); 建表<br>desc 表名;                     查看表结构，显示表中属性</p>
+<p>show create table 表名 \G;<br>查看表的创建语句，“\G”选项的含义是使得记录能够按照字段竖着排列，对于内 容比较长的记录更易于显示。<br>可以看到表的 engine（存储引擎) 和 charset(字符集)等信息<br>在创建表的时候能够制定引擎<br>例<br>CREATE TABLE emp (<br>     useraname varchar(10) DEFAULT NULL,<br>     password date DEFAULT NULL,<br> )ENGINE=InnoDB DEFAULT CHARSET=utf8;</p>
+<p>drop table 表名;                删除表<br>alter table 表名 modify 字段名 类型字段; 修改表字段类型<br>alter table 表名 add column 字段名 类型;  增加表字段<br>alter table 表名 add 字段名2 字段类型 after 字段名1; 在字段名1后面增加字段名1<br>alter table 表名 add 字段名2 字段类型 first; 在最开始的位置增加字段<br>alter table 表名 drop column 字段名;                 删除表字段<br>alter table 表名 change 字段原名 字段新名 字段类型;  表字段改名</p>
+<p>alter table 旧表名 rename 新的表名; 修改表名</p>
+<p>修改表字段排列顺序<br>在前的字段增加和修改语句（add/change/modify）中，最后都可以加一个可选项 first|after。</p>
+<h1 id="数据类型"><a href="#数据类型" class="headerlink" title="数据类型"></a>数据类型</h1><p>整型<br>MySQL数据类型    所占字节    值范围<br>tinyint    1字节    -128~127<br>smallint    2字节    -32768~32767<br>mediumint    3字节    -8388608~8388607<br>int    4字节    范围-2147483648~2147483647<br>bigint    8字节    +-9.22*10的18次方<br>1.在创建表字段时，性别我们可以使用无符号的微小整型（tinyint）来表示。用0表示女、用1表示男。用2表示未知。<br>2.同样人类年龄也是，在创建表字段时可用用无符号的整型。因为人类的年龄还没有负数<br>3.在实际使用过程中。我们业务中最大需要存储多大的数值。我们创建表时，就选择什么样的类型来存储这样的值。</p>
+<p>浮点类型<br>MySQL数据类型    所占字节    值范围<br>float(m, d)    4字节    单精度浮点型，m总个数，d小数位<br>double(m, d)    8字节    双精度浮点型，m总个数，d小数位<br>decimal(m, d)  decimal是存储为字符串的浮点数<br>浮点是非精确值，会存在不太准确的情况,而decimal叫做定点数。<br>在MySQL内部，本质上是用字符串存储的。实际使用过程中如果存在金额、钱精度要求比较高的浮点数存储，建议使用decimal（定点数）这个类型</p>
+<p>字符类型<br>MySQL数据类型    所占字节    值范围<br>CHAR    0-255字节    定长字符串<br>VARCHAR    0-255字节    变长字符串<br>TINYBLOB    0-255字节    不超过255个字符的二进制字符串<br>TINYTEXT    0-255字节    短文本字符串<br>BLOB    0-65535字节    二进制形式的长文本数据<br>TEXT    0-65535字节    长文本数据<br>MEDIUMBLOB    0-16 777 215字节    二进制形式的中等长度文本数据<br>MEDIUMTEXT    0-16 777 215字节    中等长度文本数据<br>LOGNGBLOB    0-4 294 967 295字节    二进制形式的极大文本数据<br>LONGTEXT    0-4 294 967 295字节    极大文本数据<br>VARBINARY(M)    允许长度0-M个字节的定长字节符串    值的长度+1个字节<br>BINARY(M)    M    允许长度0-M个字节的定长字节符串</p>
+<p>时间类型<br>MySQL数据类型    所占字节    值范围<br>date    3字节    日期，格式：2014-09-18<br>time    3字节    时间，格式：08:42:30<br>datetime    8字节    日期时间，格式：2014-09-18 08:42:30<br>timestamp    4字节    自动存储记录修改的时间<br>year    1字节    年份</p>
+<p>复合类型<br>MySQL数据类型    说明    举例<br>set    集合类型    set(“member”, “member2″, … “member64″)<br>enum    枚举类型    enum(“member1″, “member2″, … “member65535″)<br>一个 ENUM 类型只允许从一个集合中取得一个值；而 SET 类型允许从一个集合中取得任意多个值。</p>
+<p>常用中文字符集<br>gbk_chinese_ci    简体中文, 不区分大小写<br>utf8_general_ci    Unicode (多语言), 不区分大小写<br>mysql在写utf-8的时候写的是utf8。不加中间的中横线</p>
+<h1 id="存储引擎"><a href="#存储引擎" class="headerlink" title="存储引擎"></a>存储引擎</h1><p>使用show engines命令可显示当前服务器支持的所有引擎<br>引擎名称<br>MyISAM    常用。读取效率很高的引擎<br>InnoDB    常用。写入，支持事处等都支持<br>Archive    不常用。归档引擎，压缩比高达1:10，用于数据归档<br>NDB    不常用。主要在MySQL 集群服务器中使用，</p>
+<p>行锁：写入、更新操作的时候将这一行锁起来，不让其他人再操作了。<br>表锁：写入、更新操作时，将表给锁起来不让其他人再操作了。<br>事务：同时操作多个数据，若其中的一个数据操作失败。可回滚到操作之前。常用于银行、电商、金融等系统中</p>
+<p>MyISAM<br>不支持事务，表锁(表级锁，加锁会锁住整个表)，支持全文索引,操作速度快。常用于读取多的业务。<br>myisam存储引擎表由myd和myi组成。.myd用来存放数据文件，.myi用来存放索引文件。<br>对于myisam存储引擎表，mysql数据库只缓存其索引文件，数据文件的缓存由操作系统本身来完成。</p>
+<p>InnoDB<br>支持事务，主要面向在线事务处理(OLTP)方面的应用。<br>行锁设计，支持外键，即默认情况下读取操作不加锁。</p>
+<h1 id="索引"><a href="#索引" class="headerlink" title="索引"></a>索引</h1><p>1.普通索引    最基本的索引，它没有任何限制<br>alter table 表  add index(字段)</p>
+<p>2.唯一索引    某一行企用了唯一索引则不准许这一列的行数据中有重复的值。针对这一列的每一行数据都要求是唯一的<br>alter table 表  add UNIQUE(字段)</p>
+<p>3.主键索引    它是一种特殊的唯一索引，不允许有空值。一般是在建表的时候同时创建主键索引，常用于用户ID。类似于书中的页码<br>alter table 表  add PRIMARY KEY(字段)</p>
+<p>4.全文索引    对于需要全局搜索的数据，进行全文索引<br>alter table 表  add FULLTEXT(字段)</p>
+<p>创建表时可在创建表语句后加上对应的类型即可声明索引：<br>CREATE TABLE test (<br>     id INT NOT NULL ,<br>     username VARCHAR(20) NOT NULL ,<br>     password INT NOT NULL ,<br>     content INT NOT NULL ,<br>     PRIMARY KEY (id),<br>     INDEX pw (password),<br>     UNIQUE (username),<br>     FULLTEXT (content)<br> ) ENGINE = InnoDB;</p>
+<h1 id="插入记录"><a href="#插入记录" class="headerlink" title="插入记录"></a>插入记录</h1><p>  方法一：<br>    insert into 表 values(值1,值2,值n);<br>  表中有多少个字段就必须要插入多少个值。一个不能多，一个也不能少。若有默认值，不想传，可以写上null。<br>  顺序应该和表字段的排序一致。<br>  方法二：<br>  insert into 表(字段1,字段2,字段n) values(值1,值2,值n);<br>  除非有必填字段必须要写入值外。如果有默认值的不想写可以忽略不写。mysql会自动补主默认值。<br>  以表(字段1,字段2,字段n)字段顺序为值的顺序。<br>  基本语法变形：一次插入多条记录<br>  INSERT INTO user(username,password,sex)<br>     values(‘ll’, ‘abcdef’, 1),<br>     ( ‘loe’, ‘bcdeef’, 0),<br>     ( ‘key’, ‘123456’, 1),<br>     (‘tom’, ‘987654’, 1);</p>
+<h1 id="查询"><a href="#查询" class="headerlink" title="查询"></a>查询</h1><p>select <em> from 表;                             查询表中所有字段中的所有结果,”</em>“ 是一种正则表达式的写法，表示匹配所有<br>select 字段1[,字段2,字段n] from 表;           指定字段查询<br>select distinct 字段 from 表;                 查询单个字段不重复记录 distinct<br>select  字段 from 表 where 条件;              条件查询 where,条件可以是逻辑比较运算符的比较式</p>
+<p>select 字段 from 表 order  by 字段 排序关键词; 查询结果按照字段排序关键词排序<br>排序关键词:<br>asc    升序排列，从小到大（默认）<br>desc    降序排列，从大到小</p>
+<p>select 字段 from 表 order  by 字段1 排序关键词,… …字段n desc|asc;<br>order by 后面可以跟多个不同的字段排序，并且排序字段的不同结果集的顺序也不同，<br>如果排序字段的值一样，则值相同的字段按照第二个排序字段进行排序。</p>
+<p>select 字段 from 表  limit 数量; 对于查询或者排序后的结果集，如果希望只显示一部分而不是全部，使用 limit 关键字结果集数量限制。<br>select 字段 from 表 order by 字段 关键词 limit 数量; 限制结果集并排序<br>select 字段 from 表  limit 偏移量,数量; 结果集区间选择，偏移量从0开始，0是第一条数据<br>select 函数(字段) from 表; 从表中将按字段查询的结果进行函数处理<br>函数<br>sum    求和<br>count    统计总数<br>max    最大值<br>min    最小值<br>avg    平均值</p>
+<p>select <em> from 表 group by 字段;    将表中数据按字段分组<br>select </em> from 表 group by 字段 having 条件; 分组结果再过滤。having 是筛选组 而where是筛选记录<br>例：统计省份数量后再进行分组显示： select count(province),province  from money group by province;</p>
+<p>整体的SQL语句配合使用的语法结构如下：<br>SELECT<br>     [字段1 [as 别名1],[函数(字段2) ,]……字段n]<br> FROM 表名<br> [WHERE where条件]<br> [GROUP BY 字段]<br> [HAVING where_contition]<br> [order 条件]<br> [limit 条件]<br> 例<br> 查询money表字段：id,username,balance,province 要求id&gt;1 余额大于50，使用地区进行分组。我们使用用户id进行降序，要求只准显示3条。<br> select id,username,balance,province from money where id &gt; 1 and balance &gt; 50 group by province order by id desc limit 3;</p>
+<h1 id="多表联合查询"><a href="#多表联合查询" class="headerlink" title="多表联合查询"></a>多表联合查询</h1><h2 id="内连接"><a href="#内连接" class="headerlink" title="内连接"></a>内连接</h2><p>将两个表中存在联结关系的字段符合联结关系的那些记录形成记录集的联结。<br>基本语法1：<br>select 表1.字段 [as 别名],表n.字段  from 表1 [别名],表n where 条件;<br>取满足条件的数据的在各表中的各字段<br>例<br>select user.uid ,user.username as username,order_goods.oid,order_goods.uid,order_goods.name as shopname from user,order_goods  where user.uid = order_goods.uid;<br>若表user中某条数据x的uid与表order_goods中的某条数据y的uid相同,则取出user表中数据x的 uid、username，取出order_goods中数据y的uid,name,其中order_goods的name的值以shopname的值显示<br>基本语法2：<br>select 表1.字段 [as 别名],表n.字段  from 表1 INNER JOIN 表n on  条件;<br>例<br>select user.uid ,user.username as username,order_goods.oid,order_goods.uid,order_goods.name as shopname from user inner join order_goods  on  user.uid = order_goods.uid;<br>效果同基本语法1</p>
+<p>##　外连接<br>会选出其他不匹配的记录，分为外左联结和外右联结。<br>左连接：包含所有的左边表中的记录甚至是右边表中没有和它匹配的记录<br>select 表1.字段 [as 别名],表n.字段  from 表1 LEFT JOIN 表n on  条件;<br>例<br>select *  from user left join order_goods  on  user.uid = order_goods.uid;<br>以左边ｕｓｅｒ为主，查询哪些用户未购买过商品，并将用户信息显示出来，ｕｓｅｒ表全部显示</p>
+<p>右连接：包含所有的右边表中的记录甚至是右边表中没有和它匹配的记录<br>select 表1.字段 [as 别名],表n.字段  from 表1 right JOIN 表n on  条件;<br>例<br>select *  from user right join order_goods  on  user.uid = order_goods.uid;<br>查询商品表中哪些用户购买过商品，并将用户信息显示出来，order_goods全部显示</p>
+<h2 id="子查询"><a href="#子查询" class="headerlink" title="子查询"></a>子查询</h2><p>需要的条件是另外一个select语句的结果，即使用子查询<br>用于子查询的关键字包括in、not in、=、!=、exists、not exists等。<br>select 字段  from 表 where 字段 in(条件)<br>例<br>select *  from user where uid in (select uid from order_goods);<br>从order_goods取出uid这一列，将uid在user中对应的数据取出来</p>
+<h2 id="记录联合"><a href="#记录联合" class="headerlink" title="记录联合"></a>记录联合</h2><p>使用 union 和 union all 关键字，将两个表的数据按照一定的查询条件查询出来后，将结果合并到一起显示。<br>union all 把结果直接合并在一起<br>union 是将 union all 后的结果进行一次distinct，去除重复记录后的结果。</p>
+<h1 id="修改"><a href="#修改" class="headerlink" title="修改"></a>修改</h1><p>使用update<br>update 表名 set 字段1=值1,字段2=值2,字段n=值n where 条件；<br>例<br>update emp set  balance=balance-500 where userid = 15;<br>将emp表中userid为15的数据的balance减15<br>同时对两个表进行更新<br>update 表1,表2 set 字段1=值1,字段2=值2,字段n=值n where 条件<br>例<br>update money m,user u m.balance=m.balance<em>u.age where m.userid=u.id;<br>修改money，将money表的别名设置为m；user表的别名设置为u；将m表的余额改为m表的balance</em>用户表的age。执行条件是：m.userid = u.id</p>
+<h1 id="删除"><a href="#删除" class="headerlink" title="删除"></a>删除</h1><p>用delete<br>DELETE FROM 表 [where 条件];<br>删除时如果不加where条件，会清空掉整个表的记录，返回被删除的记录数</p>
+<p>清空表 如果使用，<br>truncate table 表名;<br>表中若有自增字段，这个自增字段会将起始值恢复成1</p>
+<h1 id="权限"><a href="#权限" class="headerlink" title="权限"></a>权限</h1><h2 id="添加权限"><a href="#添加权限" class="headerlink" title="添加权限"></a>添加权限</h2><p>grant 权限 on 库.表 to ‘用户’@’主机’ identified by ‘密码’;<br>grant select, insert on test.* to ‘liwenkai’@’localhost’ identified by ‘4311’;<br>给予liwenkai用户，在本机连接test库所有表的权限。操作的这些表具有查询和写入权限</p>
+<h2 id="删除权限"><a href="#删除权限" class="headerlink" title="删除权限"></a>删除权限</h2><p>revoke 权限 on 库.表 from ‘用户’@’主机’;<br>revoke select, insert on test.* to ‘liwenkai’@’localhost’ identified by ‘4311’;<br>给予liwenkai用户，在本机连接test库所有表的权限。操作的这些表具有查询和写入权限</p>
+<h2 id="参数说明"><a href="#参数说明" class="headerlink" title="参数说明"></a>参数说明</h2><p>grant all        在grant后接all说明给予所有权限<br>revoke all       在revoke后接all说明删除所有权限<br>权限 on .        . 所明给予所有库所有表的操作权限<br>‘用户’@’主机’    主机里面若为%。任意来源的主机均可以使用这个用户来访问</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;五个基本单位&quot;&gt;&lt;a href=&quot;#五个基本单位&quot; class=&quot;headerlink&quot; title=&quot;五个基本单位&quot;&gt;&lt;/a&gt;五个基本单位&lt;/h1&gt;&lt;p&gt;数据库服务器:指用来运行数据库服务的一台电脑&lt;br&gt;数据库:一个数据库服务器里面有可以有多个数据库。主要用来
+    
+    </summary>
+    
+    
+      <category term="php" scheme="http://yoohannah.github.io/tags/php/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>php中MySQL的使用</title>
+    <link href="http://yoohannah.github.io/post/php/php_MySQLuse.html"/>
+    <id>http://yoohannah.github.io/post/php/php_MySQLuse.html</id>
+    <published>2017-05-26T13:37:37.000Z</published>
+    <updated>2017-05-26T13:41:44.789Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="php连接数据库"><a href="#php连接数据库" class="headerlink" title="php连接数据库"></a>php连接数据库</h1><p>查看数据库主机，用户名<br>use myaql；<br>select Host from user;<br>select user from user;</p>
+<h2 id="1-连接数据库服务器"><a href="#1-连接数据库服务器" class="headerlink" title="1.连接数据库服务器"></a>1.连接数据库服务器</h2><p>mysql_connect函数<br>$con = mysql_connect(“localhost”,”peter”,”abc123”);<br>参数1    主机<br>参数2    数据库服务器登陆名<br>参数3    密码<br>参数4    数据库的名称<br>参数5    数据库服务器端口不填默认3306</p>
+<p>若参数4，数据库名称在此步已填并择，不需要执行第三步</p>
+<h2 id="2-判断链接是否正常"><a href="#2-判断链接是否正常" class="headerlink" title="2.判断链接是否正常"></a>2.判断链接是否正常</h2><p>如果有错误，存在错误号<br>if (mysql_errno($conn)) {<br>   echo mysql_error($conn);<br>   exit;<br>}</p>
+<p>mysql_errno 返回连接错误号，无错误返回0<br>参数1    传入mysql_connect返回的资源</p>
+<p>mysql_error 返回连接错误字符串<br>参数1    传入mysql_connect返回的资源</p>
+<h2 id="3-选择数据库"><a href="#3-选择数据库" class="headerlink" title="3.选择数据库"></a>3.选择数据库</h2><p>mysql_select_db函数<br>mysql_select_db(‘user’,$conn);<br>参数1    传入mysql_connect返回的资源<br>参数2    需要连接的数据库名</p>
+<h2 id="4-设置字符集"><a href="#4-设置字符集" class="headerlink" title="4.设置字符集"></a>4.设置字符集</h2><p>mysql_set_charset<br>mysql_set_charset(‘utf8’,$conn);<br>参数1    字符集类型<br>参数2    传入mysql_connect返回的资源</p>
+<h2 id="5-准备SQL语句"><a href="#5-准备SQL语句" class="headerlink" title="5.准备SQL语句"></a>5.准备SQL语句</h2><p>要传入数据库的操作语句<br>注意参数如何拼接</p>
+<p>如果是int类型的就使用<br>$sql=”insert into user(mycon) values(“.$my_con.”)”;<br>//或者<br>$sql=’insert into user(mycon) values(‘.$my_con.’)’;</p>
+<p>如果是字符型的就要使用单引号或者双引号括起来<br>$sql=”insert into user(mycon) values(‘“.$my_con.”‘)”;<br>//或者这样写<br>$sql=’insert into user(mycon) values(“‘.$my_con.’”)’;</p>
+<p>多个<br>$sql = “INSERT INTO user (username,password,createtime,createip)<br>values<br>(‘“ . $username . “‘,’” . $password . “‘,” . $time . “,’” . $ip . “‘)”;</p>
+<h2 id="6-发送SQL语句"><a href="#6-发送SQL语句" class="headerlink" title="6.发送SQL语句"></a>6.发送SQL语句</h2><p>$result = mysql_query($sql,$conn);</p>
+<h2 id="7-根据不同操作，判断执行是否正常或者遍历数据"><a href="#7-根据不同操作，判断执行是否正常或者遍历数据" class="headerlink" title="7.根据不同操作，判断执行是否正常或者遍历数据"></a>7.根据不同操作，判断执行是否正常或者遍历数据</h2><p>发送的是select类别的语句，通常需要将结果输出显示出来。就需要用到遍历显示数据的函数<br>函数    mysql_fetch_array<br>功能    得到result结果集中的数据，返回数组进行便利<br>参数1    传入查询出来的结果变量<br>参数2    传入MYSQLI_NUM返回索引数组，MYSQLI_ASSOC返回关联数组，MYSQLI_BOTH返回索引和关联</p>
+<p>函数    mysql_fetch_assoc<br>功能    得到result结果集中的数据，返回关联数组进行便利<br>参数1    传入查询出来的结果变量</p>
+<p>函数    mysql_fetch_row<br>功能    得到result结果集中的数据，返回索引数组进行便利<br>参数1    传入查询出来的结果变量</p>
+<p>函数    mysql_fetch_object<br>功能    得到result结果集中的数据，返回对象进行遍历<br>参数1    传入查询出来的结果变量</p>
+<p>函数    mysql_num_rows<br>功能    返回查询出来的结果总数<br>参数1    传入查询出来的结果变量</p>
+<p>函数    sql_num_rows<br>功能    返回查询出来的结果总数<br>参数1    传入查询出来的结果变量</p>
+<p>如果发送的是insert的语句，通常需要得到是否执行成功，或者同时拿到自增的ID。<br>函数    mysqli_fetch_field<br>功能    遍历数据行<br>参数1    传入查询出来的结果变量</p>
+<p>如果发送的是update和delete类别的语句。只需要判断是否执行成功即可。</p>
+<p>if ($result) {<br>   echo ‘成功’;<br>} else {<br>    echo $sql;//查看是否是SQL语句拼接有问题<br>  echo ‘失败’;<br>}</p>
+<h2 id="8-关闭数据库"><a href="#8-关闭数据库" class="headerlink" title="8.关闭数据库"></a>8.关闭数据库</h2><p>函数    mysqli_close<br>功能    关闭数据库连接<br>参数1    传入mysqli_connect返回的资源</p>
+<p>mysql_close($conn);//关闭数据库</p>
+<h2 id="显示服务器信息函数"><a href="#显示服务器信息函数" class="headerlink" title="显示服务器信息函数"></a>显示服务器信息函数</h2><p>函数    mysqli_get_server_info<br>功能    返回服务器信息<br>参数1    传入mysqli_connect返回的资源</p>
+<p>函数    mysqli_get_server_version<br>功能    返回服务器版本<br>参数1    传入mysqli_connect返回的资源</p>
+<p><a href="https://github.com/YooHannah/algorithm/blob/master/php/registration/connect.php" target="_blank" rel="external">一个用户注册的代码链接</a></p>
+<h2 id="数据显示乱码终极解决办法"><a href="#数据显示乱码终极解决办法" class="headerlink" title="数据显示乱码终极解决办法"></a>数据显示乱码终极解决办法</h2><p>多个不同的文件系统中一定要统一编码。<br>9个要点分别是：<br>    1.html编码与MySQL编码一致<br>    2.PHP编码与MySQL编码一致<br>    3.若有header头发送字符集，请与数据库一样<br>      如果php中有header头，一定要是utf-8的<br>      header(‘content-type:text/html;charset=utf-8’);<br>    4.<meta http-equiv="“Content-Type”content=“text/html;" charset="utf-8”">要和页面的文字编码一致<br>    5.数据库建库的字符集要统一<br>    6.表的字符集要统一<br>    7.列的字符集要统一(表设了,列就默认写表的)<br>    8.连接,校验的字符集要统一<br>      通过mysqli_set_charset(‘utf8’)来MySQL连接、结果和校验的字符集设置。<br>      注：数据库的字符集声明和文件中的略有不同。utf8为mysql数据库的，utf-8为文件中使用的<br>    9.结果集的字符集要统一</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;php连接数据库&quot;&gt;&lt;a href=&quot;#php连接数据库&quot; class=&quot;headerlink&quot; title=&quot;php连接数据库&quot;&gt;&lt;/a&gt;php连接数据库&lt;/h1&gt;&lt;p&gt;查看数据库主机，用户名&lt;br&gt;use myaql；&lt;br&gt;select Host from 
+    
+    </summary>
+    
+    
+      <category term="php" scheme="http://yoohannah.github.io/tags/php/"/>
+    
+  </entry>
   
   <entry>
     <title>图片上传</title>
@@ -593,87 +733,6 @@ unset()这个函数的功能是毁掉变量。unset(变量)括号中间插入想
     
     
       <category term="js" scheme="http://yoohannah.github.io/tags/js/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>关于commonjs、MVC、模板引擎</title>
-    <link href="http://yoohannah.github.io/post/knowledge/commonjs.html"/>
-    <id>http://yoohannah.github.io/post/knowledge/commonjs.html</id>
-    <published>2017-03-21T14:16:37.000Z</published>
-    <updated>2017-03-21T14:16:41.343Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="commonjs理解"><a href="#commonjs理解" class="headerlink" title="commonjs理解"></a>commonjs理解</h1><p>是一种编写API的标准，根据该标准写的API可以在任何支持JavaScript的环境中使用，尤其是可以满足服务端的应用<br>四个个关键词<br>modules：模块，外部用 JavaScript 封装，具有对外接口并有一定功能作用的一个文件<br>packages：包，多个module的集合，相当于提供了一些固定接口的函数库，提供更高层的的抽象<br>exports：模块对外的接口对象，在模块文件中编写的功能函数作为它的属性函数，不同写法，使用规则不一样<br>require：当我们要使用某个模块时，用来获取/加载模块接口的对象,获取模块的 exports 对象。</p>
-<h1 id="MVC"><a href="#MVC" class="headerlink" title="MVC"></a>MVC</h1><p>MODEL-VIEW-CONTROLL，模型-视图-控制器，是一种软件的设计模式<br>模型:对象及其数据结构的实现，通常包含数据库的操作<br>视图：表示用户界面，在网站中通常就是HTML的组织结构<br>控制器：用于处理用户请求和数据流，复杂模型，将输出传递给视图<br><img src="/image/noun2.png" alt="noun2"></p>
-<h1 id="模板引擎"><a href="#模板引擎" class="headerlink" title="模板引擎"></a>模板引擎</h1><p>是一个生成HTML的工具<br>其功能是将页面模板和要显示的数据结合起来生成HTML页面<br>既可以运行在服务端又可以运行在客户端，<br>大多数时候它都在服务器端直接被解析为HTML，解析完后再传输给客户端<br>有时候也可以运行在客户端，即浏览器中<br>MVC架构中，模板引擎包含在服务器端，流程如下：<br>控制器得到用户请求后，从模型(原来页面)获取数据，调用模板引擎<br>模板引擎以数据(经过后台处理，要传递给客户端的)和页面模板为输入，生成HTML页面<br>返回给控制器，由控制器交会回给客户端<br><img src="/image/noun1.png" alt="noun1"></p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;h1 id=&quot;commonjs理解&quot;&gt;&lt;a href=&quot;#commonjs理解&quot; class=&quot;headerlink&quot; title=&quot;commonjs理解&quot;&gt;&lt;/a&gt;commonjs理解&lt;/h1&gt;&lt;p&gt;是一种编写API的标准，根据该标准写的API可以在任何支持JavaScrip
-    
-    </summary>
-    
-    
-      <category term="nodejs" scheme="http://yoohannah.github.io/tags/nodejs/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>mongoDB使用</title>
-    <link href="http://yoohannah.github.io/post/knowledge/mongoDB.html"/>
-    <id>http://yoohannah.github.io/post/knowledge/mongoDB.html</id>
-    <published>2017-03-19T13:45:37.000Z</published>
-    <updated>2017-03-20T14:02:52.521Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="启动"><a href="#启动" class="headerlink" title="启动"></a>启动</h1><p>cmd到mongoDB的bin文件夹,执行<br>mongod –dbpath data文件夹路径（例：D:\MongoDB\data）//运行<br>再打开一个cmd,同样切目录到bin文件夹下,执行<br>mongo //连接到数据库</p>
-<h1 id="命令"><a href="#命令" class="headerlink" title="命令"></a>命令</h1><h2 id="基础命令"><a href="#基础命令" class="headerlink" title="基础命令"></a>基础命令</h2><p>use dbname    //名为dbname的数据库若存在就将当前数据库切换到该数据库，若不存在，则新建该数据库并切换至该数据库<br>db   //查看当前数据库<br>show dbs    //查看所有数据库,新建的库，在插入数据后才会显示<br>db.dropDatabase() //删除当前数据库,但用db查看当前库，还是被删的这个库<br>db.tablename.drop() //删除数据库中名为tablename的集合<br>db.tablename.insert({“key”:”value”}) //创建名为objectname的表(对象),并插入数据,批量操作时可以直接在shell里面写for循环<br>show tables //查看该库中所有表(对象)<br>db.tablename.find() //在仓库中查找名为tablename的表，如果有就会将表中内容打印出来<br>db.tablename.find({“key”:”value”}) //在tablename表中查找具体数据，注意格式<br><img src="/image/mongodb1.png" alt="mongodb1"><br>db.tablename.update({查找值},{替换值}) //将查找值所在的集合替换为替换值<br><img src="/image/mongodb2.png" alt="mongodb2"><br>db.tablename.remove({查找值}) //删除查找值所在对象的全部数据，若为空，则将整表清空<br><img src="/image/mongodb3.png" alt="mongodb3"></p>
-<h2 id="条件查找"><a href="#条件查找" class="headerlink" title="条件查找"></a>条件查找</h2><p>1.比较查询<br>将查找条件放在value部分，用{}括起来<br>下图查询条件为age大于”$gt”22, 大于等于”$gte”22, 小于”$lt”22, 小于等于”$lte”22, 不等于”$ne”20,等于20的查询格式<br><img src="/image/mongodb4.png" alt="mongodb4"><br>使用正则表达式匹配时同样将正则表达式放在value的位置，而且不用{}或者””包括，直接/开始/结束<br>2.逻辑查询<br>下图查询条件分别为且，或者$or,在氛围内$in,不在范围内$nin<br><img src="/image/mongodb5.png" alt="mongodb5"></p>
-<h2 id="局部修改"><a href="#局部修改" class="headerlink" title="局部修改"></a>局部修改</h2><p>$inc 属性不存在就创建并赋值，如果存在，就在原来的基础上增加要修改的值<br>$set 仅修改<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">&gt; db.person.find()</div><div class="line">&#123; &quot;_id&quot; : ObjectId(&quot;58ccdcb002efa48d7589f2ae&quot;), &quot;name&quot; : &quot;jack&quot;, &quot;age&quot; : 20 &#125;</div><div class="line">&#123; &quot;_id&quot; : ObjectId(&quot;58ccdcb502efa48d7589f2af&quot;), &quot;name&quot; : &quot;joe&quot;, &quot;age&quot; : 25 &#125;</div><div class="line">&#123; &quot;_id&quot; : ObjectId(&quot;58ccdcd302efa48d7589f2b0&quot;), &quot;name&quot; : &quot;mark&quot;, &quot;age&quot; : 15 &#125;</div><div class="line">&gt; db.person.update(&#123;&quot;name&quot;:&quot;jack&quot;&#125;,&#123;$inc:&#123;&quot;age&quot;:10&#125;&#125;)</div><div class="line">WriteResult(&#123; &quot;nMatched&quot; : 1, &quot;nUpserted&quot; : 0, &quot;nModified&quot; : 1 &#125;)</div><div class="line">&gt; db.person.update(&#123;&quot;name&quot;:&quot;mark&quot;&#125;,&#123;$set:&#123;&quot;age&quot;:10&#125;&#125;)</div><div class="line">WriteResult(&#123; &quot;nMatched&quot; : 1, &quot;nUpserted&quot; : 0, &quot;nModified&quot; : 1 &#125;)</div><div class="line">&gt; db.person.find()</div><div class="line">&#123; &quot;_id&quot; : ObjectId(&quot;58ccdcb002efa48d7589f2ae&quot;), &quot;name&quot; : &quot;jack&quot;, &quot;age&quot; : 30 &#125;</div><div class="line">&#123; &quot;_id&quot; : ObjectId(&quot;58ccdcb502efa48d7589f2af&quot;), &quot;name&quot; : &quot;joe&quot;, &quot;age&quot; : 25 &#125;</div><div class="line">&#123; &quot;_id&quot; : ObjectId(&quot;58ccdcd302efa48d7589f2b0&quot;), &quot;name&quot; : &quot;mark&quot;, &quot;age&quot; : 10 &#125;</div><div class="line">&gt;</div></pre></td></tr></table></figure></p>
-<p>特殊情况：update的第一个参数不存在，即查找值不在person中，可以如下设置，将其新增<br>db.person.update({“name”:”jackson”},{$inc:{“age”:10}},true)<br>注意：update默认仅更新匹配得到的第一个集合，如果想更新全部匹配得到的结果，<br>可以将第四个参数设为true</p>
-<h2 id="数据处理"><a href="#数据处理" class="headerlink" title="数据处理"></a>数据处理</h2><p>1.计数<br>db.person.count()  //获取person中数据条数<br>db.person.count({“age”:20}) // 获取person中age等于20的数据条数<br>2.统计<br>db.person.distinct(“age”) //获取person中所有age的值，重复的值只取一次<br>3.分组<br>db.person.group({<br>    “key”:{“age”:true},//按age分组，age相同的分一组<br>    “initial”:{“person”:[]}, //分组内容<br>    “$reduce”:function(cur,prev){ //符合分组条件，将该条数据放入该组集合中，cur指当前处理的该条数据，prev指上次函数的累计对象，第一次为initial的值。<br>        prev.person.push(cur.name);<br>    },<br>  “finalize”:function(out){//将一条数据划分到一组后执行的处理<br>  out.count = out.person.length;<br>  },<br>  “condition”:{“age”:{$lt:25}}//分组条件，对什么样的数据进行分组<br>})<br>4.映射<br>通过map对集合进行分组，通过reduce对分组结果进行处理，理解为复杂的重组处理，最后会生成一个全新的集合<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">var map = function()&#123;</div><div class="line">	emit(this.name,&#123;count:1&#125;);  //集合按照name分组，分组内容均为&#123;count：1&#125;</div><div class="line">&#125;</div><div class="line">var reduce = function(key,value)&#123;  //对分组结果进行处理</div><div class="line">	var result = &#123;count:0&#125;;</div><div class="line">	for(var i = 0;i&lt;value.length;i++)&#123;</div><div class="line">		result.count +=value[i].count;</div><div class="line">	&#125;</div><div class="line">	return result;</div><div class="line">&#125;</div><div class="line">db.person.mapReduce(map,reduce,&#123;&quot;out&quot;:&quot;collection&quot;&#125;)</div><div class="line">db.collection.find()</div></pre></td></tr></table></figure></p>
-<p>5.循环处理<br>可以将集合赋值给一个变量然后进行循环处理，<br>var list = db.person.find();<br>list.forEach(function(x){<br>    print(x.name):<br>})</p>
-<p>6.可以多操作查询<br>对person集合数据按name排序然后分页<br>var single=db.person.find().sort({“name”,1}).skip(2).limit(2);</p>
-<p>7.索引查询<br>建立索引：<br>db.person.ensureIndex({“name”:1}) //建立按照name进行排序的索引，1为升序，-1为降序<br>db.person.ensureIndex({“name”:1},{“unique”:true}) //建立唯一索引，集合中不能出现重复键值对<br>db.person.ensureIndex({“name”:1,”birthday”:1}) //组合索引<br>查询优化器做出的选择往往是最优的，因为我们做查询时，查询优化器会使用我们建立的这些索引来创建查询方案，<br>如果某一个先执行完则其他查询方案被close掉，这种方案会被mongodb保存起来，当然如果非要用自己指定的查询方案，这也是可以的，在mongodb中给我们提供了hint方法让我们可以暴力执行。<br>db.person.find({“name”:”jack”,”birthday”:”1998-3-2”}).hint({“name”:1,”birthday”:1})</p>
-<p>删除索引：<br>db.person.dropIndexes(“name_1”)</p>
-<h1 id="主从复制"><a href="#主从复制" class="headerlink" title="主从复制"></a>主从复制</h1><p>将数据库数据复制到多台服务器上，防止因为一台服务器死机而导致数据无法使用的问题出现<br>将安装文件复制到其他磁盘上，模拟不同的服务器<br>启动H盘上的mongodb，把该数据库指定为主数据库<br>H:\mongoDB\bin&gt;mongod –dbpath H:\mongoDB\data –master<br>启动D盘上的mongodb，把该数据库指定为从属数据库<br>D:\mongoDB\bin&gt;mongod –dbpath D:\mongoDB\data –port 8888 –slave –source=127.0.0.1:27017<br>更换端口为8888，source表示主数据库地址<br>2017-03-20T10:12:17.424+0800 I REPL     [replslave] syncing from host:127.0.0.1:<br>27017<br>然后分别打开主shell(mongo 127.0.0.1:27017)和从shell(mongo 127.0.0.1:8888)查看所有集合<br>show dbs<br>因为从服务器上的数据库是不允许进行读写操作,所以从shell中会报错<br><img src="/image/mongodb7.png" alt="mongodb7"><br>解决，先执行：rs.slaveOk()<br>现在主shell中更改数据，在从shell中查看，看是否进行了同步<br>但有可能因为服务连接状态问题导致数据内容不同<br><img src="/image/mongodb8.png" alt="mongodb8"></p>
-<h1 id="集群"><a href="#集群" class="headerlink" title="集群"></a>集群</h1><p>不设定特定主数据库，如果哪个数据库死机了，集群就会推选一个从属数据库作为主数据库顶上，实现自动修复的效果<br>1.建立集群，命名集群名为shopex,replSet让服务器知道shopex下有端口为3333的另一个数据库服务器<br>新打开cmd<br>H:\mongoDB\bin&gt;mongod –dbpath H:\mongoDB\data –port 2222 –replSet shopex/127.0.0.1:3333<br>2.打开端口为3333的另一个数据库服务器<br>新打开cmd<br>D:\mongoDB\bin&gt;mongod –dbpath D:\mongoDB\data –port 3333 –replSet shopex/127.0.0.1:2222<br>3.在admin集合中初始化“副本集”<br>新打开cmd,开启shell<br>H:\mongoDB\bin&gt;mongo 127.0.0.1:2222/admin<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">&gt; db.runCommand(&#123;&quot;replSetInitiate&quot;:&#123;</div><div class="line">... &quot;_id&quot;:&quot;shopex&quot;,</div><div class="line">... &quot;members&quot;:[</div><div class="line">... &#123;</div><div class="line">... &quot;_id&quot;:1,</div><div class="line">... &quot;host&quot;:&quot;127.0.0.1:2222&quot;</div><div class="line">... &#125;,</div><div class="line">... &#123;</div><div class="line">... &quot;_id&quot;:2,</div><div class="line">... &quot;host&quot;:&quot;127.0.0.1:3333&quot;</div><div class="line">... &#125;</div><div class="line">... ]&#125;&#125;)</div><div class="line">&#123; &quot;ok&quot; : 1 &#125;</div></pre></td></tr></table></figure></p>
-<p>4.设置仲裁服务器<br>新打开cmd,开启服务<br>D:\mongoDB\bin&gt;mongod –dbpath F:\mongoDB\data –port 4444 –replSet shopex/127.0.0.1:2222<br>开启shell,设置及产看结果<br>H:\mongoDB\bin&gt;mongo 127.0.0.1:2222/admin<br>shopex:PRIMARY&gt; rs.addArb(“127.0.0.1:4444”)<br>{ “ok” : 1 }<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div></pre></td><td class="code"><pre><div class="line">shopex:PRIMARY&gt; rs.status()</div><div class="line">&#123;</div><div class="line">        &quot;set&quot; : &quot;shopex&quot;,</div><div class="line">        &quot;date&quot; : ISODate(&quot;2017-03-20T05:55:12.742Z&quot;),</div><div class="line">        &quot;myState&quot; : 1,</div><div class="line">        &quot;term&quot; : NumberLong(1),</div><div class="line">        &quot;heartbeatIntervalMillis&quot; : NumberLong(2000),</div><div class="line">        &quot;optimes&quot; : &#123;</div><div class="line">                &quot;lastCommittedOpTime&quot; : &#123;</div><div class="line">                        &quot;ts&quot; : Timestamp(1489989307, 1),</div><div class="line">                        &quot;t&quot; : NumberLong(1)</div><div class="line">                &#125;,</div><div class="line">                &quot;appliedOpTime&quot; : &#123;</div><div class="line">                        &quot;ts&quot; : Timestamp(1489989307, 1),</div><div class="line">                        &quot;t&quot; : NumberLong(1)</div><div class="line">                &#125;,</div><div class="line">                &quot;durableOpTime&quot; : &#123;</div><div class="line">                        &quot;ts&quot; : Timestamp(1489989307, 1),</div><div class="line">                        &quot;t&quot; : NumberLong(1)</div><div class="line">                &#125;</div><div class="line">        &#125;,</div><div class="line">        &quot;members&quot; : [</div><div class="line">                &#123;</div><div class="line">                        &quot;_id&quot; : 1,</div><div class="line">                        &quot;name&quot; : &quot;127.0.0.1:2222&quot;,</div><div class="line">                        &quot;health&quot; : 1,</div><div class="line">                        &quot;state&quot; : 1,</div><div class="line">                        &quot;stateStr&quot; : &quot;PRIMARY&quot;,</div><div class="line">                        &quot;uptime&quot; : 596,</div><div class="line">                        &quot;optime&quot; : &#123;</div><div class="line">                                &quot;ts&quot; : Timestamp(1489989307, 1),</div><div class="line">                                &quot;t&quot; : NumberLong(1)</div><div class="line">                        &#125;,</div><div class="line">                        &quot;optimeDate&quot; : ISODate(&quot;2017-03-20T05:55:07Z&quot;),</div><div class="line">                        &quot;electionTime&quot; : Timestamp(1489989026, 1),</div><div class="line">                        &quot;electionDate&quot; : ISODate(&quot;2017-03-20T05:50:26Z&quot;),</div><div class="line">                        &quot;configVersion&quot; : 2,</div><div class="line">                        &quot;self&quot; : true</div><div class="line">                &#125;,</div><div class="line">                &#123;</div><div class="line">                        &quot;_id&quot; : 2,</div><div class="line">                        &quot;name&quot; : &quot;127.0.0.1:3333&quot;,</div><div class="line">                        &quot;health&quot; : 1,</div><div class="line">                        &quot;state&quot; : 2,</div><div class="line">                        &quot;stateStr&quot; : &quot;SECONDARY&quot;,</div><div class="line">                        &quot;uptime&quot; : 296,</div><div class="line">                        &quot;optime&quot; : &#123;</div><div class="line">                                &quot;ts&quot; : Timestamp(1489989307, 1),</div><div class="line">                                &quot;t&quot; : NumberLong(1)</div><div class="line">                        &#125;,</div><div class="line">                        &quot;optimeDurable&quot; : &#123;</div><div class="line">                                &quot;ts&quot; : Timestamp(1489989307, 1),</div><div class="line">                                &quot;t&quot; : NumberLong(1)</div><div class="line">                        &#125;,</div><div class="line">                        &quot;optimeDate&quot; : ISODate(&quot;2017-03-20T05:55:07Z&quot;),</div><div class="line">                        &quot;optimeDurableDate&quot; : ISODate(&quot;2017-03-20T05:55:07Z&quot;),</div><div class="line">                        &quot;lastHeartbeat&quot; : ISODate(&quot;2017-03-20T05:55:11.766Z&quot;),</div><div class="line">                        &quot;lastHeartbeatRecv&quot; : ISODate(&quot;2017-03-20T05:55:10.786Z&quot;</div><div class="line">),</div><div class="line">                        &quot;pingMs&quot; : NumberLong(0),</div><div class="line">                        &quot;syncingTo&quot; : &quot;127.0.0.1:2222&quot;,</div><div class="line">                        &quot;configVersion&quot; : 2</div><div class="line">                &#125;,</div><div class="line">                &#123;</div><div class="line">                        &quot;_id&quot; : 3,</div><div class="line">                        &quot;name&quot; : &quot;127.0.0.1:4444&quot;,</div><div class="line">                        &quot;health&quot; : 1,</div><div class="line">                        &quot;state&quot; : 7,</div><div class="line">                        &quot;stateStr&quot; : &quot;ARBITER&quot;,</div><div class="line">                        &quot;uptime&quot; : 44,</div><div class="line">                        &quot;lastHeartbeat&quot; : ISODate(&quot;2017-03-20T05:55:11.765Z&quot;),</div><div class="line">                        &quot;lastHeartbeatRecv&quot; : ISODate(&quot;2017-03-20T05:55:07.948Z&quot;</div><div class="line">),</div><div class="line">                        &quot;pingMs&quot; : NumberLong(0),</div><div class="line">                        &quot;configVersion&quot; : 2</div><div class="line">                &#125;</div><div class="line">        ],</div><div class="line">        &quot;ok&quot; : 1</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>现在如果关掉2222端口服务器，再打开，在执行rs.status(),可以看到2222的“stateStr”变成”SECONDARY”<br>“3333”的变成”PRIMARY”<br><a href="http://www.cnblogs.com/huangxincheng/archive/2012/02/29/2372699.html" target="_blank" rel="external">相关链接</a></p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;h1 id=&quot;启动&quot;&gt;&lt;a href=&quot;#启动&quot; class=&quot;headerlink&quot; title=&quot;启动&quot;&gt;&lt;/a&gt;启动&lt;/h1&gt;&lt;p&gt;cmd到mongoDB的bin文件夹,执行&lt;br&gt;mongod –dbpath data文件夹路径（例：D:\MongoDB\data）//
-    
-    </summary>
-    
-    
-      <category term="nodejs" scheme="http://yoohannah.github.io/tags/nodejs/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>开发小结</title>
-    <link href="http://yoohannah.github.io/post/knowledge/prehensive.html"/>
-    <id>http://yoohannah.github.io/post/knowledge/prehensive.html</id>
-    <published>2017-03-15T13:42:51.000Z</published>
-    <updated>2017-03-15T13:50:19.964Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="对于路由的理解"><a href="#对于路由的理解" class="headerlink" title="对于路由的理解"></a>对于路由的理解</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">官方定义：</div><div class="line">路由是指如何定义应用的端点（URIs）以及如何响应客户端的请求。</div><div class="line">路由是由一个 URI、HTTP 请求（GET、POST等）和若干个句柄组成，它的结构如下： app.METHOD(path, [callback...], callback)， app 是 express 对象的一个实例， METHOD 是一个 HTTP 请求方法， path 是服务器上的路径， callback 是当路由匹配时要执行的函数。</div></pre></td></tr></table></figure>
-<p>当浏览器向服务器发过来一个http请求时，会携带请求路径和请求方法,服务器根据发过来的路径和请求方法进行匹配,二者都匹配的话，就执行对应的回调函数<br>请求的目的在客户端看来可能多种多样，比如单纯的访问页面，重新获取页面数据，向后台传递数据，但是在服务端看来都是一样的处理方法，匹配路径和方法，进行回调函数，<br>即通过匹配执行相应的动作，比如<br>客户端想访问一个页面，回调函数就执行渲染页面的操作<br>客户端要传递数据给数据库，回调函数就获取传递的数据然后给到数据库<br>作用就像一个指南针，根据客户端不同的请求，执行不同的操作<br>但涉及到的具体操作（数据处理）可能会通过其他文件的处理函数来实现<br><a href="http://www.expressjs.com.cn/guide/routing.html" target="_blank" rel="external">官方文档</a></p>
-<h1 id="对于中间件的理解"><a href="#对于中间件的理解" class="headerlink" title="对于中间件的理解"></a>对于中间件的理解</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">官方定义</div><div class="line">中间件（Middleware） 是一个函数，它可以访问请求对象（request object (req)）, 响应对象（response object (res)）, 和 web 应用中处于请求-响应循环流程中的中间件，一般被命名为 next 的变量。</div><div class="line">中间件的功能包括：</div><div class="line">执行任何代码。</div><div class="line">修改请求和响应对象。</div><div class="line">终结请求-响应循环。</div><div class="line">调用堆栈中的下一个中间件。</div><div class="line">如果当前中间件没有终结请求-响应循环，则必须调用 next() 方法将控制权交给下一个中间件，否则请求就会挂起。</div></pre></td></tr></table></figure>
-<p>粗浅的理解为功能处理函数，比如路由匹配里的回调函数，根据功能和使用方式不同分成多种<br>1.应用级中间件， app.use() 和 app.METHOD()的回调函数<br>2.路由级中间件，var router = express.Router()， router.use() 或 router.VERB() 的回调函数<br>3.错误处理中间件，进行错误处理的的函数，参数与其他不同<br>4.内置中间件, express.static<br>5.第三方中间件,通过npm安装的模块，即我们使用的模块也算是中间件<br><a href="http://www.expressjs.com.cn/guide/using-middleware.html#middleware.application" target="_blank" rel="external">官方文档</a></p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;h1 id=&quot;对于路由的理解&quot;&gt;&lt;a href=&quot;#对于路由的理解&quot; class=&quot;headerlink&quot; title=&quot;对于路由的理解&quot;&gt;&lt;/a&gt;对于路由的理解&lt;/h1&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=
-    
-    </summary>
-    
-    
-      <category term="knowledge" scheme="http://yoohannah.github.io/tags/knowledge/"/>
     
   </entry>
   

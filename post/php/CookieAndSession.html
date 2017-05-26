@@ -68,7 +68,7 @@
 <link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="html," />
+  <meta name="keywords" content="php," />
 
 
 
@@ -86,19 +86,16 @@
 
 
 
-<meta name="description" content="数据: ng-model点击: ng-click=”closeimg()”鼠标经过: ng-mouseenter=”imgclick(item.img_url)”   ng-mouseleave=”closeimg()”显示：ng-show   ng-if禁用：ng-disabled
-select 数据绑定1.显示name,绑定id;1&amp;lt;select class=&quot;sel&quot; ng-model">
+<meta name="description" content="cookie设置cookiebool setcookie  (        string $名字        [, string $值]        [, int $过期时间  = 0]        [, string $路径]        [, string $域名]        [, bool $安全  = false]        [, bool $http只读  = fals">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Angular 绑定">
-<meta property="og:url" content="http://yoohannah.github.io/post/knowledge/Angular-binding.html">
+<meta property="og:title" content="cookie和session">
+<meta property="og:url" content="http://yoohannah.github.io/post/php/CookieAndSession.html">
 <meta property="og:site_name" content="My Little World">
-<meta property="og:description" content="数据: ng-model点击: ng-click=”closeimg()”鼠标经过: ng-mouseenter=”imgclick(item.img_url)”   ng-mouseleave=”closeimg()”显示：ng-show   ng-if禁用：ng-disabled
-select 数据绑定1.显示name,绑定id;1&amp;lt;select class=&quot;sel&quot; ng-model">
-<meta property="og:updated_time" content="2017-03-05T23:07:59.009Z">
+<meta property="og:description" content="cookie设置cookiebool setcookie  (        string $名字        [, string $值]        [, int $过期时间  = 0]        [, string $路径]        [, string $域名]        [, bool $安全  = false]        [, bool $http只读  = fals">
+<meta property="og:updated_time" content="2017-05-26T13:41:47.610Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Angular 绑定">
-<meta name="twitter:description" content="数据: ng-model点击: ng-click=”closeimg()”鼠标经过: ng-mouseenter=”imgclick(item.img_url)”   ng-mouseleave=”closeimg()”显示：ng-show   ng-if禁用：ng-disabled
-select 数据绑定1.显示name,绑定id;1&amp;lt;select class=&quot;sel&quot; ng-model">
+<meta name="twitter:title" content="cookie和session">
+<meta name="twitter:description" content="cookie设置cookiebool setcookie  (        string $名字        [, string $值]        [, int $过期时间  = 0]        [, string $路径]        [, string $域名]        [, bool $安全  = false]        [, bool $http只读  = fals">
 
 
 
@@ -126,13 +123,13 @@ select 数据绑定1.显示name,绑定id;1&amp;lt;select class=&quot;sel&quot; n
 
 
 
-  <link rel="canonical" href="http://yoohannah.github.io/post/knowledge/Angular-binding.html"/>
+  <link rel="canonical" href="http://yoohannah.github.io/post/php/CookieAndSession.html"/>
 
 
 
 
 
-  <title> Angular 绑定 | My Little World </title>
+  <title> cookie和session | My Little World </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -263,7 +260,7 @@ select 数据绑定1.显示name,绑定id;1&amp;lt;select class=&quot;sel&quot; n
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="http://yoohannah.github.io/post/knowledge/Angular-binding.html">
+  <link itemprop="mainEntityOfPage" href="http://yoohannah.github.io/post/php/CookieAndSession.html">
 
   <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
     <meta itemprop="name" content="YooHannah">
@@ -287,7 +284,7 @@ select 数据绑定1.显示name,绑定id;1&amp;lt;select class=&quot;sel&quot; n
             
             
               
-                Angular 绑定
+                cookie和session
               
             
           </h1>
@@ -300,8 +297,8 @@ select 数据绑定1.显示name,绑定id;1&amp;lt;select class=&quot;sel&quot; n
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-12-18T00:14:37+08:00">
-                2016-12-18
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-05-26T21:38:37+08:00">
+                2017-05-26
               </time>
             
 
@@ -336,9 +333,18 @@ select 数据绑定1.显示name,绑定id;1&amp;lt;select class=&quot;sel&quot; n
       
 
       
-        <p>数据: ng-model<br>点击: ng-click=”closeimg()”<br>鼠标经过: ng-mouseenter=”imgclick(item.img_url)”   ng-mouseleave=”closeimg()”<br>显示：ng-show   ng-if<br>禁用：ng-disabled</p>
-<p>select 数据绑定<br>1.显示name,绑定id;<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;select <span class="class"><span class="keyword">class</span></span>=<span class="string">"sel"</span> ng-model=<span class="string">"supplier.status"</span> ng-options=<span class="string">"item.id as item.name for item in statuss"</span> ng-disabled=<span class="string">"read2"</span>&gt;&lt;/select&gt;</div></pre></td></tr></table></figure></p>
-<p>2.显示title，绑定整个对象<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&lt;select <span class="class"><span class="keyword">class</span></span>=<span class="string">"col-md-1"</span> ng-model=<span class="string">"usertype"</span> ng-options=<span class="string">"item.title for item in usertypes"</span> ng-change=<span class="string">"usertypechange()"</span>&gt;</div><div class="line">&lt;option selected value=""&gt;请选择&lt;/option&gt;</div><div class="line">&lt;<span class="regexp">/select&gt;</span></div></pre></td></tr></table></figure></p>
+        <h1 id="cookie"><a href="#cookie" class="headerlink" title="cookie"></a>cookie</h1><p>设置cookie<br>bool setcookie  (<br>        string $名字<br>        [, string $值]<br>        [, int $过期时间  = 0]<br>        [, string $路径]<br>        [, string $域名]<br>        [, bool $安全  = false]<br>        [, bool $http只读  = false]<br>    );</p>
+<p> 参数 描述<br>$名字 必需。规定 cookie 的名称。<br>$值 可选。规定 cookie 的值。<br>$有效期 可选。规定 cookie 的有效期。<br>$路径 可选。规定 cookie 的服务器路径。<br>$域名 可选。规定 cookie 的域名。<br>$安全 可选。规定是否通过安全的 HTTPS 连接来传输 cookie。<br>$http安读 可选。如果true，那么js就无法读取改cookie，增加安全性。</p>
+<p>在服务端通过$_COOKIE[‘name’] 来读取cookie了。</p>
+<p><a href="https://github.com/YooHannah/algorithm/tree/master/php/cookie" target="_blank" rel="external">使用cookie例子</a></p>
+<h1 id="session"><a href="#session" class="headerlink" title="session"></a>session</h1><p> session_start(); //开启session<br> $_SESSION[‘userName’] = ‘wang’; //添加session数据<br> $userName = $_SESSION[‘userName’]; //读取session数据<br> unset($_SESSION[‘XXX’]);//销毁单个session数据<br> $_SESSION = array();//销毁全部session数据<br> session_destory();//这个函数会销毁当前会话中的全部数据，并结束当前会话。但是不会重置当前会话所关联的全局变量， 也不会重置会话 cookie<br> 在php.ini配置文件中，<br> 在php.ini配置文件中有这么一行 session.save_handler = files,<br>files，说明了php默认的是用文件读写的方式来保存session的<br>session.save_path = “/tmp”, “/tmp”即存储路径<br><a href="https://github.com/YooHannah/algorithm/tree/master/php/shoppingcart" target="_blank" rel="external">使用session例子</a></p>
+<p>#curl<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">&lt;?php</div><div class="line"><span class="comment">//初始化</span></div><div class="line">$ch = curl_init();</div><div class="line"><span class="comment">//设置选项，包括URL</span></div><div class="line">curl_setopt($ch, CURLOPT_URL, <span class="string">"http://www.php.cn"</span>);</div><div class="line">curl_setopt($ch, CURLOPT_RETURNTRANSFER, <span class="number">1</span>);</div><div class="line">curl_setopt($ch, CURLOPT_HEADER, <span class="number">0</span>);</div><div class="line"><span class="comment">//执行并获取HTML文档内容</span></div><div class="line">$output = curl_exec($ch);</div><div class="line"><span class="comment">//释放curl句柄</span></div><div class="line">curl_close($ch);</div><div class="line"><span class="comment">//打印获得的数据</span></div><div class="line">print_r($output);</div><div class="line">?&gt;</div></pre></td></tr></table></figure></p>
+<p>函数    curl_setopt<br>参数1    curl资源变量<br>参数2    curl参数选项<br>参数3    curl参数值</p>
+<p>CURLOPT_URL           这个参数选项规定了请求的url地址。<br>CURLOPT_RETURNTRANSFER   curl请求后返回对应的结果 若需要返回值即为1。不需请求后返回的结果可设置为0。</p>
+<p>如果是get请求，我们不需要设置发送的参数。在post等请求的时候，我们需要设置发送方法为post方法。并设置发送的数据。<br>CURLOPT_POST    值设为1是使用POST方法，0为不使用POST方法<br>CURLOPT_POSTFIELDS  设置传递的数据<br>//声明使用POST方式来进行发送<br>    curl_setopt($ch, CURLOPT_POST, 1);<br>//发送什么数据呢<br>curl_setopt($ch, CURLOPT_POSTFIELDS, $data);</p>
+<p>如果是https有的时候需要忽略https的安全证书。</p>
+<p>CURLOPT_SSL_VERIFYPEER和CURLOPT_SSL_VERIFYHOST 两个参数改为false即忽略了证书。<br>curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);<br>curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);<br>CURLOPT_HEADER  决定是是否处理http的头信息，不接收处理的话可将这个值设置为0。<br>CURLOPT_TIMEOUT 设置请求的超时时间</p>
+<p>$output = curl_exec($ch); 如果执行的结果有数据。使用curl_exec执行后，会将结果返回给$output变量。<br>curl_close($ch); 关闭curl资源。<br><a href="https://github.com/YooHannah/algorithm/blob/master/php/curl1.php" target="_blank" rel="external">curlget 截取页面例子</a><br><a href="https://github.com/YooHannah/algorithm/blob/master/php/curlpost.php" target="_blank" rel="external">curlpost例子</a></p>
 
       
     </div>
@@ -362,7 +368,7 @@ select 数据绑定1.显示name,绑定id;1&amp;lt;select class=&quot;sel&quot; n
       
         <div class="post-tags">
           
-            <a href="/tags/html/" rel="tag"># html</a>
+            <a href="/tags/php/" rel="tag"># php</a>
           
         </div>
       
@@ -371,8 +377,8 @@ select 数据绑定1.显示name,绑定id;1&amp;lt;select class=&quot;sel&quot; n
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/post/knowledge/tableshow.html" rel="next" title="表格处理">
-                <i class="fa fa-chevron-left"></i> 表格处理
+              <a href="/post/php/php_MySQL.html" rel="next" title="MySQL的基本知识">
+                <i class="fa fa-chevron-left"></i> MySQL的基本知识
               </a>
             
           </div>
@@ -380,10 +386,6 @@ select 数据绑定1.显示name,绑定id;1&amp;lt;select class=&quot;sel&quot; n
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/post/knowledge/imageshow.html" rel="prev" title="图片显示">
-                图片显示 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -430,8 +432,17 @@ select 数据绑定1.显示name,绑定id;1&amp;lt;select class=&quot;sel&quot; n
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/psb.jpg"
@@ -491,6 +502,22 @@ select 数据绑定1.显示name,绑定id;1&amp;lt;select class=&quot;sel&quot; n
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#cookie"><span class="nav-number">1.</span> <span class="nav-text">cookie</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#session"><span class="nav-number">2.</span> <span class="nav-text">session</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
     </div>
