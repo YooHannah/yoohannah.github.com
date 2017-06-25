@@ -68,7 +68,7 @@
 <link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="js," />
+  <meta name="keywords" content="angular," />
 
 
 
@@ -86,25 +86,16 @@
 
 
 
-<meta name="description" content="从接口获取数据后，处理数据为我们需要的
-如果response.data全部需要，可以直接 showdata = response.data;
-如果只想其中一部，可以将需要的对象push到变量中123for(var i = 0;i &amp;lt; showdata.length;i++)&amp;#123;	list.push(showdata[i].someval);&amp;#125;
-或者123456for(var">
+<meta name="description" content="ng-class命令可用于绑定不同的样式使用方法即先在js中,定义样式集合$scope.STATUS_NAME = [  {‘labelClass’: ‘label1’},  {‘labelClass’: ‘label2’},  {‘labelClass’: ‘label3’},  {‘labelClass’: ‘label4’} ]; 对绑定对象赋值 angular.forEach($scope">
 <meta property="og:type" content="article">
-<meta property="og:title" content="数组push操作">
-<meta property="og:url" content="http://yoohannah.github.io/post/knowledge/array-push.html">
+<meta property="og:title" content="angular样式绑定ng-class">
+<meta property="og:url" content="http://yoohannah.github.io/post/knowledge/ng-class.html">
 <meta property="og:site_name" content="My Little World">
-<meta property="og:description" content="从接口获取数据后，处理数据为我们需要的
-如果response.data全部需要，可以直接 showdata = response.data;
-如果只想其中一部，可以将需要的对象push到变量中123for(var i = 0;i &amp;lt; showdata.length;i++)&amp;#123;	list.push(showdata[i].someval);&amp;#125;
-或者123456for(var">
-<meta property="og:updated_time" content="2017-02-01T09:35:35.399Z">
+<meta property="og:description" content="ng-class命令可用于绑定不同的样式使用方法即先在js中,定义样式集合$scope.STATUS_NAME = [  {‘labelClass’: ‘label1’},  {‘labelClass’: ‘label2’},  {‘labelClass’: ‘label3’},  {‘labelClass’: ‘label4’} ]; 对绑定对象赋值 angular.forEach($scope">
+<meta property="og:updated_time" content="2017-06-25T14:06:57.319Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="数组push操作">
-<meta name="twitter:description" content="从接口获取数据后，处理数据为我们需要的
-如果response.data全部需要，可以直接 showdata = response.data;
-如果只想其中一部，可以将需要的对象push到变量中123for(var i = 0;i &amp;lt; showdata.length;i++)&amp;#123;	list.push(showdata[i].someval);&amp;#125;
-或者123456for(var">
+<meta name="twitter:title" content="angular样式绑定ng-class">
+<meta name="twitter:description" content="ng-class命令可用于绑定不同的样式使用方法即先在js中,定义样式集合$scope.STATUS_NAME = [  {‘labelClass’: ‘label1’},  {‘labelClass’: ‘label2’},  {‘labelClass’: ‘label3’},  {‘labelClass’: ‘label4’} ]; 对绑定对象赋值 angular.forEach($scope">
 
 
 
@@ -132,13 +123,13 @@
 
 
 
-  <link rel="canonical" href="http://yoohannah.github.io/post/knowledge/array-push.html"/>
+  <link rel="canonical" href="http://yoohannah.github.io/post/knowledge/ng-class.html"/>
 
 
 
 
 
-  <title> 数组push操作 | My Little World </title>
+  <title> angular样式绑定ng-class | My Little World </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -269,7 +260,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="http://yoohannah.github.io/post/knowledge/array-push.html">
+  <link itemprop="mainEntityOfPage" href="http://yoohannah.github.io/post/knowledge/ng-class.html">
 
   <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
     <meta itemprop="name" content="YooHannah">
@@ -293,7 +284,7 @@
             
             
               
-                数组push操作
+                angular样式绑定ng-class
               
             
           </h1>
@@ -306,8 +297,8 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-12-17T17:21:02+08:00">
-                2016-12-17
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-06-25T22:00:37+08:00">
+                2017-06-25
               </time>
             
 
@@ -342,10 +333,10 @@
       
 
       
-        <p>从接口获取数据后，处理数据为我们需要的</p>
-<p>如果response.data全部需要，可以直接<br> showdata = response.data;</p>
-<p>如果只想其中一部，可以将需要的对象push到变量中<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">for(var i = 0;i &lt; showdata.length;i++)&#123;</div><div class="line">	list.push(showdata[i].someval);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>或者<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">for(var i = 0;i &lt; showdata.length;i++)&#123;</div><div class="line">	list.push(&#123;</div><div class="line">	name:showdata[i].object.name;</div><div class="line">	val:showdata[i].object.val;</div><div class="line">	&#125;);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+        <p>ng-class命令可用于绑定不同的样式<br>使用方法即先在js中,定义样式集合<br>$scope.STATUS_NAME = [<br>  {‘labelClass’: ‘label1’},<br>  {‘labelClass’: ‘label2’},<br>  {‘labelClass’: ‘label3’},<br>  {‘labelClass’: ‘label4’}<br> ];<br> 对绑定对象赋值<br> angular.forEach($scope.data, function(data){<br>     //对数组中每一项，根据status属性赋给labelclass属性样式集合中的值<br>   data.labelClass = $scope.STATUS_NAME[data.status].labelClass;<br> });<br>在html中定义不同的样式<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">&lt;style type=&quot;text/css&quot;&gt;</div><div class="line">	.label1&#123;</div><div class="line">    background-color:#87CEFA</div><div class="line">  &#125;</div><div class="line">  .label2&#123;</div><div class="line">    background-color:#90EE90</div><div class="line">  &#125;</div><div class="line">  .label3&#123;</div><div class="line">    background-color:#d2cd93</div><div class="line">  &#125;</div><div class="line">  .label4&#123;</div><div class="line">    background-color:#D3D3D3</div><div class="line">  &#125;</div><div class="line">&lt;/style&gt;</div></pre></td></tr></table></figure></p>
+<p> 在html中使用<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&lt;tr role=&quot;row&quot; ng-repeat=&quot;item in data track by $index&quot;&gt;</div><div class="line">	&lt;td&gt;&lt;span class=&quot;label&quot; ng-class=&quot;item.labelClass&quot;&gt;&#123;&#123;item.status_desc&#125;&#125;&lt;/span&gt;&lt;/td&gt;</div><div class="line">&lt;/tr&gt;</div></pre></td></tr></table></figure></p>
+<p>一些css属性<br>margin<br>1.负值位移<br>2.margin-right/bottom位移别人<br>3.负值扩大面积<br>4.margin collapse<br>父子，兄弟，什么时候合并<br>5.margin 居中<br>6.margin：percentage,按照容器宽度分配百分比<br>padding<br>1.负padding<br>2.保持宽高比<br>3.padding 与绝对定位需要注意<br>vertical-align<br>1.只有table 的vertical-align起垂直居中效果<br>2.基线与行高<br>border<br>1.border的写法<br>2.hr与border<br>3.img与border<br>4.table 与border<br>CSS：<br>选择器越精确则优先级越高<br>下面的比上面的优先级高<br>!important优先级最高</p>
+<p>src/href 与 img,script,a,link匹配</p>
 
       
     </div>
@@ -369,7 +360,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/js/" rel="tag"># js</a>
+            <a href="/tags/angular/" rel="tag"># angular</a>
           
         </div>
       
@@ -378,8 +369,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/post/knowledge/transform.html" rel="next" title="转换">
-                <i class="fa fa-chevron-left"></i> 转换
+              <a href="/post/php/CookieAndSession.html" rel="next" title="cookie和session">
+                <i class="fa fa-chevron-left"></i> cookie和session
               </a>
             
           </div>
@@ -387,10 +378,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/post/knowledge/ps.html" rel="prev" title="ps相关">
-                ps相关 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>

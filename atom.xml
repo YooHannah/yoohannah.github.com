@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoohannah.github.io/"/>
-  <updated>2017-05-26T13:41:47.610Z</updated>
+  <updated>2017-06-25T14:06:57.319Z</updated>
   <id>http://yoohannah.github.io/</id>
   
   <author>
@@ -14,6 +14,30 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>angular样式绑定ng-class</title>
+    <link href="http://yoohannah.github.io/post/knowledge/ng-class.html"/>
+    <id>http://yoohannah.github.io/post/knowledge/ng-class.html</id>
+    <published>2017-06-25T14:00:37.000Z</published>
+    <updated>2017-06-25T14:06:57.319Z</updated>
+    
+    <content type="html"><![CDATA[<p>ng-class命令可用于绑定不同的样式<br>使用方法即先在js中,定义样式集合<br>$scope.STATUS_NAME = [<br>  {‘labelClass’: ‘label1’},<br>  {‘labelClass’: ‘label2’},<br>  {‘labelClass’: ‘label3’},<br>  {‘labelClass’: ‘label4’}<br> ];<br> 对绑定对象赋值<br> angular.forEach($scope.data, function(data){<br>     //对数组中每一项，根据status属性赋给labelclass属性样式集合中的值<br>   data.labelClass = $scope.STATUS_NAME[data.status].labelClass;<br> });<br>在html中定义不同的样式<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">&lt;style type=&quot;text/css&quot;&gt;</div><div class="line">	.label1&#123;</div><div class="line">    background-color:#87CEFA</div><div class="line">  &#125;</div><div class="line">  .label2&#123;</div><div class="line">    background-color:#90EE90</div><div class="line">  &#125;</div><div class="line">  .label3&#123;</div><div class="line">    background-color:#d2cd93</div><div class="line">  &#125;</div><div class="line">  .label4&#123;</div><div class="line">    background-color:#D3D3D3</div><div class="line">  &#125;</div><div class="line">&lt;/style&gt;</div></pre></td></tr></table></figure></p>
+<p> 在html中使用<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&lt;tr role=&quot;row&quot; ng-repeat=&quot;item in data track by $index&quot;&gt;</div><div class="line">	&lt;td&gt;&lt;span class=&quot;label&quot; ng-class=&quot;item.labelClass&quot;&gt;&#123;&#123;item.status_desc&#125;&#125;&lt;/span&gt;&lt;/td&gt;</div><div class="line">&lt;/tr&gt;</div></pre></td></tr></table></figure></p>
+<p>一些css属性<br>margin<br>1.负值位移<br>2.margin-right/bottom位移别人<br>3.负值扩大面积<br>4.margin collapse<br>父子，兄弟，什么时候合并<br>5.margin 居中<br>6.margin：percentage,按照容器宽度分配百分比<br>padding<br>1.负padding<br>2.保持宽高比<br>3.padding 与绝对定位需要注意<br>vertical-align<br>1.只有table 的vertical-align起垂直居中效果<br>2.基线与行高<br>border<br>1.border的写法<br>2.hr与border<br>3.img与border<br>4.table 与border<br>CSS：<br>选择器越精确则优先级越高<br>下面的比上面的优先级高<br>!important优先级最高</p>
+<p>src/href 与 img,script,a,link匹配</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;ng-class命令可用于绑定不同的样式&lt;br&gt;使用方法即先在js中,定义样式集合&lt;br&gt;$scope.STATUS_NAME = [&lt;br&gt;  {‘labelClass’: ‘label1’},&lt;br&gt;  {‘labelClass’: ‘label2’},&lt;br&gt;  {‘
+    
+    </summary>
+    
+    
+      <category term="angular" scheme="http://yoohannah.github.io/tags/angular/"/>
+    
+  </entry>
   
   <entry>
     <title>cookie和session</title>
@@ -704,30 +728,6 @@ unset()这个函数的功能是毁掉变量。unset(变量)括号中间插入想
     <summary type="html">
     
       &lt;p&gt;网图：两个顶点经过的边上权值之和最少的路径&lt;br&gt;非网图：两个顶点之间经过的边数最少的路径&lt;br&gt;源点：路径起始的第一个顶点&lt;br&gt;终点：最后一个顶点&lt;br&gt;&lt;img src=&quot;/image/shortestpath1.png&quot; alt=&quot;shortestpath1&quot;&gt;&lt;/
-    
-    </summary>
-    
-    
-      <category term="js" scheme="http://yoohannah.github.io/tags/js/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>最小生成树</title>
-    <link href="http://yoohannah.github.io/post/algorithm/MinimumTree.html"/>
-    <id>http://yoohannah.github.io/post/algorithm/MinimumTree.html</id>
-    <published>2017-03-30T13:10:37.000Z</published>
-    <updated>2017-03-30T14:16:44.892Z</updated>
-    
-    <content type="html"><![CDATA[<p>图的各结点连线间存在权值，寻找一种访问路径,使得访问各结点最终的路径的权值和最小，<br>最终访问路径和结点形成树的结构，即最小生成树</p>
-<h1 id="普里姆算法"><a href="#普里姆算法" class="headerlink" title="普里姆算法"></a>普里姆算法</h1><p><img src="/image/plim.png" alt="plim"><br>主要思路：研究对象为结点，以某顶点为起点，逐步找各个顶点上最小权值的边来构建最小生成树<br>编程思路：新建一数组，初始化为起点(最小生成树的根结点)在邻接矩阵所在行的权值<br>找到该组权值最小值,最小权值下标即要选择路径的终点，同时也是接下来要比较的邻接矩阵权值行的行号，<br>将该最小权值置0，然后将新建数组与矩阵权值行比较，<br>相同位置，矩阵行若小于新建数组值，就将新建数组值替换为矩阵行的值，<br>再次寻找新建数组中的最小权值，重复以上步骤<br><a href="https://github.com/YooHannah/algorithm/blob/master/js/MinimumTreeofPlim.js" target="_blank" rel="external">代码链接</a></p>
-<h1 id="克鲁斯卡尔算法"><a href="#克鲁斯卡尔算法" class="headerlink" title="克鲁斯卡尔算法"></a>克鲁斯卡尔算法</h1><p><img src="/image/kluse.png" alt="kluse"><br>主要思路：研究对象为边，将边集数组从小到大排序，依次取边集数组的元素，判断边与边是否形成环路，不会形成则选择该边构建最小树<br><a href="https://github.com/YooHannah/algorithm/blob/master/js/MinimumTreeofKruskal.js" target="_blank" rel="external">代码链接</a></p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;图的各结点连线间存在权值，寻找一种访问路径,使得访问各结点最终的路径的权值和最小，&lt;br&gt;最终访问路径和结点形成树的结构，即最小生成树&lt;/p&gt;
-&lt;h1 id=&quot;普里姆算法&quot;&gt;&lt;a href=&quot;#普里姆算法&quot; class=&quot;headerlink&quot; title=&quot;普里姆算法&quot;&gt;
     
     </summary>
     
