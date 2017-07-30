@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoohannah.github.io/"/>
-  <updated>2017-07-30T09:16:39.877Z</updated>
+  <updated>2017-07-30T09:18:39.229Z</updated>
   <id>http://yoohannah.github.io/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="http://yoohannah.github.io/post/knowledge/JQuery_data.html"/>
     <id>http://yoohannah.github.io/post/knowledge/JQuery_data.html</id>
     <published>2017-07-30T05:43:02.000Z</published>
-    <updated>2017-07-30T09:16:39.877Z</updated>
+    <updated>2017-07-30T09:18:39.229Z</updated>
     
     <content type="html"><![CDATA[<p>jQuery.data用于处理标签数据绑定</p>
 <h1 id="使用方法"><a href="#使用方法" class="headerlink" title="使用方法"></a>使用方法</h1><p>1.赋值</p>
@@ -28,7 +28,7 @@
 <p>b.使用HTML标签属性<br>利用H5 标签的’data-‘属性添加键值对<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;div data-role=&quot;page&quot; data-last-value=&quot;43&quot; data-hidden=&quot;true&quot; data-options=&apos;&#123;&quot;name&quot;:&quot;John&quot;&#125;&apos;&gt;&lt;/div&gt;</div></pre></td></tr></table></figure></p>
 <p>2.取值<br>$(‘’).data(key);获取key对应的数据值<br>$(‘’).data(); 一次性获取绑定在$(‘’)上的所有数据对象</p>
 <p>3.删除<br>$(‘’).removeData(key);</p>
-<h1 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h1><p>a. &lt;&lt;object&gt;（除非是Flash插件），&lt;applet&gt; 或 &lt;embed&gt;&gt; 三个标签不能使用.data方法</p>
+<h1 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h1><p>a. &lt;object&gt;（除非是Flash插件），&lt;applet&gt; 或 &lt;embed&gt;&gt; 三个标签不能使用.data方法</p>
 <p>b. 通过”data-“属性建立的标签数据，获取时注意<br>data-last-value=”43” ==&gt; $(‘div’).data(‘lastValue’)<br>data-options=’{“name”:”John”}’ ==&gt; $(“div”).data(“options”).name -&gt;John<br>取到的值会自动转化为js的数据类型</p>
 <p>c. $(‘’).data()被赋值到js变量A后，之后对$(‘’)进行数据处理，A的内容会进行同步变动，<br>如果更改A的内容，$(‘’).data()也会同步更改<br>但如果$(‘’).data()的值被用到了html里面,HTML里面的值不会变动</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div></pre></td><td class="code"><pre><div class="line">&lt;!DOCTYPE html&gt;</div><div class="line">&lt;html&gt;</div><div class="line">&lt;head&gt;</div><div class="line">  &lt;style&gt;</div><div class="line">  div &#123; color:blue; &#125;</div><div class="line">  span &#123; color:red; &#125;</div><div class="line">  &lt;/style&gt;</div><div class="line">  &lt;script src="http://cdn.bootcss.com/jquery/1.11.2/jquery.min.js"&gt;&lt;/script&gt;</div><div class="line">&lt;/head&gt;</div><div class="line">&lt;body&gt;</div><div class="line">  &lt;div&gt;</div><div class="line">    The values stored were</div><div class="line">    &lt;span&gt;&lt;/span&gt;</div><div class="line">    and</div><div class="line">    &lt;span&gt;&lt;/span&gt;</div><div class="line">  &lt;/div&gt;</div><div class="line">&lt;script&gt;</div><div class="line">$("div").data("test", &#123; first: 16, last: "pizza!" &#125;);</div><div class="line">$("span:first").text($("div").data("test").first);</div><div class="line">$("span:last").text($("div").data("test").last);</div><div class="line">//页面输出 The values stored were 16 and pizza!</div><div class="line">  var temp = $("div").data();</div><div class="line">  console.log(temp);</div><div class="line">  $("div").data(&#123; first: 25, last: "pizza!" ,test:&#123;last:'fruit'&#125;&#125;);</div><div class="line">  // $("span:first").text($("div").data("first"));</div><div class="line">  // $("span:last").text($("div").data("test").last); </div><div class="line">  //如果没有以上两句页面不会发生任何变化，添加后</div><div class="line">  //页面输出 The values stored were 25 and fruit</div><div class="line">  console.log(temp);//temp与$("div").data()保持一致</div><div class="line">  console.log($("div").data())</div><div class="line">  temp.child = 'Jack';</div><div class="line">  console.log($("div").data()) //增加一项&#123;child: "Jack"&#125;</div><div class="line">  $("div").removeData("blah");//删除没有的属性不会报错</div><div class="line">  $("div").removeData("child");</div><div class="line">   console.log(temp);</div><div class="line">&lt;/script&gt;</div><div class="line">&lt;/body&gt;</div><div class="line">&lt;/html&gt;</div></pre></td></tr></table></figure>
