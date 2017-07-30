@@ -92,7 +92,7 @@
 <meta property="og:url" content="http://yoohannah.github.io/post/knowledge/ng-class.html">
 <meta property="og:site_name" content="My Little World">
 <meta property="og:description" content="ng-class命令可用于绑定不同的样式使用方法即先在js中,定义样式集合$scope.STATUS_NAME = [  {‘labelClass’: ‘label1’},  {‘labelClass’: ‘label2’},  {‘labelClass’: ‘label3’},  {‘labelClass’: ‘label4’} ]; 对绑定对象赋值 angular.forEach($scope">
-<meta property="og:updated_time" content="2017-06-25T14:06:57.319Z">
+<meta property="og:updated_time" content="2017-07-30T07:06:49.429Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="angular样式绑定ng-class">
 <meta name="twitter:description" content="ng-class命令可用于绑定不同的样式使用方法即先在js中,定义样式集合$scope.STATUS_NAME = [  {‘labelClass’: ‘label1’},  {‘labelClass’: ‘label2’},  {‘labelClass’: ‘label3’},  {‘labelClass’: ‘label4’} ]; 对绑定对象赋值 angular.forEach($scope">
@@ -335,8 +335,6 @@
       
         <p>ng-class命令可用于绑定不同的样式<br>使用方法即先在js中,定义样式集合<br>$scope.STATUS_NAME = [<br>  {‘labelClass’: ‘label1’},<br>  {‘labelClass’: ‘label2’},<br>  {‘labelClass’: ‘label3’},<br>  {‘labelClass’: ‘label4’}<br> ];<br> 对绑定对象赋值<br> angular.forEach($scope.data, function(data){<br>     //对数组中每一项，根据status属性赋给labelclass属性样式集合中的值<br>   data.labelClass = $scope.STATUS_NAME[data.status].labelClass;<br> });<br>在html中定义不同的样式<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">&lt;style type=&quot;text/css&quot;&gt;</div><div class="line">	.label1&#123;</div><div class="line">    background-color:#87CEFA</div><div class="line">  &#125;</div><div class="line">  .label2&#123;</div><div class="line">    background-color:#90EE90</div><div class="line">  &#125;</div><div class="line">  .label3&#123;</div><div class="line">    background-color:#d2cd93</div><div class="line">  &#125;</div><div class="line">  .label4&#123;</div><div class="line">    background-color:#D3D3D3</div><div class="line">  &#125;</div><div class="line">&lt;/style&gt;</div></pre></td></tr></table></figure></p>
 <p> 在html中使用<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&lt;tr role=&quot;row&quot; ng-repeat=&quot;item in data track by $index&quot;&gt;</div><div class="line">	&lt;td&gt;&lt;span class=&quot;label&quot; ng-class=&quot;item.labelClass&quot;&gt;&#123;&#123;item.status_desc&#125;&#125;&lt;/span&gt;&lt;/td&gt;</div><div class="line">&lt;/tr&gt;</div></pre></td></tr></table></figure></p>
-<p>一些css属性<br>margin<br>1.负值位移<br>2.margin-right/bottom位移别人<br>3.负值扩大面积<br>4.margin collapse<br>父子，兄弟，什么时候合并<br>5.margin 居中<br>6.margin：percentage,按照容器宽度分配百分比<br>padding<br>1.负padding<br>2.保持宽高比<br>3.padding 与绝对定位需要注意<br>vertical-align<br>1.只有table 的vertical-align起垂直居中效果<br>2.基线与行高<br>border<br>1.border的写法<br>2.hr与border<br>3.img与border<br>4.table 与border<br>CSS：<br>选择器越精确则优先级越高<br>下面的比上面的优先级高<br>!important优先级最高</p>
-<p>src/href 与 img,script,a,link匹配</p>
 
       
     </div>

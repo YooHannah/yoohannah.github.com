@@ -92,7 +92,7 @@
 <meta property="og:url" content="http://yoohannah.github.io/post/php/php_fileupload.html">
 <meta property="og:site_name" content="My Little World">
 <meta property="og:description" content="修改php.ini文件配置php.ini文件在不同的集成环境包中都在安装目录的php文件下,如果有多个版本php,则在每个版本里面都会有一个php.ini文件配置项    功能说明file_uploads    on为 开启文件上传功能，off为关闭post_max_size    系统允许的POST传参的最大值upload_max_filesize    系统允许的上传文件的最大值memory_">
-<meta property="og:updated_time" content="2017-05-02T14:21:14.399Z">
+<meta property="og:updated_time" content="2017-07-30T07:40:18.330Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="文件上传">
 <meta name="twitter:description" content="修改php.ini文件配置php.ini文件在不同的集成环境包中都在安装目录的php文件下,如果有多个版本php,则在每个版本里面都会有一个php.ini文件配置项    功能说明file_uploads    on为 开启文件上传功能，off为关闭post_max_size    系统允许的POST传参的最大值upload_max_filesize    系统允许的上传文件的最大值memory_">
@@ -333,13 +333,15 @@
       
 
       
-        <h1 id="修改php-ini文件配置"><a href="#修改php-ini文件配置" class="headerlink" title="修改php.ini文件配置"></a>修改php.ini文件配置</h1><p>php.ini文件在不同的集成环境包中都在安装目录的php文件下,如果有多个版本php,则在每个版本里面都会有一个php.ini文件<br>配置项    功能说明<br>file_uploads    on为 开启文件上传功能，off为关闭<br>post_max_size    系统允许的POST传参的最大值<br>upload_max_filesize    系统允许的上传文件的最大值<br>memory_limit    内存使用限制<br>建议尺寸： file_size(文件大小) &lt; upload_max_filesize &lt; post_max_size &lt; memory_limit<br>max_execution_time 设定脚本的最大执行时间。<br>也可以根据需求做适当的改变。通常不需要来修改，系统默认值即可。超大文件上传的时候，可能会涉及到这一项参数的修改<br>上传时间太长了，会超时。如果你将此项参数设为0，则是不限制超时时间，不建议使。</p>
+        <h1 id="修改php-ini文件配置"><a href="#修改php-ini文件配置" class="headerlink" title="修改php.ini文件配置"></a>修改php.ini文件配置</h1><p>php.ini文件在不同的集成环境包中都在安装目录的php文件下,如果有多个版本php,则在每个版本里面都会有一个php.ini文件<br>配置项    功能说明<br>file_uploads    on为 开启文件上传功能，off为关闭<br>post_max_size    系统允许的POST传参的最大值<br>upload_max_filesize    系统允许的上传文件的最大值<br>memory_limit    内存使用限制<br>【建议尺寸： file_size(文件大小) &lt; upload_max_filesize &lt; post_max_size &lt; memory_limit】<br>max_execution_time 设定脚本的最大执行时间。<br>也可以根据需求做适当的改变。通常不需要来修改，系统默认值即可。超大文件上传的时候，可能会涉及到这一项参数的修改<br>上传时间太长了，会超时。如果你将此项参数设为0，则是不限制超时时间，不建议使。</p>
 <h1 id="html页面"><a href="#html页面" class="headerlink" title="html页面"></a>html页面</h1><p>1.form 表单中的参数method 必须为post。若为get是无法进行文件上传的<br>2.enctype须为multipart/form-data<br><a href="https://github.com/YooHannah/algorithm/blob/master/php/fileupload/fileupload.html" target="_blank" rel="external">代码链接</a></p>
 <h1 id="文件上传"><a href="#文件上传" class="headerlink" title="文件上传"></a>文件上传</h1><p>按照数组和步骤完成文件上传<br>所有文件的信息存储在$_FILES[‘file’]中<br><a href="https://github.com/YooHannah/algorithm/blob/master/php/fileupload/file.php" target="_blank" rel="external">代码链接</a></p>
 <h1 id="多文件上传"><a href="#多文件上传" class="headerlink" title="多文件上传"></a>多文件上传</h1><p>写了2个或者多个input<br>将每个input name设置为”file[]”<br>对每个input上传文件后 $_FILE[‘file’]的每个属性将变成数组，依次对应每个input上传的文件</p>
-<h1 id="上传进度处理"><a href="#上传进度处理" class="headerlink" title="上传进度处理"></a>上传进度处理</h1><p>首先要修改php.ini的相关配置<br>配置项    说明<br>session.upload_progress.enabled    是否启用上传进度报告(默认开启) 1为开启，0为关闭<br>session.upload_progress.cleanup    是否在上传完成后及时删除进度数据(默认开启, 推荐开启)<br>session.upload_progress.prefix[=upload<em>progress</em>]    进度数据将存储在_SESSION[session.upload_progress.prefix . _POST[session.upload_progress.name]]<br>session.upload_progress.name[=PHP_SESSION_UPLOAD_PROGRESS]    如果_POST[session.upload_progress.name]没有被设置, 则不会报告进度.<br>session.upload_progress.freq[=1%]    更新进度的频率(已经处理的字节数), 也支持百分比表示’%’.<br>session.upload_progress.min_freq[=1.0]    更新进度的时间间隔(秒)</p>
+<h1 id="上传进度处理"><a href="#上传进度处理" class="headerlink" title="上传进度处理"></a>上传进度处理</h1><p>首先要修改php.ini的相关配置<br>配置项    说明<br>session.upload_progress.enabled    是否启用上传进度报告(默认开启) 1为开启，0为关闭<br>session.upload_progress.cleanup    是否在上传完成后及时删除进度数据(默认开启, 推荐开启)</p>
+<p>session.upload_progress.prefix[=upload<em>progress</em>]<br>进度数据将存储在_SESSION[session.upload_progress.prefix . _POST[session.upload_progress.name]]</p>
+<p>session.upload_progress.name[=PHP_SESSION_UPLOAD_PROGRESS]<br>如果_POST[session.upload_progress.name]没有被设置, 则不会报告进度.</p>
+<p>session.upload_progress.freq[=1%]    更新进度的频率(已经处理的字节数), 也支持百分比表示’%’.<br>session.upload_progress.min_freq[=1.0]    更新进度的时间间隔(秒)</p>
 <p>文件上传的进度信息存储在$_SESSION中<br><a href="https://github.com/YooHannah/algorithm/blob/master/php/fileupload/progress.php" target="_blank" rel="external">代码链接</a></p>
-<p>If no other git process is currently running, this probably means a<br>git process crashed in this repository earlier. Make sure no other git<br>process is running and remove the file manually to continue.<br>解决方法：<br>rm -f ./.git/index.lock</p>
 
       
     </div>

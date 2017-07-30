@@ -87,18 +87,18 @@
 
 
 <meta name="description" content="php连接数据库查看数据库主机，用户名use myaql；select Host from user;select user from user;
-1.连接数据库服务器mysql_connect函数$con = mysql_connect(“localhost”,”peter”,”abc123”);参数1    主机参数2    数据库服务器登陆名参数3    密码参数4    数据库的名称参数5">
+连接数据库服务器mysql_connect函数$con = mysql_connect(“localhost”,”peter”,”abc123”);参数1    主机参数2    数据库服务器登陆名参数3    密码参数4    数据库的名称参数5">
 <meta property="og:type" content="article">
 <meta property="og:title" content="php中MySQL的使用">
 <meta property="og:url" content="http://yoohannah.github.io/post/php/php_MySQLuse.html">
 <meta property="og:site_name" content="My Little World">
 <meta property="og:description" content="php连接数据库查看数据库主机，用户名use myaql；select Host from user;select user from user;
-1.连接数据库服务器mysql_connect函数$con = mysql_connect(“localhost”,”peter”,”abc123”);参数1    主机参数2    数据库服务器登陆名参数3    密码参数4    数据库的名称参数5">
-<meta property="og:updated_time" content="2017-05-26T13:41:44.789Z">
+连接数据库服务器mysql_connect函数$con = mysql_connect(“localhost”,”peter”,”abc123”);参数1    主机参数2    数据库服务器登陆名参数3    密码参数4    数据库的名称参数5">
+<meta property="og:updated_time" content="2017-07-30T07:30:33.872Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="php中MySQL的使用">
 <meta name="twitter:description" content="php连接数据库查看数据库主机，用户名use myaql；select Host from user;select user from user;
-1.连接数据库服务器mysql_connect函数$con = mysql_connect(“localhost”,”peter”,”abc123”);参数1    主机参数2    数据库服务器登陆名参数3    密码参数4    数据库的名称参数5">
+连接数据库服务器mysql_connect函数$con = mysql_connect(“localhost”,”peter”,”abc123”);参数1    主机参数2    数据库服务器登陆名参数3    密码参数4    数据库的名称参数5">
 
 
 
@@ -337,19 +337,19 @@
 
       
         <h1 id="php连接数据库"><a href="#php连接数据库" class="headerlink" title="php连接数据库"></a>php连接数据库</h1><p>查看数据库主机，用户名<br>use myaql；<br>select Host from user;<br>select user from user;</p>
-<h2 id="1-连接数据库服务器"><a href="#1-连接数据库服务器" class="headerlink" title="1.连接数据库服务器"></a>1.连接数据库服务器</h2><p>mysql_connect函数<br>$con = mysql_connect(“localhost”,”peter”,”abc123”);<br>参数1    主机<br>参数2    数据库服务器登陆名<br>参数3    密码<br>参数4    数据库的名称<br>参数5    数据库服务器端口不填默认3306</p>
+<h2 id="连接数据库服务器"><a href="#连接数据库服务器" class="headerlink" title="连接数据库服务器"></a>连接数据库服务器</h2><p>mysql_connect函数<br>$con = mysql_connect(“localhost”,”peter”,”abc123”);<br>参数1    主机<br>参数2    数据库服务器登陆名<br>参数3    密码<br>参数4    数据库的名称<br>参数5    数据库服务器端口不填默认3306</p>
 <p>若参数4，数据库名称在此步已填并择，不需要执行第三步</p>
-<h2 id="2-判断链接是否正常"><a href="#2-判断链接是否正常" class="headerlink" title="2.判断链接是否正常"></a>2.判断链接是否正常</h2><p>如果有错误，存在错误号<br>if (mysql_errno($conn)) {<br>   echo mysql_error($conn);<br>   exit;<br>}</p>
+<h2 id="判断链接是否正常"><a href="#判断链接是否正常" class="headerlink" title="判断链接是否正常"></a>判断链接是否正常</h2><p>如果有错误，存在错误号<br>if (mysql_errno($conn)) {<br>   echo mysql_error($conn);<br>   exit;<br>}</p>
 <p>mysql_errno 返回连接错误号，无错误返回0<br>参数1    传入mysql_connect返回的资源</p>
 <p>mysql_error 返回连接错误字符串<br>参数1    传入mysql_connect返回的资源</p>
-<h2 id="3-选择数据库"><a href="#3-选择数据库" class="headerlink" title="3.选择数据库"></a>3.选择数据库</h2><p>mysql_select_db函数<br>mysql_select_db(‘user’,$conn);<br>参数1    传入mysql_connect返回的资源<br>参数2    需要连接的数据库名</p>
-<h2 id="4-设置字符集"><a href="#4-设置字符集" class="headerlink" title="4.设置字符集"></a>4.设置字符集</h2><p>mysql_set_charset<br>mysql_set_charset(‘utf8’,$conn);<br>参数1    字符集类型<br>参数2    传入mysql_connect返回的资源</p>
-<h2 id="5-准备SQL语句"><a href="#5-准备SQL语句" class="headerlink" title="5.准备SQL语句"></a>5.准备SQL语句</h2><p>要传入数据库的操作语句<br>注意参数如何拼接</p>
+<h2 id="选择数据库"><a href="#选择数据库" class="headerlink" title="选择数据库"></a>选择数据库</h2><p>mysql_select_db函数<br>mysql_select_db(‘user’,$conn);<br>参数1    传入mysql_connect返回的资源<br>参数2    需要连接的数据库名</p>
+<h2 id="设置字符集"><a href="#设置字符集" class="headerlink" title="设置字符集"></a>设置字符集</h2><p>mysql_set_charset<br>mysql_set_charset(‘utf8’,$conn);<br>参数1    字符集类型<br>参数2    传入mysql_connect返回的资源</p>
+<h2 id="准备SQL语句"><a href="#准备SQL语句" class="headerlink" title="准备SQL语句"></a>准备SQL语句</h2><p>要传入数据库的操作语句<br>注意参数如何拼接</p>
 <p>如果是int类型的就使用<br>$sql=”insert into user(mycon) values(“.$my_con.”)”;<br>//或者<br>$sql=’insert into user(mycon) values(‘.$my_con.’)’;</p>
 <p>如果是字符型的就要使用单引号或者双引号括起来<br>$sql=”insert into user(mycon) values(‘“.$my_con.”‘)”;<br>//或者这样写<br>$sql=’insert into user(mycon) values(“‘.$my_con.’”)’;</p>
 <p>多个<br>$sql = “INSERT INTO user (username,password,createtime,createip)<br>values<br>(‘“ . $username . “‘,’” . $password . “‘,” . $time . “,’” . $ip . “‘)”;</p>
-<h2 id="6-发送SQL语句"><a href="#6-发送SQL语句" class="headerlink" title="6.发送SQL语句"></a>6.发送SQL语句</h2><p>$result = mysql_query($sql,$conn);</p>
-<h2 id="7-根据不同操作，判断执行是否正常或者遍历数据"><a href="#7-根据不同操作，判断执行是否正常或者遍历数据" class="headerlink" title="7.根据不同操作，判断执行是否正常或者遍历数据"></a>7.根据不同操作，判断执行是否正常或者遍历数据</h2><p>发送的是select类别的语句，通常需要将结果输出显示出来。就需要用到遍历显示数据的函数<br>函数    mysql_fetch_array<br>功能    得到result结果集中的数据，返回数组进行便利<br>参数1    传入查询出来的结果变量<br>参数2    传入MYSQLI_NUM返回索引数组，MYSQLI_ASSOC返回关联数组，MYSQLI_BOTH返回索引和关联</p>
+<h2 id="发送SQL语句"><a href="#发送SQL语句" class="headerlink" title="发送SQL语句"></a>发送SQL语句</h2><p>$result = mysql_query($sql,$conn);</p>
+<h2 id="根据不同操作，判断执行是否正常或者遍历数据"><a href="#根据不同操作，判断执行是否正常或者遍历数据" class="headerlink" title="根据不同操作，判断执行是否正常或者遍历数据"></a>根据不同操作，判断执行是否正常或者遍历数据</h2><p>发送的是select类别的语句，通常需要将结果输出显示出来。就需要用到遍历显示数据的函数<br>函数    mysql_fetch_array<br>功能    得到result结果集中的数据，返回数组进行便利<br>参数1    传入查询出来的结果变量<br>参数2    传入MYSQLI_NUM返回索引数组，MYSQLI_ASSOC返回关联数组，MYSQLI_BOTH返回索引和关联</p>
 <p>函数    mysql_fetch_assoc<br>功能    得到result结果集中的数据，返回关联数组进行便利<br>参数1    传入查询出来的结果变量</p>
 <p>函数    mysql_fetch_row<br>功能    得到result结果集中的数据，返回索引数组进行便利<br>参数1    传入查询出来的结果变量</p>
 <p>函数    mysql_fetch_object<br>功能    得到result结果集中的数据，返回对象进行遍历<br>参数1    传入查询出来的结果变量</p>
@@ -358,9 +358,9 @@
 <p>如果发送的是insert的语句，通常需要得到是否执行成功，或者同时拿到自增的ID。<br>函数    mysqli_fetch_field<br>功能    遍历数据行<br>参数1    传入查询出来的结果变量</p>
 <p>如果发送的是update和delete类别的语句。只需要判断是否执行成功即可。</p>
 <p>if ($result) {<br>   echo ‘成功’;<br>} else {<br>    echo $sql;//查看是否是SQL语句拼接有问题<br>  echo ‘失败’;<br>}</p>
-<h2 id="8-关闭数据库"><a href="#8-关闭数据库" class="headerlink" title="8.关闭数据库"></a>8.关闭数据库</h2><p>函数    mysqli_close<br>功能    关闭数据库连接<br>参数1    传入mysqli_connect返回的资源</p>
+<h2 id="关闭数据库"><a href="#关闭数据库" class="headerlink" title="关闭数据库"></a>关闭数据库</h2><p>函数    mysqli_close<br>功能    关闭数据库连接<br>参数1    传入mysqli_connect返回的资源</p>
 <p>mysql_close($conn);//关闭数据库</p>
-<h2 id="显示服务器信息函数"><a href="#显示服务器信息函数" class="headerlink" title="显示服务器信息函数"></a>显示服务器信息函数</h2><p>函数    mysqli_get_server_info<br>功能    返回服务器信息<br>参数1    传入mysqli_connect返回的资源</p>
+<h1 id="显示服务器信息函数"><a href="#显示服务器信息函数" class="headerlink" title="显示服务器信息函数"></a>显示服务器信息函数</h1><p>函数    mysqli_get_server_info<br>功能    返回服务器信息<br>参数1    传入mysqli_connect返回的资源</p>
 <p>函数    mysqli_get_server_version<br>功能    返回服务器版本<br>参数1    传入mysqli_connect返回的资源</p>
 <p><a href="https://github.com/YooHannah/algorithm/blob/master/php/registration/connect.php" target="_blank" rel="external">一个用户注册的代码链接</a></p>
 <h2 id="数据显示乱码终极解决办法"><a href="#数据显示乱码终极解决办法" class="headerlink" title="数据显示乱码终极解决办法"></a>数据显示乱码终极解决办法</h2><p>多个不同的文件系统中一定要统一编码。<br>9个要点分别是：<br>    1.html编码与MySQL编码一致<br>    2.PHP编码与MySQL编码一致<br>    3.若有header头发送字符集，请与数据库一样<br>      如果php中有header头，一定要是utf-8的<br>      header(‘content-type:text/html;charset=utf-8’);<br>    4.<meta http-equiv="“Content-Type”content=“text/html;" charset="utf-8”">要和页面的文字编码一致<br>    5.数据库建库的字符集要统一<br>    6.表的字符集要统一<br>    7.列的字符集要统一(表设了,列就默认写表的)<br>    8.连接,校验的字符集要统一<br>      通过mysqli_set_charset(‘utf8’)来MySQL连接、结果和校验的字符集设置。<br>      注：数据库的字符集声明和文件中的略有不同。utf8为mysql数据库的，utf-8为文件中使用的<br>    9.结果集的字符集要统一</p>
@@ -535,7 +535,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#php连接数据库"><span class="nav-number">1.</span> <span class="nav-text">php连接数据库</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-连接数据库服务器"><span class="nav-number">1.1.</span> <span class="nav-text">1.连接数据库服务器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-判断链接是否正常"><span class="nav-number">1.2.</span> <span class="nav-text">2.判断链接是否正常</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-选择数据库"><span class="nav-number">1.3.</span> <span class="nav-text">3.选择数据库</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-设置字符集"><span class="nav-number">1.4.</span> <span class="nav-text">4.设置字符集</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-准备SQL语句"><span class="nav-number">1.5.</span> <span class="nav-text">5.准备SQL语句</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-发送SQL语句"><span class="nav-number">1.6.</span> <span class="nav-text">6.发送SQL语句</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7-根据不同操作，判断执行是否正常或者遍历数据"><span class="nav-number">1.7.</span> <span class="nav-text">7.根据不同操作，判断执行是否正常或者遍历数据</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#8-关闭数据库"><span class="nav-number">1.8.</span> <span class="nav-text">8.关闭数据库</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#显示服务器信息函数"><span class="nav-number">1.9.</span> <span class="nav-text">显示服务器信息函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数据显示乱码终极解决办法"><span class="nav-number">1.10.</span> <span class="nav-text">数据显示乱码终极解决办法</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#php连接数据库"><span class="nav-number">1.</span> <span class="nav-text">php连接数据库</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#连接数据库服务器"><span class="nav-number">1.1.</span> <span class="nav-text">连接数据库服务器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#判断链接是否正常"><span class="nav-number">1.2.</span> <span class="nav-text">判断链接是否正常</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#选择数据库"><span class="nav-number">1.3.</span> <span class="nav-text">选择数据库</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#设置字符集"><span class="nav-number">1.4.</span> <span class="nav-text">设置字符集</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#准备SQL语句"><span class="nav-number">1.5.</span> <span class="nav-text">准备SQL语句</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#发送SQL语句"><span class="nav-number">1.6.</span> <span class="nav-text">发送SQL语句</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#根据不同操作，判断执行是否正常或者遍历数据"><span class="nav-number">1.7.</span> <span class="nav-text">根据不同操作，判断执行是否正常或者遍历数据</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#关闭数据库"><span class="nav-number">1.8.</span> <span class="nav-text">关闭数据库</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#显示服务器信息函数"><span class="nav-number">2.</span> <span class="nav-text">显示服务器信息函数</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#数据显示乱码终极解决办法"><span class="nav-number">2.1.</span> <span class="nav-text">数据显示乱码终极解决办法</span></a></li></ol></li></ol></div>
             
 
           </div>
