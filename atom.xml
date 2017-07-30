@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoohannah.github.io/"/>
-  <updated>2017-07-30T05:50:40.095Z</updated>
+  <updated>2017-07-30T09:16:39.877Z</updated>
   <id>http://yoohannah.github.io/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="http://yoohannah.github.io/post/knowledge/JQuery_data.html"/>
     <id>http://yoohannah.github.io/post/knowledge/JQuery_data.html</id>
     <published>2017-07-30T05:43:02.000Z</published>
-    <updated>2017-07-30T05:50:40.095Z</updated>
+    <updated>2017-07-30T09:16:39.877Z</updated>
     
     <content type="html"><![CDATA[<p>jQuery.data用于处理标签数据绑定</p>
 <h1 id="使用方法"><a href="#使用方法" class="headerlink" title="使用方法"></a>使用方法</h1><p>1.赋值</p>
@@ -28,7 +28,7 @@
 <p>b.使用HTML标签属性<br>利用H5 标签的’data-‘属性添加键值对<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;div data-role=&quot;page&quot; data-last-value=&quot;43&quot; data-hidden=&quot;true&quot; data-options=&apos;&#123;&quot;name&quot;:&quot;John&quot;&#125;&apos;&gt;&lt;/div&gt;</div></pre></td></tr></table></figure></p>
 <p>2.取值<br>$(‘’).data(key);获取key对应的数据值<br>$(‘’).data(); 一次性获取绑定在$(‘’)上的所有数据对象</p>
 <p>3.删除<br>$(‘’).removeData(key);</p>
-<h1 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h1><p>a. <object>（除非是Flash插件），<applet> 或 <embed> 三个标签不能使用.data方法</applet></object></p>
+<h1 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h1><p>a. &lt;&lt;object&gt;（除非是Flash插件），&lt;applet&gt; 或 &lt;embed&gt;&gt; 三个标签不能使用.data方法</p>
 <p>b. 通过”data-“属性建立的标签数据，获取时注意<br>data-last-value=”43” ==&gt; $(‘div’).data(‘lastValue’)<br>data-options=’{“name”:”John”}’ ==&gt; $(“div”).data(“options”).name -&gt;John<br>取到的值会自动转化为js的数据类型</p>
 <p>c. $(‘’).data()被赋值到js变量A后，之后对$(‘’)进行数据处理，A的内容会进行同步变动，<br>如果更改A的内容，$(‘’).data()也会同步更改<br>但如果$(‘’).data()的值被用到了html里面,HTML里面的值不会变动</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div></pre></td><td class="code"><pre><div class="line">&lt;!DOCTYPE html&gt;</div><div class="line">&lt;html&gt;</div><div class="line">&lt;head&gt;</div><div class="line">  &lt;style&gt;</div><div class="line">  div &#123; color:blue; &#125;</div><div class="line">  span &#123; color:red; &#125;</div><div class="line">  &lt;/style&gt;</div><div class="line">  &lt;script src="http://cdn.bootcss.com/jquery/1.11.2/jquery.min.js"&gt;&lt;/script&gt;</div><div class="line">&lt;/head&gt;</div><div class="line">&lt;body&gt;</div><div class="line">  &lt;div&gt;</div><div class="line">    The values stored were</div><div class="line">    &lt;span&gt;&lt;/span&gt;</div><div class="line">    and</div><div class="line">    &lt;span&gt;&lt;/span&gt;</div><div class="line">  &lt;/div&gt;</div><div class="line">&lt;script&gt;</div><div class="line">$("div").data("test", &#123; first: 16, last: "pizza!" &#125;);</div><div class="line">$("span:first").text($("div").data("test").first);</div><div class="line">$("span:last").text($("div").data("test").last);</div><div class="line">//页面输出 The values stored were 16 and pizza!</div><div class="line">  var temp = $("div").data();</div><div class="line">  console.log(temp);</div><div class="line">  $("div").data(&#123; first: 25, last: "pizza!" ,test:&#123;last:'fruit'&#125;&#125;);</div><div class="line">  // $("span:first").text($("div").data("first"));</div><div class="line">  // $("span:last").text($("div").data("test").last); </div><div class="line">  //如果没有以上两句页面不会发生任何变化，添加后</div><div class="line">  //页面输出 The values stored were 25 and fruit</div><div class="line">  console.log(temp);//temp与$("div").data()保持一致</div><div class="line">  console.log($("div").data())</div><div class="line">  temp.child = 'Jack';</div><div class="line">  console.log($("div").data()) //增加一项&#123;child: "Jack"&#125;</div><div class="line">  $("div").removeData("blah");//删除没有的属性不会报错</div><div class="line">  $("div").removeData("child");</div><div class="line">   console.log(temp);</div><div class="line">&lt;/script&gt;</div><div class="line">&lt;/body&gt;</div><div class="line">&lt;/html&gt;</div></pre></td></tr></table></figure>
@@ -105,6 +105,54 @@
   </entry>
   
   <entry>
+    <title>php中MySQL的使用</title>
+    <link href="http://yoohannah.github.io/post/php/php_MySQLuse.html"/>
+    <id>http://yoohannah.github.io/post/php/php_MySQLuse.html</id>
+    <published>2017-05-26T13:37:37.000Z</published>
+    <updated>2017-07-30T07:30:33.872Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="php连接数据库"><a href="#php连接数据库" class="headerlink" title="php连接数据库"></a>php连接数据库</h1><p>查看数据库主机，用户名<br>use myaql；<br>select Host from user;<br>select user from user;</p>
+<h2 id="连接数据库服务器"><a href="#连接数据库服务器" class="headerlink" title="连接数据库服务器"></a>连接数据库服务器</h2><p>mysql_connect函数<br>$con = mysql_connect(“localhost”,”peter”,”abc123”);<br>参数1    主机<br>参数2    数据库服务器登陆名<br>参数3    密码<br>参数4    数据库的名称<br>参数5    数据库服务器端口不填默认3306</p>
+<p>若参数4，数据库名称在此步已填并择，不需要执行第三步</p>
+<h2 id="判断链接是否正常"><a href="#判断链接是否正常" class="headerlink" title="判断链接是否正常"></a>判断链接是否正常</h2><p>如果有错误，存在错误号<br>if (mysql_errno($conn)) {<br>   echo mysql_error($conn);<br>   exit;<br>}</p>
+<p>mysql_errno 返回连接错误号，无错误返回0<br>参数1    传入mysql_connect返回的资源</p>
+<p>mysql_error 返回连接错误字符串<br>参数1    传入mysql_connect返回的资源</p>
+<h2 id="选择数据库"><a href="#选择数据库" class="headerlink" title="选择数据库"></a>选择数据库</h2><p>mysql_select_db函数<br>mysql_select_db(‘user’,$conn);<br>参数1    传入mysql_connect返回的资源<br>参数2    需要连接的数据库名</p>
+<h2 id="设置字符集"><a href="#设置字符集" class="headerlink" title="设置字符集"></a>设置字符集</h2><p>mysql_set_charset<br>mysql_set_charset(‘utf8’,$conn);<br>参数1    字符集类型<br>参数2    传入mysql_connect返回的资源</p>
+<h2 id="准备SQL语句"><a href="#准备SQL语句" class="headerlink" title="准备SQL语句"></a>准备SQL语句</h2><p>要传入数据库的操作语句<br>注意参数如何拼接</p>
+<p>如果是int类型的就使用<br>$sql=”insert into user(mycon) values(“.$my_con.”)”;<br>//或者<br>$sql=’insert into user(mycon) values(‘.$my_con.’)’;</p>
+<p>如果是字符型的就要使用单引号或者双引号括起来<br>$sql=”insert into user(mycon) values(‘“.$my_con.”‘)”;<br>//或者这样写<br>$sql=’insert into user(mycon) values(“‘.$my_con.’”)’;</p>
+<p>多个<br>$sql = “INSERT INTO user (username,password,createtime,createip)<br>values<br>(‘“ . $username . “‘,’” . $password . “‘,” . $time . “,’” . $ip . “‘)”;</p>
+<h2 id="发送SQL语句"><a href="#发送SQL语句" class="headerlink" title="发送SQL语句"></a>发送SQL语句</h2><p>$result = mysql_query($sql,$conn);</p>
+<h2 id="根据不同操作，判断执行是否正常或者遍历数据"><a href="#根据不同操作，判断执行是否正常或者遍历数据" class="headerlink" title="根据不同操作，判断执行是否正常或者遍历数据"></a>根据不同操作，判断执行是否正常或者遍历数据</h2><p>发送的是select类别的语句，通常需要将结果输出显示出来。就需要用到遍历显示数据的函数<br>函数    mysql_fetch_array<br>功能    得到result结果集中的数据，返回数组进行便利<br>参数1    传入查询出来的结果变量<br>参数2    传入MYSQLI_NUM返回索引数组，MYSQLI_ASSOC返回关联数组，MYSQLI_BOTH返回索引和关联</p>
+<p>函数    mysql_fetch_assoc<br>功能    得到result结果集中的数据，返回关联数组进行便利<br>参数1    传入查询出来的结果变量</p>
+<p>函数    mysql_fetch_row<br>功能    得到result结果集中的数据，返回索引数组进行便利<br>参数1    传入查询出来的结果变量</p>
+<p>函数    mysql_fetch_object<br>功能    得到result结果集中的数据，返回对象进行遍历<br>参数1    传入查询出来的结果变量</p>
+<p>函数    mysql_num_rows<br>功能    返回查询出来的结果总数<br>参数1    传入查询出来的结果变量</p>
+<p>函数    sql_num_rows<br>功能    返回查询出来的结果总数<br>参数1    传入查询出来的结果变量</p>
+<p>如果发送的是insert的语句，通常需要得到是否执行成功，或者同时拿到自增的ID。<br>函数    mysqli_fetch_field<br>功能    遍历数据行<br>参数1    传入查询出来的结果变量</p>
+<p>如果发送的是update和delete类别的语句。只需要判断是否执行成功即可。</p>
+<p>if ($result) {<br>   echo ‘成功’;<br>} else {<br>    echo $sql;//查看是否是SQL语句拼接有问题<br>  echo ‘失败’;<br>}</p>
+<h2 id="关闭数据库"><a href="#关闭数据库" class="headerlink" title="关闭数据库"></a>关闭数据库</h2><p>函数    mysqli_close<br>功能    关闭数据库连接<br>参数1    传入mysqli_connect返回的资源</p>
+<p>mysql_close($conn);//关闭数据库</p>
+<h1 id="显示服务器信息函数"><a href="#显示服务器信息函数" class="headerlink" title="显示服务器信息函数"></a>显示服务器信息函数</h1><p>函数    mysqli_get_server_info<br>功能    返回服务器信息<br>参数1    传入mysqli_connect返回的资源</p>
+<p>函数    mysqli_get_server_version<br>功能    返回服务器版本<br>参数1    传入mysqli_connect返回的资源</p>
+<p><a href="https://github.com/YooHannah/algorithm/blob/master/php/registration/connect.php" target="_blank" rel="external">一个用户注册的代码链接</a></p>
+<h2 id="数据显示乱码终极解决办法"><a href="#数据显示乱码终极解决办法" class="headerlink" title="数据显示乱码终极解决办法"></a>数据显示乱码终极解决办法</h2><p>多个不同的文件系统中一定要统一编码。<br>9个要点分别是：<br>    1.html编码与MySQL编码一致<br>    2.PHP编码与MySQL编码一致<br>    3.若有header头发送字符集，请与数据库一样<br>      如果php中有header头，一定要是utf-8的<br>      header(‘content-type:text/html;charset=utf-8’);<br>    4.<meta http-equiv="“Content-Type”content=“text/html;" charset="utf-8”">要和页面的文字编码一致<br>    5.数据库建库的字符集要统一<br>    6.表的字符集要统一<br>    7.列的字符集要统一(表设了,列就默认写表的)<br>    8.连接,校验的字符集要统一<br>      通过mysqli_set_charset(‘utf8’)来MySQL连接、结果和校验的字符集设置。<br>      注：数据库的字符集声明和文件中的略有不同。utf8为mysql数据库的，utf-8为文件中使用的<br>    9.结果集的字符集要统一</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;php连接数据库&quot;&gt;&lt;a href=&quot;#php连接数据库&quot; class=&quot;headerlink&quot; title=&quot;php连接数据库&quot;&gt;&lt;/a&gt;php连接数据库&lt;/h1&gt;&lt;p&gt;查看数据库主机，用户名&lt;br&gt;use myaql；&lt;br&gt;select Host from 
+    
+    </summary>
+    
+    
+      <category term="php" scheme="http://yoohannah.github.io/tags/php/"/>
+    
+  </entry>
+  
+  <entry>
     <title>MySQL的基本知识</title>
     <link href="http://yoohannah.github.io/post/php/php_MySQL.html"/>
     <id>http://yoohannah.github.io/post/php/php_MySQL.html</id>
@@ -156,54 +204,6 @@
     <summary type="html">
     
       &lt;h1 id=&quot;五个基本单位&quot;&gt;&lt;a href=&quot;#五个基本单位&quot; class=&quot;headerlink&quot; title=&quot;五个基本单位&quot;&gt;&lt;/a&gt;五个基本单位&lt;/h1&gt;&lt;p&gt;数据库服务器:指用来运行数据库服务的一台电脑&lt;br&gt;数据库:一个数据库服务器里面有可以有多个数据库。主要用来
-    
-    </summary>
-    
-    
-      <category term="php" scheme="http://yoohannah.github.io/tags/php/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>php中MySQL的使用</title>
-    <link href="http://yoohannah.github.io/post/php/php_MySQLuse.html"/>
-    <id>http://yoohannah.github.io/post/php/php_MySQLuse.html</id>
-    <published>2017-05-26T13:37:37.000Z</published>
-    <updated>2017-07-30T07:30:33.872Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="php连接数据库"><a href="#php连接数据库" class="headerlink" title="php连接数据库"></a>php连接数据库</h1><p>查看数据库主机，用户名<br>use myaql；<br>select Host from user;<br>select user from user;</p>
-<h2 id="连接数据库服务器"><a href="#连接数据库服务器" class="headerlink" title="连接数据库服务器"></a>连接数据库服务器</h2><p>mysql_connect函数<br>$con = mysql_connect(“localhost”,”peter”,”abc123”);<br>参数1    主机<br>参数2    数据库服务器登陆名<br>参数3    密码<br>参数4    数据库的名称<br>参数5    数据库服务器端口不填默认3306</p>
-<p>若参数4，数据库名称在此步已填并择，不需要执行第三步</p>
-<h2 id="判断链接是否正常"><a href="#判断链接是否正常" class="headerlink" title="判断链接是否正常"></a>判断链接是否正常</h2><p>如果有错误，存在错误号<br>if (mysql_errno($conn)) {<br>   echo mysql_error($conn);<br>   exit;<br>}</p>
-<p>mysql_errno 返回连接错误号，无错误返回0<br>参数1    传入mysql_connect返回的资源</p>
-<p>mysql_error 返回连接错误字符串<br>参数1    传入mysql_connect返回的资源</p>
-<h2 id="选择数据库"><a href="#选择数据库" class="headerlink" title="选择数据库"></a>选择数据库</h2><p>mysql_select_db函数<br>mysql_select_db(‘user’,$conn);<br>参数1    传入mysql_connect返回的资源<br>参数2    需要连接的数据库名</p>
-<h2 id="设置字符集"><a href="#设置字符集" class="headerlink" title="设置字符集"></a>设置字符集</h2><p>mysql_set_charset<br>mysql_set_charset(‘utf8’,$conn);<br>参数1    字符集类型<br>参数2    传入mysql_connect返回的资源</p>
-<h2 id="准备SQL语句"><a href="#准备SQL语句" class="headerlink" title="准备SQL语句"></a>准备SQL语句</h2><p>要传入数据库的操作语句<br>注意参数如何拼接</p>
-<p>如果是int类型的就使用<br>$sql=”insert into user(mycon) values(“.$my_con.”)”;<br>//或者<br>$sql=’insert into user(mycon) values(‘.$my_con.’)’;</p>
-<p>如果是字符型的就要使用单引号或者双引号括起来<br>$sql=”insert into user(mycon) values(‘“.$my_con.”‘)”;<br>//或者这样写<br>$sql=’insert into user(mycon) values(“‘.$my_con.’”)’;</p>
-<p>多个<br>$sql = “INSERT INTO user (username,password,createtime,createip)<br>values<br>(‘“ . $username . “‘,’” . $password . “‘,” . $time . “,’” . $ip . “‘)”;</p>
-<h2 id="发送SQL语句"><a href="#发送SQL语句" class="headerlink" title="发送SQL语句"></a>发送SQL语句</h2><p>$result = mysql_query($sql,$conn);</p>
-<h2 id="根据不同操作，判断执行是否正常或者遍历数据"><a href="#根据不同操作，判断执行是否正常或者遍历数据" class="headerlink" title="根据不同操作，判断执行是否正常或者遍历数据"></a>根据不同操作，判断执行是否正常或者遍历数据</h2><p>发送的是select类别的语句，通常需要将结果输出显示出来。就需要用到遍历显示数据的函数<br>函数    mysql_fetch_array<br>功能    得到result结果集中的数据，返回数组进行便利<br>参数1    传入查询出来的结果变量<br>参数2    传入MYSQLI_NUM返回索引数组，MYSQLI_ASSOC返回关联数组，MYSQLI_BOTH返回索引和关联</p>
-<p>函数    mysql_fetch_assoc<br>功能    得到result结果集中的数据，返回关联数组进行便利<br>参数1    传入查询出来的结果变量</p>
-<p>函数    mysql_fetch_row<br>功能    得到result结果集中的数据，返回索引数组进行便利<br>参数1    传入查询出来的结果变量</p>
-<p>函数    mysql_fetch_object<br>功能    得到result结果集中的数据，返回对象进行遍历<br>参数1    传入查询出来的结果变量</p>
-<p>函数    mysql_num_rows<br>功能    返回查询出来的结果总数<br>参数1    传入查询出来的结果变量</p>
-<p>函数    sql_num_rows<br>功能    返回查询出来的结果总数<br>参数1    传入查询出来的结果变量</p>
-<p>如果发送的是insert的语句，通常需要得到是否执行成功，或者同时拿到自增的ID。<br>函数    mysqli_fetch_field<br>功能    遍历数据行<br>参数1    传入查询出来的结果变量</p>
-<p>如果发送的是update和delete类别的语句。只需要判断是否执行成功即可。</p>
-<p>if ($result) {<br>   echo ‘成功’;<br>} else {<br>    echo $sql;//查看是否是SQL语句拼接有问题<br>  echo ‘失败’;<br>}</p>
-<h2 id="关闭数据库"><a href="#关闭数据库" class="headerlink" title="关闭数据库"></a>关闭数据库</h2><p>函数    mysqli_close<br>功能    关闭数据库连接<br>参数1    传入mysqli_connect返回的资源</p>
-<p>mysql_close($conn);//关闭数据库</p>
-<h1 id="显示服务器信息函数"><a href="#显示服务器信息函数" class="headerlink" title="显示服务器信息函数"></a>显示服务器信息函数</h1><p>函数    mysqli_get_server_info<br>功能    返回服务器信息<br>参数1    传入mysqli_connect返回的资源</p>
-<p>函数    mysqli_get_server_version<br>功能    返回服务器版本<br>参数1    传入mysqli_connect返回的资源</p>
-<p><a href="https://github.com/YooHannah/algorithm/blob/master/php/registration/connect.php" target="_blank" rel="external">一个用户注册的代码链接</a></p>
-<h2 id="数据显示乱码终极解决办法"><a href="#数据显示乱码终极解决办法" class="headerlink" title="数据显示乱码终极解决办法"></a>数据显示乱码终极解决办法</h2><p>多个不同的文件系统中一定要统一编码。<br>9个要点分别是：<br>    1.html编码与MySQL编码一致<br>    2.PHP编码与MySQL编码一致<br>    3.若有header头发送字符集，请与数据库一样<br>      如果php中有header头，一定要是utf-8的<br>      header(‘content-type:text/html;charset=utf-8’);<br>    4.<meta http-equiv="“Content-Type”content=“text/html;" charset="utf-8”">要和页面的文字编码一致<br>    5.数据库建库的字符集要统一<br>    6.表的字符集要统一<br>    7.列的字符集要统一(表设了,列就默认写表的)<br>    8.连接,校验的字符集要统一<br>      通过mysqli_set_charset(‘utf8’)来MySQL连接、结果和校验的字符集设置。<br>      注：数据库的字符集声明和文件中的略有不同。utf8为mysql数据库的，utf-8为文件中使用的<br>    9.结果集的字符集要统一</p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;h1 id=&quot;php连接数据库&quot;&gt;&lt;a href=&quot;#php连接数据库&quot; class=&quot;headerlink&quot; title=&quot;php连接数据库&quot;&gt;&lt;/a&gt;php连接数据库&lt;/h1&gt;&lt;p&gt;查看数据库主机，用户名&lt;br&gt;use myaql；&lt;br&gt;select Host from 
     
     </summary>
     
