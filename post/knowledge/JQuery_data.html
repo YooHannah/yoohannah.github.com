@@ -86,19 +86,28 @@
 
 
 
-<meta name="description" content="递归1.把有一个直接调用自己或通过一系列的调用语句间接的调用用自己的函数，称作递归函数2.每个递归函数必须有一个终止调用的条件语句，否则陷入永不结束的无穷递归
-斐波那契数列迭代实现123456789var a=[];a[0] = 1;a[1] = 1;for(var i =2;i&amp;lt;40;i++)&amp;#123;  a[i]=a[i-1]+a[i-2];&amp;#125;for(var j=0;j&amp;lt">
+<meta name="description" content="jQuery.data用于处理标签数据绑定
+使用方法和注意事项1.赋值
+a.使用js$(‘’).data(key,value); 一次赋值一个，value可以是任意js数据类型,包括Array 或者 Object$(‘’).data(obj);一次赋值多个或者更新多个或者新增多个
+b.使用HTML标签属性利用H5 标签的’data-‘属性添加键值对‘‘
+2.取值$(‘’).data(key);获取">
 <meta property="og:type" content="article">
-<meta property="og:title" content="递归">
-<meta property="og:url" content="http://yoohannah.github.io/post/algorithm/Recursion.html">
+<meta property="og:title" content="探究jQuery.data">
+<meta property="og:url" content="http://yoohannah.github.io/post/knowledge/JQuery_data.html">
 <meta property="og:site_name" content="My Little World">
-<meta property="og:description" content="递归1.把有一个直接调用自己或通过一系列的调用语句间接的调用用自己的函数，称作递归函数2.每个递归函数必须有一个终止调用的条件语句，否则陷入永不结束的无穷递归
-斐波那契数列迭代实现123456789var a=[];a[0] = 1;a[1] = 1;for(var i =2;i&amp;lt;40;i++)&amp;#123;  a[i]=a[i-1]+a[i-2];&amp;#125;for(var j=0;j&amp;lt">
-<meta property="og:updated_time" content="2017-02-15T14:28:55.756Z">
+<meta property="og:description" content="jQuery.data用于处理标签数据绑定
+使用方法和注意事项1.赋值
+a.使用js$(‘’).data(key,value); 一次赋值一个，value可以是任意js数据类型,包括Array 或者 Object$(‘’).data(obj);一次赋值多个或者更新多个或者新增多个
+b.使用HTML标签属性利用H5 标签的’data-‘属性添加键值对‘‘
+2.取值$(‘’).data(key);获取">
+<meta property="og:updated_time" content="2017-07-30T05:40:46.449Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="递归">
-<meta name="twitter:description" content="递归1.把有一个直接调用自己或通过一系列的调用语句间接的调用用自己的函数，称作递归函数2.每个递归函数必须有一个终止调用的条件语句，否则陷入永不结束的无穷递归
-斐波那契数列迭代实现123456789var a=[];a[0] = 1;a[1] = 1;for(var i =2;i&amp;lt;40;i++)&amp;#123;  a[i]=a[i-1]+a[i-2];&amp;#125;for(var j=0;j&amp;lt">
+<meta name="twitter:title" content="探究jQuery.data">
+<meta name="twitter:description" content="jQuery.data用于处理标签数据绑定
+使用方法和注意事项1.赋值
+a.使用js$(‘’).data(key,value); 一次赋值一个，value可以是任意js数据类型,包括Array 或者 Object$(‘’).data(obj);一次赋值多个或者更新多个或者新增多个
+b.使用HTML标签属性利用H5 标签的’data-‘属性添加键值对‘‘
+2.取值$(‘’).data(key);获取">
 
 
 
@@ -126,13 +135,13 @@
 
 
 
-  <link rel="canonical" href="http://yoohannah.github.io/post/algorithm/Recursion.html"/>
+  <link rel="canonical" href="http://yoohannah.github.io/post/knowledge/JQuery_data.html"/>
 
 
 
 
 
-  <title> 递归 | My Little World </title>
+  <title> 探究jQuery.data | My Little World </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -263,7 +272,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="http://yoohannah.github.io/post/algorithm/Recursion.html">
+  <link itemprop="mainEntityOfPage" href="http://yoohannah.github.io/post/knowledge/JQuery_data.html">
 
   <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
     <meta itemprop="name" content="YooHannah">
@@ -287,7 +296,7 @@
             
             
               
-                递归
+                探究jQuery.data
               
             
           </h1>
@@ -300,8 +309,8 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-02-02T12:34:37+08:00">
-                2017-02-02
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-12-17T17:21:02+08:00">
+                2016-12-17
               </time>
             
 
@@ -336,14 +345,18 @@
       
 
       
-        <h1 id="递归"><a href="#递归" class="headerlink" title="递归"></a>递归</h1><p>1.把有一个直接调用自己或通过一系列的调用语句间接的调用用自己的函数，称作递归函数<br>2.每个递归函数必须有一个终止调用的条件语句，否则陷入永不结束的无穷递归</p>
-<h1 id="斐波那契数列"><a href="#斐波那契数列" class="headerlink" title="斐波那契数列"></a>斐波那契数列</h1><p>迭代实现<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">var a=[];</div><div class="line">a[0] = 1;</div><div class="line">a[1] = 1;</div><div class="line">for(var i =2;i&lt;40;i++)&#123;</div><div class="line">  a[i]=a[i-1]+a[i-2];</div><div class="line">&#125;</div><div class="line">for(var j=0;j&lt;40;j++)&#123;</div><div class="line">  console.log(j,a[j]);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>递归实现<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">function fib(n)&#123;</div><div class="line">  if(n&lt;2)&#123;</div><div class="line">    return 1;</div><div class="line">  &#125;</div><div class="line">  if(n&gt;1 &amp;&amp; n&lt;40)&#123;</div><div class="line">    return fib(n-1)+fib(n-2);</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line">console.log(fib(4));</div></pre></td></tr></table></figure></p>
-<h1 id="n-阶乘递归算法"><a href="#n-阶乘递归算法" class="headerlink" title="n!阶乘递归算法"></a>n!阶乘递归算法</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">function fib(n)&#123;</div><div class="line">    if(n&gt;0)&#123;</div><div class="line">      return n*fib(n-1);</div><div class="line">    &#125;else&#123;</div><div class="line">      return 1;</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">&#125;</div><div class="line">console.log(fib(4));</div></pre></td></tr></table></figure>
-<h1 id="汉诺塔问题"><a href="#汉诺塔问题" class="headerlink" title="汉诺塔问题"></a>汉诺塔问题</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">function hanoita(n,x,y,z)&#123;</div><div class="line">  if(n==1)&#123;</div><div class="line">    console.log(x+&quot;-&gt;&quot;+z);</div><div class="line">  &#125;else&#123;</div><div class="line">    hanoita(n-1,x,z,y);</div><div class="line">    console.log(x+&quot;-&gt;&quot;+z);</div><div class="line">    hanoita(n-1,y,x,z);</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">hanoita(3,&quot;x&quot;,&quot;y&quot;,&apos;z&apos;);</div></pre></td></tr></table></figure>
-<h1 id="递归字符串翻转"><a href="#递归字符串翻转" class="headerlink" title="递归字符串翻转"></a>递归字符串翻转</h1><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> string = <span class="string">"hello#"</span>;</div><div class="line"><span class="keyword">var</span> count = <span class="number">0</span>;</div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">print</span>(<span class="params"></span>)</span>&#123;</div><div class="line">  <span class="keyword">if</span>(string[count]!=<span class="string">"#"</span>)&#123;</div><div class="line">    count++;</div><div class="line">    print();</div><div class="line">  &#125;</div><div class="line">  count--;</div><div class="line">  <span class="keyword">if</span>(count&gt;<span class="number">-1</span> &amp;&amp; string[count]!=<span class="string">"#"</span>)&#123;</div><div class="line">    <span class="built_in">console</span>.log(string[count]);</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line">print();</div></pre></td></tr></table></figure>
-<h1 id="折中查找法递归"><a href="#折中查找法递归" class="headerlink" title="折中查找法递归"></a>折中查找法递归</h1><p><a href="https://github.com/YooHannah/algorithm/blob/master/js/Recursion_compromisefind.js" target="_blank" rel="external">代码链接</a></p>
-<h1 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h1><p>1.迭代使用循环结构，递归使用选择结构<br>2.递归能使程序结构更清晰、简洁、容易让人理解，从而减少读懂代码的时间<br>3.大量的递归会建立函数的副本，会消耗大量时间和内存，而迭代不需要<br>4.递归函数分为调用和回退阶段，递归的回退顺序是它调用顺序的逆序</p>
+        <p>jQuery.data用于处理标签数据绑定</p>
+<h1 id="使用方法和注意事项"><a href="#使用方法和注意事项" class="headerlink" title="使用方法和注意事项"></a>使用方法和注意事项</h1><p>1.赋值</p>
+<p>a.使用js<br>$(‘’).data(key,value); 一次赋值一个，value可以是任意js数据类型,包括Array 或者 Object<br>$(‘’).data(obj);一次赋值多个或者更新多个或者新增多个</p>
+<p>b.使用HTML标签属性<br>利用H5 标签的’data-‘属性添加键值对<br>‘<div data-role="page" data-last-value="43" data-hidden="true" data-options="{"name":"John"}"></div>‘</p>
+<p>2.取值<br>$(‘’).data(key);获取key对应的数据值<br>$(‘’).data(); 一次性获取绑定在$(‘’)上的所有数据对象</p>
+<p>3.删除<br>$(‘’).removeData(key);</p>
+<p>4.注意事项<br>a.</p>
+<p><object>（除非是Flash插件），<applet> 或 <embed> 三个标签不能使用.data方法</applet></object></p>
+<p>b.<br>通过”data-“属性建立的标签数据，获取时注意<br>data-last-value=”43” ==&gt; $(‘div’).data(‘lastValue’)<br>data-options=’{“name”:”John”}’ ==&gt; $(“div”).data(“options”).name -&gt;John<br>取到的值会自动转化为js的数据类型</p>
+<p>c.<br>$(‘’).data()被赋值到js变量A后，之后对$(‘’)进行数据处理，A的内容会进行同步变动，<br>如果更改A的内容，$(‘’).data()也会同步更改<br>但如果$(‘’).data()的值被用到了html里面,HTML里面的值不会变动</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div></pre></td><td class="code"><pre><div class="line">&lt;!DOCTYPE html&gt;</div><div class="line">&lt;html&gt;</div><div class="line">&lt;head&gt;</div><div class="line">  &lt;style&gt;</div><div class="line">  div &#123; color:blue; &#125;</div><div class="line">  span &#123; color:red; &#125;</div><div class="line">  &lt;/style&gt;</div><div class="line">  &lt;script src="http://cdn.bootcss.com/jquery/1.11.2/jquery.min.js"&gt;&lt;/script&gt;</div><div class="line">&lt;/head&gt;</div><div class="line">&lt;body&gt;</div><div class="line">  &lt;div&gt;</div><div class="line">    The values stored were</div><div class="line">    &lt;span&gt;&lt;/span&gt;</div><div class="line">    and</div><div class="line">    &lt;span&gt;&lt;/span&gt;</div><div class="line">  &lt;/div&gt;</div><div class="line">&lt;script&gt;</div><div class="line">$("div").data("test", &#123; first: 16, last: "pizza!" &#125;);</div><div class="line">$("span:first").text($("div").data("test").first);</div><div class="line">$("span:last").text($("div").data("test").last);</div><div class="line">//页面输出 The values stored were 16 and pizza!</div><div class="line">  var temp = $("div").data();</div><div class="line">  console.log(temp);</div><div class="line">  $("div").data(&#123; first: 25, last: "pizza!" ,test:&#123;last:'fruit'&#125;&#125;);</div><div class="line">  // $("span:first").text($("div").data("first"));</div><div class="line">  // $("span:last").text($("div").data("test").last); </div><div class="line">  //如果没有以上两句页面不会发生任何变化，添加后</div><div class="line">  //页面输出 The values stored were 25 and fruit</div><div class="line">  console.log(temp);//temp与$("div").data()保持一致</div><div class="line">  console.log($("div").data())</div><div class="line">  temp.child = 'Jack';</div><div class="line">  console.log($("div").data()) //增加一项&#123;child: "Jack"&#125;</div><div class="line">  $("div").removeData("blah");//删除没有的属性不会报错</div><div class="line">  $("div").removeData("child");</div><div class="line">   console.log(temp);</div><div class="line">&lt;/script&gt;</div><div class="line">&lt;/body&gt;</div><div class="line">&lt;/html&gt;</div></pre></td></tr></table></figure>
+<p><a href="https://github.com/YooHannah/algorithm/blob/master/plugin/data.js" target="_blank" rel="external">JQuery.data源码解析</a></p>
 
       
     </div>
@@ -376,8 +389,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/post/algorithm/queue.html" rel="next" title="队列">
-                <i class="fa fa-chevron-left"></i> 队列
+              <a href="/post/knowledge/angularforeach.html" rel="next" title="angular.forEach">
+                <i class="fa fa-chevron-left"></i> angular.forEach
               </a>
             
           </div>
@@ -386,8 +399,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/post/algorithm/loopqueue.html" rel="prev" title="循环队列">
-                循环队列 <i class="fa fa-chevron-right"></i>
+              <a href="/post/knowledge/array-push.html" rel="prev" title="数组push操作">
+                数组push操作 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -515,7 +528,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#递归"><span class="nav-number">1.</span> <span class="nav-text">递归</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#斐波那契数列"><span class="nav-number">2.</span> <span class="nav-text">斐波那契数列</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#n-阶乘递归算法"><span class="nav-number">3.</span> <span class="nav-text">n!阶乘递归算法</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#汉诺塔问题"><span class="nav-number">4.</span> <span class="nav-text">汉诺塔问题</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#递归字符串翻转"><span class="nav-number">5.</span> <span class="nav-text">递归字符串翻转</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#折中查找法递归"><span class="nav-number">6.</span> <span class="nav-text">折中查找法递归</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#小结"><span class="nav-number">7.</span> <span class="nav-text">小结</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#使用方法和注意事项"><span class="nav-number">1.</span> <span class="nav-text">使用方法和注意事项</span></a></li></ol></div>
             
 
           </div>
