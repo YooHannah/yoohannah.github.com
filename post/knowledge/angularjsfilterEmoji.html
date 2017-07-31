@@ -86,16 +86,19 @@
 
 
 
-<meta name="description" content="特点：每个结点的孩子可以多于两个，且每一个结点处可以存储多个元素所有元素之间存在某种特定的排序关系2-3树：每一个结点都具有两个或者三个孩子的多路查找树，所有叶子结点都在同一层次上2结点：拥有两个孩子和一个元素，左子树包含元素小于结点元素，右子树则大于，要么有两个孩子，要么一个孩子也没有3结点：拥有三个孩子两个元素，孩子和结点元素呈一定顺序，要么有三个孩子，要么一个孩子也没有2-3-4树：每一个结">
+<meta name="description" content="在某些浏览器中,emoji表情不能正常显示,只能显示原始状态如下为使表情正常显示，这里利用转码方法将emoji符号用图片替换12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152535455565758596061//对数据$scope.data.remark做表">
 <meta property="og:type" content="article">
-<meta property="og:title" content="多路查找树">
-<meta property="og:url" content="http://yoohannah.github.io/post/algorithm/multliwaysearchtree.html">
+<meta property="og:title" content="Angularjs 利用图片更换emoji表情">
+<meta property="og:url" content="http://yoohannah.github.io/post/knowledge/angularjsfilterEmoji.html">
 <meta property="og:site_name" content="My Little World">
-<meta property="og:description" content="特点：每个结点的孩子可以多于两个，且每一个结点处可以存储多个元素所有元素之间存在某种特定的排序关系2-3树：每一个结点都具有两个或者三个孩子的多路查找树，所有叶子结点都在同一层次上2结点：拥有两个孩子和一个元素，左子树包含元素小于结点元素，右子树则大于，要么有两个孩子，要么一个孩子也没有3结点：拥有三个孩子两个元素，孩子和结点元素呈一定顺序，要么有三个孩子，要么一个孩子也没有2-3-4树：每一个结">
-<meta property="og:updated_time" content="2017-04-09T10:18:15.011Z">
+<meta property="og:description" content="在某些浏览器中,emoji表情不能正常显示,只能显示原始状态如下为使表情正常显示，这里利用转码方法将emoji符号用图片替换12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152535455565758596061//对数据$scope.data.remark做表">
+<meta property="og:image" content="http://yoohannah.github.io/image/emoji1.png">
+<meta property="og:image" content="http://yoohannah.github.io/image/emoji2.png">
+<meta property="og:updated_time" content="2017-07-31T22:49:19.555Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="多路查找树">
-<meta name="twitter:description" content="特点：每个结点的孩子可以多于两个，且每一个结点处可以存储多个元素所有元素之间存在某种特定的排序关系2-3树：每一个结点都具有两个或者三个孩子的多路查找树，所有叶子结点都在同一层次上2结点：拥有两个孩子和一个元素，左子树包含元素小于结点元素，右子树则大于，要么有两个孩子，要么一个孩子也没有3结点：拥有三个孩子两个元素，孩子和结点元素呈一定顺序，要么有三个孩子，要么一个孩子也没有2-3-4树：每一个结">
+<meta name="twitter:title" content="Angularjs 利用图片更换emoji表情">
+<meta name="twitter:description" content="在某些浏览器中,emoji表情不能正常显示,只能显示原始状态如下为使表情正常显示，这里利用转码方法将emoji符号用图片替换12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152535455565758596061//对数据$scope.data.remark做表">
+<meta name="twitter:image" content="http://yoohannah.github.io/image/emoji1.png">
 
 
 
@@ -123,13 +126,13 @@
 
 
 
-  <link rel="canonical" href="http://yoohannah.github.io/post/algorithm/multliwaysearchtree.html"/>
+  <link rel="canonical" href="http://yoohannah.github.io/post/knowledge/angularjsfilterEmoji.html"/>
 
 
 
 
 
-  <title> 多路查找树 | My Little World </title>
+  <title> Angularjs 利用图片更换emoji表情 | My Little World </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -260,7 +263,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="http://yoohannah.github.io/post/algorithm/multliwaysearchtree.html">
+  <link itemprop="mainEntityOfPage" href="http://yoohannah.github.io/post/knowledge/angularjsfilterEmoji.html">
 
   <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
     <meta itemprop="name" content="YooHannah">
@@ -284,7 +287,7 @@
             
             
               
-                多路查找树
+                Angularjs 利用图片更换emoji表情
               
             
           </h1>
@@ -297,8 +300,8 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-04-08T20:59:37+08:00">
-                2017-04-08
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-08-01T06:46:02+08:00">
+                2017-08-01
               </time>
             
 
@@ -333,10 +336,8 @@
       
 
       
-        <p>特点：<br>每个结点的孩子可以多于两个，且每一个结点处可以存储多个元素<br>所有元素之间存在某种特定的排序关系<br>2-3树：每一个结点都具有两个或者三个孩子的多路查找树，所有叶子结点都在同一层次上<br>2结点：拥有两个孩子和一个元素，左子树包含元素小于结点元素，右子树则大于，要么有两个孩子，要么一个孩子也没有<br>3结点：拥有三个孩子两个元素，孩子和结点元素呈一定顺序，要么有三个孩子，要么一个孩子也没有<br>2-3-4树：每一个结点都具有两个或者三个孩子或四个孩子的多路查找树，所有叶子结点都在同一层次上<br>4结点：拥有四个个孩子三个元素，孩子和结点元素呈一定顺序，要么有四个孩子，要么一个孩子也没有</p>
-<h1 id="2-3树插入原理"><a href="#2-3树插入原理" class="headerlink" title="2-3树插入原理"></a>2-3树插入原理</h1><p>1.如果是一个空树，直接插入形成一个2结点，即根结点<br>2.插入到一个结构为2结点的叶子上，直接将该2结点转为3结点<br>3.插入到一个结构为3结点的叶子结点，而该叶子结点双亲为2结点，则将该双亲2结点扩展为3结点，将元素插进去<br>4.插入到一个结构为3结点的叶子结点，而其双亲也为3结点，则继续往上找其双亲的双亲是否为2结点，若是，则将该2结点扩展为3结点，将双亲的一个元素挪上去，将3结点的元素挪到双亲，然后插入元素<br>5.插入到一个结构为3结点的叶子结点，往上追溯到根结点也为3结点，则说明该子树已满，需要增加树的高度，即将树每个结点拆都分成2结点，从而保证，所有叶结点在统一层次</p>
-<h1 id="2-3树删除原理"><a href="#2-3树删除原理" class="headerlink" title="2-3树删除原理"></a>2-3树删除原理</h1><p>1.删除的元素位于结构为3结点的叶子上，直接删掉就好，3结点变2结点<br>2.删除元素位于结构为2结点的叶子上，<br>若双亲也为2结点结构，且双亲另一个孩子为3结点，则将元素删除后，左旋或右旋，将原来双亲移下来做孩子，将原来3结点一个元素移上去做双亲，另一个不动继续做孩子<br>若双亲为2结点结构，且双亲另一个孩子也为2结点,假设删除的是左子树的元素，则寻找双亲的双亲的直接后继元素来填充双亲的双亲的元素位置，将双亲的双亲的元素做双亲元素的孩子，将双亲元素移下来做孩子，将双亲原来的孩子移上去做双亲<br>若双亲是一个3结点结构，则将双亲一个元素移下来，3结点变2结点<br>若删除时，整颗树是一个满2叉树状态，则将树的深度变小，2结点变3结点<br>3.删除元素位于结构为2结点的双亲位置，若其右孩子为3结点则将其直接后继结点顶上去，3结点孩子变2结点<br>4.删除元素位于结构为3结点的双亲位置，若其直接前驱位于3结点结构，则将前驱顶上去，3结点变2结点<br>若其直接前驱位于2结点结构，则将前驱与直接后继合并为3结点，双亲变2结点</p>
-<h1 id="B树"><a href="#B树" class="headerlink" title="B树"></a>B树</h1><p>一种平衡的多路查找树，2-3树和2-3-4树都是B树的特例<br>把结点最大的孩子树数目称为B树的阶，因此2-3树是3阶B树，2-3-4树是4阶B树<br>一个m阶的B树有如下属性<br>如果根结点不是叶结点，则其至少有两颗子树<br>每一个非根的分支节点都有K-1个元素和K个孩子，其中K满足：m/2向上取整 &lt;= K &lt;= m<br>所有叶子结点都位于同一层次<br>每个分支结点包含元素个数，该结点各元素及其孩子的信息</p>
+        <p>在某些浏览器中,emoji表情不能正常显示,只能显示原始状态如下<br><img src="/image/emoji1.png" alt="erroremoji"><br>为使表情正常显示，这里利用转码方法将emoji符号用图片替换<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//对数据$scope.data.remark做表情替换处理,$scope.data.remark是包含emoji符号的字符串</span></div><div class="line">    <span class="keyword">var</span> str=$scope.data.remark;</div><div class="line">    str=str.replace(rep,<span class="function"><span class="keyword">function</span>(<span class="params">code</span>) </span>&#123; <span class="comment">//code即匹配到的emoji符号,对该符号通过_escapeToUtf32(code)转码,得到对应图片名,然后图片替换</span></div><div class="line">     <span class="keyword">return</span> <span class="string">'&lt;img class="emoji" style="vertical-align:middle" src="assets/img/emoji/'</span>+_escapeToUtf32(code) + <span class="string">'.png"&gt;'</span>;</div><div class="line">    &#125;)</div><div class="line">    $scope.data.remark = str;</div><div class="line"></div><div class="line"><span class="comment">//用emoji符号的unicode码匹配emoji符号,例如270c匹配 victory hand符号</span></div><div class="line"> <span class="keyword">var</span> rep =<span class="regexp">/\uD83C[\uDF00-\uDFFF]|\uD83D[\uDC00-\uDE4F]|\u270c|\u261d/g</span>;</div><div class="line"></div><div class="line"><span class="comment">//emoji 表情转码</span></div><div class="line">  <span class="function"><span class="keyword">function</span>  <span class="title">_escapeToUtf32</span>(<span class="params">str</span>) </span>&#123;</div><div class="line">    <span class="keyword">var</span> escaped = [],</div><div class="line">      unicodeCodes = _convertStringToUnicodeCodePoints(str),</div><div class="line">      i = <span class="number">0</span>,</div><div class="line">      l = unicodeCodes.length,</div><div class="line">      hex;</div><div class="line"></div><div class="line">    <span class="keyword">for</span> (; i &lt; l; i++) &#123;</div><div class="line">      hex = unicodeCodes[i].toString(<span class="number">16</span>);</div><div class="line">      escaped.push(<span class="string">'0000'</span>.substr(hex.length) + hex);</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> escaped.join(<span class="string">'-'</span>);</div><div class="line">  &#125;</div><div class="line"></div><div class="line"> <span class="function"><span class="keyword">function</span> <span class="title">_convertStringToUnicodeCodePoints</span>(<span class="params">str</span>) </span>&#123;</div><div class="line">    <span class="keyword">var</span> surrogate1st = <span class="number">0</span>,</div><div class="line">      unicodeCodes = [],</div><div class="line">      i = <span class="number">0</span>,</div><div class="line">      l = str.length;</div><div class="line"></div><div class="line">    <span class="keyword">for</span> (; i &lt; l; i++) &#123;</div><div class="line">      <span class="keyword">var</span> utf16Code = str.charCodeAt(i);</div><div class="line">      <span class="keyword">if</span> (surrogate1st != <span class="number">0</span>) &#123;</div><div class="line">        <span class="keyword">if</span> (utf16Code &gt;= <span class="number">0xDC00</span> &amp;&amp; utf16Code &lt;= <span class="number">0xDFFF</span>) &#123;</div><div class="line">          <span class="keyword">var</span> surrogate2nd = utf16Code,</div><div class="line">            unicodeCode = (surrogate1st - <span class="number">0xD800</span>) * (<span class="number">1</span> &lt;&lt; <span class="number">10</span>) + (<span class="number">1</span> &lt;&lt; <span class="number">16</span>) + (surrogate2nd - <span class="number">0xDC00</span>);</div><div class="line">          unicodeCodes.push(unicodeCode);</div><div class="line">        &#125;</div><div class="line">        surrogate1st = <span class="number">0</span>;</div><div class="line">      &#125; <span class="keyword">else</span> <span class="keyword">if</span> (utf16Code &gt;= <span class="number">0xD800</span> &amp;&amp; utf16Code &lt;= <span class="number">0xDBFF</span>) &#123;</div><div class="line">        surrogate1st = utf16Code;</div><div class="line">      &#125; <span class="keyword">else</span> &#123;</div><div class="line">        unicodeCodes.push(utf16Code);</div><div class="line">      &#125;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> unicodeCodes;</div><div class="line">  &#125;</div><div class="line"></div><div class="line"><span class="comment">//Angularjs对字符串里面的html标签不会按照HTML去解析,会当做字符串显示,</span></div><div class="line"><span class="comment">//所以这里需要对字符串进行过滤，使字符串里面的标签能按照html解析</span></div><div class="line"></div><div class="line"><span class="comment">//新建过滤器trust2Html,这里使用$sce方法</span></div><div class="line">app.filter(<span class="string">'trust2Html'</span>, [<span class="string">'$sce'</span>,<span class="function"><span class="keyword">function</span>(<span class="params">$sce</span>) </span>&#123;</div><div class="line">    <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params">val</span>) </span>&#123;</div><div class="line">        <span class="keyword">return</span> $sce.trustAsHtml(val);</div><div class="line">    &#125;;</div><div class="line">&#125;])</div><div class="line"></div><div class="line"><span class="comment">//在页面里面显示经过图片替换的含emoji符号的字符串</span></div><div class="line">&lt;label ng-bind-html=<span class="string">"data.remark|trust2Html"</span>&gt;&lt;/label&gt;</div></pre></td></tr></table></figure></p>
+<p>替换后结果<br><img src="/image/emoji2.png" alt="exactemoji"><br><a href="https://apps.timwhitlock.info/emoji/tables/unicode#block-6a-additional-emoticons" target="_blank" rel="external">Emoji Unicode Tables</a></p>
 
       
     </div>
@@ -369,8 +370,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/post/algorithm/balancesortbtree.html" rel="next" title="平衡二叉排序树">
-                <i class="fa fa-chevron-left"></i> 平衡二叉排序树
+              <a href="/post/knowledge/JQuery_data.html" rel="next" title="探究jQuery.data">
+                <i class="fa fa-chevron-left"></i> 探究jQuery.data
               </a>
             
           </div>
@@ -379,8 +380,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/post/algorithm/hash.html" rel="prev" title="散列表(哈希表)">
-                散列表(哈希表) <i class="fa fa-chevron-right"></i>
+              <a href="/post/knowledge/qrcode.html" rel="prev" title="使用QRcode.js生成二维码">
+                使用QRcode.js生成二维码 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -428,17 +429,8 @@
       
 
       
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
-            文章目录
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview">
-            站点概览
-          </li>
-        </ul>
-      
 
-      <section class="site-overview sidebar-panel">
+      <section class="site-overview sidebar-panel sidebar-panel-active">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/psb.jpg"
@@ -498,22 +490,6 @@
 
       </section>
 
-      
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#2-3树插入原理"><span class="nav-number">1.</span> <span class="nav-text">2-3树插入原理</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-3树删除原理"><span class="nav-number">2.</span> <span class="nav-text">2-3树删除原理</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#B树"><span class="nav-number">3.</span> <span class="nav-text">B树</span></a></li></ol></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
       
 
     </div>
