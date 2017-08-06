@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoohannah.github.io/"/>
-  <updated>2017-07-31T23:26:11.496Z</updated>
+  <updated>2017-08-06T08:32:33.693Z</updated>
   <id>http://yoohannah.github.io/</id>
   
   <author>
@@ -14,6 +14,174 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>事件冒泡和事件捕获</title>
+    <link href="http://yoohannah.github.io/post/knowledge/eventPopCatch.html"/>
+    <id>http://yoohannah.github.io/post/knowledge/eventPopCatch.html</id>
+    <published>2017-08-06T08:10:02.000Z</published>
+    <updated>2017-08-06T08:32:33.693Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="addEventListener-attachEvent-element-onclick"><a href="#addEventListener-attachEvent-element-onclick" class="headerlink" title="addEventListener/attachEvent/element.onclick"></a>addEventListener/attachEvent/element.onclick</h1><p>辨别区分addEventListener、attachEvent和element.onclick</p>
+<h2 id="attachEvent事件"><a href="#attachEvent事件" class="headerlink" title="attachEvent事件"></a>attachEvent事件</h2><p>attachEvent是ie添加事件处理程序,接收两个参数,其中事件类型名称要加”on”,<br>可以添加多个事件处理程序,按照添加顺序相反的顺序触发</p>
+<h2 id="addEventListener事件"><a href="#addEventListener事件" class="headerlink" title="addEventListener事件"></a>addEventListener事件</h2><p>addEventListener是给非ie添加事件处理程序,接收三个参数,第一个是事件名,不需要加“on”,<br>第二个是绑定的函数，第三个参数是一个布尔值,如果是false,就使用传统的冒泡方式,<br>如果为true,就在捕获阶段调用事件处理程序<br>可以添加多个事件处理程序，按照添加顺序触发</p>
+<h2 id="onclick"><a href="#onclick" class="headerlink" title="onclick"></a>onclick</h2><p>el.onclick相当于在标签上写onclick</p>
+<h2 id="区别"><a href="#区别" class="headerlink" title="区别"></a>区别</h2><p>1.上下文<br>attachEvent会在全局作用域中运行，this等于window对象<br>addEventLinstener在其依附的元素的作用域中运行,this等于绑定元素对象<br>使this关键字都指向元素处理方法<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">function bind(el, fn, type)&#123;</div><div class="line">        var _fn = function()&#123;</div><div class="line">                fn.apply(el, arguments);</div><div class="line">        &#125;;</div><div class="line">        window.addEventListener ? el.addEventListener(type, _fn, false) : el.attachEvent(&quot;on&quot; + type, _fn);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>2.绑定<br>el.onclick通过标签的onclick属性输入到文档,然后由文档解析成事件<br>attachEvent和addEventLinstener要在文档解析完成以后,通过文档的dom接口去绑定的事件<br><a href="http://blog.csdn.net/u011700203/article/details/47656857" target="_blank" rel="external">资源加载和页面事件</a></p>
+<p>3.取消绑定<br>el.onclick：el.onclick=null;<br>addEventListener：removeEventListener()；<br>attachEvent()：detachEvent()</p>
+<p>4.获取event事件<br>非IE:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">el.onclick=function(event)&#123;</div><div class="line">　　alert(event.type);           //&quot;click&quot;</div><div class="line">&#125;;</div><div class="line">el.addEventListener(&quot;click&quot;,function(event)&#123;</div><div class="line">　　alert(event.type);               //&quot;click&quot;</div><div class="line">&#125;,false);</div></pre></td></tr></table></figure></p>
+<p>IE:<br>通过el.onclick绑定的事件处理程序中，event对象作为window对象的一个属性存在。<br>el.onclick=function(){<br>　　var event=window.event;<br>　　alert(event.type);              //“click”<br>}<br>如果通过attachEvent()添加事件处理程序时，event对象作为参数被传入事件处理程序，<br>el.attachEvent(“onclick”,function(event){<br>　　alert(event.type);                 //“click”<br>});</p>
+<p>标签时一样<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;input type=&quot;button&quot; value=&quot;Click me&quot; onclick=&quot;alert(event.type)&quot;/&gt;   //&quot;click&quot;</div></pre></td></tr></table></figure></p>
+<h1 id="事件捕获、事件冒泡"><a href="#事件捕获、事件冒泡" class="headerlink" title="事件捕获、事件冒泡"></a>事件捕获、事件冒泡</h1><p>二者是指当事件在某一DOM元素被触发时,该DOM元素的父级元素也绑定了触发事件,则触发事件的执行顺序</p>
+<h2 id="事件冒泡"><a href="#事件冒泡" class="headerlink" title="事件冒泡"></a>事件冒泡</h2><p>事件自下而上依次执行,先执行子元素触发事件，再执行父元素触发事件，<br>addEventListener第三个参数设置为false,参数不设置默认是冒泡执行<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div></pre></td><td class="code"><pre><div class="line">&lt;body&gt;</div><div class="line">  &lt;div id=&quot;parent&quot;&gt;</div><div class="line">　　&lt;div id=&quot;child&quot; class=&quot;child&quot;&gt;您好&lt;/div&gt;</div><div class="line">&lt;/div&gt;</div><div class="line">&lt;/body&gt;</div><div class="line"></div><div class="line">&lt;script type=&quot;text/javascript&quot;&gt;</div><div class="line">        document.getElementById(&quot;parent&quot;).addEventListener(&quot;click&quot;,function(e)&#123;</div><div class="line">            alert(&quot;parent事件被触发，&quot;+this.id);</div><div class="line">        &#125;)</div><div class="line">        document.getElementById(&quot;child&quot;).addEventListener(&quot;click&quot;,function(e)&#123;</div><div class="line">            alert(&quot;child事件被触发，&quot;+this.id)</div><div class="line">        &#125;)</div><div class="line">        document.getElementById(&quot;parent&quot;).onclick=function(e)&#123;</div><div class="line">            alert(&quot;parentonclik事件被触发，&quot;+this.id);</div><div class="line">        &#125;</div><div class="line">        document.getElementById(&quot;child&quot;).onclick=function(e)&#123;</div><div class="line">            alert(&quot;childonclik事件被触发，&quot;+this.id);</div><div class="line">        &#125;</div><div class="line">&lt;/script&gt;</div><div class="line">//点击&apos;您好&apos;,弹出顺序:child事件被触发-&gt;childonclik事件被触发-&gt;parent事件被触发-&gt;parentonclik事件被触发</div><div class="line">&lt;script type=&quot;text/javascript&quot;&gt;</div><div class="line">        document.getElementById(&quot;parent&quot;).addEventListener(&quot;click&quot;,function(e)&#123;</div><div class="line">             alert(&quot;parent事件被触发，&quot;+this.id);</div><div class="line">        &#125;,false)</div><div class="line">        document.getElementById(&quot;child&quot;).addEventListener(&quot;click&quot;,function(e)&#123;</div><div class="line">            alert(&quot;child事件被触发，&quot;+this.id)</div><div class="line">        &#125;,true)</div><div class="line">&lt;/script&gt;</div><div class="line">//点击&apos;您好&apos;,先弹出child事件被触发,再弹出parent事件被触发</div></pre></td></tr></table></figure></p>
+<h2 id="事件捕获"><a href="#事件捕获" class="headerlink" title="事件捕获"></a>事件捕获</h2><p>事件从上到下一次执行,先执行父元素触发事件，再执行子元素触发事件,<br>addEventListener第三个参数设置为true<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line">&lt;body&gt;</div><div class="line">  &lt;div id=&quot;parent&quot;&gt;</div><div class="line">　　&lt;div id=&quot;child&quot; class=&quot;child&quot;&gt;您好&lt;/div&gt;</div><div class="line">&lt;/div&gt;</div><div class="line">&lt;/body&gt;</div><div class="line"></div><div class="line">&lt;script type=&quot;text/javascript&quot;&gt;</div><div class="line">document.getElementById(&quot;parent&quot;).addEventListener(&quot;click&quot;,function(e)&#123;</div><div class="line">    alert(&quot;parent事件被触发，&quot;+this.id);</div><div class="line">&#125;,true)</div><div class="line">document.getElementById(&quot;child&quot;).addEventListener(&quot;click&quot;,function(e)&#123;</div><div class="line">    alert(&quot;child事件被触发，&quot;+this.id)</div><div class="line">&#125;,true)</div><div class="line">document.getElementById(&quot;parent&quot;).onclick=function(e)&#123;</div><div class="line">    alert(&quot;parentonclik事件被触发，&quot;+this.id);</div><div class="line">&#125;</div><div class="line">document.getElementById(&quot;child&quot;).onclick=function(e)&#123;</div><div class="line">    alert(&quot;childonclik事件被触发，&quot;+this.id);</div><div class="line">&#125;</div><div class="line">&lt;/script&gt;</div><div class="line">//点击&apos;您好&apos;,弹出顺序:parent事件被触发-&gt;child事件被触发-&gt;childonclik事件被触发-&gt;parentonclik事件被触发</div><div class="line">&lt;script type=&quot;text/javascript&quot;&gt;</div><div class="line">document.getElementById(&quot;parent&quot;).addEventListener(&quot;click&quot;,function(e)&#123;</div><div class="line">                alert(&quot;parent事件被触发，&quot;+this.id);</div><div class="line">            &#125;,true)</div><div class="line">            document.getElementById(&quot;child&quot;).addEventListener(&quot;click&quot;,function(e)&#123;</div><div class="line">                alert(&quot;child事件被触发，&quot;+this.id)</div><div class="line">            &#125;,false)</div><div class="line">&lt;/script&gt;</div><div class="line"></div><div class="line">//点击&apos;您好&apos;,先弹出parent事件被触发,再弹出child事件被触发</div></pre></td></tr></table></figure></p>
+<h2 id="应用"><a href="#应用" class="headerlink" title="应用"></a>应用</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">//要求：鼠标放到li上对应的li背景变灰</div><div class="line">&lt;ul&gt;</div><div class="line">    &lt;li&gt;item1&lt;/li&gt;</div><div class="line">    &lt;li&gt;item2&lt;/li&gt;</div><div class="line">    &lt;li&gt;item3&lt;/li&gt;</div><div class="line">    &lt;li&gt;item4&lt;/li&gt;</div><div class="line">    &lt;li&gt;item5&lt;/li&gt;</div><div class="line">    &lt;li&gt;item6&lt;/li&gt;</div><div class="line">&lt;/ul&gt;</div><div class="line">//实现一：利用事件冒泡实现,不用遍历所有li节点</div><div class="line">$(&quot;ul&quot;).on(&quot;mouseover&quot;,function(e)&#123;</div><div class="line">    $(e.target).css(&quot;background-color&quot;,&quot;#ddd&quot;).siblings().css(&quot;background-color&quot;,&quot;white&quot;);</div><div class="line">&#125;)</div><div class="line">//实现二：给每个li绑定事件，缺点，动态的加载了一些元素,新增li后，还要再绑定一次事件</div><div class="line">$(&quot;li&quot;).on(&quot;mouseover&quot;,function()&#123;</div><div class="line">    $(this).css(&quot;background-color&quot;,&quot;#ddd&quot;).siblings().css(&quot;background-color&quot;,&quot;white&quot;);</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+<h2 id="禁止冒泡"><a href="#禁止冒泡" class="headerlink" title="禁止冒泡"></a>禁止冒泡</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">function doSomething(e) &#123;</div><div class="line">  if (!e) &#123;//微软模型</div><div class="line">    var e = window.event;</div><div class="line">    e.cancelBubble = true;</div><div class="line">  &#125;</div><div class="line">  if (e.stopPropagation) &#123;//w3c事件模型</div><div class="line">    e.stopPropagation();</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;addEventListener-attachEvent-element-onclick&quot;&gt;&lt;a href=&quot;#addEventListener-attachEvent-element-onclick&quot; class=&quot;headerlink&quot; title=&quot;addE
+    
+    </summary>
+    
+    
+      <category term="js" scheme="http://yoohannah.github.io/tags/js/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>关于Performance API</title>
+    <link href="http://yoohannah.github.io/post/knowledge/Performance.html"/>
+    <id>http://yoohannah.github.io/post/knowledge/Performance.html</id>
+    <published>2017-08-02T22:38:02.000Z</published>
+    <updated>2017-08-06T09:17:15.027Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="load-unload事件"><a href="#load-unload事件" class="headerlink" title="load/unload事件"></a>load/unload事件</h1><h2 id="load事件"><a href="#load事件" class="headerlink" title="load事件"></a>load事件</h2><p>当页面完全加载后（包括所有图像、JavaScript文件、CSS文件等外部资源），就会触发window上面的load事件<br>使用方法<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line">//方法一</div><div class="line">var EventUtil = &#123;</div><div class="line">addHandler: function(element, type, handler)&#123;</div><div class="line">	if (element.addEventListener) &#123;</div><div class="line">            element.addEventListener(type, handler, false);</div><div class="line">        &#125; else if (element.attachEvent) &#123;</div><div class="line">            element.attachEvent(&quot;on&quot; + type, handler);</div><div class="line">        &#125; else &#123;</div><div class="line">            element[&quot;on&quot; + type] = handler;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line">&#125;</div><div class="line">EventUtil.addHandler(window,&quot;load&quot;,function(event)&#123;</div><div class="line"> alert(&quot;loaded!&quot;);</div><div class="line"> &#125;);</div><div class="line">//方法二</div><div class="line">&lt;!DOCTYPE html&gt;</div><div class="line">&lt;html&gt;</div><div class="line">&lt;head&gt;</div><div class="line">    &lt;title&gt;load Event Example&lt;/title&gt;</div><div class="line">&lt;/head&gt;</div><div class="line">&lt;body onload = &quot;alert(&quot;Loaded!&quot;)&quot;&gt;</div><div class="line">&lt;/body&gt;</div><div class="line">&lt;/html&gt;</div></pre></td></tr></table></figure></p>
+<p>document.ready 监控dom是否加载完毕，dom加载完毕时及资源加载之前触发<br>DOMContentLoaded 当页面的DOM树解析好并且需要等待js执行完才触发</p>
+<h2 id="unload事件"><a href="#unload事件" class="headerlink" title="unload事件"></a>unload事件</h2><p>在文档被完全卸载后触发,只要用户切换到另一个页面，就会发生unload事件。<br>利用这个事件最多的情况是清除引用，以避免内存泄漏<br>使用方法<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line">//方法一</div><div class="line">var EventUtil = &#123;</div><div class="line">    getEvent: function (event) &#123;</div><div class="line">        return event ? event : window.event;</div><div class="line">    &#125;,</div><div class="line">    addHandler: function (element, type, handler) &#123;</div><div class="line">        if (element.addEventListener) &#123;</div><div class="line">            element.addEventListener(type, handler, false);</div><div class="line">        &#125; else if (element.attachEvent) &#123;</div><div class="line">            element.attachEvent(&quot;on&quot; + type, handler);</div><div class="line">        &#125; else &#123;</div><div class="line">            element[&quot;on&quot; + type] = handler;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;;</div><div class="line">EventUtil.addHandler(window, &quot;unload&quot;, function (event) &#123;</div><div class="line">    alert(&quot;Unloaded&quot;);</div><div class="line">&#125;)</div><div class="line">//方法二</div><div class="line">&lt;html&gt;</div><div class="line">&lt;head&gt;</div><div class="line">&lt;tilte&gt;卸载（unload）事件&lt;/tile&gt;</div><div class="line">&lt;/head&gt;</div><div class="line">&lt;body onunload=&quot;alert(&apos;Unload&apos;)&quot;&gt;</div><div class="line">&lt;/body&gt;</div><div class="line">&lt;/html&gt;</div></pre></td></tr></table></figure></p>
+<h1 id="Performance-API"><a href="#Performance-API" class="headerlink" title="Performance API"></a>Performance API</h1><p>Performance 接口会给出某个页面的与时间相关的性能信息<br>使用方法为 window.performance.属性/方法</p>
+<p>Performance API用于精确度量、控制、增强浏览器的性能表现。这个API为测量网站性能，提供以前没有办法做到的精度<br>目前，所有主要浏览器都已经支持performance对象，包括Chrome 20+、Firefox 15+、IE 10+、Opera 15+。</p>
+<h2 id="performance-timing"><a href="#performance-timing" class="headerlink" title="performance.timing"></a>performance.timing</h2><p>包含各种与浏览器性能有关的时间数据，提供浏览器处理网页各个阶段的耗时</p>
+<ul>
+<li>navigationStart：当前浏览器窗口的前一个网页关闭，发生unload事件时的Unix毫秒时间戳。如果没有前一个网页，则等于fetchStart属性。即浏览器处理当前网页的启动时间</li>
+<li>unloadEventStart：如果前一个网页与当前网页属于同一个域名，则返回前一个网页的unload事件发生时的Unix毫秒时间戳。如果没有前一个网页，或者之前的网页跳转不是在同一个域名内，则返回值为0。</li>
+<li>unloadEventEnd：如果前一个网页与当前网页属于同一个域名，则返回前一个网页unload事件的回调函数结束时的Unix毫秒时间戳。如果没有前一个网页，或者之前的网页跳转不是在同一个域名内，则返回值为0。</li>
+<li>redirectStart：返回第一个HTTP跳转开始时的Unix毫秒时间戳。如果没有跳转，或者不是同一个域名内部的跳转，则返回值为0。</li>
+<li>redirectEnd：返回最后一个HTTP跳转结束时（即跳转回应的最后一个字节接受完成时）的Unix毫秒时间戳。如果没有跳转，或者不是同一个域名内部的跳转，则返回值为0。</li>
+<li>fetchStart：返回浏览器准备使用HTTP请求读取文档时的Unix毫秒时间戳。该事件在网页查询本地缓存之前发生。</li>
+<li>domainLookupStart：返回域名查询开始时的Unix毫秒时间戳。如果使用持久连接，或者信息是从本地缓存获取的，则返回值等同于fetchStart属性的值。</li>
+<li>domainLookupEnd：返回域名查询结束时的Unix毫秒时间戳。如果使用持久连接，或者信息是从本地缓存获取的，则返回值等同于fetchStart属性的值。</li>
+<li>connectStart：返回HTTP请求开始向服务器发送时的Unix毫秒时间戳。如果使用持久连接（persistent connection），则返回值等同于fetchStart属性的值。</li>
+<li>connectEnd：返回浏览器与服务器之间的连接建立时的Unix毫秒时间戳。如果建立的是持久连接，则返回值等同于fetchStart属性的值。连接建立指的是所有握手和认证过程全部结束。</li>
+<li>secureConnectionStart：返回浏览器与服务器开始安全链接的握手时的Unix毫秒时间戳。如果当前网页不要求安全连接，则返回0。</li>
+<li>requestStart：返回浏览器向服务器发出HTTP请求时（或开始读取本地缓存时）的Unix毫秒时间戳。</li>
+<li>responseStart：返回浏览器从服务器收到（或从本地缓存读取）第一个字节时的Unix毫秒时间戳。</li>
+<li>responseEnd：返回浏览器从服务器收到（或从本地缓存读取）最后一个字节时（如果在此之前HTTP连接已经关闭，则返回关闭时）的Unix毫秒时间戳。</li>
+<li>domLoading：返回当前网页DOM结构开始解析时（即Document.readyState属性变为“loading”、相应的readystatechange事件触发时）的Unix毫秒时间戳。</li>
+<li>domInteractive：返回当前网页DOM结构结束解析、开始加载内嵌资源时（即Document.readyState属性变为“interactive”、相应的readystatechange事件触发时）的Unix毫秒时间戳。</li>
+<li>domContentLoadedEventStart：返回当前网页DOMContentLoaded事件发生时（即DOM结构解析完毕、所有脚本开始运行时）的Unix毫秒时间戳。</li>
+<li>domContentLoadedEventEnd：返回当前网页所有需要执行的脚本执行完成时的Unix毫秒时间戳。</li>
+<li>domComplete：返回当前网页DOM结构生成时（即Document.readyState属性变为“complete”，以及相应的readystatechange事件发生时）的Unix毫秒时间戳。</li>
+<li>loadEventStart：返回当前网页load事件的回调函数开始时的Unix毫秒时间戳。如果该事件还没有发生，返回0。</li>
+<li>loadEventEnd：返回当前网页load事件的回调函数运行结束时的Unix毫秒时间戳。如果该事件还没有发生，返回0。</li>
+</ul>
+<p>unloadEventStart 不等于navigationStart，navigationStart比unloadEventStart早<br>domComplete 等于 loadEventStart</p>
+<h2 id="performance-now"><a href="#performance-now" class="headerlink" title="performance.now()"></a>performance.now()</h2><p>performance.now方法返回当前网页自从performance.timing.navigationStart到当前时间之间的微秒数（毫秒的千分之一）。</p>
+<h2 id="performance-mark"><a href="#performance-mark" class="headerlink" title="performance.mark()"></a>performance.mark()</h2><p>mark方法用于为相应的视点做标记。<br>window.performance.mark(‘mark_fully_loaded’);<br>clearMarks方法用于清除标记，如果不加参数，就表示清除所有标记。<br>window.peformance.clearMarks(‘mark_fully_loaded’);<br>window.performance.clearMarks();</p>
+<h2 id="performance-getEntries"><a href="#performance-getEntries" class="headerlink" title="performance.getEntries()"></a>performance.getEntries()</h2><p>浏览器获取网页时，会对网页中每一个对象（脚本文件、样式表、图片文件等等）发出一个HTTP请求。performance.getEntries方法以数组形式，返回这些请求的时间统计信息，有多少个请求，返回数组就会有多少个成员.<br>由于该方法与浏览器处理网页的过程相关，所以只能在浏览器中使用。<br>window.performance.getEntries()[0] //获取第一个HTTP请求（即网页的HTML源码）的时间统计信息</p>
+<h2 id="performance-navigation对象"><a href="#performance-navigation对象" class="headerlink" title="performance.navigation对象"></a>performance.navigation对象</h2><p>1、performance.navigation.type<br>该属性返回一个整数值，表示网页的加载来源，可能有以下4种情况：</p>
+<ul>
+<li>0：网页通过点击链接、地址栏输入、表单提交、脚本操作等方式加载，相当于常数performance.navigation.TYPE_NAVIGATENEXT。</li>
+<li>1：网页通过“重新加载”按钮或者location.reload()方法加载，相当于常数performance.navigation.TYPE_RELOAD。</li>
+<li>2：网页通过“前进”或“后退”按钮加载，相当于常数performance.navigation.TYPE_BACK_FORWARD。</li>
+<li>255：任何其他来源的加载，相当于常数performance.navigation.TYPE_UNDEFINED。</li>
+</ul>
+<p>2、performance.navigation.redirectCount<br>该属性表示当前网页经过了多少次重定向跳转.<br><a href="https://www.kancloud.cn/kancloud/javascript-standards-reference/46507" target="_blank" rel="external">参考资料</a></p>
+<h1 id="页面请求加载过程"><a href="#页面请求加载过程" class="headerlink" title="页面请求加载过程"></a>页面请求加载过程</h1><p>var t = performance.timing;</p>
+<p>1、首先，在浏览器地址栏中输入url</p>
+<p>2、浏览器先查看浏览器缓存-系统缓存-路由器缓存，如果缓存中有，会直接在屏幕中显示页面内容。若没有，则跳到第三步操作。</p>
+<p>3、在发送http请求前，需要域名解析(DNS解析)，解析获取相应的IP地址。<br>     var dns = t.domainLookupEnd - t.domainLookupStart; //域名解析时间<br>4、浏览器向服务器发起tcp连接，与浏览器建立tcp三次握手。<br>     var tcp = t.connectEnd - t.connectStart;//浏览器与服务器之间的连接建立时间<br>5、握手成功后，浏览器向服务器发送http请求，请求数据包。<br>     t.requestStart 浏览器向服务器发出HTTP请求时（或开始读取本地缓存时）的时间<br>6、服务器处理收到的请求，将数据返回至浏览器</p>
+<p>7、浏览器收到HTTP响应<br>     var ttfb = t.responseStart - t.navigationStart;//读取页面第一个字节之前的耗时<br>8、读取页面内容，浏览器渲染，解析html源码<br>     var getdata = t.responseEnd-t.responseStart;//接收数据时间<br>9、生成Dom树、解析css样式、js交互<br>   var dom = t.domInteractive-t.domLoading; //从构建DOM到页面与用户可以开始交互的时间<br>   var script= t.domContentLoadedEventEnd-t.domContentLoadedEventStart;//脚本运行时间<br>   var load = t.loadEventEnd-t.loadEventStart;//load事件处理时间</p>
+<p>10、客户端和服务器交互</p>
+<p>11、ajax查询</p>
+<p>步骤二详细步骤</p>
+<ul>
+<li>浏览器缓存：浏览器会记录DNS一段时间，因此，只是第一个地方解析DNS请求；</li>
+<li>操作系统缓存：如果在浏览器缓存中不包含这个记录，则会使系统调用操作系统，获取操作系统的记录(保存最近的DNS查询缓存)；</li>
+<li>路由器缓存：如果上述两个步骤均不能成功获取DNS记录，继续搜索路由器缓存；</li>
+<li>ISP缓存：若上述均失败，继续向ISP搜索。</li>
+</ul>
+<p>浏览器渲染步骤</p>
+<ul>
+<li>解析html以构建dom树 分词器器、解析器</li>
+<li>构建render树</li>
+<li>布局render树</li>
+<li>绘制render树</li>
+</ul>
+<p>渲染引擎开始解析html，并将标签转化为内容树中的dom节点。接着，它解析外部CSS文件及style标签中的样式信息。这些样式信息以及html中的可见性指令将被用来构建另一棵树——render树。</p>
+<p>Render树由一些包含有颜色和大小等属性的矩形组成，它们将被按照正确的顺序显示到屏幕上。</p>
+<p>Render树构建好了之后，将会执行布局过程，它将确定每个节点在屏幕上的确切坐标。再下一步就是绘制，即遍历render树，并使用UI后端层绘制每个节点</p>
+<p><a href="http://www.uml.org.cn/html/201207184.asp" target="_blank" rel="external">现代浏览器工作原理</a></p>
+<h1 id="Navigator-对象"><a href="#Navigator-对象" class="headerlink" title="Navigator 对象"></a>Navigator 对象</h1><p>包含有关浏览器的信息。<br>appCodeName    返回浏览器的代码名<br>appName    返回浏览器的名称<br>appVersion    返回浏览器的平台和版本信息<br>cookieEnabled    返回指明浏览器中是否启用 cookie 的布尔值<br>platform    返回运行浏览器的操作系统平台<br>userAgent    返回由客户机发送服务器的user-agent 头部的值<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line">js 获取操作系统</div><div class="line">function detectOS() &#123;</div><div class="line">    var sUserAgent = navigator.userAgent;</div><div class="line">    var isWin = (navigator.platform == &quot;Win32&quot;) || (navigator.platform == &quot;Windows&quot;);</div><div class="line">    var isMac = (navigator.platform == &quot;Mac68K&quot;) || (navigator.platform == &quot;MacPPC&quot;) || (navigator.platform == &quot;Macintosh&quot;) || (navigator.platform == &quot;MacIntel&quot;);</div><div class="line">    if (isMac) return &quot;Mac&quot;;</div><div class="line">    var isUnix = (navigator.platform == &quot;X11&quot;) &amp;&amp; !isWin &amp;&amp; !isMac;</div><div class="line">    if (isUnix) return &quot;Unix&quot;;</div><div class="line">    var isLinux = (String(navigator.platform).indexOf(&quot;Linux&quot;) &gt; -1);</div><div class="line">    if (isLinux) return &quot;Linux&quot;;</div><div class="line">    if (isWin) &#123;</div><div class="line">        var isWin2K = sUserAgent.indexOf(&quot;Windows NT 5.0&quot;) &gt; -1 || sUserAgent.indexOf(&quot;Windows 2000&quot;) &gt; -1;</div><div class="line">        if (isWin2K) return &quot;Win2000&quot;;</div><div class="line">        var isWinXP = sUserAgent.indexOf(&quot;Windows NT 5.1&quot;) &gt; -1 || sUserAgent.indexOf(&quot;Windows XP&quot;) &gt; -1;</div><div class="line">        if (isWinXP) return &quot;WinXP&quot;;</div><div class="line">        var isWin2003 = sUserAgent.indexOf(&quot;Windows NT 5.2&quot;) &gt; -1 || sUserAgent.indexOf(&quot;Windows 2003&quot;) &gt; -1;</div><div class="line">        if (isWin2003) return &quot;Win2003&quot;;</div><div class="line">        var isWinVista= sUserAgent.indexOf(&quot;Windows NT 6.0&quot;) &gt; -1 || sUserAgent.indexOf(&quot;Windows Vista&quot;) &gt; -1;</div><div class="line">        if (isWinVista) return &quot;WinVista&quot;;</div><div class="line">        var isWin7 = sUserAgent.indexOf(&quot;Windows NT 6.1&quot;) &gt; -1 || sUserAgent.indexOf(&quot;Windows 7&quot;) &gt; -1;</div><div class="line">        if (isWin7) return &quot;Win7&quot;;</div><div class="line">    &#125;</div><div class="line">    return &quot;other&quot;;</div><div class="line">&#125;</div><div class="line"></div><div class="line">document.writeln(&quot;您的操作系统是：&quot; + detectOS());</div></pre></td></tr></table></figure></p>
+<p><a href="http://blog.csdn.net/littleqiang_w/article/details/50463939" target="_blank" rel="external">js判断浏览器</a></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;load-unload事件&quot;&gt;&lt;a href=&quot;#load-unload事件&quot; class=&quot;headerlink&quot; title=&quot;load/unload事件&quot;&gt;&lt;/a&gt;load/unload事件&lt;/h1&gt;&lt;h2 id=&quot;load事件&quot;&gt;&lt;a href=&quot;#loa
+    
+    </summary>
+    
+    
+      <category term="js" scheme="http://yoohannah.github.io/tags/js/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>关于CDN</title>
+    <link href="http://yoohannah.github.io/post/knowledge/cdn.html"/>
+    <id>http://yoohannah.github.io/post/knowledge/cdn.html</id>
+    <published>2017-08-02T22:37:02.000Z</published>
+    <updated>2017-08-06T09:43:09.335Z</updated>
+    
+    <content type="html"><![CDATA[<p>cdn 是一种从网络层面优化页面访问速度的手段<br>CDN服务商提供一项智能域名解析服务，这种智能DNS服务在浏览器发起域名查询时，会根据用户IP计算并返回离它最近的同网络CDN节点IP，引导浏览器与此节点建立连接以获取资源。<br>不同地区的用户访问同一个域名，依赖CDN服务商提供的智能域名解析服务得到不同CDN节点的IP地址<br>不同地区的用户会访问到离自己最近的相同网络线路上的CDN节点，当请求达到CDN节点后，节点会判断自己的内容缓存是否有效，如果有效，则立即响应缓存内容给用户，从而加快响应速度。如果CDN节点的缓存失效，它会根据服务配置去我们的内容源服务器获取最新的资源响应给用户，并将内容缓存下来以便响应给后续访问的用户。因此，一个地区内只要有一个用户先加载资源，在CDN中建立了缓存，该地区的其他后续用户都能因此而受益。<br>通过将静态资源缓存到离用户很近的相同网络运营商的CDN节点上，不但能提升用户的访问速度，还能节省服务器的带宽消耗，降低负载。<br><img src="/image/cdn.png" alt="cdn缓存技术原理"></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;cdn 是一种从网络层面优化页面访问速度的手段&lt;br&gt;CDN服务商提供一项智能域名解析服务，这种智能DNS服务在浏览器发起域名查询时，会根据用户IP计算并返回离它最近的同网络CDN节点IP，引导浏览器与此节点建立连接以获取资源。&lt;br&gt;不同地区的用户访问同一个域名，依赖CD
+    
+    </summary>
+    
+    
+      <category term="js" scheme="http://yoohannah.github.io/tags/js/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>常见页面布局小结</title>
+    <link href="http://yoohannah.github.io/post/knowledge/layouts.html"/>
+    <id>http://yoohannah.github.io/post/knowledge/layouts.html</id>
+    <published>2017-08-02T22:30:02.000Z</published>
+    <updated>2017-08-06T13:02:47.726Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="圣杯布局"><a href="#圣杯布局" class="headerlink" title="圣杯布局"></a>圣杯布局</h1><p>三栏布局,左右两栏宽度固定,中间一栏宽度随屏幕宽度自适应<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div></pre></td><td class="code"><pre><div class="line">&lt;body&gt;</div><div class="line">&lt;div id=&quot;header&quot;&gt;#header&lt;/div&gt;</div><div class="line">&lt;div id=&quot;container&quot;&gt;</div><div class="line">  &lt;div id=&quot;center&quot; class=&quot;column&quot;&gt;#center&lt;/div&gt;</div><div class="line">  &lt;div id=&quot;left&quot; class=&quot;column&quot;&gt;#left&lt;/div&gt;</div><div class="line">  &lt;div id=&quot;right&quot; class=&quot;column&quot;&gt;#right&lt;/div&gt;</div><div class="line">&lt;/div&gt;</div><div class="line">&lt;div id=&quot;footer&quot;&gt;#footer&lt;/div&gt;</div><div class="line">&lt;/body&gt;</div><div class="line"></div><div class="line">&lt;style type=&quot;text/css&quot;&gt;</div><div class="line">  body &#123;</div><div class="line">  min-width: 550px;      /* 2x LC width + RC width */</div><div class="line">&#125;</div><div class="line">#container &#123;</div><div class="line">  padding-left: 200px;   /* LC width */</div><div class="line">  padding-right: 150px;  /* RC width */</div><div class="line">&#125;</div><div class="line">#container .column &#123;</div><div class="line">  min-height: 200px;/* 高度自适应*/</div><div class="line">  position: relative;/* 让左右两栏进行相对位移，位移到container的内边距位置 */</div><div class="line">  float: left;</div><div class="line">&#125;</div><div class="line">#center &#123;</div><div class="line">  background-color: #e9e9e9;</div><div class="line">  width: 100%;</div><div class="line">&#125;</div><div class="line">#left &#123;</div><div class="line">  background-color: red;</div><div class="line">  width: 200px;          /* LC width */</div><div class="line">  right: 200px;           /*LC width *//*相对于 container 的右边线向左偏移 200px 将自己位移到container内边距 */</div><div class="line">  margin-left: -100%;/*浮动到与中间平行 */</div><div class="line">&#125;</div><div class="line">#right &#123;</div><div class="line">  background-color: blue;</div><div class="line">  width: 150px;          /* RC width */</div><div class="line">  margin-right: -150px;  /* RC width */</div><div class="line">&#125;</div><div class="line">#footer &#123;</div><div class="line">  clear: both;/*清除 footer 的上下环境，以免遭跟上面三栏一起浮动*/</div><div class="line">&#125;</div><div class="line">#header, </div><div class="line">#footer &#123;</div><div class="line">  background-color: #c9c9c9;</div><div class="line">&#125;</div><div class="line">&lt;/style&gt;</div></pre></td></tr></table></figure></p>
+<p><img src="/image/holy1.png" alt="圣杯1"><br><img src="/image/holy2.png" alt="圣杯2"></p>
+<h1 id="双飞翼布局"><a href="#双飞翼布局" class="headerlink" title="双飞翼布局"></a>双飞翼布局</h1><p>效果同圣杯布局，只是写法上DOM在center里面新增加了div,css不再使用relative定位，只是用float和外边距<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div></pre></td><td class="code"><pre><div class="line">&lt;div id=&quot;header&quot;&gt;header&lt;/div&gt;</div><div class="line">&lt;div id=&quot;container&quot;&gt;</div><div class="line">  &lt;div id=&quot;center&quot; class=&quot;column&quot;&gt;</div><div class="line">    &lt;div id=&quot;innerCenter&quot;&gt;center&lt;/div&gt;</div><div class="line">  &lt;/div&gt;</div><div class="line">  &lt;div id=&quot;left&quot; class=&quot;column&quot;&gt;left&lt;/div&gt;</div><div class="line">  &lt;div id=&quot;right&quot; class=&quot;column&quot;&gt;right&lt;/div&gt;</div><div class="line">&lt;/div&gt;</div><div class="line">&lt;div id=&quot;footer&quot;&gt;footer&lt;/div&gt;</div><div class="line"></div><div class="line">&lt;style type=&quot;text/css&quot;&gt;</div><div class="line">  body &#123;</div><div class="line">    min-width: 351px; /* LC width + RC width +1*/</div><div class="line">  &#125;</div><div class="line">  #container .column &#123;</div><div class="line">    min-height: 200px;</div><div class="line">    float: left;</div><div class="line">  &#125;</div><div class="line">  #center &#123;</div><div class="line">    background-color: #e9e9e9;</div><div class="line">    width: 100%;</div><div class="line">  &#125;</div><div class="line">  #left &#123;</div><div class="line">    background-color: red;</div><div class="line">    width: 200px;</div><div class="line">    margin-left: -100%;</div><div class="line">  &#125;</div><div class="line">  #right &#123;</div><div class="line">    background-color: blue;</div><div class="line">    width: 150px;</div><div class="line">    margin-left: -150px;</div><div class="line">  &#125;</div><div class="line">  #footer &#123;</div><div class="line">    clear: both;</div><div class="line">  &#125;</div><div class="line">  #header, #footer &#123;</div><div class="line">    background-color: #c9c9c9;</div><div class="line">  &#125;</div><div class="line">  #innerCenter &#123; /*代替圣杯container的padding处理*/</div><div class="line">    margin-left: 200px;</div><div class="line">    margin-right: 150px;</div><div class="line">  &#125;</div><div class="line">&lt;/style&gt;</div></pre></td></tr></table></figure></p>
+<p><img src="/image/holy3.png" alt="圣杯3"><br><img src="/image/holy4.png" alt="圣杯4"></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;圣杯布局&quot;&gt;&lt;a href=&quot;#圣杯布局&quot; class=&quot;headerlink&quot; title=&quot;圣杯布局&quot;&gt;&lt;/a&gt;圣杯布局&lt;/h1&gt;&lt;p&gt;三栏布局,左右两栏宽度固定,中间一栏宽度随屏幕宽度自适应&lt;br&gt;&lt;figure class=&quot;highlight plain
+    
+    </summary>
+    
+    
+      <category term="css" scheme="http://yoohannah.github.io/tags/css/"/>
+    
+  </entry>
   
   <entry>
     <title>使用QRcode.js生成二维码</title>
@@ -148,6 +316,54 @@
   </entry>
   
   <entry>
+    <title>php中MySQL的使用</title>
+    <link href="http://yoohannah.github.io/post/php/php_MySQLuse.html"/>
+    <id>http://yoohannah.github.io/post/php/php_MySQLuse.html</id>
+    <published>2017-05-26T13:37:37.000Z</published>
+    <updated>2017-07-30T07:30:33.872Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="php连接数据库"><a href="#php连接数据库" class="headerlink" title="php连接数据库"></a>php连接数据库</h1><p>查看数据库主机，用户名<br>use myaql；<br>select Host from user;<br>select user from user;</p>
+<h2 id="连接数据库服务器"><a href="#连接数据库服务器" class="headerlink" title="连接数据库服务器"></a>连接数据库服务器</h2><p>mysql_connect函数<br>$con = mysql_connect(“localhost”,”peter”,”abc123”);<br>参数1    主机<br>参数2    数据库服务器登陆名<br>参数3    密码<br>参数4    数据库的名称<br>参数5    数据库服务器端口不填默认3306</p>
+<p>若参数4，数据库名称在此步已填并择，不需要执行第三步</p>
+<h2 id="判断链接是否正常"><a href="#判断链接是否正常" class="headerlink" title="判断链接是否正常"></a>判断链接是否正常</h2><p>如果有错误，存在错误号<br>if (mysql_errno($conn)) {<br>   echo mysql_error($conn);<br>   exit;<br>}</p>
+<p>mysql_errno 返回连接错误号，无错误返回0<br>参数1    传入mysql_connect返回的资源</p>
+<p>mysql_error 返回连接错误字符串<br>参数1    传入mysql_connect返回的资源</p>
+<h2 id="选择数据库"><a href="#选择数据库" class="headerlink" title="选择数据库"></a>选择数据库</h2><p>mysql_select_db函数<br>mysql_select_db(‘user’,$conn);<br>参数1    传入mysql_connect返回的资源<br>参数2    需要连接的数据库名</p>
+<h2 id="设置字符集"><a href="#设置字符集" class="headerlink" title="设置字符集"></a>设置字符集</h2><p>mysql_set_charset<br>mysql_set_charset(‘utf8’,$conn);<br>参数1    字符集类型<br>参数2    传入mysql_connect返回的资源</p>
+<h2 id="准备SQL语句"><a href="#准备SQL语句" class="headerlink" title="准备SQL语句"></a>准备SQL语句</h2><p>要传入数据库的操作语句<br>注意参数如何拼接</p>
+<p>如果是int类型的就使用<br>$sql=”insert into user(mycon) values(“.$my_con.”)”;<br>//或者<br>$sql=’insert into user(mycon) values(‘.$my_con.’)’;</p>
+<p>如果是字符型的就要使用单引号或者双引号括起来<br>$sql=”insert into user(mycon) values(‘“.$my_con.”‘)”;<br>//或者这样写<br>$sql=’insert into user(mycon) values(“‘.$my_con.’”)’;</p>
+<p>多个<br>$sql = “INSERT INTO user (username,password,createtime,createip)<br>values<br>(‘“ . $username . “‘,’” . $password . “‘,” . $time . “,’” . $ip . “‘)”;</p>
+<h2 id="发送SQL语句"><a href="#发送SQL语句" class="headerlink" title="发送SQL语句"></a>发送SQL语句</h2><p>$result = mysql_query($sql,$conn);</p>
+<h2 id="根据不同操作，判断执行是否正常或者遍历数据"><a href="#根据不同操作，判断执行是否正常或者遍历数据" class="headerlink" title="根据不同操作，判断执行是否正常或者遍历数据"></a>根据不同操作，判断执行是否正常或者遍历数据</h2><p>发送的是select类别的语句，通常需要将结果输出显示出来。就需要用到遍历显示数据的函数<br>函数    mysql_fetch_array<br>功能    得到result结果集中的数据，返回数组进行便利<br>参数1    传入查询出来的结果变量<br>参数2    传入MYSQLI_NUM返回索引数组，MYSQLI_ASSOC返回关联数组，MYSQLI_BOTH返回索引和关联</p>
+<p>函数    mysql_fetch_assoc<br>功能    得到result结果集中的数据，返回关联数组进行便利<br>参数1    传入查询出来的结果变量</p>
+<p>函数    mysql_fetch_row<br>功能    得到result结果集中的数据，返回索引数组进行便利<br>参数1    传入查询出来的结果变量</p>
+<p>函数    mysql_fetch_object<br>功能    得到result结果集中的数据，返回对象进行遍历<br>参数1    传入查询出来的结果变量</p>
+<p>函数    mysql_num_rows<br>功能    返回查询出来的结果总数<br>参数1    传入查询出来的结果变量</p>
+<p>函数    sql_num_rows<br>功能    返回查询出来的结果总数<br>参数1    传入查询出来的结果变量</p>
+<p>如果发送的是insert的语句，通常需要得到是否执行成功，或者同时拿到自增的ID。<br>函数    mysqli_fetch_field<br>功能    遍历数据行<br>参数1    传入查询出来的结果变量</p>
+<p>如果发送的是update和delete类别的语句。只需要判断是否执行成功即可。</p>
+<p>if ($result) {<br>   echo ‘成功’;<br>} else {<br>    echo $sql;//查看是否是SQL语句拼接有问题<br>  echo ‘失败’;<br>}</p>
+<h2 id="关闭数据库"><a href="#关闭数据库" class="headerlink" title="关闭数据库"></a>关闭数据库</h2><p>函数    mysqli_close<br>功能    关闭数据库连接<br>参数1    传入mysqli_connect返回的资源</p>
+<p>mysql_close($conn);//关闭数据库</p>
+<h1 id="显示服务器信息函数"><a href="#显示服务器信息函数" class="headerlink" title="显示服务器信息函数"></a>显示服务器信息函数</h1><p>函数    mysqli_get_server_info<br>功能    返回服务器信息<br>参数1    传入mysqli_connect返回的资源</p>
+<p>函数    mysqli_get_server_version<br>功能    返回服务器版本<br>参数1    传入mysqli_connect返回的资源</p>
+<p><a href="https://github.com/YooHannah/algorithm/blob/master/php/registration/connect.php" target="_blank" rel="external">一个用户注册的代码链接</a></p>
+<h2 id="数据显示乱码终极解决办法"><a href="#数据显示乱码终极解决办法" class="headerlink" title="数据显示乱码终极解决办法"></a>数据显示乱码终极解决办法</h2><p>多个不同的文件系统中一定要统一编码。<br>9个要点分别是：<br>    1.html编码与MySQL编码一致<br>    2.PHP编码与MySQL编码一致<br>    3.若有header头发送字符集，请与数据库一样<br>      如果php中有header头，一定要是utf-8的<br>      header(‘content-type:text/html;charset=utf-8’);<br>    4.<meta http-equiv="“Content-Type”content=“text/html;" charset="utf-8”">要和页面的文字编码一致<br>    5.数据库建库的字符集要统一<br>    6.表的字符集要统一<br>    7.列的字符集要统一(表设了,列就默认写表的)<br>    8.连接,校验的字符集要统一<br>      通过mysqli_set_charset(‘utf8’)来MySQL连接、结果和校验的字符集设置。<br>      注：数据库的字符集声明和文件中的略有不同。utf8为mysql数据库的，utf-8为文件中使用的<br>    9.结果集的字符集要统一</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;php连接数据库&quot;&gt;&lt;a href=&quot;#php连接数据库&quot; class=&quot;headerlink&quot; title=&quot;php连接数据库&quot;&gt;&lt;/a&gt;php连接数据库&lt;/h1&gt;&lt;p&gt;查看数据库主机，用户名&lt;br&gt;use myaql；&lt;br&gt;select Host from 
+    
+    </summary>
+    
+    
+      <category term="php" scheme="http://yoohannah.github.io/tags/php/"/>
+    
+  </entry>
+  
+  <entry>
     <title>MySQL的基本知识</title>
     <link href="http://yoohannah.github.io/post/php/php_MySQL.html"/>
     <id>http://yoohannah.github.io/post/php/php_MySQL.html</id>
@@ -199,54 +415,6 @@
     <summary type="html">
     
       &lt;h1 id=&quot;五个基本单位&quot;&gt;&lt;a href=&quot;#五个基本单位&quot; class=&quot;headerlink&quot; title=&quot;五个基本单位&quot;&gt;&lt;/a&gt;五个基本单位&lt;/h1&gt;&lt;p&gt;数据库服务器:指用来运行数据库服务的一台电脑&lt;br&gt;数据库:一个数据库服务器里面有可以有多个数据库。主要用来
-    
-    </summary>
-    
-    
-      <category term="php" scheme="http://yoohannah.github.io/tags/php/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>php中MySQL的使用</title>
-    <link href="http://yoohannah.github.io/post/php/php_MySQLuse.html"/>
-    <id>http://yoohannah.github.io/post/php/php_MySQLuse.html</id>
-    <published>2017-05-26T13:37:37.000Z</published>
-    <updated>2017-07-30T07:30:33.872Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="php连接数据库"><a href="#php连接数据库" class="headerlink" title="php连接数据库"></a>php连接数据库</h1><p>查看数据库主机，用户名<br>use myaql；<br>select Host from user;<br>select user from user;</p>
-<h2 id="连接数据库服务器"><a href="#连接数据库服务器" class="headerlink" title="连接数据库服务器"></a>连接数据库服务器</h2><p>mysql_connect函数<br>$con = mysql_connect(“localhost”,”peter”,”abc123”);<br>参数1    主机<br>参数2    数据库服务器登陆名<br>参数3    密码<br>参数4    数据库的名称<br>参数5    数据库服务器端口不填默认3306</p>
-<p>若参数4，数据库名称在此步已填并择，不需要执行第三步</p>
-<h2 id="判断链接是否正常"><a href="#判断链接是否正常" class="headerlink" title="判断链接是否正常"></a>判断链接是否正常</h2><p>如果有错误，存在错误号<br>if (mysql_errno($conn)) {<br>   echo mysql_error($conn);<br>   exit;<br>}</p>
-<p>mysql_errno 返回连接错误号，无错误返回0<br>参数1    传入mysql_connect返回的资源</p>
-<p>mysql_error 返回连接错误字符串<br>参数1    传入mysql_connect返回的资源</p>
-<h2 id="选择数据库"><a href="#选择数据库" class="headerlink" title="选择数据库"></a>选择数据库</h2><p>mysql_select_db函数<br>mysql_select_db(‘user’,$conn);<br>参数1    传入mysql_connect返回的资源<br>参数2    需要连接的数据库名</p>
-<h2 id="设置字符集"><a href="#设置字符集" class="headerlink" title="设置字符集"></a>设置字符集</h2><p>mysql_set_charset<br>mysql_set_charset(‘utf8’,$conn);<br>参数1    字符集类型<br>参数2    传入mysql_connect返回的资源</p>
-<h2 id="准备SQL语句"><a href="#准备SQL语句" class="headerlink" title="准备SQL语句"></a>准备SQL语句</h2><p>要传入数据库的操作语句<br>注意参数如何拼接</p>
-<p>如果是int类型的就使用<br>$sql=”insert into user(mycon) values(“.$my_con.”)”;<br>//或者<br>$sql=’insert into user(mycon) values(‘.$my_con.’)’;</p>
-<p>如果是字符型的就要使用单引号或者双引号括起来<br>$sql=”insert into user(mycon) values(‘“.$my_con.”‘)”;<br>//或者这样写<br>$sql=’insert into user(mycon) values(“‘.$my_con.’”)’;</p>
-<p>多个<br>$sql = “INSERT INTO user (username,password,createtime,createip)<br>values<br>(‘“ . $username . “‘,’” . $password . “‘,” . $time . “,’” . $ip . “‘)”;</p>
-<h2 id="发送SQL语句"><a href="#发送SQL语句" class="headerlink" title="发送SQL语句"></a>发送SQL语句</h2><p>$result = mysql_query($sql,$conn);</p>
-<h2 id="根据不同操作，判断执行是否正常或者遍历数据"><a href="#根据不同操作，判断执行是否正常或者遍历数据" class="headerlink" title="根据不同操作，判断执行是否正常或者遍历数据"></a>根据不同操作，判断执行是否正常或者遍历数据</h2><p>发送的是select类别的语句，通常需要将结果输出显示出来。就需要用到遍历显示数据的函数<br>函数    mysql_fetch_array<br>功能    得到result结果集中的数据，返回数组进行便利<br>参数1    传入查询出来的结果变量<br>参数2    传入MYSQLI_NUM返回索引数组，MYSQLI_ASSOC返回关联数组，MYSQLI_BOTH返回索引和关联</p>
-<p>函数    mysql_fetch_assoc<br>功能    得到result结果集中的数据，返回关联数组进行便利<br>参数1    传入查询出来的结果变量</p>
-<p>函数    mysql_fetch_row<br>功能    得到result结果集中的数据，返回索引数组进行便利<br>参数1    传入查询出来的结果变量</p>
-<p>函数    mysql_fetch_object<br>功能    得到result结果集中的数据，返回对象进行遍历<br>参数1    传入查询出来的结果变量</p>
-<p>函数    mysql_num_rows<br>功能    返回查询出来的结果总数<br>参数1    传入查询出来的结果变量</p>
-<p>函数    sql_num_rows<br>功能    返回查询出来的结果总数<br>参数1    传入查询出来的结果变量</p>
-<p>如果发送的是insert的语句，通常需要得到是否执行成功，或者同时拿到自增的ID。<br>函数    mysqli_fetch_field<br>功能    遍历数据行<br>参数1    传入查询出来的结果变量</p>
-<p>如果发送的是update和delete类别的语句。只需要判断是否执行成功即可。</p>
-<p>if ($result) {<br>   echo ‘成功’;<br>} else {<br>    echo $sql;//查看是否是SQL语句拼接有问题<br>  echo ‘失败’;<br>}</p>
-<h2 id="关闭数据库"><a href="#关闭数据库" class="headerlink" title="关闭数据库"></a>关闭数据库</h2><p>函数    mysqli_close<br>功能    关闭数据库连接<br>参数1    传入mysqli_connect返回的资源</p>
-<p>mysql_close($conn);//关闭数据库</p>
-<h1 id="显示服务器信息函数"><a href="#显示服务器信息函数" class="headerlink" title="显示服务器信息函数"></a>显示服务器信息函数</h1><p>函数    mysqli_get_server_info<br>功能    返回服务器信息<br>参数1    传入mysqli_connect返回的资源</p>
-<p>函数    mysqli_get_server_version<br>功能    返回服务器版本<br>参数1    传入mysqli_connect返回的资源</p>
-<p><a href="https://github.com/YooHannah/algorithm/blob/master/php/registration/connect.php" target="_blank" rel="external">一个用户注册的代码链接</a></p>
-<h2 id="数据显示乱码终极解决办法"><a href="#数据显示乱码终极解决办法" class="headerlink" title="数据显示乱码终极解决办法"></a>数据显示乱码终极解决办法</h2><p>多个不同的文件系统中一定要统一编码。<br>9个要点分别是：<br>    1.html编码与MySQL编码一致<br>    2.PHP编码与MySQL编码一致<br>    3.若有header头发送字符集，请与数据库一样<br>      如果php中有header头，一定要是utf-8的<br>      header(‘content-type:text/html;charset=utf-8’);<br>    4.<meta http-equiv="“Content-Type”content=“text/html;" charset="utf-8”">要和页面的文字编码一致<br>    5.数据库建库的字符集要统一<br>    6.表的字符集要统一<br>    7.列的字符集要统一(表设了,列就默认写表的)<br>    8.连接,校验的字符集要统一<br>      通过mysqli_set_charset(‘utf8’)来MySQL连接、结果和校验的字符集设置。<br>      注：数据库的字符集声明和文件中的略有不同。utf8为mysql数据库的，utf-8为文件中使用的<br>    9.结果集的字符集要统一</p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;h1 id=&quot;php连接数据库&quot;&gt;&lt;a href=&quot;#php连接数据库&quot; class=&quot;headerlink&quot; title=&quot;php连接数据库&quot;&gt;&lt;/a&gt;php连接数据库&lt;/h1&gt;&lt;p&gt;查看数据库主机，用户名&lt;br&gt;use myaql；&lt;br&gt;select Host from 
     
     </summary>
     
@@ -636,97 +804,6 @@ void clearstatcache ( void ) 功能：清楚文件的状态缓存
     <summary type="html">
     
       &lt;p&gt;特点：&lt;br&gt;每个结点的孩子可以多于两个，且每一个结点处可以存储多个元素&lt;br&gt;所有元素之间存在某种特定的排序关系&lt;br&gt;2-3树：每一个结点都具有两个或者三个孩子的多路查找树，所有叶子结点都在同一层次上&lt;br&gt;2结点：拥有两个孩子和一个元素，左子树包含元素小于结点元素，右
-    
-    </summary>
-    
-    
-      <category term="js" scheme="http://yoohannah.github.io/tags/js/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>平衡二叉排序树</title>
-    <link href="http://yoohannah.github.io/post/algorithm/balancesortbtree.html"/>
-    <id>http://yoohannah.github.io/post/algorithm/balancesortbtree.html</id>
-    <published>2017-04-08T06:51:37.000Z</published>
-    <updated>2017-04-08T09:04:19.540Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="特征"><a href="#特征" class="headerlink" title="特征"></a>特征</h1><p>首先得是一颗二叉排序树<br>左子树与右子树都是平衡二叉树<br>每个结点左子树与右子树的深度差的绝对值不能大于1<br>结点左子树深度减右子树深度的差叫做平衡因子BF，即|BF|&lt;=1，BF=-1/1/0<br>平衡二叉树就是一颗二叉树上所有结点的平衡因子的绝对值小于等于1 的树</p>
-<h1 id="关键操作"><a href="#关键操作" class="headerlink" title="关键操作"></a>关键操作</h1><p>左子树bf大于右子树bf，右旋<br>左子树bf小于右子树bf，左旋<br>左旋的子树的右子树若存在左子树，将该左子树做左旋子树根结点的右子树，左旋子树根结点做其右子树的左子树<br>右旋的子树的左子树若存在右子树，将该右子树做右旋子树根结点的左结点，右旋子树根结点做其左子树的右子树</p>
-<h1 id="构建"><a href="#构建" class="headerlink" title="构建"></a>构建</h1><p>现用以下数据构建平衡二叉树<br>3,2,1,4,5,6,7,10,9,8<br><img src="/image/balancebtree.png" alt="balance"><br>按照大于父节点做右子树小于父结点做左子树原则,将3,2,1构建树，当1进入树之后3的左子树深度2减右子树深度0大于1，以2为中心进行右旋，如图1<br>继续添加4和5，当5进入树之后，3的左右子树深度差为-2，断开2,3链接，将3,4,5,以4为中心左旋，再与2相连，如图2<br>继续添加6，当6进入树之后,这时2的bf为-2，以2的右子树根结点为中心左旋，此时1,2和3均为4的左子树，则将4的原左子树做新左子树的右子树，如图3<br>添加7,当7进入树之后,5的bf为-2，断开4,5链接，以6为中心左旋，再与4相连，如图4<br>添加10、9,当9进入树之后,6的bf为-2,断开6、7，因为10有左结点，先将9、10关系转换，让10做9孩子结点，然后以9为中心左旋，再与6相连,如图5<br>添加8,4、6的bf又变为-2,断开4、6,9的bf为1，因为将来要对6左旋，所以先将9右旋，使9的bf变成0或负值，再对6以7为中心左旋，如图6<br>最终结果如图7<br><a href="https://github.com/YooHannah/algorithm/blob/master/js/balancebtree.js" target="_blank" rel="external">代码链接</a></p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;h1 id=&quot;特征&quot;&gt;&lt;a href=&quot;#特征&quot; class=&quot;headerlink&quot; title=&quot;特征&quot;&gt;&lt;/a&gt;特征&lt;/h1&gt;&lt;p&gt;首先得是一颗二叉排序树&lt;br&gt;左子树与右子树都是平衡二叉树&lt;br&gt;每个结点左子树与右子树的深度差的绝对值不能大于1&lt;br&gt;结点左子树深度减右
-    
-    </summary>
-    
-    
-      <category term="js" scheme="http://yoohannah.github.io/tags/js/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>二叉排序树</title>
-    <link href="http://yoohannah.github.io/post/algorithm/sortbtree.html"/>
-    <id>http://yoohannah.github.io/post/algorithm/sortbtree.html</id>
-    <published>2017-04-03T08:51:37.000Z</published>
-    <updated>2017-04-08T06:20:02.969Z</updated>
-    
-    <content type="html"><![CDATA[<p>将无序的数组，把首项当做根结点开始，按照比双亲结点小的做左子树，比双亲结点大的做右子树的规则<br>建立一颗二叉树，对二叉树进行中序遍历，即得到无序数组从小到大的排序<br>二叉排序树特点<br>—- 若它的左子树不为空，则左子树上所有结点的值均小于它的根结构的值<br>—- 若它的右子树不为空，则右子树上所有结点的值均大于它的根结构的值<br>—- 它的左右子树也分别为二叉排序树(递归)<br><a href="https://github.com/YooHannah/algorithm/blob/master/js/SortingBtree.js" target="_blank" rel="external">代码链接</a></p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;将无序的数组，把首项当做根结点开始，按照比双亲结点小的做左子树，比双亲结点大的做右子树的规则&lt;br&gt;建立一颗二叉树，对二叉树进行中序遍历，即得到无序数组从小到大的排序&lt;br&gt;二叉排序树特点&lt;br&gt;—- 若它的左子树不为空，则左子树上所有结点的值均小于它的根结构的值&lt;br&gt;—
-    
-    </summary>
-    
-    
-      <category term="js" scheme="http://yoohannah.github.io/tags/js/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>线性索引查找</title>
-    <link href="http://yoohannah.github.io/post/algorithm/indexsearch.html"/>
-    <id>http://yoohannah.github.io/post/algorithm/indexsearch.html</id>
-    <published>2017-04-03T08:38:37.000Z</published>
-    <updated>2017-04-03T08:38:46.745Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="稠密索引"><a href="#稠密索引" class="headerlink" title="稠密索引"></a>稠密索引</h1><p><img src="/image/index1.png" alt="index1"><br>索引表与数据表一对一，索引表的关键码是对应目标数据的提取，索引表有序，数据表无序</p>
-<h1 id="分块索引"><a href="#分块索引" class="headerlink" title="分块索引"></a>分块索引</h1><p><img src="/image/index2.png" alt="index2"><br>将整个数据表分块，取每块数据中最大值建立索引表，块间有序，块内无序</p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;h1 id=&quot;稠密索引&quot;&gt;&lt;a href=&quot;#稠密索引&quot; class=&quot;headerlink&quot; title=&quot;稠密索引&quot;&gt;&lt;/a&gt;稠密索引&lt;/h1&gt;&lt;p&gt;&lt;img src=&quot;/image/index1.png&quot; alt=&quot;index1&quot;&gt;&lt;br&gt;索引表与数据表一对一，索引表的关
-    
-    </summary>
-    
-    
-      <category term="js" scheme="http://yoohannah.github.io/tags/js/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>查找</title>
-    <link href="http://yoohannah.github.io/post/algorithm/search.html"/>
-    <id>http://yoohannah.github.io/post/algorithm/search.html</id>
-    <published>2017-04-02T11:24:37.000Z</published>
-    <updated>2017-04-03T08:10:05.111Z</updated>
-    
-    <content type="html"><![CDATA[<p>静态查找: 数据集合稳定，不需要添加，删除元素的查找操作<br>– 组织数据宜用线性表结构<br>– 如果要对关键字排序，折半查找算法或斐波那契查找算法<br>动态查找：数据集合在查找过程中需要同时添加或删除元素的查找操作<br>– 二叉排序树，散列表结构</p>
-<h1 id="顺序查找"><a href="#顺序查找" class="headerlink" title="顺序查找"></a>顺序查找</h1><p>顺序查找/线性查找:从第一个(或者最后一个)记录开始，逐个进行记录的关键字和给定值进行比较，若某个记录的关键字和给定值相等，则查找成功。<br>—如果查找了所有的记录仍然找不到与给定值相等的关键字，则查找不成功<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//方式一</span></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">search</span>(<span class="params">array,key</span>)</span>&#123;</div><div class="line">	<span class="keyword">var</span> i;</div><div class="line">	<span class="keyword">for</span>(<span class="keyword">var</span> i = <span class="number">0</span>;i&lt;= array.length;i++)&#123;</div><div class="line">		<span class="keyword">if</span>(a[i] == key)&#123;</div><div class="line">			<span class="keyword">return</span> i;</div><div class="line">		&#125;</div><div class="line">  &#125;</div><div class="line">  <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">&#125;</div><div class="line"><span class="comment">//方式二</span></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">search</span>(<span class="params">array,key</span>)</span>&#123;</div><div class="line">	<span class="keyword">var</span> i= array.length;</div><div class="line">	a[<span class="number">0</span>] = key;</div><div class="line">	<span class="keyword">while</span>(a[i] != key)&#123;</div><div class="line">	  i--</div><div class="line">  &#125;</div><div class="line">  <span class="keyword">return</span> i;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<h1 id="插值查找-按比例查找"><a href="#插值查找-按比例查找" class="headerlink" title="插值查找(按比例查找)"></a>插值查找(按比例查找)</h1><p>查找方法类似于折半查找，只不过mid的值不再取low和high的中间值，<br>而是根据查找值在low和hight中间的大概位置确定mid<br>var mid = low +(high-low)*(num-list[low])/(list[high]-list[low]);<br>因此插值查找适用于有一定顺序规律的数组<br><a href="https://github.com/YooHannah/algorithm/blob/master/js/Interpolationsearch.js" target="_blank" rel="external">代码链接</a></p>
-<h1 id="斐波那契查找-黄金查找"><a href="#斐波那契查找-黄金查找" class="headerlink" title="斐波那契查找(黄金查找)"></a>斐波那契查找(黄金查找)</h1><p>同样适用于有一定顺序规律的数组<br>在折半查找的基础上根据斐波那契数列进行分割。<br>在斐波那契数列找一个等于略大于查找表中元素个数的数F[k]，<br>将原查找表扩展为长度为F[k]-1(如果要补充元素，则补充重复最后一个元素，直到满足F[k]-1个元素)<br>进行斐波那契分割，即F[k]-1个元素分割为前半部分F[k-1]-1个元素，后半部分F[n-2]-1个元素，剩一个做mid<br>找出要查找的元素在那一部分并递归，直到找到。<br><img src="/image/fiobsearch.png" alt="fiobsearch"><br><a href="https://github.com/YooHannah/algorithm/blob/master/js/FibonacciSearch.js" target="_blank" rel="external">代码链接</a></p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;静态查找: 数据集合稳定，不需要添加，删除元素的查找操作&lt;br&gt;– 组织数据宜用线性表结构&lt;br&gt;– 如果要对关键字排序，折半查找算法或斐波那契查找算法&lt;br&gt;动态查找：数据集合在查找过程中需要同时添加或删除元素的查找操作&lt;br&gt;– 二叉排序树，散列表结构&lt;/p&gt;
-&lt;h1 
     
     </summary>
     
