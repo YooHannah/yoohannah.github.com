@@ -68,7 +68,7 @@
 <link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="angular," />
+  <meta name="keywords" content="js," />
 
 
 
@@ -86,16 +86,20 @@
 
 
 
-<meta name="description" content="ng-class命令可用于绑定不同的样式使用方法即先在js中,定义样式集合$scope.STATUS_NAME = [  {‘labelClass’: ‘label1’},  {‘labelClass’: ‘label2’},  {‘labelClass’: ‘label3’},  {‘labelClass’: ‘label4’} ]; 对绑定对象赋值 angular.forEach($scope">
+<meta name="description" content="Travish CI使用1、使用github 账号登陆https://www.travis-ci.org/2、点击右上角自己的账户名，选择accounts,弹出在github上所有的仓库点击这个按钮重新从github上获取所有仓库3、点击对应仓库按钮，变为对勾，则开启对应仓库的集成化测试,每次提交代码到远程仓库都进行一次测试4、点击仓库名,可进入到测试界面，5、为项目添加.travis.yml文件">
 <meta property="og:type" content="article">
-<meta property="og:title" content="angular样式绑定ng-class">
-<meta property="og:url" content="http://yoohannah.github.io/post/knowledge/ng-class.html">
+<meta property="og:title" content="Travish CI使用">
+<meta property="og:url" content="http://yoohannah.github.io/post/knowledge/TravishCI.html">
 <meta property="og:site_name" content="My Little World">
-<meta property="og:description" content="ng-class命令可用于绑定不同的样式使用方法即先在js中,定义样式集合$scope.STATUS_NAME = [  {‘labelClass’: ‘label1’},  {‘labelClass’: ‘label2’},  {‘labelClass’: ‘label3’},  {‘labelClass’: ‘label4’} ]; 对绑定对象赋值 angular.forEach($scope">
-<meta property="og:updated_time" content="2017-07-30T07:06:49.429Z">
+<meta property="og:description" content="Travish CI使用1、使用github 账号登陆https://www.travis-ci.org/2、点击右上角自己的账户名，选择accounts,弹出在github上所有的仓库点击这个按钮重新从github上获取所有仓库3、点击对应仓库按钮，变为对勾，则开启对应仓库的集成化测试,每次提交代码到远程仓库都进行一次测试4、点击仓库名,可进入到测试界面，5、为项目添加.travis.yml文件">
+<meta property="og:image" content="http://yoohannah.github.io/image/ci1.png">
+<meta property="og:image" content="http://yoohannah.github.io/image/ci2.png">
+<meta property="og:image" content="http://yoohannah.github.io/image/ci3.png">
+<meta property="og:updated_time" content="2017-08-07T22:00:13.454Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="angular样式绑定ng-class">
-<meta name="twitter:description" content="ng-class命令可用于绑定不同的样式使用方法即先在js中,定义样式集合$scope.STATUS_NAME = [  {‘labelClass’: ‘label1’},  {‘labelClass’: ‘label2’},  {‘labelClass’: ‘label3’},  {‘labelClass’: ‘label4’} ]; 对绑定对象赋值 angular.forEach($scope">
+<meta name="twitter:title" content="Travish CI使用">
+<meta name="twitter:description" content="Travish CI使用1、使用github 账号登陆https://www.travis-ci.org/2、点击右上角自己的账户名，选择accounts,弹出在github上所有的仓库点击这个按钮重新从github上获取所有仓库3、点击对应仓库按钮，变为对勾，则开启对应仓库的集成化测试,每次提交代码到远程仓库都进行一次测试4、点击仓库名,可进入到测试界面，5、为项目添加.travis.yml文件">
+<meta name="twitter:image" content="http://yoohannah.github.io/image/ci1.png">
 
 
 
@@ -123,13 +127,13 @@
 
 
 
-  <link rel="canonical" href="http://yoohannah.github.io/post/knowledge/ng-class.html"/>
+  <link rel="canonical" href="http://yoohannah.github.io/post/knowledge/TravishCI.html"/>
 
 
 
 
 
-  <title> angular样式绑定ng-class | My Little World </title>
+  <title> Travish CI使用 | My Little World </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -260,7 +264,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="http://yoohannah.github.io/post/knowledge/ng-class.html">
+  <link itemprop="mainEntityOfPage" href="http://yoohannah.github.io/post/knowledge/TravishCI.html">
 
   <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
     <meta itemprop="name" content="YooHannah">
@@ -284,7 +288,7 @@
             
             
               
-                angular样式绑定ng-class
+                Travish CI使用
               
             
           </h1>
@@ -297,8 +301,8 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-06-25T22:00:37+08:00">
-                2017-06-25
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-08-08T05:59:37+08:00">
+                2017-08-08
               </time>
             
 
@@ -333,8 +337,9 @@
       
 
       
-        <p>ng-class命令可用于绑定不同的样式<br>使用方法即先在js中,定义样式集合<br>$scope.STATUS_NAME = [<br>  {‘labelClass’: ‘label1’},<br>  {‘labelClass’: ‘label2’},<br>  {‘labelClass’: ‘label3’},<br>  {‘labelClass’: ‘label4’}<br> ];<br> 对绑定对象赋值<br> angular.forEach($scope.data, function(data){<br>     //对数组中每一项，根据status属性赋给labelclass属性样式集合中的值<br>   data.labelClass = $scope.STATUS_NAME[data.status].labelClass;<br> });<br>在html中定义不同的样式<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">&lt;style type=&quot;text/css&quot;&gt;</div><div class="line">	.label1&#123;</div><div class="line">    background-color:#87CEFA</div><div class="line">  &#125;</div><div class="line">  .label2&#123;</div><div class="line">    background-color:#90EE90</div><div class="line">  &#125;</div><div class="line">  .label3&#123;</div><div class="line">    background-color:#d2cd93</div><div class="line">  &#125;</div><div class="line">  .label4&#123;</div><div class="line">    background-color:#D3D3D3</div><div class="line">  &#125;</div><div class="line">&lt;/style&gt;</div></pre></td></tr></table></figure></p>
-<p> 在html中使用<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&lt;tr role=&quot;row&quot; ng-repeat=&quot;item in data track by $index&quot;&gt;</div><div class="line">	&lt;td&gt;&lt;span class=&quot;label&quot; ng-class=&quot;item.labelClass&quot;&gt;&#123;&#123;item.status_desc&#125;&#125;&lt;/span&gt;&lt;/td&gt;</div><div class="line">&lt;/tr&gt;</div></pre></td></tr></table></figure></p>
+        <h1 id="Travish-CI使用"><a href="#Travish-CI使用" class="headerlink" title="Travish CI使用"></a>Travish CI使用</h1><p>1、使用github 账号登陆<a href="https://www.travis-ci.org/" target="_blank" rel="external">https://www.travis-ci.org/</a><br>2、点击右上角自己的账户名，选择accounts,弹出在github上所有的仓库<br><img src="/image/ci1.png" alt="ci1.png"><br>点击这个按钮重新从github上获取所有仓库<br><img src="/image/ci2.png" alt="ci2.png"><br>3、点击对应仓库按钮，变为对勾，则开启对应仓库的集成化测试,每次提交代码到远程仓库都进行一次测试<br>4、点击仓库名,可进入到测试界面，<br><img src="/image/ci3.png" alt="ci3.png"><br>5、为项目添加.travis.yml文件<br>.travis.yml 文件编写的相关语法可参考<a href="https://docs.travis-ci.com/user/languages/javascript-with-nodejs/" target="_blank" rel="external">https://docs.travis-ci.com/user/languages/javascript-with-nodejs/</a></p>
+<p>.travis.yml 文件可以在<a href="https://lint.travis-ci.org/" target="_blank" rel="external">https://lint.travis-ci.org/</a>页面进行检查，是否编写正确</p>
+<p>6、push代码,在Travish CI等待测试结果<br>页面图标因为有缓存所以可能出现不能及时更换状态的情况,这个注意看结果就好</p>
 
       
     </div>
@@ -358,7 +363,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/angular/" rel="tag"># angular</a>
+            <a href="/tags/js/" rel="tag"># js</a>
           
         </div>
       
@@ -367,8 +372,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/post/php/CookieAndSession.html" rel="next" title="cookie和session">
-                <i class="fa fa-chevron-left"></i> cookie和session
+              <a href="/post/knowledge/fork.html" rel="next" title="fork仓库">
+                <i class="fa fa-chevron-left"></i> fork仓库
               </a>
             
           </div>
@@ -376,10 +381,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/post/knowledge/JQuery_data.html" rel="prev" title="探究jQuery.data">
-                探究jQuery.data <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -426,8 +427,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/psb.jpg"
@@ -487,6 +497,22 @@
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Travish-CI使用"><span class="nav-number">1.</span> <span class="nav-text">Travish CI使用</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
     </div>
