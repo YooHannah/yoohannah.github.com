@@ -68,7 +68,7 @@
 <link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="js," />
 
 
 
@@ -86,16 +86,19 @@
 
 
 
-<meta name="description" content="input 限制了仅输入数字，但更换中文输入法之后还能输入出数字之外字符解决办法12345678910111213141516171819html:  &amp;lt;input type=&amp;quot;text&amp;quot;   class=&amp;quot;form-control form-filter&amp;quot; id=&amp;quot;inputorp_i&amp;quot; autocomplete=&amp;quot;of">
+<meta name="description" content="一个变量的生成需要经历 创建、初始化、赋值三个阶段let 的「创建」过程被提升了，但是初始化没有提升。var 的「创建」和「初始化」都被提升了。function 的「创建」「初始化」和「赋值」都被提升了。const，其实 const 和 let 只有一个区别，那就是 const 只有「创建」和「初始化」，没有「赋值」过程。let1、假设有如下代码：
+function fn(){  var x =">
 <meta property="og:type" content="article">
-<meta property="og:title" content="My Little World">
-<meta property="og:url" content="http://yoohannah.github.io/post/knowledge/inputnumber.html">
+<meta property="og:title" content="变量提升">
+<meta property="og:url" content="http://yoohannah.github.io/post/knowledge/var.html">
 <meta property="og:site_name" content="My Little World">
-<meta property="og:description" content="input 限制了仅输入数字，但更换中文输入法之后还能输入出数字之外字符解决办法12345678910111213141516171819html:  &amp;lt;input type=&amp;quot;text&amp;quot;   class=&amp;quot;form-control form-filter&amp;quot; id=&amp;quot;inputorp_i&amp;quot; autocomplete=&amp;quot;of">
-<meta property="og:updated_time" content="2017-08-04T10:01:36.000Z">
+<meta property="og:description" content="一个变量的生成需要经历 创建、初始化、赋值三个阶段let 的「创建」过程被提升了，但是初始化没有提升。var 的「创建」和「初始化」都被提升了。function 的「创建」「初始化」和「赋值」都被提升了。const，其实 const 和 let 只有一个区别，那就是 const 只有「创建」和「初始化」，没有「赋值」过程。let1、假设有如下代码：
+function fn(){  var x =">
+<meta property="og:updated_time" content="2017-08-09T14:16:06.895Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="My Little World">
-<meta name="twitter:description" content="input 限制了仅输入数字，但更换中文输入法之后还能输入出数字之外字符解决办法12345678910111213141516171819html:  &amp;lt;input type=&amp;quot;text&amp;quot;   class=&amp;quot;form-control form-filter&amp;quot; id=&amp;quot;inputorp_i&amp;quot; autocomplete=&amp;quot;of">
+<meta name="twitter:title" content="变量提升">
+<meta name="twitter:description" content="一个变量的生成需要经历 创建、初始化、赋值三个阶段let 的「创建」过程被提升了，但是初始化没有提升。var 的「创建」和「初始化」都被提升了。function 的「创建」「初始化」和「赋值」都被提升了。const，其实 const 和 let 只有一个区别，那就是 const 只有「创建」和「初始化」，没有「赋值」过程。let1、假设有如下代码：
+function fn(){  var x =">
 
 
 
@@ -123,13 +126,13 @@
 
 
 
-  <link rel="canonical" href="http://yoohannah.github.io/post/knowledge/inputnumber.html"/>
+  <link rel="canonical" href="http://yoohannah.github.io/post/knowledge/var.html"/>
 
 
 
 
 
-  <title>  | My Little World </title>
+  <title> 变量提升 | My Little World </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -260,7 +263,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="http://yoohannah.github.io/post/knowledge/inputnumber.html">
+  <link itemprop="mainEntityOfPage" href="http://yoohannah.github.io/post/knowledge/var.html">
 
   <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
     <meta itemprop="name" content="YooHannah">
@@ -284,7 +287,7 @@
             
             
               
-                
+                变量提升
               
             
           </h1>
@@ -297,8 +300,8 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-08-05T13:53:24+08:00">
-                2017-08-05
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-08-09T22:02:37+08:00">
+                2017-08-09
               </time>
             
 
@@ -333,8 +336,17 @@
       
 
       
-        <h1 id="input-限制了仅输入数字，但更换中文输入法之后还能输入出数字之外字符"><a href="#input-限制了仅输入数字，但更换中文输入法之后还能输入出数字之外字符" class="headerlink" title="input 限制了仅输入数字，但更换中文输入法之后还能输入出数字之外字符"></a>input 限制了仅输入数字，但更换中文输入法之后还能输入出数字之外字符</h1><p>解决办法<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">html:</div><div class="line">  &lt;input type=&quot;text&quot;   class=&quot;form-control form-filter&quot; id=&quot;inputorp_i&quot; autocomplete=&quot;off&quot; ng-model=&quot;min_score&quot; placeholder=&quot;正整数&quot;&gt;</div><div class="line">  js:</div><div class="line"> var bind_name = &apos;input&apos;;</div><div class="line"> 　　 if (navigator.userAgent.indexOf(&quot;MSIE&quot;) != -1)&#123;</div><div class="line"> 　　 bind_name = &apos;propertychange&apos;;</div><div class="line"> 　　&#125;</div><div class="line"> 　　 $(&apos;#inputorp_i&apos;).bind(bind_name, function()&#123;</div><div class="line"> 　　clearNoNum(this);</div><div class="line"> 　　 &#125;)</div><div class="line"> $(&apos;#inputorp_i1&apos;).bind(bind_name, function()&#123;</div><div class="line"> 　　clearNoNum(this);</div><div class="line"> 　　 &#125;)</div><div class="line"> function clearNoNum(obj)</div><div class="line"></div><div class="line"> &#123;</div><div class="line"> //先把非数字的都替换掉，除了数字</div><div class="line"> obj.value = obj.value.replace(/[^\d]/g,&quot;&quot;);</div><div class="line"> &#125;</div></pre></td></tr></table></figure></p>
-<p> js判断浏览器类型<br>  var sUserAgent = navigator.userAgent;<br>  var isWin7 = sUserAgent.indexOf(“Windows NT 6.1”) &gt; -1 || sUserAgent.indexOf(“Windows 7”) &gt; -1;</p>
+        <p>一个变量的生成需要经历 创建、初始化、赋值三个阶段<br>let 的「创建」过程被提升了，但是初始化没有提升。<br>var 的「创建」和「初始化」都被提升了。<br>function 的「创建」「初始化」和「赋值」都被提升了。<br>const，其实 const 和 let 只有一个区别，那就是 const 只有「创建」和「初始化」，没有「赋值」过程。<br><a href="https://zhuanlan.zhihu.com/p/28140450" target="_blank" rel="external">let</a><br>1、<br>假设有如下代码：</p>
+<p>function fn(){<br>  var x = 1<br>  var y = 2<br>}<br>fn()</p>
+<p>在执行 fn 时，会有以下过程（不完全）：</p>
+<p>进入 fn，为 fn 创建一个环境。<br>找到 fn 中所有用 var 声明的变量，在这个环境中「创建」这些变量（即 x 和 y）。<br>将这些变量「初始化」为 undefined。<br>开始执行代码<br>x = 1 将 x 变量「赋值」为 1<br>y = 2 将 y 变量「赋值」为 2<br>也就是说 var 声明会在代码执行之前就将「创建变量，并将其初始化为 undefined」。</p>
+<p>这就解释了为什么在 var x = 1 之前 console.log(x) 会得到 undefined。</p>
+<p>2、<br>fn2()</p>
+<p>function fn2(){<br>  console.log(2)<br>}<br>JS 引擎会有一下过程：</p>
+<p>找到所有用 function 声明的变量，在环境中「创建」这些变量。<br>将这些变量「初始化」并「赋值」为 function(){ console.log(2) }。<br>开始执行代码 fn2()<br>也就是说 function 声明会在代码执行之前就「创建、初始化并赋值」<br>3、<br>{<br>  let x = 1<br>  x = 2<br>}<br>只看 {} 里面的过程：</p>
+<p>找到所有用 let 声明的变量，在环境中「创建」这些变量<br>开始执行代码（注意现在还没有初始化）<br>执行 x = 1，将 x 「初始化」为 1（这并不是一次赋值，如果代码是 let x，就将 x 初始化为 undefined）<br>执行 x = 2，对 x 进行「赋值」<br>这就解释了为什么在 let x 之前使用 x 会报错：</p>
+<p>let x = ‘global’<br>{<br>  console.log(x) // Uncaught ReferenceError: x is not defined<br>  let x = 1<br>}<br>原因有两个</p>
+<p>console.log(x) 中的 x 指的是下面的 x，而不是全局的 x<br>执行 log 时 x 还没「初始化」，所以不能使用（也就是所谓的暂时死区）</p>
 
       
     </div>
@@ -356,13 +368,19 @@
 
     <footer class="post-footer">
       
+        <div class="post-tags">
+          
+            <a href="/tags/js/" rel="tag"># js</a>
+          
+        </div>
+      
 
       
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/post/knowledge/Performance.html" rel="next" title="关于Performance API">
-                <i class="fa fa-chevron-left"></i> 关于Performance API
+              <a href="/post/knowledge/aboutthis.html" rel="next" title="关于this">
+                <i class="fa fa-chevron-left"></i> 关于this
               </a>
             
           </div>
@@ -370,10 +388,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/post/knowledge/eventPopCatch.html" rel="prev" title="事件冒泡和事件捕获">
-                事件冒泡和事件捕获 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -420,17 +434,8 @@
       
 
       
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
-            文章目录
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview">
-            站点概览
-          </li>
-        </ul>
-      
 
-      <section class="site-overview sidebar-panel">
+      <section class="site-overview sidebar-panel sidebar-panel-active">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/psb.jpg"
@@ -441,7 +446,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">94</span>
+              <span class="site-state-item-count">95</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -490,22 +495,6 @@
 
       </section>
 
-      
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#input-限制了仅输入数字，但更换中文输入法之后还能输入出数字之外字符"><span class="nav-number">1.</span> <span class="nav-text">input 限制了仅输入数字，但更换中文输入法之后还能输入出数字之外字符</span></a></li></ol></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
       
 
     </div>
