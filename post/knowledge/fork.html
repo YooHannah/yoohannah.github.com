@@ -92,7 +92,7 @@
 <meta property="og:url" content="http://yoohannah.github.io/post/knowledge/fork.html">
 <meta property="og:site_name" content="My Little World">
 <meta property="og:description" content="fork在页面点击Fork,将被人的仓库复制到自己的远程仓库使用git clone 将远程仓库克隆到本地切换分支到develop git checkout -b develop修改完代码后git add . &amp;amp;&amp;amp; git commit -m ‘test new pull request’git push origin develop然后在github页面找到刚刚fork的仓库,切换">
-<meta property="og:updated_time" content="2017-08-07T21:59:40.736Z">
+<meta property="og:updated_time" content="2017-08-19T02:03:14.573Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="fork仓库">
 <meta name="twitter:description" content="fork在页面点击Fork,将被人的仓库复制到自己的远程仓库使用git clone 将远程仓库克隆到本地切换分支到develop git checkout -b develop修改完代码后git add . &amp;amp;&amp;amp; git commit -m ‘test new pull request’git push origin develop然后在github页面找到刚刚fork的仓库,切换">
@@ -334,6 +334,13 @@
 
       
         <h1 id="fork"><a href="#fork" class="headerlink" title="fork"></a>fork</h1><p>在页面点击Fork,将被人的仓库复制到自己的远程仓库<br>使用git clone 将远程仓库克隆到本地<br>切换分支到develop git checkout -b develop<br>修改完代码后<br>git add . &amp;&amp; git commit -m ‘test new pull request’<br>git push origin develop<br>然后在github页面找到刚刚fork的仓库,切换branch到develop,<br>点击New pull request进行merge</p>
+<h1 id="保持与原仓库同步"><a href="#保持与原仓库同步" class="headerlink" title="保持与原仓库同步"></a>保持与原仓库同步</h1><p>git remote -v<br>查看当前的远程仓库地址，输出如下：</p>
+<p>origin  <a href="https://github.com/YooHannah/homework2.git" target="_blank" rel="external">https://github.com/YooHannah/homework2.git</a> (fetch)<br>origin  <a href="https://github.com/YooHannah/homework2.git" target="_blank" rel="external">https://github.com/YooHannah/homework2.git</a> (push)<br>可以看到从自己帐号 clone 下来的仓库，远程仓库地址是与自己的远程仓库绑定的（这不是废话吗）</p>
+<p>接下来运行</p>
+<p>git remote add upstream <a href="https://github.com/FE-star/homework2.git" target="_blank" rel="external">https://github.com/FE-star/homework2.git</a><br>这条命令就算添加一个别名为 upstream（上游）的地址，指向之前 fork 的原仓库地址。git remote -v 输出如下：</p>
+<p>origin  <a href="https://github.com/YooHannah/homework2.git" target="_blank" rel="external">https://github.com/YooHannah/homework2.git</a> (fetch)<br>origin  <a href="https://github.com/YooHannah/homework2.git" target="_blank" rel="external">https://github.com/YooHannah/homework2.git</a> (push)<br>upstream        <a href="https://github.com/FE-star/homework2.git" target="_blank" rel="external">https://github.com/FE-star/homework2.git</a> (fetch)<br>upstream        <a href="https://github.com/FE-star/homework2.git" target="_blank" rel="external">https://github.com/FE-star/homework2.git</a> (push)<br>之后运行下面几条命令，就可以保持本地仓库和上游仓库同步了</p>
+<p>git fetch upstream<br>git checkout master 如果本来就在master上就不用切换<br>git merge upstream/master<br>接着就是熟悉的推送本地仓库到远程仓库</p>
+<p>git push origin master</p>
 
       
     </div>
@@ -446,7 +453,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">97</span>
+              <span class="site-state-item-count">98</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -505,7 +512,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#fork"><span class="nav-number">1.</span> <span class="nav-text">fork</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#fork"><span class="nav-number">1.</span> <span class="nav-text">fork</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#保持与原仓库同步"><span class="nav-number">2.</span> <span class="nav-text">保持与原仓库同步</span></a></li></ol></div>
             
 
           </div>

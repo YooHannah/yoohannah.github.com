@@ -258,6 +258,126 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://yoohannah.github.io/post/knowledge/layouts.html">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="YooHannah">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="/psb.jpg">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="My Little World">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="My Little World" src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/post/knowledge/layouts.html" itemprop="url">
+                  常见页面布局小结
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-08-03T06:30:02+08:00">
+                2017-08-03
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="圣杯布局"><a href="#圣杯布局" class="headerlink" title="圣杯布局"></a>圣杯布局</h1><p>三栏布局,左右两栏宽度固定,中间一栏宽度随屏幕宽度自适应<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div></pre></td><td class="code"><pre><div class="line">&lt;body&gt;</div><div class="line">&lt;div id=&quot;header&quot;&gt;#header&lt;/div&gt;</div><div class="line">&lt;div id=&quot;container&quot;&gt;</div><div class="line">  &lt;div id=&quot;center&quot; class=&quot;column&quot;&gt;#center&lt;/div&gt;</div><div class="line">  &lt;div id=&quot;left&quot; class=&quot;column&quot;&gt;#left&lt;/div&gt;</div><div class="line">  &lt;div id=&quot;right&quot; class=&quot;column&quot;&gt;#right&lt;/div&gt;</div><div class="line">&lt;/div&gt;</div><div class="line">&lt;div id=&quot;footer&quot;&gt;#footer&lt;/div&gt;</div><div class="line">&lt;/body&gt;</div><div class="line"></div><div class="line">&lt;style type=&quot;text/css&quot;&gt;</div><div class="line">  body &#123;</div><div class="line">  min-width: 550px;      /* 2x LC width + RC width */</div><div class="line">&#125;</div><div class="line">#container &#123;</div><div class="line">  padding-left: 200px;   /* LC width */</div><div class="line">  padding-right: 150px;  /* RC width */</div><div class="line">&#125;</div><div class="line">#container .column &#123;</div><div class="line">  min-height: 200px;/* 高度自适应*/</div><div class="line">  position: relative;/* 让左右两栏进行相对位移，位移到container的内边距位置 */</div><div class="line">  float: left;</div><div class="line">&#125;</div><div class="line">#center &#123;</div><div class="line">  background-color: #e9e9e9;</div><div class="line">  width: 100%;</div><div class="line">&#125;</div><div class="line">#left &#123;</div><div class="line">  background-color: red;</div><div class="line">  width: 200px;          /* LC width */</div><div class="line">  right: 200px;           /*LC width *//*相对于 container 的右边线向左偏移 200px 将自己位移到container内边距 */</div><div class="line">  margin-left: -100%;/*浮动到与中间平行 */</div><div class="line">&#125;</div><div class="line">#right &#123;</div><div class="line">  background-color: blue;</div><div class="line">  width: 150px;          /* RC width */</div><div class="line">  margin-right: -150px;  /* RC width */</div><div class="line">&#125;</div><div class="line">#footer &#123;</div><div class="line">  clear: both;/*清除 footer 的上下环境，以免遭跟上面三栏一起浮动*/</div><div class="line">&#125;</div><div class="line">#header, </div><div class="line">#footer &#123;</div><div class="line">  background-color: #c9c9c9;</div><div class="line">&#125;</div><div class="line">&lt;/style&gt;</div></pre></td></tr></table></figure></p>
+<p><img src="/image/holy1.png" alt="圣杯1"><br><img src="/image/holy2.png" alt="圣杯2"></p>
+<h1 id="双飞翼布局"><a href="#双飞翼布局" class="headerlink" title="双飞翼布局"></a>双飞翼布局</h1><p>效果同圣杯布局，只是写法上DOM在center里面新增加了div,css不再使用relative定位，只是用float和外边距<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div></pre></td><td class="code"><pre><div class="line">&lt;div id=&quot;header&quot;&gt;header&lt;/div&gt;</div><div class="line">&lt;div id=&quot;container&quot;&gt;</div><div class="line">  &lt;div id=&quot;center&quot; class=&quot;column&quot;&gt;</div><div class="line">    &lt;div id=&quot;innerCenter&quot;&gt;center&lt;/div&gt;</div><div class="line">  &lt;/div&gt;</div><div class="line">  &lt;div id=&quot;left&quot; class=&quot;column&quot;&gt;left&lt;/div&gt;</div><div class="line">  &lt;div id=&quot;right&quot; class=&quot;column&quot;&gt;right&lt;/div&gt;</div><div class="line">&lt;/div&gt;</div><div class="line">&lt;div id=&quot;footer&quot;&gt;footer&lt;/div&gt;</div><div class="line"></div><div class="line">&lt;style type=&quot;text/css&quot;&gt;</div><div class="line">  body &#123;</div><div class="line">    min-width: 351px; /* LC width + RC width +1*/</div><div class="line">  &#125;</div><div class="line">  #container .column &#123;</div><div class="line">    min-height: 200px;</div><div class="line">    float: left;</div><div class="line">  &#125;</div><div class="line">  #center &#123;</div><div class="line">    background-color: #e9e9e9;</div><div class="line">    width: 100%;</div><div class="line">  &#125;</div><div class="line">  #left &#123;</div><div class="line">    background-color: red;</div><div class="line">    width: 200px;</div><div class="line">    margin-left: -100%;</div><div class="line">  &#125;</div><div class="line">  #right &#123;</div><div class="line">    background-color: blue;</div><div class="line">    width: 150px;</div><div class="line">    margin-left: -150px;</div><div class="line">  &#125;</div><div class="line">  #footer &#123;</div><div class="line">    clear: both;</div><div class="line">  &#125;</div><div class="line">  #header, #footer &#123;</div><div class="line">    background-color: #c9c9c9;</div><div class="line">  &#125;</div><div class="line">  #innerCenter &#123; /*代替圣杯container的padding处理*/</div><div class="line">    margin-left: 200px;</div><div class="line">    margin-right: 150px;</div><div class="line">  &#125;</div><div class="line">&lt;/style&gt;</div></pre></td></tr></table></figure></p>
+<p><img src="/image/holy3.png" alt="圣杯3"><br><img src="/image/holy4.png" alt="圣杯4"></p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
   <link itemprop="mainEntityOfPage" href="http://yoohannah.github.io/post/knowledge/qrcode.html">
 
   <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1407,152 +1527,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="http://yoohannah.github.io/post/php/php_file.html">
-
-  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
-    <meta itemprop="name" content="YooHannah">
-    <meta itemprop="description" content="">
-    <meta itemprop="image" content="/psb.jpg">
-  </span>
-
-  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-    <meta itemprop="name" content="My Little World">
-    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
-      <img style="display:none;" itemprop="url image" alt="My Little World" src="">
-    </span>
-  </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/post/php/php_file.html" itemprop="url">
-                  文件
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-05-01T08:40:37+08:00">
-                2017-05-01
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="读"><a href="#读" class="headerlink" title="读"></a>读</h1><p>readfile 传入一个文件路径，输出一个文件<br>int readfile ( string $文件名)</p>
-<p>file_get_contents 传入一个文件或文件路径，打开这个文件返回文件的内容。文件的内容是一个字符串。<br>string file_get_contents ( string filename)</p>
-<p>资源类型处理方式<br>fopen函数，打开资源，参数为文件打开路径，打开文件模式，返回资源类型<br>resource fopen ( string $文件名, string 模式)</p>
-<p>fread函数 读取打开的文件资源。读取指定长度的文件资源，读取一部份向后移动一部份。至到文件结尾。<br>string fread ( resource $操作资源, int 读取长度)</p>
-<p>fclose函数的功能是关闭资源。资源有打开就有关闭<br>bool fclose ( resource $操作资源 )</p>
-<p>fopen的模式<br>模式    说明<br>r    只读方式打开，将文件指针指向文件头。<br>r+    读写方式打开，将文件指针指向文件头。<br>w    写入方式打开，将文件指针指向文件头并将文件大小截为零。如果文件不存在则尝试创建<br>w+    读写方式打开，将文件指针指向文件头并将文件大小截为零。如果文件不存在则尝试创建<br>a    写入方式打开，将文件指针指向文件末尾。如果文件不存在则尝试创建<br>a+    读写方式打开，将文件指针指向文件末尾。如果文件不存在则尝试创建之<br>x    创建并以写入方式打开，将文件指针指向文件头。如果文件已存在，则 fopen() 调用失败并返回 FALSE，并生成一条 E_WARNING 级别的错误信息。如果文件不存在则尝试创建<br>x+<br>创建并以读写方式打开，将文件指针指向文件头。如果文件已存在，则 fopen() 调用失败并返回 FALSE，并生成一条 E_WARNING 级别的错误信息。如果文件不存在则尝试创建<br>t    windows下将\n转为\r\n<br>b    二进制打开模式</p>
-<h1 id="创建和修改"><a href="#创建和修改" class="headerlink" title="创建和修改"></a>创建和修改</h1><p>file_put_contents 向指定的文件当中写入一个字符串，如果文件不存在则创建文件。返回的是写入的字节长度<br>int file_put_contents ( string $文件路径, string $写入数据])</p>
-<p> fwrite 配合fopen进行写入操作，写入方式打开，将文件指针指向文件头并将文件大小截为零。如果文件不存在则尝试创建<br> int fwrite ( resource $文件资源变量, string $写入的字符串 [, int 长度])<br> 1.不论有没有新建都会打开文件重新写入<br> 2.原有的文件内容会被覆盖掉<br> 3.文件不存在会创建<br> 模式<br> x    每次写入会干掉原有文件的内容，文件不存在都会创建<br> a    每次写入都会向文件的尾端追加内容</p>
-<p>  tmpfile  创建一个临时文件，返回资源类型。关闭文件即被删除<br>  resource tmpfile ( )</p>
-<p>  rename 重命名文件 返回一个bool值，将旧的名字改为新的名字<br>  bool rename($旧名,$新名);</p>
-<p>  copy 复制文件 将指定路径的源文件，复制一份到目标文件的位置。<br>  bool copy(源文件,目标文件)</p>
-<p>  unlink 删除文件 这个删除是直接删除。使用的是windows电脑，在回收站看不到这个文件<br>  bool unlink(指定路径的文件)</p>
-<h1 id="检测文件属性函数"><a href="#检测文件属性函数" class="headerlink" title="检测文件属性函数"></a>检测文件属性函数</h1><pre><code>bool file_exists ( $指定文件名或者文件路径) 功能：文件是否存在。
-bool is_readable ( $指定文件名或者文件路径) 功能：文件是否可读
-bool is_writeable ( $指定文件名或者文件路径) 功能：文件是否可写
-bool is_executable ( $指定文件名或者文件路径) 功能：文件是否可执行
-bool is_file ( $指定文件名或者文件路径) 功能：是否是文件
-bool is_dir ( $指定文件名或者文件路径) 功能：是否是目录
-void clearstatcache ( void ) 功能：清楚文件的状态缓存
-</code></pre><h1 id="常用函数"><a href="#常用函数" class="headerlink" title="常用函数"></a>常用函数</h1><p>rewind ( resource handle) 指针回到开始处<br>fseek ( resource handle, int offset [, int from_where]) 文件指针向后移动指定字符<br>filesize 检测文件的大小<br>file(文件名)    把整个文件读入一个数组中<br>fgets(文件名)    从文件指针中读取一行,读到最后返回false<br>fgetc(文件名)    从文件指针中读取一个字符，读到最后返回false<br>ftruncate(文件名，长度)    将文件截断到给定的长度<br>filectime(文件名)    文件创建时间<br>filemtime(文件名)    文件修改时间<br>fileatime(文件名)    文件上次访问时间</p>
-<h1 id="文件锁定"><a href="#文件锁定" class="headerlink" title="文件锁定"></a>文件锁定</h1><p>bool flock ( resource $handle , int $operation) 轻便的咨询文件锁定<br>锁类型    说明<br>LOCK_SH    取得共享锁定（读取的程序）<br>LOCK_EX    取得独占锁定（写入的程序<br>LOCK_UN    释放锁定（无论共享或独占）<br>例<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">&lt;?php</div><div class="line"></div><div class="line">$fp = fopen(&quot;demo.txt&quot;, &quot;r+&quot;);</div><div class="line"></div><div class="line">// 进行排它型锁定</div><div class="line">if (flock($fp, LOCK_EX)) &#123; </div><div class="line"></div><div class="line">   fwrite($fp, &quot;文件这个时候被我独占了哟\n&quot;);</div><div class="line"></div><div class="line">  // 释放锁定</div><div class="line">   flock($fp, LOCK_UN);    </div><div class="line">&#125; else &#123;</div><div class="line">   echo &quot;锁失败，可能有人在操作，这个时候不能将文件上锁&quot;;</div><div class="line">&#125;</div><div class="line"></div><div class="line">fclose($fp);</div><div class="line"></div><div class="line">?&gt;</div></pre></td></tr></table></figure></p>
-<h1 id="处理文件夹"><a href="#处理文件夹" class="headerlink" title="处理文件夹"></a>处理文件夹</h1><p>处理文件夹的基本思想如下：<br>1.读取某个路径的时候判断是否是文件夹<br>2.是文件夹的话，打开指定文件夹，返回文件目录的资源变量<br>3.使用readdir读取一次目录中的文件，目录指针向后偏移一次<br>4.使用readdir读取到最后，没有可读的文件返回false<br>5.关闭文件目录</p>
-<p>opendir    打开文件夹，返回操作资源<br>readdir    读取文件夹资源<br>is_dir    判断是否是文件夹<br>closedir    关闭文件夹操作资源<br>filetype    显示是文件夹还是文件，文件显示file，文件夹显示dir<br>例<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line">&lt;?php</div><div class="line">//设置打开的目录是D盘</div><div class="line">$dir = &quot;d:/&quot;;</div><div class="line"></div><div class="line">//判断是否是文件夹，是文件夹</div><div class="line">if (is_dir($dir)) &#123;</div><div class="line">   if ($dh = opendir($dir)) &#123;</div><div class="line"></div><div class="line">      //读取一次向后移动一次文件夹指针</div><div class="line">      echo readdir($dh).&apos;&lt;br /&gt;&apos;;</div><div class="line">      echo readdir($dh).&apos;&lt;br /&gt;&apos;;</div><div class="line">      echo readdir($dh).&apos;&lt;br /&gt;&apos;;</div><div class="line">      echo readdir($dh).&apos;&lt;br /&gt;&apos;;</div><div class="line"></div><div class="line">      //读取到最后返回false</div><div class="line"></div><div class="line">      //关闭文件夹资源</div><div class="line">       closedir($dh);</div><div class="line">   &#125;</div><div class="line">&#125;</div><div class="line">?&gt;</div></pre></td></tr></table></figure></p>
-<h1 id="文件权限设置"><a href="#文件权限设置" class="headerlink" title="文件权限设置"></a>文件权限设置</h1><p>函数用法与linux的权限操作的用法一样。<br>函数    功能说明<br>chmod    修改读取模式<br>chgrp    修改用户组<br>chown    修改权限</p>
-<h1 id="文件路径函数"><a href="#文件路径函数" class="headerlink" title="文件路径函数"></a>文件路径函数</h1><p>array pathinfo ( string $路径)<br>功能：传入文件路径返回文件的各个组成部份<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">&lt;?php</div><div class="line">$path_parts = pathinfo(&apos;d:/www/index.inc.php&apos;);</div><div class="line"></div><div class="line">echo &apos;文件目录名：&apos;.$path_parts[&apos;dirname&apos;].&quot;&lt;br /&gt;&quot;;//d:/www</div><div class="line">echo &apos;文件全名：&apos;.$path_parts[&apos;basename&apos;].&quot;&lt;br /&gt;&quot;;//index.inc.php</div><div class="line">echo &apos;文件扩展名：&apos;.$path_parts[&apos;extension&apos;].&quot;&lt;br /&gt;&quot;;//php</div><div class="line">echo &apos;不包含扩展的文件名：&apos;.$path_parts[&apos;filename&apos;].&quot;&lt;br /&gt;&quot;; //index.inc</div><div class="line">?&gt;</div></pre></td></tr></table></figure></p>
-<p>string basename ( string $路径[, string $suffix ])<br>功能：传入路径返回文件名<br>第一个参数传入路径。<br>第二个参数，指定我文件名到了指定字符停止。</p>
-<p>dirname(string $路径)<br>功能：返回文件路径的文件目录部份</p>
-<p>mixed parse_url ( string $路径 )<br>功能：将网址拆解成各个部份</p>
-<p>string http_build_query ( mixed $需要处理的数据)<br>功能：生成url 中的query字符串<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">//定义一个关联数组</div><div class="line">$data = [</div><div class="line">       &apos;username&apos;=&gt;&apos;php&apos;,</div><div class="line">       &apos;area&apos;=&gt;&apos;hubei&apos;</div><div class="line">        ];</div><div class="line"></div><div class="line">//生成query内容</div><div class="line">echo http_build_query($data);//username=php&amp;area=hubei</div></pre></td></tr></table></figure></p>
-<p>http_build_url()<br>功能： 生成一个url</p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1598,7 +1572,7 @@ void clearstatcache ( void ) 功能：清楚文件的状态缓存
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">97</span>
+              <span class="site-state-item-count">98</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
