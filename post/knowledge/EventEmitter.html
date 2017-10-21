@@ -68,7 +68,7 @@
 <link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="css," />
+  <meta name="keywords" content="js," />
 
 
 
@@ -86,23 +86,18 @@
 
 
 
-<meta name="description" content="圣杯布局三栏布局,左右两栏宽度固定,中间一栏宽度随屏幕宽度自适应12345678910111213141516171819202122232425262728293031323334353637383940414243444546&amp;lt;body&amp;gt;&amp;lt;div id=&amp;quot;header&amp;quot;&amp;gt;#header&amp;lt;/div&amp;gt;&amp;lt;div id=&amp;quot;cont">
-<meta name="keywords" content="css">
+<meta name="description" content="实现一个 EventEmitterEventEmitter 模块，它是一个类，它的实例具有以下几个方法：on、emit、off：on(eventName, func)：监听 eventName 事件，事件触发的时候调用 func 函数。emit(eventName, arg1, arg2, arg3…)：触发 eventName 事件，并且把参数 arg1, arg2, arg3… 传给事件处理函">
+<meta name="keywords" content="js">
 <meta property="og:type" content="article">
-<meta property="og:title" content="常见页面布局小结">
-<meta property="og:url" content="http://yoohannah.github.io/post/knowledge/layouts.html">
+<meta property="og:title" content="实现一个 EventEmitter">
+<meta property="og:url" content="http://yoohannah.github.io/post/knowledge/EventEmitter.html">
 <meta property="og:site_name" content="My Little World">
-<meta property="og:description" content="圣杯布局三栏布局,左右两栏宽度固定,中间一栏宽度随屏幕宽度自适应12345678910111213141516171819202122232425262728293031323334353637383940414243444546&amp;lt;body&amp;gt;&amp;lt;div id=&amp;quot;header&amp;quot;&amp;gt;#header&amp;lt;/div&amp;gt;&amp;lt;div id=&amp;quot;cont">
+<meta property="og:description" content="实现一个 EventEmitterEventEmitter 模块，它是一个类，它的实例具有以下几个方法：on、emit、off：on(eventName, func)：监听 eventName 事件，事件触发的时候调用 func 函数。emit(eventName, arg1, arg2, arg3…)：触发 eventName 事件，并且把参数 arg1, arg2, arg3… 传给事件处理函">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://yoohannah.github.io/image/holy1.png">
-<meta property="og:image" content="http://yoohannah.github.io/image/holy2.png">
-<meta property="og:image" content="http://yoohannah.github.io/image/holy3.png">
-<meta property="og:image" content="http://yoohannah.github.io/image/holy4.png">
-<meta property="og:updated_time" content="2017-08-06T13:02:47.726Z">
+<meta property="og:updated_time" content="2017-10-21T13:07:14.874Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="常见页面布局小结">
-<meta name="twitter:description" content="圣杯布局三栏布局,左右两栏宽度固定,中间一栏宽度随屏幕宽度自适应12345678910111213141516171819202122232425262728293031323334353637383940414243444546&amp;lt;body&amp;gt;&amp;lt;div id=&amp;quot;header&amp;quot;&amp;gt;#header&amp;lt;/div&amp;gt;&amp;lt;div id=&amp;quot;cont">
-<meta name="twitter:image" content="http://yoohannah.github.io/image/holy1.png">
+<meta name="twitter:title" content="实现一个 EventEmitter">
+<meta name="twitter:description" content="实现一个 EventEmitterEventEmitter 模块，它是一个类，它的实例具有以下几个方法：on、emit、off：on(eventName, func)：监听 eventName 事件，事件触发的时候调用 func 函数。emit(eventName, arg1, arg2, arg3…)：触发 eventName 事件，并且把参数 arg1, arg2, arg3… 传给事件处理函">
 
 
 
@@ -130,13 +125,13 @@
 
 
 
-  <link rel="canonical" href="http://yoohannah.github.io/post/knowledge/layouts.html"/>
+  <link rel="canonical" href="http://yoohannah.github.io/post/knowledge/EventEmitter.html"/>
 
 
 
 
 
-  <title> 常见页面布局小结 | My Little World </title>
+  <title> 实现一个 EventEmitter | My Little World </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -267,7 +262,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="http://yoohannah.github.io/post/knowledge/layouts.html">
+  <link itemprop="mainEntityOfPage" href="http://yoohannah.github.io/post/knowledge/EventEmitter.html">
 
   <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
     <meta itemprop="name" content="YooHannah">
@@ -291,7 +286,7 @@
             
             
               
-                常见页面布局小结
+                实现一个 EventEmitter
               
             
           </h1>
@@ -304,8 +299,8 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-08-03T06:30:02+08:00">
-                2017-08-03
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-10-21T21:07:02+08:00">
+                2017-10-21
               </time>
             
 
@@ -340,11 +335,8 @@
       
 
       
-        <h1 id="圣杯布局"><a href="#圣杯布局" class="headerlink" title="圣杯布局"></a>圣杯布局</h1><p>三栏布局,左右两栏宽度固定,中间一栏宽度随屏幕宽度自适应<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div></pre></td><td class="code"><pre><div class="line">&lt;body&gt;</div><div class="line">&lt;div id=&quot;header&quot;&gt;#header&lt;/div&gt;</div><div class="line">&lt;div id=&quot;container&quot;&gt;</div><div class="line">  &lt;div id=&quot;center&quot; class=&quot;column&quot;&gt;#center&lt;/div&gt;</div><div class="line">  &lt;div id=&quot;left&quot; class=&quot;column&quot;&gt;#left&lt;/div&gt;</div><div class="line">  &lt;div id=&quot;right&quot; class=&quot;column&quot;&gt;#right&lt;/div&gt;</div><div class="line">&lt;/div&gt;</div><div class="line">&lt;div id=&quot;footer&quot;&gt;#footer&lt;/div&gt;</div><div class="line">&lt;/body&gt;</div><div class="line"></div><div class="line">&lt;style type=&quot;text/css&quot;&gt;</div><div class="line">  body &#123;</div><div class="line">  min-width: 550px;      /* 2x LC width + RC width */</div><div class="line">&#125;</div><div class="line">#container &#123;</div><div class="line">  padding-left: 200px;   /* LC width */</div><div class="line">  padding-right: 150px;  /* RC width */</div><div class="line">&#125;</div><div class="line">#container .column &#123;</div><div class="line">  min-height: 200px;/* 高度自适应*/</div><div class="line">  position: relative;/* 让左右两栏进行相对位移，位移到container的内边距位置 */</div><div class="line">  float: left;</div><div class="line">&#125;</div><div class="line">#center &#123;</div><div class="line">  background-color: #e9e9e9;</div><div class="line">  width: 100%;</div><div class="line">&#125;</div><div class="line">#left &#123;</div><div class="line">  background-color: red;</div><div class="line">  width: 200px;          /* LC width */</div><div class="line">  right: 200px;           /*LC width *//*相对于 container 的右边线向左偏移 200px 将自己位移到container内边距 */</div><div class="line">  margin-left: -100%;/*浮动到与中间平行 */</div><div class="line">&#125;</div><div class="line">#right &#123;</div><div class="line">  background-color: blue;</div><div class="line">  width: 150px;          /* RC width */</div><div class="line">  margin-right: -150px;  /* RC width */</div><div class="line">&#125;</div><div class="line">#footer &#123;</div><div class="line">  clear: both;/*清除 footer 的上下环境，以免遭跟上面三栏一起浮动*/</div><div class="line">&#125;</div><div class="line">#header, </div><div class="line">#footer &#123;</div><div class="line">  background-color: #c9c9c9;</div><div class="line">&#125;</div><div class="line">&lt;/style&gt;</div></pre></td></tr></table></figure></p>
-<p><img src="/image/holy1.png" alt="圣杯1"><br><img src="/image/holy2.png" alt="圣杯2"></p>
-<h1 id="双飞翼布局"><a href="#双飞翼布局" class="headerlink" title="双飞翼布局"></a>双飞翼布局</h1><p>效果同圣杯布局，只是写法上DOM在center里面新增加了div,css不再使用relative定位，只是用float和外边距<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div></pre></td><td class="code"><pre><div class="line">&lt;div id=&quot;header&quot;&gt;header&lt;/div&gt;</div><div class="line">&lt;div id=&quot;container&quot;&gt;</div><div class="line">  &lt;div id=&quot;center&quot; class=&quot;column&quot;&gt;</div><div class="line">    &lt;div id=&quot;innerCenter&quot;&gt;center&lt;/div&gt;</div><div class="line">  &lt;/div&gt;</div><div class="line">  &lt;div id=&quot;left&quot; class=&quot;column&quot;&gt;left&lt;/div&gt;</div><div class="line">  &lt;div id=&quot;right&quot; class=&quot;column&quot;&gt;right&lt;/div&gt;</div><div class="line">&lt;/div&gt;</div><div class="line">&lt;div id=&quot;footer&quot;&gt;footer&lt;/div&gt;</div><div class="line"></div><div class="line">&lt;style type=&quot;text/css&quot;&gt;</div><div class="line">  body &#123;</div><div class="line">    min-width: 351px; /* LC width + RC width +1*/</div><div class="line">  &#125;</div><div class="line">  #container .column &#123;</div><div class="line">    min-height: 200px;</div><div class="line">    float: left;</div><div class="line">  &#125;</div><div class="line">  #center &#123;</div><div class="line">    background-color: #e9e9e9;</div><div class="line">    width: 100%;</div><div class="line">  &#125;</div><div class="line">  #left &#123;</div><div class="line">    background-color: red;</div><div class="line">    width: 200px;</div><div class="line">    margin-left: -100%;</div><div class="line">  &#125;</div><div class="line">  #right &#123;</div><div class="line">    background-color: blue;</div><div class="line">    width: 150px;</div><div class="line">    margin-left: -150px;</div><div class="line">  &#125;</div><div class="line">  #footer &#123;</div><div class="line">    clear: both;</div><div class="line">  &#125;</div><div class="line">  #header, #footer &#123;</div><div class="line">    background-color: #c9c9c9;</div><div class="line">  &#125;</div><div class="line">  #innerCenter &#123; /*代替圣杯container的padding处理*/</div><div class="line">    margin-left: 200px;</div><div class="line">    margin-right: 150px;</div><div class="line">  &#125;</div><div class="line">&lt;/style&gt;</div></pre></td></tr></table></figure></p>
-<p><img src="/image/holy3.png" alt="圣杯3"><br><img src="/image/holy4.png" alt="圣杯4"></p>
-
+        <h1 id="实现一个-EventEmitter"><a href="#实现一个-EventEmitter" class="headerlink" title="实现一个 EventEmitter"></a>实现一个 EventEmitter</h1><p>EventEmitter 模块，它是一个类，它的实例具有以下几个方法：on、emit、off：<br>on(eventName, func)：监听 eventName 事件，事件触发的时候调用 func 函数。<br>emit(eventName, arg1, arg2, arg3…)：触发 eventName 事件，并且把参数 arg1, arg2, arg3… 传给事件处理函数。<br>off(eventName, func)：停止监听某个事件。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div></pre></td><td class="code"><pre><div class="line">class EventEmitter &#123;</div><div class="line">  /* TODO */</div><div class="line">  constructor() &#123;</div><div class="line">    this.listeners = [];</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  on(eventName, func)&#123;</div><div class="line">    for(let i=0;i&lt;this.listeners.length;i++)&#123;</div><div class="line">      if(this.listeners[i].name === eventName)&#123;</div><div class="line">          this.listeners[i].funcs.push(func);</div><div class="line">          return</div><div class="line">      &#125;</div><div class="line">    &#125;</div><div class="line">    this.listeners.push(&#123;</div><div class="line">      name:eventName,</div><div class="line">      funcs:[]</div><div class="line">    &#125;)</div><div class="line">    this.listeners[this.listeners.length-1].funcs.push(func)</div><div class="line">  &#125;</div><div class="line">  emit(eventName, ...args)&#123;</div><div class="line">    for(let j=0;j&lt;this.listeners.length;j++)&#123;</div><div class="line">        if(this.listeners[j].name === eventName)&#123;</div><div class="line">            for(let k =0;k&lt;this.listeners[j].funcs.length;k++)&#123;</div><div class="line">              this.listeners[j].funcs[k](args)</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">  off(eventName, func)&#123;</div><div class="line">      for(let j=0;j&lt;this.listeners.length;j++)&#123;</div><div class="line">        if(this.listeners[j].name === eventName)&#123;</div><div class="line">          if(func == undefined)&#123; //整个事件不再监听</div><div class="line">            this.listeners.splice(j,1);</div><div class="line">           &#125;</div><div class="line">          for(let k =0;k&lt;this.listeners[j].funcs.length;k++)&#123;</div><div class="line">                if(func === this.listeners[j].funcs[k])&#123;</div><div class="line">                  this.listeners[j].funcs.splice(k,1);</div><div class="line">                  return</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">      &#125;</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">const emitter = new EventEmitter()</div><div class="line">const sayHi = (name) =&gt; console.log(`Hello $&#123;name&#125;`)</div><div class="line">const sayHi2 = (name) =&gt; console.log(`Good night, $&#123;name&#125;`)</div><div class="line"></div><div class="line">emitter.on(&apos;hi&apos;, sayHi)</div><div class="line">emitter.on(&apos;hi&apos;, sayHi2)</div><div class="line">emitter.on(&apos;hi2&apos;, sayHi)</div><div class="line">emitter.on(&apos;hi2&apos;, sayHi2)</div><div class="line">emitter.emit(&apos;hi&apos;, &apos;ScriptOJ&apos;)</div><div class="line">// =&gt; Hello ScriptOJ</div><div class="line">// =&gt; Good night, ScriptOJ</div><div class="line"></div><div class="line">emitter.off(&apos;hi&apos;, sayHi)</div><div class="line">emitter.emit(&apos;hi&apos;, &apos;ScriptOJ&apos;)</div><div class="line">emitter.emit(&apos;hi2&apos;, &apos;ScriptOJ&apos;)</div><div class="line"></div><div class="line">const emitter2 = new EventEmitter()</div><div class="line">emitter2.on(&apos;hi&apos;, (name, age) =&gt; &#123;</div><div class="line">  console.log(`I am $&#123;name&#125;, and I am $&#123;age&#125; years old`)</div><div class="line">&#125;)</div><div class="line">emitter2.emit(&apos;hi&apos;, &apos;Jerry&apos;, 12)</div></pre></td></tr></table></figure>
       
     </div>
 
@@ -367,7 +359,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/css/" rel="tag"># css</a>
+            <a href="/tags/js/" rel="tag"># js</a>
           
         </div>
       
@@ -376,8 +368,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/post/knowledge/qrcode.html" rel="next" title="使用QRcode.js生成二维码">
-                <i class="fa fa-chevron-left"></i> 使用QRcode.js生成二维码
+              <a href="/post/knowledge/react.html" rel="next" title="react 简略学习笔记">
+                <i class="fa fa-chevron-left"></i> react 简略学习笔记
               </a>
             
           </div>
@@ -385,10 +377,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/post/knowledge/cdn.html" rel="prev" title="关于CDN">
-                关于CDN <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -515,7 +503,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#圣杯布局"><span class="nav-number">1.</span> <span class="nav-text">圣杯布局</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#双飞翼布局"><span class="nav-number">2.</span> <span class="nav-text">双飞翼布局</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#实现一个-EventEmitter"><span class="nav-number">1.</span> <span class="nav-text">实现一个 EventEmitter</span></a></li></ol></div>
             
 
           </div>

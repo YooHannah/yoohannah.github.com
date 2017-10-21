@@ -90,6 +90,7 @@
 <meta property="og:title" content="My Little World">
 <meta property="og:url" content="http://yoohannah.github.io/page/4/index.html">
 <meta property="og:site_name" content="My Little World">
+<meta property="og:locale" content="zh-Hans">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="My Little World">
 
@@ -248,6 +249,253 @@
           <div id="content" class="content">
             
   <section id="posts" class="posts-expand">
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://yoohannah.github.io/post/algorithm/sort.html">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="YooHannah">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="/psb.jpg">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="My Little World">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="My Little World" src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/post/algorithm/sort.html" itemprop="url">
+                  排序
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-04-14T22:18:37+08:00">
+                2017-04-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>记录：在排序问题中，通常将数据元素称为记录<br>–输入一个记录集合，排序后输出也是一个记录集合<br>–将排序看成是线性表的一种操作<br>排序依据关键字之间的大小关系，那么对同一记录集合，针对不同的关键字进行排序，可以得到不同的序列</p>
+<h1 id="排序稳定性"><a href="#排序稳定性" class="headerlink" title="排序稳定性"></a>排序稳定性</h1><p>假设Ki=Kj(1&lt;=i&lt;=n,1&lt;=j&lt;=n,i!=j),且在排序前的序列中ri领先于rj(即i&lt;j)<br>–如果排序后ri仍领先于rj,则称所用排序方法是稳定的<br>–反之，若排序后rj仍领先于ri,则称所用排序方法是不稳定的<br>即原来值相同的两个值A和B,排序前A在B前面，排序后位置不变则说排序算法是稳定的，否则是不稳定的</p>
+<h1 id="影响排序算法性能的几个要素"><a href="#影响排序算法性能的几个要素" class="headerlink" title="影响排序算法性能的几个要素"></a>影响排序算法性能的几个要素</h1><p>时间性能(比较，移动)<br>辅助空间(存放临时变量)<br>算法的复杂性</p>
+<h1 id="冒泡排序算法n-2"><a href="#冒泡排序算法n-2" class="headerlink" title="冒泡排序算法n^2"></a>冒泡排序算法n^2</h1><p>两两相邻记录的关键字，如果反序则交换，直到没有反序记录为止<br>注意点：<br>– 每次比较相邻两个元素<br>– 如果有n个元素,比较n-1次，每次减少1次比较<br>– 从下往上比较，即从后往前比较<br><a href="https://github.com/YooHannah/algorithm/blob/master/js/bubblesort.js" target="_blank" rel="external">代码链接</a></p>
+<h1 id="选择排序法n-2"><a href="#选择排序法n-2" class="headerlink" title="选择排序法n^2"></a>选择排序法n^2</h1><p>通过n-i次关键字间的比较，从n-i+1个记录中选出关键字最小的记录，并和第i(1=&lt;i&lt;=n)个记录交换<br><a href="https://github.com/YooHannah/algorithm/blob/master/js/SelectSort.js" target="_blank" rel="external">代码链接</a></p>
+<h1 id="直接插入排序n-2"><a href="#直接插入排序n-2" class="headerlink" title="直接插入排序n^2"></a>直接插入排序n^2</h1><p>连续两个值比较若后面的比前面的小，就将后面的值移到比它大的值的前面<br>适用于记录本身就是有序的,记录数少<br><a href="https://github.com/YooHannah/algorithm/blob/master/js/InsertSort.js" target="_blank" rel="external">代码链接</a></p>
+<h1 id="希尔排序n-logn"><a href="#希尔排序n-logn" class="headerlink" title="希尔排序n*logn"></a>希尔排序n*logn</h1><p>将所有元素按一定间隔f取出n/f个进行比较，再按顺序放回对应的位置，直到所有元素参与完比较之后，算完成一轮比较，<br>再改变间隔进行下一轮比较，直到间隔为1<br>可以将该处理方法套进冒泡、选择和直接插入的方法中<br><a href="https://github.com/YooHannah/algorithm/blob/master/js/shellsort.js" target="_blank" rel="external">代码链接</a></p>
+<h1 id="堆排序n-logn"><a href="#堆排序n-logn" class="headerlink" title="堆排序n*logn"></a>堆排序n*logn</h1><p>大顶堆；每个结点大于等于其左右孩子的完全二叉树<br>小顶堆：每个结点小于等于其左右孩子的完全二叉树<br>各结点一定是堆中所有结点的最大或最小者，如果按照层序遍历方式给结点从1开始编号，则结点之间满足如下关系<br>大顶堆：Ki&gt;=K2i &amp;&amp; Ki&gt;=K2i+1<br>大顶堆：Ki&lt;=K2i &amp;&amp; Ki&lt;=K2i+1<br>其中(1&lt;=i&lt;=n/2取下限)<br>下标i与2i和2i+1是双亲和子女关系<br>堆排序：利用堆进行排序<br>– 将待排序的序列构造成一个大顶堆(从小到大)(或小顶堆(从大到小))<br>– 此时整个序列的最大值就是堆顶的根结点。将它移走(就是将其与堆数组的末尾元素交换，此时末尾元素就是最大值)<br>– 然后将剩余的n-1个序列重新构造成一个堆，这样就会得到n个元素中的此最大值<br>– 如此反复执行，便能得到一个有序序列了<br><a href="https://github.com/YooHannah/algorithm/blob/master/js/HeapSort.js" target="_blank" rel="external">代码链接</a></p>
+<h1 id="归并排序"><a href="#归并排序" class="headerlink" title="归并排序"></a>归并排序</h1><p>将待排序数组每次一份为2，直到每一份的数组长度为1，<br>对拆分的两份结果排序合成一个新数组，参与下次下一次比较排序合并<br><a href="https://github.com/YooHannah/algorithm/blob/master/js/MergeSort.js" target="_blank" rel="external">代码链接</a></p>
+<h1 id="快速排序"><a href="#快速排序" class="headerlink" title="快速排序"></a>快速排序</h1><p>每趟排序指定一个基准点，把比基准点小的元素放在基准点左边，比基准点大的元素放在基准点右边<br>再以基准点为界，把前面的数据(都比基准点小)和后面的数据(都比基准点大)按两部分的最小下标为基准准进行移动,<br>优化<br>选取基准点<br>不必要的交换<br>小数组时的排序方案(使用直接插入排序)<br>递归操作<br>尾递归：函数递归形式的调用出现在函数末尾，可以大大缩减栈空间<br><a href="https://github.com/YooHannah/algorithm/blob/master/js/QuickSort.js" target="_blank" rel="external">代码链接</a></p>
+<h1 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h1><p><img src="/image/qsort.png" alt="qsort"><br>插入排序类:直接插入排序、希尔排序<br>选择排序类：选择排序、堆排序<br>交换排序类：冒泡排序、快速排序<br>归并排序类：归并排序<br><img src="/image/sort.png" alt="sort"></p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://yoohannah.github.io/post/algorithm/hash.html">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="YooHannah">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="/psb.jpg">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="My Little World">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="My Little World" src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/post/algorithm/hash.html" itemprop="url">
+                  散列表(哈希表)
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-04-09T18:21:37+08:00">
+                2017-04-09
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>记录的存储位置 = f(关键字)<br>散列技术是在存储位置和它的关键字之间建立一个确定的对应关系f,使得每个关键字key对应一个存储位置f(key)<br>对应关系函数f称为散列函数(哈希函数)<br>采用三列技术将记录存储在一块连续的存储空间中，这块连续存储空间称为散列表(哈希表)</p>
+<h1 id="查找步骤"><a href="#查找步骤" class="headerlink" title="查找步骤"></a>查找步骤</h1><p>当存储记录时，通过散列函数计算出记录的散列地址<br>当查找记录时，通过散列函数计算记录的散列地址，并按此散列地址访问该记录<br>各记录之间没有任何关系<br>散列表适合1对1查找，不适合查找范围，也不适合关键字对应多个结果的查找<br>散列函数通过不同的关键字，计算出了相同地址，称之为冲突</p>
+<h1 id="构建散列函数"><a href="#构建散列函数" class="headerlink" title="构建散列函数"></a>构建散列函数</h1><p>散列函数原则=计算简单+分布均匀(散列地址)<br>直接定址法<br>取关键字的某个线性函数值为散列地址：f(key)=a*key+b<br>适合查找表小，key比较连续的情况，不常用<br>数字分析法<br>适合处理关键字位数比较大的情况<br>抽取关键字的某几位作为散列地址<br>平方取中法<br>平方取中法是将关键字平方之后取中间若干位数字作为散列地址<br>适合不知道关键字的分布，关键字位数不是很大的情况<br>折叠法<br>将关键字从左到右分割成位数相等的几部分，然后将这几部分叠加求和，并按散列表表长取后几位作为散列地址<br>除留余数法<br>f(key) = key mod p(p &lt;= m)<br>m为表长<br>这个方法不仅可以对关键字直接取模，也可以通过折叠、平方取中后再取模<br>p的取值是关键，最好接近m的最小质数<br>随机数法<br>选择一个随机数，取关键字的随机函数值为它的散列地址<br>f(key) = random(key)<br>random为随机函数，适合关键字长度不等的情况<br>选取方法时要考虑的因素：<br>计算散列地址所需时间<br>关键字长度<br>散列表大小<br>关键字分布情况<br>记录查找频率</p>
+<h1 id="处理散列冲突的方法"><a href="#处理散列冲突的方法" class="headerlink" title="处理散列冲突的方法"></a>处理散列冲突的方法</h1><p>开放定址法<br>一旦发生了冲突，就去寻找下一个空的散列地址，只要散列表足够大，空的散列地址总能找到，并将记录存入<br>1.线性探测法<br>fi(key) = (f(key)+di) mod m<br>其中di = 1,2,…,m-1<br>意思是，散列函数计算的地址已经被其他记录占据，就将散列函数计算的地址每次次加1到m-1的一个数,<br>再mod表长，将每次计算的结果当做新地址去探测有没有记录，如果没有就将该地址做为记录的地址<br>2.二次探测法<br>修改一次探测法di的取值<br>另di = 1^2,-1^2,2^2,-2^2,q^2,-q^2,其中q&lt;=m/2<br>3.随机探测法<br>对di采用随机函数计算得到<br>再散列函数法<br>fi(key) = RHi(key)(i=1,2,3,…k)<br>就是用第一个散列函数计算的地址发生冲突就换第二个散列函数，如果第二个也发生冲突，则换第三个，以此类推<br>链地址法<br>地址处不存放单一记录，而是存放记录的链表，记录1指向记录2，计算得到地址相同，就继续指下去<br>公共溢出区法<br>不发生冲突的关键字放在基本表，将发生冲突的记录依次存放在溢出表，<br>查找时基本表找不到时就去查溢出表，溢出表找不到再宣告失败</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
     
       
 
@@ -1198,248 +1446,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="http://yoohannah.github.io/post/algorithm/MinimumTree.html">
-
-  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
-    <meta itemprop="name" content="YooHannah">
-    <meta itemprop="description" content="">
-    <meta itemprop="image" content="/psb.jpg">
-  </span>
-
-  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-    <meta itemprop="name" content="My Little World">
-    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
-      <img style="display:none;" itemprop="url image" alt="My Little World" src="">
-    </span>
-  </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/post/algorithm/MinimumTree.html" itemprop="url">
-                  最小生成树
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-03-30T21:10:37+08:00">
-                2017-03-30
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>图的各结点连线间存在权值，寻找一种访问路径,使得访问各结点最终的路径的权值和最小，<br>最终访问路径和结点形成树的结构，即最小生成树</p>
-<h1 id="普里姆算法"><a href="#普里姆算法" class="headerlink" title="普里姆算法"></a>普里姆算法</h1><p><img src="/image/plim.png" alt="plim"><br>主要思路：研究对象为结点，以某顶点为起点，逐步找各个顶点上最小权值的边来构建最小生成树<br>编程思路：新建一数组，初始化为起点(最小生成树的根结点)在邻接矩阵所在行的权值<br>找到该组权值最小值,最小权值下标即要选择路径的终点，同时也是接下来要比较的邻接矩阵权值行的行号，<br>将该最小权值置0，然后将新建数组与矩阵权值行比较，<br>相同位置，矩阵行若小于新建数组值，就将新建数组值替换为矩阵行的值，<br>再次寻找新建数组中的最小权值，重复以上步骤<br><a href="https://github.com/YooHannah/algorithm/blob/master/js/MinimumTreeofPlim.js" target="_blank" rel="external">代码链接</a></p>
-<h1 id="克鲁斯卡尔算法"><a href="#克鲁斯卡尔算法" class="headerlink" title="克鲁斯卡尔算法"></a>克鲁斯卡尔算法</h1><p><img src="/image/kluse.png" alt="kluse"><br>主要思路：研究对象为边，将边集数组从小到大排序，依次取边集数组的元素，判断边与边是否形成环路，不会形成则选择该边构建最小树<br><a href="https://github.com/YooHannah/algorithm/blob/master/js/MinimumTreeofKruskal.js" target="_blank" rel="external">代码链接</a></p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="http://yoohannah.github.io/post/knowledge/commonjs.html">
-
-  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
-    <meta itemprop="name" content="YooHannah">
-    <meta itemprop="description" content="">
-    <meta itemprop="image" content="/psb.jpg">
-  </span>
-
-  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-    <meta itemprop="name" content="My Little World">
-    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
-      <img style="display:none;" itemprop="url image" alt="My Little World" src="">
-    </span>
-  </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/post/knowledge/commonjs.html" itemprop="url">
-                  关于commonjs、MVC、模板引擎
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-03-21T22:16:37+08:00">
-                2017-03-21
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="commonjs理解"><a href="#commonjs理解" class="headerlink" title="commonjs理解"></a>commonjs理解</h1><p>是一种编写API的标准，根据该标准写的API可以在任何支持JavaScript的环境中使用，尤其是可以满足服务端的应用<br>四个个关键词<br>modules：模块，外部用 JavaScript 封装，具有对外接口并有一定功能作用的一个文件<br>packages：包，多个module的集合，相当于提供了一些固定接口的函数库，提供更高层的的抽象<br>exports：模块对外的接口对象，在模块文件中编写的功能函数作为它的属性函数，不同写法，使用规则不一样<br>require：当我们要使用某个模块时，用来获取/加载模块接口的对象,获取模块的 exports 对象。</p>
-<h2 id="定义模块与使用"><a href="#定义模块与使用" class="headerlink" title="定义模块与使用"></a>定义模块与使用</h2><p>方式一：<br>定义<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">function Change(a) &#123;</div><div class="line">	a = 100;</div><div class="line">	console.log(a);</div><div class="line">&#125;;</div><div class="line">module.exports = Change;</div><div class="line">//定义子函数</div><div class="line">Change.childchange = function childchange(val)&#123;</div><div class="line">	console.log(val+20);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>使用<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">var change = require(&apos;../models/testchange.js&apos;);</div><div class="line">var a=10;</div><div class="line">var aa=change(a);//100</div><div class="line">console.log(a,aa);//10,100</div><div class="line">change.childchange(a);//30</div></pre></td></tr></table></figure></p>
-<p>方式二：<br>定义<br>同时定义多个同级函数<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">exports.Change = function(a)&#123;</div><div class="line">	a = 100;</div><div class="line">	console.log(a);</div><div class="line">	return a;</div><div class="line">&#125;</div><div class="line">exports.add = function(a,b)&#123;</div><div class="line">	return a+b;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>使用<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">var change = require(&apos;../models/testchange.js&apos;);</div><div class="line">var a=10;</div><div class="line">var aa=change.Change(a);//100</div><div class="line">console.log(a,aa);//10 100</div><div class="line">var b=change.add(a,20);</div><div class="line">console.log(b);//30</div></pre></td></tr></table></figure></p>
-<h1 id="MVC"><a href="#MVC" class="headerlink" title="MVC"></a>MVC</h1><p>MODEL-VIEW-CONTROLL，模型-视图-控制器，是一种软件的设计模式<br>模型:对象及其数据结构的实现，通常包含数据库的操作<br>视图：表示用户界面，在网站中通常就是HTML的组织结构<br>控制器：用于处理用户请求和数据流，复杂模型，将输出传递给视图<br><img src="/image/noun2.png" alt="noun2"></p>
-<h1 id="模板引擎"><a href="#模板引擎" class="headerlink" title="模板引擎"></a>模板引擎</h1><p>是一个生成HTML的工具<br>其功能是将页面模板和要显示的数据结合起来生成HTML页面<br>既可以运行在服务端又可以运行在客户端，<br>大多数时候它都在服务器端直接被解析为HTML，解析完后再传输给客户端<br>有时候也可以运行在客户端，即浏览器中<br>MVC架构中，模板引擎包含在服务器端，流程如下：<br>控制器得到用户请求后，从模型(原来页面)获取数据，调用模板引擎<br>模板引擎以数据(经过后台处理，要传递给客户端的)和页面模板为输入，生成HTML页面<br>返回给控制器，由控制器交会回给客户端<br><img src="/image/noun1.png" alt="noun1"></p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1485,7 +1491,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">102</span>
+              <span class="site-state-item-count">104</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
