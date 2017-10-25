@@ -102,7 +102,7 @@
 <meta property="og:image" content="http://yoohannah.github.io/image/header6.png">
 <meta property="og:image" content="http://yoohannah.github.io/image/header7.png">
 <meta property="og:image" content="http://yoohannah.github.io/image/header8.png">
-<meta property="og:updated_time" content="2017-10-06T08:58:11.776Z">
+<meta property="og:updated_time" content="2017-10-22T08:56:18.892Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="关于HTTP">
 <meta name="twitter:description" content="在浏览器的地址栏输入url后发生了什么 粗略的回答的话，就是浏览器向服务器发送该url,浏览器根据该url找到相应的资源，再把资源返回给浏览器，即使我们看到的页面内容 细致的回答的话，浏览器会在应用层利用DNS协议解析域名生成ip地址，利用http协议生成一个http请求然后传递给传输层，传输层将根据TCP协议将这个http请求报文进行分割并打上序号标记、端口号和三次握手标志后转发给网络层，网络层">
@@ -365,7 +365,7 @@
 <p>9.通信数据转发程序<br>代理：接收客户端请求并转发给源服务器，不改变URI,但在转发时会添加via首部<br>好处：利用缓存技术减少网络带宽的流量，组织内部针对特定网站的访问控制，以获取访问日志为主要目的等等<br>使用方法分两类：<br>1.是否使用缓存,例,缓存代理(预先将资源副本存在代理服务器上);<br>2.是否会修改报文,例,透明代理(对报文不做任何加工，反之非透明代理)</p>
 <p>网关：转发其他服务器数据的服务器，接收从客户端发来的请求并对请求进行处理<br>好处：能使通信线路上服务器提供非HTTP协议服务，能提高通信安全性</p>
 <p>隧道：在相隔甚远的客户端和服务器之间进行中转，并保持双方通信连接的应用程序<br>目的：确保客户端能与服务器进行安全的通信，通信双发断开连接时结束</p>
-<p>缓存：代理服务器或客户端本地磁盘内保存的资源副本<br>目的：减少对源服务器的访问，从而节省通信流量和通信时间<br>机制：超过有效期之后，会向源服务器确认资源有效性，若判断缓存失效，则再次从源服务器上获取‘新’资源</p>
+<p>缓存：代理服务器或客户端本地磁盘内保存的资源副本 ，其实相当于是一种代理服务器<br>目的：减少对源服务器的访问，从而节省通信流量和通信时间<br>机制：超过有效期之后，会向源服务器确认资源有效性，若判断缓存失效，则再次从源服务器上获取‘新’资源</p>
 <p>10.首部字段<br>分两类：缓存代理和非缓存代理<br>缓存代理，即端到端首部，这类首部会被带到客户端或服务端，且会保存在缓存中<br>非缓存代理，即逐跳首部，只对单词转发有效，会因通过缓存或代理而不再转发</p>
 <p>通用首部：客户端和服务端都会用的首部<br><img src="/image/header1.png" alt="header1"><br>请求首部<br><img src="/image/header2.png" alt="header2"><br>响应首部<br><img src="/image/header3.png" alt="header3"><br>实体首部<br><img src="/image/header4.png" alt="header4"><br>cookie 相关首部<br><img src="/image/header5.png" alt="header5"></p>
 <h1 id="https"><a href="#https" class="headerlink" title="https"></a>https</h1><p>http缺点</p>
@@ -488,7 +488,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">104</span>
+              <span class="site-state-item-count">105</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
