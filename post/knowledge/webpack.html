@@ -94,7 +94,7 @@
 <meta property="og:site_name" content="My Little World">
 <meta property="og:description" content="说明1.webpack工作内容Webpack可以看做是模块打包机：它做的事情是，分析你的项目结构，找到JavaScript模块以及其它的一些浏览器不能直接运行的拓展语言（Scss，TypeScript等），并将其转换和打包为合适的格式供浏览器使用。2.webpack工作方式把你的项目当做一个整体，通过一个给定的主文件（如：index.js），Webpack将从这个文件开始找到你的项目的所有依赖文件">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-10-08T10:27:20.406Z">
+<meta property="og:updated_time" content="2017-12-28T00:18:26.070Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="关于webpack">
 <meta name="twitter:description" content="说明1.webpack工作内容Webpack可以看做是模块打包机：它做的事情是，分析你的项目结构，找到JavaScript模块以及其它的一些浏览器不能直接运行的拓展语言（Scss，TypeScript等），并将其转换和打包为合适的格式供浏览器使用。2.webpack工作方式把你的项目当做一个整体，通过一个给定的主文件（如：index.js），Webpack将从这个文件开始找到你的项目的所有依赖文件">
@@ -352,7 +352,9 @@
 <p>常用插件：<br>CommonsChunkPlugin：将多个文件通用的东西打包成一个文件<br>webpack.optimize.CommonsChunkPlugin：require(‘webpack’),使用webpack的optimize.CommonsChunkPlugin将打包的文件转化为公共文件<br>HtmlWebpackPlugin：是依据一个简单的index.html模板，生成一个自动引用你打包后的JS文件的新index.html。这在每次生成的js文件名称不同时非常有用（比如添加了hash值）。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">var path = require(&apos;path&apos;)</div><div class="line">var webpack = require(&apos;webpack&apos;)</div><div class="line"></div><div class="line">module.exports = &#123;</div><div class="line">  context: path.join(__dirname, &apos;./src&apos;),</div><div class="line">  entry: &#123;</div><div class="line">    app: &apos;./&apos;,</div><div class="line">    vendor: [&apos;jquery&apos;, &apos;underscore&apos;],//将文件中require的&apos;jquery&apos;, &apos;underscore&apos;打包成公共文件vendor.bundle.js</div><div class="line">  &#125;,</div><div class="line">  output: &#123;</div><div class="line">    path: path.join(__dirname, &apos;dist&apos;),</div><div class="line">    filename: &apos;bundle.js&apos;</div><div class="line">  &#125;,</div><div class="line">  plugins: [</div><div class="line">    new webpack.optimize.CommonsChunkPlugin(&#123;</div><div class="line">      name: &apos;vendor&apos;,</div><div class="line">      filename: &apos;vendor.bundle.js&apos;</div><div class="line">    &#125;)</div><div class="line">  ]</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
 <p><a href="http://www.jianshu.com/p/42e11515c10f" target="_blank" rel="external">入门Webpack</a></p>
 <h1 id="写一个webpack-的loader"><a href="#写一个webpack-的loader" class="headerlink" title="写一个webpack 的loader"></a>写一个webpack 的loader</h1><p><a href="https://webpack.js.org/development/how-to-write-a-loader/" target="_blank" rel="external">How to write a loader</a><br><a href="https://webpack.js.org/api/loaders/" target="_blank" rel="external">loader API</a></p>
-<h1 id="写一个webpack-的plugin"><a href="#写一个webpack-的plugin" class="headerlink" title="写一个webpack 的plugin"></a>写一个webpack 的plugin</h1>
+<h1 id="写一个webpack-的plugin"><a href="#写一个webpack-的plugin" class="headerlink" title="写一个webpack 的plugin"></a>写一个webpack 的plugin</h1><h1 id="gulp"><a href="#gulp" class="headerlink" title="gulp"></a>gulp</h1><p>api:<br>task：<br>src:<br>watch：用来监视文件的变化；</p>
+<p>jshint：js 代码检查<br>uglify：压缩js<br>minify-css:压缩css<br>minfy-html:压缩html<br>concat:合并文件</p>
+
       
     </div>
 
@@ -464,7 +466,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">110</span>
+              <span class="site-state-item-count">111</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -523,7 +525,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#说明"><span class="nav-number">1.</span> <span class="nav-text">说明</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#使用"><span class="nav-number">2.</span> <span class="nav-text">使用</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#webpack-config-js-配置"><span class="nav-number">3.</span> <span class="nav-text">webpack.config.js 配置</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#写一个webpack-的loader"><span class="nav-number">4.</span> <span class="nav-text">写一个webpack 的loader</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#写一个webpack-的plugin"><span class="nav-number">5.</span> <span class="nav-text">写一个webpack 的plugin</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#说明"><span class="nav-number">1.</span> <span class="nav-text">说明</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#使用"><span class="nav-number">2.</span> <span class="nav-text">使用</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#webpack-config-js-配置"><span class="nav-number">3.</span> <span class="nav-text">webpack.config.js 配置</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#写一个webpack-的loader"><span class="nav-number">4.</span> <span class="nav-text">写一个webpack 的loader</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#写一个webpack-的plugin"><span class="nav-number">5.</span> <span class="nav-text">写一个webpack 的plugin</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#gulp"><span class="nav-number">6.</span> <span class="nav-text">gulp</span></a></li></ol></div>
             
 
           </div>

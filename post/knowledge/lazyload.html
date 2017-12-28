@@ -94,7 +94,7 @@
 <meta property="og:site_name" content="My Little World">
 <meta property="og:description" content="lazy图片lazyload基本原理是图片image标签的src属性在构建DOM时，先给一特定的默认值，可以是本地图片路径，然后通过监听scroll事件，判断图片所在位置是否在可视屏幕里面，如果在可视屏幕里面，就将要加载的真正图片资源给到image的src属性当然通过判断src的值是否是默认值，就可以知道图片是否已经被加载过，加载过就不会被从新赋值，然后重新加载123456789101112131">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-11-30T23:56:39.780Z">
+<meta property="og:updated_time" content="2017-12-28T00:17:32.181Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="懒加载">
 <meta name="twitter:description" content="lazy图片lazyload基本原理是图片image标签的src属性在构建DOM时，先给一特定的默认值，可以是本地图片路径，然后通过监听scroll事件，判断图片所在位置是否在可视屏幕里面，如果在可视屏幕里面，就将要加载的真正图片资源给到image的src属性当然通过判断src的值是否是默认值，就可以知道图片是否已经被加载过，加载过就不会被从新赋值，然后重新加载123456789101112131">
@@ -346,6 +346,12 @@
 <h2 id="组件的lazyload"><a href="#组件的lazyload" class="headerlink" title="组件的lazyload"></a>组件的lazyload</h2><p>实现一：AMD模式require实现异步加载模块<br>在AMD模式里面每个模块都会被define包裹，对无序的代码进行有序的模块化定义，目的就是为了使js能够按照一定秩序执行，<br>require模块时，会根据模块之间的依赖关系按顺序加载</p>
 <p>实现二：使用require.ensure()方法调用异步模块，配置chunkFilename为异步模块要打包到的地方，webpack打包时，就会根据依赖关系打包成异步加载的模式，在运行时就会异步加载模块</p>
 <p>实现三：将组建都标签化后，通过对标签添加是否异步的标志，从而实现对该组件的异步加载</p>
+<h1 id="预加载技术"><a href="#预加载技术" class="headerlink" title="预加载技术"></a>预加载技术</h1><p>1.提前加载下一页数据<br>2.加载页面时，尽早发出数据请求，实现页面数据预加载</p>
+<h1 id="图片的-base64-编码"><a href="#图片的-base64-编码" class="headerlink" title="图片的 base64 编码"></a>图片的 base64 编码</h1><p>图片的 base64 编码就是可以将一图片数据编码成一串字符串，使用该字符串代替代码中的图像地址<br>图片就可以随着HTML的下载同时下载到本地，不用为了下载图片向服务器发出请求</p>
+<p>将图片转化为Base64编码的工具，可以使用线上网站，也可以用以下方法<br>在 chrome 下打开新的标签页，然后把要转化的图片直接拖入浏览器，打开控制台，点 Source，source的内容内容就是图片base64编码</p>
+<p>可以看到一个图片的base64编码的字符数量一般是很大的，这样，当把图片编码无论是写到css文件还是html文件，<br>都会因为解析时间过长从而造成渲染速度下降，因此将图片进行base64编码最好的应用场景是如下情况：<br><b>如果图片足够小且因为用处的特殊性无法被制作成雪碧图（CssSprites），在整个网站的复用性很高且基本不会被更新</b></p>
+<p><a href="http://www.cnblogs.com/coco1s/p/4375774.html" target="_blank" rel="external">base64 编码</a></p>
+<p>Angular会自动为每个拥有作用域的DOM节点加上 ng-scope 类<br>AngularJs的angular.extend()方法可以把一个或多个对象中的方法和属性扩展到一个目的对象中，使得这个对象拥有其他对象相同的方法和属性<br>angular.extends()方法的第一个参数是要被扩展的对象，后面可以传入一个或多个对象</p>
 
       
     </div>
@@ -458,7 +464,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">110</span>
+              <span class="site-state-item-count">111</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -517,7 +523,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#lazy"><span class="nav-number">1.</span> <span class="nav-text">lazy</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#图片lazyload"><span class="nav-number">1.1.</span> <span class="nav-text">图片lazyload</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#组件的lazyload"><span class="nav-number">1.2.</span> <span class="nav-text">组件的lazyload</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#lazy"><span class="nav-number">1.</span> <span class="nav-text">lazy</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#图片lazyload"><span class="nav-number">1.1.</span> <span class="nav-text">图片lazyload</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#组件的lazyload"><span class="nav-number">1.2.</span> <span class="nav-text">组件的lazyload</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#预加载技术"><span class="nav-number">2.</span> <span class="nav-text">预加载技术</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#图片的-base64-编码"><span class="nav-number">3.</span> <span class="nav-text">图片的 base64 编码</span></a></li></ol></div>
             
 
           </div>

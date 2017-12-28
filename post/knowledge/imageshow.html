@@ -86,18 +86,18 @@
 
 
 
-<meta name="description" content="1.按一定大小，直接在img 标签里设置style1&amp;lt;img src=&amp;quot;&amp;#123;&amp;#123;detaildata.image&amp;#125;&amp;#125;&amp;quot; name=&amp;quot;img&amp;quot; style=&amp;quot;width:32px;height: 32px;&amp;quot;&amp;gt; 2.按图片原本大小自适应显示，不在容器里设置任何大小">
+<meta name="description" content="1.按一定大小，直接在img 标签里设置style1&amp;lt;img src=&amp;quot;&amp;#123;&amp;#123;detaildata.image&amp;#125;&amp;#125;&amp;quot; name=&amp;quot;img&amp;quot; style=&amp;quot;width:32px;height: 32px;&amp;quot;&amp;gt; 2.按图片原本大小自适应显示，不在容器里设置任何大小 鼠标滑过，图片自动在可视区域">
 <meta name="keywords" content="html">
 <meta property="og:type" content="article">
 <meta property="og:title" content="图片显示">
 <meta property="og:url" content="http://yoohannah.github.io/post/knowledge/imageshow.html">
 <meta property="og:site_name" content="My Little World">
-<meta property="og:description" content="1.按一定大小，直接在img 标签里设置style1&amp;lt;img src=&amp;quot;&amp;#123;&amp;#123;detaildata.image&amp;#125;&amp;#125;&amp;quot; name=&amp;quot;img&amp;quot; style=&amp;quot;width:32px;height: 32px;&amp;quot;&amp;gt; 2.按图片原本大小自适应显示，不在容器里设置任何大小">
+<meta property="og:description" content="1.按一定大小，直接在img 标签里设置style1&amp;lt;img src=&amp;quot;&amp;#123;&amp;#123;detaildata.image&amp;#125;&amp;#125;&amp;quot; name=&amp;quot;img&amp;quot; style=&amp;quot;width:32px;height: 32px;&amp;quot;&amp;gt; 2.按图片原本大小自适应显示，不在容器里设置任何大小 鼠标滑过，图片自动在可视区域">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-02-01T09:03:01.695Z">
+<meta property="og:updated_time" content="2017-12-28T00:18:03.305Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="图片显示">
-<meta name="twitter:description" content="1.按一定大小，直接在img 标签里设置style1&amp;lt;img src=&amp;quot;&amp;#123;&amp;#123;detaildata.image&amp;#125;&amp;#125;&amp;quot; name=&amp;quot;img&amp;quot; style=&amp;quot;width:32px;height: 32px;&amp;quot;&amp;gt; 2.按图片原本大小自适应显示，不在容器里设置任何大小">
+<meta name="twitter:description" content="1.按一定大小，直接在img 标签里设置style1&amp;lt;img src=&amp;quot;&amp;#123;&amp;#123;detaildata.image&amp;#125;&amp;#125;&amp;quot; name=&amp;quot;img&amp;quot; style=&amp;quot;width:32px;height: 32px;&amp;quot;&amp;gt; 2.按图片原本大小自适应显示，不在容器里设置任何大小 鼠标滑过，图片自动在可视区域">
 
 
 
@@ -337,7 +337,7 @@
       
         <p>1.按一定大小，直接在img 标签里设置style<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;img src=&quot;&#123;&#123;detaildata.image&#125;&#125;&quot; name=&quot;img&quot; style=&quot;width:32px;height: 32px;&quot;&gt;</div></pre></td></tr></table></figure></p>
 <p>2.按图片原本大小自适应显示，不在容器里设置任何大小</p>
-
+<h1 id="鼠标滑过，图片自动在可视区域中心显示"><a href="#鼠标滑过，图片自动在可视区域中心显示" class="headerlink" title="鼠标滑过，图片自动在可视区域中心显示"></a>鼠标滑过，图片自动在可视区域中心显示</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div></pre></td><td class="code"><pre><div class="line">&lt;div id=&quot;divImage&quot; style=&quot;display:none;left:50%;position:fixed;z-index:9999999;&quot;&gt;</div><div class="line"> &lt;img id=&quot;imgbig&quot; src=&quot;&quot; alt=&quot;预览&quot;  /&gt;</div><div class="line"> &lt;/div&gt;</div><div class="line"></div><div class="line"> $scope.imgclick = function(val)&#123;</div><div class="line">      $(&quot;#divImage&quot;)[0].style.display=&quot;&quot;;</div><div class="line">      $(&quot;#imgbig&quot;)[0].src=val;</div><div class="line">      var sceenwidth =  document.body.clientWidth;</div><div class="line">      var sceenheight = document.body.offsetHeight; //获取可视区大小</div><div class="line">      let img = new Image();</div><div class="line">          img.src = val; //获取图片</div><div class="line">          img.onerror = function()&#123;</div><div class="line">          toastr.error(&quot; 图片加载失败，请检查url是否正确&quot;,&apos;失败&apos;);</div><div class="line">          return false;</div><div class="line">         &#125;;</div><div class="line"></div><div class="line">          if(img.complete)&#123;</div><div class="line">           $(&quot;#divImage&quot;)[0].style.top =(sceenheight-img.height)/2+&apos;px&apos;;</div><div class="line">            $(&quot;#divImage&quot;)[0].style.left =(sceenwidth-img.width)/2+&apos;px&apos;; //根据图片大小确定中心点</div><div class="line">          &#125;else&#123;</div><div class="line">          img.onload = function()&#123;</div><div class="line">          img.onload=null;//避免重复加载</div><div class="line">          &#125;</div><div class="line">          &#125;</div><div class="line">    &#125;</div><div class="line">    $scope.closeimg = function()&#123;</div><div class="line">    $(&quot;#divImage&quot;)[0].style.display=&quot;none&quot;;</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
       
     </div>
 
@@ -428,8 +428,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/psb.jpg"
@@ -440,7 +449,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">110</span>
+              <span class="site-state-item-count">111</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -489,6 +498,22 @@
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#鼠标滑过，图片自动在可视区域中心显示"><span class="nav-number">1.</span> <span class="nav-text">鼠标滑过，图片自动在可视区域中心显示</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
     </div>
