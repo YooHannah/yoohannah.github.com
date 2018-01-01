@@ -89,14 +89,14 @@
 <meta name="description" content="js单线程同一时间只干一件事，干完一件事再干下一件事，如果前一个任务耗时很长，后一个任务也得一直等着 为什么这样设计？js 要指挥浏览器干活，如果有两个线程同时执行任务，一个删除DOM，一个修改该DOM，浏览器会不知道以哪个线程为准 任务队列同步任务，在主线程上排队执行的任务，前一个执行完才能执行后一个任务异步任务，一开始不进入主线程，而进入‘任务队列’被挂起，只有‘任务队列’通知主线程某个异步任">
 <meta name="keywords" content="js">
 <meta property="og:type" content="article">
-<meta property="og:title" content="关于时间循环event-loop">
+<meta property="og:title" content="关于事件循环event-loop">
 <meta property="og:url" content="http://yoohannah.github.io/post/knowledge/eventloop.html">
 <meta property="og:site_name" content="My Little World">
 <meta property="og:description" content="js单线程同一时间只干一件事，干完一件事再干下一件事，如果前一个任务耗时很长，后一个任务也得一直等着 为什么这样设计？js 要指挥浏览器干活，如果有两个线程同时执行任务，一个删除DOM，一个修改该DOM，浏览器会不知道以哪个线程为准 任务队列同步任务，在主线程上排队执行的任务，前一个执行完才能执行后一个任务异步任务，一开始不进入主线程，而进入‘任务队列’被挂起，只有‘任务队列’通知主线程某个异步任">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-01-01T13:47:52.085Z">
+<meta property="og:updated_time" content="2018-01-01T13:51:45.862Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="关于时间循环event-loop">
+<meta name="twitter:title" content="关于事件循环event-loop">
 <meta name="twitter:description" content="js单线程同一时间只干一件事，干完一件事再干下一件事，如果前一个任务耗时很长，后一个任务也得一直等着 为什么这样设计？js 要指挥浏览器干活，如果有两个线程同时执行任务，一个删除DOM，一个修改该DOM，浏览器会不知道以哪个线程为准 任务队列同步任务，在主线程上排队执行的任务，前一个执行完才能执行后一个任务异步任务，一开始不进入主线程，而进入‘任务队列’被挂起，只有‘任务队列’通知主线程某个异步任">
 
 
@@ -131,7 +131,7 @@
 
 
 
-  <title> 关于时间循环event-loop | My Little World </title>
+  <title> 关于事件循环event-loop | My Little World </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -286,7 +286,7 @@
             
             
               
-                关于时间循环event-loop
+                关于事件循环event-loop
               
             
           </h1>
