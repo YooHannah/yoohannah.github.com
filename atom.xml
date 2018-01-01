@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoohannah.github.io/"/>
-  <updated>2017-12-28T00:17:29.490Z</updated>
+  <updated>2018-01-01T13:47:52.085Z</updated>
   <id>http://yoohannah.github.io/</id>
   
   <author>
@@ -14,6 +14,35 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>关于时间循环event-loop</title>
+    <link href="http://yoohannah.github.io/post/knowledge/eventloop.html"/>
+    <id>http://yoohannah.github.io/post/knowledge/eventloop.html</id>
+    <published>2018-01-01T13:47:15.000Z</published>
+    <updated>2018-01-01T13:47:52.085Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="js单线程"><a href="#js单线程" class="headerlink" title="js单线程"></a>js单线程</h1><p>同一时间只干一件事，干完一件事再干下一件事，<br>如果前一个任务耗时很长，后一个任务也得一直等着</p>
+<p>为什么这样设计？<br>js 要指挥浏览器干活，如果有两个线程同时执行任务，一个删除DOM，一个修改该DOM，浏览器会不知道以哪个线程为准</p>
+<h1 id="任务队列"><a href="#任务队列" class="headerlink" title="任务队列"></a>任务队列</h1><p>同步任务，在主线程上排队执行的任务，前一个执行完才能执行后一个任务<br>异步任务，一开始不进入主线程，而进入‘任务队列’被挂起，只有‘任务队列’通知主线程某个异步任务可以执行了，该任务才会进入主线程<br>或者主线程上没有要执行的任务了，就会去任务队列拿任务 ，在确认该到达规定时间后，就给到主线程进行执行其对应的回调函数</p>
+<h1 id="event-Loop"><a href="#event-Loop" class="headerlink" title="event Loop"></a>event Loop</h1><p>主线程从”任务队列”中读取事件，这个过程是循环不断的，所以整个的这种运行机制又称为Event Loop（事件循环）<br>setTimeout(fn,0)的含义是，指定某个任务在主线程最早可得的空闲时间执行，即尽可能早得执行<br>另外如果主线程的栈中当前代码耗时很长，要等很久，按照先主线程，再任务队列的执行顺序，<br>就没办法保证setTimeout的回调函数fn能够在指定的时间执行</p>
+<h1 id="node-js-event-loop"><a href="#node-js-event-loop" class="headerlink" title="node.js event loop"></a>node.js event loop</h1><p>nodejs 运行机制：<br> (1）V8引擎解析JavaScript脚本。<br>（2）解析后的代码，调用Node API。<br>（3）libuv库负责Node API的执行。它将不同的任务分配给不同的线程，形成一个Event Loop（事件循环），以异步的方式将任务的执行结果返回给V8引擎。<br>（4）V8引擎再将结果返回给用户。</p>
+<p>与任务队列相关方法<br>process.nextTick:在主线程任务全部结束后，读取任务队列的任务之前执行它所指定的函数，<br>如果指定函数里还套嵌process.nextTick方法，或者有多个process.nextTick方法，都要在本轮读取任务队列前执行完<br>setImmediate：它指定的任务总是在下一次的eventloop时执行，<br>如果setImmediate与setTimeout(fn,0)各自添加了一个回调函数，那么在下一loop时，他们回调函数的顺序是不确定<br>如果setImmediate套嵌setImmediate方法,则套嵌的回调函数会被注册到下一轮事件循环中再执行</p>
+<p>即多个process.nextTick语句总是在当前”执行栈”一次执行完，多个setImmediate可能则需要多次loop才能执行完。</p>
+<p><a href="http://www.ruanyifeng.com/blog/2014/10/event-loop.html" target="_blank" rel="external">相关链接</a></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;js单线程&quot;&gt;&lt;a href=&quot;#js单线程&quot; class=&quot;headerlink&quot; title=&quot;js单线程&quot;&gt;&lt;/a&gt;js单线程&lt;/h1&gt;&lt;p&gt;同一时间只干一件事，干完一件事再干下一件事，&lt;br&gt;如果前一个任务耗时很长，后一个任务也得一直等着&lt;/p&gt;
+&lt;p&gt;为
+    
+    </summary>
+    
+    
+      <category term="js" scheme="http://yoohannah.github.io/tags/js/"/>
+    
+  </entry>
   
   <entry>
     <title>session 和cookie</title>
@@ -455,7 +484,7 @@
     <link href="http://yoohannah.github.io/post/knowledge/http.html"/>
     <id>http://yoohannah.github.io/post/knowledge/http.html</id>
     <published>2017-10-05T14:53:37.000Z</published>
-    <updated>2017-10-22T08:56:18.892Z</updated>
+    <updated>2018-01-01T13:43:09.909Z</updated>
     
     <content type="html"><![CDATA[<h1 id="在浏览器的地址栏输入url后发生了什么"><a href="#在浏览器的地址栏输入url后发生了什么" class="headerlink" title="在浏览器的地址栏输入url后发生了什么"></a>在浏览器的地址栏输入url后发生了什么</h1><p> 粗略的回答的话，就是浏览器向服务器发送该url,浏览器根据该url找到相应的资源，再把资源返回给浏览器，即使我们看到的页面内容<br> 细致的回答的话，浏览器会在应用层利用DNS协议解析域名生成ip地址，利用http协议生成一个http请求然后传递给传输层，传输层将根据TCP协议将这个http请求报文进行分割并打上序号标记、端口号和三次握手标志后转发给网络层，网络层会利用ARP协议根据ip地址查到MAC地址,IP协议对数据封装MAC地址等信息，将打包好的数据包发送给链路层再封装然后发送出去，经过一系列转发，忽略路由、CDN的缓存策略，中转到达服务器后,服务器再按链路层，网路层，传输层，应用层的顺序，从下到上依次解封数据信息，找到资源后，同样分割，封装打包再传给客户端浏览器。</p>
 <h1 id="关于-TCP-IP-协议"><a href="#关于-TCP-IP-协议" class="headerlink" title="关于 TCP/IP 协议"></a>关于 TCP/IP 协议</h1><p>1.不同的硬件、操作系统之间的通信，所有这一切都需要一种规则，这种规则即协议<br>2.与互联网相关联的协议集合起来就是TCP/IP<br>3.http协议是TCP/IP协议的一个子集<br>4.URI(统一资源标识符)，用字符串标识某一互联网资源，而url表示资源的地点</p>
@@ -489,6 +518,16 @@
 <p>HTTPS混合加密：在交换密钥环节使用公开密钥加密方式，之后的建立通信交换报文阶段则使用共享密钥加密方式<br>缺点：无法保证公开密钥本身是真正的公开密钥<br>解决办法：使用数字证书进行验证，客户端根据数字证书机构的公开密钥验证数字签名，从而验证服务器公开密钥<br><img src="/image/header6.png" alt="header6"><br>关于证书：<br>客户端证书一般由银行等特殊业务颁发，因为客户端证书需要费用支出<br>自签名证书无法保证通信真实性<br>中级认证机构的证书可能变成自认证证书<br>HTTPS的安全通信机制<br><img src="/image/header7.png" alt="header7"><br><img src="/image/header8.png" alt="header8"><br>步骤12结束之后，客户端再发送TCP FIN报文来关闭与TCP的通信<br>缺点：<br>1.由于加密解密过程消耗大量CPU以及内存等资源，导致处理速度变慢<br>2.由于SSL通信部分消耗网络资源，处理通信部分又会消耗一定时间，因此相比http又会变慢<br>解决办法：使用SSL加速器以分担负载</p>
 <p>不使用https原因：<br>1.客户端要考虑消耗cpu,内存资源，服务器端要考虑负载<br>2.购买证书需要开销</p>
 <h1 id="用户认证"><a href="#用户认证" class="headerlink" title="用户认证"></a>用户认证</h1><p>方法有BASIC认证，DIGEST认证，SSL客户端认证，FormBase认证</p>
+<h1 id="HTTP-2-O"><a href="#HTTP-2-O" class="headerlink" title="HTTP/2.O"></a>HTTP/2.O</h1><h2 id="多路复用"><a href="#多路复用" class="headerlink" title="多路复用"></a>多路复用</h2><h3 id="解决的问题"><a href="#解决的问题" class="headerlink" title="解决的问题"></a>解决的问题</h3><p>在http/1.x下,浏览器客户端在同一时间，针对同一域名下的请求有一定数量限制。超过限制数目的请求会被阻塞<br>突发性和短时性的 HTTP 连接因为三次握手和慢启动的存在，非常浪费时间(–&gt;单一长连接)<br>(慢启动:TCP连接在一开始会限制连接最大速度，确认数据能够成功传输后，随时间推移才会慢慢提高传输速度)</p>
+<h3 id="实现–二进制分帧"><a href="#实现–二进制分帧" class="headerlink" title="实现–二进制分帧"></a>实现–二进制分帧</h3><p>在应用层和传输层之间增加二进制分帧层,应用层生成的报文会分割封装为更小的消息和帧，并进行二进制编码<br>其中首部header和请求主体request body分别被封装为header frame 和data frame<br>同一请求或响应的帧会有相同标志，会按照一定先后顺序被发送，<br>所以不同的请求或者响应可以互相穿插着给到对方<br>最终实现就是<br>一个包含上百个资源的页面，在http1.x协议下会创建多条TCP链接来进行串行请求<br>在http/2.0下只会创建一个长TCP链接，所有的资源请求在压缩处理后一次性发出去,并行地在一个TCP连接上双向交换信息<br>（同一链接上有多个不同方向的数据流在传输。客户端可以一边乱序发送stream，也可以一边接收服务器的响应，而服务器那端同理。）</p>
+<p>而且可以对资源设置优先级，优先级能动态的被改变，优先级高的资源能够被更快的下载下来并得到执行</p>
+<h3 id="效果"><a href="#效果" class="headerlink" title="效果"></a>效果</h3><p>由于 TCP 连接的减少而使网络拥塞状况得以改善,使拥塞和丢包恢复速度更快<br>单一长连接多资源的方式，减少服务端的链接压力,避免网络开销，内存占用更少,提高连接吞吐量</p>
+<h2 id="压缩头部"><a href="#压缩头部" class="headerlink" title="压缩头部"></a>压缩头部</h2><p>通信连接建立之后，由于cookie和user agent很容易膨胀，<br>每次请求的头部如果有相同的部分，还要以纯文本传输重复发送的话，就会造成流量浪费<br>因此在客户端和服务端都存放一个首部表，来跟踪和存储之前发送的键值对，对于相同的头部，不必再通过请求发送，只需发送一次<br>如果首部发生变化，就在压缩时只将变化的数据放在header帧里面进行发送，<br>无论是客户端还是服务器端收到首部帧后，就对首部表进行更新</p>
+<h2 id="服务器推送"><a href="#服务器推送" class="headerlink" title="服务器推送"></a>服务器推送</h2><p>就是客户端请求一次资源，服务器给多个响应，这些多个响应很有可能是浏览器解析Html后继续要请求的资源，即主动将资源推送给客户端<br>而客户端可以做的就是可以将他们缓存起来做备用</p>
+<h2 id="延伸问题"><a href="#延伸问题" class="headerlink" title="延伸问题"></a>延伸问题</h2><p>1.如何解决推送资源重复或不需要的问题？<br>客户端使用一个简洁的 Cache Digest 来告诉服务器，哪些东西已经在缓存，因此服务器也就会知道哪些是客户端所需要的。<br><a href="https://www.zhihu.com/question/24774343/answer/96586977" target="_blank" rel="external">相关链接</a></p>
+<p>2.为什么HTTP2能去掉SSL在HTTP1.x上的开销<br>单一的长连接，减少了SSL握手的开销<br>头部被压缩，减少了数据传输量<br>多路复用能大幅提高传输效率，不用等待上一个请求的响应<br>不用像http1.x那样把多个文件或者资源弄成一个文件或者资源（http1.x常见的优化手段），<br>这时候，缓存就能更容易命中啊（http1.x里面你揉成一团的东西怎么命中缓存？）<br><a href="https://www.qcloud.com/community/article/541321?fromSource=gwzcw.93399.93399.93399" target="_blank" rel="external">相关链接</a></p>
+<p><a href="https://www.zhihu.com/question/34074946" target="_blank" rel="external">相关链接</a></p>
+<h2 id="遗留疑问"><a href="#遗留疑问" class="headerlink" title="遗留疑问"></a>遗留疑问</h2><p>二进制分帧和TCP切割分包是如何具体实现的，二进制分帧优势具体在哪里？<br>http/2.0各层协议具体工作<br><a href="https://github.com/zqjflash/http2-protocol" target="_blank" rel="external">待读</a></p>
 ]]></content>
     
     <summary type="html">
@@ -808,34 +847,6 @@
     <summary type="html">
     
       &lt;h1 id=&quot;Travish-CI使用&quot;&gt;&lt;a href=&quot;#Travish-CI使用&quot; class=&quot;headerlink&quot; title=&quot;Travish CI使用&quot;&gt;&lt;/a&gt;Travish CI使用&lt;/h1&gt;&lt;p&gt;1、使用github 账号登陆&lt;a href=&quot;https:
-    
-    </summary>
-    
-    
-      <category term="js" scheme="http://yoohannah.github.io/tags/js/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>fork仓库</title>
-    <link href="http://yoohannah.github.io/post/knowledge/fork.html"/>
-    <id>http://yoohannah.github.io/post/knowledge/fork.html</id>
-    <published>2017-08-07T21:58:37.000Z</published>
-    <updated>2017-08-19T02:03:14.573Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="fork"><a href="#fork" class="headerlink" title="fork"></a>fork</h1><p>在页面点击Fork,将被人的仓库复制到自己的远程仓库<br>使用git clone 将远程仓库克隆到本地<br>切换分支到develop git checkout -b develop<br>修改完代码后<br>git add . &amp;&amp; git commit -m ‘test new pull request’<br>git push origin develop<br>然后在github页面找到刚刚fork的仓库,切换branch到develop,<br>点击New pull request进行merge</p>
-<h1 id="保持与原仓库同步"><a href="#保持与原仓库同步" class="headerlink" title="保持与原仓库同步"></a>保持与原仓库同步</h1><p>git remote -v<br>查看当前的远程仓库地址，输出如下：</p>
-<p>origin  <a href="https://github.com/YooHannah/homework2.git" target="_blank" rel="external">https://github.com/YooHannah/homework2.git</a> (fetch)<br>origin  <a href="https://github.com/YooHannah/homework2.git" target="_blank" rel="external">https://github.com/YooHannah/homework2.git</a> (push)<br>可以看到从自己帐号 clone 下来的仓库，远程仓库地址是与自己的远程仓库绑定的（这不是废话吗）</p>
-<p>接下来运行</p>
-<p>git remote add upstream <a href="https://github.com/FE-star/homework2.git" target="_blank" rel="external">https://github.com/FE-star/homework2.git</a><br>这条命令就算添加一个别名为 upstream（上游）的地址，指向之前 fork 的原仓库地址。git remote -v 输出如下：</p>
-<p>origin  <a href="https://github.com/YooHannah/homework2.git" target="_blank" rel="external">https://github.com/YooHannah/homework2.git</a> (fetch)<br>origin  <a href="https://github.com/YooHannah/homework2.git" target="_blank" rel="external">https://github.com/YooHannah/homework2.git</a> (push)<br>upstream        <a href="https://github.com/FE-star/homework2.git" target="_blank" rel="external">https://github.com/FE-star/homework2.git</a> (fetch)<br>upstream        <a href="https://github.com/FE-star/homework2.git" target="_blank" rel="external">https://github.com/FE-star/homework2.git</a> (push)<br>之后运行下面几条命令，就可以保持本地仓库和上游仓库同步了</p>
-<p>git fetch upstream<br>git checkout master 如果本来就在master上就不用切换<br>git merge upstream/master<br>接着就是熟悉的推送本地仓库到远程仓库</p>
-<p>git push origin master</p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;h1 id=&quot;fork&quot;&gt;&lt;a href=&quot;#fork&quot; class=&quot;headerlink&quot; title=&quot;fork&quot;&gt;&lt;/a&gt;fork&lt;/h1&gt;&lt;p&gt;在页面点击Fork,将被人的仓库复制到自己的远程仓库&lt;br&gt;使用git clone 将远程仓库克隆到本地&lt;br&gt;切换分支到d
     
     </summary>
     
