@@ -86,18 +86,18 @@
 
 
 
-<meta name="description" content="ng-srcimg 里面使用src=”\lbrace \lbrace \rbrace \rbrace”会在页面一开始加载模板的时候，不会执行\lbrace \lbrace \rbrace \rbrace，直接去请求资源，造成404错误如果使用ng-src = “\lbrace \lbrace \rbrace \rbrace”就会避免以上问题，ng-src会先去执行\lbrace \lbrace \">
+<meta name="description" content="ng-srcimg 里面使用src=”{ { } }“会在页面一开始加载模板的时候，不会执行{ { } }，直接去请求资源，造成404错误如果使用ng-src = “{ { } }“就会避免以上问题，ng-src会先去执行{ { } },得到资源地址后再去请求资源ng-src 指令确保的 AngularJS 代码执行前不显示图片。">
 <meta name="keywords" content="js">
 <meta property="og:type" content="article">
 <meta property="og:title" content="ng-src">
 <meta property="og:url" content="http://yoohannah.github.io/post/knowledge/ngsrc.html">
 <meta property="og:site_name" content="My Little World">
-<meta property="og:description" content="ng-srcimg 里面使用src=”\lbrace \lbrace \rbrace \rbrace”会在页面一开始加载模板的时候，不会执行\lbrace \lbrace \rbrace \rbrace，直接去请求资源，造成404错误如果使用ng-src = “\lbrace \lbrace \rbrace \rbrace”就会避免以上问题，ng-src会先去执行\lbrace \lbrace \">
+<meta property="og:description" content="ng-srcimg 里面使用src=”{ { } }“会在页面一开始加载模板的时候，不会执行{ { } }，直接去请求资源，造成404错误如果使用ng-src = “{ { } }“就会避免以上问题，ng-src会先去执行{ { } },得到资源地址后再去请求资源ng-src 指令确保的 AngularJS 代码执行前不显示图片。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-01-04T14:54:52.723Z">
+<meta property="og:updated_time" content="2018-01-04T15:00:23.384Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="ng-src">
-<meta name="twitter:description" content="ng-srcimg 里面使用src=”\lbrace \lbrace \rbrace \rbrace”会在页面一开始加载模板的时候，不会执行\lbrace \lbrace \rbrace \rbrace，直接去请求资源，造成404错误如果使用ng-src = “\lbrace \lbrace \rbrace \rbrace”就会避免以上问题，ng-src会先去执行\lbrace \lbrace \">
+<meta name="twitter:description" content="ng-srcimg 里面使用src=”{ { } }“会在页面一开始加载模板的时候，不会执行{ { } }，直接去请求资源，造成404错误如果使用ng-src = “{ { } }“就会避免以上问题，ng-src会先去执行{ { } },得到资源地址后再去请求资源ng-src 指令确保的 AngularJS 代码执行前不显示图片。">
 
 
 
@@ -335,7 +335,7 @@
       
 
       
-        <h1 id="ng-src"><a href="#ng-src" class="headerlink" title="ng-src"></a>ng-src</h1><p>img 里面使用src=”\lbrace \lbrace \rbrace \rbrace”会在页面一开始加载模板的时候，不会执行\lbrace \lbrace \rbrace \rbrace，直接去请求资源，造成404错误<br>如果使用ng-src = “\lbrace \lbrace \rbrace \rbrace”就会避免以上问题，ng-src会先去执行\lbrace \lbrace \rbrace \rbrace,得到资源地址后再去请求资源<br>ng-src 指令确保的 AngularJS 代码执行前不显示图片。</p>
+        <h1 id="ng-src"><a href="#ng-src" class="headerlink" title="ng-src"></a>ng-src</h1><p>img 里面使用src=”{ { } }“会在页面一开始加载模板的时候，不会执行{ { } }，直接去请求资源，造成404错误<br>如果使用ng-src = “{ { } }“就会避免以上问题，ng-src会先去执行{ { } },得到资源地址后再去请求资源<br>ng-src 指令确保的 AngularJS 代码执行前不显示图片。</p>
 
       
     </div>
@@ -368,8 +368,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/post/knowledge/template.html" rel="next" title="关于事件循环event-loop">
-                <i class="fa fa-chevron-left"></i> 关于事件循环event-loop
+              <a href="/post/knowledge/serviceworker.html" rel="next" title="service worker">
+                <i class="fa fa-chevron-left"></i> service worker
               </a>
             
           </div>
@@ -377,6 +377,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/post/knowledge/template.html" rel="prev" title="模板引擎前后端优缺点">
+                模板引擎前后端优缺点 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
