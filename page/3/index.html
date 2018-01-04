@@ -259,6 +259,506 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://yoohannah.github.io/post/knowledge/assert.html">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="YooHannah">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="/psb.jpg">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="My Little World">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="My Little World" src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/post/knowledge/assert.html" itemprop="url">
+                  断言语句assert
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-08-12T23:54:02+08:00">
+                2017-08-12
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>测试用例里面的一种判断语句</p>
+<p>在mocha中需要require<br>var assert = require(‘assert’)</p>
+<p>参数一般有三个<br>value 待判断的值<br>expected 要和value进行比较的值，看二者是否相等或者不相等,如果没有expected，则是在判断value的值是否为真<br>message 判断结果为错误时,抛出来的错误提醒语句，如果 message 参数为 undefined，则赋予默认的错误信息。</p>
+<p>assert(value[, message]) 同assert.ok()<br>assert.ok(value[, message]) value如果不为真值,抛出一个带有 message 属性的 AssertionError</p>
+<p>assert.fail(message) 抛出错误信息message</p>
+<p>assert.fail(actual, expected, message, operator) 根据参数抛出相应错误信息<br>如果 message 不存在，则错误信息会被设为 actual 的值加分隔符 operator 再加 expected 的值。 否则，错误信息为 message 的值,operator没有的话，默认为!=</p>
+<p>assert.ifError(value) 如果 value 为真，则抛出 value,如果为假，则测试通过</p>
+<p>assert.equal(actual, expected[, message])      使用相等运算符（==）测试 actual 参数与 expected 参数是否相等。<br>assert.deepEqual(actual, expected[, message])  测试 actual 参数与 expected 参数是否深度相等。 原始值使用 相等运算符（==）比较，只比较可枚举的自身属性。<br>深度相等意味着子对象的可枚举的自身属性也会被比较<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">const obj1 = &#123;</div><div class="line">  a: &#123;</div><div class="line">    b: 1</div><div class="line">  &#125;</div><div class="line">&#125;;</div><div class="line">const obj3 = &#123;</div><div class="line">  a: &#123;</div><div class="line">    b: 1</div><div class="line">  &#125;</div><div class="line">&#125;;</div><div class="line">const obj4 = Object.create(obj1);</div><div class="line">assert.deepEqual(obj1, obj4);</div><div class="line">// 抛出 AssertionError: &#123; a: &#123; b: 1 &#125; &#125; deepEqual &#123;&#125;</div><div class="line">// 原型会被忽略</div><div class="line">assert.deepEqual(obj1, obj3);</div><div class="line">// 通过，两个对象相等</div></pre></td></tr></table></figure></p>
+<p>assert.deepStrictEqual(actual, expected[, message])<br>大多数情况下与 assert.deepEqual() 一样，但有三个例外：</p>
+<p>原始值使用 全等运算符（===）比较。使用SameValueZero比较法来比较设置的值及映射的键（也就意味不用考虑caveats）。<br>对象的 原型 也使用 全等运算符 比较。<br>对象的类型标签应该相同。</p>
+<p>assert.notEqual(actual, expected[, message])              使用 不等运算符（!=）测试是否不相等。<br>assert.notDeepEqual(actual, expected[, message])          测试是否不深度相等。 与 assert.deepEqual() 相反。<br>assert.notStrictEqual(actual, expected[, message])        使用 不全等运算符（!==）测试是否不全等。<br>assert.notDeepStrictEqual(actual, expected[, message])    测试是否不深度全等。 与 assert.deepStrictEqual() 相反。</p>
+<p>assert.throws(block[, error][, message])   期望 block 函数抛出错误error，如果block(function)抛出error的错误，则测试通过<br>error 可以是构造函数、正则表达式、或自定义的验证函数。</p>
+<p>assert.doesNotThrow(block[, error][, message])  断言 block 函数不会抛出错误<br>当 assert.doesNotThrow() 被调用时，它会立即调用 block 函数。<br>如果抛出错误且错误类型与 error 参数指定的相同，则抛出 AssertionError。 如果错误类型不相同，或 error 参数是 undefined，则错误会被抛回给调用者。<br>如果block不抛出错误，则测试通过</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://yoohannah.github.io/post/knowledge/var.html">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="YooHannah">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="/psb.jpg">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="My Little World">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="My Little World" src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/post/knowledge/var.html" itemprop="url">
+                  变量提升
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-08-09T22:02:37+08:00">
+                2017-08-09
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>一个变量的生成需要经历 创建、初始化、赋值三个阶段<br>let 的「创建」过程被提升了，但是初始化没有提升。<br>var 的「创建」和「初始化」都被提升了。<br>function 的「创建」「初始化」和「赋值」都被提升了。<br>const，其实 const 和 let 只有一个区别，那就是 const 只有「创建」和「初始化」，没有「赋值」过程。<br><a href="https://zhuanlan.zhihu.com/p/28140450" target="_blank" rel="external">let</a><br>1、<br>假设有如下代码：</p>
+<p>function fn(){<br>  var x = 1<br>  var y = 2<br>}<br>fn()</p>
+<p>在执行 fn 时，会有以下过程（不完全）：</p>
+<p>进入 fn，为 fn 创建一个环境。<br>找到 fn 中所有用 var 声明的变量，在这个环境中「创建」这些变量（即 x 和 y）。<br>将这些变量「初始化」为 undefined。<br>开始执行代码<br>x = 1 将 x 变量「赋值」为 1<br>y = 2 将 y 变量「赋值」为 2<br>也就是说 var 声明会在代码执行之前就将「创建变量，并将其初始化为 undefined」。</p>
+<p>这就解释了为什么在 var x = 1 之前 console.log(x) 会得到 undefined。</p>
+<p>2、<br>fn2()</p>
+<p>function fn2(){<br>  console.log(2)<br>}<br>JS 引擎会有一下过程：</p>
+<p>找到所有用 function 声明的变量，在环境中「创建」这些变量。<br>将这些变量「初始化」并「赋值」为 function(){ console.log(2) }。<br>开始执行代码 fn2()<br>也就是说 function 声明会在代码执行之前就「创建、初始化并赋值」<br>3、<br>{<br>  let x = 1<br>  x = 2<br>}<br>只看 {} 里面的过程：</p>
+<p>找到所有用 let 声明的变量，在环境中「创建」这些变量<br>开始执行代码（注意现在还没有初始化）<br>执行 x = 1，将 x 「初始化」为 1（这并不是一次赋值，如果代码是 let x，就将 x 初始化为 undefined）<br>执行 x = 2，对 x 进行「赋值」<br>这就解释了为什么在 let x 之前使用 x 会报错：</p>
+<p>let x = ‘global’<br>{<br>  console.log(x) // Uncaught ReferenceError: x is not defined<br>  let x = 1<br>}<br>原因有两个</p>
+<p>console.log(x) 中的 x 指的是下面的 x，而不是全局的 x<br>执行 log 时 x 还没「初始化」，所以不能使用（也就是所谓的暂时死区）</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://yoohannah.github.io/post/knowledge/aboutthis.html">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="YooHannah">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="/psb.jpg">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="My Little World">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="My Little World" src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/post/knowledge/aboutthis.html" itemprop="url">
+                  关于this
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-08-09T22:00:37+08:00">
+                2017-08-09
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="普通函数中的this"><a href="#普通函数中的this" class="headerlink" title="普通函数中的this"></a>普通函数中的this</h1><ol>
+<li>this总是代表它的直接调用者, 例如 obj.func ,那么func中的this就是obj<br>2.在默认情况(非严格模式下,未使用 ‘use strict’),没找到直接调用者,则this指的是 window<br>3.在严格模式下,没有直接调用者的函数中的this是 undefined<br>4.使用call,apply,bind绑定的,this指的是 绑定的对象<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div></pre></td><td class="code"><pre><div class="line"><span class="number">1</span>、</div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">test</span>(<span class="params"></span>) </span>&#123;</div><div class="line">  <span class="built_in">console</span>.log(<span class="keyword">this</span>);<span class="comment">//window</span></div><div class="line">&#125;</div><div class="line">test();</div><div class="line"></div><div class="line"><span class="number">2</span>、</div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">test</span>(<span class="params"></span>) </span>&#123;</div><div class="line"><span class="meta">  'use strict'</span>;</div><div class="line">  <span class="built_in">console</span>.log(<span class="keyword">this</span>);<span class="comment">//undefined</span></div><div class="line">&#125;</div><div class="line">test();</div><div class="line"></div><div class="line"><span class="number">3</span>、</div><div class="line"><span class="built_in">window</span>.val = <span class="number">1</span>;</div><div class="line">  <span class="keyword">var</span> obj = &#123;</div><div class="line">    <span class="attr">val</span>: <span class="number">2</span>,</div><div class="line">    <span class="attr">fn</span>: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">      <span class="keyword">this</span>.val *= <span class="number">2</span>;    <span class="comment">//普通函数，this指向调用者</span></div><div class="line">      val *= <span class="number">2</span>;</div><div class="line">      <span class="built_in">console</span>.log(<span class="keyword">this</span>.val);</div><div class="line">      <span class="built_in">console</span>.log(val);</div><div class="line">    &#125;</div><div class="line">  &#125;;</div><div class="line">  obj.fn();<span class="comment">// 4 2</span></div><div class="line">  <span class="keyword">var</span> func = obj.fn;</div><div class="line">  func(); <span class="comment">//8 8</span></div><div class="line"><span class="comment">//obj.fn()执行时,val 没有在fn的作用域里面定义，则去obj.fn()的作用域里面找,obj.fn()位于window,window.val是1;this指向obj,this.val是2</span></div><div class="line"><span class="comment">//func()执行时，window.val由于执行obj.fn(),现在是2;func()在window作用域下执行,this就是window,所以this.val和val都是window.val</span></div><div class="line"></div><div class="line"><span class="number">4</span>、</div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">f</span>(<span class="params"></span>) </span>&#123;</div><div class="line">  <span class="keyword">var</span> test = <span class="string">'in the f!'</span>;</div><div class="line">  setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123; <span class="comment">//是函数就会建立作用域</span></div><div class="line"> 	 <span class="built_in">console</span>(<span class="string">'inner '</span>+ test) <span class="comment">// inner in the f!</span></div><div class="line">  &#125;, <span class="number">0</span>);</div><div class="line">&#125;</div><div class="line"><span class="comment">//以上代码等于</span></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">f</span>(<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="keyword">var</span> test = <span class="string">'in the f!'</span>;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">function</span> <span class="title">ff</span>(<span class="params"></span>) </span>&#123;</div><div class="line">        alert(<span class="string">'inner '</span> + test) <span class="comment">//test在ff里面没定义，但在f里面进行了定义</span></div><div class="line">    &#125; <span class="comment">// 能访问到f中的test局部变量</span></div><div class="line"></div><div class="line">    setTimeout(ff, <span class="number">0</span>); <span class="comment">// inner in the f!</span></div><div class="line">&#125;</div><div class="line"></div><div class="line">f();</div><div class="line"><span class="number">5</span>、</div><div class="line"><span class="keyword">var</span> lzh = &#123;</div><div class="line">    <span class="attr">name</span>: <span class="string">'lzh'</span>,</div><div class="line">    <span class="attr">say</span>: <span class="function"><span class="keyword">function</span>(<span class="params">something</span>)</span>&#123;</div><div class="line">        alert(something + <span class="keyword">this</span>.name);</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">var</span> iny = &#123;</div><div class="line">    <span class="attr">name</span>: <span class="string">'iny'</span></div><div class="line">&#125;</div><div class="line"></div><div class="line">lzh.say.apply(iny, [<span class="string">'hi, I am '</span>]); <span class="comment">// 输出 hi I am iny</span></div></pre></td></tr></table></figure>
+</li>
+</ol>
+<h1 id="箭头函数中的this"><a href="#箭头函数中的this" class="headerlink" title="箭头函数中的this"></a>箭头函数中的this</h1><p>默认指向在定义它时,它所处的对象,而不是执行时的对象, 定义它的时候,可能环境是window</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params"></span>) </span>&#123;</div><div class="line">  <span class="keyword">return</span> <span class="function"><span class="params">()</span> =&gt;</span> &#123;</div><div class="line">    <span class="keyword">return</span> <span class="function"><span class="params">()</span> =&gt;</span> &#123;</div><div class="line">      <span class="keyword">return</span> <span class="function"><span class="params">()</span> =&gt;</span> &#123;</div><div class="line">        <span class="built_in">console</span>.log(<span class="keyword">this</span>);</div><div class="line">      &#125;;</div><div class="line">    &#125;;</div><div class="line">  &#125;;</div><div class="line">&#125;</div><div class="line">foo()()()() <span class="comment">//window</span></div><div class="line"><span class="keyword">var</span> f = foo.call(&#123;<span class="attr">id</span>: <span class="number">1</span>&#125;);</div><div class="line">f()()() <span class="comment">//&#123;id:1&#125;</span></div><div class="line"><span class="keyword">var</span> t1 = f.call(&#123;<span class="attr">id</span>: <span class="number">2</span>&#125;)()();<span class="comment">//&#123;id:1&#125;</span></div><div class="line"><span class="keyword">var</span> t2 = f().call(&#123;<span class="attr">id</span>: <span class="number">3</span>&#125;)();<span class="comment">//&#123;id:1&#125;</span></div><div class="line"><span class="keyword">var</span> t3 = f()().call(&#123;<span class="attr">id</span>: <span class="number">4</span>&#125;);<span class="comment">//&#123;id:1&#125;</span></div></pre></td></tr></table></figure>
+<h1 id="setTimeout中的this"><a href="#setTimeout中的this" class="headerlink" title="setTimeout中的this"></a>setTimeout中的this</h1><p> 普通函数指向window<br> 箭头函数指向定义的对象<br> 引用函数,指向调用对象</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div></pre></td><td class="code"><pre><div class="line"> 0、</div><div class="line"> var obj = &#123;</div><div class="line">    fn1 : function () &#123;</div><div class="line">        console.log(this);          //obj</div><div class="line">    &#125;,</div><div class="line">    fn2 :　function () &#123;</div><div class="line">        setTimeout(function () &#123;</div><div class="line">            console.log(this);     //window 匿名函数执行在window环境，找不到宿主对象，所以指向window</div><div class="line">        &#125;,0);</div><div class="line">    &#125;,</div><div class="line">    fn3: function () &#123;</div><div class="line">      setTimeout(() =&gt; &#123;</div><div class="line">        console.log(this);         //obj 箭头函数创建在obj上</div><div class="line">      &#125;,100);</div><div class="line">    &#125;</div><div class="line">    fn4: function () &#123;</div><div class="line">      var that = this;</div><div class="line">      setTimeout(function () &#123;</div><div class="line">        console.log(that)          //obj 在setTimeout里面引用obj</div><div class="line">        console.log(this)          //window</div><div class="line">      &#125;);</div><div class="line">    &#125;</div><div class="line">    fn5: function () &#123;</div><div class="line">      var f1 = () =&gt; &#123;</div><div class="line">        console.log(this);         // obj f1定义处在obj里面</div><div class="line">        setTimeout(() =&gt; &#123;</div><div class="line">          console.log(this);       // obj 箭头函数定义处在obj里面</div><div class="line">        &#125;)</div><div class="line">      &#125;</div><div class="line">      f1();</div><div class="line">    &#125;</div><div class="line">    fn6: function () &#123;</div><div class="line">      var f2 = function () &#123;</div><div class="line">        console.log(this);         // window, f2调用时,没有宿主对象,默认是window</div><div class="line">        setTimeout(() =&gt; &#123;</div><div class="line">          console.log(this);      // window 箭头函数定义在f2确定的window里面</div><div class="line">        &#125;)</div><div class="line">      &#125;;</div><div class="line">      f2();</div><div class="line">    &#125;</div><div class="line">    fn7: function () &#123;</div><div class="line">      &apos;use strict&apos;;</div><div class="line">      var f3 = function () &#123;</div><div class="line">        console.log(this); // undefined</div><div class="line">        setTimeout(() =&gt; &#123;</div><div class="line">          console.log(this); // undefined</div><div class="line">        &#125;)</div><div class="line">      &#125;;</div><div class="line">      f3();</div><div class="line">    &#125;</div><div class="line">&#125;;</div><div class="line">obj.fn1();</div><div class="line">obj.fn2();</div><div class="line">obj.fn3();</div><div class="line">obj.fn4();</div><div class="line">···</div><div class="line"></div><div class="line">1、</div><div class="line">function foo()&#123;</div><div class="line">	setTimeout(function()&#123;</div><div class="line">    console.log(this) //window 匿名函数，找不到宿主对象</div><div class="line">  &#125;, 100);</div><div class="line">  setTimeout(() =&gt; &#123;</div><div class="line">    console.log(this) //window foo挂载在window对象上</div><div class="line">  &#125;, 100);</div><div class="line">&#125;</div><div class="line">foo();</div><div class="line">foo.call(&#123;id:42&#125;); //window &#123;id:42&#125; foo运行时所在的对象，恰好是箭头函数定义时所在的对象</div><div class="line">//call([thisObj[,arg1[, arg2,....]) 方法可将一个函数的对象上下文从初始的上下文改变为由 thisObj 指定的新对象。</div><div class="line"></div><div class="line">2、</div><div class="line">function method() &#123;</div><div class="line">  alert(this.value);  // 输出 42  第二个this</div><div class="line">&#125;</div><div class="line"></div><div class="line">function Foo() &#123;</div><div class="line">    this.value = 42;</div><div class="line">    setTimeout(this.method, 500);  // 这里this指向window   第一个this</div><div class="line">&#125;</div><div class="line"></div><div class="line">Foo();</div><div class="line">//Foo挂载在window上，当执行Foo时，this指向window,Foo里面的value被挂到window，method本来就挂在window上，所以执行this.method就是调用window.method</div><div class="line">//method执行，它的this指向window,这时window已经挂上value值42</div></pre></td></tr></table></figure>
+<p><a href="http://www.cnblogs.com/libin-1/p/5814792.html" target="_blank" rel="external">应用</a></p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://yoohannah.github.io/post/knowledge/TravishCI.html">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="YooHannah">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="/psb.jpg">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="My Little World">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="My Little World" src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/post/knowledge/TravishCI.html" itemprop="url">
+                  Travish CI使用
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-08-08T05:59:37+08:00">
+                2017-08-08
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="Travish-CI使用"><a href="#Travish-CI使用" class="headerlink" title="Travish CI使用"></a>Travish CI使用</h1><p>1、使用github 账号登陆<a href="https://www.travis-ci.org/" target="_blank" rel="external">https://www.travis-ci.org/</a><br>2、点击右上角自己的账户名，选择accounts,弹出在github上所有的仓库<br><img src="/image/ci1.png" alt="ci1.png"><br>点击这个按钮重新从github上获取所有仓库<br><img src="/image/ci2.png" alt="ci2.png"><br>3、点击对应仓库按钮，变为对勾，则开启对应仓库的集成化测试,每次提交代码到远程仓库都进行一次测试<br>4、点击仓库名,可进入到测试界面，<br><img src="/image/ci3.png" alt="ci3.png"><br>5、为项目添加.travis.yml文件<br>.travis.yml 文件编写的相关语法可参考<a href="https://docs.travis-ci.com/user/languages/javascript-with-nodejs/" target="_blank" rel="external">https://docs.travis-ci.com/user/languages/javascript-with-nodejs/</a></p>
+<p>.travis.yml 文件可以在<a href="https://lint.travis-ci.org/" target="_blank" rel="external">https://lint.travis-ci.org/</a>页面进行检查，是否编写正确</p>
+<p>6、push代码,在Travish CI等待测试结果<br>页面图标因为有缓存所以可能出现不能及时更换状态的情况,这个注意看结果就好</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
   <link itemprop="mainEntityOfPage" href="http://yoohannah.github.io/post/knowledge/fork.html">
 
   <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1043,499 +1543,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="http://yoohannah.github.io/post/knowledge/angularjsfilterEmoji.html">
-
-  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
-    <meta itemprop="name" content="YooHannah">
-    <meta itemprop="description" content="">
-    <meta itemprop="image" content="/psb.jpg">
-  </span>
-
-  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-    <meta itemprop="name" content="My Little World">
-    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
-      <img style="display:none;" itemprop="url image" alt="My Little World" src="">
-    </span>
-  </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/post/knowledge/angularjsfilterEmoji.html" itemprop="url">
-                  Angularjs 利用图片更换emoji表情
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-08-01T06:46:02+08:00">
-                2017-08-01
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>在某些浏览器中,emoji表情不能正常显示,只能显示原始状态如下<br><img src="/image/emoji1.png" alt="erroremoji"><br>为使表情正常显示，这里利用转码方法将emoji符号用图片替换<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//对数据$scope.data.remark做表情替换处理,$scope.data.remark是包含emoji符号的字符串</span></div><div class="line">    <span class="keyword">var</span> str=$scope.data.remark;</div><div class="line">    str=str.replace(rep,<span class="function"><span class="keyword">function</span>(<span class="params">code</span>) </span>&#123; <span class="comment">//code即匹配到的emoji符号,对该符号通过_escapeToUtf32(code)转码,得到对应图片名,然后图片替换</span></div><div class="line">     <span class="keyword">return</span> <span class="string">'&lt;img class="emoji" style="vertical-align:middle" src="assets/img/emoji/'</span>+_escapeToUtf32(code) + <span class="string">'.png"&gt;'</span>;</div><div class="line">    &#125;)</div><div class="line">    $scope.data.remark = str;</div><div class="line"></div><div class="line"><span class="comment">//用emoji符号的unicode码匹配emoji符号,例如270c匹配 victory hand符号</span></div><div class="line"> <span class="keyword">var</span> rep =<span class="regexp">/\uD83C[\uDF00-\uDFFF]|\uD83D[\uDC00-\uDE4F]|\u270c|\u261d/g</span>;</div><div class="line"></div><div class="line"><span class="comment">//emoji 表情转码</span></div><div class="line">  <span class="function"><span class="keyword">function</span>  <span class="title">_escapeToUtf32</span>(<span class="params">str</span>) </span>&#123;</div><div class="line">    <span class="keyword">var</span> escaped = [],</div><div class="line">      unicodeCodes = _convertStringToUnicodeCodePoints(str),</div><div class="line">      i = <span class="number">0</span>,</div><div class="line">      l = unicodeCodes.length,</div><div class="line">      hex;</div><div class="line"></div><div class="line">    <span class="keyword">for</span> (; i &lt; l; i++) &#123;</div><div class="line">      hex = unicodeCodes[i].toString(<span class="number">16</span>);</div><div class="line">      escaped.push(<span class="string">'0000'</span>.substr(hex.length) + hex);</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> escaped.join(<span class="string">'-'</span>);</div><div class="line">  &#125;</div><div class="line"></div><div class="line"> <span class="function"><span class="keyword">function</span> <span class="title">_convertStringToUnicodeCodePoints</span>(<span class="params">str</span>) </span>&#123;</div><div class="line">    <span class="keyword">var</span> surrogate1st = <span class="number">0</span>,</div><div class="line">      unicodeCodes = [],</div><div class="line">      i = <span class="number">0</span>,</div><div class="line">      l = str.length;</div><div class="line"></div><div class="line">    <span class="keyword">for</span> (; i &lt; l; i++) &#123;</div><div class="line">      <span class="keyword">var</span> utf16Code = str.charCodeAt(i);</div><div class="line">      <span class="keyword">if</span> (surrogate1st != <span class="number">0</span>) &#123;</div><div class="line">        <span class="keyword">if</span> (utf16Code &gt;= <span class="number">0xDC00</span> &amp;&amp; utf16Code &lt;= <span class="number">0xDFFF</span>) &#123;</div><div class="line">          <span class="keyword">var</span> surrogate2nd = utf16Code,</div><div class="line">            unicodeCode = (surrogate1st - <span class="number">0xD800</span>) * (<span class="number">1</span> &lt;&lt; <span class="number">10</span>) + (<span class="number">1</span> &lt;&lt; <span class="number">16</span>) + (surrogate2nd - <span class="number">0xDC00</span>);</div><div class="line">          unicodeCodes.push(unicodeCode);</div><div class="line">        &#125;</div><div class="line">        surrogate1st = <span class="number">0</span>;</div><div class="line">      &#125; <span class="keyword">else</span> <span class="keyword">if</span> (utf16Code &gt;= <span class="number">0xD800</span> &amp;&amp; utf16Code &lt;= <span class="number">0xDBFF</span>) &#123;</div><div class="line">        surrogate1st = utf16Code;</div><div class="line">      &#125; <span class="keyword">else</span> &#123;</div><div class="line">        unicodeCodes.push(utf16Code);</div><div class="line">      &#125;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> unicodeCodes;</div><div class="line">  &#125;</div><div class="line"></div><div class="line"><span class="comment">//Angularjs对字符串里面的html标签不会按照HTML去解析,会当做字符串显示,</span></div><div class="line"><span class="comment">//所以这里需要对字符串进行过滤，使字符串里面的标签能按照html解析</span></div><div class="line"></div><div class="line"><span class="comment">//新建过滤器trust2Html,这里使用$sce方法</span></div><div class="line">app.filter(<span class="string">'trust2Html'</span>, [<span class="string">'$sce'</span>,<span class="function"><span class="keyword">function</span>(<span class="params">$sce</span>) </span>&#123;</div><div class="line">    <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params">val</span>) </span>&#123;</div><div class="line">        <span class="keyword">return</span> $sce.trustAsHtml(val);</div><div class="line">    &#125;;</div><div class="line">&#125;])</div><div class="line"></div><div class="line"><span class="comment">//在页面里面显示经过图片替换的含emoji符号的字符串</span></div><div class="line">&lt;label ng-bind-html=<span class="string">"data.remark|trust2Html"</span>&gt;&lt;/label&gt;</div></pre></td></tr></table></figure></p>
-<p>替换后结果<br><img src="/image/emoji2.png" alt="exactemoji"><br><a href="https://apps.timwhitlock.info/emoji/tables/unicode#block-6a-additional-emoticons" target="_blank" rel="external">Emoji Unicode Tables</a></p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="http://yoohannah.github.io/post/knowledge/JQuery_data.html">
-
-  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
-    <meta itemprop="name" content="YooHannah">
-    <meta itemprop="description" content="">
-    <meta itemprop="image" content="/psb.jpg">
-  </span>
-
-  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-    <meta itemprop="name" content="My Little World">
-    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
-      <img style="display:none;" itemprop="url image" alt="My Little World" src="">
-    </span>
-  </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/post/knowledge/JQuery_data.html" itemprop="url">
-                  探究jQuery.data
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-07-30T13:43:02+08:00">
-                2017-07-30
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>jQuery.data用于处理标签数据绑定</p>
-<h1 id="使用方法"><a href="#使用方法" class="headerlink" title="使用方法"></a>使用方法</h1><p>1.赋值</p>
-<p>a.使用js<br>$(‘’).data(key,value); 一次赋值一个，value可以是任意js数据类型,包括Array 或者 Object<br>$(‘’).data(obj);一次赋值多个或者更新多个或者新增多个</p>
-<p>b.使用HTML标签属性<br>利用H5 标签的’data-‘属性添加键值对<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;div data-role=&quot;page&quot; data-last-value=&quot;43&quot; data-hidden=&quot;true&quot; data-options=&apos;&#123;&quot;name&quot;:&quot;John&quot;&#125;&apos;&gt;&lt;/div&gt;</div></pre></td></tr></table></figure></p>
-<p>2.取值<br>$(‘’).data(key);获取key对应的数据值<br>$(‘’).data(); 一次性获取绑定在$(‘’)上的所有数据对象</p>
-<p>3.删除<br>$(‘’).removeData(key);</p>
-<h1 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h1><p>a. &lt;object&gt;（除非是Flash插件），&lt;applet&gt; 或 &lt;embed&gt;&gt; 三个标签不能使用.data方法</p>
-<p>b. 通过”data-“属性建立的标签数据，获取时注意<br>data-last-value=”43” ==&gt; $(‘div’).data(‘lastValue’)<br>data-options=’{“name”:”John”}’ ==&gt; $(“div”).data(“options”).name -&gt;John<br>取到的值会自动转化为js的数据类型</p>
-<p>c. $(‘’).data()被赋值到js变量A后，之后对$(‘’)进行数据处理，A的内容会进行同步变动，<br>如果更改A的内容，$(‘’).data()也会同步更改<br>但如果$(‘’).data()的值被用到了html里面,HTML里面的值不会变动</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div></pre></td><td class="code"><pre><div class="line">&lt;!DOCTYPE html&gt;</div><div class="line">&lt;html&gt;</div><div class="line">&lt;head&gt;</div><div class="line">  &lt;style&gt;</div><div class="line">  div &#123; color:blue; &#125;</div><div class="line">  span &#123; color:red; &#125;</div><div class="line">  &lt;/style&gt;</div><div class="line">  &lt;script src="http://cdn.bootcss.com/jquery/1.11.2/jquery.min.js"&gt;&lt;/script&gt;</div><div class="line">&lt;/head&gt;</div><div class="line">&lt;body&gt;</div><div class="line">  &lt;div&gt;</div><div class="line">    The values stored were</div><div class="line">    &lt;span&gt;&lt;/span&gt;</div><div class="line">    and</div><div class="line">    &lt;span&gt;&lt;/span&gt;</div><div class="line">  &lt;/div&gt;</div><div class="line">&lt;script&gt;</div><div class="line">$("div").data("test", &#123; first: 16, last: "pizza!" &#125;);</div><div class="line">$("span:first").text($("div").data("test").first);</div><div class="line">$("span:last").text($("div").data("test").last);</div><div class="line">//页面输出 The values stored were 16 and pizza!</div><div class="line">  var temp = $("div").data();</div><div class="line">  console.log(temp);</div><div class="line">  $("div").data(&#123; first: 25, last: "pizza!" ,test:&#123;last:'fruit'&#125;&#125;);</div><div class="line">  // $("span:first").text($("div").data("first"));</div><div class="line">  // $("span:last").text($("div").data("test").last); </div><div class="line">  //如果没有以上两句页面不会发生任何变化，添加后</div><div class="line">  //页面输出 The values stored were 25 and fruit</div><div class="line">  console.log(temp);//temp与$("div").data()保持一致</div><div class="line">  console.log($("div").data())</div><div class="line">  temp.child = 'Jack';</div><div class="line">  console.log($("div").data()) //增加一项&#123;child: "Jack"&#125;</div><div class="line">  $("div").removeData("blah");//删除没有的属性不会报错</div><div class="line">  $("div").removeData("child");</div><div class="line">   console.log(temp);</div><div class="line">&lt;/script&gt;</div><div class="line">&lt;/body&gt;</div><div class="line">&lt;/html&gt;</div></pre></td></tr></table></figure>
-<p><a href="https://github.com/YooHannah/algorithm/blob/master/plugin/data.js" target="_blank" rel="external">JQuery.data源码解析</a></p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="http://yoohannah.github.io/post/knowledge/ng-class.html">
-
-  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
-    <meta itemprop="name" content="YooHannah">
-    <meta itemprop="description" content="">
-    <meta itemprop="image" content="/psb.jpg">
-  </span>
-
-  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-    <meta itemprop="name" content="My Little World">
-    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
-      <img style="display:none;" itemprop="url image" alt="My Little World" src="">
-    </span>
-  </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/post/knowledge/ng-class.html" itemprop="url">
-                  angular样式绑定ng-class
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-06-25T22:00:37+08:00">
-                2017-06-25
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>ng-class命令可用于绑定不同的样式<br>使用方法即先在js中,定义样式集合<br>$scope.STATUS_NAME = [<br>  {‘labelClass’: ‘label1’},<br>  {‘labelClass’: ‘label2’},<br>  {‘labelClass’: ‘label3’},<br>  {‘labelClass’: ‘label4’}<br> ];<br> 对绑定对象赋值<br> angular.forEach($scope.data, function(data){<br>     //对数组中每一项，根据status属性赋给labelclass属性样式集合中的值<br>   data.labelClass = $scope.STATUS_NAME[data.status].labelClass;<br> });<br>在html中定义不同的样式<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">&lt;style type=&quot;text/css&quot;&gt;</div><div class="line">	.label1&#123;</div><div class="line">    background-color:#87CEFA</div><div class="line">  &#125;</div><div class="line">  .label2&#123;</div><div class="line">    background-color:#90EE90</div><div class="line">  &#125;</div><div class="line">  .label3&#123;</div><div class="line">    background-color:#d2cd93</div><div class="line">  &#125;</div><div class="line">  .label4&#123;</div><div class="line">    background-color:#D3D3D3</div><div class="line">  &#125;</div><div class="line">&lt;/style&gt;</div></pre></td></tr></table></figure></p>
-<p> 在html中使用<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&lt;tr role=&quot;row&quot; ng-repeat=&quot;item in data track by $index&quot;&gt;</div><div class="line">	&lt;td&gt;&lt;span class=&quot;label&quot; ng-class=&quot;item.labelClass&quot;&gt;&#123;&#123;item.status_desc&#125;&#125;&lt;/span&gt;&lt;/td&gt;</div><div class="line">&lt;/tr&gt;</div></pre></td></tr></table></figure></p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="http://yoohannah.github.io/post/php/CookieAndSession.html">
-
-  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
-    <meta itemprop="name" content="YooHannah">
-    <meta itemprop="description" content="">
-    <meta itemprop="image" content="/psb.jpg">
-  </span>
-
-  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-    <meta itemprop="name" content="My Little World">
-    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
-      <img style="display:none;" itemprop="url image" alt="My Little World" src="">
-    </span>
-  </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/post/php/CookieAndSession.html" itemprop="url">
-                  cookie和session
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-05-26T21:38:37+08:00">
-                2017-05-26
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="cookie"><a href="#cookie" class="headerlink" title="cookie"></a>cookie</h1><p>设置cookie<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">bool setcookie  (</div><div class="line">	string $名字</div><div class="line">	[, string $值]</div><div class="line">	[, int $过期时间  = 0]</div><div class="line">	[, string $路径]</div><div class="line">	[, string $域名]</div><div class="line">	[, bool $安全  = false]</div><div class="line">	[, bool $http只读  = false]</div><div class="line">);</div></pre></td></tr></table></figure></p>
-<p> 参数 描述<br>$名字 必需。规定 cookie 的名称。<br>$值 可选。规定 cookie 的值。<br>$有效期 可选。规定 cookie 的有效期。<br>$路径 可选。规定 cookie 的服务器路径。<br>$域名 可选。规定 cookie 的域名。<br>$安全 可选。规定是否通过安全的 HTTPS 连接来传输 cookie。<br>$http安读 可选。如果true，那么js就无法读取改cookie，增加安全性。</p>
-<p>在服务端通过$_COOKIE[‘name’] 来读取cookie了。</p>
-<p><a href="https://github.com/YooHannah/algorithm/tree/master/php/cookie" target="_blank" rel="external">使用cookie例子</a></p>
-<h1 id="session"><a href="#session" class="headerlink" title="session"></a>session</h1><p> session_start(); //开启session<br> $_SESSION[‘userName’] = ‘wang’; //添加session数据<br> $userName = $_SESSION[‘userName’]; //读取session数据<br> unset($_SESSION[‘XXX’]);//销毁单个session数据<br> $_SESSION = array();//销毁全部session数据<br> session_destory();//这个函数会销毁当前会话中的全部数据，并结束当前会话,但是不会重置当前会话所关联的全局变量，也不会重置会话 cookie</p>
-<p> 在php.ini配置文件中有这么一行 session.save_handler = files,<br> files,说明了php默认的是用文件读写的方式来保存session的<br> session.save_path = “/tmp”, “/tmp”即存储路径</p>
-<p><a href="https://github.com/YooHannah/algorithm/tree/master/php/shoppingcart" target="_blank" rel="external">使用session例子</a></p>
-<h1 id="curl"><a href="#curl" class="headerlink" title="curl"></a>curl</h1><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">&lt;?php</div><div class="line"><span class="comment">//初始化</span></div><div class="line">$ch = curl_init();</div><div class="line"><span class="comment">//设置选项，包括URL</span></div><div class="line">curl_setopt($ch, CURLOPT_URL, <span class="string">"http://www.php.cn"</span>);</div><div class="line">curl_setopt($ch, CURLOPT_RETURNTRANSFER, <span class="number">1</span>);</div><div class="line">curl_setopt($ch, CURLOPT_HEADER, <span class="number">0</span>);</div><div class="line"><span class="comment">//执行并获取HTML文档内容</span></div><div class="line">$output = curl_exec($ch);</div><div class="line"><span class="comment">//释放curl句柄</span></div><div class="line">curl_close($ch);</div><div class="line"><span class="comment">//打印获得的数据</span></div><div class="line">print_r($output);</div><div class="line">?&gt;</div></pre></td></tr></table></figure>
-<p>函数    curl_setopt<br>参数1    curl资源变量<br>参数2    curl参数选项<br>参数3    curl参数值</p>
-<p>CURLOPT_URL           这个参数选项规定了请求的url地址。<br>CURLOPT_RETURNTRANSFER   curl请求后返回对应的结果 若需要返回值即为1。不需请求后返回的结果可设置为0。</p>
-<p>如果是get请求，我们不需要设置发送的参数。在post等请求的时候，我们需要设置发送方法为post方法。并设置发送的数据。<br>CURLOPT_POST    值设为1是使用POST方法，0为不使用POST方法<br>CURLOPT_POSTFIELDS  设置传递的数据<br>//声明使用POST方式来进行发送<br>    curl_setopt($ch, CURLOPT_POST, 1);<br>//发送什么数据呢<br>curl_setopt($ch, CURLOPT_POSTFIELDS, $data);</p>
-<p>如果是https有的时候需要忽略https的安全证书。</p>
-<p>CURLOPT_SSL_VERIFYPEER和CURLOPT_SSL_VERIFYHOST 两个参数改为false即忽略了证书。<br>curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);<br>curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);<br>CURLOPT_HEADER  决定是是否处理http的头信息，不接收处理的话可将这个值设置为0。<br>CURLOPT_TIMEOUT 设置请求的超时时间</p>
-<p>$output = curl_exec($ch); 如果执行的结果有数据。使用curl_exec执行后，会将结果返回给$output变量。<br>curl_close($ch); 关闭curl资源。<br><a href="https://github.com/YooHannah/algorithm/blob/master/php/curl1.php" target="_blank" rel="external">curlget 截取页面例子</a><br><a href="https://github.com/YooHannah/algorithm/blob/master/php/curlpost.php" target="_blank" rel="external">curlpost例子</a></p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1581,7 +1588,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">112</span>
+              <span class="site-state-item-count">116</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
