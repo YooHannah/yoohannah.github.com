@@ -94,7 +94,7 @@
 <meta property="og:site_name" content="My Little World">
 <meta property="og:description" content="lazy图片lazyload基本原理是图片image标签的src属性在构建DOM时，先给一特定的默认值，可以是本地图片路径，然后通过监听scroll事件，判断图片所在位置是否在可视屏幕里面，如果在可视屏幕里面，就将要加载的真正图片资源给到image的src属性当然通过判断src的值是否是默认值，就可以知道图片是否已经被加载过，加载过就不会被从新赋值，然后重新加载123456789101112131">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-12-28T00:17:32.181Z">
+<meta property="og:updated_time" content="2018-01-21T13:42:15.021Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="懒加载">
 <meta name="twitter:description" content="lazy图片lazyload基本原理是图片image标签的src属性在构建DOM时，先给一特定的默认值，可以是本地图片路径，然后通过监听scroll事件，判断图片所在位置是否在可视屏幕里面，如果在可视屏幕里面，就将要加载的真正图片资源给到image的src属性当然通过判断src的值是否是默认值，就可以知道图片是否已经被加载过，加载过就不会被从新赋值，然后重新加载123456789101112131">
@@ -352,6 +352,12 @@
 <p>可以看到一个图片的base64编码的字符数量一般是很大的，这样，当把图片编码无论是写到css文件还是html文件，<br>都会因为解析时间过长从而造成渲染速度下降，因此将图片进行base64编码最好的应用场景是如下情况：<br><b>如果图片足够小且因为用处的特殊性无法被制作成雪碧图（CssSprites），在整个网站的复用性很高且基本不会被更新</b></p>
 <p><a href="http://www.cnblogs.com/coco1s/p/4375774.html" target="_blank" rel="external">base64 编码</a></p>
 <p>Angular会自动为每个拥有作用域的DOM节点加上 ng-scope 类<br>AngularJs的angular.extend()方法可以把一个或多个对象中的方法和属性扩展到一个目的对象中，使得这个对象拥有其他对象相同的方法和属性<br>angular.extends()方法的第一个参数是要被扩展的对象，后面可以传入一个或多个对象</p>
+<h1 id="补充"><a href="#补充" class="headerlink" title="补充"></a>补充</h1><h2 id="优化占位图"><a href="#优化占位图" class="headerlink" title="优化占位图"></a>优化占位图</h2><p>VG元素/提取图片背景色以base64形式直出<br>使用SVG画图形轮廓,再加一个模糊滤镜<br>对图片进行二值化提取剪影</p>
+<h2 id="浏览器渲染图片原理"><a href="#浏览器渲染图片原理" class="headerlink" title="浏览器渲染图片原理"></a>浏览器渲染图片原理</h2><p>构建DOM树，遇到img标签加载图片<br>构建样式树，遇到backgroud-img图片不加载<br>构建render树,所有属性都会构建，如果元素有display:none属性,则其子元素不被构建<br>渲染DOM树,仅渲染没有display:none属性的元素，如果发现元素有该属性则不进行渲染;没有被构建的子元素背景图片不会被加载更不会被加载</p>
+<p>设置了display:none属性的元素，图片不会渲染出来，但会加载，不管是直接的img属性还是div的背景图片都会被加载<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">&lt;img src=&quot;https://cdn-jlsq-img.thy360.com/2e3457ef739c4116847eb359dffcf651.jpg!thumbnail&quot;&gt; //加载</div><div class="line">&lt;div class=&quot;skslsl&quot;&gt;&lt;/div&gt;//加载</div><div class="line">&lt;style type=&quot;text/css&quot;&gt;</div><div class="line">  .skslsl&#123;</div><div class="line">    background-image:url(&apos;https://cdn-jlsq-img.thy360.com/3aeac46295cb4f15bfb1154692e00c95.JPEG&apos;);</div><div class="line"></div><div class="line">  &#125;</div><div class="line">&lt;/style&gt;</div></pre></td></tr></table></figure></p>
+<p>设置了display:none属性元素的子元素，样式表中的背景图片不会渲染出来，也不会加载；而img标签的图片不会渲染出来，但会加载。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">&lt;div style=&quot;display: none;&quot;&gt;</div><div class="line">  &lt;img src=&quot;https://cdn-jlsq-img.thy360.com/2e3457ef739c4116847eb359dffcf651.jpg!thumbnail&quot;&gt; //加载</div><div class="line">&lt;div class=&quot;skslsl&quot;&gt;&lt;/div&gt;//不加载</div><div class="line">&lt;/div&gt;</div><div class="line"></div><div class="line">&lt;style type=&quot;text/css&quot;&gt;</div><div class="line">  .skslsl&#123;</div><div class="line">    background-image:url(&apos;https://cdn-jlsq-img.thy360.com/3aeac46295cb4f15bfb1154692e00c95.JPEG&apos;);</div><div class="line"></div><div class="line">  &#125;</div><div class="line">&lt;/style&gt;</div></pre></td></tr></table></figure></p>
+<p>当触发伪类的时候，伪类样式上的背景图片才会加载。</p>
+<p>重复图片只加载一次，是因为加载一次后，之后的加载均从缓存中读取;<br><a href="https://mp.weixin.qq.com/s?__biz=MzAxODE2MjM1MA==&amp;mid=2651552419&amp;idx=2&amp;sn=f799d2d6e4dabe9a9f4c6658a666bcc5&amp;chksm=8025ad62b75224741cc211dc5cd9c0ee8ecef618eb2c35c0caee307465d60e31b7dfd50e08d0&amp;mpshare=1&amp;scene=1&amp;srcid=0115Kms4rvGLhJLnX7FPpZXq&amp;pass_ticket=tyJD73rZ13FVCnO01hd9fVJmLQcKjapRW2yB41zZMwumTsYvs1XDVW5%2BSiBX50%2Bk#rd" target="_blank" rel="external">链接</a></p>
 
       
     </div>
@@ -464,7 +470,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">116</span>
+              <span class="site-state-item-count">118</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -523,7 +529,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#lazy"><span class="nav-number">1.</span> <span class="nav-text">lazy</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#图片lazyload"><span class="nav-number">1.1.</span> <span class="nav-text">图片lazyload</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#组件的lazyload"><span class="nav-number">1.2.</span> <span class="nav-text">组件的lazyload</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#预加载技术"><span class="nav-number">2.</span> <span class="nav-text">预加载技术</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#图片的-base64-编码"><span class="nav-number">3.</span> <span class="nav-text">图片的 base64 编码</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#lazy"><span class="nav-number">1.</span> <span class="nav-text">lazy</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#图片lazyload"><span class="nav-number">1.1.</span> <span class="nav-text">图片lazyload</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#组件的lazyload"><span class="nav-number">1.2.</span> <span class="nav-text">组件的lazyload</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#预加载技术"><span class="nav-number">2.</span> <span class="nav-text">预加载技术</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#图片的-base64-编码"><span class="nav-number">3.</span> <span class="nav-text">图片的 base64 编码</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#补充"><span class="nav-number">4.</span> <span class="nav-text">补充</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#优化占位图"><span class="nav-number">4.1.</span> <span class="nav-text">优化占位图</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#浏览器渲染图片原理"><span class="nav-number">4.2.</span> <span class="nav-text">浏览器渲染图片原理</span></a></li></ol></li></ol></div>
             
 
           </div>

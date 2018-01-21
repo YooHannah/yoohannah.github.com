@@ -68,7 +68,7 @@
 <link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="php," />
+  <meta name="keywords" content="js," />
 
 
 
@@ -86,18 +86,18 @@
 
 
 
-<meta name="description" content="cookie设置cookie123456789bool setcookie  (	string $名字	[, string $值]	[, int $过期时间  = 0]	[, string $路径]	[, string $域名]	[, bool $安全  = false]	[, bool $http只读  = false]);  参数 描述$名字 必需。规定 cookie 的名称。$值 可选。规定">
-<meta name="keywords" content="php">
+<meta name="description" content="common.js 规范node.js的模块编程规范，适用于服务端，不能在浏览器使用涉及到四个环境变量module,exports,require,global同步加载require()引入module.exports() 输出 AMD规范(require,js)依赖在服务端，异步加载require([module], callback); 引入，等待所有依赖模块加载完后再执行回调函数define">
+<meta name="keywords" content="js">
 <meta property="og:type" content="article">
-<meta property="og:title" content="cookie和session">
-<meta property="og:url" content="http://yoohannah.github.io/post/php/CookieAndSession.html">
+<meta property="og:title" content="三种规范">
+<meta property="og:url" content="http://yoohannah.github.io/post/knowledge/rule.html">
 <meta property="og:site_name" content="My Little World">
-<meta property="og:description" content="cookie设置cookie123456789bool setcookie  (	string $名字	[, string $值]	[, int $过期时间  = 0]	[, string $路径]	[, string $域名]	[, bool $安全  = false]	[, bool $http只读  = false]);  参数 描述$名字 必需。规定 cookie 的名称。$值 可选。规定">
+<meta property="og:description" content="common.js 规范node.js的模块编程规范，适用于服务端，不能在浏览器使用涉及到四个环境变量module,exports,require,global同步加载require()引入module.exports() 输出 AMD规范(require,js)依赖在服务端，异步加载require([module], callback); 引入，等待所有依赖模块加载完后再执行回调函数define">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-07-30T07:23:31.852Z">
+<meta property="og:updated_time" content="2018-01-21T13:44:41.649Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="cookie和session">
-<meta name="twitter:description" content="cookie设置cookie123456789bool setcookie  (	string $名字	[, string $值]	[, int $过期时间  = 0]	[, string $路径]	[, string $域名]	[, bool $安全  = false]	[, bool $http只读  = false]);  参数 描述$名字 必需。规定 cookie 的名称。$值 可选。规定">
+<meta name="twitter:title" content="三种规范">
+<meta name="twitter:description" content="common.js 规范node.js的模块编程规范，适用于服务端，不能在浏览器使用涉及到四个环境变量module,exports,require,global同步加载require()引入module.exports() 输出 AMD规范(require,js)依赖在服务端，异步加载require([module], callback); 引入，等待所有依赖模块加载完后再执行回调函数define">
 
 
 
@@ -125,13 +125,13 @@
 
 
 
-  <link rel="canonical" href="http://yoohannah.github.io/post/php/CookieAndSession.html"/>
+  <link rel="canonical" href="http://yoohannah.github.io/post/knowledge/rule.html"/>
 
 
 
 
 
-  <title> cookie和session | My Little World </title>
+  <title> 三种规范 | My Little World </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -262,7 +262,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="http://yoohannah.github.io/post/php/CookieAndSession.html">
+  <link itemprop="mainEntityOfPage" href="http://yoohannah.github.io/post/knowledge/rule.html">
 
   <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
     <meta itemprop="name" content="YooHannah">
@@ -286,7 +286,7 @@
             
             
               
-                cookie和session
+                三种规范
               
             
           </h1>
@@ -299,8 +299,8 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-05-26T21:38:37+08:00">
-                2017-05-26
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-01-21T21:43:15+08:00">
+                2018-01-21
               </time>
             
 
@@ -335,20 +335,10 @@
       
 
       
-        <h1 id="cookie"><a href="#cookie" class="headerlink" title="cookie"></a>cookie</h1><p>设置cookie<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">bool setcookie  (</div><div class="line">	string $名字</div><div class="line">	[, string $值]</div><div class="line">	[, int $过期时间  = 0]</div><div class="line">	[, string $路径]</div><div class="line">	[, string $域名]</div><div class="line">	[, bool $安全  = false]</div><div class="line">	[, bool $http只读  = false]</div><div class="line">);</div></pre></td></tr></table></figure></p>
-<p> 参数 描述<br>$名字 必需。规定 cookie 的名称。<br>$值 可选。规定 cookie 的值。<br>$有效期 可选。规定 cookie 的有效期。<br>$路径 可选。规定 cookie 的服务器路径。<br>$域名 可选。规定 cookie 的域名。<br>$安全 可选。规定是否通过安全的 HTTPS 连接来传输 cookie。<br>$http安读 可选。如果true，那么js就无法读取改cookie，增加安全性。</p>
-<p>在服务端通过$_COOKIE[‘name’] 来读取cookie了。</p>
-<p><a href="https://github.com/YooHannah/algorithm/tree/master/php/cookie" target="_blank" rel="external">使用cookie例子</a></p>
-<h1 id="session"><a href="#session" class="headerlink" title="session"></a>session</h1><p> session_start(); //开启session<br> $_SESSION[‘userName’] = ‘wang’; //添加session数据<br> $userName = $_SESSION[‘userName’]; //读取session数据<br> unset($_SESSION[‘XXX’]);//销毁单个session数据<br> $_SESSION = array();//销毁全部session数据<br> session_destory();//这个函数会销毁当前会话中的全部数据，并结束当前会话,但是不会重置当前会话所关联的全局变量，也不会重置会话 cookie</p>
-<p> 在php.ini配置文件中有这么一行 session.save_handler = files,<br> files,说明了php默认的是用文件读写的方式来保存session的<br> session.save_path = “/tmp”, “/tmp”即存储路径</p>
-<p><a href="https://github.com/YooHannah/algorithm/tree/master/php/shoppingcart" target="_blank" rel="external">使用session例子</a></p>
-<h1 id="curl"><a href="#curl" class="headerlink" title="curl"></a>curl</h1><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">&lt;?php</div><div class="line"><span class="comment">//初始化</span></div><div class="line">$ch = curl_init();</div><div class="line"><span class="comment">//设置选项，包括URL</span></div><div class="line">curl_setopt($ch, CURLOPT_URL, <span class="string">"http://www.php.cn"</span>);</div><div class="line">curl_setopt($ch, CURLOPT_RETURNTRANSFER, <span class="number">1</span>);</div><div class="line">curl_setopt($ch, CURLOPT_HEADER, <span class="number">0</span>);</div><div class="line"><span class="comment">//执行并获取HTML文档内容</span></div><div class="line">$output = curl_exec($ch);</div><div class="line"><span class="comment">//释放curl句柄</span></div><div class="line">curl_close($ch);</div><div class="line"><span class="comment">//打印获得的数据</span></div><div class="line">print_r($output);</div><div class="line">?&gt;</div></pre></td></tr></table></figure>
-<p>函数    curl_setopt<br>参数1    curl资源变量<br>参数2    curl参数选项<br>参数3    curl参数值</p>
-<p>CURLOPT_URL           这个参数选项规定了请求的url地址。<br>CURLOPT_RETURNTRANSFER   curl请求后返回对应的结果 若需要返回值即为1。不需请求后返回的结果可设置为0。</p>
-<p>如果是get请求，我们不需要设置发送的参数。在post等请求的时候，我们需要设置发送方法为post方法。并设置发送的数据。<br>CURLOPT_POST    值设为1是使用POST方法，0为不使用POST方法<br>CURLOPT_POSTFIELDS  设置传递的数据<br>//声明使用POST方式来进行发送<br>    curl_setopt($ch, CURLOPT_POST, 1);<br>//发送什么数据呢<br>curl_setopt($ch, CURLOPT_POSTFIELDS, $data);</p>
-<p>如果是https有的时候需要忽略https的安全证书。</p>
-<p>CURLOPT_SSL_VERIFYPEER和CURLOPT_SSL_VERIFYHOST 两个参数改为false即忽略了证书。<br>curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);<br>curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);<br>CURLOPT_HEADER  决定是是否处理http的头信息，不接收处理的话可将这个值设置为0。<br>CURLOPT_TIMEOUT 设置请求的超时时间</p>
-<p>$output = curl_exec($ch); 如果执行的结果有数据。使用curl_exec执行后，会将结果返回给$output变量。<br>curl_close($ch); 关闭curl资源。<br><a href="https://github.com/YooHannah/algorithm/blob/master/php/curl1.php" target="_blank" rel="external">curlget 截取页面例子</a><br><a href="https://github.com/YooHannah/algorithm/blob/master/php/curlpost.php" target="_blank" rel="external">curlpost例子</a></p>
+        <h1 id="common-js-规范"><a href="#common-js-规范" class="headerlink" title="common.js 规范"></a>common.js 规范</h1><p>node.js的模块编程规范，适用于服务端，不能在浏览器使用<br>涉及到四个环境变量<br>module,exports,require,global<br>同步加载<br>require()引入<br>module.exports() 输出</p>
+<h1 id="AMD规范-require-js"><a href="#AMD规范-require-js" class="headerlink" title="AMD规范(require,js)"></a>AMD规范(require,js)</h1><p>依赖在服务端，异步加载<br>require([module], callback); 引入，等待所有依赖模块加载完后再执行回调函数<br>define() 输出<br>CMD规范（sea.js)</p>
+<h1 id="es6规范"><a href="#es6规范" class="headerlink" title="es6规范"></a>es6规范</h1><p>使用import 引入模块<br>使用export 输出</p>
+<p><a href="https://segmentfault.com/a/1190000010913832" target="_blank" rel="external">相关</a></p>
 
       
     </div>
@@ -372,7 +362,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/php/" rel="tag"># php</a>
+            <a href="/tags/js/" rel="tag"># js</a>
           
         </div>
       
@@ -381,8 +371,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/post/php/php_MySQL.html" rel="next" title="MySQL的基本知识">
-                <i class="fa fa-chevron-left"></i> MySQL的基本知识
+              <a href="/post/knowledge/render.html" rel="next" title="各种框架框架的数据绑定机制">
+                <i class="fa fa-chevron-left"></i> 各种框架框架的数据绑定机制
               </a>
             
           </div>
@@ -390,10 +380,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/post/knowledge/ng-class.html" rel="prev" title="angular样式绑定ng-class">
-                angular样式绑定ng-class <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -520,7 +506,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#cookie"><span class="nav-number">1.</span> <span class="nav-text">cookie</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#session"><span class="nav-number">2.</span> <span class="nav-text">session</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#curl"><span class="nav-number">3.</span> <span class="nav-text">curl</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#common-js-规范"><span class="nav-number">1.</span> <span class="nav-text">common.js 规范</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#AMD规范-require-js"><span class="nav-number">2.</span> <span class="nav-text">AMD规范(require,js)</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#es6规范"><span class="nav-number">3.</span> <span class="nav-text">es6规范</span></a></li></ol></div>
             
 
           </div>

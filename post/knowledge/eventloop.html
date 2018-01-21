@@ -94,7 +94,7 @@
 <meta property="og:site_name" content="My Little World">
 <meta property="og:description" content="js单线程同一时间只干一件事，干完一件事再干下一件事，如果前一个任务耗时很长，后一个任务也得一直等着 为什么这样设计？js 要指挥浏览器干活，如果有两个线程同时执行任务，一个删除DOM，一个修改该DOM，浏览器会不知道以哪个线程为准 任务队列同步任务，在主线程上排队执行的任务，前一个执行完才能执行后一个任务异步任务，一开始不进入主线程，而进入‘任务队列’被挂起，只有‘任务队列’通知主线程某个异步任">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-01-01T13:51:45.862Z">
+<meta property="og:updated_time" content="2018-01-21T13:38:02.447Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="关于事件循环event-loop">
 <meta name="twitter:description" content="js单线程同一时间只干一件事，干完一件事再干下一件事，如果前一个任务耗时很长，后一个任务也得一直等着 为什么这样设计？js 要指挥浏览器干活，如果有两个线程同时执行任务，一个删除DOM，一个修改该DOM，浏览器会不知道以哪个线程为准 任务队列同步任务，在主线程上排队执行的任务，前一个执行完才能执行后一个任务异步任务，一开始不进入主线程，而进入‘任务队列’被挂起，只有‘任务队列’通知主线程某个异步任">
@@ -343,6 +343,9 @@
 <p>与任务队列相关方法<br>process.nextTick:在主线程任务全部结束后，读取任务队列的任务之前执行它所指定的函数，<br>如果指定函数里还套嵌process.nextTick方法，或者有多个process.nextTick方法，都要在本轮读取任务队列前执行完<br>setImmediate：它指定的任务总是在下一次的eventloop时执行，<br>如果setImmediate与setTimeout(fn,0)各自添加了一个回调函数，那么在下一loop时，他们回调函数的顺序是不确定<br>如果setImmediate套嵌setImmediate方法,则套嵌的回调函数会被注册到下一轮事件循环中再执行</p>
 <p>即多个process.nextTick语句总是在当前”执行栈”一次执行完，多个setImmediate可能则需要多次loop才能执行完。</p>
 <p><a href="http://www.ruanyifeng.com/blog/2014/10/event-loop.html" target="_blank" rel="external">相关链接</a></p>
+<h1 id="补充"><a href="#补充" class="headerlink" title="补充"></a>补充</h1><p>task/macrotask:script（整体代码）, setTimeout, setInterval, setImmediate, I/O, UI rendering<br>micotask:process.nextTick, Promises（这里指浏览器实现的原生 Promise）, Object.observe, MutationObserver<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">process.nextTick(() =&gt; &#123;</div><div class="line">  console.log(&apos;nextTick&apos;)</div><div class="line">&#125;)</div><div class="line">Promise.resolve()</div><div class="line">  .then(() =&gt; &#123;</div><div class="line">    console.log(&apos;then&apos;)</div><div class="line">  &#125;)</div><div class="line">setImmediate(() =&gt; &#123;</div><div class="line">  console.log(&apos;setImmediate&apos;)</div><div class="line">&#125;)</div><div class="line">console.log(&apos;end&apos;)</div><div class="line"></div><div class="line">//结果</div><div class="line">end</div><div class="line">nextTick</div><div class="line">then</div><div class="line">setImmediate</div></pre></td></tr></table></figure></p>
+<p>micro-task在ES2015规范中称为Job,<br>promise.then的执行其实是向PromiseJobs添加Job</p>
+<p>在eventloop中，一个task执行完会检查micotask队列，如果有，则先执行micotask，然后再去异步队列领取任务<br><a href="https://github.com/creeperyang/blog/issues/21" target="_blank" rel="external">相关</a><br><a href="https://segmentfault.com/a/1190000010913949" target="_blank" rel="external">相关</a><br><a href="https://www.cnblogs.com/dong-xu/p/7000139.html" target="_blank" rel="external">相关</a></p>
 
       
     </div>
@@ -455,7 +458,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">116</span>
+              <span class="site-state-item-count">118</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -514,7 +517,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#js单线程"><span class="nav-number">1.</span> <span class="nav-text">js单线程</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#任务队列"><span class="nav-number">2.</span> <span class="nav-text">任务队列</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#event-Loop"><span class="nav-number">3.</span> <span class="nav-text">event Loop</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#node-js-event-loop"><span class="nav-number">4.</span> <span class="nav-text">node.js event loop</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#js单线程"><span class="nav-number">1.</span> <span class="nav-text">js单线程</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#任务队列"><span class="nav-number">2.</span> <span class="nav-text">任务队列</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#event-Loop"><span class="nav-number">3.</span> <span class="nav-text">event Loop</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#node-js-event-loop"><span class="nav-number">4.</span> <span class="nav-text">node.js event loop</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#补充"><span class="nav-number">5.</span> <span class="nav-text">补充</span></a></li></ol></div>
             
 
           </div>
