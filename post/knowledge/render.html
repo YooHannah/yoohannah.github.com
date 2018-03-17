@@ -94,10 +94,13 @@
 <meta property="og:site_name" content="My Little World">
 <meta property="og:description" content="angular js脏检查机制 react虚拟DOM:react 在初始化的时候会render一颗dom树，当state/props发生改变的时候，render函数会再渲染出另外一棵树与之前的dom树进行对比，新渲染的树就是虚拟dom树diff 算法:比较dom树时的算法， 只会对同层节点进行比较；父节点不同,不会再去比较子节点； 同层比较时，遇到结点类型不同,没有key属性的时候，自己以及自己以">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-01-21T13:31:20.253Z">
+<meta property="og:image" content="http://yoohannah.github.io/image/reactlife.png">
+<meta property="og:image" content="http://yoohannah.github.io/image/vuelife.png">
+<meta property="og:updated_time" content="2018-03-17T03:56:17.301Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="各种框架框架的数据绑定机制">
 <meta name="twitter:description" content="angular js脏检查机制 react虚拟DOM:react 在初始化的时候会render一颗dom树，当state/props发生改变的时候，render函数会再渲染出另外一棵树与之前的dom树进行对比，新渲染的树就是虚拟dom树diff 算法:比较dom树时的算法， 只会对同层节点进行比较；父节点不同,不会再去比较子节点； 同层比较时，遇到结点类型不同,没有key属性的时候，自己以及自己以">
+<meta name="twitter:image" content="http://yoohannah.github.io/image/reactlife.png">
 
 
 
@@ -340,9 +343,10 @@
 <p>只会对同层节点进行比较；<br>父节点不同,不会再去比较子节点；</p>
 <p>同层比较时，遇到结点类型不同,<br>没有key属性的时候，自己以及自己以后的结点都会被删除,重新建；删除时，会卸载删除的结点以及以后的结点，再新建以后的结点<br>如果有key的话，则只会新增插入的结点，卸载被替换的结点 其他结点则只是update,不受影响；删除的话，只卸载删除的结点</p>
 <p>遇到结点类型相同，<br>要去比较属性是否相同，如果不同，则只替换属性,只进行update</p>
-<p>性能优化：避免不必要渲染<br>使用shouldComponentUpdate(),当这个方法返回true的时候，需要重新渲染，false的时候不需要（默认是true).<br>使用PureComponent组件，它会自动浅对比props/state，当两者相同的时候不渲染节点。<br>PureComponent只会浅比较，所以不适合用于深层嵌套的对象。<br>同时，PureComponent不仅仅会跳过自己的重新渲染，还会跳过它所有子节点的，所以要注意，用它的时候是最好没有子节点并且不依赖于global state的展示型组件。</p>
+<p>性能优化：避免不必要渲染<br>使用shouldComponentUpdate(),当这个方法返回true的时候，需要重新渲染，false的时候不需要（默认是true).<br>使用PureComponent组件，它会自动浅对比props/state，当两者相同的时候不渲染节点。<br>PureComponent只会浅比较，所以不适合用于深层嵌套的对象。<br>同时，PureComponent不仅仅会跳过自己的重新渲染，还会跳过它所有子节点的，所以要注意，用它的时候是最好没有子节点并且不依赖于global state的展示型组件。<br><img src="/image/reactlife.png" alt="reactlife"></p>
 <h1 id="vue1-0"><a href="#vue1-0" class="headerlink" title="vue1.0"></a>vue1.0</h1><p>单检查</p>
 <h1 id="vue2-0"><a href="#vue2-0" class="headerlink" title="vue2.0"></a>vue2.0</h1><p>虚拟DOM和diff算法</p>
+<p><img src="/image/vuelife.png" alt="vuelife"></p>
 
       
     </div>
@@ -455,7 +459,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">118</span>
+              <span class="site-state-item-count">120</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
