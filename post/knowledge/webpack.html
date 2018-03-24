@@ -94,7 +94,7 @@
 <meta property="og:site_name" content="My Little World">
 <meta property="og:description" content="说明1.webpack工作内容Webpack可以看做是模块打包机：它做的事情是，分析你的项目结构，找到JavaScript模块以及其它的一些浏览器不能直接运行的拓展语言（Scss，TypeScript等），并将其转换和打包为合适的格式供浏览器使用。2.webpack工作方式把你的项目当做一个整体，通过一个给定的主文件（如：index.js），Webpack将从这个文件开始找到你的项目的所有依赖文件">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-03-20T15:54:25.171Z">
+<meta property="og:updated_time" content="2018-03-24T01:12:25.199Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="关于webpack">
 <meta name="twitter:description" content="说明1.webpack工作内容Webpack可以看做是模块打包机：它做的事情是，分析你的项目结构，找到JavaScript模块以及其它的一些浏览器不能直接运行的拓展语言（Scss，TypeScript等），并将其转换和打包为合适的格式供浏览器使用。2.webpack工作方式把你的项目当做一个整体，通过一个给定的主文件（如：index.js），Webpack将从这个文件开始找到你的项目的所有依赖文件">
@@ -365,6 +365,8 @@
 <h1 id="webpack性能优化"><a href="#webpack性能优化" class="headerlink" title="webpack性能优化"></a>webpack性能优化</h1><p>1.将不再使用的依赖及时删除<br>2.不要为了实现小功能引入大型lib<br>3.合理配置babel<br>4.根据使用场景合理使用优化插件<br>例如使用happypack,webpack-uglify-parallel 在开发阶段进行多核并行压缩<br><a href="https://github.com/pigcan/blog/issues/1" target="_blank" rel="external">相关链接</a><br><a href="https://github.com/webpack-china/awesome-webpack-cn/" target="_blank" rel="external">学习链接</a></p>
 <h1 id="gulp"><a href="#gulp" class="headerlink" title="gulp"></a>gulp</h1><p>api:<br>task：<br>src:<br>watch：用来监视文件的变化；</p>
 <p>jshint：js 代码检查<br>uglify：压缩js<br>minify-css:压缩css<br>minfy-html:压缩html<br>concat:合并文件</p>
+<h1 id="babel"><a href="#babel" class="headerlink" title="babel"></a>babel</h1><p>babel是一个js转换器<br>可以将es6,es7,react/jsx的语法通过他的插件转编译成es5的或者说支持在现有环境运行的语法<br>使用babel,除了可以使用package.json进行配置，一般会为它建立专门的.babelrc文件进行配置<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">  &quot;presets&quot;: [],</div><div class="line">  &quot;plugins&quot;: []</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>使用babel-preset-env转换es5,就将‘env’添加到.babelrc的presents数组中<br>使用babel-preset-react转换jsx,就将‘react’添加到.babelrc的presents数组中<br>使用babel-preset-stage-x转换es7不同阶段语法,就将‘stage-x’添加到.babelrc的presents数组中,x目前可以为0,1,2,3<br>使用babel-core模块，可以在代码中手动调用babelAPI进行转码<br>使用babel-polyfill模块，可以转换新版es6/es7里面的API,如generator,Symbol,Promise等<br>安装babel-cli实现命令行进行转码<br>另外babel经常用于前置转码，比如与eslint结合进行代码检查，与mocha进行脚本测试</p>
 
       
     </div>
@@ -477,7 +479,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">121</span>
+              <span class="site-state-item-count">122</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -536,7 +538,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#说明"><span class="nav-number">1.</span> <span class="nav-text">说明</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#使用"><span class="nav-number">2.</span> <span class="nav-text">使用</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#webpack-config-js-配置"><span class="nav-number">3.</span> <span class="nav-text">webpack.config.js 配置</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#写一个webpack-的loader"><span class="nav-number">4.</span> <span class="nav-text">写一个webpack 的loader</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#写一个webpack-的plugin"><span class="nav-number">5.</span> <span class="nav-text">写一个webpack 的plugin</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#webpack性能优化"><span class="nav-number">6.</span> <span class="nav-text">webpack性能优化</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#gulp"><span class="nav-number">7.</span> <span class="nav-text">gulp</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#说明"><span class="nav-number">1.</span> <span class="nav-text">说明</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#使用"><span class="nav-number">2.</span> <span class="nav-text">使用</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#webpack-config-js-配置"><span class="nav-number">3.</span> <span class="nav-text">webpack.config.js 配置</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#写一个webpack-的loader"><span class="nav-number">4.</span> <span class="nav-text">写一个webpack 的loader</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#写一个webpack-的plugin"><span class="nav-number">5.</span> <span class="nav-text">写一个webpack 的plugin</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#webpack性能优化"><span class="nav-number">6.</span> <span class="nav-text">webpack性能优化</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#gulp"><span class="nav-number">7.</span> <span class="nav-text">gulp</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#babel"><span class="nav-number">8.</span> <span class="nav-text">babel</span></a></li></ol></div>
             
 
           </div>
