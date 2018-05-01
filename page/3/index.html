@@ -259,6 +259,123 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://yoohannah.github.io/post/knowledge/EventEmitter.html">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="YooHannah">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="/psb.jpg">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="My Little World">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="My Little World" src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/post/knowledge/EventEmitter.html" itemprop="url">
+                  实现一个 EventEmitter
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-10-21T21:07:02+08:00">
+                2017-10-21
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="实现一个-EventEmitter"><a href="#实现一个-EventEmitter" class="headerlink" title="实现一个 EventEmitter"></a>实现一个 EventEmitter</h1><p>EventEmitter 模块，它是一个类，它的实例具有以下几个方法：on、emit、off：<br>on(eventName, func)：监听 eventName 事件，事件触发的时候调用 func 函数。<br>emit(eventName, arg1, arg2, arg3…)：触发 eventName 事件，并且把参数 arg1, arg2, arg3… 传给事件处理函数。<br>off(eventName, func)：停止监听某个事件。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div></pre></td><td class="code"><pre><div class="line">class EventEmitter &#123;</div><div class="line">  /* TODO */</div><div class="line">  constructor() &#123;</div><div class="line">    this.listeners = [];</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  on(eventName, func)&#123;</div><div class="line">    for(let i=0;i&lt;this.listeners.length;i++)&#123;</div><div class="line">      if(this.listeners[i].name === eventName)&#123;</div><div class="line">          this.listeners[i].funcs.push(func);</div><div class="line">          return</div><div class="line">      &#125;</div><div class="line">    &#125;</div><div class="line">    this.listeners.push(&#123;</div><div class="line">      name:eventName,</div><div class="line">      funcs:[]</div><div class="line">    &#125;)</div><div class="line">    this.listeners[this.listeners.length-1].funcs.push(func)</div><div class="line">  &#125;</div><div class="line">  emit(eventName, ...args)&#123;</div><div class="line">    for(let j=0;j&lt;this.listeners.length;j++)&#123;</div><div class="line">        if(this.listeners[j].name === eventName)&#123;</div><div class="line">            for(let k =0;k&lt;this.listeners[j].funcs.length;k++)&#123;</div><div class="line">              this.listeners[j].funcs[k](args)</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">  off(eventName, func)&#123;</div><div class="line">      for(let j=0;j&lt;this.listeners.length;j++)&#123;</div><div class="line">        if(this.listeners[j].name === eventName)&#123;</div><div class="line">          if(func == undefined)&#123; //整个事件不再监听</div><div class="line">            this.listeners.splice(j,1);</div><div class="line">           &#125;</div><div class="line">          for(let k =0;k&lt;this.listeners[j].funcs.length;k++)&#123;</div><div class="line">                if(func === this.listeners[j].funcs[k])&#123;</div><div class="line">                  this.listeners[j].funcs.splice(k,1);</div><div class="line">                  return</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">      &#125;</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">const emitter = new EventEmitter()</div><div class="line">const sayHi = (name) =&gt; console.log(`Hello $&#123;name&#125;`)</div><div class="line">const sayHi2 = (name) =&gt; console.log(`Good night, $&#123;name&#125;`)</div><div class="line"></div><div class="line">emitter.on(&apos;hi&apos;, sayHi)</div><div class="line">emitter.on(&apos;hi&apos;, sayHi2)</div><div class="line">emitter.on(&apos;hi2&apos;, sayHi)</div><div class="line">emitter.on(&apos;hi2&apos;, sayHi2)</div><div class="line">emitter.emit(&apos;hi&apos;, &apos;ScriptOJ&apos;)</div><div class="line">// =&gt; Hello ScriptOJ</div><div class="line">// =&gt; Good night, ScriptOJ</div><div class="line"></div><div class="line">emitter.off(&apos;hi&apos;, sayHi)</div><div class="line">emitter.emit(&apos;hi&apos;, &apos;ScriptOJ&apos;)</div><div class="line">emitter.emit(&apos;hi2&apos;, &apos;ScriptOJ&apos;)</div><div class="line"></div><div class="line">const emitter2 = new EventEmitter()</div><div class="line">emitter2.on(&apos;hi&apos;, (name, age) =&gt; &#123;</div><div class="line">  console.log(`I am $&#123;name&#125;, and I am $&#123;age&#125; years old`)</div><div class="line">&#125;)</div><div class="line">emitter2.emit(&apos;hi&apos;, &apos;Jerry&apos;, 12)</div></pre></td></tr></table></figure>
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
   <link itemprop="mainEntityOfPage" href="http://yoohannah.github.io/post/knowledge/react.html">
 
   <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -908,152 +1025,6 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="http://yoohannah.github.io/post/knowledge/ajax.html">
-
-  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
-    <meta itemprop="name" content="YooHannah">
-    <meta itemprop="description" content="">
-    <meta itemprop="image" content="/psb.jpg">
-  </span>
-
-  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-    <meta itemprop="name" content="My Little World">
-    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
-      <img style="display:none;" itemprop="url image" alt="My Little World" src="">
-    </span>
-  </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/post/knowledge/ajax.html" itemprop="url">
-                  Ajax和跨域
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-08-19T09:56:37+08:00">
-                2017-08-19
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="ajax"><a href="#ajax" class="headerlink" title="ajax"></a>ajax</h1><p>ajax全称Asynchronous JavaScript and XML（异步的JavaScript与XML），是网页无需刷新页面、使用js与服务器进行交互的一种技术。</p>
-<p>ajax的基本流程可以概括为：页面上js脚本实例化一个XMLHttpRequest对象，设置好服务器端的url、必要的查询参数、回调函数之后，向服务器发出请求，<br>服务器在处理请求之后将处理结果返回给页面，触发事先绑定的回调函数。<br>这样，页面脚本如果想要改变一个区域的内容，只需要通过ajax向服务器获取与该区域有关的少量数据，在回调函数中将该区域的内容替换掉即可，不需要刷新整个页面。</p>
-<p>XMLHttpRequest在发送请求的时候，有两种方式：同步与异步。<br>同步方式是请求发出后，一直到收到服务器返回的数据为止，浏览器进程被阻塞，页面上什么事也做不了。<br>而异步方式则不会阻塞浏览器进程，在服务端返回数据并触发回调函数之前，用户依然可以在该页面上进行其他操作。<br>ajax的核心是异步方式，而同步方式只有在极其特殊的情况下才会被用到。</p>
-<p>XMLHttpRequest 对象是一个接口，用于创建一个http请求对象实例,打开一个URL，然后发送这个请求,<br>当传输完毕后，结果的HTTP状态以及返回的响应内容也可以从请求对象中获取<br>五种状态<br>0：未打开<br>1：未发送<br>2：以获取响应头<br>3：正在下载响应体<br>4：请求完成<br><a href="https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest" target="_blank" rel="external">XMLHttpRequest API</a></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div></pre></td><td class="code"><pre><div class="line">const xhr = new XMLHttpRequest()</div><div class="line"></div><div class="line">xhr.onreadystatechange = function () &#123;</div><div class="line">  switch (xhr.readyState) &#123;</div><div class="line">    case 0:</div><div class="line">      // UNSENT (未打开)</div><div class="line">      debugger</div><div class="line">      break</div><div class="line">    case 1:</div><div class="line">      // OPENED  (未发送)</div><div class="line">      debugger</div><div class="line">      break</div><div class="line">    case 2:</div><div class="line">      // HEADERS_RECEIVED (已获取响应头)</div><div class="line">      debugger</div><div class="line">      break</div><div class="line">    case 3:</div><div class="line">      // LOADING (正在下载响应体)</div><div class="line">      debugger</div><div class="line">      break</div><div class="line">    case 4:</div><div class="line">      // DONE (请求完成)</div><div class="line">      if (xhr.status === 200) &#123;</div><div class="line">        console.log(xhr.responseType)</div><div class="line">        console.log(xhr.responseText)</div><div class="line">        console.log(xhr.response)</div><div class="line">      &#125;</div><div class="line">      break</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">xhr.open(&apos;GET&apos;, &apos;http://y.com:7001/json&apos;, true)</div><div class="line">xhr.send(null)</div></pre></td></tr></table></figure>
-<h1 id="同源策略"><a href="#同源策略" class="headerlink" title="同源策略"></a>同源策略</h1><p>为了保证用户信息的安全，防止恶意的网站窃取数据<br>解决办法：同源策略<br>同源策略是指三个相同：协议相同,域名相同,端口相同<br>以上三个不相同则是非同源，非同源之间相互访问即跨域访问</p>
-<p>跨域和ip没有关系</p>
-<h1 id="跨域"><a href="#跨域" class="headerlink" title="跨域"></a>跨域</h1><p>浏览器在阻止跨域,阻止方式可能是在一开始就限制了发起跨站的请求，也可能是跨站请求可以正常发起，但返回结果被浏览器拦截了</p>
-<h2 id="为什么要防止跨域"><a href="#为什么要防止跨域" class="headerlink" title="为什么要防止跨域"></a>为什么要防止跨域</h2><p>跨域访问时会受到同源策略的三个限制<br>1、Cookie、LocalStorage 和 IndexDB 无法读取。<br>通过浏览器document.cookie我们可以获取用户登录态,如果cookie可以读取的话，<br>就会出现在A公司网站里可以去B公司网站获取登录信息的事情,这样就容易将用户信息泄露<br>2、DOM 无法获得<br>如果DOM可以获得,现在我是一个假网站，利用iframe套嵌一个目前线上运营的电商网站,那么<br>消费者在输入支付密码时,那我就可以获取input的值,从而获取用户支付密码<br>3、AJAX 请求不能发送<br>如果AJAx可以发送的话，那我们就能将内网东西下载下来发送到外网服务器，从而造成内网信息泄露</p>
-<h2 id="如何实现跨域"><a href="#如何实现跨域" class="headerlink" title="如何实现跨域"></a>如何实现跨域</h2><h3 id="jsonp"><a href="#jsonp" class="headerlink" title="jsonp"></a>jsonp</h3><p>原理是利用&lt;script&gt;标签可以在任何域下获取资源的原理，将要跨域获取的接口url放在&lt;script&gt;标签的src里面，<br>然后js将标签放到body里面，其中url包含一个callback参数，用于指向处理response的函数，这个函数我们挂载的window上,<br>即我们在js中定义的的函数</p>
-<p>如果在浏览器直接访问接口’<a href="http://x.com:7001/json?callback=xxx" target="_blank" rel="external">http://x.com:7001/json?callback=xxx</a>‘<br>页面会显示<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">/**/ typeof xxx === &apos;function&apos; &amp;&amp; xxx(&#123;&quot;msg&quot;:&quot;hello world&quot;&#125;);</div></pre></td></tr></table></figure></p>
-<p>就是说,在请求这个接口时,会去window上找xxx这个对象，看它是不是函数，如果是函数，<br>就将接口定义的response（{“msg”:”hello world”}）作为参数传递给xxx函数,并执行xxx函数</p>
-<p>现在在<a href="http://y.com/x.html页面中进行跨域" target="_blank" rel="external">http://y.com/x.html页面中进行跨域</a><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line">//json 接口  服务端</div><div class="line"></div><div class="line">module.exports = app =&gt; &#123;</div><div class="line">  class MsgController extends app.Controller &#123;</div><div class="line">    * index(req) &#123;</div><div class="line">      this.ctx.body = &#123; msg: &apos;hello world&apos; &#125;</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">  return MsgController</div><div class="line">&#125;</div><div class="line"></div><div class="line">// js 客户端请求</div><div class="line">//方法一：</div><div class="line"></div><div class="line">//定义相应处理函数</div><div class="line">window.xxx = function (value) &#123;</div><div class="line">  console.log(value)</div><div class="line">&#125;</div><div class="line">//添加script标签</div><div class="line">var script = document.createElement(&apos;script&apos;)</div><div class="line">script.src = &apos;http://x.com:7001/json?callback=xxx&apos;</div><div class="line">document.body.appendChild(script)</div><div class="line"></div><div class="line">//方法二：</div><div class="line">require([&apos;http://x.com:7001/json?callback=define&apos;], function (value) &#123;</div><div class="line">  console.log(value)</div><div class="line">&#125;)</div></pre></td></tr></table></figure></p>
-<p>现在访问<a href="http://y.com/x.html,在浏览器console就会打印{&quot;msg&quot;:&quot;hello" target="_blank" rel="external">http://y.com/x.html,在浏览器console就会打印{&quot;msg&quot;:&quot;hello</a> world”}</p>
-<h3 id="CORS"><a href="#CORS" class="headerlink" title="CORS"></a>CORS</h3><p>XMLHttpRequest 2.0以后可以使用cors方法进行跨域<br>CORS需要浏览器和服务器同时支持<br>整个CORS通信过程，都是浏览器自动完成，不需要用户参与。<br>对于开发者来说，CORS通信与同源的AJAX通信没有差别，代码完全一样。<br>浏览器一旦发现AJAX请求跨源，就会自动添加一些附加的头信息，有时还会多出一次附加的请求，但用户不会有感觉。<br>实现CORS通信的关键是服务器。只要服务器实现了CORS接口，就可以跨源通信。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line">//cors接口 服务端</div><div class="line">module.exports = app =&gt; &#123;</div><div class="line">  class CrosController extends app.Controller &#123;</div><div class="line">    * index(req) &#123;</div><div class="line">      this.ctx.set(&apos;Access-Control-Allow-Origin&apos;, &apos;*&apos;)//如果不添加则会禁止访问</div><div class="line">      // this.ctx.set(&apos;Access-Control-Allow-Origin&apos;, &apos;http://xx.com&apos;)</div><div class="line">      // 如果我们要 http://*.qq.com 都支持跨域怎么办？</div><div class="line">      this.ctx.body = &#123; msg: &apos;hello world&apos; &#125;</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">  return CrosController</div><div class="line">&#125;</div><div class="line"></div><div class="line">//js应用 客户端</div><div class="line">var xhr = new XMLHttpRequest()</div><div class="line">xhr.onreadystatechange = function () &#123;</div><div class="line">  if (xhr.readyState === 4 &amp;&amp; xhr.status === 200) &#123;</div><div class="line">    console.log(JSON.parse(xhr.responseText).msg)</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line">xhr.withCredentials = true//在头部添加cookie带到y.stuq,如果不设置，则不带</div><div class="line">xhr.open(&apos;GET&apos;, &apos;http://x.com:7001/cros&apos;)</div><div class="line">xhr.send(null)</div></pre></td></tr></table></figure>
-<p><a href="http://www.ruanyifeng.com/blog/2016/04/cors.html" target="_blank" rel="external">跨域资源共享 CORS 详解</a><br><a href="https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Access_control_CORS" target="_blank" rel="external">HTTP访问控制（CORS）</a></p>
-<p>Access-Control-Allow-Origin 的属性值只允许设置为单个确定域名字符串或者 (<em>),设置</em>的话，最不安全，允许所有域可以访问</p>
-<p>在服务器端设置CORS跨域请求中的多域名白名单，可以实现Access-Control-Allow-Origin 允许对某一个或几个网站开放跨域请求权限</p>
-<p>原理就是在服务器端判断请求的Header中Origin属性值（req.header.origin）是否在我们的域名白名单列表内。<br>如果在白名单列表内，那么我们就把 Access-Control-Allow-Origin 设置成当前的Origin值，这样就满足了Access-Control-Allow-Origin 的单一域名要求，也能确保当前请求通过访问；如果不在白名单列表内，则返回错误信息。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div></pre></td><td class="code"><pre><div class="line">// 判断origin是否在域名白名单列表中</div><div class="line">function isOriginAllowed(origin, allowedOrigin) &#123;</div><div class="line">    if (_.isArray(allowedOrigin)) &#123;</div><div class="line">        for(let i = 0; i &lt; allowedOrigin.length; i++) &#123;</div><div class="line">            if(isOriginAllowed(origin, allowedOrigin[i])) &#123;</div><div class="line">                return true;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        return false;</div><div class="line">    &#125; else if (_.isString(allowedOrigin)) &#123;</div><div class="line">        return origin === allowedOrigin;</div><div class="line">    &#125; else if (allowedOrigin instanceof RegExp) &#123;</div><div class="line">        return allowedOrigin.test(origin);</div><div class="line">    &#125; else &#123;</div><div class="line">        return !!allowedOrigin;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"></div><div class="line">const ALLOW_ORIGIN = [  // 域名白名单</div><div class="line">    &apos;*.233.666.com&apos;,</div><div class="line">    &apos;hello.world.com&apos;,</div><div class="line">    &apos;hello..*.com&apos;</div><div class="line">];</div><div class="line"></div><div class="line">app.post(&apos;a/b&apos;, function (req, res, next) &#123;</div><div class="line">    let reqOrigin = req.headers.origin;  // request响应头的origin属性</div><div class="line"></div><div class="line">    // 判断请求是否在域名白名单内</div><div class="line">    if(isOriginAllowed(reqOrigin, ALLOW_ORIGIN)) &#123;</div><div class="line">        // 设置CORS为请求的Origin值</div><div class="line">        res.header(&quot;Access-Control-Allow-Origin&quot;, reqOrigin);</div><div class="line">        res.header(&apos;Access-Control-Allow-Credentials&apos;, &apos;true&apos;);</div><div class="line"></div><div class="line">        // 业务代码逻辑代码 ...</div><div class="line">        // ...</div><div class="line">    &#125; else &#123;</div><div class="line">        res.send(&#123; code: -2, msg: &apos;非法请求&apos; &#125;);</div><div class="line">    &#125;</div><div class="line">&#125;);</div></pre></td></tr></table></figure></p>
-<p>与JSONP的比较:<br>CORS与JSONP的使用目的相同，但是比JSONP更强大。<br>JSONP只支持GET请求，CORS支持所有类型的HTTP请求。JSONP的优势在于支持老式浏览器，以及可以向不支持CORS的网站请求数据。</p>
-<h3 id="iframe-Hash"><a href="#iframe-Hash" class="headerlink" title="iframe-Hash"></a>iframe-Hash</h3><p>Location 对象是 Window 对象的一个部分，可通过 window.location 属性来访问<br>hash是location对象的的一个属性，可以设置或返回从井号 (#) 开始的 URL（锚）</p>
-<p>iframe是HTML标签，作用是文档中的文档，或者浮动的框架(FRAME)。iframe元素会创建包含另外一个文档的内联框架（即行内框架）。</p>
-<p>原理是在原域页面包装 跨域src的iframe标签，在跨域src的文件里请求跨域的资源(此时二者同域),<br>跨域src文件是可以获取到iframe父类,即我们原域的window对象,<br>通过改变原域的hash值，引发原域onhashchange,从而将资源带回到原域</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line">//原域js</div><div class="line">//包装iframe</div><div class="line">var iframe = document.createElement(&apos;iframe&apos;)</div><div class="line">iframe.src = &apos;http://x.com:7001/public/hash.html&apos;</div><div class="line">document.body.appendChild(iframe)</div><div class="line">//处理请求资源</div><div class="line">window.onhashchange = function () &#123;</div><div class="line">  // 小练习，做个工具方法，取出query的值</div><div class="line">  console.log(location.hash)</div><div class="line">&#125;</div><div class="line"></div><div class="line">//跨域的hash.html文件</div><div class="line"></div><div class="line">&lt;!DOCTYPE html&gt;</div><div class="line">&lt;html&gt;</div><div class="line">&lt;head&gt;</div><div class="line">&lt;/head&gt;</div><div class="line">&lt;body&gt;</div><div class="line">&lt;script&gt;</div><div class="line">var xhr = new XMLHttpRequest()</div><div class="line">xhr.onreadystatechange = function () &#123;</div><div class="line">    if (xhr.readyState === 4 &amp;&amp; xhr.status === 200) &#123;</div><div class="line">        var res = JSON.parse(xhr.responseText)</div><div class="line">        parent.location.href = `http://y.stuq.com:7001/public/3.html#msg=$&#123;res.msg&#125;` //引起原域onhashchange，同时将response带回</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line">xhr.open(&apos;GET&apos;, &apos;http://x.com:7001/json&apos;, true) //请求同域资源</div><div class="line">xhr.send(null)</div><div class="line">&lt;/script&gt;</div><div class="line">&lt;/body&gt;</div><div class="line">&lt;/html&gt;</div></pre></td></tr></table></figure>
-<h3 id="iframe-window-name"><a href="#iframe-window-name" class="headerlink" title="iframe-window.name"></a>iframe-window.name</h3><p>原理是利用iframe的window.name,name 值在不同的页面（甚至不同域名）加载后依旧存在（如果没修改则值不会变化），并且可以支持非常长的 name 值（2MB）</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div></pre></td><td class="code"><pre><div class="line">//原域js</div><div class="line">var iframe = document.createElement(&apos;iframe&apos;)</div><div class="line">iframe.src = &apos;http://x.com:7001/public/name.html&apos;</div><div class="line">document.body.appendChild(iframe)</div><div class="line"></div><div class="line">var times = 0</div><div class="line">iframe.onload = function () &#123;</div><div class="line">    if (++times === 2) &#123;//第一次打开跨域页面name,第二次加载通知原域iframe改变值</div><div class="line">        console.log(JSON.parse(iframe.contentWindow.name))</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">//name.html</div><div class="line">&lt;!DOCTYPE html&gt;</div><div class="line">&lt;html&gt;</div><div class="line">&lt;head&gt;</div><div class="line">&lt;/head&gt;</div><div class="line">&lt;body&gt;</div><div class="line">&lt;script&gt;</div><div class="line">var xhr = new XMLHttpRequest()</div><div class="line">xhr.onreadystatechange = function () &#123;</div><div class="line">    if (xhr.readyState === 4 &amp;&amp; xhr.status === 200) &#123;</div><div class="line">        window.name = xhr.responseText //这里是原域iframe的window,iframe不能跨域读取对象,所以</div><div class="line">        location.href = &apos;http://y.com:7001/public/index.html&apos; //再次加载iframe，通知原域parent，iframe的contentWindow.name需要做更改</div><div class="line">        //href的值,依然是跨域的也可以，这里是加载回原域的一个文件</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line">xhr.open(&apos;GET&apos;, &apos;http://x.com:7001/json&apos;, true)</div><div class="line">xhr.send(null)</div><div class="line">&lt;/script&gt;</div><div class="line">&lt;/body&gt;</div><div class="line">&lt;/html&gt;</div></pre></td></tr></table></figure>
-<h3 id="iframe-postMessage"><a href="#iframe-postMessage" class="headerlink" title="iframe-postMessage"></a>iframe-postMessage</h3><p>利用HTML5的postMessage方法<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div></pre></td><td class="code"><pre><div class="line">//原域js</div><div class="line">var iframe = document.createElement(&apos;iframe&apos;)</div><div class="line">iframe.src = &apos;http://x.stuq.com:7001/public/post.html&apos;</div><div class="line">document.body.appendChild(iframe)</div><div class="line"></div><div class="line">window.addEventListener(&apos;message&apos;, function(e) &#123;</div><div class="line">  console.log(JSON.parse(e.data))</div><div class="line">&#125;, false);</div><div class="line"></div><div class="line">//post.html</div><div class="line">&lt;!DOCTYPE html&gt;</div><div class="line">&lt;html&gt;</div><div class="line">&lt;head&gt;</div><div class="line">&lt;/head&gt;</div><div class="line">&lt;body&gt;</div><div class="line">&lt;script&gt;</div><div class="line">var xhr = new XMLHttpRequest()</div><div class="line">xhr.onreadystatechange = function () &#123;</div><div class="line">    if (xhr.readyState === 4 &amp;&amp; xhr.status === 200) &#123;</div><div class="line">        parent.postMessage(xhr.responseText, &apos;*&apos;) //拿到父级页面parent,执行postmessage的一个操作，从而引发父级页面的message事件</div><div class="line">        //*代表targetOrigin可以是任何域</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line">xhr.open(&apos;GET&apos;, &apos;http://x.stuq.com:7001/json&apos;, true)</div><div class="line">xhr.send(null)</div><div class="line">&lt;/script&gt;</div><div class="line">&lt;/body&gt;</div><div class="line">&lt;/html&gt;</div></pre></td></tr></table></figure></p>
-<p><a href="https://developer.mozilla.org/en-US/docs/Web/API/Window/postMessage" target="_blank" rel="external">Window.postMessage() API</a></p>
-<h3 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h3><p>跨域方法很多<br>选择如何使用可以考虑以下几方面<br>1.场景，选择简单的<br>2.安全，解决问题是否足够安全<br>3.数据来源,如果跨域接口可以传资源给原域，则可以使用iframe代理<br>4.承接第三种情景，如果接口不允许传资源，则只能寄希望于后台，使用反向代理的方法获取</p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
   <link itemprop="mainEntityOfPage" href="http://yoohannah.github.io/post/knowledge/obj.html">
 
   <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1182,6 +1153,152 @@
 <p>这种情况与第二种情况非常像。A也是一个普通函数，所以直接继承Function.prototype。但是，A调用后返回的对象不继承任何方法，所以它的<strong>proto</strong>指向Function.prototype，即实质上执行了下面的代码。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">class C extends null &#123;</div><div class="line">  constructor() &#123; return Object.create(null); &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
 <p>第四种情况,允许继承原生构造函数定义子类,但无法通过super方法向父类Object传参<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">class NewObj extends Object&#123;</div><div class="line">  constructor()&#123;</div><div class="line">    super(...arguments);</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line">var o = new NewObj(&#123;attr: true&#125;);</div><div class="line">console.log(o.attr === true)  // false</div></pre></td></tr></table></figure></p>
 <h3 id="Mixin-模式"><a href="#Mixin-模式" class="headerlink" title="Mixin 模式"></a>Mixin 模式</h3><p>使用如下mix函数将多个对象合成为一个类<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line">function mix(...mixins) &#123;</div><div class="line">  class Mix &#123;&#125;</div><div class="line"></div><div class="line">  for (let mixin of mixins) &#123;</div><div class="line">    copyProperties(Mix, mixin);</div><div class="line">    copyProperties(Mix.prototype, mixin.prototype);</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  return Mix;</div><div class="line">&#125;</div><div class="line"></div><div class="line">function copyProperties(target, source) &#123;</div><div class="line">  for (let key of Reflect.ownKeys(source)) &#123;</div><div class="line">    if ( key !== &quot;constructor&quot;</div><div class="line">      &amp;&amp; key !== &quot;prototype&quot;</div><div class="line">      &amp;&amp; key !== &quot;name&quot;</div><div class="line">    ) &#123;</div><div class="line">      let desc = Object.getOwnPropertyDescriptor(source, key);</div><div class="line">      Object.defineProperty(target, key, desc);</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">//使用：继承返回的合成类</div><div class="line">class DistributedEdit extends mix(Loggable, Serializable) &#123;</div><div class="line">  // ...</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://yoohannah.github.io/post/knowledge/ajax.html">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="YooHannah">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="/psb.jpg">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="My Little World">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="My Little World" src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/post/knowledge/ajax.html" itemprop="url">
+                  Ajax和跨域
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-08-19T09:56:37+08:00">
+                2017-08-19
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="ajax"><a href="#ajax" class="headerlink" title="ajax"></a>ajax</h1><p>ajax全称Asynchronous JavaScript and XML（异步的JavaScript与XML），是网页无需刷新页面、使用js与服务器进行交互的一种技术。</p>
+<p>ajax的基本流程可以概括为：页面上js脚本实例化一个XMLHttpRequest对象，设置好服务器端的url、必要的查询参数、回调函数之后，向服务器发出请求，<br>服务器在处理请求之后将处理结果返回给页面，触发事先绑定的回调函数。<br>这样，页面脚本如果想要改变一个区域的内容，只需要通过ajax向服务器获取与该区域有关的少量数据，在回调函数中将该区域的内容替换掉即可，不需要刷新整个页面。</p>
+<p>XMLHttpRequest在发送请求的时候，有两种方式：同步与异步。<br>同步方式是请求发出后，一直到收到服务器返回的数据为止，浏览器进程被阻塞，页面上什么事也做不了。<br>而异步方式则不会阻塞浏览器进程，在服务端返回数据并触发回调函数之前，用户依然可以在该页面上进行其他操作。<br>ajax的核心是异步方式，而同步方式只有在极其特殊的情况下才会被用到。</p>
+<p>XMLHttpRequest 对象是一个接口，用于创建一个http请求对象实例,打开一个URL，然后发送这个请求,<br>当传输完毕后，结果的HTTP状态以及返回的响应内容也可以从请求对象中获取<br>五种状态<br>0：未打开<br>1：未发送<br>2：以获取响应头<br>3：正在下载响应体<br>4：请求完成<br><a href="https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest" target="_blank" rel="external">XMLHttpRequest API</a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div></pre></td><td class="code"><pre><div class="line">const xhr = new XMLHttpRequest()</div><div class="line"></div><div class="line">xhr.onreadystatechange = function () &#123;</div><div class="line">  switch (xhr.readyState) &#123;</div><div class="line">    case 0:</div><div class="line">      // UNSENT (未打开)</div><div class="line">      debugger</div><div class="line">      break</div><div class="line">    case 1:</div><div class="line">      // OPENED  (未发送)</div><div class="line">      debugger</div><div class="line">      break</div><div class="line">    case 2:</div><div class="line">      // HEADERS_RECEIVED (已获取响应头)</div><div class="line">      debugger</div><div class="line">      break</div><div class="line">    case 3:</div><div class="line">      // LOADING (正在下载响应体)</div><div class="line">      debugger</div><div class="line">      break</div><div class="line">    case 4:</div><div class="line">      // DONE (请求完成)</div><div class="line">      if (xhr.status === 200) &#123;</div><div class="line">        console.log(xhr.responseType)</div><div class="line">        console.log(xhr.responseText)</div><div class="line">        console.log(xhr.response)</div><div class="line">      &#125;</div><div class="line">      break</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">xhr.open(&apos;GET&apos;, &apos;http://y.com:7001/json&apos;, true)</div><div class="line">xhr.send(null)</div></pre></td></tr></table></figure>
+<h1 id="同源策略"><a href="#同源策略" class="headerlink" title="同源策略"></a>同源策略</h1><p>为了保证用户信息的安全，防止恶意的网站窃取数据<br>解决办法：同源策略<br>同源策略是指三个相同：协议相同,域名相同,端口相同<br>以上三个不相同则是非同源，非同源之间相互访问即跨域访问</p>
+<p>跨域和ip没有关系</p>
+<h1 id="跨域"><a href="#跨域" class="headerlink" title="跨域"></a>跨域</h1><p>浏览器在阻止跨域,阻止方式可能是在一开始就限制了发起跨站的请求，也可能是跨站请求可以正常发起，但返回结果被浏览器拦截了</p>
+<h2 id="为什么要防止跨域"><a href="#为什么要防止跨域" class="headerlink" title="为什么要防止跨域"></a>为什么要防止跨域</h2><p>跨域访问时会受到同源策略的三个限制<br>1、Cookie、LocalStorage 和 IndexDB 无法读取。<br>通过浏览器document.cookie我们可以获取用户登录态,如果cookie可以读取的话，<br>就会出现在A公司网站里可以去B公司网站获取登录信息的事情,这样就容易将用户信息泄露<br>2、DOM 无法获得<br>如果DOM可以获得,现在我是一个假网站，利用iframe套嵌一个目前线上运营的电商网站,那么<br>消费者在输入支付密码时,那我就可以获取input的值,从而获取用户支付密码<br>3、AJAX 请求不能发送<br>如果AJAx可以发送的话，那我们就能将内网东西下载下来发送到外网服务器，从而造成内网信息泄露</p>
+<h2 id="如何实现跨域"><a href="#如何实现跨域" class="headerlink" title="如何实现跨域"></a>如何实现跨域</h2><h3 id="jsonp"><a href="#jsonp" class="headerlink" title="jsonp"></a>jsonp</h3><p>原理是利用&lt;script&gt;标签可以在任何域下获取资源的原理，将要跨域获取的接口url放在&lt;script&gt;标签的src里面，<br>然后js将标签放到body里面，其中url包含一个callback参数，用于指向处理response的函数，这个函数我们挂载的window上,<br>即我们在js中定义的的函数</p>
+<p>如果在浏览器直接访问接口’<a href="http://x.com:7001/json?callback=xxx" target="_blank" rel="external">http://x.com:7001/json?callback=xxx</a>‘<br>页面会显示<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">/**/ typeof xxx === &apos;function&apos; &amp;&amp; xxx(&#123;&quot;msg&quot;:&quot;hello world&quot;&#125;);</div></pre></td></tr></table></figure></p>
+<p>就是说,在请求这个接口时,会去window上找xxx这个对象，看它是不是函数，如果是函数，<br>就将接口定义的response（{“msg”:”hello world”}）作为参数传递给xxx函数,并执行xxx函数</p>
+<p>现在在<a href="http://y.com/x.html页面中进行跨域" target="_blank" rel="external">http://y.com/x.html页面中进行跨域</a><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line">//json 接口  服务端</div><div class="line"></div><div class="line">module.exports = app =&gt; &#123;</div><div class="line">  class MsgController extends app.Controller &#123;</div><div class="line">    * index(req) &#123;</div><div class="line">      this.ctx.body = &#123; msg: &apos;hello world&apos; &#125;</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">  return MsgController</div><div class="line">&#125;</div><div class="line"></div><div class="line">// js 客户端请求</div><div class="line">//方法一：</div><div class="line"></div><div class="line">//定义相应处理函数</div><div class="line">window.xxx = function (value) &#123;</div><div class="line">  console.log(value)</div><div class="line">&#125;</div><div class="line">//添加script标签</div><div class="line">var script = document.createElement(&apos;script&apos;)</div><div class="line">script.src = &apos;http://x.com:7001/json?callback=xxx&apos;</div><div class="line">document.body.appendChild(script)</div><div class="line"></div><div class="line">//方法二：</div><div class="line">require([&apos;http://x.com:7001/json?callback=define&apos;], function (value) &#123;</div><div class="line">  console.log(value)</div><div class="line">&#125;)</div></pre></td></tr></table></figure></p>
+<p>现在访问<a href="http://y.com/x.html,在浏览器console就会打印{&quot;msg&quot;:&quot;hello" target="_blank" rel="external">http://y.com/x.html,在浏览器console就会打印{&quot;msg&quot;:&quot;hello</a> world”}</p>
+<h3 id="CORS"><a href="#CORS" class="headerlink" title="CORS"></a>CORS</h3><p>XMLHttpRequest 2.0以后可以使用cors方法进行跨域<br>CORS需要浏览器和服务器同时支持<br>整个CORS通信过程，都是浏览器自动完成，不需要用户参与。<br>对于开发者来说，CORS通信与同源的AJAX通信没有差别，代码完全一样。<br>浏览器一旦发现AJAX请求跨源，就会自动添加一些附加的头信息，有时还会多出一次附加的请求，但用户不会有感觉。<br>实现CORS通信的关键是服务器。只要服务器实现了CORS接口，就可以跨源通信。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line">//cors接口 服务端</div><div class="line">module.exports = app =&gt; &#123;</div><div class="line">  class CrosController extends app.Controller &#123;</div><div class="line">    * index(req) &#123;</div><div class="line">      this.ctx.set(&apos;Access-Control-Allow-Origin&apos;, &apos;*&apos;)//如果不添加则会禁止访问</div><div class="line">      // this.ctx.set(&apos;Access-Control-Allow-Origin&apos;, &apos;http://xx.com&apos;)</div><div class="line">      // 如果我们要 http://*.qq.com 都支持跨域怎么办？</div><div class="line">      this.ctx.body = &#123; msg: &apos;hello world&apos; &#125;</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">  return CrosController</div><div class="line">&#125;</div><div class="line"></div><div class="line">//js应用 客户端</div><div class="line">var xhr = new XMLHttpRequest()</div><div class="line">xhr.onreadystatechange = function () &#123;</div><div class="line">  if (xhr.readyState === 4 &amp;&amp; xhr.status === 200) &#123;</div><div class="line">    console.log(JSON.parse(xhr.responseText).msg)</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line">xhr.withCredentials = true//在头部添加cookie带到y.stuq,如果不设置，则不带</div><div class="line">xhr.open(&apos;GET&apos;, &apos;http://x.com:7001/cros&apos;)</div><div class="line">xhr.send(null)</div></pre></td></tr></table></figure>
+<p><a href="http://www.ruanyifeng.com/blog/2016/04/cors.html" target="_blank" rel="external">跨域资源共享 CORS 详解</a><br><a href="https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Access_control_CORS" target="_blank" rel="external">HTTP访问控制（CORS）</a></p>
+<p>Access-Control-Allow-Origin 的属性值只允许设置为单个确定域名字符串或者 (<em>),设置</em>的话，最不安全，允许所有域可以访问</p>
+<p>在服务器端设置CORS跨域请求中的多域名白名单，可以实现Access-Control-Allow-Origin 允许对某一个或几个网站开放跨域请求权限</p>
+<p>原理就是在服务器端判断请求的Header中Origin属性值（req.header.origin）是否在我们的域名白名单列表内。<br>如果在白名单列表内，那么我们就把 Access-Control-Allow-Origin 设置成当前的Origin值，这样就满足了Access-Control-Allow-Origin 的单一域名要求，也能确保当前请求通过访问；如果不在白名单列表内，则返回错误信息。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div></pre></td><td class="code"><pre><div class="line">// 判断origin是否在域名白名单列表中</div><div class="line">function isOriginAllowed(origin, allowedOrigin) &#123;</div><div class="line">    if (_.isArray(allowedOrigin)) &#123;</div><div class="line">        for(let i = 0; i &lt; allowedOrigin.length; i++) &#123;</div><div class="line">            if(isOriginAllowed(origin, allowedOrigin[i])) &#123;</div><div class="line">                return true;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        return false;</div><div class="line">    &#125; else if (_.isString(allowedOrigin)) &#123;</div><div class="line">        return origin === allowedOrigin;</div><div class="line">    &#125; else if (allowedOrigin instanceof RegExp) &#123;</div><div class="line">        return allowedOrigin.test(origin);</div><div class="line">    &#125; else &#123;</div><div class="line">        return !!allowedOrigin;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"></div><div class="line">const ALLOW_ORIGIN = [  // 域名白名单</div><div class="line">    &apos;*.233.666.com&apos;,</div><div class="line">    &apos;hello.world.com&apos;,</div><div class="line">    &apos;hello..*.com&apos;</div><div class="line">];</div><div class="line"></div><div class="line">app.post(&apos;a/b&apos;, function (req, res, next) &#123;</div><div class="line">    let reqOrigin = req.headers.origin;  // request响应头的origin属性</div><div class="line"></div><div class="line">    // 判断请求是否在域名白名单内</div><div class="line">    if(isOriginAllowed(reqOrigin, ALLOW_ORIGIN)) &#123;</div><div class="line">        // 设置CORS为请求的Origin值</div><div class="line">        res.header(&quot;Access-Control-Allow-Origin&quot;, reqOrigin);</div><div class="line">        res.header(&apos;Access-Control-Allow-Credentials&apos;, &apos;true&apos;);</div><div class="line"></div><div class="line">        // 业务代码逻辑代码 ...</div><div class="line">        // ...</div><div class="line">    &#125; else &#123;</div><div class="line">        res.send(&#123; code: -2, msg: &apos;非法请求&apos; &#125;);</div><div class="line">    &#125;</div><div class="line">&#125;);</div></pre></td></tr></table></figure></p>
+<p>与JSONP的比较:<br>CORS与JSONP的使用目的相同，但是比JSONP更强大。<br>JSONP只支持GET请求，CORS支持所有类型的HTTP请求。JSONP的优势在于支持老式浏览器，以及可以向不支持CORS的网站请求数据。</p>
+<h3 id="iframe-Hash"><a href="#iframe-Hash" class="headerlink" title="iframe-Hash"></a>iframe-Hash</h3><p>Location 对象是 Window 对象的一个部分，可通过 window.location 属性来访问<br>hash是location对象的的一个属性，可以设置或返回从井号 (#) 开始的 URL（锚）</p>
+<p>iframe是HTML标签，作用是文档中的文档，或者浮动的框架(FRAME)。iframe元素会创建包含另外一个文档的内联框架（即行内框架）。</p>
+<p>原理是在原域页面包装 跨域src的iframe标签，在跨域src的文件里请求跨域的资源(此时二者同域),<br>跨域src文件是可以获取到iframe父类,即我们原域的window对象,<br>通过改变原域的hash值，引发原域onhashchange,从而将资源带回到原域</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line">//原域js</div><div class="line">//包装iframe</div><div class="line">var iframe = document.createElement(&apos;iframe&apos;)</div><div class="line">iframe.src = &apos;http://x.com:7001/public/hash.html&apos;</div><div class="line">document.body.appendChild(iframe)</div><div class="line">//处理请求资源</div><div class="line">window.onhashchange = function () &#123;</div><div class="line">  // 小练习，做个工具方法，取出query的值</div><div class="line">  console.log(location.hash)</div><div class="line">&#125;</div><div class="line"></div><div class="line">//跨域的hash.html文件</div><div class="line"></div><div class="line">&lt;!DOCTYPE html&gt;</div><div class="line">&lt;html&gt;</div><div class="line">&lt;head&gt;</div><div class="line">&lt;/head&gt;</div><div class="line">&lt;body&gt;</div><div class="line">&lt;script&gt;</div><div class="line">var xhr = new XMLHttpRequest()</div><div class="line">xhr.onreadystatechange = function () &#123;</div><div class="line">    if (xhr.readyState === 4 &amp;&amp; xhr.status === 200) &#123;</div><div class="line">        var res = JSON.parse(xhr.responseText)</div><div class="line">        parent.location.href = `http://y.stuq.com:7001/public/3.html#msg=$&#123;res.msg&#125;` //引起原域onhashchange，同时将response带回</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line">xhr.open(&apos;GET&apos;, &apos;http://x.com:7001/json&apos;, true) //请求同域资源</div><div class="line">xhr.send(null)</div><div class="line">&lt;/script&gt;</div><div class="line">&lt;/body&gt;</div><div class="line">&lt;/html&gt;</div></pre></td></tr></table></figure>
+<h3 id="iframe-window-name"><a href="#iframe-window-name" class="headerlink" title="iframe-window.name"></a>iframe-window.name</h3><p>原理是利用iframe的window.name,name 值在不同的页面（甚至不同域名）加载后依旧存在（如果没修改则值不会变化），并且可以支持非常长的 name 值（2MB）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div></pre></td><td class="code"><pre><div class="line">//原域js</div><div class="line">var iframe = document.createElement(&apos;iframe&apos;)</div><div class="line">iframe.src = &apos;http://x.com:7001/public/name.html&apos;</div><div class="line">document.body.appendChild(iframe)</div><div class="line"></div><div class="line">var times = 0</div><div class="line">iframe.onload = function () &#123;</div><div class="line">    if (++times === 2) &#123;//第一次打开跨域页面name,第二次加载通知原域iframe改变值</div><div class="line">        console.log(JSON.parse(iframe.contentWindow.name))</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">//name.html</div><div class="line">&lt;!DOCTYPE html&gt;</div><div class="line">&lt;html&gt;</div><div class="line">&lt;head&gt;</div><div class="line">&lt;/head&gt;</div><div class="line">&lt;body&gt;</div><div class="line">&lt;script&gt;</div><div class="line">var xhr = new XMLHttpRequest()</div><div class="line">xhr.onreadystatechange = function () &#123;</div><div class="line">    if (xhr.readyState === 4 &amp;&amp; xhr.status === 200) &#123;</div><div class="line">        window.name = xhr.responseText //这里是原域iframe的window,iframe不能跨域读取对象,所以</div><div class="line">        location.href = &apos;http://y.com:7001/public/index.html&apos; //再次加载iframe，通知原域parent，iframe的contentWindow.name需要做更改</div><div class="line">        //href的值,依然是跨域的也可以，这里是加载回原域的一个文件</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line">xhr.open(&apos;GET&apos;, &apos;http://x.com:7001/json&apos;, true)</div><div class="line">xhr.send(null)</div><div class="line">&lt;/script&gt;</div><div class="line">&lt;/body&gt;</div><div class="line">&lt;/html&gt;</div></pre></td></tr></table></figure>
+<h3 id="iframe-postMessage"><a href="#iframe-postMessage" class="headerlink" title="iframe-postMessage"></a>iframe-postMessage</h3><p>利用HTML5的postMessage方法<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div></pre></td><td class="code"><pre><div class="line">//原域js</div><div class="line">var iframe = document.createElement(&apos;iframe&apos;)</div><div class="line">iframe.src = &apos;http://x.stuq.com:7001/public/post.html&apos;</div><div class="line">document.body.appendChild(iframe)</div><div class="line"></div><div class="line">window.addEventListener(&apos;message&apos;, function(e) &#123;</div><div class="line">  console.log(JSON.parse(e.data))</div><div class="line">&#125;, false);</div><div class="line"></div><div class="line">//post.html</div><div class="line">&lt;!DOCTYPE html&gt;</div><div class="line">&lt;html&gt;</div><div class="line">&lt;head&gt;</div><div class="line">&lt;/head&gt;</div><div class="line">&lt;body&gt;</div><div class="line">&lt;script&gt;</div><div class="line">var xhr = new XMLHttpRequest()</div><div class="line">xhr.onreadystatechange = function () &#123;</div><div class="line">    if (xhr.readyState === 4 &amp;&amp; xhr.status === 200) &#123;</div><div class="line">        parent.postMessage(xhr.responseText, &apos;*&apos;) //拿到父级页面parent,执行postmessage的一个操作，从而引发父级页面的message事件</div><div class="line">        //*代表targetOrigin可以是任何域</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line">xhr.open(&apos;GET&apos;, &apos;http://x.stuq.com:7001/json&apos;, true)</div><div class="line">xhr.send(null)</div><div class="line">&lt;/script&gt;</div><div class="line">&lt;/body&gt;</div><div class="line">&lt;/html&gt;</div></pre></td></tr></table></figure></p>
+<p><a href="https://developer.mozilla.org/en-US/docs/Web/API/Window/postMessage" target="_blank" rel="external">Window.postMessage() API</a></p>
+<h3 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h3><p>跨域方法很多<br>选择如何使用可以考虑以下几方面<br>1.场景，选择简单的<br>2.安全，解决问题是否足够安全<br>3.数据来源,如果跨域接口可以传资源给原域，则可以使用iframe代理<br>4.承接第三种情景，如果接口不允许传资源，则只能寄希望于后台，使用反向代理的方法获取</p>
 
           
         
@@ -1612,131 +1729,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="http://yoohannah.github.io/post/knowledge/aboutthis.html">
-
-  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
-    <meta itemprop="name" content="YooHannah">
-    <meta itemprop="description" content="">
-    <meta itemprop="image" content="/psb.jpg">
-  </span>
-
-  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-    <meta itemprop="name" content="My Little World">
-    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
-      <img style="display:none;" itemprop="url image" alt="My Little World" src="">
-    </span>
-  </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/post/knowledge/aboutthis.html" itemprop="url">
-                  关于this
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-08-09T22:00:37+08:00">
-                2017-08-09
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="普通函数中的this"><a href="#普通函数中的this" class="headerlink" title="普通函数中的this"></a>普通函数中的this</h1><ol>
-<li>this总是代表它的直接调用者, 例如 obj.func ,那么func中的this就是obj<br>2.在默认情况(非严格模式下,未使用 ‘use strict’),没找到直接调用者,则this指的是 window<br>3.在严格模式下,没有直接调用者的函数中的this是 undefined<br>4.使用call,apply,bind绑定的,this指的是 绑定的对象,<br>bind绑定一次后不会改变，且bind 的执行的结果返回的是绑定了一个对象的新函数<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div></pre></td><td class="code"><pre><div class="line"><span class="number">1</span>、</div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">test</span>(<span class="params"></span>) </span>&#123;</div><div class="line">  <span class="built_in">console</span>.log(<span class="keyword">this</span>);<span class="comment">//window</span></div><div class="line">&#125;</div><div class="line">test();</div><div class="line"></div><div class="line"><span class="number">2</span>、</div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">test</span>(<span class="params"></span>) </span>&#123;</div><div class="line"><span class="meta">  'use strict'</span>;</div><div class="line">  <span class="built_in">console</span>.log(<span class="keyword">this</span>);<span class="comment">//undefined</span></div><div class="line">&#125;</div><div class="line">test();</div><div class="line"></div><div class="line"><span class="number">3</span>、</div><div class="line"><span class="built_in">window</span>.val = <span class="number">1</span>;</div><div class="line">  <span class="keyword">var</span> obj = &#123;</div><div class="line">    <span class="attr">val</span>: <span class="number">2</span>,</div><div class="line">    <span class="attr">fn</span>: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">      <span class="keyword">this</span>.val *= <span class="number">2</span>;    <span class="comment">//普通函数，this指向调用者</span></div><div class="line">      val *= <span class="number">2</span>;</div><div class="line">      <span class="built_in">console</span>.log(<span class="keyword">this</span>.val);</div><div class="line">      <span class="built_in">console</span>.log(val);</div><div class="line">    &#125;</div><div class="line">  &#125;;</div><div class="line">  obj.fn();<span class="comment">// 4 2</span></div><div class="line">  <span class="keyword">var</span> func = obj.fn;</div><div class="line">  func(); <span class="comment">//8 8</span></div><div class="line"><span class="comment">//obj.fn()执行时,val 没有在fn的作用域里面定义，则去obj.fn()的作用域里面找,obj.fn()位于window,window.val是1;this指向obj,this.val是2</span></div><div class="line"><span class="comment">//func()执行时，window.val由于执行obj.fn(),现在是2;func()在window作用域下执行,this就是window,所以this.val和val都是window.val</span></div><div class="line"></div><div class="line"><span class="number">4</span>、</div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">f</span>(<span class="params"></span>) </span>&#123;</div><div class="line">  <span class="keyword">var</span> test = <span class="string">'in the f!'</span>;</div><div class="line">  setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123; <span class="comment">//是函数就会建立作用域</span></div><div class="line"> 	 <span class="built_in">console</span>(<span class="string">'inner '</span>+ test) <span class="comment">// inner in the f!</span></div><div class="line">  &#125;, <span class="number">0</span>);</div><div class="line">&#125;</div><div class="line"><span class="comment">//以上代码等于</span></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">f</span>(<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="keyword">var</span> test = <span class="string">'in the f!'</span>;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">function</span> <span class="title">ff</span>(<span class="params"></span>) </span>&#123;</div><div class="line">        alert(<span class="string">'inner '</span> + test) <span class="comment">//test在ff里面没定义，但在f里面进行了定义</span></div><div class="line">    &#125; <span class="comment">// 能访问到f中的test局部变量</span></div><div class="line"></div><div class="line">    setTimeout(ff, <span class="number">0</span>); <span class="comment">// inner in the f!</span></div><div class="line">&#125;</div><div class="line"></div><div class="line">f();</div><div class="line"><span class="number">5</span>、</div><div class="line"><span class="keyword">var</span> lzh = &#123;</div><div class="line">    <span class="attr">name</span>: <span class="string">'lzh'</span>,</div><div class="line">    <span class="attr">say</span>: <span class="function"><span class="keyword">function</span>(<span class="params">something</span>)</span>&#123;</div><div class="line">        alert(something + <span class="keyword">this</span>.name);</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">var</span> iny = &#123;</div><div class="line">    <span class="attr">name</span>: <span class="string">'iny'</span></div><div class="line">&#125;</div><div class="line"></div><div class="line">lzh.say.apply(iny, [<span class="string">'hi, I am '</span>]); <span class="comment">// 输出 hi I am iny</span></div></pre></td></tr></table></figure>
-</li>
-</ol>
-<h1 id="箭头函数中的this"><a href="#箭头函数中的this" class="headerlink" title="箭头函数中的this"></a>箭头函数中的this</h1><p>默认指向在定义它时,它所绑定的对象的上一级,而不是执行时的对象, 定义它的时候,可能环境是window</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params"></span>) </span>&#123;</div><div class="line">  <span class="keyword">return</span> <span class="function"><span class="params">()</span> =&gt;</span> &#123;</div><div class="line">    <span class="keyword">return</span> <span class="function"><span class="params">()</span> =&gt;</span> &#123;</div><div class="line">      <span class="keyword">return</span> <span class="function"><span class="params">()</span> =&gt;</span> &#123;</div><div class="line">        <span class="built_in">console</span>.log(<span class="keyword">this</span>);</div><div class="line">      &#125;;</div><div class="line">    &#125;;</div><div class="line">  &#125;;</div><div class="line">&#125;</div><div class="line">foo()()()() <span class="comment">//window</span></div><div class="line"><span class="keyword">var</span> f = foo.call(&#123;<span class="attr">id</span>: <span class="number">1</span>&#125;);</div><div class="line">f()()() <span class="comment">//&#123;id:1&#125;</span></div><div class="line"><span class="keyword">var</span> t1 = f.call(&#123;<span class="attr">id</span>: <span class="number">2</span>&#125;)()();<span class="comment">//&#123;id:1&#125;</span></div><div class="line"><span class="keyword">var</span> t2 = f().call(&#123;<span class="attr">id</span>: <span class="number">3</span>&#125;)();<span class="comment">//&#123;id:1&#125;</span></div><div class="line"><span class="keyword">var</span> t3 = f()().call(&#123;<span class="attr">id</span>: <span class="number">4</span>&#125;);<span class="comment">//&#123;id:1&#125;</span></div></pre></td></tr></table></figure>
-<h1 id="setTimeout中的this"><a href="#setTimeout中的this" class="headerlink" title="setTimeout中的this"></a>setTimeout中的this</h1><p> 普通函数指向window<br> 箭头函数指向定义的对象<br> 引用函数,指向调用对象</p>
- <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div></pre></td><td class="code"><pre><div class="line"> 0、</div><div class="line"> var obj = &#123;</div><div class="line">    fn1 : function () &#123;</div><div class="line">        console.log(this);          //obj</div><div class="line">    &#125;,</div><div class="line">    fn2 :　function () &#123;</div><div class="line">        setTimeout(function () &#123;</div><div class="line">            console.log(this);     //window 匿名函数执行在window环境，找不到宿主对象，所以指向window</div><div class="line">        &#125;,0);</div><div class="line">    &#125;,</div><div class="line">    fn3: function () &#123;</div><div class="line">      setTimeout(() =&gt; &#123;</div><div class="line">        console.log(this);         //obj 箭头函数创建在obj上</div><div class="line">      &#125;,100);</div><div class="line">    &#125;</div><div class="line">    fn4: function () &#123;</div><div class="line">      var that = this;</div><div class="line">      setTimeout(function () &#123;</div><div class="line">        console.log(that)          //obj 在setTimeout里面引用obj</div><div class="line">        console.log(this)          //window</div><div class="line">      &#125;);</div><div class="line">    &#125;</div><div class="line">    fn5: function () &#123;</div><div class="line">      var f1 = () =&gt; &#123;</div><div class="line">        console.log(this);         // obj f1定义处在obj里面</div><div class="line">        setTimeout(() =&gt; &#123;</div><div class="line">          console.log(this);       // obj 箭头函数定义处在obj里面</div><div class="line">        &#125;)</div><div class="line">      &#125;</div><div class="line">      f1();</div><div class="line">    &#125;</div><div class="line">    fn6: function () &#123;</div><div class="line">      var f2 = function () &#123;</div><div class="line">        console.log(this);         // window, f2调用时,没有宿主对象,默认是window</div><div class="line">        setTimeout(() =&gt; &#123;</div><div class="line">          console.log(this);      // window 箭头函数定义在f2确定的window里面</div><div class="line">        &#125;)</div><div class="line">      &#125;;</div><div class="line">      f2();</div><div class="line">    &#125;</div><div class="line">    fn7: function () &#123;</div><div class="line">      &apos;use strict&apos;;</div><div class="line">      var f3 = function () &#123;</div><div class="line">        console.log(this); // undefined</div><div class="line">        setTimeout(() =&gt; &#123;</div><div class="line">          console.log(this); // undefined</div><div class="line">        &#125;)</div><div class="line">      &#125;;</div><div class="line">      f3();</div><div class="line">    &#125;</div><div class="line">&#125;;</div><div class="line">obj.fn1();</div><div class="line">obj.fn2();</div><div class="line">obj.fn3();</div><div class="line">obj.fn4();</div><div class="line">···</div><div class="line"></div><div class="line">1、</div><div class="line">function foo()&#123;</div><div class="line">	setTimeout(function()&#123;</div><div class="line">    console.log(this) //window 匿名函数，找不到宿主对象</div><div class="line">  &#125;, 100);</div><div class="line">  setTimeout(() =&gt; &#123;</div><div class="line">    console.log(this) //window foo挂载在window对象上</div><div class="line">  &#125;, 100);</div><div class="line">&#125;</div><div class="line">foo();</div><div class="line">foo.call(&#123;id:42&#125;); //window &#123;id:42&#125; foo运行时所在的对象，恰好是箭头函数定义时所在的对象</div><div class="line">//call([thisObj[,arg1[, arg2,....]) 方法可将一个函数的对象上下文从初始的上下文改变为由 thisObj 指定的新对象。</div><div class="line"></div><div class="line">2、</div><div class="line">function method() &#123;</div><div class="line">  alert(this.value);  // 输出 42  第二个this</div><div class="line">&#125;</div><div class="line"></div><div class="line">function Foo() &#123;</div><div class="line">    this.value = 42;</div><div class="line">    setTimeout(this.method, 500);  // 这里this指向window   第一个this</div><div class="line">&#125;</div><div class="line"></div><div class="line">Foo();</div><div class="line">//Foo挂载在window上，当执行Foo时，this指向window,Foo里面的value被挂到window，method本来就挂在window上，所以执行this.method就是调用window.method</div><div class="line">//method执行，它的this指向window,这时window已经挂上value值42</div></pre></td></tr></table></figure>
-<p><a href="http://www.cnblogs.com/libin-1/p/5814792.html" target="_blank" rel="external">应用</a></p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1782,7 +1774,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">123</span>
+              <span class="site-state-item-count">124</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
