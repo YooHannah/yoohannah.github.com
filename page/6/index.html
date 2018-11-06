@@ -259,6 +259,544 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://yoohannah.github.io/post/php/php_MySQLuse.html">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="YooHannah">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="/psb.jpg">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="My Little World">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="My Little World" src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/post/php/php_MySQLuse.html" itemprop="url">
+                  php中MySQL的使用
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-05-26T21:37:37+08:00">
+                2017-05-26
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="php连接数据库"><a href="#php连接数据库" class="headerlink" title="php连接数据库"></a>php连接数据库</h1><p>查看数据库主机，用户名<br>use myaql；<br>select Host from user;<br>select user from user;</p>
+<h2 id="连接数据库服务器"><a href="#连接数据库服务器" class="headerlink" title="连接数据库服务器"></a>连接数据库服务器</h2><p>mysql_connect函数<br>$con = mysql_connect(“localhost”,”peter”,”abc123”);<br>参数1    主机<br>参数2    数据库服务器登陆名<br>参数3    密码<br>参数4    数据库的名称<br>参数5    数据库服务器端口不填默认3306</p>
+<p>若参数4，数据库名称在此步已填并择，不需要执行第三步</p>
+<h2 id="判断链接是否正常"><a href="#判断链接是否正常" class="headerlink" title="判断链接是否正常"></a>判断链接是否正常</h2><p>如果有错误，存在错误号<br>if (mysql_errno($conn)) {<br>   echo mysql_error($conn);<br>   exit;<br>}</p>
+<p>mysql_errno 返回连接错误号，无错误返回0<br>参数1    传入mysql_connect返回的资源</p>
+<p>mysql_error 返回连接错误字符串<br>参数1    传入mysql_connect返回的资源</p>
+<h2 id="选择数据库"><a href="#选择数据库" class="headerlink" title="选择数据库"></a>选择数据库</h2><p>mysql_select_db函数<br>mysql_select_db(‘user’,$conn);<br>参数1    传入mysql_connect返回的资源<br>参数2    需要连接的数据库名</p>
+<h2 id="设置字符集"><a href="#设置字符集" class="headerlink" title="设置字符集"></a>设置字符集</h2><p>mysql_set_charset<br>mysql_set_charset(‘utf8’,$conn);<br>参数1    字符集类型<br>参数2    传入mysql_connect返回的资源</p>
+<h2 id="准备SQL语句"><a href="#准备SQL语句" class="headerlink" title="准备SQL语句"></a>准备SQL语句</h2><p>要传入数据库的操作语句<br>注意参数如何拼接</p>
+<p>如果是int类型的就使用<br>$sql=”insert into user(mycon) values(“.$my_con.”)”;<br>//或者<br>$sql=’insert into user(mycon) values(‘.$my_con.’)’;</p>
+<p>如果是字符型的就要使用单引号或者双引号括起来<br>$sql=”insert into user(mycon) values(‘“.$my_con.”‘)”;<br>//或者这样写<br>$sql=’insert into user(mycon) values(“‘.$my_con.’”)’;</p>
+<p>多个<br>$sql = “INSERT INTO user (username,password,createtime,createip)<br>values<br>(‘“ . $username . “‘,’” . $password . “‘,” . $time . “,’” . $ip . “‘)”;</p>
+<h2 id="发送SQL语句"><a href="#发送SQL语句" class="headerlink" title="发送SQL语句"></a>发送SQL语句</h2><p>$result = mysql_query($sql,$conn);</p>
+<h2 id="根据不同操作，判断执行是否正常或者遍历数据"><a href="#根据不同操作，判断执行是否正常或者遍历数据" class="headerlink" title="根据不同操作，判断执行是否正常或者遍历数据"></a>根据不同操作，判断执行是否正常或者遍历数据</h2><p>发送的是select类别的语句，通常需要将结果输出显示出来。就需要用到遍历显示数据的函数<br>函数    mysql_fetch_array<br>功能    得到result结果集中的数据，返回数组进行便利<br>参数1    传入查询出来的结果变量<br>参数2    传入MYSQLI_NUM返回索引数组，MYSQLI_ASSOC返回关联数组，MYSQLI_BOTH返回索引和关联</p>
+<p>函数    mysql_fetch_assoc<br>功能    得到result结果集中的数据，返回关联数组进行便利<br>参数1    传入查询出来的结果变量</p>
+<p>函数    mysql_fetch_row<br>功能    得到result结果集中的数据，返回索引数组进行便利<br>参数1    传入查询出来的结果变量</p>
+<p>函数    mysql_fetch_object<br>功能    得到result结果集中的数据，返回对象进行遍历<br>参数1    传入查询出来的结果变量</p>
+<p>函数    mysql_num_rows<br>功能    返回查询出来的结果总数<br>参数1    传入查询出来的结果变量</p>
+<p>函数    sql_num_rows<br>功能    返回查询出来的结果总数<br>参数1    传入查询出来的结果变量</p>
+<p>如果发送的是insert的语句，通常需要得到是否执行成功，或者同时拿到自增的ID。<br>函数    mysqli_fetch_field<br>功能    遍历数据行<br>参数1    传入查询出来的结果变量</p>
+<p>如果发送的是update和delete类别的语句。只需要判断是否执行成功即可。</p>
+<p>if ($result) {<br>   echo ‘成功’;<br>} else {<br>    echo $sql;//查看是否是SQL语句拼接有问题<br>  echo ‘失败’;<br>}</p>
+<h2 id="关闭数据库"><a href="#关闭数据库" class="headerlink" title="关闭数据库"></a>关闭数据库</h2><p>函数    mysqli_close<br>功能    关闭数据库连接<br>参数1    传入mysqli_connect返回的资源</p>
+<p>mysql_close($conn);//关闭数据库</p>
+<h1 id="显示服务器信息函数"><a href="#显示服务器信息函数" class="headerlink" title="显示服务器信息函数"></a>显示服务器信息函数</h1><p>函数    mysqli_get_server_info<br>功能    返回服务器信息<br>参数1    传入mysqli_connect返回的资源</p>
+<p>函数    mysqli_get_server_version<br>功能    返回服务器版本<br>参数1    传入mysqli_connect返回的资源</p>
+<p><a href="https://github.com/YooHannah/algorithm/blob/master/php/registration/connect.php" target="_blank" rel="external">一个用户注册的代码链接</a></p>
+<h2 id="数据显示乱码终极解决办法"><a href="#数据显示乱码终极解决办法" class="headerlink" title="数据显示乱码终极解决办法"></a>数据显示乱码终极解决办法</h2><p>多个不同的文件系统中一定要统一编码。<br>9个要点分别是：<br>    1.html编码与MySQL编码一致<br>    2.PHP编码与MySQL编码一致<br>    3.若有header头发送字符集，请与数据库一样<br>      如果php中有header头，一定要是utf-8的<br>      header(‘content-type:text/html;charset=utf-8’);<br>    4.<meta http-equiv="“Content-Type”content=“text/html;" charset="utf-8”">要和页面的文字编码一致<br>    5.数据库建库的字符集要统一<br>    6.表的字符集要统一<br>    7.列的字符集要统一(表设了,列就默认写表的)<br>    8.连接,校验的字符集要统一<br>      通过mysqli_set_charset(‘utf8’)来MySQL连接、结果和校验的字符集设置。<br>      注：数据库的字符集声明和文件中的略有不同。utf8为mysql数据库的，utf-8为文件中使用的<br>    9.结果集的字符集要统一</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://yoohannah.github.io/post/php/php_imge.html">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="YooHannah">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="/psb.jpg">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="My Little World">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="My Little World" src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/post/php/php_imge.html" itemprop="url">
+                  图片上传
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-05-02T22:22:37+08:00">
+                2017-05-02
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="用函数画图"><a href="#用函数画图" class="headerlink" title="用函数画图"></a>用函数画图</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div></pre></td><td class="code"><pre><div class="line">&lt;?php</div><div class="line">//创建图片</div><div class="line">$img = imagecreatetruecolor(500, 500);</div><div class="line"></div><div class="line">//分配颜色 为图片准备需要用到的颜色</div><div class="line">$red = imagecolorallocate($img, 255, 0, 0);</div><div class="line"></div><div class="line">$green = imagecolorallocate($img, 0, 255, 0);</div><div class="line"></div><div class="line">$blue = imagecolorallocate($img, 0, 0, 255);</div><div class="line"></div><div class="line">$pur = imagecolorallocate($img, 255, 0, 255);</div><div class="line"></div><div class="line">$yellow = imagecolorallocate($img, 121, 72, 0);</div><div class="line"></div><div class="line"></div><div class="line">//填充背景 (0,0)(500,500)指图片左上角和右下角两点，从而确定图片的矩形</div><div class="line">imagefilledrectangle($img, 0, 0, 500, 500, $green);</div><div class="line"></div><div class="line">//画对角线 对角线起始点坐标</div><div class="line">imageline($img, 0, 0, 500, 500, $red);</div><div class="line">imageline($img, 500, 0, 0, 500, $blue);</div><div class="line"></div><div class="line">//画圆</div><div class="line">//bool imagefilledellipse ( resource $图片资源 , int $圆心x , int $圆心y , int $圆的宽 , int $圆的高 , int $圆的颜色 )</div><div class="line">imagefilledellipse($img, 250, 250, 200, 200, $yellow);</div><div class="line"></div><div class="line">//圆中间画矩形，同样通过左上角右下角确定矩形</div><div class="line">imagefilledrectangle($img, 200, 200, 300, 300, $blue);</div><div class="line"></div><div class="line"></div><div class="line">//保存图片，图片名为haha.jpg</div><div class="line">imagejpeg($img, &apos;haha.jpg&apos;);</div><div class="line"></div><div class="line">//销毁资源</div><div class="line">imagedestroy($img);</div><div class="line"></div><div class="line">?&gt;</div></pre></td></tr></table></figure>
+<h1 id="画验证码"><a href="#画验证码" class="headerlink" title="画验证码"></a>画验证码</h1><p><a href="https://github.com/YooHannah/algorithm/blob/master/php/Verificationcode.php" target="_blank" rel="external">代码链接</a></p>
+<h1 id="图片加水印"><a href="#图片加水印" class="headerlink" title="图片加水印"></a>图片加水印</h1><p>bool imagecopymerge ( resource $目标图片 , resource $来源图片, int $目标开始的x , int $目标开始的y, int $来源的x , int $来源的y , int $来源的宽 , int $来源的高 , int $透明度)<br>注意：<br>透明度的值为0-100的整数。imagecopy和imagecopymerge的区别在于一个有透明度，一个没有透明度。<br>大致步骤：<br> 1.打开原图（也叫操作的目标图片）<br> 2.打开水印图（也叫水印来源图片）<br> 3.使用 imagecopymerge 将小图合并至大图的指定位置<br> 4.输出图片<br> 5.销毁资源<br> <a href="https://github.com/YooHannah/algorithm/blob/master/php/Watermark.php" target="_blank" rel="external">代码链接</a></p>
+<h1 id="图像放缩和裁剪"><a href="#图像放缩和裁剪" class="headerlink" title="图像放缩和裁剪"></a>图像放缩和裁剪</h1><p>操作方式说明：<br>从来源图片的开始点(x,y)起，指定的宽高的大小图片。放至到目标图片的起点(x,y)，指定宽高大小的图片中。</p>
+<h2 id="缩放图片"><a href="#缩放图片" class="headerlink" title="缩放图片"></a>缩放图片</h2><p>imagecopyresampled    重采样拷贝部分图像并调整大小<br>bool imagecopyresampled ( resource $目标图 , resource $来源图 , int $目标开始的x位置 , int $目标开始的y位置 , int $来源开始的x位置 , int $来源开始的y位置 , int $目标图片的宽 , int $目标图片的高, int $来源图片的宽 , int $来源图片的高 )<br>大致步骤：<br>1.打开来源图片<br>2.设置图片缩放百分比（缩放）<br>3.获得来源图片，按比调整大小<br>4.新建一个指定大小的图片为目标图<br>5.将来源图调整后的大小放到目标中<br>6.销毁资源<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line">//打开来源图片</div><div class="line">$image = imagecreatefrompng(&apos;fbb.png&apos;);</div><div class="line"></div><div class="line"></div><div class="line">//定义百分比，缩放到0.1大小</div><div class="line">$percent = 0.1;</div><div class="line"></div><div class="line"></div><div class="line">// 将图片宽高获取到</div><div class="line">list($width, $height) = getimagesize(&apos;fbb.png&apos;);</div><div class="line"></div><div class="line">//设置新的缩放的宽高</div><div class="line">$new_width = $width * $percent;</div><div class="line">$new_height = $height * $percent;</div><div class="line"></div><div class="line">//创建新图片</div><div class="line">$new_image = imagecreatetruecolor($new_width, $new_height);</div><div class="line"></div><div class="line">//将原图$image按照指定的宽高，复制到$new_image指定的宽高大小中</div><div class="line">imagecopyresampled($new_image, $image, 0, 0, 0, 0, $new_width, $new_height, $width, $height);</div><div class="line"></div><div class="line">header(&apos;content-type:image/jpeg&apos;);</div><div class="line">imagejpeg($new_image);</div><div class="line">?&gt;</div></pre></td></tr></table></figure></p>
+<h2 id="裁剪图片"><a href="#裁剪图片" class="headerlink" title="裁剪图片"></a>裁剪图片</h2><p>imagecopyresized    拷贝部分图像并调整大小<br>bool imagecopyresized ( resource $目标图 , resource $来源图 , int $目标开始的x位置 , int $目标开始的y位置 , int $来源开始的x位置 , int $来源开始的y位置 , int $目标图片的宽 , int $目标图片的高, int $来源图片的宽 , int $来源图片的高 )<br>大致步骤：<br> 1.打开来源图片和目标图片<br> 2.截取来源图片中的点，设置宽高。放至到目标图片中。（裁剪）<br> 3.保存图片输入<br> 4.销毁资源</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">&lt;?php</div><div class="line"> $dst = imagecreatefrompng(&apos;hsq.png&apos;);</div><div class="line"> $src = imagecreatefrompng(&apos;du.png&apos;);</div><div class="line"> imagecopyresized($dst, $src, 281, 71, 407, 154, 132, 160, 80, 90);</div><div class="line"> header(&apos;content-type:image/jpeg&apos;);</div><div class="line">imagejpeg($dst);</div><div class="line">imagedestroy($dst);</div><div class="line"> imagedestroy($src);</div><div class="line"> ?&gt;</div></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://yoohannah.github.io/post/php/php_fileupload.html">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="YooHannah">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="/psb.jpg">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="My Little World">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="My Little World" src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/post/php/php_fileupload.html" itemprop="url">
+                  文件上传
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-05-02T22:21:37+08:00">
+                2017-05-02
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="修改php-ini文件配置"><a href="#修改php-ini文件配置" class="headerlink" title="修改php.ini文件配置"></a>修改php.ini文件配置</h1><p>php.ini文件在不同的集成环境包中都在安装目录的php文件下,如果有多个版本php,则在每个版本里面都会有一个php.ini文件<br>配置项    功能说明<br>file_uploads    on为 开启文件上传功能，off为关闭<br>post_max_size    系统允许的POST传参的最大值<br>upload_max_filesize    系统允许的上传文件的最大值<br>memory_limit    内存使用限制<br>【建议尺寸： file_size(文件大小) &lt; upload_max_filesize &lt; post_max_size &lt; memory_limit】<br>max_execution_time 设定脚本的最大执行时间。<br>也可以根据需求做适当的改变。通常不需要来修改，系统默认值即可。超大文件上传的时候，可能会涉及到这一项参数的修改<br>上传时间太长了，会超时。如果你将此项参数设为0，则是不限制超时时间，不建议使。</p>
+<h1 id="html页面"><a href="#html页面" class="headerlink" title="html页面"></a>html页面</h1><p>1.form 表单中的参数method 必须为post。若为get是无法进行文件上传的<br>2.enctype须为multipart/form-data<br><a href="https://github.com/YooHannah/algorithm/blob/master/php/fileupload/fileupload.html" target="_blank" rel="external">代码链接</a></p>
+<h1 id="文件上传"><a href="#文件上传" class="headerlink" title="文件上传"></a>文件上传</h1><p>按照数组和步骤完成文件上传<br>所有文件的信息存储在$_FILES[‘file’]中<br><a href="https://github.com/YooHannah/algorithm/blob/master/php/fileupload/file.php" target="_blank" rel="external">代码链接</a></p>
+<h1 id="多文件上传"><a href="#多文件上传" class="headerlink" title="多文件上传"></a>多文件上传</h1><p>写了2个或者多个input<br>将每个input name设置为”file[]”<br>对每个input上传文件后 $_FILE[‘file’]的每个属性将变成数组，依次对应每个input上传的文件</p>
+<h1 id="上传进度处理"><a href="#上传进度处理" class="headerlink" title="上传进度处理"></a>上传进度处理</h1><p>首先要修改php.ini的相关配置<br>配置项    说明<br>session.upload_progress.enabled    是否启用上传进度报告(默认开启) 1为开启，0为关闭<br>session.upload_progress.cleanup    是否在上传完成后及时删除进度数据(默认开启, 推荐开启)</p>
+<p>session.upload_progress.prefix[=upload<em>progress</em>]<br>进度数据将存储在_SESSION[session.upload_progress.prefix . _POST[session.upload_progress.name]]</p>
+<p>session.upload_progress.name[=PHP_SESSION_UPLOAD_PROGRESS]<br>如果_POST[session.upload_progress.name]没有被设置, 则不会报告进度.</p>
+<p>session.upload_progress.freq[=1%]    更新进度的频率(已经处理的字节数), 也支持百分比表示’%’.<br>session.upload_progress.min_freq[=1.0]    更新进度的时间间隔(秒)</p>
+<p>文件上传的进度信息存储在$_SESSION中<br><a href="https://github.com/YooHannah/algorithm/blob/master/php/fileupload/progress.php" target="_blank" rel="external">代码链接</a></p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://yoohannah.github.io/post/php/php_file.html">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="YooHannah">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="/psb.jpg">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="My Little World">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="My Little World" src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/post/php/php_file.html" itemprop="url">
+                  文件
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-05-01T08:40:37+08:00">
+                2017-05-01
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="读"><a href="#读" class="headerlink" title="读"></a>读</h1><p>readfile 传入一个文件路径，输出一个文件<br>int readfile ( string $文件名)</p>
+<p>file_get_contents 传入一个文件或文件路径，打开这个文件返回文件的内容。文件的内容是一个字符串。<br>string file_get_contents ( string filename)</p>
+<p>资源类型处理方式<br>fopen函数，打开资源，参数为文件打开路径，打开文件模式，返回资源类型<br>resource fopen ( string $文件名, string 模式)</p>
+<p>fread函数 读取打开的文件资源。读取指定长度的文件资源，读取一部份向后移动一部份。至到文件结尾。<br>string fread ( resource $操作资源, int 读取长度)</p>
+<p>fclose函数的功能是关闭资源。资源有打开就有关闭<br>bool fclose ( resource $操作资源 )</p>
+<p>fopen的模式<br>模式    说明<br>r    只读方式打开，将文件指针指向文件头。<br>r+    读写方式打开，将文件指针指向文件头。<br>w    写入方式打开，将文件指针指向文件头并将文件大小截为零。如果文件不存在则尝试创建<br>w+    读写方式打开，将文件指针指向文件头并将文件大小截为零。如果文件不存在则尝试创建<br>a    写入方式打开，将文件指针指向文件末尾。如果文件不存在则尝试创建<br>a+    读写方式打开，将文件指针指向文件末尾。如果文件不存在则尝试创建之<br>x    创建并以写入方式打开，将文件指针指向文件头。如果文件已存在，则 fopen() 调用失败并返回 FALSE，并生成一条 E_WARNING 级别的错误信息。如果文件不存在则尝试创建<br>x+<br>创建并以读写方式打开，将文件指针指向文件头。如果文件已存在，则 fopen() 调用失败并返回 FALSE，并生成一条 E_WARNING 级别的错误信息。如果文件不存在则尝试创建<br>t    windows下将\n转为\r\n<br>b    二进制打开模式</p>
+<h1 id="创建和修改"><a href="#创建和修改" class="headerlink" title="创建和修改"></a>创建和修改</h1><p>file_put_contents 向指定的文件当中写入一个字符串，如果文件不存在则创建文件。返回的是写入的字节长度<br>int file_put_contents ( string $文件路径, string $写入数据])</p>
+<p> fwrite 配合fopen进行写入操作，写入方式打开，将文件指针指向文件头并将文件大小截为零。如果文件不存在则尝试创建<br> int fwrite ( resource $文件资源变量, string $写入的字符串 [, int 长度])<br> 1.不论有没有新建都会打开文件重新写入<br> 2.原有的文件内容会被覆盖掉<br> 3.文件不存在会创建<br> 模式<br> x    每次写入会干掉原有文件的内容，文件不存在都会创建<br> a    每次写入都会向文件的尾端追加内容</p>
+<p>  tmpfile  创建一个临时文件，返回资源类型。关闭文件即被删除<br>  resource tmpfile ( )</p>
+<p>  rename 重命名文件 返回一个bool值，将旧的名字改为新的名字<br>  bool rename($旧名,$新名);</p>
+<p>  copy 复制文件 将指定路径的源文件，复制一份到目标文件的位置。<br>  bool copy(源文件,目标文件)</p>
+<p>  unlink 删除文件 这个删除是直接删除。使用的是windows电脑，在回收站看不到这个文件<br>  bool unlink(指定路径的文件)</p>
+<h1 id="检测文件属性函数"><a href="#检测文件属性函数" class="headerlink" title="检测文件属性函数"></a>检测文件属性函数</h1><pre><code>bool file_exists ( $指定文件名或者文件路径) 功能：文件是否存在。
+bool is_readable ( $指定文件名或者文件路径) 功能：文件是否可读
+bool is_writeable ( $指定文件名或者文件路径) 功能：文件是否可写
+bool is_executable ( $指定文件名或者文件路径) 功能：文件是否可执行
+bool is_file ( $指定文件名或者文件路径) 功能：是否是文件
+bool is_dir ( $指定文件名或者文件路径) 功能：是否是目录
+void clearstatcache ( void ) 功能：清楚文件的状态缓存
+</code></pre><h1 id="常用函数"><a href="#常用函数" class="headerlink" title="常用函数"></a>常用函数</h1><p>rewind ( resource handle) 指针回到开始处<br>fseek ( resource handle, int offset [, int from_where]) 文件指针向后移动指定字符<br>filesize 检测文件的大小<br>file(文件名)    把整个文件读入一个数组中<br>fgets(文件名)    从文件指针中读取一行,读到最后返回false<br>fgetc(文件名)    从文件指针中读取一个字符，读到最后返回false<br>ftruncate(文件名，长度)    将文件截断到给定的长度<br>filectime(文件名)    文件创建时间<br>filemtime(文件名)    文件修改时间<br>fileatime(文件名)    文件上次访问时间</p>
+<h1 id="文件锁定"><a href="#文件锁定" class="headerlink" title="文件锁定"></a>文件锁定</h1><p>bool flock ( resource $handle , int $operation) 轻便的咨询文件锁定<br>锁类型    说明<br>LOCK_SH    取得共享锁定（读取的程序）<br>LOCK_EX    取得独占锁定（写入的程序<br>LOCK_UN    释放锁定（无论共享或独占）<br>例<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">&lt;?php</div><div class="line"></div><div class="line">$fp = fopen(&quot;demo.txt&quot;, &quot;r+&quot;);</div><div class="line"></div><div class="line">// 进行排它型锁定</div><div class="line">if (flock($fp, LOCK_EX)) &#123; </div><div class="line"></div><div class="line">   fwrite($fp, &quot;文件这个时候被我独占了哟\n&quot;);</div><div class="line"></div><div class="line">  // 释放锁定</div><div class="line">   flock($fp, LOCK_UN);    </div><div class="line">&#125; else &#123;</div><div class="line">   echo &quot;锁失败，可能有人在操作，这个时候不能将文件上锁&quot;;</div><div class="line">&#125;</div><div class="line"></div><div class="line">fclose($fp);</div><div class="line"></div><div class="line">?&gt;</div></pre></td></tr></table></figure></p>
+<h1 id="处理文件夹"><a href="#处理文件夹" class="headerlink" title="处理文件夹"></a>处理文件夹</h1><p>处理文件夹的基本思想如下：<br>1.读取某个路径的时候判断是否是文件夹<br>2.是文件夹的话，打开指定文件夹，返回文件目录的资源变量<br>3.使用readdir读取一次目录中的文件，目录指针向后偏移一次<br>4.使用readdir读取到最后，没有可读的文件返回false<br>5.关闭文件目录</p>
+<p>opendir    打开文件夹，返回操作资源<br>readdir    读取文件夹资源<br>is_dir    判断是否是文件夹<br>closedir    关闭文件夹操作资源<br>filetype    显示是文件夹还是文件，文件显示file，文件夹显示dir<br>例<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line">&lt;?php</div><div class="line">//设置打开的目录是D盘</div><div class="line">$dir = &quot;d:/&quot;;</div><div class="line"></div><div class="line">//判断是否是文件夹，是文件夹</div><div class="line">if (is_dir($dir)) &#123;</div><div class="line">   if ($dh = opendir($dir)) &#123;</div><div class="line"></div><div class="line">      //读取一次向后移动一次文件夹指针</div><div class="line">      echo readdir($dh).&apos;&lt;br /&gt;&apos;;</div><div class="line">      echo readdir($dh).&apos;&lt;br /&gt;&apos;;</div><div class="line">      echo readdir($dh).&apos;&lt;br /&gt;&apos;;</div><div class="line">      echo readdir($dh).&apos;&lt;br /&gt;&apos;;</div><div class="line"></div><div class="line">      //读取到最后返回false</div><div class="line"></div><div class="line">      //关闭文件夹资源</div><div class="line">       closedir($dh);</div><div class="line">   &#125;</div><div class="line">&#125;</div><div class="line">?&gt;</div></pre></td></tr></table></figure></p>
+<h1 id="文件权限设置"><a href="#文件权限设置" class="headerlink" title="文件权限设置"></a>文件权限设置</h1><p>函数用法与linux的权限操作的用法一样。<br>函数    功能说明<br>chmod    修改读取模式<br>chgrp    修改用户组<br>chown    修改权限</p>
+<h1 id="文件路径函数"><a href="#文件路径函数" class="headerlink" title="文件路径函数"></a>文件路径函数</h1><p>array pathinfo ( string $路径)<br>功能：传入文件路径返回文件的各个组成部份<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">&lt;?php</div><div class="line">$path_parts = pathinfo(&apos;d:/www/index.inc.php&apos;);</div><div class="line"></div><div class="line">echo &apos;文件目录名：&apos;.$path_parts[&apos;dirname&apos;].&quot;&lt;br /&gt;&quot;;//d:/www</div><div class="line">echo &apos;文件全名：&apos;.$path_parts[&apos;basename&apos;].&quot;&lt;br /&gt;&quot;;//index.inc.php</div><div class="line">echo &apos;文件扩展名：&apos;.$path_parts[&apos;extension&apos;].&quot;&lt;br /&gt;&quot;;//php</div><div class="line">echo &apos;不包含扩展的文件名：&apos;.$path_parts[&apos;filename&apos;].&quot;&lt;br /&gt;&quot;; //index.inc</div><div class="line">?&gt;</div></pre></td></tr></table></figure></p>
+<p>string basename ( string $路径[, string $suffix ])<br>功能：传入路径返回文件名<br>第一个参数传入路径。<br>第二个参数，指定我文件名到了指定字符停止。</p>
+<p>dirname(string $路径)<br>功能：返回文件路径的文件目录部份</p>
+<p>mixed parse_url ( string $路径 )<br>功能：将网址拆解成各个部份</p>
+<p>string http_build_query ( mixed $需要处理的数据)<br>功能：生成url 中的query字符串<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">//定义一个关联数组</div><div class="line">$data = [</div><div class="line">       &apos;username&apos;=&gt;&apos;php&apos;,</div><div class="line">       &apos;area&apos;=&gt;&apos;hubei&apos;</div><div class="line">        ];</div><div class="line"></div><div class="line">//生成query内容</div><div class="line">echo http_build_query($data);//username=php&amp;area=hubei</div></pre></td></tr></table></figure></p>
+<p>http_build_url()<br>功能： 生成一个url</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
   <link itemprop="mainEntityOfPage" href="http://yoohannah.github.io/post/php/php_reg.html">
 
   <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1106,485 +1644,11 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="http://yoohannah.github.io/post/algorithm/balancesortbtree.html">
-
-  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
-    <meta itemprop="name" content="YooHannah">
-    <meta itemprop="description" content="">
-    <meta itemprop="image" content="/psb.jpg">
-  </span>
-
-  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-    <meta itemprop="name" content="My Little World">
-    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
-      <img style="display:none;" itemprop="url image" alt="My Little World" src="">
-    </span>
-  </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/post/algorithm/balancesortbtree.html" itemprop="url">
-                  平衡二叉排序树
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-04-08T14:51:37+08:00">
-                2017-04-08
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="特征"><a href="#特征" class="headerlink" title="特征"></a>特征</h1><p>首先得是一颗二叉排序树<br>左子树与右子树都是平衡二叉树<br>每个结点左子树与右子树的深度差的绝对值不能大于1<br>结点左子树深度减右子树深度的差叫做平衡因子BF，即|BF|&lt;=1，BF=-1/1/0<br>平衡二叉树就是一颗二叉树上所有结点的平衡因子的绝对值小于等于1 的树</p>
-<h1 id="关键操作"><a href="#关键操作" class="headerlink" title="关键操作"></a>关键操作</h1><p>左子树bf大于右子树bf，右旋<br>左子树bf小于右子树bf，左旋<br>左旋的子树的右子树若存在左子树，将该左子树做左旋子树根结点的右子树，左旋子树根结点做其右子树的左子树<br>右旋的子树的左子树若存在右子树，将该右子树做右旋子树根结点的左结点，右旋子树根结点做其左子树的右子树</p>
-<h1 id="构建"><a href="#构建" class="headerlink" title="构建"></a>构建</h1><p>现用以下数据构建平衡二叉树<br>3,2,1,4,5,6,7,10,9,8<br><img src="/image/balancebtree.png" alt="balance"><br>按照大于父节点做右子树小于父结点做左子树原则,将3,2,1构建树，当1进入树之后3的左子树深度2减右子树深度0大于1，以2为中心进行右旋，如图1<br>继续添加4和5，当5进入树之后，3的左右子树深度差为-2，断开2,3链接，将3,4,5,以4为中心左旋，再与2相连，如图2<br>继续添加6，当6进入树之后,这时2的bf为-2，以2的右子树根结点为中心左旋，此时1,2和3均为4的左子树，则将4的原左子树做新左子树的右子树，如图3<br>添加7,当7进入树之后,5的bf为-2，断开4,5链接，以6为中心左旋，再与4相连，如图4<br>添加10、9,当9进入树之后,6的bf为-2,断开6、7，因为10有左结点，先将9、10关系转换，让10做9孩子结点，然后以9为中心左旋，再与6相连,如图5<br>添加8,4、6的bf又变为-2,断开4、6,9的bf为1，因为将来要对6左旋，所以先将9右旋，使9的bf变成0或负值，再对6以7为中心左旋，如图6<br>最终结果如图7<br><a href="https://github.com/YooHannah/algorithm/blob/master/js/balancebtree.js" target="_blank" rel="external">代码链接</a></p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="http://yoohannah.github.io/post/algorithm/sortbtree.html">
-
-  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
-    <meta itemprop="name" content="YooHannah">
-    <meta itemprop="description" content="">
-    <meta itemprop="image" content="/psb.jpg">
-  </span>
-
-  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-    <meta itemprop="name" content="My Little World">
-    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
-      <img style="display:none;" itemprop="url image" alt="My Little World" src="">
-    </span>
-  </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/post/algorithm/sortbtree.html" itemprop="url">
-                  二叉排序树
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-04-03T16:51:37+08:00">
-                2017-04-03
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>将无序的数组，把首项当做根结点开始，按照比双亲结点小的做左子树，比双亲结点大的做右子树的规则<br>建立一颗二叉树，对二叉树进行中序遍历，即得到无序数组从小到大的排序<br>二叉排序树特点<br>—- 若它的左子树不为空，则左子树上所有结点的值均小于它的根结构的值<br>—- 若它的右子树不为空，则右子树上所有结点的值均大于它的根结构的值<br>—- 它的左右子树也分别为二叉排序树(递归)<br><a href="https://github.com/YooHannah/algorithm/blob/master/js/SortingBtree.js" target="_blank" rel="external">代码链接</a></p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="http://yoohannah.github.io/post/algorithm/indexsearch.html">
-
-  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
-    <meta itemprop="name" content="YooHannah">
-    <meta itemprop="description" content="">
-    <meta itemprop="image" content="/psb.jpg">
-  </span>
-
-  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-    <meta itemprop="name" content="My Little World">
-    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
-      <img style="display:none;" itemprop="url image" alt="My Little World" src="">
-    </span>
-  </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/post/algorithm/indexsearch.html" itemprop="url">
-                  线性索引查找
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-04-03T16:38:37+08:00">
-                2017-04-03
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="稠密索引"><a href="#稠密索引" class="headerlink" title="稠密索引"></a>稠密索引</h1><p><img src="/image/index1.png" alt="index1"><br>索引表与数据表一对一，索引表的关键码是对应目标数据的提取，索引表有序，数据表无序</p>
-<h1 id="分块索引"><a href="#分块索引" class="headerlink" title="分块索引"></a>分块索引</h1><p><img src="/image/index2.png" alt="index2"><br>将整个数据表分块，取每块数据中最大值建立索引表，块间有序，块内无序</p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="http://yoohannah.github.io/post/algorithm/search.html">
-
-  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
-    <meta itemprop="name" content="YooHannah">
-    <meta itemprop="description" content="">
-    <meta itemprop="image" content="/psb.jpg">
-  </span>
-
-  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-    <meta itemprop="name" content="My Little World">
-    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
-      <img style="display:none;" itemprop="url image" alt="My Little World" src="">
-    </span>
-  </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/post/algorithm/search.html" itemprop="url">
-                  查找
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-04-02T19:24:37+08:00">
-                2017-04-02
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>静态查找: 数据集合稳定，不需要添加，删除元素的查找操作<br>– 组织数据宜用线性表结构<br>– 如果要对关键字排序，折半查找算法或斐波那契查找算法<br>动态查找：数据集合在查找过程中需要同时添加或删除元素的查找操作<br>– 二叉排序树，散列表结构</p>
-<h1 id="顺序查找"><a href="#顺序查找" class="headerlink" title="顺序查找"></a>顺序查找</h1><p>顺序查找/线性查找:从第一个(或者最后一个)记录开始，逐个进行记录的关键字和给定值进行比较，若某个记录的关键字和给定值相等，则查找成功。<br>—如果查找了所有的记录仍然找不到与给定值相等的关键字，则查找不成功<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//方式一</span></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">search</span>(<span class="params">array,key</span>)</span>&#123;</div><div class="line">	<span class="keyword">var</span> i;</div><div class="line">	<span class="keyword">for</span>(<span class="keyword">var</span> i = <span class="number">0</span>;i&lt;= array.length;i++)&#123;</div><div class="line">		<span class="keyword">if</span>(a[i] == key)&#123;</div><div class="line">			<span class="keyword">return</span> i;</div><div class="line">		&#125;</div><div class="line">  &#125;</div><div class="line">  <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">&#125;</div><div class="line"><span class="comment">//方式二</span></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">search</span>(<span class="params">array,key</span>)</span>&#123;</div><div class="line">	<span class="keyword">var</span> i= array.length;</div><div class="line">	a[<span class="number">0</span>] = key;</div><div class="line">	<span class="keyword">while</span>(a[i] != key)&#123;</div><div class="line">	  i--</div><div class="line">  &#125;</div><div class="line">  <span class="keyword">return</span> i;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<h1 id="插值查找-按比例查找"><a href="#插值查找-按比例查找" class="headerlink" title="插值查找(按比例查找)"></a>插值查找(按比例查找)</h1><p>查找方法类似于折半查找，只不过mid的值不再取low和high的中间值，<br>而是根据查找值在low和hight中间的大概位置确定mid<br>var mid = low +(high-low)*(num-list[low])/(list[high]-list[low]);<br>因此插值查找适用于有一定顺序规律的数组<br><a href="https://github.com/YooHannah/algorithm/blob/master/js/Interpolationsearch.js" target="_blank" rel="external">代码链接</a></p>
-<h1 id="斐波那契查找-黄金查找"><a href="#斐波那契查找-黄金查找" class="headerlink" title="斐波那契查找(黄金查找)"></a>斐波那契查找(黄金查找)</h1><p>同样适用于有一定顺序规律的数组<br>在折半查找的基础上根据斐波那契数列进行分割。<br>在斐波那契数列找一个等于略大于查找表中元素个数的数F[k]，<br>将原查找表扩展为长度为F[k]-1(如果要补充元素，则补充重复最后一个元素，直到满足F[k]-1个元素)<br>进行斐波那契分割，即F[k]-1个元素分割为前半部分F[k-1]-1个元素，后半部分F[n-2]-1个元素，剩一个做mid<br>找出要查找的元素在那一部分并递归，直到找到。<br><img src="/image/fiobsearch.png" alt="fiobsearch"><br><a href="https://github.com/YooHannah/algorithm/blob/master/js/FibonacciSearch.js" target="_blank" rel="external">代码链接</a></p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/5/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><span class="page-number current">6</span><a class="page-number" href="/page/7/">7</a><span class="space">&hellip;</span><a class="page-number" href="/page/13/">13</a><a class="extend next" rel="next" href="/page/7/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/page/5/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><span class="page-number current">6</span><a class="page-number" href="/page/7/">7</a><span class="space">&hellip;</span><a class="page-number" href="/page/14/">14</a><a class="extend next" rel="next" href="/page/7/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -1625,7 +1689,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">127</span>
+              <span class="site-state-item-count">131</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
