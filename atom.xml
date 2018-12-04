@@ -64,11 +64,11 @@
   </entry>
   
   <entry>
-    <title>表单 &amp; 列表</title>
+    <title>布局</title>
     <link href="http://yoohannah.github.io/post/react/layout.html"/>
     <id>http://yoohannah.github.io/post/react/layout.html</id>
     <published>2018-12-04T13:17:37.000Z</published>
-    <updated>2018-12-04T13:17:48.939Z</updated>
+    <updated>2018-12-04T14:33:31.609Z</updated>
     
     <content type="html"><![CDATA[<h1 id="实现布局的几种方式"><a href="#实现布局的几种方式" class="headerlink" title="实现布局的几种方式"></a>实现布局的几种方式</h1><p>1.从0开始用 CSS实现<br>2.使用 CSS Grid 系统 （通过class实现，无需关心布局如何实现,同时可以适应不同屏幕的尺寸）<br>3.使用组件库,例如 antd（通过组件标签实现）</p>
 <p>布局常见场景:侧边栏宽度可调整<br>1.手动实现拖放逻辑<br>2.使用 local storage 存储宽度位置</p>
@@ -363,11 +363,11 @@
     <link href="http://yoohannah.github.io/post/react/thinking.html"/>
     <id>http://yoohannah.github.io/post/react/thinking.html</id>
     <published>2018-12-04T13:01:37.000Z</published>
-    <updated>2018-12-04T13:20:55.191Z</updated>
+    <updated>2018-12-04T13:52:43.544Z</updated>
     
     <content type="html"><![CDATA[<h1 id="传统框架存在问题"><a href="#传统框架存在问题" class="headerlink" title="传统框架存在问题"></a>传统框架存在问题</h1><p>1.传统 UI操作关注太多细节<br>DOM API 繁多，需要手动调用，且要经过多步骤进行更新<br>react 解决办法：始终整体‘刷新’页面 ，无需关心细节，（不管谁是哪部分新增或更改的，根据现在状态整体刷新页面）</p>
 <p>2.应用程序状态分散在各处f难以追踪和维护<br>传统数据模型存在问题：传统 MVC结构复杂，难以扩展和维护<br>react 解决办法：Flux 单向数据流</p>
-<p>创建组件<br>1.创建静态 UI<br>2.考虑组件的状态组成 ：是由state内部维护还是用外部传进来的props维护<br>3.考虑组件的交互方式：内部进行了操作，如何告知/把暴露到父组件</p>
+<p>创建组件<br>1.创建静态 UI<br>2.考虑组件的状态组成 ：是由state内部维护还是用外部传进来的props维护<br>3.考虑组件的交互方式：内部进行了操作，如何告知/把状态暴露到父组件</p>
 <h1 id="受控组件VS非受控组件"><a href="#受控组件VS非受控组件" class="headerlink" title="受控组件VS非受控组件"></a>受控组件VS非受控组件</h1><p>受控组件: 表单元素状态由使用者维护<br>组件发生变化，利用onchange将状态给到到父组件（使用者），父组件更新状态，再通过props传递状态给组件，组件重新渲染</p>
 <p>非受控组件:表单元素状态 DOM自身维护</p>
 <h1 id="创建原则：单一职责原则"><a href="#创建原则：单一职责原则" class="headerlink" title="创建原则：单一职责原则"></a>创建原则：单一职责原则</h1><p>1.每个组件只做一件事<br>2.如果组件变得复杂，那么应该拆分成小组件<br>   拆分成小组件好处：<br>   a.降低复杂度；<br>   b.提高性能，如果一个组件足够大之后，任何一种状态变化，都会引起整个组件刷新，<br>拆分成小组件后，未涉及到的小组件，没有状态变化，就不会刷新</p>
