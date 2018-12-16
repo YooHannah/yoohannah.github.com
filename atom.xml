@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoohannah.github.io/"/>
-  <updated>2018-12-04T13:19:58.893Z</updated>
+  <updated>2018-12-16T02:59:06.676Z</updated>
   <id>http://yoohannah.github.io/</id>
   
   <author>
@@ -14,6 +14,168 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>js 知识点 一</title>
+    <link href="http://yoohannah.github.io/post/designMode/js1.html"/>
+    <id>http://yoohannah.github.io/post/designMode/js1.html</id>
+    <published>2018-12-08T01:29:37.000Z</published>
+    <updated>2018-12-16T02:59:06.676Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="1-lt-script-gt-标签几个属性"><a href="#1-lt-script-gt-标签几个属性" class="headerlink" title="1.&lt; script &gt; 标签几个属性"></a>1.&lt; script &gt; 标签几个属性</h1><p><b>async :</b>立即异步下载，因此不保证能够按指定的先后顺序执行，但会在load事件前，DOMContentLoad前后执行<br><b>defer :</b>延迟执行，也不保证按顺序执行，在DOMContentLoad前后执行<br><b>src :</b>外部文件链接<br><b>charset :</b>src指定代码的字符集，防止出现乱码<br><b>language :</b>已废弃，表示脚本语言，<br><b>type :</b>值为脚本语言内容类型（MIME），language替代属性，服务器传递过来类型为application/x-javascript需要注意，一个是可能导致脚本被忽略，另一个是可能触发浏览器XHTML标准模式；另外外链文件不是js文件时，一定要设置该值</p>
+<h1 id="2-js-代码执行过程"><a href="#2-js-代码执行过程" class="headerlink" title="2.js 代码执行过程"></a>2.js 代码执行过程</h1><p>包括两个部分一个是编译，或者叫预处理过程，一个是执行<br>编译过程 首先会创建一个全局作用域，然后进行词法分析，<br>词法分析过程会涉及到变量提升和函数声明提前处理，<br>即词法分析到变量声明会先判断当前域到全局域有没有该变量声明，如果有，就会将该变量挂到该作用域的对象上，<br>如果到全局域都没有则以全局为背景，新建该变量，并为其分配内存，<br>对于基本类型，变量中会保存它的值，对于对象，变量中会保存值所在内存的内存地址，<br>在一定场景下，这里就相当于发生了变量提升，把变量从局部提升到了全局，或者将声明提前到了使用之前，<br><b>避免变量提升</b>可以使用es6的let 关键字或者使用立即执行实现变量声明使用，但要注意使用let重复声明会报错，var 会同名覆盖；<br>当遇到函数声明时，会直接按声明顺序，将声明提前到代码顶端，<br><b>重复声明</b> 的函数会被后者覆盖，<br>如果变量名与函数名相同，则无论原来词法位置如何，先将函数声明提前到顶端，不再进行变量声明，变量名在哪赋值，则原函数在哪被覆盖，<br>覆盖之前调用使用原函数<br>提前之后会为函数创建作用域，<br>这时创建的作用域就是函数的 【【scope】】属性，保存着指向父域到全局域的指针<br>（指针就是指向活动对象的一个地址，全局域浏览器环境就是windows,nodejs环境就是global）<br>将来执行时会根据此指针建立作用域链，作用域链就是指针列表，指向不同层级作用域的内存，在里面取值<br>以上就基本上是编译过程，除了一些特定的编译规则，编译过程还会会使用大量技巧进行优化提升编译速度<br>但在使用js时，需要注意try-catch,with和eval三个语法关键字的使用，因为在使用它们时，会创建块级作用域，<br>破坏掉编译器原有的创建管理作用域的规则，在编译时，编译器也就不会对其中的代码进行优化，最终导致性能变差</p>
+<p>运行过程，基本就是在运行函数，函数在运行时会首先根据【【scope】】属性拿到父域到全局的指针，创建指针列表即作用域链，<br>然后创建函数执行的局部作用域，将函数中声明的变量挂到局部作用域活动对象上，然后将局部作用域指针推向作用域链前端，<br>在用到变量值时，会根据作用域链依次查找取值<br>函数执行结束后，局部活动对象被销毁，作用域链被销毁，进行垃圾回收<br>但是对于声明在一个函数内部的函数来说，这个声明的函数在声明时，就会包含其父域的活动对象，<br>因此在外部使用该函数时，可以访问到其父域的变量，实现了父域访问子域变量，延长了变量的使用范围，也就是常见的闭包现象，<br>缺点就是闭包的函数执行完毕后，因为本身【【scope】】会指向父域的活动对象，所以父域的活动对象始终不会被回收,除非闭包函数被销毁<br>从而有可能造成内存泄露，为什么说有可能，因为父活动对象占的内存其实是比较小的，造成内存泄露的真正原因是使用闭包易造成循环引用，<br>尤其是闭包作用域中保存dom结点时，如果是在IE中，dom和bom都是以C++的COM对象保存的，垃圾回收机制是技术策略，<br>因此循环引用的话，永远都不会被回收</p>
+<p>补充，对于未以分号结尾的语句，会采用能合就合的原则，即，会尝试和下一行语句合并执行，如果能合并执行就合并执行，<br>不能合并执行就在中间加分号再执行，如果再执行不了就会报错<br>好处就是对于条件判断语句可进行一行一行判断<br>坏处就是如果下一行以大括号开头，上一行语句就会变成函数，导致出现意想不到的结果<br>两个例外，<br>对于return，break,continue语句不会做尝试合并；<br>对于++，–自增自减符后没有分号，上一行也没分号情况，自增自减会和下一行合并，上一行自行添加分号</p>
+<p>以上即是我所了解的js运行机制</p>
+<h1 id="3-关于对象继承"><a href="#3-关于对象继承" class="headerlink" title="3.关于对象继承"></a>3.关于对象继承</h1><p>3.0  new 操作符调用构造函数 执行过程<br>  1.创建或者构造一个全新的对象<br>  2.将构造函数的作用域赋给这个新的对象,<br>  3.执行构造函数 (为这个新对象添加属性) ，第二，三步相当于func.call(newobj)<br>  4.如果构造函数没有返回值或返回值非对象，则返回新对象，否则返回构造函数return的对象</p>
+<p>3.1 继承的6种方式及优缺点<br>    <b>第一种原型链方式</b>，子类的原型对象指向父类的实例<br>    缺点<br>        给原型添加方法必须要在替换原型的语句之后；<br>        不能实现多继承（原型指向多个父对象）；<br>        所有属性共享<br>        无法传递参数到父类进行初始化<br>    <b>第二种借助构造函数</b>，在子类构造函数中使用call或者apply执行父类构造函数<br>    优点<br>        可以实现多继承<br>        可以传递参数<br>        方法属性不共享<br>    缺点<br>        只能继承构造函数中属性，不能继承原型上方法，不能复用方法<br>        实例仅为子类实例，不是父类实例<br>    <b>第三种组合继承</b>，以上两组结合在一起，两种方式都执行<br>    缺点<br>        要调用两次父类构造函数，影响性能<br>        实例属性和原型属性各占一份，同名覆盖机制，重复占内存，没必要<br>    <b>第四种原型式继承</b>，借助object()或者object.create()函数,缺点同原型链方式</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">function object(o)&#123;</div><div class="line"> function F()&#123;&#125;</div><div class="line"> F.prototype = o;</div><div class="line"> return new F();</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><b>第五种寄生式继承</b>，利用原型式继承和增强对象过程的封装函数创建子类，缺点同原型链方式<br><b>第六种寄生组合式继承</b>，保留借助构造函数部分，原型部分功能借助中间函数处理，<br>中间函数借助object拿到父类prototype，给到子类的prototype,从而完美解决组合继承的缺点</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">function inheritPrototype(subType,superType)&#123;</div><div class="line">  var prototype = object(superType.prototype)</div><div class="line">  prototype.constructor = subType</div><div class="line">  subType.prototype = prototype</div><div class="line">&#125;</div><div class="line">subType.prototype.__proto__ = superType</div></pre></td></tr></table></figure>
+<p>3.2 es6 使用class extend实现继承<br>使用class声明构造函数时，本来挂在this上的属性，放在constructor（）函数里面执行初始化，<br>挂在prototype上的方法直接放在class里面声明</p>
+<p>使用extend继承时，需要在constructor里面先执行super函数才能使用this关键字，<br>增强方法同样直接在class中和constructor并列声明，相当于挂在prototype上</p>
+<p>注意super函数只能在consructor中运行；super用作对象在constructor中使用时，相当于this,<br>添加属性会添加在当前对象上，运行函数时会调用继承的父类的方法</p>
+<p>还有就是class extend继承null和 什么也不继承是，相当于继承Function.prototype<br>继承Object时，子类就相当于object 的复制，子类实例就是object实例</p>
+<h1 id="4-关于this-四种使用场景"><a href="#4-关于this-四种使用场景" class="headerlink" title="4.关于this 四种使用场景"></a>4.关于this 四种使用场景</h1><p>   普通函数执行，指向全局作用域<br>   对象属性方法调用，指向调用对象<br>   call,apply中强制绑定对象，this执行绑定的对象<br>   构造函数中this指向构造的新对象<br>   （箭头函数中this,指向词法作用域的父域）</p>
+<h1 id="5-js文件位置"><a href="#5-js文件位置" class="headerlink" title="5.js文件位置"></a>5.js文件位置</h1><p>   放html底部原因：<br>   下载解析执行过程是阻断式的，会停止页面渲染，造成白屏，影响用户体验；<br>   另外JS中如果有对dom的操作，页面中还没有dom,获取不到，是不符合逻辑的，会报错</p>
+<p>   哪些js功能文件可以放顶部：<br>   与css相关的js,比如rem单位的换算，需要根据根结点进行设置<br>   使用的框架需要在根结点将浏览器支持的样式罗列出来</p>
+<h1 id="6-什么情况下用内部文件，内部文件比外部文件好处在哪？"><a href="#6-什么情况下用内部文件，内部文件比外部文件好处在哪？" class="headerlink" title="6.什么情况下用内部文件，内部文件比外部文件好处在哪？"></a>6.什么情况下用内部文件，内部文件比外部文件好处在哪？</h1><p>   内部文件相比外部文件最大好处就是性能提升，因为访问外部文件时，不管文件大小都会造成一次网络请求链接，请求服务器，下载文件，<br>   解析文件，除了文件本身代码外，还要处理文件头文件尾的请求，增加了链接数，从而造成性能影响<br>   对于功能短小精悍，不会被到处复用的js代码不适合采用外部文件，应该采用内部文件写法，尤其对手机端页面有性能提升</p>
+<h1 id="7-开发过程避免缓存方法"><a href="#7-开发过程避免缓存方法" class="headerlink" title="7.开发过程避免缓存方法"></a>7.开发过程避免缓存方法</h1><p>   在浏览器开启禁用缓存的模式<br>   手动清缓存 ctrl+shfit+del<br>   引用的文件名添加随机数，浏览器根据文件名不同，就会重新获取资源更新缓存</p>
+<h1 id="8-使用严格模式弊端及解决办法"><a href="#8-使用严格模式弊端及解决办法" class="headerlink" title="8.使用严格模式弊端及解决办法"></a>8.使用严格模式弊端及解决办法</h1><p>   在代码压缩时，’use strict’ 这一行可能不在位于第一行，<br>   或者后续代码不需要在严格模式下执行，被压缩在了严格模式范围内，导致了全部以严格模式执行</p>
+<p>   解决办法就是，将需要严格模式执行的代码放在匿名函数中，形成代码块，在函数中使用严格模式</p>
+<h1 id="9-立即执行函数好处"><a href="#9-立即执行函数好处" class="headerlink" title="9.立即执行函数好处"></a>9.立即执行函数好处</h1><p>   避免变量污染：有些变量仅在小功能内使用，将小功能封装起来，就可以避免这些变量暴露到全局，<br>   另外函数本身没有函数名，不会增加全局变量<br>   提升性能：功能所需变量全都在函数内时，查找变量快<br>   有利于压缩：一部分代码执行需要用到的变量变量名太长，将这段代码封装成立即执行函数，将长变量名以参数形式传进去<br>   避免全局命名冲突：一段代码需要用到两个代表不同功能但名称相同的变量，可以将该段代码封装成立即执行函数，<br>   将其中一个变量以参数形式传递进来，达到换名的目的<br>   保存闭包状态：循环执行异步代码时，将异步代码用立即执行函数包裹，函数内可保存本次循环的状态<br>   改变代码运行顺序：umd,通用模块规范，function（fn）{fn()}()</p>
+<h1 id="10-变量类型"><a href="#10-变量类型" class="headerlink" title="10.变量类型"></a>10.变量类型</h1><p>   根据当前变量的值的类型确定<br>   如果想要进行标记，方法有三种<br>   初始化时指定相应类型值<br>   使用匈牙利标记法，用单字母表示类型，添加到变量命中，例sName 代表string类型<br>   使用注释，变量声明时，在旁边添加注释</p>
+<h1 id="11-null-vs-undefined"><a href="#11-null-vs-undefined" class="headerlink" title="11.null vs undefined"></a>11.null vs undefined</h1><p>   转数字时，null –&gt;0;undefined–&gt;NaN<br>   undefined可以当做windows对象上的一个属性，null不行</p>
+<h1 id="12-类型转换"><a href="#12-类型转换" class="headerlink" title="12. 类型转换"></a>12. 类型转换</h1><p>基本类型包括，undefined，null,boolean,string,number</p>
+<p>基本类型 —&gt; boolean   Boolean(someval) 相当于 !!someval<br>undefined，null,NaN,’’,+0,-0 —&gt; false<br>其他 —&gt; true </p>
+<p>基本类型 —&gt; string  String（someval）相当于 someval+’’<br>一般情况直接加引号<br>[] —&gt; ‘’<br>{} —&gt; ‘[object object]’</p>
+<p>基本类型—&gt;number  + someval  相当于 Number（someval）<br>undefined,{} —&gt; NaN<br>false, null,’’,[],—&gt; 0<br>true —&gt; 1<br>‘123’ —&gt; 123<br>‘abc’ —&gt; NaN<br>[]—&gt; toString —&gt; ‘’ —&gt; 0<br>{} —&gt; valueOf —&gt; {} —&gt; toString —&gt; ‘[object object]’ —&gt; NaN</p>
+<p>基本类型 —&gt;对象<br>undefined，null —&gt; {}<br>true/123 —&gt; {initval:true/123}<br>‘abc’ —&gt; {initval:’abc’,length:3,0:’a’,1:’b’,2:’c’}</p>
+<p>对象 —&gt;基本类型</p>
+<p>关于–对象分类：<br>内部对象（错误对象；常用对象：Boolean,Number,String,Object,Array,Function,Date,Exec;内置对象：Math,global,Json）<br>宿主对象：windows,document<br>自定义对象</p>
+<p>关于–属性访问<br>obj.someprop—&gt;检查obj是不是null/undefined—&gt;是|不是—&gt;报错|是不是Object,不是的话转object—&gt;取值<br>obj[someval]—&gt;检查obj是不是null/undefined—&gt;是|不是—&gt;报错|是不是Object,不是的话转object—&gt;计算someval拿到string—&gt;取值</p>
+<p>Boolean —&gt;true<br>Number —&gt;基本类型转的|{}/{a:1}|Date—&gt;相应值|NaN|时间戳<br>Array.toString:数组每一项转字符串<br>Function.toString:原代码字符串形式<br>Date.toString:日期和时间组合形式<br>Exec.toString:正则字符串形式</p>
+<p>运算转换</p>
+<p>Number()参数不能有非数字<br>parseInt()参数只能为字符串，非字符串会进行强制转化字符串，可含非数字，但不能以非数字开头<br>一元操作符对任何数据类型有效，得到数字</p>
+<p>&#43;二元运算侧重转字符串，然后进行字符串拼接<br>其中一个为字符串或者两个都是对象时，转字符串拼接<br>undefined,null,Boolean,数字混合运算+时，会被转数字再计算<br>{}为第一个运算值时，会被当做函数结束，不参与计算<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">null + null --&gt; 0</div><div class="line">undefined + null --&gt; NaN</div><div class="line">[] + [] --&gt; &apos;&apos;</div><div class="line">1 + [1,2] --&gt; &apos;11,2&apos;</div><div class="line">1 + &#123;a:1&#125; --&gt; &apos;1[object object]&apos;</div><div class="line">&#123;a:1&#125; + 1 --&gt; 1</div><div class="line">&#123;&#125; + &#123;&#125; --&gt; NaN</div><div class="line">(&#123;&#125;) + &#123;&#125; --&gt; &apos;[object object][object object]&apos;</div><div class="line">[] + &#123;&#125; --&gt; &apos;[object object]&apos;</div><div class="line">&#123;&#125; + [] --&gt; 0</div><div class="line">var a = &#123;&#125;</div><div class="line">a + a --&gt;&apos;[object object][object object]&apos;</div></pre></td></tr></table></figure></p>
+<p>&#42;/- 转数字，进行相减,如果不能转数字，返回NaN</p>
+<p>&gt;/&lt; 侧重转数字<br>string &lt; string 字典比较<br>非字符串&lt;非字符串/字符串 都转数字然后比较</p>
+<p>string == number 字符串转数字<br>boolean == 其他类型 二者转数字然后比较<br>null == undefined —&gt;true undefined和null只与对方和自己==比较时为true，其他均为false<br>null === undefined —&gt;false<br>非对象 == 对象 与数字比较object转数字，与字符串比较二者转数字再比较<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line">&apos;0&apos; == null  //false</div><div class="line">&apos;0&apos; == undefined  //false</div><div class="line">&apos;0&apos; == false  //true</div><div class="line">&apos;0&apos; == NaN  //false</div><div class="line">&apos;0&apos; == 0  //true</div><div class="line">&apos;0&apos; == &apos;&apos;  //true</div><div class="line"></div><div class="line">false == null  //false</div><div class="line">false == undefined  //false</div><div class="line">false == NaN  //false</div><div class="line">false == 0  //true</div><div class="line">false == &apos;&apos;  //true</div><div class="line">false == []  //true</div><div class="line">false == &#123;&#125; //false</div><div class="line"></div><div class="line">&apos;&apos; == null  //false</div><div class="line">&apos;&apos; == undefined  //false</div><div class="line">&apos;&apos; == NaN  //false</div><div class="line">&apos;&apos; == 0  //true</div><div class="line">&apos;&apos; == []  //true</div><div class="line">&apos;&apos; == &#123;&#125; //false</div><div class="line"></div><div class="line">0 == null  //false</div><div class="line">0 == undefined  //false</div><div class="line">0 == NaN  //false</div><div class="line">0 == []  //true</div><div class="line">0 == &#123;&#125; //false</div><div class="line"></div><div class="line">[] == ![]</div></pre></td></tr></table></figure></p>
+<p>&amp;&amp;和|| 计算结果根据短路原则判断到了哪里，返回最后一个进行判断的值</p>
+<p>运算符优先级<br>属性访问.<br>一元操作符（+，-，++，–）<br>二元操作符（+-*/）<br>比较（&gt;,&lt;)<br>相等（==，===，！=）<br>与&amp;&amp;，或||<br>三目运算符<br>赋值</p>
+<p>运算符结合性<br>除了一元操作符，三目运算符和赋值是右结合，其他都是左结合</p>
+<p>减少小数计算误差<br>尽量不使用小数进行比较或运算<br>转整数计算，再转回相应位数小数<br>使用toFixed()四舍五入<br>两个情境需要重复计算时，保证前后书写顺序</p>
+<h1 id="13-数组相关方法"><a href="#13-数组相关方法" class="headerlink" title="13. 数组相关方法"></a>13. 数组相关方法</h1><p><img src="/image/arrmethod.jpg" alt="arrmethod"></p>
+<h1 id="14-字符串相关方法"><a href="#14-字符串相关方法" class="headerlink" title="14.字符串相关方法"></a>14.字符串相关方法</h1><p><img src="/image/strmethod.jpg" alt="strmethod"></p>
+<h1 id="15-日期相关方法"><a href="#15-日期相关方法" class="headerlink" title="15.日期相关方法"></a>15.日期相关方法</h1><p>   一共 33个<br>   set/get（UTC）FullYear,Month,Date,Hours,Minutes,Seconds,Millseconds<br>   set/get Time<br>   get(UTC) Day<br>   getTimezoneOffset</p>
+<h1 id="16-Math三个舍入方法"><a href="#16-Math三个舍入方法" class="headerlink" title="16. Math三个舍入方法"></a>16. Math三个舍入方法</h1><p>  Math.ceil:比值大的最小整数<br>  Math.round:四舍五入<br>  Math.floor:比值小的最大整数</p>
+<h1 id="17-setInterval-注意问题"><a href="#17-setInterval-注意问题" class="headerlink" title="17. setInterval 注意问题"></a>17. setInterval 注意问题</h1><p>累积效应<br>代码执行时间大于间隔时间，后续调用会进行累积，累积会在短时间内连续触发</p>
+<p>当用于动画时，因与显示器刷新频率不统一会造成视觉卡顿，解决办法如下：<br>一种是使用CSS3创建动画，根据显示器刷新执行动画<br>另一种是使用 requestAnimationframe(function(){})函数，也是在显示器刷新时执行<br>可以解决CSS3无法实现的，例如滚动控制等效果</p>
+<h1 id="18-关于DOM"><a href="#18-关于DOM" class="headerlink" title="18. 关于DOM"></a>18. 关于DOM</h1><p>   document 三个属性<br>   url：地址栏中URL<br>   domain:域名，跨域域名 X；父域名到子域名 X；<br>   referer:上一页URL,可在跳转时，判断与当前页是否在同一域，是的话，就可以back,否则 location.href其他页面<br>   dom.getAttribute(‘style’),得到样式字符串<br>   dom.style 得到到样式对象<br>   dom.getAttribute(‘onclick’) ,得到代码字符串<br>   dom.onclick 得到函数对象</p>
+<p>   动态合集<br>   使用时可能会造成死循环<br>   使用框架如Jquery获取的合集不具有动态性<br>   使用 queryselect(all)()获取到的也是静态合集</p>
+<p>   动态合集生成原理：<br>   浏览器通过DOM树预先缓存起来，获取时，浏览器会通过缓存直接注册，创建一个变量返回</p>
+<p>   静态合集生成原理：<br>   获取标识是一个CSS选择器，浏览器会先去解析字符串，判断是一个CSS选择器，<br>   分析选择器并创建一个选择器结构，浏览器根据DOM树创建一个静态文件，即DOM树的一个快照<br>   然后拿选择器和快照进行对比，符合选择器就放到合集中，知道整个快照对比完，再把合集的快照返回</p>
+<h1 id="19-事件"><a href="#19-事件" class="headerlink" title="19. 事件"></a>19. 事件</h1><p>   绑定方式</p>
+<p>   直接通过HTML属性绑定<br>   缺点<br>   有可能响应函数还未被解析就被触发<br>   事件名和回调1对1，修改繁琐<br>   响应执行时，作用域为全局，不同浏览器解析规则不同，造成某些对象无法访问</p>
+<p>   使用dom属性绑定<br>   冒泡阶段执行<br>   缺点<br>   只能绑定一个响应，后续赋值会被覆盖</p>
+<p>   IE attachEvent/detachEvent绑定/解绑<br>   冒泡阶段执行<br>   绑定多个时按按绑定顺序的逆序执行</p>
+<p>   addEventListener()/removeEventListener()绑定/解绑<br>   第三个参数为对象时，passive属性为true时，会针对touchstart,touchend等特定事件通过开启两个线程，<br>   一个执行浏览器默认行为，一个执行JS进行优化</p>
+<p>   事件优先级<br>   浏览器在绑定事件而不是JS在绑定事件</p>
+<p>   1.html标签绑定事件会被dom属性事件覆盖<br>   2.html标签优先执行，即使被属性事件覆盖，则执行被覆盖的属性事件<br>   3.仅有监听事件和属性事件时，按绑定顺序执行，即事件对象的冒泡事件可能会在捕获事件之前执行</p>
+<p>   event对象属性<br>   curentTarget:响应函数绑定的对象<br>   target:发生事件的对象</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;1-lt-script-gt-标签几个属性&quot;&gt;&lt;a href=&quot;#1-lt-script-gt-标签几个属性&quot; class=&quot;headerlink&quot; title=&quot;1.&amp;lt; script &amp;gt; 标签几个属性&quot;&gt;&lt;/a&gt;1.&amp;lt; script &amp;gt; 
+    
+    </summary>
+    
+    
+      <category term="html" scheme="http://yoohannah.github.io/tags/html/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>js 知识点 一</title>
+    <link href="http://yoohannah.github.io/post/js/js1.html"/>
+    <id>http://yoohannah.github.io/post/js/js1.html</id>
+    <published>2018-12-08T01:29:37.000Z</published>
+    <updated>2018-12-16T02:56:16.391Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="1-lt-script-gt-标签几个属性"><a href="#1-lt-script-gt-标签几个属性" class="headerlink" title="1.&lt; script &gt; 标签几个属性"></a>1.&lt; script &gt; 标签几个属性</h1><p><b>async :</b>立即异步下载，因此不保证能够按指定的先后顺序执行，但会在load事件前，DOMContentLoad前后执行<br><b>defer :</b>延迟执行，也不保证按顺序执行，在DOMContentLoad前后执行<br><b>src :</b>外部文件链接<br><b>charset :</b>src指定代码的字符集，防止出现乱码<br><b>language :</b>已废弃，表示脚本语言，<br><b>type :</b>值为脚本语言内容类型（MIME），language替代属性，服务器传递过来类型为application/x-javascript需要注意，一个是可能导致脚本被忽略，另一个是可能触发浏览器XHTML标准模式；另外外链文件不是js文件时，一定要设置该值</p>
+<h1 id="2-js-代码执行过程"><a href="#2-js-代码执行过程" class="headerlink" title="2.js 代码执行过程"></a>2.js 代码执行过程</h1><p>包括两个部分一个是编译，或者叫预处理过程，一个是执行<br>编译过程 首先会创建一个全局作用域，然后进行词法分析，<br>词法分析过程会涉及到变量提升和函数声明提前处理，<br>即词法分析到变量声明会先判断当前域到全局域有没有该变量声明，如果有，就会将该变量挂到该作用域的对象上，<br>如果到全局域都没有则以全局为背景，新建该变量，并为其分配内存，<br>对于基本类型，变量中会保存它的值，对于对象，变量中会保存值所在内存的内存地址，<br>在一定场景下，这里就相当于发生了变量提升，把变量从局部提升到了全局，或者将声明提前到了使用之前，<br><b>避免变量提升</b>可以使用es6的let 关键字或者使用立即执行实现变量声明使用，但要注意使用let重复声明会报错，var 会同名覆盖；<br>当遇到函数声明时，会直接按声明顺序，将声明提前到代码顶端，<br><b>重复声明</b> 的函数会被后者覆盖，<br>如果变量名与函数名相同，则无论原来词法位置如何，先将函数声明提前到顶端，不再进行变量声明，变量名在哪赋值，则原函数在哪被覆盖，<br>覆盖之前调用使用原函数<br>提前之后会为函数创建作用域，<br>这时创建的作用域就是函数的 【【scope】】属性，保存着指向父域到全局域的指针<br>（指针就是指向活动对象的一个地址，全局域浏览器环境就是windows,nodejs环境就是global）<br>将来执行时会根据此指针建立作用域链，作用域链就是指针列表，指向不同层级作用域的内存，在里面取值<br>以上就基本上是编译过程，除了一些特定的编译规则，编译过程还会会使用大量技巧进行优化提升编译速度<br>但在使用js时，需要注意try-catch,with和eval三个语法关键字的使用，因为在使用它们时，会创建块级作用域，<br>破坏掉编译器原有的创建管理作用域的规则，在编译时，编译器也就不会对其中的代码进行优化，最终导致性能变差</p>
+<p>运行过程，基本就是在运行函数，函数在运行时会首先根据【【scope】】属性拿到父域到全局的指针，创建指针列表即作用域链，<br>然后创建函数执行的局部作用域，将函数中声明的变量挂到局部作用域活动对象上，然后将局部作用域指针推向作用域链前端，<br>在用到变量值时，会根据作用域链依次查找取值<br>函数执行结束后，局部活动对象被销毁，作用域链被销毁，进行垃圾回收<br>但是对于声明在一个函数内部的函数来说，这个声明的函数在声明时，就会包含其父域的活动对象，<br>因此在外部使用该函数时，可以访问到其父域的变量，实现了父域访问子域变量，延长了变量的使用范围，也就是常见的闭包现象，<br>缺点就是闭包的函数执行完毕后，因为本身【【scope】】会指向父域的活动对象，所以父域的活动对象始终不会被回收,除非闭包函数被销毁<br>从而有可能造成内存泄露，为什么说有可能，因为父活动对象占的内存其实是比较小的，造成内存泄露的真正原因是使用闭包易造成循环引用，<br>尤其是闭包作用域中保存dom结点时，如果是在IE中，dom和bom都是以C++的COM对象保存的，垃圾回收机制是技术策略，<br>因此循环引用的话，永远都不会被回收</p>
+<p>补充，对于未以分号结尾的语句，会采用能合就合的原则，即，会尝试和下一行语句合并执行，如果能合并执行就合并执行，<br>不能合并执行就在中间加分号再执行，如果再执行不了就会报错<br>好处就是对于条件判断语句可进行一行一行判断<br>坏处就是如果下一行以大括号开头，上一行语句就会变成函数，导致出现意想不到的结果<br>两个例外，<br>对于return，break,continue语句不会做尝试合并；<br>对于++，–自增自减符后没有分号，上一行也没分号情况，自增自减会和下一行合并，上一行自行添加分号</p>
+<p>以上即是我所了解的js运行机制</p>
+<h1 id="3-关于对象继承"><a href="#3-关于对象继承" class="headerlink" title="3.关于对象继承"></a>3.关于对象继承</h1><p>3.0  new 操作符调用构造函数 执行过程<br>  1.创建或者构造一个全新的对象<br>  2.将构造函数的作用域赋给这个新的对象,<br>  3.执行构造函数 (为这个新对象添加属性) ，第二，三步相当于func.call(newobj)<br>  4.如果构造函数没有返回值或返回值非对象，则返回新对象，否则返回构造函数return的对象</p>
+<p>3.1 继承的6种方式及优缺点<br>    <b>第一种原型链方式</b>，子类的原型对象指向父类的实例<br>    缺点<br>        给原型添加方法必须要在替换原型的语句之后；<br>        不能实现多继承（原型指向多个父对象）；<br>        所有属性共享<br>        无法传递参数到父类进行初始化<br>    <b>第二种借助构造函数</b>，在子类构造函数中使用call或者apply执行父类构造函数<br>    优点<br>        可以实现多继承<br>        可以传递参数<br>        方法属性不共享<br>    缺点<br>        只能继承构造函数中属性，不能继承原型上方法，不能复用方法<br>        实例仅为子类实例，不是父类实例<br>    <b>第三种组合继承</b>，以上两组结合在一起，两种方式都执行<br>    缺点<br>        要调用两次父类构造函数，影响性能<br>        实例属性和原型属性各占一份，同名覆盖机制，重复占内存，没必要<br>    <b>第四种原型式继承</b>，借助object()或者object.create()函数,缺点同原型链方式</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">function object(o)&#123;</div><div class="line"> function F()&#123;&#125;</div><div class="line"> F.prototype = o;</div><div class="line"> return new F();</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><b>第五种寄生式继承</b>，利用原型式继承和增强对象过程的封装函数创建子类，缺点同原型链方式<br><b>第六种寄生组合式继承</b>，保留借助构造函数部分，原型部分功能借助中间函数处理，<br>中间函数借助object拿到父类prototype，给到子类的prototype,从而完美解决组合继承的缺点</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">function inheritPrototype(subType,superType)&#123;</div><div class="line">  var prototype = object(superType.prototype)</div><div class="line">  prototype.constructor = subType</div><div class="line">  subType.prototype = prototype</div><div class="line">&#125;</div><div class="line">subType.prototype.__proto__ = superType</div></pre></td></tr></table></figure>
+<p>3.2 es6 使用class extend实现继承<br>使用class声明构造函数时，本来挂在this上的属性，放在constructor（）函数里面执行初始化，<br>挂在prototype上的方法直接放在class里面声明</p>
+<p>使用extend继承时，需要在constructor里面先执行super函数才能使用this关键字，<br>增强方法同样直接在class中和constructor并列声明，相当于挂在prototype上</p>
+<p>注意super函数只能在consructor中运行；super用作对象在constructor中使用时，相当于this,<br>添加属性会添加在当前对象上，运行函数时会调用继承的父类的方法</p>
+<p>还有就是class extend继承null和 什么也不继承是，相当于继承Function.prototype<br>继承Object时，子类就相当于object 的复制，子类实例就是object实例</p>
+<h1 id="4-关于this-四种使用场景"><a href="#4-关于this-四种使用场景" class="headerlink" title="4.关于this 四种使用场景"></a>4.关于this 四种使用场景</h1><p>   普通函数执行，指向全局作用域<br>   对象属性方法调用，指向调用对象<br>   call,apply中强制绑定对象，this执行绑定的对象<br>   构造函数中this指向构造的新对象<br>   （箭头函数中this,指向词法作用域的父域）</p>
+<h1 id="5-js文件位置"><a href="#5-js文件位置" class="headerlink" title="5.js文件位置"></a>5.js文件位置</h1><p>   放html底部原因：<br>   下载解析执行过程是阻断式的，会停止页面渲染，造成白屏，影响用户体验；<br>   另外JS中如果有对dom的操作，页面中还没有dom,获取不到，是不符合逻辑的，会报错</p>
+<p>   哪些js功能文件可以放顶部：<br>   与css相关的js,比如rem单位的换算，需要根据根结点进行设置<br>   使用的框架需要在根结点将浏览器支持的样式罗列出来</p>
+<h1 id="6-什么情况下用内部文件，内部文件比外部文件好处在哪？"><a href="#6-什么情况下用内部文件，内部文件比外部文件好处在哪？" class="headerlink" title="6.什么情况下用内部文件，内部文件比外部文件好处在哪？"></a>6.什么情况下用内部文件，内部文件比外部文件好处在哪？</h1><p>   内部文件相比外部文件最大好处就是性能提升，因为访问外部文件时，不管文件大小都会造成一次网络请求链接，请求服务器，下载文件，<br>   解析文件，除了文件本身代码外，还要处理文件头文件尾的请求，增加了链接数，从而造成性能影响<br>   对于功能短小精悍，不会被到处复用的js代码不适合采用外部文件，应该采用内部文件写法，尤其对手机端页面有性能提升</p>
+<h1 id="7-开发过程避免缓存方法"><a href="#7-开发过程避免缓存方法" class="headerlink" title="7.开发过程避免缓存方法"></a>7.开发过程避免缓存方法</h1><p>   在浏览器开启禁用缓存的模式<br>   手动清缓存 ctrl+shfit+del<br>   引用的文件名添加随机数，浏览器根据文件名不同，就会重新获取资源更新缓存</p>
+<h1 id="8-使用严格模式弊端及解决办法"><a href="#8-使用严格模式弊端及解决办法" class="headerlink" title="8.使用严格模式弊端及解决办法"></a>8.使用严格模式弊端及解决办法</h1><p>   在代码压缩时，’use strict’ 这一行可能不在位于第一行，<br>   或者后续代码不需要在严格模式下执行，被压缩在了严格模式范围内，导致了全部以严格模式执行</p>
+<p>   解决办法就是，将需要严格模式执行的代码放在匿名函数中，形成代码块，在函数中使用严格模式</p>
+<h1 id="9-立即执行函数好处"><a href="#9-立即执行函数好处" class="headerlink" title="9.立即执行函数好处"></a>9.立即执行函数好处</h1><p>   避免变量污染：有些变量仅在小功能内使用，将小功能封装起来，就可以避免这些变量暴露到全局，<br>   另外函数本身没有函数名，不会增加全局变量<br>   提升性能：功能所需变量全都在函数内时，查找变量快<br>   有利于压缩：一部分代码执行需要用到的变量变量名太长，将这段代码封装成立即执行函数，将长变量名以参数形式传进去<br>   避免全局命名冲突：一段代码需要用到两个代表不同功能但名称相同的变量，可以将该段代码封装成立即执行函数，<br>   将其中一个变量以参数形式传递进来，达到换名的目的<br>   保存闭包状态：循环执行异步代码时，将异步代码用立即执行函数包裹，函数内可保存本次循环的状态<br>   改变代码运行顺序：umd,通用模块规范，function（fn）{fn()}()</p>
+<h1 id="10-变量类型"><a href="#10-变量类型" class="headerlink" title="10.变量类型"></a>10.变量类型</h1><p>   根据当前变量的值的类型确定<br>   如果想要进行标记，方法有三种<br>   初始化时指定相应类型值<br>   使用匈牙利标记法，用单字母表示类型，添加到变量命中，例sName 代表string类型<br>   使用注释，变量声明时，在旁边添加注释</p>
+<h1 id="11-null-vs-undefined"><a href="#11-null-vs-undefined" class="headerlink" title="11.null vs undefined"></a>11.null vs undefined</h1><p>   转数字时，null –&gt;0;undefined–&gt;NaN<br>   undefined可以当做windows对象上的一个属性，null不行</p>
+<h1 id="12-类型转换"><a href="#12-类型转换" class="headerlink" title="12. 类型转换"></a>12. 类型转换</h1><p>基本类型包括，undefined，null,boolean,string,number</p>
+<p>基本类型 —&gt; boolean   Boolean(someval) 相当于 !!someval<br>undefined，null,NaN,’’,+0,-0 —&gt; false<br>其他 —&gt; true </p>
+<p>基本类型 —&gt; string  String（someval）相当于 someval+’’<br>一般情况直接加引号<br>[] —&gt; ‘’<br>{} —&gt; ‘[object object]’</p>
+<p>基本类型—&gt;number  + someval  相当于 Number（someval）<br>undefined,{} —&gt; NaN<br>false, null,’’,[],—&gt; 0<br>true —&gt; 1<br>‘123’ —&gt; 123<br>‘abc’ —&gt; NaN<br>[]—&gt; toString —&gt; ‘’ —&gt; 0<br>{} —&gt; valueOf —&gt; {} —&gt; toString —&gt; ‘[object object]’ —&gt; NaN</p>
+<p>基本类型 —&gt;对象<br>undefined，null —&gt; {}<br>true/123 —&gt; {initval:true/123}<br>‘abc’ —&gt; {initval:’abc’,length:3,0:’a’,1:’b’,2:’c’}</p>
+<p>对象 —&gt;基本类型</p>
+<p>关于–对象分类：<br>内部对象（错误对象；常用对象：Boolean,Number,String,Object,Array,Function,Date,Exec;内置对象：Math,global,Json）<br>宿主对象：windows,document<br>自定义对象</p>
+<p>关于–属性访问<br>obj.someprop—&gt;检查obj是不是null/undefined—&gt;是|不是—&gt;报错|是不是Object,不是的话转object—&gt;取值<br>obj[someval]—&gt;检查obj是不是null/undefined—&gt;是|不是—&gt;报错|是不是Object,不是的话转object—&gt;计算someval拿到string—&gt;取值</p>
+<p>Boolean —&gt;true<br>Number —&gt;基本类型转的|{}/{a:1}|Date—&gt;相应值|NaN|时间戳<br>Array.toString:数组每一项转字符串<br>Function.toString:原代码字符串形式<br>Date.toString:日期和时间组合形式<br>Exec.toString:正则字符串形式</p>
+<p>运算转换</p>
+<p>Number()参数不能有非数字<br>parseInt()参数只能为字符串，非字符串会进行强制转化字符串，可含非数字，但不能以非数字开头<br>一元操作符对任何数据类型有效，得到数字</p>
+<p>&#43;二元运算侧重转字符串，然后进行字符串拼接<br>其中一个为字符串或者两个都是对象时，转字符串拼接<br>undefined,null,Boolean,数字混合运算+时，会被转数字再计算<br>{}为第一个运算值时，会被当做函数结束，不参与计算<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">null + null --&gt; 0</div><div class="line">undefined + null --&gt; NaN</div><div class="line">[] + [] --&gt; &apos;&apos;</div><div class="line">1 + [1,2] --&gt; &apos;11,2&apos;</div><div class="line">1 + &#123;a:1&#125; --&gt; &apos;1[object object]&apos;</div><div class="line">&#123;a:1&#125; + 1 --&gt; 1</div><div class="line">&#123;&#125; + &#123;&#125; --&gt; NaN</div><div class="line">(&#123;&#125;) + &#123;&#125; --&gt; &apos;[object object][object object]&apos;</div><div class="line">[] + &#123;&#125; --&gt; &apos;[object object]&apos;</div><div class="line">&#123;&#125; + [] --&gt; 0</div><div class="line">var a = &#123;&#125;</div><div class="line">a + a --&gt;&apos;[object object][object object]&apos;</div></pre></td></tr></table></figure></p>
+<p>&#42;/- 转数字，进行相减,如果不能转数字，返回NaN</p>
+<p>&gt;/&lt; 侧重转数字<br>string &lt; string 字典比较<br>非字符串&lt;非字符串/字符串 都转数字然后比较</p>
+<p>string == number 字符串转数字<br>boolean == 其他类型 二者转数字然后比较<br>null == undefined —&gt;true undefined和null只与对方和自己==比较时为true，其他均为false<br>null === undefined —&gt;false<br>非对象 == 对象 与数字比较object转数字，与字符串比较二者转数字再比较<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line">&apos;0&apos; == null  //false</div><div class="line">&apos;0&apos; == undefined  //false</div><div class="line">&apos;0&apos; == false  //true</div><div class="line">&apos;0&apos; == NaN  //false</div><div class="line">&apos;0&apos; == 0  //true</div><div class="line">&apos;0&apos; == &apos;&apos;  //true</div><div class="line"></div><div class="line">false == null  //false</div><div class="line">false == undefined  //false</div><div class="line">false == NaN  //false</div><div class="line">false == 0  //true</div><div class="line">false == &apos;&apos;  //true</div><div class="line">false == []  //true</div><div class="line">false == &#123;&#125; //false</div><div class="line"></div><div class="line">&apos;&apos; == null  //false</div><div class="line">&apos;&apos; == undefined  //false</div><div class="line">&apos;&apos; == NaN  //false</div><div class="line">&apos;&apos; == 0  //true</div><div class="line">&apos;&apos; == []  //true</div><div class="line">&apos;&apos; == &#123;&#125; //false</div><div class="line"></div><div class="line">0 == null  //false</div><div class="line">0 == undefined  //false</div><div class="line">0 == NaN  //false</div><div class="line">0 == []  //true</div><div class="line">0 == &#123;&#125; //false</div><div class="line"></div><div class="line">[] == ![]</div></pre></td></tr></table></figure></p>
+<p>&amp;&amp;和|| 计算结果根据短路原则判断到了哪里，返回最后一个进行判断的值</p>
+<p>运算符优先级<br>属性访问.<br>一元操作符（+，-，++，–）<br>二元操作符（+-*/）<br>比较（&gt;,&lt;)<br>相等（==，===，！=）<br>与&amp;&amp;，或||<br>三目运算符<br>赋值</p>
+<p>运算符结合性<br>除了一元操作符，三目运算符和赋值是右结合，其他都是左结合</p>
+<p>减少小数计算误差<br>尽量不使用小数进行比较或运算<br>转整数计算，再转回相应位数小数<br>使用toFixed()四舍五入<br>两个情境需要重复计算时，保证前后书写顺序</p>
+<h1 id="13-数组相关方法"><a href="#13-数组相关方法" class="headerlink" title="13. 数组相关方法"></a>13. 数组相关方法</h1><p><img src="/image/arrmethod.jpg" alt="arrmethod"></p>
+<h1 id="14-字符串相关方法"><a href="#14-字符串相关方法" class="headerlink" title="14.字符串相关方法"></a>14.字符串相关方法</h1><p><img src="/image/strmethod.jpg" alt="strmethod"></p>
+<h1 id="15-日期相关方法"><a href="#15-日期相关方法" class="headerlink" title="15.日期相关方法"></a>15.日期相关方法</h1><p>   一共 33个<br>   set/get（UTC）FullYear,Month,Date,Hours,Minutes,Seconds,Millseconds<br>   set/get Time<br>   get(UTC) Day<br>   getTimezoneOffset</p>
+<h1 id="16-Math三个舍入方法"><a href="#16-Math三个舍入方法" class="headerlink" title="16. Math三个舍入方法"></a>16. Math三个舍入方法</h1><p>  Math.ceil:比值大的最小整数<br>  Math.round:四舍五入<br>  Math.floor:比值小的最大整数</p>
+<h1 id="17-setInterval-注意问题"><a href="#17-setInterval-注意问题" class="headerlink" title="17. setInterval 注意问题"></a>17. setInterval 注意问题</h1><p>累积效应<br>代码执行时间大于间隔时间，后续调用会进行累积，累积会在短时间内连续触发</p>
+<p>当用于动画时，因与显示器刷新频率不统一会造成视觉卡顿，解决办法如下：<br>一种是使用CSS3创建动画，根据显示器刷新执行动画<br>另一种是使用 requestAnimationframe(function(){})函数，也是在显示器刷新时执行<br>可以解决CSS3无法实现的，例如滚动控制等效果</p>
+<h1 id="18-关于DOM"><a href="#18-关于DOM" class="headerlink" title="18. 关于DOM"></a>18. 关于DOM</h1><p>   document 三个属性<br>   url：地址栏中URL<br>   domain:域名，跨域域名 X；父域名到子域名 X；<br>   referer:上一页URL,可在跳转时，判断与当前页是否在同一域，是的话，就可以back,否则 location.href其他页面<br>   dom.getAttribute(‘style’),得到样式字符串<br>   dom.style 得到到样式对象<br>   dom.getAttribute(‘onclick’) ,得到代码字符串<br>   dom.onclick 得到函数对象</p>
+<p>   动态合集<br>   使用时可能会造成死循环<br>   使用框架如Jquery获取的合集不具有动态性<br>   使用 queryselect(all)()获取到的也是静态合集</p>
+<p>   动态合集生成原理：<br>   浏览器通过DOM树预先缓存起来，获取时，浏览器会通过缓存直接注册，创建一个变量返回</p>
+<p>   静态合集生成原理：<br>   获取标识是一个CSS选择器，浏览器会先去解析字符串，判断是一个CSS选择器，<br>   分析选择器并创建一个选择器结构，浏览器根据DOM树创建一个静态文件，即DOM树的一个快照<br>   然后拿选择器和快照进行对比，符合选择器就放到合集中，知道整个快照对比完，再把合集的快照返回</p>
+<h1 id="19-事件"><a href="#19-事件" class="headerlink" title="19. 事件"></a>19. 事件</h1><p>   绑定方式</p>
+<p>   直接通过HTML属性绑定<br>   缺点<br>   有可能响应函数还未被解析就被触发<br>   事件名和回调1对1，修改繁琐<br>   响应执行时，作用域为全局，不同浏览器解析规则不同，造成某些对象无法访问</p>
+<p>   使用dom属性绑定<br>   冒泡阶段执行<br>   缺点<br>   只能绑定一个响应，后续赋值会被覆盖</p>
+<p>   IE attachEvent/detachEvent绑定/解绑<br>   冒泡阶段执行<br>   绑定多个时按按绑定顺序的逆序执行</p>
+<p>   addEventListener()/removeEventListener()绑定/解绑<br>   第三个参数为对象时，passive属性为true时，会针对touchstart,touchend等特定事件通过开启两个线程，<br>   一个执行浏览器默认行为，一个执行JS进行优化</p>
+<p>   事件优先级<br>   浏览器在绑定事件而不是JS在绑定事件</p>
+<p>   1.html标签绑定事件会被dom属性事件覆盖<br>   2.html标签优先执行，即使被属性事件覆盖，则执行被覆盖的属性事件<br>   3.仅有监听事件和属性事件时，按绑定顺序执行，即事件对象的冒泡事件可能会在捕获事件之前执行</p>
+<p>   event对象属性<br>   curentTarget:响应函数绑定的对象<br>   target:发生事件的对象</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;1-lt-script-gt-标签几个属性&quot;&gt;&lt;a href=&quot;#1-lt-script-gt-标签几个属性&quot; class=&quot;headerlink&quot; title=&quot;1.&amp;lt; script &amp;gt; 标签几个属性&quot;&gt;&lt;/a&gt;1.&amp;lt; script &amp;gt; 
+    
+    </summary>
+    
+    
+      <category term="html" scheme="http://yoohannah.github.io/tags/html/"/>
+    
+  </entry>
   
   <entry>
     <title>拖拽</title>
@@ -92,60 +254,6 @@
   </entry>
   
   <entry>
-    <title>表单 &amp; 列表</title>
-    <link href="http://yoohannah.github.io/post/react/formList.html"/>
-    <id>http://yoohannah.github.io/post/react/formList.html</id>
-    <published>2018-12-04T13:12:37.000Z</published>
-    <updated>2018-12-04T13:18:21.151Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="表单功能点"><a href="#表单功能点" class="headerlink" title="表单功能点"></a>表单功能点</h1><ol>
-<li>初始数据，提交和跳转<br>表单各项配置的优化，可以通过对UI框架的API进行封装成高阶组件，然后在使用时，通过配置高阶组件的属性，将需要的配置项传递给UI框架API，减少代码冗余，配置清晰</li>
-</ol>
-<p>提交后状态通过中间件返回promise判断接下来操作</p>
-<p>2.<br>错误处理（可依靠UI框架进行判断）<br>动态表单元素（在传入高阶组件属性时采用函数返回值形式动态加载表单元素，在函数中处理要不要显示表单元素）<br>内容动态加载（在componentDidMount中进行数据请求，以及初始状态处理）</p>
-<h1 id="列表页功能点"><a href="#列表页功能点" class="headerlink" title="列表页功能点"></a>列表页功能点</h1><h2 id="搜索，数据缓存和分页"><a href="#搜索，数据缓存和分页" class="headerlink" title="搜索，数据缓存和分页"></a>搜索，数据缓存和分页</h2><p>开发列表也要考虑的技术要点<br>1.如何翻页 (数据来自服务器还是客户端缓存)<br>2.如何进行内容搜索 （当前页面数据搜索还是服务器端数据搜索）<br>3.如何缓存数据<br>4.何时进行页面刷新</p>
-<p>列表页数据通过store拿数据渲染，翻页，查找，刷新通过触发action然后从服务器拿到数据后，更新store,从而组件重新渲染</p>
-<p>store 模型<br>listItems:当前页id集合数组[id1,id2]<br>byId:{id1:{id:id1,name:xxx},id2:{id:id2,name:xxx}}<br>keyword:关键字string<br>page:number 页数<br>fetchListPending:bool是否正在加载数据<br>FetchListError:OBJECT数据加载出错<br>listNeedReload:bool是否需要重新加载（做判断条件，例如编辑之后，设为true,在列表页拿到判断为true则重新获取列表数据）</p>
-<p>URL设计<br>将页数和关键字当做路由参数传递在componentDidupdated中获取参数判断是否重新获取数据</p>
-<h2 id="缓存更新，加载状态，错误处理"><a href="#缓存更新，加载状态，错误处理" class="headerlink" title="缓存更新，加载状态，错误处理"></a>缓存更新，加载状态，错误处理</h2><p>通过store模型中的相关数据进行判断展示</p>
-<h1 id="页面数据需要来源多个请求的处理"><a href="#页面数据需要来源多个请求的处理" class="headerlink" title="页面数据需要来源多个请求的处理"></a>页面数据需要来源多个请求的处理</h1><p>页面数据来自多个请求<br>1.请求之间无依赖关系，可以并发进行<br>2.请求有依赖，需要依次进行 （promise）<br>3.请求完成之前，页面显示 Loading 状态<br>loading数据状态由当前数据推导确定</p>
-<h1 id="内容页的加载和缓存"><a href="#内容页的加载和缓存" class="headerlink" title="内容页的加载和缓存"></a>内容页的加载和缓存</h1><p>内容页和列表页的数据关系<br>1.简单业务：列表页数据包含内容页的数据 （注意页面刷新情况数据的获取）<br>2.复杂业务：内容页数据需要额外获取 （每次进来都重新获取）<br>3.内容页数据的缓存（将数据放在store中，在store中拿数据）</p>
-<h1 id="基于React-Router-实现分步操作"><a href="#基于React-Router-实现分步操作" class="headerlink" title="基于React Router 实现分步操作"></a>基于React Router 实现分步操作</h1><p>向导页面需要考虑的技术要点<br>1.使用 URL进行导航的好处 （可以直接刷新其中一个步骤）</p>
-<ol>
-<li>表单内容存放的位置 </li>
-<li>页面状态如何切换</li>
-</ol>
-<p>将表单元素放在一个统一的form中，通过路由判断第几步，进而显示不同的表单元素，需要注意的是，切换下一步时，当前组件消失，配置的数据也会消失，需要将当前所填数据进行保存，以便在返回上一步时有数据</p>
-<h1 id="集成第三方-JS-库的技术要点"><a href="#集成第三方-JS-库的技术要点" class="headerlink" title="集成第三方 JS 库的技术要点"></a>集成第三方 JS 库的技术要点</h1><p>1.使用 ref 获取原生 DOM 节点引用<br>2.手动将组件状态更新到 DOM 节点<br>(对于数据驱动UI展示的情况,第一次渲染和之后更新需要手动操作DOM的过程，将数据注入过程隔离出来，单独处理成一个函数，再当react 部分操作导致需要重新渲染时，再调用，将react状态映射到第三方DOM中)<br>3.组件销毁时移除原生节点 DOM 事件</p>
-<h1 id="基于路由实现菜单导航"><a href="#基于路由实现菜单导航" class="headerlink" title="基于路由实现菜单导航"></a>基于路由实现菜单导航</h1><p>1.菜单导航只是改变 URL 状态<br>2.根据当前 URL 显示菜单的当前状态(使用navLink标签实现，注意react-router和redux一起使用时，url发生变化，组建要重新render时，必须要让组件绑定到router的store上，即让react-router也一起渲染)</p>
-<h1 id="如何避免应用出现性能问题"><a href="#如何避免应用出现性能问题" class="headerlink" title="如何避免应用出现性能问题"></a>如何避免应用出现性能问题</h1><p>1.了解常见的性能问题场景 （键盘输入，鼠标移动是否卡顿）<br>2.时刻注意代码的潜在性能问题 （何时拆分组件，有优化空间；能否高效更新，组件拆分是否够细，足够细的话，组件越接近纯函数，就越可能减少参与到diff操作的可能性，从而提高渲染速度）<br>3.注重可重构的代码 （代码耦合性低，几乎不依赖外界，也不被外界依赖，对于有重构可能性的代码保留重构空间，当其他优先级较高的性能问题解决后，再进行代码重构）<br>4.了解如何使用工具定位性能问题</p>
-<h1 id="网络性能优化：自动化按需加载"><a href="#网络性能优化：自动化按需加载" class="headerlink" title="网络性能优化：自动化按需加载"></a>网络性能优化：自动化按需加载</h1><p>1.什么是按需加载 (切换页面时才加载相应页面，而不是一开始就将所有页面加载进来)<br>2.使用 Webpack 的 import API<br>3.使用 react-loadable 库实现 React 异步加载<br>利用分包加载,在配置路由时实现,在总路由中删除，防止打包到总包中<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">import loadable from &apos;react-loadable&apos;</div><div class="line">const listPage = loadable(&#123;</div><div class="line">    loader:()=&gt;import (&apos;./listPage&apos;),</div><div class="line">    loading:()=&gt;&lt;div&gt;loading...&lt;/div&gt;</div><div class="line">&#125;)</div></pre></td></tr></table></figure></p>
-<p>listPage页面在加载该页时，会自动加载listPage的独立打包文件</p>
-<p>使用 reselect 避免重复计算<br>reselect 可以创建自动缓存的数据处理流程，通过保存计算结果，避免重复计算</p>
-<h1 id="异步渲染的两个部分"><a href="#异步渲染的两个部分" class="headerlink" title="异步渲染的两个部分"></a>异步渲染的两个部分</h1><p>时间分片<br>DOM操作的优先级低于浏览器原生行为，例如键盘和鼠标输入，从而保证操作的流畅。<br>（setstate导致的重新render等页面行为（滚动，输入）结束后再执行）<br>1.虚拟 DOM 的 diff 操作可以分片进行 （对操作进行序列化，然后进行合并或者优先级处理）<br>2.React 新 API: unstatble_deferredUpdates（低级别的setstate）<br>3.Chrome 新 API:requestIdleCallback(浏览器级别的api,告诉代码内存空闲（不再滚动或敲击键盘），可以进行一些之前优先级低的UI更新操作，时间分片基础)</p>
-<p>渲染挂起<br>虚拟DOM节点可以等待某个异步操作的完成,并指定timeout后,才完成真正的渲染<br>（可以不再注意什么时候显示loading状态，取消loading状态，虚拟dom节点可以自己等待异步操作的完成，只要虚拟dom节点返回一个promise,渲染引擎就会等promise结束后再去render）</p>
-<ol>
-<li><p>新内置组件：Timeout </p>
-</li>
-<li><p>unstatble_deferUpdate</p>
-</li>
-</ol>
-<h1 id="借助工具发现性能问题"><a href="#借助工具发现性能问题" class="headerlink" title="借助工具发现性能问题"></a>借助工具发现性能问题</h1><p>1.使用 React DevTool 找到多余渲染<br>chrome 插件，可查看react应用的状态，帮助找到不必要的render，从而进行调优—&gt; [highlight update]<br>2.使用 Chrome DevTool 定位性能瓶颈<br>什么样的组件花了多长时间做了什么样的渲染—&gt;performance</p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;h1 id=&quot;表单功能点&quot;&gt;&lt;a href=&quot;#表单功能点&quot; class=&quot;headerlink&quot; title=&quot;表单功能点&quot;&gt;&lt;/a&gt;表单功能点&lt;/h1&gt;&lt;ol&gt;
-&lt;li&gt;初始数据，提交和跳转&lt;br&gt;表单各项配置的优化，可以通过对UI框架的API进行封装成高阶组件，然后在使用
-    
-    </summary>
-    
-    
-      <category term="html" scheme="http://yoohannah.github.io/tags/html/"/>
-    
-  </entry>
-  
-  <entry>
     <title>Rekit</title>
     <link href="http://yoohannah.github.io/post/react/rekit.html"/>
     <id>http://yoohannah.github.io/post/react/rekit.html</id>
@@ -190,6 +298,63 @@
     <summary type="html">
     
       &lt;p&gt;背景&lt;br&gt; 一个独立功能通常需要多个文件组成 （组件，reducer,action,路由等文件）&lt;br&gt; 代码模板很复杂 （reducer,action需要代码模板，实际上填写的逻辑只是一小部分）&lt;br&gt; 重构极为困难&lt;br&gt; （需要改动的地方很多）&lt;br&gt; 项目复杂后很
+    
+    </summary>
+    
+    
+      <category term="html" scheme="http://yoohannah.github.io/tags/html/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>表单 &amp; 列表</title>
+    <link href="http://yoohannah.github.io/post/react/formList.html"/>
+    <id>http://yoohannah.github.io/post/react/formList.html</id>
+    <published>2018-12-04T13:12:37.000Z</published>
+    <updated>2018-12-08T01:28:41.317Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="表单功能点"><a href="#表单功能点" class="headerlink" title="表单功能点"></a>表单功能点</h1><ol>
+<li>初始数据，提交和跳转</li>
+</ol>
+<p>表单各项配置的优化，可以通过对UI框架的API进行封装成高阶组件，然后在使用时，通过配置高阶组件的属性，将需要的配置项传递给UI框架API，减少代码冗余，配置清晰</p>
+<p>提交后状态通过中间件返回promise判断接下来操作</p>
+<p>2.<br>错误处理（可依靠UI框架进行判断）<br>动态表单元素（在传入高阶组件属性时采用函数返回值形式动态加载表单元素，在函数中处理要不要显示表单元素）<br>内容动态加载（在componentDidMount中进行数据请求，以及初始状态处理）</p>
+<h1 id="列表页功能点"><a href="#列表页功能点" class="headerlink" title="列表页功能点"></a>列表页功能点</h1><h2 id="搜索，数据缓存和分页"><a href="#搜索，数据缓存和分页" class="headerlink" title="搜索，数据缓存和分页"></a>搜索，数据缓存和分页</h2><p>开发列表也要考虑的技术要点<br>1.如何翻页 (数据来自服务器还是客户端缓存)<br>2.如何进行内容搜索 （当前页面数据搜索还是服务器端数据搜索）<br>3.如何缓存数据<br>4.何时进行页面刷新</p>
+<p>列表页数据通过store拿数据渲染，翻页，查找，刷新通过触发action然后从服务器拿到数据后，更新store,从而组件重新渲染</p>
+<p>store 模型<br>listItems:当前页id集合数组[id1,id2]<br>byId:{id1:{id:id1,name:xxx},id2:{id:id2,name:xxx}}<br>keyword:关键字string<br>page:number 页数<br>fetchListPending:bool是否正在加载数据<br>FetchListError:OBJECT数据加载出错<br>listNeedReload:bool是否需要重新加载（做判断条件，例如编辑之后，设为true,在列表页拿到判断为true则重新获取列表数据）</p>
+<p>URL设计<br>将页数和关键字当做路由参数传递在componentDidupdated中获取参数判断是否重新获取数据</p>
+<h2 id="缓存更新，加载状态，错误处理"><a href="#缓存更新，加载状态，错误处理" class="headerlink" title="缓存更新，加载状态，错误处理"></a>缓存更新，加载状态，错误处理</h2><p>通过store模型中的相关数据进行判断展示</p>
+<h1 id="页面数据需要来源多个请求的处理"><a href="#页面数据需要来源多个请求的处理" class="headerlink" title="页面数据需要来源多个请求的处理"></a>页面数据需要来源多个请求的处理</h1><p>页面数据来自多个请求<br>1.请求之间无依赖关系，可以并发进行<br>2.请求有依赖，需要依次进行 （promise）<br>3.请求完成之前，页面显示 Loading 状态<br>loading数据状态由当前数据推导确定</p>
+<h1 id="内容页的加载和缓存"><a href="#内容页的加载和缓存" class="headerlink" title="内容页的加载和缓存"></a>内容页的加载和缓存</h1><p>内容页和列表页的数据关系<br>1.简单业务：列表页数据包含内容页的数据 （注意页面刷新情况数据的获取）<br>2.复杂业务：内容页数据需要额外获取 （每次进来都重新获取）<br>3.内容页数据的缓存（将数据放在store中，在store中拿数据）</p>
+<h1 id="基于React-Router-实现分步操作"><a href="#基于React-Router-实现分步操作" class="headerlink" title="基于React Router 实现分步操作"></a>基于React Router 实现分步操作</h1><p>向导页面需要考虑的技术要点<br>1.使用 URL进行导航的好处 （可以直接刷新其中一个步骤）</p>
+<ol>
+<li>表单内容存放的位置 </li>
+<li>页面状态如何切换</li>
+</ol>
+<p>将表单元素放在一个统一的form中，通过路由判断第几步，进而显示不同的表单元素，需要注意的是，切换下一步时，当前组件消失，配置的数据也会消失，需要将当前所填数据进行保存，以便在返回上一步时有数据</p>
+<h1 id="集成第三方-JS-库的技术要点"><a href="#集成第三方-JS-库的技术要点" class="headerlink" title="集成第三方 JS 库的技术要点"></a>集成第三方 JS 库的技术要点</h1><p>1.使用 ref 获取原生 DOM 节点引用<br>2.手动将组件状态更新到 DOM 节点<br>(对于数据驱动UI展示的情况,第一次渲染和之后更新需要手动操作DOM的过程，将数据注入过程隔离出来，单独处理成一个函数，再当react 部分操作导致需要重新渲染时，再调用，将react状态映射到第三方DOM中)<br>3.组件销毁时移除原生节点 DOM 事件</p>
+<h1 id="基于路由实现菜单导航"><a href="#基于路由实现菜单导航" class="headerlink" title="基于路由实现菜单导航"></a>基于路由实现菜单导航</h1><p>1.菜单导航只是改变 URL 状态<br>2.根据当前 URL 显示菜单的当前状态(使用navLink标签实现，注意react-router和redux一起使用时，url发生变化，组建要重新render时，必须要让组件绑定到router的store上，即让react-router也一起渲染)</p>
+<h1 id="如何避免应用出现性能问题"><a href="#如何避免应用出现性能问题" class="headerlink" title="如何避免应用出现性能问题"></a>如何避免应用出现性能问题</h1><p>1.了解常见的性能问题场景 （键盘输入，鼠标移动是否卡顿）<br>2.时刻注意代码的潜在性能问题 （何时拆分组件，有优化空间；能否高效更新，组件拆分是否够细，足够细的话，组件越接近纯函数，就越可能减少参与到diff操作的可能性，从而提高渲染速度）<br>3.注重可重构的代码 （代码耦合性低，几乎不依赖外界，也不被外界依赖，对于有重构可能性的代码保留重构空间，当其他优先级较高的性能问题解决后，再进行代码重构）<br>4.了解如何使用工具定位性能问题</p>
+<h1 id="网络性能优化：自动化按需加载"><a href="#网络性能优化：自动化按需加载" class="headerlink" title="网络性能优化：自动化按需加载"></a>网络性能优化：自动化按需加载</h1><p>1.什么是按需加载 (切换页面时才加载相应页面，而不是一开始就将所有页面加载进来)<br>2.使用 Webpack 的 import API<br>3.使用 react-loadable 库实现 React 异步加载<br>利用分包加载,在配置路由时实现,在总路由中删除，防止打包到总包中<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">import loadable from &apos;react-loadable&apos;</div><div class="line">const listPage = loadable(&#123;</div><div class="line">    loader:()=&gt;import (&apos;./listPage&apos;),</div><div class="line">    loading:()=&gt;&lt;div&gt;loading...&lt;/div&gt;</div><div class="line">&#125;)</div></pre></td></tr></table></figure></p>
+<p>listPage页面在加载该页时，会自动加载listPage的独立打包文件</p>
+<p>使用 reselect 避免重复计算<br>reselect 可以创建自动缓存的数据处理流程，通过保存计算结果，避免重复计算</p>
+<h1 id="异步渲染的两个部分"><a href="#异步渲染的两个部分" class="headerlink" title="异步渲染的两个部分"></a>异步渲染的两个部分</h1><p>时间分片<br>DOM操作的优先级低于浏览器原生行为，例如键盘和鼠标输入，从而保证操作的流畅。<br>（setstate导致的重新render等页面行为（滚动，输入）结束后再执行）<br>1.虚拟 DOM 的 diff 操作可以分片进行 （对操作进行序列化，然后进行合并或者优先级处理）<br>2.React 新 API: unstatble_deferredUpdates（低级别的setstate）<br>3.Chrome 新 API:requestIdleCallback(浏览器级别的api,告诉代码内存空闲（不再滚动或敲击键盘），可以进行一些之前优先级低的UI更新操作，时间分片基础)</p>
+<p>渲染挂起<br>虚拟DOM节点可以等待某个异步操作的完成,并指定timeout后,才完成真正的渲染<br>（可以不再注意什么时候显示loading状态，取消loading状态，虚拟dom节点可以自己等待异步操作的完成，只要虚拟dom节点返回一个promise,渲染引擎就会等promise结束后再去render）</p>
+<ol>
+<li><p>新内置组件：Timeout </p>
+</li>
+<li><p>unstatble_deferUpdate</p>
+</li>
+</ol>
+<h1 id="借助工具发现性能问题"><a href="#借助工具发现性能问题" class="headerlink" title="借助工具发现性能问题"></a>借助工具发现性能问题</h1><p>1.使用 React DevTool 找到多余渲染<br>chrome 插件，可查看react应用的状态，帮助找到不必要的render，从而进行调优—&gt; [highlight update]<br>2.使用 Chrome DevTool 定位性能瓶颈<br>什么样的组件花了多长时间做了什么样的渲染—&gt;performance</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;表单功能点&quot;&gt;&lt;a href=&quot;#表单功能点&quot; class=&quot;headerlink&quot; title=&quot;表单功能点&quot;&gt;&lt;/a&gt;表单功能点&lt;/h1&gt;&lt;ol&gt;
+&lt;li&gt;初始数据，提交和跳转&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;表单各项配置的优化，可以通过对UI框架的API进行封装
     
     </summary>
     
@@ -363,9 +528,10 @@
     <link href="http://yoohannah.github.io/post/react/thinking.html"/>
     <id>http://yoohannah.github.io/post/react/thinking.html</id>
     <published>2018-12-04T13:01:37.000Z</published>
-    <updated>2018-12-04T13:52:43.544Z</updated>
+    <updated>2018-12-05T13:33:49.819Z</updated>
     
-    <content type="html"><![CDATA[<h1 id="传统框架存在问题"><a href="#传统框架存在问题" class="headerlink" title="传统框架存在问题"></a>传统框架存在问题</h1><p>1.传统 UI操作关注太多细节<br>DOM API 繁多，需要手动调用，且要经过多步骤进行更新<br>react 解决办法：始终整体‘刷新’页面 ，无需关心细节，（不管谁是哪部分新增或更改的，根据现在状态整体刷新页面）</p>
+    <content type="html"><![CDATA[<p><a href="https://codesandbox.io/s/6n20nrzlxz" target="_blank" rel="external">源码</a><br><a href="https://github.com/supnate/react-geek-time" target="_blank" rel="external">git仓库</a></p>
+<h1 id="传统框架存在问题"><a href="#传统框架存在问题" class="headerlink" title="传统框架存在问题"></a>传统框架存在问题</h1><p>1.传统 UI操作关注太多细节<br>DOM API 繁多，需要手动调用，且要经过多步骤进行更新<br>react 解决办法：始终整体‘刷新’页面 ，无需关心细节，（不管谁是哪部分新增或更改的，根据现在状态整体刷新页面）</p>
 <p>2.应用程序状态分散在各处f难以追踪和维护<br>传统数据模型存在问题：传统 MVC结构复杂，难以扩展和维护<br>react 解决办法：Flux 单向数据流</p>
 <p>创建组件<br>1.创建静态 UI<br>2.考虑组件的状态组成 ：是由state内部维护还是用外部传进来的props维护<br>3.考虑组件的交互方式：内部进行了操作，如何告知/把状态暴露到父组件</p>
 <h1 id="受控组件VS非受控组件"><a href="#受控组件VS非受控组件" class="headerlink" title="受控组件VS非受控组件"></a>受控组件VS非受控组件</h1><p>受控组件: 表单元素状态由使用者维护<br>组件发生变化，利用onchange将状态给到到父组件（使用者），父组件更新状态，再通过props传递状态给组件，组件重新渲染</p>
@@ -390,7 +556,7 @@
 <p>2.函数子组件</p>
 <p>将子组件以函数返回值形式作为children属性传入原始组件，在原始组件中，在需要显示原始组件的地方执行函数，<br>或者在合适的生命周期中执行函数拿到多个子组件，再决定在什么位置显示不同的子组件<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">//写法一</div><div class="line">&lt;Mouse children=&#123;mouse =&gt; (</div><div class="line">  &lt;p&gt;The mouse position is &#123;mouse.x&#125;, &#123;mouse.y&#125;&lt;/p&gt;</div><div class="line">)&#125;/&gt;</div><div class="line">//写法二</div><div class="line">&lt;Mouse&gt;</div><div class="line">  &#123;mouse =&gt; (</div><div class="line">    &lt;p&gt;The mouse position is &#123;mouse.x&#125;, &#123;mouse.y&#125;&lt;/p&gt;</div><div class="line">  )&#125;</div><div class="line">&lt;/Mouse&gt;</div><div class="line"></div><div class="line">//在原始组件应用子组件</div><div class="line">class Mouse extends React.Component&#123;</div><div class="line">    render()&#123;</div><div class="line">        &lt;div&gt;</div><div class="line">            &#123;this.props.children(&#123;x:50,y:100&#125;)&#125;</div><div class="line">        &lt;/div&gt;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
 <h1 id="context-API"><a href="#context-API" class="headerlink" title="context API"></a>context API</h1><p>应用场景：全局性的一些字段，如theme的切换<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div></pre></td><td class="code"><pre><div class="line">import React from &quot;react&quot;;</div><div class="line"></div><div class="line">const enStrings = &#123;</div><div class="line">  submit: &quot;Submit&quot;,</div><div class="line">  cancel: &quot;Cancel&quot;</div><div class="line">&#125;;</div><div class="line"></div><div class="line">const cnStrings = &#123;</div><div class="line">  submit: &quot;提交&quot;,</div><div class="line">  cancel: &quot;取消&quot;</div><div class="line">&#125;;</div><div class="line">//传入原始数据/默认值，创建context</div><div class="line">const LocaleContext = React.createContext(enStrings);</div><div class="line"></div><div class="line">class LocaleProvider extends React.Component &#123;</div><div class="line">  state = &#123; locale: cnStrings &#125;;</div><div class="line">  toggleLocale = () =&gt; &#123;</div><div class="line">    const locale =</div><div class="line">      this.state.locale === enStrings</div><div class="line">        ? cnStrings</div><div class="line">        : enStrings;</div><div class="line">    this.setState(&#123; locale &#125;);</div><div class="line">  &#125;;</div><div class="line">  render() &#123;</div><div class="line">    return (</div><div class="line">      // context的 Provider属性是一个组件，包裹需要用到context数据子组件的组件，其value值为相应在子组件中需要用到的数据</div><div class="line">      &lt;LocaleContext.Provider value=&#123;this.state.locale&#125;&gt;</div><div class="line">        &lt;button onClick=&#123;this.toggleLocale&#125;&gt;</div><div class="line">          切换语言</div><div class="line">        &lt;/button&gt;</div><div class="line">        &#123;this.props.children&#125;</div><div class="line">      &lt;/LocaleContext.Provider&gt;</div><div class="line">    );</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">class LocaledButtons extends React.Component &#123;</div><div class="line">  render() &#123;</div><div class="line">    return (</div><div class="line">    //context的 Consumer属性也是一个组件，包裹需要使用context数据的子组件,</div><div class="line">      &lt;LocaleContext.Consumer&gt;</div><div class="line">        &#123;locale =&gt; (//local 即Context.Provider 的value值</div><div class="line">          &lt;div&gt;</div><div class="line">            &lt;button&gt;&#123;locale.cancel&#125;&lt;/button&gt;</div><div class="line">            &amp;nbsp;&lt;button&gt;&#123;locale.submit&#125;&lt;/button&gt;</div><div class="line">          &lt;/div&gt;</div><div class="line">        )&#125;</div><div class="line">      &lt;/LocaleContext.Consumer&gt;</div><div class="line">    );</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">export default () =&gt; (</div><div class="line">  &lt;div&gt;</div><div class="line">    &lt;LocaleProvider&gt;</div><div class="line">      &lt;div&gt;</div><div class="line">        &lt;br /&gt;</div><div class="line">        &lt;LocaledButtons /&gt;//使用context数据的组件必须为Provider组件的子组件，</div><div class="line">      &lt;/div&gt;</div><div class="line">    &lt;/LocaleProvider&gt;</div><div class="line">    &lt;LocaledButtons /&gt;//如果子组件在Context.Provider形成组件的外面使用，则只会应用默认数据，不会随Value属性发生变化</div><div class="line">  &lt;/div&gt;</div><div class="line">);</div></pre></td></tr></table></figure></p>
-<h1 id="为什么需要脚手架"><a href="#为什么需要脚手架" class="headerlink" title="为什么需要脚手架"></a>为什么需要脚手架</h1><p>react:进行UI开发<br>redux:进行状态的管理<br>react/router:进行路由的馆<br>babel:把最新的js特性翻译成兼容浏览器的旧的JS语法<br>webpack:进行打包<br>eslint:语法检查<br>因而需要引入以上几个技术栈的几十个个package,不但要了解，还要知道如何让进行相应的配置<br>在开启一个项目时，配置过程做完一次基本/只要实现一次，就基本可以复用，用来再开启新项目<br>所以为方便开发，用脚手架实现配置过程</p>
+<h1 id="为什么需要脚手架"><a href="#为什么需要脚手架" class="headerlink" title="为什么需要脚手架"></a>为什么需要脚手架</h1><p>react:进行UI开发<br>redux:进行状态的管理<br>react/router:进行路由的管理<br>babel:把最新的js特性翻译成兼容浏览器的旧的JS语法<br>webpack:进行打包<br>eslint:语法检查<br>因而需要引入以上几个技术栈的几十个个package,不但要了解，还要知道如何让进行相应的配置<br>在开启一个项目时，配置过程做完一次基本/只要实现一次，就基本可以复用，用来再开启新项目<br>所以为方便开发，用脚手架实现配置过程</p>
 <p>脚手架有：<br>Create React App 基础（webpack,）<br>Rekit 开源项目<br>Codesandbox 在线开发工具<br>dva 蚂蚁金服的一套脚手架工具</p>
 <h1 id="为什么需要打包"><a href="#为什么需要打包" class="headerlink" title="为什么需要打包"></a>为什么需要打包</h1><p>1.编译ES6语法特性，编译JSX（保证浏览器可以兼容执行）<br>2.整合资源，例如图片，Less/Sass，svg<br>3.优化代码体积(对变量名进行缩短，去除注释，去除空格，去除不必要的变量等等)</p>
 <p>webpack<br>将项目中所有资源进行整合，将每种资源（js，png，sass…）使用插件的方式载入对应的Loader,<br>loader能够决定自己支持什么样的语法，loader的输出是可以执行的js语言，可以兼容多平台多版本浏览器<br>可以部署的语言</p>
@@ -400,7 +566,7 @@
     
     <summary type="html">
     
-      &lt;h1 id=&quot;传统框架存在问题&quot;&gt;&lt;a href=&quot;#传统框架存在问题&quot; class=&quot;headerlink&quot; title=&quot;传统框架存在问题&quot;&gt;&lt;/a&gt;传统框架存在问题&lt;/h1&gt;&lt;p&gt;1.传统 UI操作关注太多细节&lt;br&gt;DOM API 繁多，需要手动调用，且要经过多步骤进行
+      &lt;p&gt;&lt;a href=&quot;https://codesandbox.io/s/6n20nrzlxz&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;源码&lt;/a&gt;&lt;br&gt;&lt;a href=&quot;https://github.com/supnate/react-geek-tim
     
     </summary>
     
@@ -652,96 +818,6 @@
     
       &lt;h1 id=&quot;一些有思想提醒作用的话&quot;&gt;&lt;a href=&quot;#一些有思想提醒作用的话&quot; class=&quot;headerlink&quot; title=&quot;一些有思想提醒作用的话&quot;&gt;&lt;/a&gt;一些有思想提醒作用的话&lt;/h1&gt;&lt;p&gt;把不变的部分隔离出来，把可变的部分封装起来&lt;/p&gt;
 &lt;p&gt;多态最根本
-    
-    </summary>
-    
-    
-      <category term="js" scheme="http://yoohannah.github.io/tags/js/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>angularjs directive编写组件小结</title>
-    <link href="http://yoohannah.github.io/post/knowledge/angularjsdirective.html"/>
-    <id>http://yoohannah.github.io/post/knowledge/angularjsdirective.html</id>
-    <published>2018-08-29T23:37:09.000Z</published>
-    <updated>2018-08-30T00:00:07.441Z</updated>
-    
-    <content type="html"><![CDATA[<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;edit-modal dismiss=&quot;dismiss()&quot; config=&quot;model.config&quot; after-save=&quot;model.afterSave()&quot; aaa=&quot;model.hello&quot;&gt;&lt;/edit-modal&gt;</div></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line">export function editModalDirective() &#123;</div><div class="line">  return &#123;</div><div class="line">    restrict: &apos;E&apos;,</div><div class="line">    template: template,</div><div class="line">    controller: EditModalCtrl,</div><div class="line">    bindToController: true,</div><div class="line">    controllerAs: &apos;ctrl&apos;,</div><div class="line">    transclude: true,</div><div class="line">    scope: &#123;</div><div class="line">      dismiss: &apos;&amp;&apos;,</div><div class="line">      afterSave: &apos;&amp;&apos;,</div><div class="line">      config: &apos;=&apos;,</div><div class="line">    &#125;,</div><div class="line">    link: function(scope, ele, attrs) &#123;</div><div class="line">      if (scope.ctrl.config.type === &apos;Strategy&apos;) &#123;</div><div class="line">        if (scope.ctrl.config.type === &apos;Strategy&apos;) &#123;</div><div class="line">          ele[0].className += &apos;strategy&apos;;</div><div class="line">        &#125;</div><div class="line">      &#125;</div><div class="line">      </div><div class="line">      </div><div class="line">    &#125;,</div><div class="line">  &#125;;</div><div class="line">&#125;</div><div class="line">//在模块编译时注册指令</div><div class="line">coreModule.directive(&apos;editModal&apos;, editModalDirective);</div><div class="line">//参考：https://www.cnblogs.com/wangnuo/p/6305742.html</div></pre></td></tr></table></figure>
-<h2 id="link函数"><a href="#link函数" class="headerlink" title="link函数"></a>link函数</h2><p>link函数仅在编译时执行一次，三个参数：scope, ele, attrs</p>
-<h3 id="ele"><a href="#ele" class="headerlink" title="ele"></a>ele</h3><p>即是当前的指令DOM对象，因此可以在ele上绑定触发事件,</p>
-<p>但谨慎在数据上利用事件订阅触发机制进行事件绑定，</p>
-<p>因为如果在外层包react组件的情况下，可能会导致数据刷新，但没有事件绑定，从而无法触发事件</p>
-<p>注意在获取深层子dom时可能会获取不到</p>
-<h3 id="attrs"><a href="#attrs" class="headerlink" title="attrs"></a>attrs</h3><p>指ele所在dom上的属性集合,没有在scope属性中声明的属性也能看到</p>
-<p>但要注意，属性值就是标签上变量的名，不是标签上变量指代的值</p>
-<p>标签上属性赋值变量的值在参数scope中<br><img src="/image/attrs.png" alt="attrs"></p>
-<h3 id="scope"><a href="#scope" class="headerlink" title="scope"></a>scope</h3><p>link函数参数scope指向当前指令的作用域</p>
-<p>参数scope的ctrl属性（controllerAs属性的值）即EditModalCtrl</p>
-<p>因为这里配置了controller，bindToController，controllerAs，</p>
-<p>所以在scope属性中声明的属性(config)方法（dismiss,after）会被归并到controller中，会以ctrl的属性形式出现，</p>
-<p>即如果我想拿到属性scope中声明的config,可以这样：scope.ctrl.config</p>
-<p>同时可以在EditModalCtrl中访问获取config,即this.config</p>
-<p>另外如果没有在属性scope中声明的属性aaa，但在标签中进行了配置（aaa=”model.hello”），是无效的,ctrl上是不会有aaa属性的，即传递不进来</p>
-<p>因此可以在link函数中拿到父作用域传递过来的值，分情况进行不同处理<br><img src="/image/scope.png" alt="scope"></p>
-<h2 id="scope属性"><a href="#scope属性" class="headerlink" title="scope属性"></a>scope属性</h2><p>建立子域，声明所在标签的属性名，以及传值方式,controler存在情况下被合并</p>
-<h3 id=""><a href="#" class="headerlink" title="@"></a>@</h3><p>@ 在 directive 中使用 xxx 属性绑定父 scope 中的属性。当改变父 scope 中属性的值的时候，directive 会同步更新值，当改变 directive 的 scope 的属性值时，父 scope 无法同步更新值。使用&#123;&#123;&#125;&#125;引用绑定值<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line">app.controller(&quot;myController&quot;, function ($scope) &#123;</div><div class="line">        $scope.name = &quot;hello world&quot;;</div><div class="line">    &#125;).directive(&quot;isolatedDirective&quot;, function () &#123;</div><div class="line">        return &#123;</div><div class="line">            scope: &#123;</div><div class="line">                name: &quot;@&quot;</div><div class="line">            &#125;,</div><div class="line">            template: &apos;Say：&#123;&#123;name&#125;&#125; &lt;br&gt;改变隔离scope的name：&lt;input type=&quot;buttom&quot; value=&quot;&quot; ng-model=&quot;name&quot; class=&quot;ng-pristine ng-valid&quot;&gt;&apos;</div><div class="line">        &#125;</div><div class="line">&#125;)</div><div class="line"></div><div class="line"></div><div class="line">&lt;div ng-controller=&quot;myController&quot;&gt;</div><div class="line">   &lt;div class=&quot;result&quot;&gt;</div><div class="line">       &lt;div&gt;父scope：</div><div class="line">           &lt;div&gt;Say：&#123;&#123;name&#125;&#125;&lt;br&gt;改变父scope的name：&lt;input type=&quot;text&quot; value=&quot;&quot; ng-model=&quot;name&quot;/&gt;&lt;/div&gt;</div><div class="line">       &lt;/div&gt;</div><div class="line">       &lt;div&gt;隔离scope：</div><div class="line">           &lt;div isolated-directive name=&quot;&#123;&#123;name&#125;&#125;&quot;&gt;&lt;/div&gt;</div><div class="line">       &lt;/div&gt;</div><div class="line">        &lt;div&gt;隔离scope（不使用&#123;&#123;name&#125;&#125;）：</div><div class="line">             &lt;div isolated-directive name=&quot;name&quot;&gt;&lt;/div&gt;</div><div class="line">         &lt;/div&gt;</div><div class="line">   &lt;/div&gt;</div></pre></td></tr></table></figure></p>
-<h3 id="-1"><a href="#-1" class="headerlink" title="="></a>=</h3><p>= 无论是改变父 scope 还是隔离 scope 里的属性，父 scope 和隔离 scope 都会同时更新属性值，因为它们是双向绑定的关系,使用“”引用绑定值<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line">app.controller(&quot;myController&quot;, function ($scope) &#123;</div><div class="line">        $scope.user = &#123;</div><div class="line">            name: &apos;hello&apos;,</div><div class="line">            id: 1</div><div class="line">        &#125;;</div><div class="line">    &#125;).directive(&quot;isolatedDirective&quot;, function () &#123;</div><div class="line">        return &#123;</div><div class="line">            scope: &#123;</div><div class="line">                user: &quot;=&quot;</div><div class="line">            &#125;,</div><div class="line">            template: &apos;Say：&#123;&#123;user.name&#125;&#125; &lt;br&gt;改变隔离scope的name：&lt;input type=&quot;buttom&quot; value=&quot;&quot; ng-model=&quot;user.name&quot;/&gt;&apos;</div><div class="line">        &#125;</div><div class="line">    &#125;)</div><div class="line"></div><div class="line">&lt;div ng-controller=&quot;myController&quot;&gt;</div><div class="line">    &lt;div&gt;父scope：</div><div class="line">        &lt;div&gt;Say：&#123;&#123;user.name&#125;&#125;&lt;br&gt;改变父scope的name：&lt;input type=&quot;text&quot; value=&quot;&quot; ng-model=&quot;user.name&quot;/&gt;&lt;/div&gt;</div><div class="line">    &lt;/div&gt;</div><div class="line">    &lt;div&gt;隔离scope：</div><div class="line">        &lt;div isolated-directive user=&quot;user&quot;&gt;&lt;/div&gt;</div><div class="line">    &lt;/div&gt;</div><div class="line">    &lt;div&gt;隔离scope（使用&#123;&#123;name&#125;&#125;）：</div><div class="line">        &lt;div isolated-directive user=&quot;&#123;&#123;user&#125;&#125;&quot;&gt;&lt;/div&gt;</div><div class="line">    &lt;/div&gt;</div><div class="line">&lt;/div&gt;</div></pre></td></tr></table></figure></p>
-<h3 id="amp"><a href="#amp" class="headerlink" title="&amp;"></a>&amp;</h3><p>&amp; 用来绑定函数，在directive中调用父域中的函数</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line"> app.controller(&quot;myController&quot;, function ($scope) &#123;</div><div class="line">        $scope.value = &quot;hello world&quot;;</div><div class="line">        $scope.click = function () &#123;</div><div class="line">            $scope.value = Math.random();</div><div class="line">        &#125;;</div><div class="line">    &#125;).directive(&quot;isolatedDirective&quot;, function () &#123;</div><div class="line">        return &#123;</div><div class="line">            scope: &#123;</div><div class="line">                action: &quot;&amp;&quot;</div><div class="line">            &#125;,</div><div class="line">            template: &apos;&lt;input type=&quot;button&quot; value=&quot;在directive中执行父scope定义的方法&quot; ng-click=&quot;action()&quot;/&gt;&apos;</div><div class="line">        &#125;</div><div class="line">    &#125;)</div><div class="line">    </div><div class="line">    </div><div class="line">    &lt;div  ng-controller=&quot;myController&quot;&gt;</div><div class="line">        &lt;div&gt;父scope：</div><div class="line">            &lt;div&gt;Say：&#123;&#123;value&#125;&#125;&lt;/div&gt;</div><div class="line">        &lt;/div&gt;</div><div class="line">        &lt;div&gt;隔离scope：</div><div class="line">            &lt;div isolated-directive action=&quot;click()&quot;&gt;&lt;/div&gt;</div><div class="line">        &lt;/div&gt;</div><div class="line">&lt;/div&gt;</div></pre></td></tr></table></figure>
-<p>参考： <a href="https://blog.coding.net/blog/angularjs-directive-isolate-scope?type=early" target="_blank" rel="external">https://blog.coding.net/blog/angularjs-directive-isolate-scope?type=early</a></p>
-<h2 id="transclude"><a href="#transclude" class="headerlink" title="transclude"></a>transclude</h2><p>类似于VUE的slot,但不如slot的灵活强，更倾向于定制插入，在固定位置插入</p>
-<h3 id="单点嵌入"><a href="#单点嵌入" class="headerlink" title="单点嵌入"></a>单点嵌入</h3><p>设置属性 transclude:true</p>
-<p>在模板中将 &lt;ng-transclude&gt;&lt;/ng-transclude&gt;放到要插入的位置</p>
-<p>应用时&lt;my-labe&gt;&lt;span&gt;1233&lt;/span&gt;&lt;/my-label&gt;;</p>
-<p>&lt;span&gt;1233&lt;/span&gt; 会自动插入&lt;ng-transclude&gt;&lt;/ng-transclude&gt;之间</p>
-<h3 id="多点嵌入"><a href="#多点嵌入" class="headerlink" title="多点嵌入"></a>多点嵌入</h3><p>设置属性 transclude ：{模板中flag:页面应用时标签名的驼峰式，}</p>
-<p>在模板中制定位置放置flag :&lt;div  ng-transclude=”flag”&gt;&lt;/div&gt;</p>
-<p>应用时 &lt;my-label&gt;&lt;my-title&gt;123&lt;/my-title&gt;&lt;/my-label&gt;</p>
-<p>123 会自动插入&lt;div  ng-transclude=”flag”&gt;&lt;/div&gt;之间</p>
-<p>参考：<a href="https://segmentfault.com/a/1190000004586636" target="_blank" rel="external">https://segmentfault.com/a/1190000004586636</a></p>
-<h3 id="scope绑定"><a href="#scope绑定" class="headerlink" title="scope绑定"></a>scope绑定</h3><p>使用transcludeFn给transclude进来的Dom手动制定scope,</p>
-<p>transcludeFn可来自compile，link的参数，或者controller的注入<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line">.directive(&quot;todo&quot;, function()&#123;</div><div class="line"></div><div class="line">    return &#123;</div><div class="line">        restrict:&quot;E&quot;,</div><div class="line">        transclude:&quot;true&quot;,</div><div class="line">        template:&quot;&lt;header&gt;&#123;&#123;header&#125;&#125;&lt;/header&gt;&lt;div&gt;&lt;span&gt;这里是自定义区域&lt;/span&gt;&lt;content-transclude&gt;&lt;/content-transclude&gt;&lt;/div&gt;&quot;</div><div class="line">        scope:&#123;</div><div class="line">            header:&quot;@&quot;</div><div class="line">        &#125;,</div><div class="line">        controller:[&quot;$transclude&quot;,function(transcludeFn)&#123;</div><div class="line">            this.transcludeFn = transcludeFn;</div><div class="line">        &#125;]</div><div class="line">    &#125;;</div><div class="line">&#125;)</div><div class="line"></div><div class="line">.directive(&quot;contentTransclude&quot;,funtion()&#123;</div><div class="line">    return &#123;</div><div class="line">        restrict:&quot;E&quot;,</div><div class="line">        require:&quot;^todo&quot;,</div><div class="line">        link:function(scope,element,attr,todoController)&#123;</div><div class="line">            todoController.transcludeFn(scope.$parent, function(transcludeContent)&#123;</div><div class="line">                element.append(transcludeContent);</div><div class="line">            &#125;);</div><div class="line">        &#125;</div><div class="line">    &#125;;</div><div class="line">&#125;)</div></pre></td></tr></table></figure></p>
-<p>参考：<a href="https://blog.csdn.net/shut1k/article/details/49848637" target="_blank" rel="external">https://blog.csdn.net/shut1k/article/details/49848637</a></p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;lin
-    
-    </summary>
-    
-    
-      <category term="js" scheme="http://yoohannah.github.io/tags/js/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>阿里云服务器使用</title>
-    <link href="http://yoohannah.github.io/post/knowledge/aliyun.html"/>
-    <id>http://yoohannah.github.io/post/knowledge/aliyun.html</id>
-    <published>2018-05-01T13:42:37.000Z</published>
-    <updated>2018-05-01T13:42:17.739Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="购买云服务器"><a href="#购买云服务器" class="headerlink" title="购买云服务器"></a>购买云服务器</h2><p>按照网站指引，配置服务器相关参数，提交订单，付钱</p>
-<p>需要注意的是镜像就是将来在服务上安装的操作系统<br>如果这里选错，稍后还可以更换</p>
-<h2 id="更换镜像"><a href="#更换镜像" class="headerlink" title="更换镜像"></a>更换镜像</h2><p>相当于更换操作系统<br><a href="https://help.aliyun.com/document_detail/25436.html?spm=a2c4g.11186623.4.1.mKmERm" target="_blank" rel="external">更换操作系统</a><br><a href="https://help.aliyun.com/document_detail/50134.html?spm=a2c4g.11186623.6.672.mQB0bF" target="_blank" rel="external">更换系统盘(公共镜像)</a></p>
-<h2 id="部署阿里云"><a href="#部署阿里云" class="headerlink" title="部署阿里云"></a>部署阿里云</h2><p>在云端服务器搭建nodejs开发环境<br><a href="https://help.aliyun.com/document_detail/25425.html?spm=a2c4g.11186623.2.5.Hiallm" target="_blank" rel="external">远程连接ECS实例</a><br><a href="https://help.aliyun.com/document_detail/25426.html?spm=a2c4g.11186623.6.598.RIGXvB" target="_blank" rel="external">分盘</a><br><a href="https://help.aliyun.com/document_detail/50775.html?spm=a2c4g.11186623.6.758.RZeQeh" target="_blank" rel="external">部署Node.js项目（CentOS）</a><br><a href="https://blog.csdn.net/u014066037/article/details/70224780" target="_blank" rel="external">安装git(仅供参考)</a></p>
-<h2 id="部署自己的项目"><a href="#部署自己的项目" class="headerlink" title="部署自己的项目"></a>部署自己的项目</h2><p>安装好开发环境后就可以像在本地运行项目一样克隆项目运行项目</p>
-<h2 id="域名备案"><a href="#域名备案" class="headerlink" title="域名备案"></a>域名备案</h2><p>我们在购买域名后，还要对域名进行备案<br><a href="https://beian.aliyun.com/order/index?spm=5176.8087400.600752.3.389615c9UqjZyz" target="_blank" rel="external">域名备案系统</a><br>按照流程进行备案即可</p>
-<h2 id="http转https"><a href="#http转https" class="headerlink" title="http转https"></a>http转https</h2><p><a href="https://dc.console.aliyun.com/next/index#/domain/list/all-domain" target="_blank" rel="external">域名控制台</a></p>
-<p>我们需要购买云盾证书服务<br><a href="https://common-buy.aliyun.com/?spm=5176.7968328.911106.btn1.2f194ebfXX6t9Q&amp;commodityCode=cas#/buy" target="_blank" rel="external">购买页面</a><br>在专业版OV SSL下选择品牌Symantec,<br>然后保护类型选择1个域名<br>会发现证书类型出现‘免费型DV SSL’,选择这个就可以买到免费证书</p>
-<p>购买后根据申请流程填写资料等待流程走完就可以拿到证书<br>注意1.购买的域名在云解析DNS服务中又绑定，DNS会自动生成映射，2.选择系统生成CSR</p>
-<p>拿到证书后<br>在<a href="https://yundun.console.aliyun.com/?spm=5176.2020520163.aliyun_sidebar.19.22cf2b7auXL2bL&amp;p=cas#/cas/home" target="_blank" rel="external">CA证书管理页面</a>可以下载到xxxxx.key,xxxx.pem文件</p>
-<p>因为我这里用nodejs搭建服务器，所以只需将文件放入项目，修改项目文件为<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">const Koa = require(&apos;koa&apos;);</div><div class="line">const fs = require(&apos;fs&apos;);</div><div class="line">const https = require(&apos;https&apos;);</div><div class="line">const http = require(&apos;http&apos;);</div><div class="line">var enforceHttps = require(&apos;koa-sslify&apos;);</div><div class="line"></div><div class="line">const app = new Koa();</div><div class="line"></div><div class="line">//将http请求强制转换成https请求</div><div class="line">app.use(enforceHttps());</div><div class="line"></div><div class="line">var options = &#123;</div><div class="line">    key: fs.readFileSync(&apos;./ssl/214645895910665.key&apos;),</div><div class="line">    cert: fs.readFileSync(&apos;./ssl/214645895910665.pem&apos;)</div><div class="line">&#125;;</div><div class="line"></div><div class="line">http.createServer(app.callback()).listen(80);</div><div class="line">https.createServer(options, app.callback()).listen(443);</div><div class="line">console.log(&apos;server is running....&apos;);</div></pre></td></tr></table></figure></p>
-<p>还要注意安全组有没有设置放行https的443端口<br>进入云服务器控制台<br>网络和安全下安全组, 点击配置规则, 进入规则列表<br>如果没有443端口，则点击添加安全组规则，端口设置为443即可</p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;h2 id=&quot;购买云服务器&quot;&gt;&lt;a href=&quot;#购买云服务器&quot; class=&quot;headerlink&quot; title=&quot;购买云服务器&quot;&gt;&lt;/a&gt;购买云服务器&lt;/h2&gt;&lt;p&gt;按照网站指引，配置服务器相关参数，提交订单，付钱&lt;/p&gt;
-&lt;p&gt;需要注意的是镜像就是将来在服务上安装的操作系
     
     </summary>
     

@@ -94,7 +94,7 @@
 <meta property="og:site_name" content="My Little World">
 <meta property="og:description" content="ajaxajax全称Asynchronous JavaScript and XML（异步的JavaScript与XML），是网页无需刷新页面、使用js与服务器进行交互的一种技术。 ajax的基本流程可以概括为：页面上js脚本实例化一个XMLHttpRequest对象，设置好服务器端的url、必要的查询参数、回调函数之后，向服务器发出请求，服务器在处理请求之后将处理结果返回给页面，触发事先绑定的回调">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-08-19T02:05:13.871Z">
+<meta property="og:updated_time" content="2018-12-16T04:02:09.185Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Ajax和跨域">
 <meta name="twitter:description" content="ajaxajax全称Asynchronous JavaScript and XML（异步的JavaScript与XML），是网页无需刷新页面、使用js与服务器进行交互的一种技术。 ajax的基本流程可以概括为：页面上js脚本实例化一个XMLHttpRequest对象，设置好服务器端的url、必要的查询参数、回调函数之后，向服务器发出请求，服务器在处理请求之后将处理结果返回给页面，触发事先绑定的回调">
@@ -340,6 +340,7 @@
 <p>XMLHttpRequest在发送请求的时候，有两种方式：同步与异步。<br>同步方式是请求发出后，一直到收到服务器返回的数据为止，浏览器进程被阻塞，页面上什么事也做不了。<br>而异步方式则不会阻塞浏览器进程，在服务端返回数据并触发回调函数之前，用户依然可以在该页面上进行其他操作。<br>ajax的核心是异步方式，而同步方式只有在极其特殊的情况下才会被用到。</p>
 <p>XMLHttpRequest 对象是一个接口，用于创建一个http请求对象实例,打开一个URL，然后发送这个请求,<br>当传输完毕后，结果的HTTP状态以及返回的响应内容也可以从请求对象中获取<br>五种状态<br>0：未打开<br>1：未发送<br>2：以获取响应头<br>3：正在下载响应体<br>4：请求完成<br><a href="https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest" target="_blank" rel="external">XMLHttpRequest API</a></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div></pre></td><td class="code"><pre><div class="line">const xhr = new XMLHttpRequest()</div><div class="line"></div><div class="line">xhr.onreadystatechange = function () &#123;</div><div class="line">  switch (xhr.readyState) &#123;</div><div class="line">    case 0:</div><div class="line">      // UNSENT (未打开)</div><div class="line">      debugger</div><div class="line">      break</div><div class="line">    case 1:</div><div class="line">      // OPENED  (未发送)</div><div class="line">      debugger</div><div class="line">      break</div><div class="line">    case 2:</div><div class="line">      // HEADERS_RECEIVED (已获取响应头)</div><div class="line">      debugger</div><div class="line">      break</div><div class="line">    case 3:</div><div class="line">      // LOADING (正在下载响应体)</div><div class="line">      debugger</div><div class="line">      break</div><div class="line">    case 4:</div><div class="line">      // DONE (请求完成)</div><div class="line">      if (xhr.status === 200) &#123;</div><div class="line">        console.log(xhr.responseType)</div><div class="line">        console.log(xhr.responseText)</div><div class="line">        console.log(xhr.response)</div><div class="line">      &#125;</div><div class="line">      break</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">xhr.open(&apos;GET&apos;, &apos;http://y.com:7001/json&apos;, true)</div><div class="line">xhr.send(null)</div></pre></td></tr></table></figure>
+<p>使用ajax 封装POST,GET请求<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div></pre></td><td class="code"><pre><div class="line">function Ajax(method,url,callback,data,async)&#123;</div><div class="line">  method = method.toUpperCase()</div><div class="line">  async = async || true</div><div class="line">  let xmlHttp = null;</div><div class="line">  if (XMLHttpRequest) &#123;</div><div class="line">      xmlHttp = new XMLHttpRequest();//服务器请求对象</div><div class="line">  &#125;</div><div class="line">  else &#123;</div><div class="line">      xmlHttp = new ActiveXObject(&apos;Microsoft.XMLHTTP&apos;);//兼容微软请求对象</div><div class="line">  &#125;</div><div class="line">  let params = [];</div><div class="line">  for (var key in data)&#123;</div><div class="line">      params.push(key + &apos;=&apos; + opt.data[key]);</div><div class="line">  &#125;</div><div class="line">  params = params.join(&apos;&amp;&apos;);</div><div class="line">  if (method === &apos;POST&apos;) &#123;//请求方法为POST,则执行如下操作</div><div class="line">    xmlHttp.open(method, url, async);</div><div class="line">    xmlHttp.setRequestHeader(&apos;Content-Type&apos;, &apos;application/x-www-form-urlencoded;charset=utf-8&apos;);</div><div class="line">    xmlHttp.send(params);</div><div class="line">  &#125;</div><div class="line">  else if (method === &apos;GET&apos;) &#123;//请求方法为GET,则执行如下操作</div><div class="line">    xmlHttp.open(opt.method, opt.url + &apos;?&apos; + params, async);</div><div class="line">    xmlHttp.send(null);</div><div class="line">  &#125; </div><div class="line">  xmlHttp.onreadystatechange = function () &#123;</div><div class="line">    if (xmlHttp.readyState == 4 &amp;&amp; xmlHttp.status == 200) &#123;//响应是否成功</div><div class="line">      var data = JSON.parse(xmlHttp.responseText);</div><div class="line">      callback(data);</div><div class="line">    &#125;else&#123;</div><div class="line">      throw  xmlHttp.responseText</div><div class="line">    &#125;</div><div class="line">  &#125;;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
 <h1 id="同源策略"><a href="#同源策略" class="headerlink" title="同源策略"></a>同源策略</h1><p>为了保证用户信息的安全，防止恶意的网站窃取数据<br>解决办法：同源策略<br>同源策略是指三个相同：协议相同,域名相同,端口相同<br>以上三个不相同则是非同源，非同源之间相互访问即跨域访问</p>
 <p>跨域和ip没有关系</p>
 <h1 id="跨域"><a href="#跨域" class="headerlink" title="跨域"></a>跨域</h1><p>浏览器在阻止跨域,阻止方式可能是在一开始就限制了发起跨站的请求，也可能是跨站请求可以正常发起，但返回结果被浏览器拦截了</p>
@@ -397,8 +398,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/post/knowledge/Karmatest.html" rel="next" title="Karma test">
-                <i class="fa fa-chevron-left"></i> Karma test
+              <a href="/post/knowledge/assert.html" rel="next" title="断言语句assert">
+                <i class="fa fa-chevron-left"></i> 断言语句assert
               </a>
             
           </div>
@@ -407,7 +408,7 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/post/knowledge/obj.html" rel="prev" title="对象构造和继承">
+              <a href="/post/js/obj.html" rel="prev" title="对象构造和继承">
                 对象构造和继承 <i class="fa fa-chevron-right"></i>
               </a>
             
@@ -477,7 +478,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">143</span>
+              <span class="site-state-item-count">145</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>

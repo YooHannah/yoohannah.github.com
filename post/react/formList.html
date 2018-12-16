@@ -86,18 +86,18 @@
 
 
 
-<meta name="description" content="表单功能点 初始数据，提交和跳转表单各项配置的优化，可以通过对UI框架的API进行封装成高阶组件，然后在使用时，通过配置高阶组件的属性，将需要的配置项传递给UI框架API，减少代码冗余，配置清晰  提交后状态通过中间件返回promise判断接下来操作 2.错误处理（可依靠UI框架进行判断）动态表单元素（在传入高阶组件属性时采用函数返回值形式动态加载表单元素，在函数中处理要不要显示表单元素）内容动态">
+<meta name="description" content="表单功能点 初始数据，提交和跳转  表单各项配置的优化，可以通过对UI框架的API进行封装成高阶组件，然后在使用时，通过配置高阶组件的属性，将需要的配置项传递给UI框架API，减少代码冗余，配置清晰 提交后状态通过中间件返回promise判断接下来操作 2.错误处理（可依靠UI框架进行判断）动态表单元素（在传入高阶组件属性时采用函数返回值形式动态加载表单元素，在函数中处理要不要显示表单元素）内容动">
 <meta name="keywords" content="html">
 <meta property="og:type" content="article">
 <meta property="og:title" content="表单 &amp; 列表">
 <meta property="og:url" content="http://yoohannah.github.io/post/react/formList.html">
 <meta property="og:site_name" content="My Little World">
-<meta property="og:description" content="表单功能点 初始数据，提交和跳转表单各项配置的优化，可以通过对UI框架的API进行封装成高阶组件，然后在使用时，通过配置高阶组件的属性，将需要的配置项传递给UI框架API，减少代码冗余，配置清晰  提交后状态通过中间件返回promise判断接下来操作 2.错误处理（可依靠UI框架进行判断）动态表单元素（在传入高阶组件属性时采用函数返回值形式动态加载表单元素，在函数中处理要不要显示表单元素）内容动态">
+<meta property="og:description" content="表单功能点 初始数据，提交和跳转  表单各项配置的优化，可以通过对UI框架的API进行封装成高阶组件，然后在使用时，通过配置高阶组件的属性，将需要的配置项传递给UI框架API，减少代码冗余，配置清晰 提交后状态通过中间件返回promise判断接下来操作 2.错误处理（可依靠UI框架进行判断）动态表单元素（在传入高阶组件属性时采用函数返回值形式动态加载表单元素，在函数中处理要不要显示表单元素）内容动">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-12-04T13:18:21.151Z">
+<meta property="og:updated_time" content="2018-12-08T01:28:41.317Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="表单 &amp; 列表">
-<meta name="twitter:description" content="表单功能点 初始数据，提交和跳转表单各项配置的优化，可以通过对UI框架的API进行封装成高阶组件，然后在使用时，通过配置高阶组件的属性，将需要的配置项传递给UI框架API，减少代码冗余，配置清晰  提交后状态通过中间件返回promise判断接下来操作 2.错误处理（可依靠UI框架进行判断）动态表单元素（在传入高阶组件属性时采用函数返回值形式动态加载表单元素，在函数中处理要不要显示表单元素）内容动态">
+<meta name="twitter:description" content="表单功能点 初始数据，提交和跳转  表单各项配置的优化，可以通过对UI框架的API进行封装成高阶组件，然后在使用时，通过配置高阶组件的属性，将需要的配置项传递给UI框架API，减少代码冗余，配置清晰 提交后状态通过中间件返回promise判断接下来操作 2.错误处理（可依靠UI框架进行判断）动态表单元素（在传入高阶组件属性时采用函数返回值形式动态加载表单元素，在函数中处理要不要显示表单元素）内容动">
 
 
 
@@ -336,8 +336,9 @@
 
       
         <h1 id="表单功能点"><a href="#表单功能点" class="headerlink" title="表单功能点"></a>表单功能点</h1><ol>
-<li>初始数据，提交和跳转<br>表单各项配置的优化，可以通过对UI框架的API进行封装成高阶组件，然后在使用时，通过配置高阶组件的属性，将需要的配置项传递给UI框架API，减少代码冗余，配置清晰</li>
+<li>初始数据，提交和跳转</li>
 </ol>
+<p>表单各项配置的优化，可以通过对UI框架的API进行封装成高阶组件，然后在使用时，通过配置高阶组件的属性，将需要的配置项传递给UI框架API，减少代码冗余，配置清晰</p>
 <p>提交后状态通过中间件返回promise判断接下来操作</p>
 <p>2.<br>错误处理（可依靠UI框架进行判断）<br>动态表单元素（在传入高阶组件属性时采用函数返回值形式动态加载表单元素，在函数中处理要不要显示表单元素）<br>内容动态加载（在componentDidMount中进行数据请求，以及初始状态处理）</p>
 <h1 id="列表页功能点"><a href="#列表页功能点" class="headerlink" title="列表页功能点"></a>列表页功能点</h1><h2 id="搜索，数据缓存和分页"><a href="#搜索，数据缓存和分页" class="headerlink" title="搜索，数据缓存和分页"></a>搜索，数据缓存和分页</h2><p>开发列表也要考虑的技术要点<br>1.如何翻页 (数据来自服务器还是客户端缓存)<br>2.如何进行内容搜索 （当前页面数据搜索还是服务器端数据搜索）<br>3.如何缓存数据<br>4.何时进行页面刷新</p>
@@ -400,8 +401,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/post/react/rekit.html" rel="next" title="Rekit">
-                <i class="fa fa-chevron-left"></i> Rekit
+              <a href="/post/react/redux.html" rel="next" title="Redux">
+                <i class="fa fa-chevron-left"></i> Redux
               </a>
             
           </div>
@@ -410,8 +411,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/post/react/layout.html" rel="prev" title="布局">
-                布局 <i class="fa fa-chevron-right"></i>
+              <a href="/post/react/rekit.html" rel="prev" title="Rekit">
+                Rekit <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -480,7 +481,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">143</span>
+              <span class="site-state-item-count">145</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
