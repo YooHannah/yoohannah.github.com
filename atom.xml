@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoohannah.github.io/"/>
-  <updated>2018-12-16T02:59:06.676Z</updated>
+  <updated>2018-12-16T02:56:16.391Z</updated>
   <id>http://yoohannah.github.io/</id>
   
   <author>
@@ -17,10 +17,10 @@
   
   <entry>
     <title>js 知识点 一</title>
-    <link href="http://yoohannah.github.io/post/designMode/js1.html"/>
-    <id>http://yoohannah.github.io/post/designMode/js1.html</id>
+    <link href="http://yoohannah.github.io/post/js/js1.html"/>
+    <id>http://yoohannah.github.io/post/js/js1.html</id>
     <published>2018-12-08T01:29:37.000Z</published>
-    <updated>2018-12-16T02:59:06.676Z</updated>
+    <updated>2018-12-16T02:56:16.391Z</updated>
     
     <content type="html"><![CDATA[<h1 id="1-lt-script-gt-标签几个属性"><a href="#1-lt-script-gt-标签几个属性" class="headerlink" title="1.&lt; script &gt; 标签几个属性"></a>1.&lt; script &gt; 标签几个属性</h1><p><b>async :</b>立即异步下载，因此不保证能够按指定的先后顺序执行，但会在load事件前，DOMContentLoad前后执行<br><b>defer :</b>延迟执行，也不保证按顺序执行，在DOMContentLoad前后执行<br><b>src :</b>外部文件链接<br><b>charset :</b>src指定代码的字符集，防止出现乱码<br><b>language :</b>已废弃，表示脚本语言，<br><b>type :</b>值为脚本语言内容类型（MIME），language替代属性，服务器传递过来类型为application/x-javascript需要注意，一个是可能导致脚本被忽略，另一个是可能触发浏览器XHTML标准模式；另外外链文件不是js文件时，一定要设置该值</p>
 <h1 id="2-js-代码执行过程"><a href="#2-js-代码执行过程" class="headerlink" title="2.js 代码执行过程"></a>2.js 代码执行过程</h1><p>包括两个部分一个是编译，或者叫预处理过程，一个是执行<br>编译过程 首先会创建一个全局作用域，然后进行词法分析，<br>词法分析过程会涉及到变量提升和函数声明提前处理，<br>即词法分析到变量声明会先判断当前域到全局域有没有该变量声明，如果有，就会将该变量挂到该作用域的对象上，<br>如果到全局域都没有则以全局为背景，新建该变量，并为其分配内存，<br>对于基本类型，变量中会保存它的值，对于对象，变量中会保存值所在内存的内存地址，<br>在一定场景下，这里就相当于发生了变量提升，把变量从局部提升到了全局，或者将声明提前到了使用之前，<br><b>避免变量提升</b>可以使用es6的let 关键字或者使用立即执行实现变量声明使用，但要注意使用let重复声明会报错，var 会同名覆盖；<br>当遇到函数声明时，会直接按声明顺序，将声明提前到代码顶端，<br><b>重复声明</b> 的函数会被后者覆盖，<br>如果变量名与函数名相同，则无论原来词法位置如何，先将函数声明提前到顶端，不再进行变量声明，变量名在哪赋值，则原函数在哪被覆盖，<br>覆盖之前调用使用原函数<br>提前之后会为函数创建作用域，<br>这时创建的作用域就是函数的 【【scope】】属性，保存着指向父域到全局域的指针<br>（指针就是指向活动对象的一个地址，全局域浏览器环境就是windows,nodejs环境就是global）<br>将来执行时会根据此指针建立作用域链，作用域链就是指针列表，指向不同层级作用域的内存，在里面取值<br>以上就基本上是编译过程，除了一些特定的编译规则，编译过程还会会使用大量技巧进行优化提升编译速度<br>但在使用js时，需要注意try-catch,with和eval三个语法关键字的使用，因为在使用它们时，会创建块级作用域，<br>破坏掉编译器原有的创建管理作用域的规则，在编译时，编译器也就不会对其中的代码进行优化，最终导致性能变差</p>
@@ -98,10 +98,10 @@
   
   <entry>
     <title>js 知识点 一</title>
-    <link href="http://yoohannah.github.io/post/js/js1.html"/>
-    <id>http://yoohannah.github.io/post/js/js1.html</id>
+    <link href="http://yoohannah.github.io/post/designMode/js1.html"/>
+    <id>http://yoohannah.github.io/post/designMode/js1.html</id>
     <published>2018-12-08T01:29:37.000Z</published>
-    <updated>2018-12-16T02:56:16.391Z</updated>
+    <updated>2018-12-16T02:59:06.676Z</updated>
     
     <content type="html"><![CDATA[<h1 id="1-lt-script-gt-标签几个属性"><a href="#1-lt-script-gt-标签几个属性" class="headerlink" title="1.&lt; script &gt; 标签几个属性"></a>1.&lt; script &gt; 标签几个属性</h1><p><b>async :</b>立即异步下载，因此不保证能够按指定的先后顺序执行，但会在load事件前，DOMContentLoad前后执行<br><b>defer :</b>延迟执行，也不保证按顺序执行，在DOMContentLoad前后执行<br><b>src :</b>外部文件链接<br><b>charset :</b>src指定代码的字符集，防止出现乱码<br><b>language :</b>已废弃，表示脚本语言，<br><b>type :</b>值为脚本语言内容类型（MIME），language替代属性，服务器传递过来类型为application/x-javascript需要注意，一个是可能导致脚本被忽略，另一个是可能触发浏览器XHTML标准模式；另外外链文件不是js文件时，一定要设置该值</p>
 <h1 id="2-js-代码执行过程"><a href="#2-js-代码执行过程" class="headerlink" title="2.js 代码执行过程"></a>2.js 代码执行过程</h1><p>包括两个部分一个是编译，或者叫预处理过程，一个是执行<br>编译过程 首先会创建一个全局作用域，然后进行词法分析，<br>词法分析过程会涉及到变量提升和函数声明提前处理，<br>即词法分析到变量声明会先判断当前域到全局域有没有该变量声明，如果有，就会将该变量挂到该作用域的对象上，<br>如果到全局域都没有则以全局为背景，新建该变量，并为其分配内存，<br>对于基本类型，变量中会保存它的值，对于对象，变量中会保存值所在内存的内存地址，<br>在一定场景下，这里就相当于发生了变量提升，把变量从局部提升到了全局，或者将声明提前到了使用之前，<br><b>避免变量提升</b>可以使用es6的let 关键字或者使用立即执行实现变量声明使用，但要注意使用let重复声明会报错，var 会同名覆盖；<br>当遇到函数声明时，会直接按声明顺序，将声明提前到代码顶端，<br><b>重复声明</b> 的函数会被后者覆盖，<br>如果变量名与函数名相同，则无论原来词法位置如何，先将函数声明提前到顶端，不再进行变量声明，变量名在哪赋值，则原函数在哪被覆盖，<br>覆盖之前调用使用原函数<br>提前之后会为函数创建作用域，<br>这时创建的作用域就是函数的 【【scope】】属性，保存着指向父域到全局域的指针<br>（指针就是指向活动对象的一个地址，全局域浏览器环境就是windows,nodejs环境就是global）<br>将来执行时会根据此指针建立作用域链，作用域链就是指针列表，指向不同层级作用域的内存，在里面取值<br>以上就基本上是编译过程，除了一些特定的编译规则，编译过程还会会使用大量技巧进行优化提升编译速度<br>但在使用js时，需要注意try-catch,with和eval三个语法关键字的使用，因为在使用它们时，会创建块级作用域，<br>破坏掉编译器原有的创建管理作用域的规则，在编译时，编译器也就不会对其中的代码进行优化，最终导致性能变差</p>
@@ -254,59 +254,6 @@
   </entry>
   
   <entry>
-    <title>Rekit</title>
-    <link href="http://yoohannah.github.io/post/react/rekit.html"/>
-    <id>http://yoohannah.github.io/post/react/rekit.html</id>
-    <published>2018-12-04T13:12:37.000Z</published>
-    <updated>2018-12-04T13:19:31.031Z</updated>
-    
-    <content type="html"><![CDATA[<p>背景<br> 一个独立功能通常需要多个文件组成 （组件，reducer,action,路由等文件）<br> 代码模板很复杂 （reducer,action需要代码模板，实际上填写的逻辑只是一小部分）<br> 重构极为困难<br> （需要改动的地方很多）<br> 项目复杂后很难理解和维护（无法直观的看到他们之间的关系）</p>
-<h1 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h1><p>Rekit：更好的代码导航</p>
-<ol>
-<li>语义化的组织源代码文件 </li>
-<li>使用子 Tab来展示项目元素的各个部分 </li>
-<li>直观的显示和导航某个功能的所有依赖</li>
-</ol>
-<p>Rekit： 一键生成项目元素（它是一个IDE）</p>
-<ol>
-<li>直观的 UI 用于生成组件，action,reducer 等 </li>
-<li>模板代码遵循最佳实践（只需填入具体逻辑）</li>
-<li>支持命令行方式创建项目元素</li>
-</ol>
-<p>Rekit： 重构非常容易</p>
-<ol>
-<li>右键菜单重命名或者删除某个项目元素 </li>
-<li>所有相关代码都会一次性重构从而保证一致性 </li>
-<li>详细的 log信息显示重构的完整修改</li>
-</ol>
-<p>Rekit： 可视化的项目架构</p>
-<ol>
-<li>项目总体架构的可视化图表 </li>
-<li>项目依赖关系的图表</li>
-</ol>
-<p>Rekit 是如何工作的？</p>
-<ol>
-<li>定义了基于feature 的可扩展文件夹结构（文件夹结构有一定规则，可以进行解析）</li>
-<li>基于最佳实践生成代码和管理项目元素 </li>
-<li>提供工具和 IDE 确保代码和文件夹结构遵循最佳实践<br>（减少工作量）</li>
-</ol>
-<h1 id="遵循最佳实践"><a href="#遵循最佳实践" class="headerlink" title="遵循最佳实践"></a>遵循最佳实践</h1><p>1.以 feature 方式组织代码 （功能如果是必须的就放在已有模块底层实现，如果是原有功能增强的实现，则新拆分成功能模块）<br>2.拆分组件,action 和 reducer<br>3.拆分路由配置</p>
-<p>通过代码自动生成保持一致性<br>1.文件夹结构一致性<br>2.文件名一致性<br>3.变量名一致性<br>4.代码逻辑的一致性</p>
-<h1 id="使用-React-Router-管理路由授权"><a href="#使用-React-Router-管理路由授权" class="headerlink" title="使用 React Router 管理路由授权"></a>使用 React Router 管理路由授权</h1><p>1.实现基础:React Router 的动态路由机制 （<br> 不采用各个页面判断是否登录再redirect的方式跳转，路由配置（添加属性，那些可以在未登录下访问，或者哪些在未登录下不能访问）时就去动态监测当前用户是否登录，如果登录则全部路由生效；反之某些路由配置就不生效===&gt;不生效处理，在解析router JSON数据时根据store中登录状态和路由配置的属性判断,未登录则跳转403，其子路由清空<br>）<br>2.区分受保护路由和公开路由<br>3.访问未授权路由时重定向到登录页面 </p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;背景&lt;br&gt; 一个独立功能通常需要多个文件组成 （组件，reducer,action,路由等文件）&lt;br&gt; 代码模板很复杂 （reducer,action需要代码模板，实际上填写的逻辑只是一小部分）&lt;br&gt; 重构极为困难&lt;br&gt; （需要改动的地方很多）&lt;br&gt; 项目复杂后很
-    
-    </summary>
-    
-    
-      <category term="html" scheme="http://yoohannah.github.io/tags/html/"/>
-    
-  </entry>
-  
-  <entry>
     <title>表单 &amp; 列表</title>
     <link href="http://yoohannah.github.io/post/react/formList.html"/>
     <id>http://yoohannah.github.io/post/react/formList.html</id>
@@ -355,6 +302,59 @@
 &lt;li&gt;初始数据，提交和跳转&lt;/li&gt;
 &lt;/ol&gt;
 &lt;p&gt;表单各项配置的优化，可以通过对UI框架的API进行封装
+    
+    </summary>
+    
+    
+      <category term="html" scheme="http://yoohannah.github.io/tags/html/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Rekit</title>
+    <link href="http://yoohannah.github.io/post/react/rekit.html"/>
+    <id>http://yoohannah.github.io/post/react/rekit.html</id>
+    <published>2018-12-04T13:12:37.000Z</published>
+    <updated>2018-12-04T13:19:31.031Z</updated>
+    
+    <content type="html"><![CDATA[<p>背景<br> 一个独立功能通常需要多个文件组成 （组件，reducer,action,路由等文件）<br> 代码模板很复杂 （reducer,action需要代码模板，实际上填写的逻辑只是一小部分）<br> 重构极为困难<br> （需要改动的地方很多）<br> 项目复杂后很难理解和维护（无法直观的看到他们之间的关系）</p>
+<h1 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h1><p>Rekit：更好的代码导航</p>
+<ol>
+<li>语义化的组织源代码文件 </li>
+<li>使用子 Tab来展示项目元素的各个部分 </li>
+<li>直观的显示和导航某个功能的所有依赖</li>
+</ol>
+<p>Rekit： 一键生成项目元素（它是一个IDE）</p>
+<ol>
+<li>直观的 UI 用于生成组件，action,reducer 等 </li>
+<li>模板代码遵循最佳实践（只需填入具体逻辑）</li>
+<li>支持命令行方式创建项目元素</li>
+</ol>
+<p>Rekit： 重构非常容易</p>
+<ol>
+<li>右键菜单重命名或者删除某个项目元素 </li>
+<li>所有相关代码都会一次性重构从而保证一致性 </li>
+<li>详细的 log信息显示重构的完整修改</li>
+</ol>
+<p>Rekit： 可视化的项目架构</p>
+<ol>
+<li>项目总体架构的可视化图表 </li>
+<li>项目依赖关系的图表</li>
+</ol>
+<p>Rekit 是如何工作的？</p>
+<ol>
+<li>定义了基于feature 的可扩展文件夹结构（文件夹结构有一定规则，可以进行解析）</li>
+<li>基于最佳实践生成代码和管理项目元素 </li>
+<li>提供工具和 IDE 确保代码和文件夹结构遵循最佳实践<br>（减少工作量）</li>
+</ol>
+<h1 id="遵循最佳实践"><a href="#遵循最佳实践" class="headerlink" title="遵循最佳实践"></a>遵循最佳实践</h1><p>1.以 feature 方式组织代码 （功能如果是必须的就放在已有模块底层实现，如果是原有功能增强的实现，则新拆分成功能模块）<br>2.拆分组件,action 和 reducer<br>3.拆分路由配置</p>
+<p>通过代码自动生成保持一致性<br>1.文件夹结构一致性<br>2.文件名一致性<br>3.变量名一致性<br>4.代码逻辑的一致性</p>
+<h1 id="使用-React-Router-管理路由授权"><a href="#使用-React-Router-管理路由授权" class="headerlink" title="使用 React Router 管理路由授权"></a>使用 React Router 管理路由授权</h1><p>1.实现基础:React Router 的动态路由机制 （<br> 不采用各个页面判断是否登录再redirect的方式跳转，路由配置（添加属性，那些可以在未登录下访问，或者哪些在未登录下不能访问）时就去动态监测当前用户是否登录，如果登录则全部路由生效；反之某些路由配置就不生效===&gt;不生效处理，在解析router JSON数据时根据store中登录状态和路由配置的属性判断,未登录则跳转403，其子路由清空<br>）<br>2.区分受保护路由和公开路由<br>3.访问未授权路由时重定向到登录页面 </p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;背景&lt;br&gt; 一个独立功能通常需要多个文件组成 （组件，reducer,action,路由等文件）&lt;br&gt; 代码模板很复杂 （reducer,action需要代码模板，实际上填写的逻辑只是一小部分）&lt;br&gt; 重构极为困难&lt;br&gt; （需要改动的地方很多）&lt;br&gt; 项目复杂后很
     
     </summary>
     
