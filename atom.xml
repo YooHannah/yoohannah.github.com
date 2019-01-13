@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoohannah.github.io/"/>
-  <updated>2018-12-30T08:52:26.747Z</updated>
+  <updated>2019-01-13T06:18:17.084Z</updated>
   <id>http://yoohannah.github.io/</id>
   
   <author>
@@ -14,6 +14,57 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Slot复用</title>
+    <link href="http://yoohannah.github.io/post/vue/vueSlot.html"/>
+    <id>http://yoohannah.github.io/post/vue/vueSlot.html</id>
+    <published>2019-01-13T08:38:15.000Z</published>
+    <updated>2019-01-13T06:18:17.084Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h1><p>项目列表组件需要实现点击自动增加一行,可展示自定义内容的可扩展内容<br>列表table组件被应用在page组件，page组件被应用在具体业务页面，slot的具体内容在业务页面传递进去<br><img src="/image/tableextend1.png" alt="tableextend1"><br>问题难点<br>1.多层组件slot传递<br>2.同一个slot在table组件中循环使用在多处时，不会被渲染</p>
+<h1 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h1><p>1.slot 只能一层一层传递，所以解决多层传递，就是在page层应用table时，增加slot接收业务页面传递进来的slot具体内容<br>2.同名slot不能在同一组件被重复渲染，即不允许有重名slot<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">重名的 Slots 移除</div><div class="line">同一模板中的重名 &lt;slot&gt; 已经弃用。当一个 slot 已经被渲染过了，那么就不能在同一模板其它地方被再次渲染了。如果要在不同位置渲染同一内容，可一用 prop 来传递。</div></pre></td></tr></table></figure></p>
+<h1 id="回归问题"><a href="#回归问题" class="headerlink" title="回归问题"></a>回归问题</h1><h2 id="多层组件slot传递"><a href="#多层组件slot传递" class="headerlink" title="多层组件slot传递"></a>多层组件slot传递</h2><p>在page层使用table组件时将&lt;slot&gt;&lt;/slot&gt;放在table组件中，将slot内容当作table的slot传递给table<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div></pre></td><td class="code"><pre><div class="line">1.业务页面具体自定义内容传入</div><div class="line">&lt;PageComponent :pageConfig=&quot;pageConfig&quot; ref=&quot;child&quot;&gt;</div><div class="line">    &lt;div slot=&apos;tableExtend&apos;&gt;</div><div class="line">    &lt;extendTable :detailConfig=&quot;pageConfig.table.isExtend.detailConfig&quot;</div><div class="line">        v-if=&quot;pageConfig.table.isExtend.detailConfig[0].data.length&gt;0&quot;&gt;</div><div class="line">    &lt;/extendTable&gt;</div><div class="line">    &lt;div style=&quot;padding: 10px;&quot; v-if=&quot;pageConfig.table.isExtend.detailConfig[0].data.length === 0&quot;&gt;暂无数据&lt;/div&gt;</div><div class="line">    &lt;/div&gt;</div><div class="line">&lt;/PageComponent&gt;</div><div class="line"></div><div class="line">2.page组件table部分</div><div class="line">&lt;section class=&quot;page-table&quot;&gt;</div><div class="line">    &lt;tableTemp :table=&quot;pageConfig.table&quot; :pageConfig=&quot;pageConfig&quot; @sendIds=&quot;receiveIds&quot; ref=&quot;refTest&quot;&gt;</div><div class="line">        &lt;slot :name=&apos;pageConfig.table.isExtend.slot&apos; v-if=&quot;pageConfig.table.isExtend&quot;&gt;&lt;/slot&gt; //将slot放在这里</div><div class="line">    &lt;/tableTemp&gt;</div><div class="line">&lt;/section&gt;</div><div class="line">3.table部分</div><div class="line"> 利用template实现列表行和扩展行一对一</div><div class="line"> &lt;template v-for=&quot;(value,index) in table.tableData&quot;&gt; </div><div class="line">    &lt;tr :key=&quot;index&quot;&gt;</div><div class="line">        &lt;td v-for=&quot;(val,i) in table.tableEle&quot; v-if=&quot;val.display&quot; :key=&quot;i&quot;&gt;</div><div class="line">            &lt;div class=&quot;extendStyle&quot; v-if=&apos;table.isExtend &amp;&amp; i==firstShow&apos;&gt;</div><div class="line">                &lt;a v-show=&quot;index != currentActive&quot; @click=&quot;loadDetail(value,index)&quot;&gt;&lt;i class=&quot;ivu-icon ivu-icon-ios-arrow-forward&quot;&gt;&lt;/i&gt;&lt;/a&gt; //loadDetail去调父组件函数获取详情数据</div><div class="line">                &lt;a v-show=&quot;index === currentActive&quot; @click=&quot;loadDetail(value,index)&quot; class=&quot;active&quot;&gt;&lt;i class=&quot;ivu-icon ivu-icon-ios-arrow-forward&quot;&gt;&lt;/i&gt;&lt;/a&gt;</div><div class="line">            &lt;/div&gt;</div><div class="line">            &lt;div v-if=&apos;!table.isExtend&apos;&gt;</div><div class="line">            ...</div><div class="line">            &lt;/div&gt;</div><div class="line">        &lt;/td&gt;</div><div class="line">    &lt;/tr&gt;</div><div class="line">    //在组装行的时候增加备用扩展行，利用第三方变量控制扩展行显示隐藏</div><div class="line">    &lt;tr v-if=&quot;index === currentActive&quot; :key=&quot;index+0.5&quot; class=&apos;bgc&apos;&gt;  </div><div class="line">        &lt;td :colspan=&apos;tdNumber&apos; id=&apos;extend1&apos;&gt;//合并单元格</div><div class="line">            &lt;slot :name=&apos;table.isExtend.slot&apos;&gt;&lt;/slot&gt;//直接这样是不能渲染的，因为这样通过循环会出现多个同名slot</div><div class="line">        &lt;/td&gt;</div><div class="line">    &lt;/tr&gt;</div><div class="line">&lt;/template&gt; </div><div class="line">//去调父组件函数获取详情数据</div><div class="line">loadDetail(item, index) &#123;</div><div class="line">    this.currentActive = this.currentActive === index ? -1 : index</div><div class="line">    this.$store.commit(&apos;changeTableExtendActive&apos;,this.currentActive)</div><div class="line">    if(this.currentActive === -1)&#123;</div><div class="line">        return</div><div class="line">    &#125;</div><div class="line">    let func = this.pageConfig.table.isExtend.func</div><div class="line">    this.$parent.$parent[func](item,index)</div><div class="line">&#125;,</div></pre></td></tr></table></figure></p>
+<h2 id="slot重用"><a href="#slot重用" class="headerlink" title="slot重用"></a>slot重用</h2><h3 id="方法一-作用域插槽"><a href="#方法一-作用域插槽" class="headerlink" title="方法一 作用域插槽"></a>方法一 作用域插槽</h3><p>在子组件中将slot中用到的数据传递给slot标签的data属性,<br>父组件借助slot-scope属性,获取子组件中slot标签的data属性传递的数据<br>即可应用在slot模板中，另外slot模板中如果用到点击事件回调函数，可以直接在父组件中定义，直接调用</p>
+<p>注意slot-scope绑定的变量在使用时,子组件传递的实际值被包含在一个data属性中，所以需要通过slotscope.data.xxxxx去获取<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line">爷爷组件</div><div class="line">&lt;PageComponent :pageConfig=&quot;pageConfig&quot; ref=&quot;child&quot;&gt;</div><div class="line">    &lt;template slot-scope=&quot;isExtend&quot;&gt;</div><div class="line">        &lt;extendTable :detailConfig=&quot;isExtend.data.detailConfig&quot; //包含的data中</div><div class="line">            v-if=&quot;isExtend.data.detailConfig[0].data.length&gt;0&quot;&gt;</div><div class="line">        &lt;/extendTable&gt;</div><div class="line">        &lt;div style=&quot;padding: 10px;&quot; v-if=&quot;isExtend.data.detailConfig[0].data.length === 0&quot;&gt;暂无数据&lt;/div&gt;</div><div class="line">    &lt;/template&gt;</div><div class="line">&lt;/PageComponent&gt;</div><div class="line">父组件</div><div class="line">&lt;section class=&quot;page-table&quot;&gt;</div><div class="line">    &lt;tableTemp :table=&quot;pageConfig.table&quot; :pageConfig=&quot;pageConfig&quot; @sendIds=&quot;receiveIds&quot; ref=&quot;refTest&quot;&gt;</div><div class="line">        &lt;slot :data=&apos;pageConfig.table.isExtend&apos; v-if=&quot;pageConfig.table.isExtend&quot;&gt;&lt;/slot&gt;</div><div class="line">    &lt;/tableTemp&gt;</div><div class="line">&lt;/section&gt;</div><div class="line">子组件</div><div class="line">&lt;tr v-if=&quot;index === currentActive&quot; :key=&quot;index+0.5&quot; class=&apos;bgc&apos;&gt; </div><div class="line">    &lt;td :colspan=&apos;tdNumber&apos; id=&apos;extend1&apos;&gt;</div><div class="line">        &lt;slot :data=&apos;table.isExtend&apos;&gt;&lt;/slot&gt; //直接使用</div><div class="line">    &lt;/td&gt;</div><div class="line">&lt;/tr&gt;</div></pre></td></tr></table></figure></p>
+<h3 id="插曲"><a href="#插曲" class="headerlink" title="插曲"></a>插曲</h3><p>一个业务场景需要同时渲染多个table,即通过一次配置，可渲染多个table的组件，<br>一个同事将循环table的逻辑放在了table组件本身里面，造成table本身是一个可循环输出多个table的组件<br>这样如果一开始在爷爷组件放入多个具名slot,因为不能在子组件slot标签添加name属性（会循环出同名slot），<br>那所有的slot都会出现在每一个table组件中<br>因此有了方法二<br><img src="/image/tableextend2.png" alt="tableextend2"></p>
+<h3 id="方法二"><a href="#方法二" class="headerlink" title="方法二"></a>方法二</h3><p>利用page层传递slot到table组件思想，在table中使用slot时，将其包裹在一个新组件中，<br>利用新组件复用，实现slot组件复用，(相当于将slot传递到新组件——-&gt;待查原理)<br>而新组件通过render函数依据slot节点生成<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div></pre></td><td class="code"><pre><div class="line">子组件</div><div class="line"> &lt;tr v-if=&quot;(indexx+&apos;-&apos;+index) === currentActive&quot; :key=&quot;index+0.5&quot; class=&apos;bgc&apos;&gt;</div><div class="line">    &lt;td :colspan=&apos;itemConfig.config.length&apos;&gt;</div><div class="line">        &lt;!-- slot标签要放在tdslot标签充当slot,否则详情数据拉回来之后不会进行更新组件 --&gt;</div><div class="line">        &lt;tdSlot :name=&apos;itemConfig.isExtend.slot&apos;&gt; &lt;slot :name=&apos;itemConfig.isExtend.slot&apos;&gt;&lt;/slot&gt; &lt;/tdSlot&gt;</div><div class="line">        &lt;!-- tdslot在main.js中定义 --&gt;</div><div class="line">    &lt;/td&gt;</div><div class="line">&lt;/tr&gt;</div><div class="line">loadDetail(item, indexx, index) &#123;</div><div class="line">    this.currentActive = this.currentActive === indexx+&apos;-&apos;+index ? -1 : indexx+&apos;-&apos;+index //通过多层key判断展开</div><div class="line">    if(this.currentActive === -1)&#123;</div><div class="line">        return</div><div class="line">    &#125;</div><div class="line">    let func = this.detailConfig[indexx].isExtend.func</div><div class="line">    this.$parent.$parent[func](item,indexx, index)</div><div class="line">&#125;</div><div class="line">新组件带着slot生成</div><div class="line">Vue.component(&apos;tdSlot&apos;, &#123;</div><div class="line"></div><div class="line">  render(createElement) &#123;</div><div class="line">    function deepClone(vnodes, createElement) &#123;</div><div class="line">      function cloneVNode (vnode) &#123;对slot节点进行深度复制</div><div class="line">        const clonedChildren = vnode.children &amp;&amp; vnode.children.map(vnode =&gt; cloneVNode(vnode))</div><div class="line">        const cloned = createElement(vnode.tag, vnode.data, clonedChildren)</div><div class="line">        cloned.text = vnode.text</div><div class="line">        cloned.isComment = vnode.isComment</div><div class="line">        cloned.componentOptions = vnode.componentOptions</div><div class="line">        cloned.elm = vnode.elm</div><div class="line">        cloned.context = vnode.context</div><div class="line">        cloned.ns = vnode.ns</div><div class="line">        cloned.isStatic = vnode.isStatic</div><div class="line">        cloned.key = vnode.key</div><div class="line"></div><div class="line">        return cloned</div><div class="line">      &#125;</div><div class="line">      const clonedVNodes = vnodes.map(vnode =&gt; cloneVNode(vnode))</div><div class="line">      return clonedVNodes</div><div class="line">    &#125;</div><div class="line">    var slots = this.$parent.$slots.default //从父组件拿到slot</div><div class="line">    var slot = null</div><div class="line">    for(let i=0;i&lt;slots.length;i++)&#123;</div><div class="line">      if(slots[i].data &amp;&amp; this.name === slots[i].data.slot)&#123; //多个slot，拿到自己table.isExtend配置的那一个</div><div class="line">        slot = slots[i]</div><div class="line">        break</div><div class="line">      &#125;</div><div class="line">    &#125;</div><div class="line">    return createElement(&apos;div&apos;,&#123;class:&apos;tdslot&apos;&#125;,deepClone([slot], createElement)) //做一下深度复制</div><div class="line">    &lt;!-- return createElement(&apos;div&apos;,&#123;class:&apos;tdslot&apos;&#125;,[slot]) --&gt; 这样也可以</div><div class="line">  &#125;,</div><div class="line">  props:&#123;</div><div class="line">    name:&#123;</div><div class="line">      type:String,</div><div class="line">      default:&apos;&apos;</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">&#125;)</div><div class="line"></div><div class="line">父组件</div><div class="line">&lt;detailsTable v-if=&quot;detailPageConfig.detailConfig&quot; :detailConfig=&quot;detailPageConfig.detailConfig&quot;&gt;</div><div class="line">    &lt;slot v-for=&apos;(item,index) in detailPageConfig.detailConfig&apos; v-if=&apos;item.isExtend&apos; :name=&apos;detailPageConfig.detailConfig[index].isExtend.slot&apos; &gt;&lt;/slot&gt;</div><div class="line">&lt;/detailsTable&gt;</div><div class="line">爷爷组件</div><div class="line">&lt;detailsPage :detailPageConfig=&quot;detailPageConfig&quot;&gt;</div><div class="line">    &lt;div slot=&apos;tableExtend-1&apos;&gt; //多个slot 并列写即可</div><div class="line">    &lt;detailsTable :detailConfig=&quot;detailPageConfig.detailConfig[1].isExtend.detailConfig&quot;</div><div class="line">        v-if=&quot;this.detailPageConfig.detailConfig[1].isExtend.detailConfig[0].data.length&gt;0&quot;&gt;</div><div class="line">    &lt;/detailsTable&gt;</div><div class="line">    &lt;div v-if=&quot;this.detailPageConfig.detailConfig[1].isExtend.detailConfig[0].data.length&lt;1&quot;&gt;暂无数据&lt;/div&gt;</div><div class="line">    &lt;/div&gt;</div><div class="line">&lt;/detailsPage&gt;</div></pre></td></tr></table></figure></p>
+<h3 id="方法三"><a href="#方法三" class="headerlink" title="方法三"></a>方法三</h3><p>其实之所以会出现重名slot是因为table的大循环逻辑放在了自己组件内，<br>其实输出多个table的逻辑放在page层即可，table还是独立的table，<br>这样插入slot时就不是同名slot，各自slot,插入各自table<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">父组件</div><div class="line">&lt;template v-for=&apos;(item,index) in detailPageConfig.detailConfig&apos;&gt;</div><div class="line">    &lt;detailsTable :detailConfig=&quot;item&quot; :key=&apos;index&apos;&gt;</div><div class="line">    &lt;slot v-if=&apos;item.isExtend&apos; :name=&apos;item.isExtend.slot&apos; &gt;&lt;/slot&gt;</div><div class="line">    &lt;/detailsTable&gt;</div><div class="line">&lt;/template&gt;</div><div class="line">子组件</div><div class="line">&lt;tr v-if=&quot;index === currentActive&quot; :key=&quot;index+0.5&quot; class=&apos;bgc&apos;&gt;</div><div class="line">    &lt;td :colspan=&apos;detailConfig.config.length&apos;&gt;</div><div class="line">        &lt;slot&gt;&lt;/slot&gt;//只要将自己的slot放进来即可</div><div class="line">    &lt;/td&gt;</div><div class="line">&lt;/tr&gt;</div></pre></td></tr></table></figure></p>
+<p><a href="https://www.jianshu.com/p/c735cc612e63" target="_blank" rel="external">参考资料</a><br><a href="https://cnodejs.org/topic/58c0ad17d282728c0ec4029a" target="_blank" rel="external">参考资料</a><br><a href="https://segmentfault.com/a/1190000010913794" target="_blank" rel="external">参考资料</a></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;背景&quot;&gt;&lt;a href=&quot;#背景&quot; class=&quot;headerlink&quot; title=&quot;背景&quot;&gt;&lt;/a&gt;背景&lt;/h1&gt;&lt;p&gt;项目列表组件需要实现点击自动增加一行,可展示自定义内容的可扩展内容&lt;br&gt;列表table组件被应用在page组件，page组件被应用在具体业
+    
+    </summary>
+    
+    
+      <category term="vue" scheme="http://yoohannah.github.io/tags/vue/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>react 合成事件原理</title>
+    <link href="http://yoohannah.github.io/post/react/SyntheticEvent.html"/>
+    <id>http://yoohannah.github.io/post/react/SyntheticEvent.html</id>
+    <published>2019-01-05T07:37:37.000Z</published>
+    <updated>2019-01-06T12:57:11.163Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="事件注册"><a href="#事件注册" class="headerlink" title="事件注册"></a>事件注册</h1><h2 id="注册到document"><a href="#注册到document" class="headerlink" title="注册到document"></a>注册到document</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div><div class="line">114</div><div class="line">115</div><div class="line">116</div><div class="line">117</div><div class="line">118</div><div class="line">119</div><div class="line">120</div><div class="line">121</div><div class="line">122</div><div class="line">123</div><div class="line">124</div><div class="line">125</div><div class="line">126</div><div class="line">127</div><div class="line">128</div><div class="line">129</div><div class="line">130</div><div class="line">131</div><div class="line">132</div><div class="line">133</div><div class="line">134</div><div class="line">135</div><div class="line">136</div><div class="line">137</div><div class="line">138</div><div class="line">139</div><div class="line">140</div><div class="line">141</div><div class="line">142</div><div class="line">143</div><div class="line">144</div><div class="line">145</div><div class="line">146</div><div class="line">147</div><div class="line">148</div><div class="line">149</div><div class="line">150</div><div class="line">151</div><div class="line">152</div><div class="line">153</div><div class="line">154</div><div class="line">155</div><div class="line">156</div><div class="line">157</div><div class="line">158</div><div class="line">159</div><div class="line">160</div><div class="line">161</div><div class="line">162</div><div class="line">163</div><div class="line">164</div><div class="line">165</div><div class="line">166</div><div class="line">167</div><div class="line">168</div><div class="line">169</div><div class="line">170</div><div class="line">171</div><div class="line">172</div><div class="line">173</div><div class="line">174</div><div class="line">175</div><div class="line">176</div><div class="line">177</div><div class="line">178</div><div class="line">179</div><div class="line">180</div><div class="line">181</div><div class="line">182</div><div class="line">183</div><div class="line">184</div><div class="line">185</div><div class="line">186</div><div class="line">187</div><div class="line">188</div><div class="line">189</div><div class="line">190</div><div class="line">191</div><div class="line">192</div><div class="line">193</div><div class="line">194</div><div class="line">195</div><div class="line">196</div><div class="line">197</div><div class="line">198</div><div class="line">199</div><div class="line">200</div><div class="line">201</div><div class="line">202</div><div class="line">203</div><div class="line">204</div><div class="line">205</div><div class="line">206</div></pre></td><td class="code"><pre><div class="line">1. reactDOMComponent.js</div><div class="line">export function setInitialProperties(</div><div class="line">  domElement: Element,</div><div class="line">  tag: string,</div><div class="line">  rawProps: Object,</div><div class="line">  rootContainerElement: Element | Document,</div><div class="line">): void &#123;</div><div class="line">  const isCustomComponentTag = isCustomComponent(tag, rawProps);</div><div class="line">  if (__DEV__) &#123; ... &#125;</div><div class="line">  let props: Object;</div><div class="line">  switch (tag) &#123;</div><div class="line">    case &apos;iframe&apos;:</div><div class="line">    case &apos;object&apos;:</div><div class="line">      trapBubbledEvent(TOP_LOAD, domElement); //trapBubbledEvent</div><div class="line">      props = rawProps;</div><div class="line">      break;</div><div class="line">    case &apos;video&apos;:</div><div class="line">    case &apos;audio&apos;:</div><div class="line">      // Create listener for each media event</div><div class="line">      for (let i = 0; i &lt; mediaEventTypes.length; i++) &#123;</div><div class="line">        trapBubbledEvent(mediaEventTypes[i], domElement); //trapBubbledEvent</div><div class="line">      &#125;</div><div class="line">      props = rawProps;</div><div class="line">      break;</div><div class="line">    case &apos;source&apos;:</div><div class="line">      trapBubbledEvent(TOP_ERROR, domElement); //trapBubbledEvent</div><div class="line">      props = rawProps;</div><div class="line">      break;</div><div class="line">    case &apos;img&apos;:</div><div class="line">    case &apos;image&apos;:</div><div class="line">    case &apos;link&apos;:</div><div class="line">      trapBubbledEvent(TOP_ERROR, domElement); //trapBubbledEvent</div><div class="line">      trapBubbledEvent(TOP_LOAD, domElement); //trapBubbledEvent</div><div class="line">      props = rawProps;</div><div class="line">      break;</div><div class="line">    case &apos;form&apos;:</div><div class="line">      trapBubbledEvent(TOP_RESET, domElement);  //trapBubbledEvent</div><div class="line">      trapBubbledEvent(TOP_SUBMIT, domElement); //trapBubbledEvent</div><div class="line">      props = rawProps;</div><div class="line">      break;</div><div class="line">    case &apos;details&apos;:</div><div class="line">      trapBubbledEvent(TOP_TOGGLE, domElement); //trapBubbledEvent</div><div class="line">      props = rawProps;</div><div class="line">      break;</div><div class="line">    case &apos;input&apos;:</div><div class="line">      ReactDOMInputInitWrapperState(domElement, rawProps);</div><div class="line">      props = ReactDOMInputGetHostProps(domElement, rawProps);</div><div class="line">      trapBubbledEvent(TOP_INVALID, domElement);  //trapBubbledEvent</div><div class="line">      // For controlled components we always need to ensure we&apos;re listening</div><div class="line">      // to onChange. Even if there is no listener.</div><div class="line">      ensureListeningTo(rootContainerElement, &apos;onChange&apos;); // ensureListeningTo</div><div class="line">      break;</div><div class="line">    case &apos;option&apos;:</div><div class="line">      ReactDOMOptionValidateProps(domElement, rawProps);</div><div class="line">      props = ReactDOMOptionGetHostProps(domElement, rawProps);</div><div class="line">      break;</div><div class="line">    case &apos;select&apos;:</div><div class="line">      ReactDOMSelectInitWrapperState(domElement, rawProps);</div><div class="line">      props = ReactDOMSelectGetHostProps(domElement, rawProps);</div><div class="line">      trapBubbledEvent(TOP_INVALID, domElement);    //trapBubbledEvent</div><div class="line">      // For controlled components we always need to ensure we&apos;re listening</div><div class="line">      // to onChange. Even if there is no listener.</div><div class="line">      ensureListeningTo(rootContainerElement, &apos;onChange&apos;);  // ensureListeningTo</div><div class="line">      break;</div><div class="line">    case &apos;textarea&apos;:</div><div class="line">      ReactDOMTextareaInitWrapperState(domElement, rawProps);</div><div class="line">      props = ReactDOMTextareaGetHostProps(domElement, rawProps);</div><div class="line">      trapBubbledEvent(TOP_INVALID, domElement);  //trapBubbledEvent</div><div class="line">      // For controlled components we always need to ensure we&apos;re listening</div><div class="line">      // to onChange. Even if there is no listener.</div><div class="line">      ensureListeningTo(rootContainerElement, &apos;onChange&apos;); // ensureListeningTo</div><div class="line">      break;</div><div class="line">    default:</div><div class="line">      props = rawProps;</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  assertValidProps(tag, props);</div><div class="line"></div><div class="line">  setInitialDOMProperties(</div><div class="line">    tag,</div><div class="line">    domElement,</div><div class="line">    rootContainerElement,</div><div class="line">    props,</div><div class="line">    isCustomComponentTag,</div><div class="line">  );//这个函数中也会用到 ensureListeningTo</div><div class="line"></div><div class="line">  switch (tag) &#123;</div><div class="line">   //给一些DOM标签通过setAttribute赋值</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">function setInitialDOMProperties(</div><div class="line">  tag: string,</div><div class="line">  domElement: Element,</div><div class="line">  rootContainerElement: Element | Document,</div><div class="line">  nextProps: Object,</div><div class="line">  isCustomComponentTag: boolean,</div><div class="line">): void &#123;</div><div class="line">    if(...)&#123;</div><div class="line">      ...</div><div class="line">    &#125; else if (registrationNameModules.hasOwnProperty(propKey)) &#123;</div><div class="line">      if (nextProp != null) &#123;</div><div class="line">        if (__DEV__ &amp;&amp; typeof nextProp !== &apos;function&apos;) &#123;</div><div class="line">          warnForInvalidEventListener(propKey, nextProp);</div><div class="line">        &#125;</div><div class="line">        ensureListeningTo(rootContainerElement, propKey); // ensureListeningTo</div><div class="line">      &#125;</div><div class="line">    &#125; else if (nextProp != null) &#123;</div><div class="line">      setValueForProperty(domElement, propKey, nextProp, isCustomComponentTag);</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">function ensureListeningTo(rootContainerElement, registrationName) &#123;</div><div class="line">  const isDocumentOrFragment =</div><div class="line">    rootContainerElement.nodeType === DOCUMENT_NODE ||</div><div class="line">    rootContainerElement.nodeType === DOCUMENT_FRAGMENT_NODE;</div><div class="line">  const doc = isDocumentOrFragment</div><div class="line">    ? rootContainerElement</div><div class="line">    : rootContainerElement.ownerDocument;</div><div class="line">  listenTo(registrationName, doc);</div><div class="line">&#125;</div><div class="line"></div><div class="line">2.ReactBrowerEventEmitter.js</div><div class="line"></div><div class="line">export function listenTo(</div><div class="line">  registrationName: string,</div><div class="line">  mountAt: Document | Element,</div><div class="line">) &#123;</div><div class="line">  const isListening = getListeningForDocument(mountAt);</div><div class="line">  const dependencies = registrationNameDependencies[registrationName];</div><div class="line"></div><div class="line">  for (let i = 0; i &lt; dependencies.length; i++) &#123;</div><div class="line">    const dependency = dependencies[i];</div><div class="line">    if (!(isListening.hasOwnProperty(dependency) &amp;&amp; isListening[dependency])) &#123;</div><div class="line">      switch (dependency) &#123;</div><div class="line">        case TOP_SCROLL:</div><div class="line">          trapCapturedEvent(TOP_SCROLL, mountAt);</div><div class="line">          break;</div><div class="line">        case TOP_FOCUS:</div><div class="line">        case TOP_BLUR:</div><div class="line">          trapCapturedEvent(TOP_FOCUS, mountAt);</div><div class="line">          trapCapturedEvent(TOP_BLUR, mountAt);</div><div class="line">          // We set the flag for a single dependency later in this function,</div><div class="line">          // but this ensures we mark both as attached rather than just one.</div><div class="line">          isListening[TOP_BLUR] = true;</div><div class="line">          isListening[TOP_FOCUS] = true;</div><div class="line">          break;</div><div class="line">        case TOP_CANCEL:</div><div class="line">        case TOP_CLOSE:</div><div class="line">          if (isEventSupported(getRawEventName(dependency))) &#123;</div><div class="line">            trapCapturedEvent(dependency, mountAt);</div><div class="line">          &#125;</div><div class="line">          break;</div><div class="line">        case TOP_INVALID:</div><div class="line">        case TOP_SUBMIT:</div><div class="line">        case TOP_RESET:</div><div class="line">          // We listen to them on the target DOM elements.</div><div class="line">          // Some of them bubble so we don&apos;t want them to fire twice.</div><div class="line">          break;</div><div class="line">        default:</div><div class="line">          // By default, listen on the top level to all non-media events.</div><div class="line">          // Media events don&apos;t bubble so adding the listener wouldn&apos;t do anything.</div><div class="line">          const isMediaEvent = mediaEventTypes.indexOf(dependency) !== -1;</div><div class="line">          if (!isMediaEvent) &#123;</div><div class="line">            trapBubbledEvent(dependency, mountAt);</div><div class="line">          &#125;</div><div class="line">          break;</div><div class="line">      &#125;</div><div class="line">      isListening[dependency] = true;</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">3. ReactDOMEventListener.js</div><div class="line"></div><div class="line">export function trapBubbledEvent(</div><div class="line">  topLevelType: DOMTopLevelEventType,</div><div class="line">  element: Document | Element,</div><div class="line">) &#123;</div><div class="line">  if (!element) &#123;</div><div class="line">    return null;</div><div class="line">  &#125;</div><div class="line">  const dispatch = isInteractiveTopLevelEventType(topLevelType) </div><div class="line">    ? dispatchInteractiveEvent</div><div class="line">    : dispatchEvent;</div><div class="line"></div><div class="line">  addEventBubbleListener(</div><div class="line">    element,//document</div><div class="line">    getRawEventName(topLevelType),//事件类型</div><div class="line">    // Check if interactive and wrap in interactiveUpdates</div><div class="line">    dispatch.bind(null, topLevelType), //回调函数是分发函数</div><div class="line">  );</div><div class="line">&#125;</div><div class="line">export function trapCapturedEvent(topLevelType, element)&#123;...&#125;</div><div class="line">export function dispatchEvent(topLevelType,nativeEvent) &#123;... &#125;</div><div class="line"></div><div class="line">4. EventListener.js</div><div class="line">export function addEventBubbleListener(</div><div class="line">  element: Document | Element,</div><div class="line">  eventType: string,</div><div class="line">  listener: Function,</div><div class="line">): void &#123;</div><div class="line">  element.addEventListener(eventType, listener, false);</div><div class="line">&#125;</div><div class="line">export function addEventCaptureListener()&#123;...&#125;</div></pre></td></tr></table></figure>
+<p>在使用setInitialProperties对标签属性初始化的时候，<br>会根据不同标签自动绑定上冒泡事件或者监听事件<br>document事件回调函数不包含任何的事物处理，只会根据事件类型进行分发</p>
+<h2 id="存储回调函数"><a href="#存储回调函数" class="headerlink" title="存储回调函数"></a>存储回调函数</h2><h1 id="事件执行"><a href="#事件执行" class="headerlink" title="事件执行"></a>事件执行</h1><h2 id="生成合成事件"><a href="#生成合成事件" class="headerlink" title="生成合成事件"></a>生成合成事件</h2><h2 id="获取回调函数"><a href="#获取回调函数" class="headerlink" title="获取回调函数"></a>获取回调函数</h2><h2 id="批量执行"><a href="#批量执行" class="headerlink" title="批量执行"></a>批量执行</h2>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;事件注册&quot;&gt;&lt;a href=&quot;#事件注册&quot; class=&quot;headerlink&quot; title=&quot;事件注册&quot;&gt;&lt;/a&gt;事件注册&lt;/h1&gt;&lt;h2 id=&quot;注册到document&quot;&gt;&lt;a href=&quot;#注册到document&quot; class=&quot;headerlink&quot; ti
+    
+    </summary>
+    
+    
+      <category term="react" scheme="http://yoohannah.github.io/tags/react/"/>
+    
+  </entry>
   
   <entry>
     <title>VUE 数据绑定初探</title>
@@ -118,65 +169,6 @@
   </entry>
   
   <entry>
-    <title>文件结构</title>
-    <link href="http://yoohannah.github.io/post/vue/basic/filestructor.html"/>
-    <id>http://yoohannah.github.io/post/vue/basic/filestructor.html</id>
-    <published>2018-12-22T03:40:37.000Z</published>
-    <updated>2018-12-22T04:36:13.216Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="构建"><a href="#构建" class="headerlink" title="构建"></a>构建</h1><p>使用命令行构建<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">npm install --global vue-cli //全局安装vue命令</div><div class="line">vue init webpack my-project //使用vue命令构建名为my-project的项目</div><div class="line">cd my-project //进入项目所在文件夹</div><div class="line">npm run dev //运行项目</div></pre></td></tr></table></figure></p>
-<h1 id="文件结构"><a href="#文件结构" class="headerlink" title="文件结构"></a>文件结构</h1><pre><code class="lang-bash">.
-├── build/                      <span class="hljs-comment"># webpack config files</span>
-│   └── ...
-├── config/
-│   ├── index.js                <span class="hljs-comment"># main project config</span>
-│   └── ...
-├── src/
-│   ├── main.js                 <span class="hljs-comment"># app entry file</span>
-│   ├── App.vue                 <span class="hljs-comment"># main app component</span>
-│   ├── components/             <span class="hljs-comment"># ui components</span>
-│   │   └── ...
-│   └── assets/                 <span class="hljs-comment"># module assets (processed by webpack)</span>
-│       └── ...
-├── static/                     <span class="hljs-comment"># pure static assets (directly copied)</span>
-├── <span class="hljs-built_in">test</span>/
-│   └── unit/                   <span class="hljs-comment"># unit tests</span>
-│   │   ├── specs/              <span class="hljs-comment"># test spec files</span>
-│   │   ├── eslintrc            <span class="hljs-comment"># config file for eslint with extra settings only for unit tests</span>
-│   │   ├── index.js            <span class="hljs-comment"># test build entry file</span>
-│   │   ├── jest.conf.js        <span class="hljs-comment"># Config file when using Jest for unit tests</span>
-│   │   └── karma.conf.js       <span class="hljs-comment"># test runner config file when using Karma for unit tests</span>
-│   │   ├── setup.js            <span class="hljs-comment"># file that runs before Jest runs your unit tests</span>
-│   └── e2e/                    <span class="hljs-comment"># e2e tests</span>
-│   │   ├── specs/              <span class="hljs-comment"># test spec files</span>
-│   │   ├── custom-assertions/  <span class="hljs-comment"># custom assertions for e2e tests</span>
-│   │   ├── runner.js           <span class="hljs-comment"># test runner script</span>
-│   │   └── nightwatch.conf.js  <span class="hljs-comment"># test runner config file</span>
-├── .babelrc                    <span class="hljs-comment"># babel config</span>
-├── .editorconfig               <span class="hljs-comment"># indentation, spaces/tabs and similar settings for your editor</span>
-├── .eslintrc.js                <span class="hljs-comment"># eslint config</span>
-├── .eslintignore               <span class="hljs-comment"># eslint ignore rules</span>
-├── .gitignore                  <span class="hljs-comment"># sensible defaults for gitignore</span>
-├── .postcssrc.js               <span class="hljs-comment"># postcss config</span>
-├── index.html                  <span class="hljs-comment"># index.html template</span>
-├── package.json                <span class="hljs-comment"># build scripts and dependencies</span>
-└── README.md                   <span class="hljs-comment"># Default README file</span>
-</code></pre>
-
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;h1 id=&quot;构建&quot;&gt;&lt;a href=&quot;#构建&quot; class=&quot;headerlink&quot; title=&quot;构建&quot;&gt;&lt;/a&gt;构建&lt;/h1&gt;&lt;p&gt;使用命令行构建&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutte
-    
-    </summary>
-    
-    
-      <category term="vue" scheme="http://yoohannah.github.io/tags/vue/"/>
-    
-  </entry>
-  
-  <entry>
     <title>触发render</title>
     <link href="http://yoohannah.github.io/post/react/renderfire.html"/>
     <id>http://yoohannah.github.io/post/react/renderfire.html</id>
@@ -203,6 +195,28 @@
     
     
       <category term="react" scheme="http://yoohannah.github.io/tags/react/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>定时器</title>
+    <link href="http://yoohannah.github.io/post/knowledge/clock.html"/>
+    <id>http://yoohannah.github.io/post/knowledge/clock.html</id>
+    <published>2018-12-22T03:40:37.000Z</published>
+    <updated>2018-12-22T05:00:44.717Z</updated>
+    
+    <content type="html"><![CDATA[<p>1.使用 setInterval<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">this.timerID = setInterval(fn, time);</div><div class="line">clearInterval(this.timerID);</div></pre></td></tr></table></figure></p>
+<p> 2.angular 中使用 $interval<br> <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">this.timerID = $interval(fn, time);</div><div class="line">$interval.cancel(this.timerID)</div></pre></td></tr></table></figure></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;1.使用 setInterval&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;2&lt;/div&gt;
+    
+    </summary>
+    
+    
+      <category term="knowledge" scheme="http://yoohannah.github.io/tags/knowledge/"/>
     
   </entry>
   
@@ -267,24 +281,61 @@
   </entry>
   
   <entry>
-    <title>定时器</title>
-    <link href="http://yoohannah.github.io/post/knowledge/clock.html"/>
-    <id>http://yoohannah.github.io/post/knowledge/clock.html</id>
+    <title>文件结构</title>
+    <link href="http://yoohannah.github.io/post/vue/basic/filestructor.html"/>
+    <id>http://yoohannah.github.io/post/vue/basic/filestructor.html</id>
     <published>2018-12-22T03:40:37.000Z</published>
-    <updated>2018-12-22T05:00:44.717Z</updated>
+    <updated>2018-12-22T04:36:13.216Z</updated>
     
-    <content type="html"><![CDATA[<p>1.使用 setInterval<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">this.timerID = setInterval(fn, time);</div><div class="line">clearInterval(this.timerID);</div></pre></td></tr></table></figure></p>
-<p> 2.angular 中使用 $interval<br> <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">this.timerID = $interval(fn, time);</div><div class="line">$interval.cancel(this.timerID)</div></pre></td></tr></table></figure></p>
+    <content type="html"><![CDATA[<h1 id="构建"><a href="#构建" class="headerlink" title="构建"></a>构建</h1><p>使用命令行构建<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">npm install --global vue-cli //全局安装vue命令</div><div class="line">vue init webpack my-project //使用vue命令构建名为my-project的项目</div><div class="line">cd my-project //进入项目所在文件夹</div><div class="line">npm run dev //运行项目</div></pre></td></tr></table></figure></p>
+<h1 id="文件结构"><a href="#文件结构" class="headerlink" title="文件结构"></a>文件结构</h1><pre><code class="lang-bash">.
+├── build/                      <span class="hljs-comment"># webpack config files</span>
+│   └── ...
+├── config/
+│   ├── index.js                <span class="hljs-comment"># main project config</span>
+│   └── ...
+├── src/
+│   ├── main.js                 <span class="hljs-comment"># app entry file</span>
+│   ├── App.vue                 <span class="hljs-comment"># main app component</span>
+│   ├── components/             <span class="hljs-comment"># ui components</span>
+│   │   └── ...
+│   └── assets/                 <span class="hljs-comment"># module assets (processed by webpack)</span>
+│       └── ...
+├── static/                     <span class="hljs-comment"># pure static assets (directly copied)</span>
+├── <span class="hljs-built_in">test</span>/
+│   └── unit/                   <span class="hljs-comment"># unit tests</span>
+│   │   ├── specs/              <span class="hljs-comment"># test spec files</span>
+│   │   ├── eslintrc            <span class="hljs-comment"># config file for eslint with extra settings only for unit tests</span>
+│   │   ├── index.js            <span class="hljs-comment"># test build entry file</span>
+│   │   ├── jest.conf.js        <span class="hljs-comment"># Config file when using Jest for unit tests</span>
+│   │   └── karma.conf.js       <span class="hljs-comment"># test runner config file when using Karma for unit tests</span>
+│   │   ├── setup.js            <span class="hljs-comment"># file that runs before Jest runs your unit tests</span>
+│   └── e2e/                    <span class="hljs-comment"># e2e tests</span>
+│   │   ├── specs/              <span class="hljs-comment"># test spec files</span>
+│   │   ├── custom-assertions/  <span class="hljs-comment"># custom assertions for e2e tests</span>
+│   │   ├── runner.js           <span class="hljs-comment"># test runner script</span>
+│   │   └── nightwatch.conf.js  <span class="hljs-comment"># test runner config file</span>
+├── .babelrc                    <span class="hljs-comment"># babel config</span>
+├── .editorconfig               <span class="hljs-comment"># indentation, spaces/tabs and similar settings for your editor</span>
+├── .eslintrc.js                <span class="hljs-comment"># eslint config</span>
+├── .eslintignore               <span class="hljs-comment"># eslint ignore rules</span>
+├── .gitignore                  <span class="hljs-comment"># sensible defaults for gitignore</span>
+├── .postcssrc.js               <span class="hljs-comment"># postcss config</span>
+├── index.html                  <span class="hljs-comment"># index.html template</span>
+├── package.json                <span class="hljs-comment"># build scripts and dependencies</span>
+└── README.md                   <span class="hljs-comment"># Default README file</span>
+</code></pre>
+
 ]]></content>
     
     <summary type="html">
     
-      &lt;p&gt;1.使用 setInterval&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;2&lt;/div&gt;
+      &lt;h1 id=&quot;构建&quot;&gt;&lt;a href=&quot;#构建&quot; class=&quot;headerlink&quot; title=&quot;构建&quot;&gt;&lt;/a&gt;构建&lt;/h1&gt;&lt;p&gt;使用命令行构建&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutte
     
     </summary>
     
     
-      <category term="knowledge" scheme="http://yoohannah.github.io/tags/knowledge/"/>
+      <category term="vue" scheme="http://yoohannah.github.io/tags/vue/"/>
     
   </entry>
   
@@ -605,59 +656,6 @@
   </entry>
   
   <entry>
-    <title>Rekit</title>
-    <link href="http://yoohannah.github.io/post/react/course/rekit.html"/>
-    <id>http://yoohannah.github.io/post/react/course/rekit.html</id>
-    <published>2018-12-04T13:12:37.000Z</published>
-    <updated>2018-12-22T05:13:56.245Z</updated>
-    
-    <content type="html"><![CDATA[<p>背景<br> 一个独立功能通常需要多个文件组成 （组件，reducer,action,路由等文件）<br> 代码模板很复杂 （reducer,action需要代码模板，实际上填写的逻辑只是一小部分）<br> 重构极为困难<br> （需要改动的地方很多）<br> 项目复杂后很难理解和维护（无法直观的看到他们之间的关系）</p>
-<h1 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h1><p>Rekit：更好的代码导航</p>
-<ol>
-<li>语义化的组织源代码文件 </li>
-<li>使用子 Tab来展示项目元素的各个部分 </li>
-<li>直观的显示和导航某个功能的所有依赖</li>
-</ol>
-<p>Rekit： 一键生成项目元素（它是一个IDE）</p>
-<ol>
-<li>直观的 UI 用于生成组件，action,reducer 等 </li>
-<li>模板代码遵循最佳实践（只需填入具体逻辑）</li>
-<li>支持命令行方式创建项目元素</li>
-</ol>
-<p>Rekit： 重构非常容易</p>
-<ol>
-<li>右键菜单重命名或者删除某个项目元素 </li>
-<li>所有相关代码都会一次性重构从而保证一致性 </li>
-<li>详细的 log信息显示重构的完整修改</li>
-</ol>
-<p>Rekit： 可视化的项目架构</p>
-<ol>
-<li>项目总体架构的可视化图表 </li>
-<li>项目依赖关系的图表</li>
-</ol>
-<p>Rekit 是如何工作的？</p>
-<ol>
-<li>定义了基于feature 的可扩展文件夹结构（文件夹结构有一定规则，可以进行解析）</li>
-<li>基于最佳实践生成代码和管理项目元素 </li>
-<li>提供工具和 IDE 确保代码和文件夹结构遵循最佳实践<br>（减少工作量）</li>
-</ol>
-<h1 id="遵循最佳实践"><a href="#遵循最佳实践" class="headerlink" title="遵循最佳实践"></a>遵循最佳实践</h1><p>1.以 feature 方式组织代码 （功能如果是必须的就放在已有模块底层实现，如果是原有功能增强的实现，则新拆分成功能模块）<br>2.拆分组件,action 和 reducer<br>3.拆分路由配置</p>
-<p>通过代码自动生成保持一致性<br>1.文件夹结构一致性<br>2.文件名一致性<br>3.变量名一致性<br>4.代码逻辑的一致性</p>
-<h1 id="使用-React-Router-管理路由授权"><a href="#使用-React-Router-管理路由授权" class="headerlink" title="使用 React Router 管理路由授权"></a>使用 React Router 管理路由授权</h1><p>1.实现基础:React Router 的动态路由机制 （<br> 不采用各个页面判断是否登录再redirect的方式跳转，路由配置（添加属性，那些可以在未登录下访问，或者哪些在未登录下不能访问）时就去动态监测当前用户是否登录，如果登录则全部路由生效；反之某些路由配置就不生效===&gt;不生效处理，在解析router JSON数据时根据store中登录状态和路由配置的属性判断,未登录则跳转403，其子路由清空<br>）<br>2.区分受保护路由和公开路由<br>3.访问未授权路由时重定向到登录页面 </p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;背景&lt;br&gt; 一个独立功能通常需要多个文件组成 （组件，reducer,action,路由等文件）&lt;br&gt; 代码模板很复杂 （reducer,action需要代码模板，实际上填写的逻辑只是一小部分）&lt;br&gt; 重构极为困难&lt;br&gt; （需要改动的地方很多）&lt;br&gt; 项目复杂后很
-    
-    </summary>
-    
-    
-      <category term="react" scheme="http://yoohannah.github.io/tags/react/"/>
-    
-  </entry>
-  
-  <entry>
     <title>表单 &amp; 列表</title>
     <link href="http://yoohannah.github.io/post/react/course/formList.html"/>
     <id>http://yoohannah.github.io/post/react/course/formList.html</id>
@@ -715,6 +713,59 @@
   </entry>
   
   <entry>
+    <title>Rekit</title>
+    <link href="http://yoohannah.github.io/post/react/course/rekit.html"/>
+    <id>http://yoohannah.github.io/post/react/course/rekit.html</id>
+    <published>2018-12-04T13:12:37.000Z</published>
+    <updated>2018-12-22T05:13:56.245Z</updated>
+    
+    <content type="html"><![CDATA[<p>背景<br> 一个独立功能通常需要多个文件组成 （组件，reducer,action,路由等文件）<br> 代码模板很复杂 （reducer,action需要代码模板，实际上填写的逻辑只是一小部分）<br> 重构极为困难<br> （需要改动的地方很多）<br> 项目复杂后很难理解和维护（无法直观的看到他们之间的关系）</p>
+<h1 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h1><p>Rekit：更好的代码导航</p>
+<ol>
+<li>语义化的组织源代码文件 </li>
+<li>使用子 Tab来展示项目元素的各个部分 </li>
+<li>直观的显示和导航某个功能的所有依赖</li>
+</ol>
+<p>Rekit： 一键生成项目元素（它是一个IDE）</p>
+<ol>
+<li>直观的 UI 用于生成组件，action,reducer 等 </li>
+<li>模板代码遵循最佳实践（只需填入具体逻辑）</li>
+<li>支持命令行方式创建项目元素</li>
+</ol>
+<p>Rekit： 重构非常容易</p>
+<ol>
+<li>右键菜单重命名或者删除某个项目元素 </li>
+<li>所有相关代码都会一次性重构从而保证一致性 </li>
+<li>详细的 log信息显示重构的完整修改</li>
+</ol>
+<p>Rekit： 可视化的项目架构</p>
+<ol>
+<li>项目总体架构的可视化图表 </li>
+<li>项目依赖关系的图表</li>
+</ol>
+<p>Rekit 是如何工作的？</p>
+<ol>
+<li>定义了基于feature 的可扩展文件夹结构（文件夹结构有一定规则，可以进行解析）</li>
+<li>基于最佳实践生成代码和管理项目元素 </li>
+<li>提供工具和 IDE 确保代码和文件夹结构遵循最佳实践<br>（减少工作量）</li>
+</ol>
+<h1 id="遵循最佳实践"><a href="#遵循最佳实践" class="headerlink" title="遵循最佳实践"></a>遵循最佳实践</h1><p>1.以 feature 方式组织代码 （功能如果是必须的就放在已有模块底层实现，如果是原有功能增强的实现，则新拆分成功能模块）<br>2.拆分组件,action 和 reducer<br>3.拆分路由配置</p>
+<p>通过代码自动生成保持一致性<br>1.文件夹结构一致性<br>2.文件名一致性<br>3.变量名一致性<br>4.代码逻辑的一致性</p>
+<h1 id="使用-React-Router-管理路由授权"><a href="#使用-React-Router-管理路由授权" class="headerlink" title="使用 React Router 管理路由授权"></a>使用 React Router 管理路由授权</h1><p>1.实现基础:React Router 的动态路由机制 （<br> 不采用各个页面判断是否登录再redirect的方式跳转，路由配置（添加属性，那些可以在未登录下访问，或者哪些在未登录下不能访问）时就去动态监测当前用户是否登录，如果登录则全部路由生效；反之某些路由配置就不生效===&gt;不生效处理，在解析router JSON数据时根据store中登录状态和路由配置的属性判断,未登录则跳转403，其子路由清空<br>）<br>2.区分受保护路由和公开路由<br>3.访问未授权路由时重定向到登录页面 </p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;背景&lt;br&gt; 一个独立功能通常需要多个文件组成 （组件，reducer,action,路由等文件）&lt;br&gt; 代码模板很复杂 （reducer,action需要代码模板，实际上填写的逻辑只是一小部分）&lt;br&gt; 重构极为困难&lt;br&gt; （需要改动的地方很多）&lt;br&gt; 项目复杂后很
+    
+    </summary>
+    
+    
+      <category term="react" scheme="http://yoohannah.github.io/tags/react/"/>
+    
+  </entry>
+  
+  <entry>
     <title>Redux</title>
     <link href="http://yoohannah.github.io/post/react/course/redux.html"/>
     <id>http://yoohannah.github.io/post/react/course/redux.html</id>
@@ -753,119 +804,6 @@
     <summary type="html">
     
       &lt;h1 id=&quot;为什么需要redux&quot;&gt;&lt;a href=&quot;#为什么需要redux&quot; class=&quot;headerlink&quot; title=&quot;为什么需要redux&quot;&gt;&lt;/a&gt;为什么需要redux&lt;/h1&gt;&lt;p&gt;原有组件间通信方式错综复杂，逐层传递，不明了，方便组件间通信&lt;br&gt;用sto
-    
-    </summary>
-    
-    
-      <category term="react" scheme="http://yoohannah.github.io/tags/react/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>路由</title>
-    <link href="http://yoohannah.github.io/post/react/course/router.html"/>
-    <id>http://yoohannah.github.io/post/react/course/router.html</id>
-    <published>2018-12-04T13:08:37.000Z</published>
-    <updated>2018-12-22T05:14:00.192Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="为什么需要路由"><a href="#为什么需要路由" class="headerlink" title="为什么需要路由"></a>为什么需要路由</h1><p>1.单页应用需要进行页面切换<br>2.通过URL可以定位到页面<br>3.更有语义的组织资源</p>
-<h1 id="基本原理"><a href="#基本原理" class="headerlink" title="基本原理"></a>基本原理</h1><p>在组件容器里根据URL决定显示什么样的组件</p>
-<h1 id="REACT-router特性（和后端路由对比）"><a href="#REACT-router特性（和后端路由对比）" class="headerlink" title="REACT router特性（和后端路由对比）"></a>REACT router特性（和后端路由对比）</h1><p>1.声明式路由定义</p>
-<p>通过react组件标签进行声明，可以放在任何地方，不需要具体的路由表进行声明</p>
-<p>2.动态路由</p>
-<p>传统路由一旦配置了它就是一个配置文件，成为一个静态文件<br>而react router的路由是页面在render的时候才会被解析的，有相应路由的标记标签就是有相应的配置，没有标签就没有相应的配置</p>
-<h1 id="三种路由实现方式"><a href="#三种路由实现方式" class="headerlink" title="三种路由实现方式"></a>三种路由实现方式</h1><ol>
-<li><p>url路径：通过改变URl更改视图</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div></pre></td><td class="code"><pre><div class="line">import React from &quot;react&quot;;</div><div class="line">import &#123; BroswerRouter as Router, Route, Link &#125; from &quot;react-router-dom&quot;;</div><div class="line"></div><div class="line">const Home = () =&gt; &lt;h1&gt;Home&lt;/h1&gt;;</div><div class="line">const Hello = () =&gt; &lt;h1&gt;Hello&lt;/h1&gt;;</div><div class="line">const About = () =&gt; &lt;h1&gt;About Us&lt;/h1&gt;;</div><div class="line"></div><div class="line">export default class RouterSample extends React.PureComponent &#123;</div><div class="line">  render() &#123;</div><div class="line">    return (</div><div class="line">      &lt;Router&gt;</div><div class="line">        &lt;div&gt;</div><div class="line">          &lt;ul id=&quot;menu&quot;&gt;</div><div class="line">            &lt;li&gt;</div><div class="line">              &lt;Link to=&quot;/home&quot;&gt;Home&lt;/Link&gt;</div><div class="line">            &lt;/li&gt;</div><div class="line">            &lt;li&gt;</div><div class="line">              &lt;Link to=&quot;/hello&quot;&gt;Hello&lt;/Link&gt;</div><div class="line">            &lt;/li&gt;</div><div class="line">            &lt;li&gt;</div><div class="line">              &lt;Link to=&quot;/about&quot;&gt;About&lt;/Link&gt;</div><div class="line">            &lt;/li&gt;</div><div class="line">          &lt;/ul&gt;</div><div class="line"></div><div class="line">          &lt;div id=&quot;page-container&quot;&gt;</div><div class="line">            &lt;Route path=&quot;/home&quot; component=&#123;Home&#125; /&gt;</div><div class="line">            &lt;Route path=&quot;/hello&quot; component=&#123;Hello&#125; /&gt;</div><div class="line">            &lt;Route path=&quot;/about&quot; component=&#123;About&#125; /&gt;</div><div class="line">          &lt;/div&gt;</div><div class="line">        &lt;/div&gt;</div><div class="line">      &lt;/Router&gt;</div><div class="line">    );</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-</li>
-<li><p>hash路由：使用Router 的HashRouter组件 进行路由容器包裹,切换路由时，<br>具体的路径会被放在URl的#后面，通过改变hash更变视图《兼容低版本浏览器》</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div></pre></td><td class="code"><pre><div class="line">import React from &quot;react&quot;;</div><div class="line">import &#123; HashRouter as Router, Route, Link &#125; from &quot;react-router-dom&quot;;</div><div class="line"></div><div class="line">const Home = () =&gt; &lt;h1&gt;Home&lt;/h1&gt;;</div><div class="line">const Hello = () =&gt; &lt;h1&gt;Hello&lt;/h1&gt;;</div><div class="line">const About = () =&gt; &lt;h1&gt;About Us&lt;/h1&gt;;</div><div class="line"></div><div class="line">export default class RouterSample extends React.PureComponent &#123;</div><div class="line">  render() &#123;</div><div class="line">    return (</div><div class="line">      &lt;Router&gt;</div><div class="line">        &lt;div&gt;</div><div class="line">          &lt;ul id=&quot;menu&quot;&gt;</div><div class="line">            &lt;li&gt;</div><div class="line">              &lt;Link to=&quot;/home&quot;&gt;Home&lt;/Link&gt;</div><div class="line">            &lt;/li&gt;</div><div class="line">            &lt;li&gt;</div><div class="line">              &lt;Link to=&quot;/hello&quot;&gt;Hello&lt;/Link&gt;</div><div class="line">            &lt;/li&gt;</div><div class="line">            &lt;li&gt;</div><div class="line">              &lt;Link to=&quot;/about&quot;&gt;About&lt;/Link&gt;</div><div class="line">            &lt;/li&gt;</div><div class="line">          &lt;/ul&gt;</div><div class="line"></div><div class="line">          &lt;div id=&quot;page-container&quot;&gt;</div><div class="line">            &lt;Route path=&quot;/home&quot; component=&#123;Home&#125; /&gt;</div><div class="line">            &lt;Route path=&quot;/hello&quot; component=&#123;Hello&#125; /&gt;</div><div class="line">            &lt;Route path=&quot;/about&quot; component=&#123;About&#125; /&gt;</div><div class="line">          &lt;/div&gt;</div><div class="line">        &lt;/div&gt;</div><div class="line">      &lt;/Router&gt;</div><div class="line">    );</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-</li>
-<li><p>存路由：使用react-router 的MemoryRouter组件进行路由容器包裹，路由信息放在内存中管理，URL不变的情况下，即可进行视图切换</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div></pre></td><td class="code"><pre><div class="line">import React from &quot;react&quot;;</div><div class="line">import &#123; HashRouter as Router, Route, Link &#125; from &quot;react-router-dom&quot;;</div><div class="line">import &#123; MemoryRouter &#125; from &quot;react-router&quot;;</div><div class="line"></div><div class="line">const Home = () =&gt; &lt;h1&gt;Home&lt;/h1&gt;;</div><div class="line">const Hello = () =&gt; &lt;h1&gt;Hello&lt;/h1&gt;;</div><div class="line">const About = () =&gt; &lt;h1&gt;About Us&lt;/h1&gt;;</div><div class="line"></div><div class="line">export default class RouterSample extends React.PureComponent &#123;</div><div class="line">  render() &#123;</div><div class="line">    return (</div><div class="line">      &lt;MemoryRouter&gt;</div><div class="line">        &lt;div&gt;</div><div class="line">          &lt;ul id=&quot;menu&quot;&gt;</div><div class="line">            &lt;li&gt;</div><div class="line">              &lt;Link to=&quot;/home&quot;&gt;Home&lt;/Link&gt;</div><div class="line">            &lt;/li&gt;</div><div class="line">            &lt;li&gt;</div><div class="line">              &lt;Link to=&quot;/hello&quot;&gt;Hello&lt;/Link&gt;</div><div class="line">            &lt;/li&gt;</div><div class="line">            &lt;li&gt;</div><div class="line">              &lt;Link to=&quot;/about&quot;&gt;About&lt;/Link&gt;</div><div class="line">            &lt;/li&gt;</div><div class="line">          &lt;/ul&gt;</div><div class="line"></div><div class="line">          &lt;div id=&quot;page-container&quot;&gt;</div><div class="line">            &lt;Route path=&quot;/home&quot; component=&#123;Home&#125; /&gt;</div><div class="line">            &lt;Route path=&quot;/hello&quot; component=&#123;Hello&#125; /&gt;</div><div class="line">            &lt;Route path=&quot;/about&quot; component=&#123;About&#125; /&gt;</div><div class="line">          &lt;/div&gt;</div><div class="line">        &lt;/div&gt;</div><div class="line">      &lt;/MemoryRouter&gt;</div><div class="line">    );</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-</li>
-</ol>
-<p>基于路由配置进行资源组织 好处</p>
-<p>1.实现业务逻辑的松耦合<br>2.易于扩展，重构和维护<br>3.路由层面实现Lazy Load</p>
-<h1 id="REACT-Router-API"><a href="#REACT-Router-API" class="headerlink" title="REACT Router API"></a>REACT Router API</h1><p>1.<link>:普通链接,会触发浏览器刷新<br>类似a标签，但是不会触发浏览器的刷新，点击时router会接管导航，对切换进行处理不会传递到浏览器，让其进行真正的页面切换<br>to属性代表链接到的URl的地址<br>2.<navlink>:类似 Link但是会添加当前选中状态<br>可以添加activeClassName属性，当当前链接符合to属性值时,显示相应的样式 还有其他属性，详情请看react-router文档<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;NavLink to=&quot;/faq&quot; activeClassName=&apos;selected&apos;&gt;FAQs&lt;/NavLink&gt;</div></pre></td></tr></table></figure></navlink></p>
-<p>3.<prompt>:满足条件时提示用户是否离开当前页面<br>切换页面时，跟用户提供一个确认的操作</prompt></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">import &#123; Prompt &#125; from &quot;react-router&quot;;</div><div class="line">&lt;Prompt</div><div class="line">    when=&#123;formIsHalfFilledOut&#125;</div><div class="line">    message=&apos;Are you sure you want to leave&apos;</div><div class="line">/&gt;</div></pre></td></tr></table></figure>
-<p>4.<redirect>重定向当前页面,例如登录判断<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">import &#123; Redirect,Route &#125; from &quot;react-router&quot;;</div><div class="line">&lt;Route exact path=&apos;/&apos; render=&#123;()=&gt;(</div><div class="line">    loggedIn?(</div><div class="line">    &lt;Redirect to=&apos;/dashboard&apos; /&gt;</div><div class="line">    ) : (</div><div class="line">        &lt;PublicHomePage/&gt;</div><div class="line">    )</div><div class="line">)&#125;/&gt;</div></pre></td></tr></table></figure></redirect></p>
-<p>5.<route>:路由配置的核心标记,路径匹配时显示对应组件<br>path：路由<br>component:相应要显示的组件<br>exact：是否精准配置path<br>多个route path都符合当前路由时，那相应组件都会进行显示<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;Route exact path=&quot;/&quot; component=&#123;Home&#125; /&gt;</div></pre></td></tr></table></figure></route></p>
-<p>6.<switch>:只显示第一个匹配的路由<br>找到一个匹配的路径就只显示这个路径相应的组件，其他组件不显示<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">import &#123; Switch,Route &#125; from &quot;react-router&quot;;</div><div class="line">&lt;Switch&gt;</div><div class="line">&lt;Route path=&quot;/home&quot; component=&#123;Home&#125; /&gt;</div><div class="line">&lt;Route path=&quot;/hello&quot; component=&#123;Hello&#125; /&gt;</div><div class="line">&lt;Route path=&quot;/about&quot; component=&#123;About&#125; /&gt;</div><div class="line">&lt;Route component=&#123;Nomatch&#125; /&gt;</div><div class="line">&lt;/Switch&gt;</div></pre></td></tr></table></figure></switch></p>
-<h1 id="参数传递"><a href="#参数传递" class="headerlink" title="参数传递"></a>参数传递</h1><p>通过URL传递参数 :<route path="/topic/:id" ...=""><br>获取参数：this.props.match.params<br>页面状态尽量通过URl参数定义,方便页面间跳转时数据传递，否则需要将数据转化成组件内部state进行渲染，过程复杂</route></p>
-<h1 id="套嵌路由"><a href="#套嵌路由" class="headerlink" title="套嵌路由"></a>套嵌路由</h1><p>1.每个React组件都可以时路由容器<br>2.React Router的声明式语法可以方便的定义嵌套路由<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div></pre></td><td class="code"><pre><div class="line">import React from &quot;react&quot;;</div><div class="line">import &#123;</div><div class="line">  BrowserRouter as Router,</div><div class="line">  Route,</div><div class="line">  Link</div><div class="line">&#125; from &quot;react-router-dom&quot;;</div><div class="line"></div><div class="line">const Category = (&#123; match &#125;) =&gt; (</div><div class="line">  &lt;h1&gt;Sub Category &#123;match.params.subId&#125;&lt;/h1&gt;</div><div class="line">);</div><div class="line"></div><div class="line">const SubCategory = (&#123; match &#125;) =&gt; (</div><div class="line">  &lt;div&gt;</div><div class="line">    &lt;h1&gt;Category &#123;match.params.id&#125;&lt;/h1&gt;</div><div class="line"></div><div class="line">    &lt;ul id=&quot;menu&quot;&gt;</div><div class="line">      &lt;li&gt;</div><div class="line">        &lt;Link to=&#123;`/category/$&#123;match.params.id&#125;/sub/1`&#125;&gt;</div><div class="line">          Sub Category 1</div><div class="line">        &lt;/Link&gt;</div><div class="line">      &lt;/li&gt;</div><div class="line">      &lt;li&gt;</div><div class="line">        &lt;Link to=&#123;`/category/$&#123;match.params.id&#125;/sub/2`&#125;&gt;</div><div class="line">          Sub Category 2</div><div class="line">        &lt;/Link&gt;</div><div class="line">      &lt;/li&gt;</div><div class="line">      &lt;li&gt;</div><div class="line">        &lt;Link to=&#123;`/category/$&#123;match.params.id&#125;/sub/3`&#125;&gt;</div><div class="line">          Sub Category 3</div><div class="line">        &lt;/Link&gt;</div><div class="line">      &lt;/li&gt;</div><div class="line">    &lt;/ul&gt;</div><div class="line">    &lt;div id=&quot;page-container-2&quot;&gt;</div><div class="line">      &lt;Route</div><div class="line">        path=&quot;/category/:id/sub/:subId&quot;</div><div class="line">        component=&#123;Category&#125;</div><div class="line">      /&gt;</div><div class="line">    &lt;/div&gt;</div><div class="line">  &lt;/div&gt;</div><div class="line">);</div><div class="line"></div><div class="line">export default class NestedRoute extends React.PureComponent &#123;</div><div class="line">  render() &#123;</div><div class="line">    return (</div><div class="line">      &lt;Router&gt;</div><div class="line">        &lt;div&gt;</div><div class="line">          &lt;ul id=&quot;menu&quot;&gt;</div><div class="line">            &lt;li&gt;</div><div class="line">              &lt;Link to=&quot;/category/1&quot;&gt;Category 1&lt;/Link&gt;</div><div class="line">            &lt;/li&gt;</div><div class="line">            &lt;li&gt;</div><div class="line">              &lt;Link to=&quot;/category/2&quot;&gt;Category 2&lt;/Link&gt;</div><div class="line">            &lt;/li&gt;</div><div class="line">            &lt;li&gt;</div><div class="line">              &lt;Link to=&quot;/category/3&quot;&gt;Category 3&lt;/Link&gt;</div><div class="line">            &lt;/li&gt;</div><div class="line">          &lt;/ul&gt;</div><div class="line"></div><div class="line">          &lt;div id=&quot;page-container&quot;&gt;</div><div class="line">            &lt;Route</div><div class="line">              path=&quot;/category/:id&quot;</div><div class="line">              component=&#123;SubCategory&#125;</div><div class="line">            /&gt;</div><div class="line">          &lt;/div&gt;</div><div class="line">        &lt;/div&gt;</div><div class="line">      &lt;/Router&gt;</div><div class="line">    );</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;h1 id=&quot;为什么需要路由&quot;&gt;&lt;a href=&quot;#为什么需要路由&quot; class=&quot;headerlink&quot; title=&quot;为什么需要路由&quot;&gt;&lt;/a&gt;为什么需要路由&lt;/h1&gt;&lt;p&gt;1.单页应用需要进行页面切换&lt;br&gt;2.通过URL可以定位到页面&lt;br&gt;3.更有语义的组织资源&lt;/p
-    
-    </summary>
-    
-    
-      <category term="react" scheme="http://yoohannah.github.io/tags/react/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>构建</title>
-    <link href="http://yoohannah.github.io/post/react/course/construct.html"/>
-    <id>http://yoohannah.github.io/post/react/course/construct.html</id>
-    <published>2018-12-04T13:05:37.000Z</published>
-    <updated>2018-12-22T05:13:32.885Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="UI库"><a href="#UI库" class="headerlink" title="UI库"></a>UI库</h1><p>ant design 适合企业级应用，复杂交付，密集数据展示<br>material UI：时尚，花哨，具有的美观性，更适合开发面向消费者的应用（google版原始react实现）<br>sematic UI:把UI当做一种language来描述（jquery版原始react实现）</p>
-<p>选择UI库的考虑因素</p>
-<ol>
-<li>组件库是否齐全（齐全的话可以减少很多工作量，不用自己实现）</li>
-<li>样式风格是否符合业务需求（企业级应用一般要求简洁明了，对于密集性数据展示比较合理；对于移动端面向消费者一般要求好看，button，字体比较大）</li>
-<li>API 设计是否便捷和灵活（使用起来是否方便，从而会影响开发效率）</li>
-<li>技术支持是否完善（技术文档是否齐全；github上提issue时，能不能得到快速解答）</li>
-<li>开发是否活跃（是否有稳定团队在进行快速迭代和维护，在遇到BUG或者需要新功能时可以得到满足）</li>
-</ol>
-<h1 id="使用next-js-构建react-同构应用"><a href="#使用next-js-构建react-同构应用" class="headerlink" title="使用next.js 构建react 同构应用"></a>使用next.js 构建react 同构应用</h1><p>同构应用：浏览器第一次向服务器请求页面时，服务器返回解析好的页面，不需要浏览器执行js来进行渲染（这样可以加快页面首次打开的速度），之后页面的操作/切换，像单页面一样，不需要浏览器刷新，均由前端完成，包括UI渲染，页面路由切换等，不需要再向服务端请求页面</p>
-<p>next.js的几个规则<br>1.页面就是pages目录下的一个组件<br>所有页面放在pages文件夹下，一个页面即一个组件，文件名和文件路径对应路由路径<br>2.static目录映射静态文件（图片）<br>3.page具有特殊静态方法 getInitialProps<br>next.js提供给react组件初始化props的方法</p>
-<p>命令行装包：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">npm install --save react react-dom next</div></pre></td></tr></table></figure></p>
-<p>在页面中使用其它 react 组件<br>1.页面也是标准的node模块,可使用其它 react组件<br>2.页面会针对性打包,仅包含其引入的组件<br>,不会加载其他额外的资源</p>
-<p>所有组件放在components文件夹下，在pages文件夹下的页面js中使用时，直接用路径import进去</p>
-<p>使用Link实现同构路由</p>
-<p>1.使用 next/link 定义链接<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">import Link from &apos;next/link&apos;</div><div class="line">export default ()=&gt;</div><div class="line">&lt;div&gt;</div><div class="line">&lt;Link href=&apos;/about&apos;&gt;&lt;a&gt;here&lt;/a&gt;&lt;/Link&gt;</div><div class="line">&lt;/div&gt;</div></pre></td></tr></table></figure></p>
-<p>2.点击链接时页面不会刷新<br>如果使用a标签会产生刷新</p>
-<p>3.使用 prefatch预加载目标资源<br>如果不添加该属性，则链接对应的组件，在切换的时候再加载相应页面打包的内容，有该属性，则next.js 打包时就会获取所有链接对应的组件，会预加载所有的js内容，从而提高页面切换速度，但是并不会预加载需要从服务器端API请求的数据</p>
-<p>4.使用 replace 属性替换 url<br>替换当前页在路由中的history,无法后退回当前页</p>
-<p>动态加载页面<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">import dynamic from &apos;next/dynamic&apos;</div><div class="line">const DynamicComponet=dynamic(import(&apos;../components/hello&apos;))</div><div class="line">export default ()=&gt;</div><div class="line">&lt;div&gt;</div><div class="line">&lt;DynamicComponet/&gt;</div><div class="line">&lt;/div&gt;</div></pre></td></tr></table></figure></p>
-<p>页面在加载时，除了加载整个页面的main.js,还会加载动态加载的组件的js包，当这个动态组件被render的时候才会被加载</p>
-<h1 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h1><p>react 让前端单元测试变得容易<br>1.react 应用很少需要访问浏览器 API<br>2.虚拟 Dom 可以在 NodeJs 环境运行和测试 （不需要浏览器环境，在内存中render虚拟DOM即可完成测试）<br>3.Redux隔离了状态管理,纯数据层单元测试</p>
-<p>单元测试涉及的工具<br>1.Jest: Facebook 开源的 JS 单元测试框架 （零配置，可以直接开始测试）<br>2.JS dom浏览器环境的 NodeJS 模拟 （一个在nodejs中可以模拟浏览器的library）<br>3.Enzyme:React组件渲染和测试 (在nodejs中渲染虚拟DOM进行测试，通过进行不同程度的render(shallow Rendering,Full Rendering,Static Rendering,进行不同程度的测试，比如利用shallow Rendering浅渲染测试渲染结果是否符合预期的DOM结构)<br>4.Nock: 模拟 HTTP请求 （模拟得到请求返回数据）<br>5.Sinon: 函数模拟和调用跟踪 （例如测试组件UI时，跟踪响应函数有没有被调用，调用几次，而不是去测试响应函数是否符合预期，测试响应函数是否符合预期属于响应函数测试范畴。集成在JEST中）<br>6.istanbul:单元测试覆盖率（通过对已有代码的修改和埋点去判断相关代码有没有被执行到）</p>
-<h1 id="开发调试工具"><a href="#开发调试工具" class="headerlink" title="开发调试工具"></a>开发调试工具</h1><p>eslint<br>1.使用 .eslintrc 进行规则的配置<br>2.使用 airbnb 的 JavaScript 代码风格</p>
-<p>检查语法风格，拼写错误，会报错，保证代码的一致性</p>
-<p>Prettier<br>vscode 的一款插件，根据一定规则做代码格式化 .eslintrc<br>1.代码格式化的神器<br>2.保证更容易写出风格一致的代码<br>不会报错,会直接根据规则将代码格式化</p>
-<p>React DevTool chrome插件<br>定位组件，可以以组件树的形式查看DOM结构，<br>勾选highlight updates可看到需要更新的组件</p>
-<p>Redux DevTool chrome插件<br>可查看action和action引起的变化<br>time machine 功能，可以回溯action,方便观察loading过程，进而对loading进行优化<br>可自动生成测试代码</p>
-<h1 id="理想架构"><a href="#理想架构" class="headerlink" title="理想架构"></a>理想架构</h1><p>易于开发（但可能会不容易扩展和维护）<br>1.开发工具是否完善 （采用的技术栈是否有相应的开发工具来支持）<br>2.生态圈是否繁荣 （是否有类似项目遇到过相同问题可以借鉴）<br>3.社区是否活跃（提问有人回答）</p>
-<p>易于扩展<br>1.增加新功能是否容易<br>2.新功能是否会显著增加系统复杂度（系统放大之后会难以扩展和维护，考虑引进新功能时，如何架构能保证减少系统复杂度的提高）</p>
-<p>易于维护<br>1.代码是否容易理解 （基于一定的最佳实践规范去编写，保证多人开发有一定的规则）<br>2.文档是否健全（通过注释，架构图，具体文档描述项目中的一些关键点，方便后续工作人员查看，也方便日后回头开发能快速理解关键点，来维护已有项目）</p>
-<p>易于测试<br>1.功能的分层是否清晰 （UI，数据层之间依赖少）<br>2.副作用少 （模块高内聚，对外部依赖少）<br>3.尽量使用纯函数（输入决定输出，确定）</p>
-<p>易于构建<br>1.使用通用技术和架构 （保证现有项目不需要定制化，就可以打包部署）<br>2.构建工具的选择（webpack ,roolup,使用常用技术栈，减少额外配置）</p>
-<p>大型前端应用需要拆分复杂度原因<br>当项目增加更多功能的时候，项目复杂度并不会指数级的上升，始终保持在一个可控的范围之内</p>
-<p>拆分复杂度技术架构</p>
-<p>从功能上进行区分，将业务逻辑拆成高内聚松耦合的模块，每个模块负责一个功能，拥有自己的componet,action和reducer,这样即使当一个功能需要删除时，只要删除相应的模块即可，也保证其他模块不受影响；路由不再由一个文件统一定义，每个feature自己定义一个路由，然后由route的loader把每个模块的路由文件加载进根结点的routing文件</p>
-<p>技术上的component,路由，reducer是按照功能的方式组织在模块上</p>
-<p>如何组织 component,action 和reducer<br>文件夹结构<br>• 按 feature 组织源文件<br>• 组件和样式文件同一级<br>• React 单独文件夹<br>• 单元测试保持同样目录结构放在 tests 文件夹</p>
-<p>组件和样式组织<br>一个功能的组件js和样式文件放在一个模块中，再由一个index.js引入各个模块的组件js文件，一个style文件引入各个模块的样式文件，进行统一管理输出,打包时就只是打包index.js和style文件<br>注意：<br>如果组件中引入样式文件，那么当这个组件被重复使用时，样式文件会被多次引入，打包时就会多次进行打包，造成不必要的代码冗余<br>使用上述加载方式，样式文件独立加载，js文件只需要加载它所需要的资源，就不会发生多次加载</p>
-<p>action 和 reducer组织<br>一个模块的，action 和 reducer 一一对应放在同一文件，再由一个actions.js引入所有action,一个reducers.js引入所有reducer，这两个文件只是充当loader的角色<br>好处：action 和 reducer 非常小，不会被无限的去扩展，更容易理解</p>
-<p>CONSTANTS.js中命名的常量一功能名开头，避免与其他模块常量命名冲突</p>
-<p>再由rootreducer加载所有模块下的reducer,进行combineReducers挂载，实现全局使用</p>
-<p>优点：一个模块内部是高内聚的，各个模块之间是松耦合的</p>
-<p>主要思想：使用 root loader 加载 feature的各个资源</p>
-<p>路由配置<br>每个模块（页面级）路由通过export JSON格式数据 ，自己配，再loader到根路由，由根路由统一处理解析json格式为react Router的声明式形式</p>
-<p>每个模块都有都有自己的专属路由配置<br>顶层路由使用JSON配置更易维护和理解</p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;h1 id=&quot;UI库&quot;&gt;&lt;a href=&quot;#UI库&quot; class=&quot;headerlink&quot; title=&quot;UI库&quot;&gt;&lt;/a&gt;UI库&lt;/h1&gt;&lt;p&gt;ant design 适合企业级应用，复杂交付，密集数据展示&lt;br&gt;material UI：时尚，花哨，具有的美观性，更适合开发面向
     
     </summary>
     

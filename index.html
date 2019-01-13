@@ -259,6 +259,249 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://yoohannah.github.io/post/vue/vueSlot.html">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="YooHannah">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="/psb.jpg">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="My Little World">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="My Little World" src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/post/vue/vueSlot.html" itemprop="url">
+                  Slot复用
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-01-13T16:38:15+08:00">
+                2019-01-13
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h1><p>项目列表组件需要实现点击自动增加一行,可展示自定义内容的可扩展内容<br>列表table组件被应用在page组件，page组件被应用在具体业务页面，slot的具体内容在业务页面传递进去<br><img src="/image/tableextend1.png" alt="tableextend1"><br>问题难点<br>1.多层组件slot传递<br>2.同一个slot在table组件中循环使用在多处时，不会被渲染</p>
+<h1 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h1><p>1.slot 只能一层一层传递，所以解决多层传递，就是在page层应用table时，增加slot接收业务页面传递进来的slot具体内容<br>2.同名slot不能在同一组件被重复渲染，即不允许有重名slot<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">重名的 Slots 移除</div><div class="line">同一模板中的重名 &lt;slot&gt; 已经弃用。当一个 slot 已经被渲染过了，那么就不能在同一模板其它地方被再次渲染了。如果要在不同位置渲染同一内容，可一用 prop 来传递。</div></pre></td></tr></table></figure></p>
+<h1 id="回归问题"><a href="#回归问题" class="headerlink" title="回归问题"></a>回归问题</h1><h2 id="多层组件slot传递"><a href="#多层组件slot传递" class="headerlink" title="多层组件slot传递"></a>多层组件slot传递</h2><p>在page层使用table组件时将&lt;slot&gt;&lt;/slot&gt;放在table组件中，将slot内容当作table的slot传递给table<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div></pre></td><td class="code"><pre><div class="line">1.业务页面具体自定义内容传入</div><div class="line">&lt;PageComponent :pageConfig=&quot;pageConfig&quot; ref=&quot;child&quot;&gt;</div><div class="line">    &lt;div slot=&apos;tableExtend&apos;&gt;</div><div class="line">    &lt;extendTable :detailConfig=&quot;pageConfig.table.isExtend.detailConfig&quot;</div><div class="line">        v-if=&quot;pageConfig.table.isExtend.detailConfig[0].data.length&gt;0&quot;&gt;</div><div class="line">    &lt;/extendTable&gt;</div><div class="line">    &lt;div style=&quot;padding: 10px;&quot; v-if=&quot;pageConfig.table.isExtend.detailConfig[0].data.length === 0&quot;&gt;暂无数据&lt;/div&gt;</div><div class="line">    &lt;/div&gt;</div><div class="line">&lt;/PageComponent&gt;</div><div class="line"></div><div class="line">2.page组件table部分</div><div class="line">&lt;section class=&quot;page-table&quot;&gt;</div><div class="line">    &lt;tableTemp :table=&quot;pageConfig.table&quot; :pageConfig=&quot;pageConfig&quot; @sendIds=&quot;receiveIds&quot; ref=&quot;refTest&quot;&gt;</div><div class="line">        &lt;slot :name=&apos;pageConfig.table.isExtend.slot&apos; v-if=&quot;pageConfig.table.isExtend&quot;&gt;&lt;/slot&gt; //将slot放在这里</div><div class="line">    &lt;/tableTemp&gt;</div><div class="line">&lt;/section&gt;</div><div class="line">3.table部分</div><div class="line"> 利用template实现列表行和扩展行一对一</div><div class="line"> &lt;template v-for=&quot;(value,index) in table.tableData&quot;&gt; </div><div class="line">    &lt;tr :key=&quot;index&quot;&gt;</div><div class="line">        &lt;td v-for=&quot;(val,i) in table.tableEle&quot; v-if=&quot;val.display&quot; :key=&quot;i&quot;&gt;</div><div class="line">            &lt;div class=&quot;extendStyle&quot; v-if=&apos;table.isExtend &amp;&amp; i==firstShow&apos;&gt;</div><div class="line">                &lt;a v-show=&quot;index != currentActive&quot; @click=&quot;loadDetail(value,index)&quot;&gt;&lt;i class=&quot;ivu-icon ivu-icon-ios-arrow-forward&quot;&gt;&lt;/i&gt;&lt;/a&gt; //loadDetail去调父组件函数获取详情数据</div><div class="line">                &lt;a v-show=&quot;index === currentActive&quot; @click=&quot;loadDetail(value,index)&quot; class=&quot;active&quot;&gt;&lt;i class=&quot;ivu-icon ivu-icon-ios-arrow-forward&quot;&gt;&lt;/i&gt;&lt;/a&gt;</div><div class="line">            &lt;/div&gt;</div><div class="line">            &lt;div v-if=&apos;!table.isExtend&apos;&gt;</div><div class="line">            ...</div><div class="line">            &lt;/div&gt;</div><div class="line">        &lt;/td&gt;</div><div class="line">    &lt;/tr&gt;</div><div class="line">    //在组装行的时候增加备用扩展行，利用第三方变量控制扩展行显示隐藏</div><div class="line">    &lt;tr v-if=&quot;index === currentActive&quot; :key=&quot;index+0.5&quot; class=&apos;bgc&apos;&gt;  </div><div class="line">        &lt;td :colspan=&apos;tdNumber&apos; id=&apos;extend1&apos;&gt;//合并单元格</div><div class="line">            &lt;slot :name=&apos;table.isExtend.slot&apos;&gt;&lt;/slot&gt;//直接这样是不能渲染的，因为这样通过循环会出现多个同名slot</div><div class="line">        &lt;/td&gt;</div><div class="line">    &lt;/tr&gt;</div><div class="line">&lt;/template&gt; </div><div class="line">//去调父组件函数获取详情数据</div><div class="line">loadDetail(item, index) &#123;</div><div class="line">    this.currentActive = this.currentActive === index ? -1 : index</div><div class="line">    this.$store.commit(&apos;changeTableExtendActive&apos;,this.currentActive)</div><div class="line">    if(this.currentActive === -1)&#123;</div><div class="line">        return</div><div class="line">    &#125;</div><div class="line">    let func = this.pageConfig.table.isExtend.func</div><div class="line">    this.$parent.$parent[func](item,index)</div><div class="line">&#125;,</div></pre></td></tr></table></figure></p>
+<h2 id="slot重用"><a href="#slot重用" class="headerlink" title="slot重用"></a>slot重用</h2><h3 id="方法一-作用域插槽"><a href="#方法一-作用域插槽" class="headerlink" title="方法一 作用域插槽"></a>方法一 作用域插槽</h3><p>在子组件中将slot中用到的数据传递给slot标签的data属性,<br>父组件借助slot-scope属性,获取子组件中slot标签的data属性传递的数据<br>即可应用在slot模板中，另外slot模板中如果用到点击事件回调函数，可以直接在父组件中定义，直接调用</p>
+<p>注意slot-scope绑定的变量在使用时,子组件传递的实际值被包含在一个data属性中，所以需要通过slotscope.data.xxxxx去获取<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line">爷爷组件</div><div class="line">&lt;PageComponent :pageConfig=&quot;pageConfig&quot; ref=&quot;child&quot;&gt;</div><div class="line">    &lt;template slot-scope=&quot;isExtend&quot;&gt;</div><div class="line">        &lt;extendTable :detailConfig=&quot;isExtend.data.detailConfig&quot; //包含的data中</div><div class="line">            v-if=&quot;isExtend.data.detailConfig[0].data.length&gt;0&quot;&gt;</div><div class="line">        &lt;/extendTable&gt;</div><div class="line">        &lt;div style=&quot;padding: 10px;&quot; v-if=&quot;isExtend.data.detailConfig[0].data.length === 0&quot;&gt;暂无数据&lt;/div&gt;</div><div class="line">    &lt;/template&gt;</div><div class="line">&lt;/PageComponent&gt;</div><div class="line">父组件</div><div class="line">&lt;section class=&quot;page-table&quot;&gt;</div><div class="line">    &lt;tableTemp :table=&quot;pageConfig.table&quot; :pageConfig=&quot;pageConfig&quot; @sendIds=&quot;receiveIds&quot; ref=&quot;refTest&quot;&gt;</div><div class="line">        &lt;slot :data=&apos;pageConfig.table.isExtend&apos; v-if=&quot;pageConfig.table.isExtend&quot;&gt;&lt;/slot&gt;</div><div class="line">    &lt;/tableTemp&gt;</div><div class="line">&lt;/section&gt;</div><div class="line">子组件</div><div class="line">&lt;tr v-if=&quot;index === currentActive&quot; :key=&quot;index+0.5&quot; class=&apos;bgc&apos;&gt; </div><div class="line">    &lt;td :colspan=&apos;tdNumber&apos; id=&apos;extend1&apos;&gt;</div><div class="line">        &lt;slot :data=&apos;table.isExtend&apos;&gt;&lt;/slot&gt; //直接使用</div><div class="line">    &lt;/td&gt;</div><div class="line">&lt;/tr&gt;</div></pre></td></tr></table></figure></p>
+<h3 id="插曲"><a href="#插曲" class="headerlink" title="插曲"></a>插曲</h3><p>一个业务场景需要同时渲染多个table,即通过一次配置，可渲染多个table的组件，<br>一个同事将循环table的逻辑放在了table组件本身里面，造成table本身是一个可循环输出多个table的组件<br>这样如果一开始在爷爷组件放入多个具名slot,因为不能在子组件slot标签添加name属性（会循环出同名slot），<br>那所有的slot都会出现在每一个table组件中<br>因此有了方法二<br><img src="/image/tableextend2.png" alt="tableextend2"></p>
+<h3 id="方法二"><a href="#方法二" class="headerlink" title="方法二"></a>方法二</h3><p>利用page层传递slot到table组件思想，在table中使用slot时，将其包裹在一个新组件中，<br>利用新组件复用，实现slot组件复用，(相当于将slot传递到新组件——-&gt;待查原理)<br>而新组件通过render函数依据slot节点生成<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div></pre></td><td class="code"><pre><div class="line">子组件</div><div class="line"> &lt;tr v-if=&quot;(indexx+&apos;-&apos;+index) === currentActive&quot; :key=&quot;index+0.5&quot; class=&apos;bgc&apos;&gt;</div><div class="line">    &lt;td :colspan=&apos;itemConfig.config.length&apos;&gt;</div><div class="line">        &lt;!-- slot标签要放在tdslot标签充当slot,否则详情数据拉回来之后不会进行更新组件 --&gt;</div><div class="line">        &lt;tdSlot :name=&apos;itemConfig.isExtend.slot&apos;&gt; &lt;slot :name=&apos;itemConfig.isExtend.slot&apos;&gt;&lt;/slot&gt; &lt;/tdSlot&gt;</div><div class="line">        &lt;!-- tdslot在main.js中定义 --&gt;</div><div class="line">    &lt;/td&gt;</div><div class="line">&lt;/tr&gt;</div><div class="line">loadDetail(item, indexx, index) &#123;</div><div class="line">    this.currentActive = this.currentActive === indexx+&apos;-&apos;+index ? -1 : indexx+&apos;-&apos;+index //通过多层key判断展开</div><div class="line">    if(this.currentActive === -1)&#123;</div><div class="line">        return</div><div class="line">    &#125;</div><div class="line">    let func = this.detailConfig[indexx].isExtend.func</div><div class="line">    this.$parent.$parent[func](item,indexx, index)</div><div class="line">&#125;</div><div class="line">新组件带着slot生成</div><div class="line">Vue.component(&apos;tdSlot&apos;, &#123;</div><div class="line"></div><div class="line">  render(createElement) &#123;</div><div class="line">    function deepClone(vnodes, createElement) &#123;</div><div class="line">      function cloneVNode (vnode) &#123;对slot节点进行深度复制</div><div class="line">        const clonedChildren = vnode.children &amp;&amp; vnode.children.map(vnode =&gt; cloneVNode(vnode))</div><div class="line">        const cloned = createElement(vnode.tag, vnode.data, clonedChildren)</div><div class="line">        cloned.text = vnode.text</div><div class="line">        cloned.isComment = vnode.isComment</div><div class="line">        cloned.componentOptions = vnode.componentOptions</div><div class="line">        cloned.elm = vnode.elm</div><div class="line">        cloned.context = vnode.context</div><div class="line">        cloned.ns = vnode.ns</div><div class="line">        cloned.isStatic = vnode.isStatic</div><div class="line">        cloned.key = vnode.key</div><div class="line"></div><div class="line">        return cloned</div><div class="line">      &#125;</div><div class="line">      const clonedVNodes = vnodes.map(vnode =&gt; cloneVNode(vnode))</div><div class="line">      return clonedVNodes</div><div class="line">    &#125;</div><div class="line">    var slots = this.$parent.$slots.default //从父组件拿到slot</div><div class="line">    var slot = null</div><div class="line">    for(let i=0;i&lt;slots.length;i++)&#123;</div><div class="line">      if(slots[i].data &amp;&amp; this.name === slots[i].data.slot)&#123; //多个slot，拿到自己table.isExtend配置的那一个</div><div class="line">        slot = slots[i]</div><div class="line">        break</div><div class="line">      &#125;</div><div class="line">    &#125;</div><div class="line">    return createElement(&apos;div&apos;,&#123;class:&apos;tdslot&apos;&#125;,deepClone([slot], createElement)) //做一下深度复制</div><div class="line">    &lt;!-- return createElement(&apos;div&apos;,&#123;class:&apos;tdslot&apos;&#125;,[slot]) --&gt; 这样也可以</div><div class="line">  &#125;,</div><div class="line">  props:&#123;</div><div class="line">    name:&#123;</div><div class="line">      type:String,</div><div class="line">      default:&apos;&apos;</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">&#125;)</div><div class="line"></div><div class="line">父组件</div><div class="line">&lt;detailsTable v-if=&quot;detailPageConfig.detailConfig&quot; :detailConfig=&quot;detailPageConfig.detailConfig&quot;&gt;</div><div class="line">    &lt;slot v-for=&apos;(item,index) in detailPageConfig.detailConfig&apos; v-if=&apos;item.isExtend&apos; :name=&apos;detailPageConfig.detailConfig[index].isExtend.slot&apos; &gt;&lt;/slot&gt;</div><div class="line">&lt;/detailsTable&gt;</div><div class="line">爷爷组件</div><div class="line">&lt;detailsPage :detailPageConfig=&quot;detailPageConfig&quot;&gt;</div><div class="line">    &lt;div slot=&apos;tableExtend-1&apos;&gt; //多个slot 并列写即可</div><div class="line">    &lt;detailsTable :detailConfig=&quot;detailPageConfig.detailConfig[1].isExtend.detailConfig&quot;</div><div class="line">        v-if=&quot;this.detailPageConfig.detailConfig[1].isExtend.detailConfig[0].data.length&gt;0&quot;&gt;</div><div class="line">    &lt;/detailsTable&gt;</div><div class="line">    &lt;div v-if=&quot;this.detailPageConfig.detailConfig[1].isExtend.detailConfig[0].data.length&lt;1&quot;&gt;暂无数据&lt;/div&gt;</div><div class="line">    &lt;/div&gt;</div><div class="line">&lt;/detailsPage&gt;</div></pre></td></tr></table></figure></p>
+<h3 id="方法三"><a href="#方法三" class="headerlink" title="方法三"></a>方法三</h3><p>其实之所以会出现重名slot是因为table的大循环逻辑放在了自己组件内，<br>其实输出多个table的逻辑放在page层即可，table还是独立的table，<br>这样插入slot时就不是同名slot，各自slot,插入各自table<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">父组件</div><div class="line">&lt;template v-for=&apos;(item,index) in detailPageConfig.detailConfig&apos;&gt;</div><div class="line">    &lt;detailsTable :detailConfig=&quot;item&quot; :key=&apos;index&apos;&gt;</div><div class="line">    &lt;slot v-if=&apos;item.isExtend&apos; :name=&apos;item.isExtend.slot&apos; &gt;&lt;/slot&gt;</div><div class="line">    &lt;/detailsTable&gt;</div><div class="line">&lt;/template&gt;</div><div class="line">子组件</div><div class="line">&lt;tr v-if=&quot;index === currentActive&quot; :key=&quot;index+0.5&quot; class=&apos;bgc&apos;&gt;</div><div class="line">    &lt;td :colspan=&apos;detailConfig.config.length&apos;&gt;</div><div class="line">        &lt;slot&gt;&lt;/slot&gt;//只要将自己的slot放进来即可</div><div class="line">    &lt;/td&gt;</div><div class="line">&lt;/tr&gt;</div></pre></td></tr></table></figure></p>
+<p><a href="https://www.jianshu.com/p/c735cc612e63" target="_blank" rel="external">参考资料</a><br><a href="https://cnodejs.org/topic/58c0ad17d282728c0ec4029a" target="_blank" rel="external">参考资料</a><br><a href="https://segmentfault.com/a/1190000010913794" target="_blank" rel="external">参考资料</a></p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://yoohannah.github.io/post/react/SyntheticEvent.html">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="YooHannah">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="/psb.jpg">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="My Little World">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="My Little World" src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/post/react/SyntheticEvent.html" itemprop="url">
+                  react 合成事件原理
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-01-05T15:37:37+08:00">
+                2019-01-05
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="事件注册"><a href="#事件注册" class="headerlink" title="事件注册"></a>事件注册</h1><h2 id="注册到document"><a href="#注册到document" class="headerlink" title="注册到document"></a>注册到document</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div><div class="line">114</div><div class="line">115</div><div class="line">116</div><div class="line">117</div><div class="line">118</div><div class="line">119</div><div class="line">120</div><div class="line">121</div><div class="line">122</div><div class="line">123</div><div class="line">124</div><div class="line">125</div><div class="line">126</div><div class="line">127</div><div class="line">128</div><div class="line">129</div><div class="line">130</div><div class="line">131</div><div class="line">132</div><div class="line">133</div><div class="line">134</div><div class="line">135</div><div class="line">136</div><div class="line">137</div><div class="line">138</div><div class="line">139</div><div class="line">140</div><div class="line">141</div><div class="line">142</div><div class="line">143</div><div class="line">144</div><div class="line">145</div><div class="line">146</div><div class="line">147</div><div class="line">148</div><div class="line">149</div><div class="line">150</div><div class="line">151</div><div class="line">152</div><div class="line">153</div><div class="line">154</div><div class="line">155</div><div class="line">156</div><div class="line">157</div><div class="line">158</div><div class="line">159</div><div class="line">160</div><div class="line">161</div><div class="line">162</div><div class="line">163</div><div class="line">164</div><div class="line">165</div><div class="line">166</div><div class="line">167</div><div class="line">168</div><div class="line">169</div><div class="line">170</div><div class="line">171</div><div class="line">172</div><div class="line">173</div><div class="line">174</div><div class="line">175</div><div class="line">176</div><div class="line">177</div><div class="line">178</div><div class="line">179</div><div class="line">180</div><div class="line">181</div><div class="line">182</div><div class="line">183</div><div class="line">184</div><div class="line">185</div><div class="line">186</div><div class="line">187</div><div class="line">188</div><div class="line">189</div><div class="line">190</div><div class="line">191</div><div class="line">192</div><div class="line">193</div><div class="line">194</div><div class="line">195</div><div class="line">196</div><div class="line">197</div><div class="line">198</div><div class="line">199</div><div class="line">200</div><div class="line">201</div><div class="line">202</div><div class="line">203</div><div class="line">204</div><div class="line">205</div><div class="line">206</div></pre></td><td class="code"><pre><div class="line">1. reactDOMComponent.js</div><div class="line">export function setInitialProperties(</div><div class="line">  domElement: Element,</div><div class="line">  tag: string,</div><div class="line">  rawProps: Object,</div><div class="line">  rootContainerElement: Element | Document,</div><div class="line">): void &#123;</div><div class="line">  const isCustomComponentTag = isCustomComponent(tag, rawProps);</div><div class="line">  if (__DEV__) &#123; ... &#125;</div><div class="line">  let props: Object;</div><div class="line">  switch (tag) &#123;</div><div class="line">    case &apos;iframe&apos;:</div><div class="line">    case &apos;object&apos;:</div><div class="line">      trapBubbledEvent(TOP_LOAD, domElement); //trapBubbledEvent</div><div class="line">      props = rawProps;</div><div class="line">      break;</div><div class="line">    case &apos;video&apos;:</div><div class="line">    case &apos;audio&apos;:</div><div class="line">      // Create listener for each media event</div><div class="line">      for (let i = 0; i &lt; mediaEventTypes.length; i++) &#123;</div><div class="line">        trapBubbledEvent(mediaEventTypes[i], domElement); //trapBubbledEvent</div><div class="line">      &#125;</div><div class="line">      props = rawProps;</div><div class="line">      break;</div><div class="line">    case &apos;source&apos;:</div><div class="line">      trapBubbledEvent(TOP_ERROR, domElement); //trapBubbledEvent</div><div class="line">      props = rawProps;</div><div class="line">      break;</div><div class="line">    case &apos;img&apos;:</div><div class="line">    case &apos;image&apos;:</div><div class="line">    case &apos;link&apos;:</div><div class="line">      trapBubbledEvent(TOP_ERROR, domElement); //trapBubbledEvent</div><div class="line">      trapBubbledEvent(TOP_LOAD, domElement); //trapBubbledEvent</div><div class="line">      props = rawProps;</div><div class="line">      break;</div><div class="line">    case &apos;form&apos;:</div><div class="line">      trapBubbledEvent(TOP_RESET, domElement);  //trapBubbledEvent</div><div class="line">      trapBubbledEvent(TOP_SUBMIT, domElement); //trapBubbledEvent</div><div class="line">      props = rawProps;</div><div class="line">      break;</div><div class="line">    case &apos;details&apos;:</div><div class="line">      trapBubbledEvent(TOP_TOGGLE, domElement); //trapBubbledEvent</div><div class="line">      props = rawProps;</div><div class="line">      break;</div><div class="line">    case &apos;input&apos;:</div><div class="line">      ReactDOMInputInitWrapperState(domElement, rawProps);</div><div class="line">      props = ReactDOMInputGetHostProps(domElement, rawProps);</div><div class="line">      trapBubbledEvent(TOP_INVALID, domElement);  //trapBubbledEvent</div><div class="line">      // For controlled components we always need to ensure we&apos;re listening</div><div class="line">      // to onChange. Even if there is no listener.</div><div class="line">      ensureListeningTo(rootContainerElement, &apos;onChange&apos;); // ensureListeningTo</div><div class="line">      break;</div><div class="line">    case &apos;option&apos;:</div><div class="line">      ReactDOMOptionValidateProps(domElement, rawProps);</div><div class="line">      props = ReactDOMOptionGetHostProps(domElement, rawProps);</div><div class="line">      break;</div><div class="line">    case &apos;select&apos;:</div><div class="line">      ReactDOMSelectInitWrapperState(domElement, rawProps);</div><div class="line">      props = ReactDOMSelectGetHostProps(domElement, rawProps);</div><div class="line">      trapBubbledEvent(TOP_INVALID, domElement);    //trapBubbledEvent</div><div class="line">      // For controlled components we always need to ensure we&apos;re listening</div><div class="line">      // to onChange. Even if there is no listener.</div><div class="line">      ensureListeningTo(rootContainerElement, &apos;onChange&apos;);  // ensureListeningTo</div><div class="line">      break;</div><div class="line">    case &apos;textarea&apos;:</div><div class="line">      ReactDOMTextareaInitWrapperState(domElement, rawProps);</div><div class="line">      props = ReactDOMTextareaGetHostProps(domElement, rawProps);</div><div class="line">      trapBubbledEvent(TOP_INVALID, domElement);  //trapBubbledEvent</div><div class="line">      // For controlled components we always need to ensure we&apos;re listening</div><div class="line">      // to onChange. Even if there is no listener.</div><div class="line">      ensureListeningTo(rootContainerElement, &apos;onChange&apos;); // ensureListeningTo</div><div class="line">      break;</div><div class="line">    default:</div><div class="line">      props = rawProps;</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  assertValidProps(tag, props);</div><div class="line"></div><div class="line">  setInitialDOMProperties(</div><div class="line">    tag,</div><div class="line">    domElement,</div><div class="line">    rootContainerElement,</div><div class="line">    props,</div><div class="line">    isCustomComponentTag,</div><div class="line">  );//这个函数中也会用到 ensureListeningTo</div><div class="line"></div><div class="line">  switch (tag) &#123;</div><div class="line">   //给一些DOM标签通过setAttribute赋值</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">function setInitialDOMProperties(</div><div class="line">  tag: string,</div><div class="line">  domElement: Element,</div><div class="line">  rootContainerElement: Element | Document,</div><div class="line">  nextProps: Object,</div><div class="line">  isCustomComponentTag: boolean,</div><div class="line">): void &#123;</div><div class="line">    if(...)&#123;</div><div class="line">      ...</div><div class="line">    &#125; else if (registrationNameModules.hasOwnProperty(propKey)) &#123;</div><div class="line">      if (nextProp != null) &#123;</div><div class="line">        if (__DEV__ &amp;&amp; typeof nextProp !== &apos;function&apos;) &#123;</div><div class="line">          warnForInvalidEventListener(propKey, nextProp);</div><div class="line">        &#125;</div><div class="line">        ensureListeningTo(rootContainerElement, propKey); // ensureListeningTo</div><div class="line">      &#125;</div><div class="line">    &#125; else if (nextProp != null) &#123;</div><div class="line">      setValueForProperty(domElement, propKey, nextProp, isCustomComponentTag);</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">function ensureListeningTo(rootContainerElement, registrationName) &#123;</div><div class="line">  const isDocumentOrFragment =</div><div class="line">    rootContainerElement.nodeType === DOCUMENT_NODE ||</div><div class="line">    rootContainerElement.nodeType === DOCUMENT_FRAGMENT_NODE;</div><div class="line">  const doc = isDocumentOrFragment</div><div class="line">    ? rootContainerElement</div><div class="line">    : rootContainerElement.ownerDocument;</div><div class="line">  listenTo(registrationName, doc);</div><div class="line">&#125;</div><div class="line"></div><div class="line">2.ReactBrowerEventEmitter.js</div><div class="line"></div><div class="line">export function listenTo(</div><div class="line">  registrationName: string,</div><div class="line">  mountAt: Document | Element,</div><div class="line">) &#123;</div><div class="line">  const isListening = getListeningForDocument(mountAt);</div><div class="line">  const dependencies = registrationNameDependencies[registrationName];</div><div class="line"></div><div class="line">  for (let i = 0; i &lt; dependencies.length; i++) &#123;</div><div class="line">    const dependency = dependencies[i];</div><div class="line">    if (!(isListening.hasOwnProperty(dependency) &amp;&amp; isListening[dependency])) &#123;</div><div class="line">      switch (dependency) &#123;</div><div class="line">        case TOP_SCROLL:</div><div class="line">          trapCapturedEvent(TOP_SCROLL, mountAt);</div><div class="line">          break;</div><div class="line">        case TOP_FOCUS:</div><div class="line">        case TOP_BLUR:</div><div class="line">          trapCapturedEvent(TOP_FOCUS, mountAt);</div><div class="line">          trapCapturedEvent(TOP_BLUR, mountAt);</div><div class="line">          // We set the flag for a single dependency later in this function,</div><div class="line">          // but this ensures we mark both as attached rather than just one.</div><div class="line">          isListening[TOP_BLUR] = true;</div><div class="line">          isListening[TOP_FOCUS] = true;</div><div class="line">          break;</div><div class="line">        case TOP_CANCEL:</div><div class="line">        case TOP_CLOSE:</div><div class="line">          if (isEventSupported(getRawEventName(dependency))) &#123;</div><div class="line">            trapCapturedEvent(dependency, mountAt);</div><div class="line">          &#125;</div><div class="line">          break;</div><div class="line">        case TOP_INVALID:</div><div class="line">        case TOP_SUBMIT:</div><div class="line">        case TOP_RESET:</div><div class="line">          // We listen to them on the target DOM elements.</div><div class="line">          // Some of them bubble so we don&apos;t want them to fire twice.</div><div class="line">          break;</div><div class="line">        default:</div><div class="line">          // By default, listen on the top level to all non-media events.</div><div class="line">          // Media events don&apos;t bubble so adding the listener wouldn&apos;t do anything.</div><div class="line">          const isMediaEvent = mediaEventTypes.indexOf(dependency) !== -1;</div><div class="line">          if (!isMediaEvent) &#123;</div><div class="line">            trapBubbledEvent(dependency, mountAt);</div><div class="line">          &#125;</div><div class="line">          break;</div><div class="line">      &#125;</div><div class="line">      isListening[dependency] = true;</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">3. ReactDOMEventListener.js</div><div class="line"></div><div class="line">export function trapBubbledEvent(</div><div class="line">  topLevelType: DOMTopLevelEventType,</div><div class="line">  element: Document | Element,</div><div class="line">) &#123;</div><div class="line">  if (!element) &#123;</div><div class="line">    return null;</div><div class="line">  &#125;</div><div class="line">  const dispatch = isInteractiveTopLevelEventType(topLevelType) </div><div class="line">    ? dispatchInteractiveEvent</div><div class="line">    : dispatchEvent;</div><div class="line"></div><div class="line">  addEventBubbleListener(</div><div class="line">    element,//document</div><div class="line">    getRawEventName(topLevelType),//事件类型</div><div class="line">    // Check if interactive and wrap in interactiveUpdates</div><div class="line">    dispatch.bind(null, topLevelType), //回调函数是分发函数</div><div class="line">  );</div><div class="line">&#125;</div><div class="line">export function trapCapturedEvent(topLevelType, element)&#123;...&#125;</div><div class="line">export function dispatchEvent(topLevelType,nativeEvent) &#123;... &#125;</div><div class="line"></div><div class="line">4. EventListener.js</div><div class="line">export function addEventBubbleListener(</div><div class="line">  element: Document | Element,</div><div class="line">  eventType: string,</div><div class="line">  listener: Function,</div><div class="line">): void &#123;</div><div class="line">  element.addEventListener(eventType, listener, false);</div><div class="line">&#125;</div><div class="line">export function addEventCaptureListener()&#123;...&#125;</div></pre></td></tr></table></figure>
+<p>在使用setInitialProperties对标签属性初始化的时候，<br>会根据不同标签自动绑定上冒泡事件或者监听事件<br>document事件回调函数不包含任何的事物处理，只会根据事件类型进行分发</p>
+<h2 id="存储回调函数"><a href="#存储回调函数" class="headerlink" title="存储回调函数"></a>存储回调函数</h2><h1 id="事件执行"><a href="#事件执行" class="headerlink" title="事件执行"></a>事件执行</h1><h2 id="生成合成事件"><a href="#生成合成事件" class="headerlink" title="生成合成事件"></a>生成合成事件</h2><h2 id="获取回调函数"><a href="#获取回调函数" class="headerlink" title="获取回调函数"></a>获取回调函数</h2><h2 id="批量执行"><a href="#批量执行" class="headerlink" title="批量执行"></a>批量执行</h2>
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
   <link itemprop="mainEntityOfPage" href="http://yoohannah.github.io/post/vue/mvvm.html">
 
   <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -648,161 +891,6 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="http://yoohannah.github.io/post/vue/basic/filestructor.html">
-
-  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
-    <meta itemprop="name" content="YooHannah">
-    <meta itemprop="description" content="">
-    <meta itemprop="image" content="/psb.jpg">
-  </span>
-
-  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-    <meta itemprop="name" content="My Little World">
-    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
-      <img style="display:none;" itemprop="url image" alt="My Little World" src="">
-    </span>
-  </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/post/vue/basic/filestructor.html" itemprop="url">
-                  文件结构
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-12-22T11:40:37+08:00">
-                2018-12-22
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="构建"><a href="#构建" class="headerlink" title="构建"></a>构建</h1><p>使用命令行构建<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">npm install --global vue-cli //全局安装vue命令</div><div class="line">vue init webpack my-project //使用vue命令构建名为my-project的项目</div><div class="line">cd my-project //进入项目所在文件夹</div><div class="line">npm run dev //运行项目</div></pre></td></tr></table></figure></p>
-<h1 id="文件结构"><a href="#文件结构" class="headerlink" title="文件结构"></a>文件结构</h1><pre><code class="lang-bash">.
-├── build/                      <span class="hljs-comment"># webpack config files</span>
-│   └── ...
-├── config/
-│   ├── index.js                <span class="hljs-comment"># main project config</span>
-│   └── ...
-├── src/
-│   ├── main.js                 <span class="hljs-comment"># app entry file</span>
-│   ├── App.vue                 <span class="hljs-comment"># main app component</span>
-│   ├── components/             <span class="hljs-comment"># ui components</span>
-│   │   └── ...
-│   └── assets/                 <span class="hljs-comment"># module assets (processed by webpack)</span>
-│       └── ...
-├── static/                     <span class="hljs-comment"># pure static assets (directly copied)</span>
-├── <span class="hljs-built_in">test</span>/
-│   └── unit/                   <span class="hljs-comment"># unit tests</span>
-│   │   ├── specs/              <span class="hljs-comment"># test spec files</span>
-│   │   ├── eslintrc            <span class="hljs-comment"># config file for eslint with extra settings only for unit tests</span>
-│   │   ├── index.js            <span class="hljs-comment"># test build entry file</span>
-│   │   ├── jest.conf.js        <span class="hljs-comment"># Config file when using Jest for unit tests</span>
-│   │   └── karma.conf.js       <span class="hljs-comment"># test runner config file when using Karma for unit tests</span>
-│   │   ├── setup.js            <span class="hljs-comment"># file that runs before Jest runs your unit tests</span>
-│   └── e2e/                    <span class="hljs-comment"># e2e tests</span>
-│   │   ├── specs/              <span class="hljs-comment"># test spec files</span>
-│   │   ├── custom-assertions/  <span class="hljs-comment"># custom assertions for e2e tests</span>
-│   │   ├── runner.js           <span class="hljs-comment"># test runner script</span>
-│   │   └── nightwatch.conf.js  <span class="hljs-comment"># test runner config file</span>
-├── .babelrc                    <span class="hljs-comment"># babel config</span>
-├── .editorconfig               <span class="hljs-comment"># indentation, spaces/tabs and similar settings for your editor</span>
-├── .eslintrc.js                <span class="hljs-comment"># eslint config</span>
-├── .eslintignore               <span class="hljs-comment"># eslint ignore rules</span>
-├── .gitignore                  <span class="hljs-comment"># sensible defaults for gitignore</span>
-├── .postcssrc.js               <span class="hljs-comment"># postcss config</span>
-├── index.html                  <span class="hljs-comment"># index.html template</span>
-├── package.json                <span class="hljs-comment"># build scripts and dependencies</span>
-└── README.md                   <span class="hljs-comment"># Default README file</span>
-</code></pre>
-
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
   <link itemprop="mainEntityOfPage" href="http://yoohannah.github.io/post/react/renderfire.html">
 
   <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -888,6 +976,124 @@
 <p>父组件发生更新（一般就是props发生改变，但是就算props没有改变或者父子组件之间没有数据交换也会触发render）</p>
 <p>调用this.forceUpdate</p>
 <p><a href="https://www.cnblogs.com/AnnieBabygn/p/6560833.html" target="_blank" rel="external">https://www.cnblogs.com/AnnieBabygn/p/6560833.html</a></p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://yoohannah.github.io/post/knowledge/clock.html">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="YooHannah">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="/psb.jpg">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="My Little World">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="My Little World" src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/post/knowledge/clock.html" itemprop="url">
+                  定时器
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-12-22T11:40:37+08:00">
+                2018-12-22
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>1.使用 setInterval<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">this.timerID = setInterval(fn, time);</div><div class="line">clearInterval(this.timerID);</div></pre></td></tr></table></figure></p>
+<p> 2.angular 中使用 $interval<br> <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">this.timerID = $interval(fn, time);</div><div class="line">$interval.cancel(this.timerID)</div></pre></td></tr></table></figure></p>
 
           
         
@@ -1176,7 +1382,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="http://yoohannah.github.io/post/knowledge/clock.html">
+  <link itemprop="mainEntityOfPage" href="http://yoohannah.github.io/post/vue/basic/filestructor.html">
 
   <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
     <meta itemprop="name" content="YooHannah">
@@ -1201,8 +1407,8 @@
             
               
                 
-                <a class="post-title-link" href="/post/knowledge/clock.html" itemprop="url">
-                  定时器
+                <a class="post-title-link" href="/post/vue/basic/filestructor.html" itemprop="url">
+                  文件结构
                 </a>
               
             
@@ -1254,275 +1460,45 @@
       
         
           
-            <p>1.使用 setInterval<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">this.timerID = setInterval(fn, time);</div><div class="line">clearInterval(this.timerID);</div></pre></td></tr></table></figure></p>
-<p> 2.angular 中使用 $interval<br> <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">this.timerID = $interval(fn, time);</div><div class="line">$interval.cancel(this.timerID)</div></pre></td></tr></table></figure></p>
+            <h1 id="构建"><a href="#构建" class="headerlink" title="构建"></a>构建</h1><p>使用命令行构建<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">npm install --global vue-cli //全局安装vue命令</div><div class="line">vue init webpack my-project //使用vue命令构建名为my-project的项目</div><div class="line">cd my-project //进入项目所在文件夹</div><div class="line">npm run dev //运行项目</div></pre></td></tr></table></figure></p>
+<h1 id="文件结构"><a href="#文件结构" class="headerlink" title="文件结构"></a>文件结构</h1><pre><code class="lang-bash">.
+├── build/                      <span class="hljs-comment"># webpack config files</span>
+│   └── ...
+├── config/
+│   ├── index.js                <span class="hljs-comment"># main project config</span>
+│   └── ...
+├── src/
+│   ├── main.js                 <span class="hljs-comment"># app entry file</span>
+│   ├── App.vue                 <span class="hljs-comment"># main app component</span>
+│   ├── components/             <span class="hljs-comment"># ui components</span>
+│   │   └── ...
+│   └── assets/                 <span class="hljs-comment"># module assets (processed by webpack)</span>
+│       └── ...
+├── static/                     <span class="hljs-comment"># pure static assets (directly copied)</span>
+├── <span class="hljs-built_in">test</span>/
+│   └── unit/                   <span class="hljs-comment"># unit tests</span>
+│   │   ├── specs/              <span class="hljs-comment"># test spec files</span>
+│   │   ├── eslintrc            <span class="hljs-comment"># config file for eslint with extra settings only for unit tests</span>
+│   │   ├── index.js            <span class="hljs-comment"># test build entry file</span>
+│   │   ├── jest.conf.js        <span class="hljs-comment"># Config file when using Jest for unit tests</span>
+│   │   └── karma.conf.js       <span class="hljs-comment"># test runner config file when using Karma for unit tests</span>
+│   │   ├── setup.js            <span class="hljs-comment"># file that runs before Jest runs your unit tests</span>
+│   └── e2e/                    <span class="hljs-comment"># e2e tests</span>
+│   │   ├── specs/              <span class="hljs-comment"># test spec files</span>
+│   │   ├── custom-assertions/  <span class="hljs-comment"># custom assertions for e2e tests</span>
+│   │   ├── runner.js           <span class="hljs-comment"># test runner script</span>
+│   │   └── nightwatch.conf.js  <span class="hljs-comment"># test runner config file</span>
+├── .babelrc                    <span class="hljs-comment"># babel config</span>
+├── .editorconfig               <span class="hljs-comment"># indentation, spaces/tabs and similar settings for your editor</span>
+├── .eslintrc.js                <span class="hljs-comment"># eslint config</span>
+├── .eslintignore               <span class="hljs-comment"># eslint ignore rules</span>
+├── .gitignore                  <span class="hljs-comment"># sensible defaults for gitignore</span>
+├── .postcssrc.js               <span class="hljs-comment"># postcss config</span>
+├── index.html                  <span class="hljs-comment"># index.html template</span>
+├── package.json                <span class="hljs-comment"># build scripts and dependencies</span>
+└── README.md                   <span class="hljs-comment"># Default README file</span>
+</code></pre>
 
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="http://yoohannah.github.io/post/knowledge/flex-direction.html">
-
-  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
-    <meta itemprop="name" content="YooHannah">
-    <meta itemprop="description" content="">
-    <meta itemprop="image" content="/psb.jpg">
-  </span>
-
-  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-    <meta itemprop="name" content="My Little World">
-    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
-      <img style="display:none;" itemprop="url image" alt="My Little World" src="">
-    </span>
-  </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/post/knowledge/flex-direction.html" itemprop="url">
-                  flex-drection属性使用
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-12-22T11:29:37+08:00">
-                2018-12-22
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>在display:flex基础上使用flex-direction,可用于多子模块布局</p>
-<p>flex-direction可以为四个值</p>
-<p>row:水平并行排列在左侧</p>
-<p>row-reverse：水平并行排列在右侧，顺序与书写顺序相反,最前的在最右边</p>
-<p>column:垂直排列在上方,相当于display:block状态下模块默认布局</p>
-<p>column-reverse:垂直排列在下方,顺序与书写顺序相反，最前的在最下边</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div></pre></td><td class="code"><pre><div class="line">&lt;!doctype html&gt;</div><div class="line">&lt;html&gt;</div><div class="line">&lt;head&gt;</div><div class="line">    &lt;style&gt;</div><div class="line">        #main1 </div><div class="line">        &#123;</div><div class="line">            width:200px;</div><div class="line">            height: 300px;</div><div class="line">            border:1px solid black;</div><div class="line">            display: flex;</div><div class="line">            flex-direction:row;</div><div class="line">        &#125;</div><div class="line">        #main2 </div><div class="line">        &#123;</div><div class="line">            width:200px;</div><div class="line">            height: 300px;</div><div class="line">            border:1px solid black;</div><div class="line">            display: flex;</div><div class="line">            flex-direction:row-reverse;</div><div class="line">        &#125;</div><div class="line">        #main3 </div><div class="line">        &#123;</div><div class="line">            width:200px;</div><div class="line">            height: 300px;</div><div class="line">            border:1px solid black;</div><div class="line">            display: flex;</div><div class="line">            flex-direction:column;</div><div class="line">        &#125;</div><div class="line">        #main4 </div><div class="line">        &#123;</div><div class="line">            width:200px;</div><div class="line">            height: 300px;</div><div class="line">            border:1px solid black;</div><div class="line">            display: flex;</div><div class="line">            flex-direction:column-reverse;</div><div class="line">        &#125;</div><div class="line">    &lt;/style&gt;</div><div class="line">&lt;/head&gt;</div><div class="line">&lt;body&gt;</div><div class="line">&lt;h4&gt;This is an example for flex-direction:row(default)&lt;/h4&gt;</div><div class="line">&lt;div id=&quot;main1&quot;&gt;</div><div class="line">    &lt;div style=&quot;background-color:red;&quot;&gt;RED&lt;/div&gt;</div><div class="line">    &lt;div style=&quot;background-color:lightblue;&quot;&gt;BLUE&lt;/div&gt;</div><div class="line">    &lt;div style=&quot;background-color:lightgreen;&quot;&gt;GREEN&lt;/div&gt;</div><div class="line">&lt;/div&gt;</div><div class="line">&lt;h4&gt;This is an example for flex-direction:row-reverse&lt;/h4&gt;</div><div class="line">&lt;div id=&quot;main2&quot;&gt;</div><div class="line">    &lt;div style=&quot;background-color:red;&quot;&gt;RED&lt;/div&gt;</div><div class="line">    &lt;div style=&quot;background-color:lightblue;&quot;&gt;BLUE&lt;/div&gt;</div><div class="line">    &lt;div style=&quot;background-color:lightgreen;&quot;&gt;GREEN&lt;/div&gt;</div><div class="line">&lt;/div&gt;</div><div class="line">&lt;h4&gt;This is an example for flex-direction:column&lt;/h4&gt;</div><div class="line">&lt;div id=&quot;main3&quot;&gt;</div><div class="line">    &lt;div style=&quot;background-color:red;&quot;&gt;RED&lt;/div&gt;</div><div class="line">    &lt;div style=&quot;background-color:lightblue;&quot;&gt;BLUE&lt;/div&gt;</div><div class="line">    &lt;div style=&quot;background-color:lightgreen;&quot;&gt;GREEN&lt;/div&gt;</div><div class="line">&lt;/div&gt;</div><div class="line">&lt;h4&gt;This is an example for flex-direction:column-reverse&lt;/h4&gt;</div><div class="line">&lt;div id=&quot;main4&quot;&gt;</div><div class="line">    &lt;div style=&quot;background-color:red;&quot;&gt;RED&lt;/div&gt;</div><div class="line">    &lt;div style=&quot;background-color:lightblue;&quot;&gt;BLUE&lt;/div&gt;</div><div class="line">    &lt;div style=&quot;background-color:lightgreen;&quot;&gt;GREEN&lt;/div&gt;</div><div class="line">&lt;/div&gt;</div><div class="line">&lt;/body&gt;</div><div class="line">&lt;/html&gt;</div></pre></td></tr></table></figure>
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="http://yoohannah.github.io/post/js/map&reduce.html">
-
-  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
-    <meta itemprop="name" content="YooHannah">
-    <meta itemprop="description" content="">
-    <meta itemprop="image" content="/psb.jpg">
-  </span>
-
-  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-    <meta itemprop="name" content="My Little World">
-    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
-      <img style="display:none;" itemprop="url image" alt="My Little World" src="">
-    </span>
-  </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/post/js/map&reduce.html" itemprop="url">
-                  数组的map和reduce
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-12-22T11:25:37+08:00">
-                2018-12-22
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="数组的map方法"><a href="#数组的map方法" class="headerlink" title="数组的map方法"></a>数组的map方法</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">let arr = [1,2,3,4,5];</div><div class="line">let arr1 = arr.map(function(val,index,arr)&#123;</div><div class="line">	console.log(val,index,arr)</div><div class="line">	return val+1</div><div class="line">&#125;)</div><div class="line">console.log(arr1)//[2, 3, 4, 5, 6]</div><div class="line">console.log(arr) //[1, 2, 3, 4, 5]</div></pre></td></tr></table></figure>
-<p>在map中可以传递一个函数，数组的每一项作为参数调用这个函数，然后返回根据该数组项得到的结果，每一个数组项返会一个结果，从而组成新的数组</p>
-<p>函数的参数有三个，第一项为数组按序传进的一个值，该值的index和数组本身</p>
-<p>整个结果产生新数组，原来数组不变</p>
-<h1 id="数组的reduce-方法"><a href="#数组的reduce-方法" class="headerlink" title="数组的reduce 方法"></a>数组的reduce 方法</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">例1.</div><div class="line">let arr = [1,2,3];</div><div class="line">let result = arr.reduce(function(preresult,item)&#123;</div><div class="line">	return preresult += item;</div><div class="line">&#125;,0)</div><div class="line">console.log(result)   //6</div><div class="line"></div><div class="line">例2.</div><div class="line">let result4 = arr.reduce(function(preresult,item)&#123;</div><div class="line">    preresult.name += item;</div><div class="line">	return preresult</div><div class="line">&#125;,&#123;name:0&#125;)</div><div class="line">console.log(result4); //&#123;name:6&#125;</div></pre></td></tr></table></figure>
-<p>reduce 用于对数组每一项进行累计计算，每一项计算结果作为参数参加数组下一项的计算,最终返回计算结果</p>
-<p>例1中单纯对数组每一项进行叠加处理，返回叠加结果<br>例2同样进行叠加只是叠加结果放在对象中返回</p>
-<p>reduce(callback(),initval)</p>
-<p>需要两个参数，一个是用于累计计算的callback函数，一个是初始值，见上两例</p>
-<p>callback()函数有四个参数依次为：</p>
-<p>preVal （上一次调用回调返回的值，或者是提供的初始值（initialValue））</p>
-<p>currentValue （数组中当前被处理的元素）</p>
-<p>index （当前元素在数组中的索引）</p>
-<p>array （调用 reduce 的数组）</p>
-<p>初始值会在第一次调用时当作回调函数callback的第一个参数使用</p>
-<p>希望返回值是什么类型的数据，初始值就要设置为什么样的类型，callback返回值也是该类型；或者说是在这里设置返回值的类型</p>
-<p>整个处理过程就是拿初始值initval和数组第一个值在callback里面进行处理，返回结果result,result当作callback的preval参数和数组第二个元素传入callback在处理，直到数组全部元素被处理完，返回一个最终处理结果</p>
-<p>高级应用<br>对对象数组元素进行累计计算<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line">var reducers = &#123;  </div><div class="line">  totalInEuros : function(state, item) &#123;</div><div class="line">    return state.euros += item.price * 0.897424392;</div><div class="line">  &#125;,</div><div class="line">  totalInYen : function(state, item) &#123;</div><div class="line">    return state.yens += item.price * 113.852;</div><div class="line">  &#125;</div><div class="line">&#125;;</div><div class="line"></div><div class="line">var manageReducers = function(reducers) &#123;</div><div class="line">  return function(state, item) &#123;</div><div class="line">    return Object.keys(reducers).reduce(</div><div class="line">      function(nextState, key) &#123;</div><div class="line">        reducers[key](state, item);</div><div class="line">        return state;</div><div class="line">      &#125;,</div><div class="line">      &#123;&#125;</div><div class="line">    );</div><div class="line">  &#125;</div><div class="line">&#125;;</div><div class="line"></div><div class="line">var bigTotalPriceReducer = manageReducers(reducers);</div><div class="line">var initialState = &#123;euros:0, yens: 0&#125;;</div><div class="line">var items = [&#123;price: 10&#125;, &#123;price: 120&#125;, &#123;price: 1000&#125;];</div><div class="line">var totals = items.reduce(bigTotalPriceReducer, initialState);</div><div class="line">console.log(totals);</div><div class="line">//&#123;euros: 1014.08956296, yens: 128652.76&#125;</div></pre></td></tr></table></figure></p>
-<p>该例的目的是将对象数组items的元素属性price进行不同处理操作然后将结果分别保存到结果对象的属性中</p>
-<p>处理的关键是manageReducers返回的作为items callback的函数bigTotalPriceReducer，</p>
-<p>处理思路是items每用一个元素调用callback时,callback的处理过程是将这个元素作为参数调用reducers 对象里面设置的每一个处理函数,</p>
-<p>调用reducers处理函数的过程同样使用一个reduce方法进行处理</p>
-<p>Object.keys(obj)方法返回对象键值组成的数组</p>
-<p>当items的元素参加完reducers所有处理函数后,返回的结果参加下一个元素的计算最终返回结果</p>
-<p>扩展：</p>
-<p>1.在reduces中设置对items不同属性的计算，从而得到不同属性的结算结果</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">var reducers = &#123;  </div><div class="line">  totalInEuros : function(state, item) &#123;</div><div class="line">    return state.euros += item.p1;</div><div class="line">  &#125;,</div><div class="line">  totalInYen : function(state, item) &#123;</div><div class="line">    return state.yens += item.price * 113.852;</div><div class="line">  &#125;</div><div class="line">&#125;;</div><div class="line"></div><div class="line">var bigTotalPriceReducer = manageReducers(reducers);</div><div class="line">var initialState = &#123;euros:0, yens: 0&#125;;</div><div class="line">var items = [&#123;price: 10,p1:1&#125;, &#123;price: 120,p1:1&#125;, &#123;price: 1000,p1:1&#125;];</div><div class="line">var totals = items.reduce(bigTotalPriceReducer, initialState);</div><div class="line">console.log(totals);</div><div class="line">//&#123;euros: 3, yens: 128652.76&#125;</div></pre></td></tr></table></figure>
-<p>2.计算对象数组属性值<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">var manageReducers = function(state, item) &#123;</div><div class="line">    return Object.keys(item).reduce(</div><div class="line">      function(nextState, key) &#123;</div><div class="line">        state[key] +=item[key];</div><div class="line">        return state;</div><div class="line">      &#125;,</div><div class="line">      &#123;&#125;</div><div class="line">    );</div><div class="line">&#125;;</div><div class="line"></div><div class="line">var initialState = &#123;price:0, p1: 0&#125;;</div><div class="line">var items = [&#123;price: 10,p1:1&#125;, &#123;price: 120,p1:1&#125;, &#123;price: 1000,p1:1&#125;];</div><div class="line">var totals = items.reduce(manageReducers, initialState);</div><div class="line">console.log(totals);</div><div class="line">//&#123;price: 1130, p1: 3&#125;</div></pre></td></tr></table></figure></p>
-<p><a href="https://segmentfault.com/a/1190000010731933" target="_blank" rel="external">参阅资料</a></p>
 
           
         
@@ -1597,7 +1573,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">155</span>
+              <span class="site-state-item-count">157</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -1661,7 +1637,7 @@
         <div class="copyright" >
   
   &copy; 
-  <span itemprop="copyrightYear">2018</span>
+  <span itemprop="copyrightYear">2019</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
