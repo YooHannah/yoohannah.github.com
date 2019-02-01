@@ -96,7 +96,7 @@
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://yoohannah.github.io/image/arrmethod.jpg">
 <meta property="og:image" content="http://yoohannah.github.io/image/strmethod.jpg">
-<meta property="og:updated_time" content="2018-12-22T05:09:03.986Z">
+<meta property="og:updated_time" content="2019-01-22T13:48:53.953Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="js 知识点 一">
 <meta name="twitter:description" content="1.&amp;lt; script &amp;gt; 标签几个属性async :立即异步下载，因此不保证能够按指定的先后顺序执行，但会在load事件前，DOMContentLoad前后执行defer :延迟执行，也不保证按顺序执行，在DOMContentLoad前后执行src :外部文件链接charset :src指定代码的字符集，防止出现乱码language :已废弃，表示脚本语言，type :值为脚本语言内容">
@@ -376,7 +376,7 @@
 <p>&#43;二元运算侧重转字符串，然后进行字符串拼接<br>其中一个为字符串或者两个都是对象时，转字符串拼接<br>undefined,null,Boolean,数字混合运算+时，会被转数字再计算<br>{}为第一个运算值时，会被当做函数结束，不参与计算<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">null + null --&gt; 0</div><div class="line">undefined + null --&gt; NaN</div><div class="line">[] + [] --&gt; &apos;&apos;</div><div class="line">1 + [1,2] --&gt; &apos;11,2&apos;</div><div class="line">1 + &#123;a:1&#125; --&gt; &apos;1[object object]&apos;</div><div class="line">&#123;a:1&#125; + 1 --&gt; 1</div><div class="line">&#123;&#125; + &#123;&#125; --&gt; NaN</div><div class="line">(&#123;&#125;) + &#123;&#125; --&gt; &apos;[object object][object object]&apos;</div><div class="line">[] + &#123;&#125; --&gt; &apos;[object object]&apos;</div><div class="line">&#123;&#125; + [] --&gt; 0</div><div class="line">var a = &#123;&#125;</div><div class="line">a + a --&gt;&apos;[object object][object object]&apos;</div></pre></td></tr></table></figure></p>
 <p>&#42;/- 转数字，进行相减,如果不能转数字，返回NaN</p>
 <p>&gt;/&lt; 侧重转数字<br>string &lt; string 字典比较<br>非字符串&lt;非字符串/字符串 都转数字然后比较</p>
-<p>string == number 字符串转数字<br>boolean == 其他类型 二者转数字然后比较<br>null == undefined —&gt;true undefined和null只与对方和自己==比较时为true，其他均为false<br>null === undefined —&gt;false<br>非对象 == 对象 与数字比较object转数字，与字符串比较二者转数字再比较<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line">&apos;0&apos; == null  //false</div><div class="line">&apos;0&apos; == undefined  //false</div><div class="line">&apos;0&apos; == false  //true</div><div class="line">&apos;0&apos; == NaN  //false</div><div class="line">&apos;0&apos; == 0  //true</div><div class="line">&apos;0&apos; == &apos;&apos;  //true</div><div class="line"></div><div class="line">false == null  //false</div><div class="line">false == undefined  //false</div><div class="line">false == NaN  //false</div><div class="line">false == 0  //true</div><div class="line">false == &apos;&apos;  //true</div><div class="line">false == []  //true</div><div class="line">false == &#123;&#125; //false</div><div class="line"></div><div class="line">&apos;&apos; == null  //false</div><div class="line">&apos;&apos; == undefined  //false</div><div class="line">&apos;&apos; == NaN  //false</div><div class="line">&apos;&apos; == 0  //true</div><div class="line">&apos;&apos; == []  //true</div><div class="line">&apos;&apos; == &#123;&#125; //false</div><div class="line"></div><div class="line">0 == null  //false</div><div class="line">0 == undefined  //false</div><div class="line">0 == NaN  //false</div><div class="line">0 == []  //true</div><div class="line">0 == &#123;&#125; //false</div><div class="line"></div><div class="line">[] == ![]</div></pre></td></tr></table></figure></p>
+<p>string == number 字符串转数字<br>boolean == 其他类型 二者转数字然后比较<br>null == undefined —&gt;true undefined和null只与对方和自己==比较时为true，其他均为false<br>null === undefined —&gt;false<br>非对象 == 对象 与数字比较object转数字，与字符串比较二者转数字再比较<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line">&apos;0&apos; == null  //false</div><div class="line">&apos;0&apos; == undefined  //false</div><div class="line">&apos;0&apos; == false  //true</div><div class="line">&apos;0&apos; == NaN  //false</div><div class="line">&apos;0&apos; == 0  //true</div><div class="line">&apos;0&apos; == &apos;&apos;  //false</div><div class="line"></div><div class="line">false == null  //false</div><div class="line">false == undefined  //false</div><div class="line">false == NaN  //false</div><div class="line">false == 0  //true</div><div class="line">false == &apos;&apos;  //true</div><div class="line">false == []  //true</div><div class="line">false == &#123;&#125; //false</div><div class="line"></div><div class="line">&apos;&apos; == null  //false</div><div class="line">&apos;&apos; == undefined  //false</div><div class="line">&apos;&apos; == NaN  //false</div><div class="line">&apos;&apos; == 0  //true</div><div class="line">&apos;&apos; == []  //true</div><div class="line">&apos;&apos; == &#123;&#125; //false</div><div class="line"></div><div class="line">0 == null  //false</div><div class="line">0 == undefined  //false</div><div class="line">0 == NaN  //false</div><div class="line">0 == []  //true</div><div class="line">0 == &#123;&#125; //false</div><div class="line"></div><div class="line">[] == ![] //true</div></pre></td></tr></table></figure></p>
 <p>&amp;&amp;和|| 计算结果根据短路原则判断到了哪里，返回最后一个进行判断的值</p>
 <p>运算符优先级<br>属性访问.<br>一元操作符（+，-，++，–）<br>二元操作符（+-*/）<br>比较（&gt;,&lt;)<br>相等（==，===，！=）<br>与&amp;&amp;，或||<br>三目运算符<br>赋值</p>
 <p>运算符结合性<br>除了一元操作符，三目运算符和赋值是右结合，其他都是左结合</p>
@@ -431,8 +431,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/post/react/course/drag.html" rel="next" title="拖拽">
-                <i class="fa fa-chevron-left"></i> 拖拽
+              <a href="/post/designMode/js1.html" rel="next" title="js 知识点 一">
+                <i class="fa fa-chevron-left"></i> js 知识点 一
               </a>
             
           </div>
@@ -441,8 +441,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/post/designMode/js1.html" rel="prev" title="js 知识点 一">
-                js 知识点 一 <i class="fa fa-chevron-right"></i>
+              <a href="/post/js/map&reduce.html" rel="prev" title="数组的map和reduce">
+                数组的map和reduce <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -511,7 +511,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">157</span>
+              <span class="site-state-item-count">158</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>

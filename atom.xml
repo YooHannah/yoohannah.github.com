@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoohannah.github.io/"/>
-  <updated>2019-01-13T06:18:17.084Z</updated>
+  <updated>2019-02-01T00:02:10.582Z</updated>
   <id>http://yoohannah.github.io/</id>
   
   <author>
@@ -14,6 +14,42 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>探索flex布局</title>
+    <link href="http://yoohannah.github.io/post/knowledge/css3flex.html"/>
+    <id>http://yoohannah.github.io/post/knowledge/css3flex.html</id>
+    <published>2019-01-31T23:54:58.000Z</published>
+    <updated>2019-02-01T00:02:10.582Z</updated>
+    
+    <content type="html"><![CDATA[<p>flex布局<br>盒状弹性布局，盒子大小可以随容器大小变化</p>
+<h1 id="容器属性"><a href="#容器属性" class="headerlink" title="容器属性"></a>容器属性</h1><p><b>display</b>  决定开始作为弹性容器</p>
+<p>—— flex : 将容器设置为弹性伸缩容器<br>—— inline-flex :使弹性容器成为单个不可分的行内级元素</p>
+<p><b>flex-direction</b> 决定主轴方向<br>—— row:水平向右，子模块书写顺序横向排列，开头的放在最左端,子模块不设宽度情况下宽度由内容决定<br>—— row-reverse:水平向左，子模块书写顺序横向排列，开头的放在最右端，子模块不设宽度情况下宽度由内容决定<br>—— column:从上到下，子模块书写顺序纵向排列，开头的放在最上面，子模块不设高度情况下高度由内容决定<br>—— column-reverse:从下到上，子模块书写顺序纵向排列，开头的放在最下面，子模块不设高度情况下高度由内容决定<br><img src="/image/flex1.png" alt="flex1"></p>
+<p><b>flex-wrap</b> 对于子模块是否超出最大宽度或高度时要不要换行/列，默认不换行/列,宽/高度自动按所有模块比例缩小<br>—— nowrap:默认值<br>—— wrap:换行,水平排列的子模块多出的部分沿column方向排第二行;纵向排列的子模块多出的部分沿row方向排第二列;<br>—— wrap-reverse:换行，水平排列的子模块多出的部分沿column-reverse方向排第二行；纵向排列的子模块多出的部分沿row-reverse方向排第二列;<br><img src="/image/flex2.png" alt="flex2.png"><br><img src="/image/flex3.png" alt="flex3.png"><br><img src="/image/flex4.png" alt="flex4.png"></p>
+<p><b>flex-flow</b> :[flex-direction][flex-wrap]flex-direction和 flex-wrap的复合属性,<br>先按flex-direction排列，超出部分用flex-wrap决定<br><img src="/image/flex5.png" alt="flex5.png"></p>
+<p><b>justify-content</b> 在剩余子模块允许换行或者有剩余宽度或者高度时相对主轴的对齐方式，超出但不换行时，按比例放缩<br>—— center：按实际间距位于主轴中心<br>—— flex-start:按实际间距位于主轴开始排列的位置，第一个贴边<br>—— flex-end :按实际间距和顺序向主轴方向排列，最后一个贴边<br>—— space-between ：第一个和最后一个挨着边框，其它间距相等<br>—— space-around：第一个和最后一个离边框距离为子模块间距的一半<br><img src="/image/flex6.png" alt="flex6.png"></p>
+<p><b>align-items</b> 子模块整体相对侧轴的位置,row和row-reverse侧轴为column,column和column-reverse侧轴为row<br>—— center：侧轴中心<br>—— flex-start:侧轴起点位置<br>—— flex-end :侧轴终点位置<br>—— stretch：侧轴方向属性值未设置时，拉伸子模块该属性为容器对应属性值，弹性元素被在侧轴方向被拉伸到与容器相同的高度或宽度。<br>—— baseline:所有模块的内容第一行对齐<br><img src="/image/flex7.png" alt="flex7.png"></p>
+<p><b>align-content</b> 决定多行或者多列在侧轴排列方式，row和row-reverse侧轴为column,column和column-reverse侧轴为row<br>—— center：整体在侧轴中心<br>—— flex-start:整体在侧轴起点位置<br>—— flex-end :整体在侧轴终点位置<br>—— stretch：侧轴方向属性值未设置时，拉伸子模块该属性填满容器对应属性值<br>—— space-between ：第一行/列和最后一行/列挨着边框，其它间距相等<br>—— space-around:第一行/列和最后一行/列离边框距离为子模块间距的一半<br><img src="/image/flex8.png" alt="flex8.png"></p>
+<h1 id="模块属性"><a href="#模块属性" class="headerlink" title="模块属性"></a>模块属性</h1><p><b>align-self</b>  自己决定相对侧轴的位置<br>属性值同align-items,默认值为auto，表示继承父元素的align-items属性，如果没有父元素，则等同于stretch。</p>
+<p><b>order</b> 决定模块排列顺序，值越大，越最后被排列</p>
+<p><b>flex-grow</b> 放大比例，当容器空间有剩余时按此比列分配内存空间，填满，比如<br>宽度1000px的容器，4个子模块一共占了800，剩200，4个模块该值分别设为2 ：1：1：1，<br>则200被分为5份，一份40，每个模块按比例 分别拿80，40，40，40 放大自己的面积</p>
+<p><b>flex-shrink</b> 缩小比例，当容器空间有不足时按此比列分配缩小子模块，比如<br>容器宽800，5个模块需要占1000，差200，5个模块该值比为4：1：1：1：1，<br>则200被分为8份，一份25，，每个模块按比例分别减少100，25，25，25，25 缩小自己的面积</p>
+<p><b>flex-basis</b> 在分配多余空间/缩小之前，项目占据的主轴空间，用于计算一共需要多少空间时放大还是缩小<br>auto 默认值，子模块本来大小</p>
+<p><b>flex</b>  ：none | [ &lt;’flex-grow’&gt; &lt;’flex-shrink’&gt;? || &lt;’flex-basis’&gt; ] 以上三项复合属性</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;flex布局&lt;br&gt;盒状弹性布局，盒子大小可以随容器大小变化&lt;/p&gt;
+&lt;h1 id=&quot;容器属性&quot;&gt;&lt;a href=&quot;#容器属性&quot; class=&quot;headerlink&quot; title=&quot;容器属性&quot;&gt;&lt;/a&gt;容器属性&lt;/h1&gt;&lt;p&gt;&lt;b&gt;display&lt;/b&gt;  决定开始作为弹性
+    
+    </summary>
+    
+    
+      <category term="css" scheme="http://yoohannah.github.io/tags/css/"/>
+    
+  </entry>
   
   <entry>
     <title>Slot复用</title>
@@ -169,36 +205,6 @@
   </entry>
   
   <entry>
-    <title>触发render</title>
-    <link href="http://yoohannah.github.io/post/react/renderfire.html"/>
-    <id>http://yoohannah.github.io/post/react/renderfire.html</id>
-    <published>2018-12-22T03:40:37.000Z</published>
-    <updated>2018-12-22T03:42:29.036Z</updated>
-    
-    <content type="html"><![CDATA[<p>在react中，触发render的有4条路径。</p>
-<p>以下假设shouldComponentUpdate都是按照默认返回true的方式。</p>
-<p>首次渲染Initial Render</p>
-<p>调用this.setState （并不是一次setState会触发一次render，React可能会合并操作，再一次性进行render）</p>
-<p>父组件发生更新（一般就是props发生改变，但是就算props没有改变或者父子组件之间没有数据交换也会触发render）</p>
-<p>调用this.forceUpdate</p>
-<p><a href="https://www.cnblogs.com/AnnieBabygn/p/6560833.html" target="_blank" rel="external">https://www.cnblogs.com/AnnieBabygn/p/6560833.html</a></p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;在react中，触发render的有4条路径。&lt;/p&gt;
-&lt;p&gt;以下假设shouldComponentUpdate都是按照默认返回true的方式。&lt;/p&gt;
-&lt;p&gt;首次渲染Initial Render&lt;/p&gt;
-&lt;p&gt;调用this.setState （并不是一次setState会
-    
-    </summary>
-    
-    
-      <category term="react" scheme="http://yoohannah.github.io/tags/react/"/>
-    
-  </entry>
-  
-  <entry>
     <title>定时器</title>
     <link href="http://yoohannah.github.io/post/knowledge/clock.html"/>
     <id>http://yoohannah.github.io/post/knowledge/clock.html</id>
@@ -217,39 +223,6 @@
     
     
       <category term="knowledge" scheme="http://yoohannah.github.io/tags/knowledge/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>vue对象属性</title>
-    <link href="http://yoohannah.github.io/post/vue/basic/vueprops.html"/>
-    <id>http://yoohannah.github.io/post/vue/basic/vueprops.html</id>
-    <published>2018-12-22T03:40:37.000Z</published>
-    <updated>2018-12-22T04:53:44.390Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="el"><a href="#el" class="headerlink" title="el"></a>el</h1><p>其值为vue模板挂载ID,用于标识vue的APP template挂载在index.html的什么位置</p>
-<h1 id="data"><a href="#data" class="headerlink" title="data"></a>data</h1><h1 id="method"><a href="#method" class="headerlink" title="method"></a>method</h1><h1 id="计算属性computed"><a href="#计算属性computed" class="headerlink" title="计算属性computed"></a>计算属性computed</h1><p>通过&#123; &#123;&#125;&#125;}插值的时候,可以在大括号里面添加一个简单的计算表达式，从而将计算结果插入,但是对于复杂的计算,需要执行多个计算表达式时不能放在大括号里面的，为方便绑定，在computed属性中定义计算属性A，A是一个函数用到变量b，然后将该A属性插入，从而实现相关值b变化，插入值A随之响应的效果</p>
-<p>相当于计算属性因为依赖项改变而执行计算，将计算结果插入<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line">例</div><div class="line"> &lt;p&gt;Original data: &quot;&#123;&#123; value &#125;&#125;&quot;&lt;/p&gt;</div><div class="line"> &lt;p&gt;Computed result: &quot;&#123;&#123; doubleValue &#125;&#125;&quot;&lt;/p&gt;</div><div class="line"> &lt;button @click=&apos;changeValue&apos;&gt;&lt;button&gt;</div><div class="line"> </div><div class="line">  export default &#123;</div><div class="line">    data() &#123;</div><div class="line">        value: 10</div><div class="line">    &#125;,</div><div class="line">    computed: &#123;</div><div class="line">        doubleValue: function() &#123;</div><div class="line">            return this.value * 2</div><div class="line">        &#125;</div><div class="line">    &#125;,</div><div class="line">    method: &#123;</div><div class="line">        changeValue: function() &#123;</div><div class="line">            this.value++</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line"> //当value 变化时，doubleValue通过运算将结果插入</div></pre></td></tr></table></figure></p>
-<p>与method区别</p>
-<p>也可以在大括号里面调用method中定义的方法，达到计算响应<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">&lt;p&gt;&#123;&#123;doubleVlue()&#125;&#125;&lt;/p&gt;</div><div class="line">&lt;button @click=&apos;changeValue&apos;&gt;&lt;button&gt;</div><div class="line">export default &#123;</div><div class="line">    data() &#123;</div><div class="line">        value: 10</div><div class="line">    &#125;,</div><div class="line">    method: &#123;</div><div class="line">        doubleValue: function() &#123;</div><div class="line">            return this.value * 2</div><div class="line">        &#125;,</div><div class="line">        changeValue: function() &#123;</div><div class="line">            this.value++</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">  &#125;</div></pre></td></tr></table></figure></p>
-<p>当计算属性函数依赖的值不发生变化时，每次调用计算属性都会去取最后一次运算的结果，即读取缓存的结果</p>
-<p>比如有一个计算属性A需要遍历一个庞大的数组然后得到一个结果，而这个结果则用于其他计算，这样我们就不需要每次去运算A属性函数得到结果，直接读取缓存结果即可</p>
-<p>但如果属性A结果的得来是通过运行method方法，那么每次调用A就会进行计算一次，就会造成很大开销</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div></pre></td><td class="code"><pre><div class="line">//computed方式</div><div class="line">&lt;p&gt;Original data: &quot;&#123;&#123; value &#125;&#125;&quot;&lt;/p&gt;</div><div class="line">&lt;p&gt;Computed result: &#123;&#123; double &#125;&#125;&lt;/p&gt;</div><div class="line">&lt;button @click=&apos;changeValue&apos;&gt;&lt;button&gt;</div><div class="line"></div><div class="line">export default &#123;</div><div class="line">    data() &#123;</div><div class="line">        value: 10</div><div class="line">    &#125;,</div><div class="line">    computed: &#123;</div><div class="line">      double: function() &#123;</div><div class="line">        return  this.value + this.doubleValue</div><div class="line">      &#125;,</div><div class="line">      doubleValue: function() &#123;</div><div class="line">        console.log(&apos;double&apos;) //只打印一次</div><div class="line">        return  2</div><div class="line">      &#125;</div><div class="line">    &#125;,</div><div class="line">    method: &#123;</div><div class="line">        changeValue: function() &#123;</div><div class="line">            this.value++</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">//method方式</div><div class="line"></div><div class="line">&lt;p&gt;Original data: &quot;&#123;&#123; value &#125;&#125;&quot;&lt;/p&gt;</div><div class="line">&lt;p&gt;Computed result: &#123;&#123; value + doubleValue() &#125;&#125;&lt;/p&gt;</div><div class="line">&lt;button @click=&apos;changeValue&apos;&gt;1234&lt;button&gt;</div><div class="line"></div><div class="line">export default &#123;</div><div class="line">    data() &#123;</div><div class="line">        value: 10</div><div class="line">    &#125;,</div><div class="line">    method: &#123;</div><div class="line">        doubleValue: function() &#123;</div><div class="line">            console.log(&apos;double&apos;) //value 改变一次，打印一次,即函数会被执行一次</div><div class="line">            return 2</div><div class="line">        &#125;,</div><div class="line">        changeValue: function() &#123;</div><div class="line">            this.value++</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">  &#125;</div></pre></td></tr></table></figure>
-<p>计算属性还可以设置getter和setter<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">computed: &#123;</div><div class="line">  fullName: &#123;</div><div class="line">    // getter</div><div class="line">    get: function () &#123;</div><div class="line">      return this.firstName + &apos; &apos; + this.lastName</div><div class="line">    &#125;,</div><div class="line">    // setter</div><div class="line">    set: function (newValue) &#123;</div><div class="line">      var names = newValue.split(&apos; &apos;)</div><div class="line">      this.firstName = names[0]</div><div class="line">      this.lastName = names[names.length - 1]</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line">//给fullName设置值的时候,比如fullName = &apos;John Doe&apos; 时，setter 会被调用，firstName 和 lastName 也会相应地被更新</div></pre></td></tr></table></figure></p>
-<h1 id="watch"><a href="#watch" class="headerlink" title="watch"></a>watch</h1><p>定义某个变量发生变化时需要执行的函数<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line">&lt;p&gt;Original data: &quot;&#123;&#123; value &#125;&#125;&quot;&lt;/p&gt;</div><div class="line">&lt;p&gt;Computed result: &#123;&#123; result &#125;&#125;&lt;/p&gt;</div><div class="line">&lt;button @click=&apos;changeValue&apos;&gt;1234&lt;button&gt;</div><div class="line"></div><div class="line">export default &#123;</div><div class="line">    data() &#123;</div><div class="line">        value: 10</div><div class="line">        result: 0</div><div class="line">    &#125;,</div><div class="line">    watch: &#123;</div><div class="line">        value: function() &#123;</div><div class="line">            this.result +=10</div><div class="line">        &#125;</div><div class="line">    &#125;,</div><div class="line">    method: &#123;</div><div class="line">        changeValue: function() &#123;</div><div class="line">            this.value++</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">//当value发生变化的时候，就会执行watch绑定的函数，从而可以让result发生响应</div></pre></td></tr></table></figure></p>
-<p>对比computed属性,假设一个结果需要依赖多个变量，如果使用watch方法则需要定义多个响应函数，而且响应函数是重复的，而如果使用computed属性则只需要定义一次即可<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div></pre></td><td class="code"><pre><div class="line">例</div><div class="line">//computed方式</div><div class="line">&lt;p&gt;Original data: &quot;&#123;&#123; value &#125;&#125;&quot;&lt;/p&gt;</div><div class="line">&lt;p&gt;Computed result: &#123;&#123; result &#125;&#125;&lt;/p&gt;</div><div class="line">&lt;button @click=&apos;changeValue&apos;&gt;1234&lt;/button&gt;</div><div class="line">export default &#123;</div><div class="line">    data() &#123;</div><div class="line">        value: 10,</div><div class="line">        val:1</div><div class="line">    &#125;,</div><div class="line">   computed: &#123;</div><div class="line">      result: function() &#123;</div><div class="line">          return this.val + this.value</div><div class="line">      &#125;</div><div class="line">    &#125;,</div><div class="line">    method: &#123;</div><div class="line">        changeValue: function() &#123;</div><div class="line">            this.value++</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">//watch方式</div><div class="line">&lt;p&gt;Original data: &quot;&#123;&#123; value &#125;&#125;&quot;&lt;/p&gt;</div><div class="line">&lt;p&gt;Computed result: &#123;&#123; result &#125;&#125;&lt;/p&gt;</div><div class="line">&lt;button @click=&apos;changeValue&apos;&gt;1234&lt;/button&gt;</div><div class="line"></div><div class="line">export default &#123;</div><div class="line">    data() &#123;</div><div class="line">        value: 10,</div><div class="line">        val:1</div><div class="line">    &#125;,</div><div class="line">    watch: &#123;</div><div class="line">      value: function() &#123;</div><div class="line">         this.result = this.val + this.value</div><div class="line">      &#125;,</div><div class="line">      val: function() &#123;</div><div class="line">          this.result = this.val + this.value</div><div class="line">      &#125;</div><div class="line">    &#125;,</div><div class="line">    method: &#123;</div><div class="line">        changeValue: function() &#123;</div><div class="line">            this.value++</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">  &#125;</div></pre></td></tr></table></figure></p>
-<h1 id="生命周期钩子函数"><a href="#生命周期钩子函数" class="headerlink" title="生命周期钩子函数"></a>生命周期钩子函数</h1><h1 id="components"><a href="#components" class="headerlink" title="components"></a>components</h1>]]></content>
-    
-    <summary type="html">
-    
-      &lt;h1 id=&quot;el&quot;&gt;&lt;a href=&quot;#el&quot; class=&quot;headerlink&quot; title=&quot;el&quot;&gt;&lt;/a&gt;el&lt;/h1&gt;&lt;p&gt;其值为vue模板挂载ID,用于标识vue的APP template挂载在index.html的什么位置&lt;/p&gt;
-&lt;h1 id=&quot;data&quot;&gt;
-    
-    </summary>
-    
-    
-      <category term="vue" scheme="http://yoohannah.github.io/tags/vue/"/>
     
   </entry>
   
@@ -277,6 +250,36 @@
     
     
       <category term="vue" scheme="http://yoohannah.github.io/tags/vue/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>触发render</title>
+    <link href="http://yoohannah.github.io/post/react/renderfire.html"/>
+    <id>http://yoohannah.github.io/post/react/renderfire.html</id>
+    <published>2018-12-22T03:40:37.000Z</published>
+    <updated>2018-12-22T03:42:29.036Z</updated>
+    
+    <content type="html"><![CDATA[<p>在react中，触发render的有4条路径。</p>
+<p>以下假设shouldComponentUpdate都是按照默认返回true的方式。</p>
+<p>首次渲染Initial Render</p>
+<p>调用this.setState （并不是一次setState会触发一次render，React可能会合并操作，再一次性进行render）</p>
+<p>父组件发生更新（一般就是props发生改变，但是就算props没有改变或者父子组件之间没有数据交换也会触发render）</p>
+<p>调用this.forceUpdate</p>
+<p><a href="https://www.cnblogs.com/AnnieBabygn/p/6560833.html" target="_blank" rel="external">https://www.cnblogs.com/AnnieBabygn/p/6560833.html</a></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;在react中，触发render的有4条路径。&lt;/p&gt;
+&lt;p&gt;以下假设shouldComponentUpdate都是按照默认返回true的方式。&lt;/p&gt;
+&lt;p&gt;首次渲染Initial Render&lt;/p&gt;
+&lt;p&gt;调用this.setState （并不是一次setState会
+    
+    </summary>
+    
+    
+      <category term="react" scheme="http://yoohannah.github.io/tags/react/"/>
     
   </entry>
   
@@ -331,6 +334,39 @@
     <summary type="html">
     
       &lt;h1 id=&quot;构建&quot;&gt;&lt;a href=&quot;#构建&quot; class=&quot;headerlink&quot; title=&quot;构建&quot;&gt;&lt;/a&gt;构建&lt;/h1&gt;&lt;p&gt;使用命令行构建&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutte
+    
+    </summary>
+    
+    
+      <category term="vue" scheme="http://yoohannah.github.io/tags/vue/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>vue对象属性</title>
+    <link href="http://yoohannah.github.io/post/vue/basic/vueprops.html"/>
+    <id>http://yoohannah.github.io/post/vue/basic/vueprops.html</id>
+    <published>2018-12-22T03:40:37.000Z</published>
+    <updated>2018-12-22T04:53:44.390Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="el"><a href="#el" class="headerlink" title="el"></a>el</h1><p>其值为vue模板挂载ID,用于标识vue的APP template挂载在index.html的什么位置</p>
+<h1 id="data"><a href="#data" class="headerlink" title="data"></a>data</h1><h1 id="method"><a href="#method" class="headerlink" title="method"></a>method</h1><h1 id="计算属性computed"><a href="#计算属性computed" class="headerlink" title="计算属性computed"></a>计算属性computed</h1><p>通过&#123; &#123;&#125;&#125;}插值的时候,可以在大括号里面添加一个简单的计算表达式，从而将计算结果插入,但是对于复杂的计算,需要执行多个计算表达式时不能放在大括号里面的，为方便绑定，在computed属性中定义计算属性A，A是一个函数用到变量b，然后将该A属性插入，从而实现相关值b变化，插入值A随之响应的效果</p>
+<p>相当于计算属性因为依赖项改变而执行计算，将计算结果插入<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line">例</div><div class="line"> &lt;p&gt;Original data: &quot;&#123;&#123; value &#125;&#125;&quot;&lt;/p&gt;</div><div class="line"> &lt;p&gt;Computed result: &quot;&#123;&#123; doubleValue &#125;&#125;&quot;&lt;/p&gt;</div><div class="line"> &lt;button @click=&apos;changeValue&apos;&gt;&lt;button&gt;</div><div class="line"> </div><div class="line">  export default &#123;</div><div class="line">    data() &#123;</div><div class="line">        value: 10</div><div class="line">    &#125;,</div><div class="line">    computed: &#123;</div><div class="line">        doubleValue: function() &#123;</div><div class="line">            return this.value * 2</div><div class="line">        &#125;</div><div class="line">    &#125;,</div><div class="line">    method: &#123;</div><div class="line">        changeValue: function() &#123;</div><div class="line">            this.value++</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line"> //当value 变化时，doubleValue通过运算将结果插入</div></pre></td></tr></table></figure></p>
+<p>与method区别</p>
+<p>也可以在大括号里面调用method中定义的方法，达到计算响应<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">&lt;p&gt;&#123;&#123;doubleVlue()&#125;&#125;&lt;/p&gt;</div><div class="line">&lt;button @click=&apos;changeValue&apos;&gt;&lt;button&gt;</div><div class="line">export default &#123;</div><div class="line">    data() &#123;</div><div class="line">        value: 10</div><div class="line">    &#125;,</div><div class="line">    method: &#123;</div><div class="line">        doubleValue: function() &#123;</div><div class="line">            return this.value * 2</div><div class="line">        &#125;,</div><div class="line">        changeValue: function() &#123;</div><div class="line">            this.value++</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">  &#125;</div></pre></td></tr></table></figure></p>
+<p>当计算属性函数依赖的值不发生变化时，每次调用计算属性都会去取最后一次运算的结果，即读取缓存的结果</p>
+<p>比如有一个计算属性A需要遍历一个庞大的数组然后得到一个结果，而这个结果则用于其他计算，这样我们就不需要每次去运算A属性函数得到结果，直接读取缓存结果即可</p>
+<p>但如果属性A结果的得来是通过运行method方法，那么每次调用A就会进行计算一次，就会造成很大开销</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div></pre></td><td class="code"><pre><div class="line">//computed方式</div><div class="line">&lt;p&gt;Original data: &quot;&#123;&#123; value &#125;&#125;&quot;&lt;/p&gt;</div><div class="line">&lt;p&gt;Computed result: &#123;&#123; double &#125;&#125;&lt;/p&gt;</div><div class="line">&lt;button @click=&apos;changeValue&apos;&gt;&lt;button&gt;</div><div class="line"></div><div class="line">export default &#123;</div><div class="line">    data() &#123;</div><div class="line">        value: 10</div><div class="line">    &#125;,</div><div class="line">    computed: &#123;</div><div class="line">      double: function() &#123;</div><div class="line">        return  this.value + this.doubleValue</div><div class="line">      &#125;,</div><div class="line">      doubleValue: function() &#123;</div><div class="line">        console.log(&apos;double&apos;) //只打印一次</div><div class="line">        return  2</div><div class="line">      &#125;</div><div class="line">    &#125;,</div><div class="line">    method: &#123;</div><div class="line">        changeValue: function() &#123;</div><div class="line">            this.value++</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">//method方式</div><div class="line"></div><div class="line">&lt;p&gt;Original data: &quot;&#123;&#123; value &#125;&#125;&quot;&lt;/p&gt;</div><div class="line">&lt;p&gt;Computed result: &#123;&#123; value + doubleValue() &#125;&#125;&lt;/p&gt;</div><div class="line">&lt;button @click=&apos;changeValue&apos;&gt;1234&lt;button&gt;</div><div class="line"></div><div class="line">export default &#123;</div><div class="line">    data() &#123;</div><div class="line">        value: 10</div><div class="line">    &#125;,</div><div class="line">    method: &#123;</div><div class="line">        doubleValue: function() &#123;</div><div class="line">            console.log(&apos;double&apos;) //value 改变一次，打印一次,即函数会被执行一次</div><div class="line">            return 2</div><div class="line">        &#125;,</div><div class="line">        changeValue: function() &#123;</div><div class="line">            this.value++</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">  &#125;</div></pre></td></tr></table></figure>
+<p>计算属性还可以设置getter和setter<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">computed: &#123;</div><div class="line">  fullName: &#123;</div><div class="line">    // getter</div><div class="line">    get: function () &#123;</div><div class="line">      return this.firstName + &apos; &apos; + this.lastName</div><div class="line">    &#125;,</div><div class="line">    // setter</div><div class="line">    set: function (newValue) &#123;</div><div class="line">      var names = newValue.split(&apos; &apos;)</div><div class="line">      this.firstName = names[0]</div><div class="line">      this.lastName = names[names.length - 1]</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line">//给fullName设置值的时候,比如fullName = &apos;John Doe&apos; 时，setter 会被调用，firstName 和 lastName 也会相应地被更新</div></pre></td></tr></table></figure></p>
+<h1 id="watch"><a href="#watch" class="headerlink" title="watch"></a>watch</h1><p>定义某个变量发生变化时需要执行的函数<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line">&lt;p&gt;Original data: &quot;&#123;&#123; value &#125;&#125;&quot;&lt;/p&gt;</div><div class="line">&lt;p&gt;Computed result: &#123;&#123; result &#125;&#125;&lt;/p&gt;</div><div class="line">&lt;button @click=&apos;changeValue&apos;&gt;1234&lt;button&gt;</div><div class="line"></div><div class="line">export default &#123;</div><div class="line">    data() &#123;</div><div class="line">        value: 10</div><div class="line">        result: 0</div><div class="line">    &#125;,</div><div class="line">    watch: &#123;</div><div class="line">        value: function() &#123;</div><div class="line">            this.result +=10</div><div class="line">        &#125;</div><div class="line">    &#125;,</div><div class="line">    method: &#123;</div><div class="line">        changeValue: function() &#123;</div><div class="line">            this.value++</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">//当value发生变化的时候，就会执行watch绑定的函数，从而可以让result发生响应</div></pre></td></tr></table></figure></p>
+<p>对比computed属性,假设一个结果需要依赖多个变量，如果使用watch方法则需要定义多个响应函数，而且响应函数是重复的，而如果使用computed属性则只需要定义一次即可<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div></pre></td><td class="code"><pre><div class="line">例</div><div class="line">//computed方式</div><div class="line">&lt;p&gt;Original data: &quot;&#123;&#123; value &#125;&#125;&quot;&lt;/p&gt;</div><div class="line">&lt;p&gt;Computed result: &#123;&#123; result &#125;&#125;&lt;/p&gt;</div><div class="line">&lt;button @click=&apos;changeValue&apos;&gt;1234&lt;/button&gt;</div><div class="line">export default &#123;</div><div class="line">    data() &#123;</div><div class="line">        value: 10,</div><div class="line">        val:1</div><div class="line">    &#125;,</div><div class="line">   computed: &#123;</div><div class="line">      result: function() &#123;</div><div class="line">          return this.val + this.value</div><div class="line">      &#125;</div><div class="line">    &#125;,</div><div class="line">    method: &#123;</div><div class="line">        changeValue: function() &#123;</div><div class="line">            this.value++</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">//watch方式</div><div class="line">&lt;p&gt;Original data: &quot;&#123;&#123; value &#125;&#125;&quot;&lt;/p&gt;</div><div class="line">&lt;p&gt;Computed result: &#123;&#123; result &#125;&#125;&lt;/p&gt;</div><div class="line">&lt;button @click=&apos;changeValue&apos;&gt;1234&lt;/button&gt;</div><div class="line"></div><div class="line">export default &#123;</div><div class="line">    data() &#123;</div><div class="line">        value: 10,</div><div class="line">        val:1</div><div class="line">    &#125;,</div><div class="line">    watch: &#123;</div><div class="line">      value: function() &#123;</div><div class="line">         this.result = this.val + this.value</div><div class="line">      &#125;,</div><div class="line">      val: function() &#123;</div><div class="line">          this.result = this.val + this.value</div><div class="line">      &#125;</div><div class="line">    &#125;,</div><div class="line">    method: &#123;</div><div class="line">        changeValue: function() &#123;</div><div class="line">            this.value++</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">  &#125;</div></pre></td></tr></table></figure></p>
+<h1 id="生命周期钩子函数"><a href="#生命周期钩子函数" class="headerlink" title="生命周期钩子函数"></a>生命周期钩子函数</h1><h1 id="components"><a href="#components" class="headerlink" title="components"></a>components</h1>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;el&quot;&gt;&lt;a href=&quot;#el&quot; class=&quot;headerlink&quot; title=&quot;el&quot;&gt;&lt;/a&gt;el&lt;/h1&gt;&lt;p&gt;其值为vue模板挂载ID,用于标识vue的APP template挂载在index.html的什么位置&lt;/p&gt;
+&lt;h1 id=&quot;data&quot;&gt;
     
     </summary>
     
@@ -409,6 +445,87 @@
     <summary type="html">
     
       &lt;h1 id=&quot;数组的map方法&quot;&gt;&lt;a href=&quot;#数组的map方法&quot; class=&quot;headerlink&quot; title=&quot;数组的map方法&quot;&gt;&lt;/a&gt;数组的map方法&lt;/h1&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td cl
+    
+    </summary>
+    
+    
+      <category term="js" scheme="http://yoohannah.github.io/tags/js/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>js 知识点 一</title>
+    <link href="http://yoohannah.github.io/post/js/js1.html"/>
+    <id>http://yoohannah.github.io/post/js/js1.html</id>
+    <published>2018-12-08T01:29:37.000Z</published>
+    <updated>2019-01-22T13:48:53.953Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="1-lt-script-gt-标签几个属性"><a href="#1-lt-script-gt-标签几个属性" class="headerlink" title="1.&lt; script &gt; 标签几个属性"></a>1.&lt; script &gt; 标签几个属性</h1><p><b>async :</b>立即异步下载，因此不保证能够按指定的先后顺序执行，但会在load事件前，DOMContentLoad前后执行<br><b>defer :</b>延迟执行，也不保证按顺序执行，在DOMContentLoad前后执行<br><b>src :</b>外部文件链接<br><b>charset :</b>src指定代码的字符集，防止出现乱码<br><b>language :</b>已废弃，表示脚本语言，<br><b>type :</b>值为脚本语言内容类型（MIME），language替代属性，服务器传递过来类型为application/x-javascript需要注意，一个是可能导致脚本被忽略，另一个是可能触发浏览器XHTML标准模式；另外外链文件不是js文件时，一定要设置该值</p>
+<h1 id="2-js-代码执行过程"><a href="#2-js-代码执行过程" class="headerlink" title="2.js 代码执行过程"></a>2.js 代码执行过程</h1><p>包括两个部分一个是编译，或者叫预处理过程，一个是执行<br>编译过程 首先会创建一个全局作用域，然后进行词法分析，<br>词法分析过程会涉及到变量提升和函数声明提前处理，<br>即词法分析到变量声明会先判断当前域到全局域有没有该变量声明，如果有，就会将该变量挂到该作用域的对象上，<br>如果到全局域都没有则以全局为背景，新建该变量，并为其分配内存，<br>对于基本类型，变量中会保存它的值，对于对象，变量中会保存值所在内存的内存地址，<br>在一定场景下，这里就相当于发生了变量提升，把变量从局部提升到了全局，或者将声明提前到了使用之前，<br><b>避免变量提升</b>可以使用es6的let 关键字或者使用立即执行实现变量声明使用，但要注意使用let重复声明会报错，var 会同名覆盖；<br>当遇到函数声明时，会直接按声明顺序，将声明提前到代码顶端，<br><b>重复声明</b> 的函数会被后者覆盖，<br>如果变量名与函数名相同，则无论原来词法位置如何，先将函数声明提前到顶端，不再进行变量声明，变量名在哪赋值，则原函数在哪被覆盖，<br>覆盖之前调用使用原函数<br>提前之后会为函数创建作用域，<br>这时创建的作用域就是函数的 【【scope】】属性，保存着指向父域到全局域的指针<br>（指针就是指向活动对象的一个地址，全局域浏览器环境就是windows,nodejs环境就是global）<br>将来执行时会根据此指针建立作用域链，作用域链就是指针列表，指向不同层级作用域的内存，在里面取值<br>以上就基本上是编译过程，除了一些特定的编译规则，编译过程还会会使用大量技巧进行优化提升编译速度<br>但在使用js时，需要注意try-catch,with和eval三个语法关键字的使用，因为在使用它们时，会创建块级作用域，<br>破坏掉编译器原有的创建管理作用域的规则，在编译时，编译器也就不会对其中的代码进行优化，最终导致性能变差</p>
+<p>运行过程，基本就是在运行函数，函数在运行时会首先根据【【scope】】属性拿到父域到全局的指针，创建指针列表即作用域链，<br>然后创建函数执行的局部作用域，将函数中声明的变量挂到局部作用域活动对象上，然后将局部作用域指针推向作用域链前端，<br>在用到变量值时，会根据作用域链依次查找取值<br>函数执行结束后，局部活动对象被销毁，作用域链被销毁，进行垃圾回收<br>但是对于声明在一个函数内部的函数来说，这个声明的函数在声明时，就会包含其父域的活动对象，<br>因此在外部使用该函数时，可以访问到其父域的变量，实现了父域访问子域变量，延长了变量的使用范围，也就是常见的闭包现象，<br>缺点就是闭包的函数执行完毕后，因为本身【【scope】】会指向父域的活动对象，所以父域的活动对象始终不会被回收,除非闭包函数被销毁<br>从而有可能造成内存泄露，为什么说有可能，因为父活动对象占的内存其实是比较小的，造成内存泄露的真正原因是使用闭包易造成循环引用，<br>尤其是闭包作用域中保存dom结点时，如果是在IE中，dom和bom都是以C++的COM对象保存的，垃圾回收机制是技术策略，<br>因此循环引用的话，永远都不会被回收</p>
+<p>补充，对于未以分号结尾的语句，会采用能合就合的原则，即，会尝试和下一行语句合并执行，如果能合并执行就合并执行，<br>不能合并执行就在中间加分号再执行，如果再执行不了就会报错<br>好处就是对于条件判断语句可进行一行一行判断<br>坏处就是如果下一行以大括号开头，上一行语句就会变成函数，导致出现意想不到的结果<br>两个例外，<br>对于return，break,continue语句不会做尝试合并；<br>对于++，–自增自减符后没有分号，上一行也没分号情况，自增自减会和下一行合并，上一行自行添加分号</p>
+<p>以上即是我所了解的js运行机制</p>
+<h1 id="3-关于对象继承"><a href="#3-关于对象继承" class="headerlink" title="3.关于对象继承"></a>3.关于对象继承</h1><p>3.0  new 操作符调用构造函数 执行过程<br>  1.创建或者构造一个全新的对象<br>  2.将构造函数的作用域赋给这个新的对象,<br>  3.执行构造函数 (为这个新对象添加属性) ，第二，三步相当于func.call(newobj)<br>  4.如果构造函数没有返回值或返回值非对象，则返回新对象，否则返回构造函数return的对象</p>
+<p>3.1 继承的6种方式及优缺点<br>    <b>第一种原型链方式</b>，子类的原型对象指向父类的实例<br>    缺点<br>        给原型添加方法必须要在替换原型的语句之后；<br>        不能实现多继承（原型指向多个父对象）；<br>        所有属性共享<br>        无法传递参数到父类进行初始化<br>    <b>第二种借助构造函数</b>，在子类构造函数中使用call或者apply执行父类构造函数<br>    优点<br>        可以实现多继承<br>        可以传递参数<br>        方法属性不共享<br>    缺点<br>        只能继承构造函数中属性，不能继承原型上方法，不能复用方法<br>        实例仅为子类实例，不是父类实例<br>    <b>第三种组合继承</b>，以上两组结合在一起，两种方式都执行<br>    缺点<br>        要调用两次父类构造函数，影响性能<br>        实例属性和原型属性各占一份，同名覆盖机制，重复占内存，没必要<br>    <b>第四种原型式继承</b>，借助object()或者object.create()函数,缺点同原型链方式</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">function object(o)&#123;</div><div class="line"> function F()&#123;&#125;</div><div class="line"> F.prototype = o;</div><div class="line"> return new F();</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><b>第五种寄生式继承</b>，利用原型式继承和增强对象过程的封装函数创建子类，缺点同原型链方式<br><b>第六种寄生组合式继承</b>，保留借助构造函数部分，原型部分功能借助中间函数处理，<br>中间函数借助object拿到父类prototype，给到子类的prototype,从而完美解决组合继承的缺点</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">function inheritPrototype(subType,superType)&#123;</div><div class="line">  var prototype = object(superType.prototype)</div><div class="line">  prototype.constructor = subType</div><div class="line">  subType.prototype = prototype</div><div class="line">&#125;</div><div class="line">subType.prototype.__proto__ = superType</div></pre></td></tr></table></figure>
+<p>3.2 es6 使用class extend实现继承<br>使用class声明构造函数时，本来挂在this上的属性，放在constructor（）函数里面执行初始化，<br>挂在prototype上的方法直接放在class里面声明</p>
+<p>使用extend继承时，需要在constructor里面先执行super函数才能使用this关键字，<br>增强方法同样直接在class中和constructor并列声明，相当于挂在prototype上</p>
+<p>注意super函数只能在consructor中运行；super用作对象在constructor中使用时，相当于this,<br>添加属性会添加在当前对象上，运行函数时会调用继承的父类的方法</p>
+<p>还有就是class extend继承null和 什么也不继承是，相当于继承Function.prototype<br>继承Object时，子类就相当于object 的复制，子类实例就是object实例</p>
+<h1 id="4-关于this-四种使用场景"><a href="#4-关于this-四种使用场景" class="headerlink" title="4.关于this 四种使用场景"></a>4.关于this 四种使用场景</h1><p>   普通函数执行，指向全局作用域<br>   对象属性方法调用，指向调用对象<br>   call,apply中强制绑定对象，this执行绑定的对象<br>   构造函数中this指向构造的新对象<br>   （箭头函数中this,指向词法作用域的父域）</p>
+<h1 id="5-js文件位置"><a href="#5-js文件位置" class="headerlink" title="5.js文件位置"></a>5.js文件位置</h1><p>   放html底部原因：<br>   下载解析执行过程是阻断式的，会停止页面渲染，造成白屏，影响用户体验；<br>   另外JS中如果有对dom的操作，页面中还没有dom,获取不到，是不符合逻辑的，会报错</p>
+<p>   哪些js功能文件可以放顶部：<br>   与css相关的js,比如rem单位的换算，需要根据根结点进行设置<br>   使用的框架需要在根结点将浏览器支持的样式罗列出来</p>
+<h1 id="6-什么情况下用内部文件，内部文件比外部文件好处在哪？"><a href="#6-什么情况下用内部文件，内部文件比外部文件好处在哪？" class="headerlink" title="6.什么情况下用内部文件，内部文件比外部文件好处在哪？"></a>6.什么情况下用内部文件，内部文件比外部文件好处在哪？</h1><p>   内部文件相比外部文件最大好处就是性能提升，因为访问外部文件时，不管文件大小都会造成一次网络请求链接，请求服务器，下载文件，<br>   解析文件，除了文件本身代码外，还要处理文件头文件尾的请求，增加了链接数，从而造成性能影响<br>   对于功能短小精悍，不会被到处复用的js代码不适合采用外部文件，应该采用内部文件写法，尤其对手机端页面有性能提升</p>
+<h1 id="7-开发过程避免缓存方法"><a href="#7-开发过程避免缓存方法" class="headerlink" title="7.开发过程避免缓存方法"></a>7.开发过程避免缓存方法</h1><p>   在浏览器开启禁用缓存的模式<br>   手动清缓存 ctrl+shfit+del<br>   引用的文件名添加随机数，浏览器根据文件名不同，就会重新获取资源更新缓存</p>
+<h1 id="8-使用严格模式弊端及解决办法"><a href="#8-使用严格模式弊端及解决办法" class="headerlink" title="8.使用严格模式弊端及解决办法"></a>8.使用严格模式弊端及解决办法</h1><p>   在代码压缩时，’use strict’ 这一行可能不在位于第一行，<br>   或者后续代码不需要在严格模式下执行，被压缩在了严格模式范围内，导致了全部以严格模式执行</p>
+<p>   解决办法就是，将需要严格模式执行的代码放在匿名函数中，形成代码块，在函数中使用严格模式</p>
+<h1 id="9-立即执行函数好处"><a href="#9-立即执行函数好处" class="headerlink" title="9.立即执行函数好处"></a>9.立即执行函数好处</h1><p>   避免变量污染：有些变量仅在小功能内使用，将小功能封装起来，就可以避免这些变量暴露到全局，<br>   另外函数本身没有函数名，不会增加全局变量<br>   提升性能：功能所需变量全都在函数内时，查找变量快<br>   有利于压缩：一部分代码执行需要用到的变量变量名太长，将这段代码封装成立即执行函数，将长变量名以参数形式传进去<br>   避免全局命名冲突：一段代码需要用到两个代表不同功能但名称相同的变量，可以将该段代码封装成立即执行函数，<br>   将其中一个变量以参数形式传递进来，达到换名的目的<br>   保存闭包状态：循环执行异步代码时，将异步代码用立即执行函数包裹，函数内可保存本次循环的状态<br>   改变代码运行顺序：umd,通用模块规范，function（fn）{fn()}()</p>
+<h1 id="10-变量类型"><a href="#10-变量类型" class="headerlink" title="10.变量类型"></a>10.变量类型</h1><p>   根据当前变量的值的类型确定<br>   如果想要进行标记，方法有三种<br>   初始化时指定相应类型值<br>   使用匈牙利标记法，用单字母表示类型，添加到变量命中，例sName 代表string类型<br>   使用注释，变量声明时，在旁边添加注释</p>
+<h1 id="11-null-vs-undefined"><a href="#11-null-vs-undefined" class="headerlink" title="11.null vs undefined"></a>11.null vs undefined</h1><p>   转数字时，null –&gt;0;undefined–&gt;NaN<br>   undefined可以当做windows对象上的一个属性，null不行</p>
+<h1 id="12-类型转换"><a href="#12-类型转换" class="headerlink" title="12. 类型转换"></a>12. 类型转换</h1><p>基本类型包括，undefined，null,boolean,string,number</p>
+<p>基本类型 —&gt; boolean   Boolean(someval) 相当于 !!someval<br>undefined，null,NaN,’’,+0,-0 —&gt; false<br>其他 —&gt; true </p>
+<p>基本类型 —&gt; string  String（someval）相当于 someval+’’<br>一般情况直接加引号<br>[] —&gt; ‘’<br>{} —&gt; ‘[object object]’</p>
+<p>基本类型—&gt;number  + someval  相当于 Number（someval）<br>undefined,{} —&gt; NaN<br>false, null,’’,[],—&gt; 0<br>true —&gt; 1<br>‘123’ —&gt; 123<br>‘abc’ —&gt; NaN<br>[]—&gt; toString —&gt; ‘’ —&gt; 0<br>{} —&gt; valueOf —&gt; {} —&gt; toString —&gt; ‘[object object]’ —&gt; NaN</p>
+<p>基本类型 —&gt;对象<br>undefined，null —&gt; {}<br>true/123 —&gt; {initval:true/123}<br>‘abc’ —&gt; {initval:’abc’,length:3,0:’a’,1:’b’,2:’c’}</p>
+<p>对象 —&gt;基本类型</p>
+<p>关于–对象分类：<br>内部对象（错误对象；常用对象：Boolean,Number,String,Object,Array,Function,Date,Exec;内置对象：Math,global,Json）<br>宿主对象：windows,document<br>自定义对象</p>
+<p>关于–属性访问<br>obj.someprop—&gt;检查obj是不是null/undefined—&gt;是|不是—&gt;报错|是不是Object,不是的话转object—&gt;取值<br>obj[someval]—&gt;检查obj是不是null/undefined—&gt;是|不是—&gt;报错|是不是Object,不是的话转object—&gt;计算someval拿到string—&gt;取值</p>
+<p>Boolean —&gt;true<br>Number —&gt;基本类型转的|{}/{a:1}|Date—&gt;相应值|NaN|时间戳<br>Array.toString:数组每一项转字符串<br>Function.toString:原代码字符串形式<br>Date.toString:日期和时间组合形式<br>Exec.toString:正则字符串形式</p>
+<p>运算转换</p>
+<p>Number()参数不能有非数字<br>parseInt()参数只能为字符串，非字符串会进行强制转化字符串，可含非数字，但不能以非数字开头<br>一元操作符对任何数据类型有效，得到数字</p>
+<p>&#43;二元运算侧重转字符串，然后进行字符串拼接<br>其中一个为字符串或者两个都是对象时，转字符串拼接<br>undefined,null,Boolean,数字混合运算+时，会被转数字再计算<br>{}为第一个运算值时，会被当做函数结束，不参与计算<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">null + null --&gt; 0</div><div class="line">undefined + null --&gt; NaN</div><div class="line">[] + [] --&gt; &apos;&apos;</div><div class="line">1 + [1,2] --&gt; &apos;11,2&apos;</div><div class="line">1 + &#123;a:1&#125; --&gt; &apos;1[object object]&apos;</div><div class="line">&#123;a:1&#125; + 1 --&gt; 1</div><div class="line">&#123;&#125; + &#123;&#125; --&gt; NaN</div><div class="line">(&#123;&#125;) + &#123;&#125; --&gt; &apos;[object object][object object]&apos;</div><div class="line">[] + &#123;&#125; --&gt; &apos;[object object]&apos;</div><div class="line">&#123;&#125; + [] --&gt; 0</div><div class="line">var a = &#123;&#125;</div><div class="line">a + a --&gt;&apos;[object object][object object]&apos;</div></pre></td></tr></table></figure></p>
+<p>&#42;/- 转数字，进行相减,如果不能转数字，返回NaN</p>
+<p>&gt;/&lt; 侧重转数字<br>string &lt; string 字典比较<br>非字符串&lt;非字符串/字符串 都转数字然后比较</p>
+<p>string == number 字符串转数字<br>boolean == 其他类型 二者转数字然后比较<br>null == undefined —&gt;true undefined和null只与对方和自己==比较时为true，其他均为false<br>null === undefined —&gt;false<br>非对象 == 对象 与数字比较object转数字，与字符串比较二者转数字再比较<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line">&apos;0&apos; == null  //false</div><div class="line">&apos;0&apos; == undefined  //false</div><div class="line">&apos;0&apos; == false  //true</div><div class="line">&apos;0&apos; == NaN  //false</div><div class="line">&apos;0&apos; == 0  //true</div><div class="line">&apos;0&apos; == &apos;&apos;  //false</div><div class="line"></div><div class="line">false == null  //false</div><div class="line">false == undefined  //false</div><div class="line">false == NaN  //false</div><div class="line">false == 0  //true</div><div class="line">false == &apos;&apos;  //true</div><div class="line">false == []  //true</div><div class="line">false == &#123;&#125; //false</div><div class="line"></div><div class="line">&apos;&apos; == null  //false</div><div class="line">&apos;&apos; == undefined  //false</div><div class="line">&apos;&apos; == NaN  //false</div><div class="line">&apos;&apos; == 0  //true</div><div class="line">&apos;&apos; == []  //true</div><div class="line">&apos;&apos; == &#123;&#125; //false</div><div class="line"></div><div class="line">0 == null  //false</div><div class="line">0 == undefined  //false</div><div class="line">0 == NaN  //false</div><div class="line">0 == []  //true</div><div class="line">0 == &#123;&#125; //false</div><div class="line"></div><div class="line">[] == ![] //true</div></pre></td></tr></table></figure></p>
+<p>&amp;&amp;和|| 计算结果根据短路原则判断到了哪里，返回最后一个进行判断的值</p>
+<p>运算符优先级<br>属性访问.<br>一元操作符（+，-，++，–）<br>二元操作符（+-*/）<br>比较（&gt;,&lt;)<br>相等（==，===，！=）<br>与&amp;&amp;，或||<br>三目运算符<br>赋值</p>
+<p>运算符结合性<br>除了一元操作符，三目运算符和赋值是右结合，其他都是左结合</p>
+<p>减少小数计算误差<br>尽量不使用小数进行比较或运算<br>转整数计算，再转回相应位数小数<br>使用toFixed()四舍五入<br>两个情境需要重复计算时，保证前后书写顺序</p>
+<h1 id="13-数组相关方法"><a href="#13-数组相关方法" class="headerlink" title="13. 数组相关方法"></a>13. 数组相关方法</h1><p><img src="/image/arrmethod.jpg" alt="arrmethod"></p>
+<h1 id="14-字符串相关方法"><a href="#14-字符串相关方法" class="headerlink" title="14.字符串相关方法"></a>14.字符串相关方法</h1><p><img src="/image/strmethod.jpg" alt="strmethod"></p>
+<h1 id="15-日期相关方法"><a href="#15-日期相关方法" class="headerlink" title="15.日期相关方法"></a>15.日期相关方法</h1><p>   一共 33个<br>   set/get（UTC）FullYear,Month,Date,Hours,Minutes,Seconds,Millseconds<br>   set/get Time<br>   get(UTC) Day<br>   getTimezoneOffset</p>
+<h1 id="16-Math三个舍入方法"><a href="#16-Math三个舍入方法" class="headerlink" title="16. Math三个舍入方法"></a>16. Math三个舍入方法</h1><p>  Math.ceil:比值大的最小整数<br>  Math.round:四舍五入<br>  Math.floor:比值小的最大整数</p>
+<h1 id="17-setInterval-注意问题"><a href="#17-setInterval-注意问题" class="headerlink" title="17. setInterval 注意问题"></a>17. setInterval 注意问题</h1><p>累积效应<br>代码执行时间大于间隔时间，后续调用会进行累积，累积会在短时间内连续触发</p>
+<p>当用于动画时，因与显示器刷新频率不统一会造成视觉卡顿，解决办法如下：<br>一种是使用CSS3创建动画，根据显示器刷新执行动画<br>另一种是使用 requestAnimationframe(function(){})函数，也是在显示器刷新时执行<br>可以解决CSS3无法实现的，例如滚动控制等效果</p>
+<h1 id="18-关于DOM"><a href="#18-关于DOM" class="headerlink" title="18. 关于DOM"></a>18. 关于DOM</h1><p>   document 三个属性<br>   url：地址栏中URL<br>   domain:域名，跨域域名 X；父域名到子域名 X；<br>   referer:上一页URL,可在跳转时，判断与当前页是否在同一域，是的话，就可以back,否则 location.href其他页面<br>   dom.getAttribute(‘style’),得到样式字符串<br>   dom.style 得到到样式对象<br>   dom.getAttribute(‘onclick’) ,得到代码字符串<br>   dom.onclick 得到函数对象</p>
+<p>   动态合集<br>   使用时可能会造成死循环<br>   使用框架如Jquery获取的合集不具有动态性<br>   使用 queryselect(all)()获取到的也是静态合集</p>
+<p>   动态合集生成原理：<br>   浏览器通过DOM树预先缓存起来，获取时，浏览器会通过缓存直接注册，创建一个变量返回</p>
+<p>   静态合集生成原理：<br>   获取标识是一个CSS选择器，浏览器会先去解析字符串，判断是一个CSS选择器，<br>   分析选择器并创建一个选择器结构，浏览器根据DOM树创建一个静态文件，即DOM树的一个快照<br>   然后拿选择器和快照进行对比，符合选择器就放到合集中，知道整个快照对比完，再把合集的快照返回</p>
+<h1 id="19-事件"><a href="#19-事件" class="headerlink" title="19. 事件"></a>19. 事件</h1><p>   绑定方式</p>
+<p>   直接通过HTML属性绑定<br>   缺点<br>   有可能响应函数还未被解析就被触发<br>   事件名和回调1对1，修改繁琐<br>   响应执行时，作用域为全局，不同浏览器解析规则不同，造成某些对象无法访问</p>
+<p>   使用dom属性绑定<br>   冒泡阶段执行<br>   缺点<br>   只能绑定一个响应，后续赋值会被覆盖</p>
+<p>   IE attachEvent/detachEvent绑定/解绑<br>   冒泡阶段执行<br>   绑定多个时按按绑定顺序的逆序执行</p>
+<p>   addEventListener()/removeEventListener()绑定/解绑<br>   第三个参数为对象时，passive属性为true时，会针对touchstart,touchend等特定事件通过开启两个线程，<br>   一个执行浏览器默认行为，一个执行JS进行优化</p>
+<p>   事件优先级<br>   浏览器在绑定事件而不是JS在绑定事件</p>
+<p>   1.html标签绑定事件会被dom属性事件覆盖<br>   2.html标签优先执行，即使被属性事件覆盖，则执行被覆盖的属性事件<br>   3.仅有监听事件和属性事件时，按绑定顺序执行，即事件对象的冒泡事件可能会在捕获事件之前执行</p>
+<p>   event对象属性<br>   curentTarget:响应函数绑定的对象<br>   target:发生事件的对象</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;1-lt-script-gt-标签几个属性&quot;&gt;&lt;a href=&quot;#1-lt-script-gt-标签几个属性&quot; class=&quot;headerlink&quot; title=&quot;1.&amp;lt; script &amp;gt; 标签几个属性&quot;&gt;&lt;/a&gt;1.&amp;lt; script &amp;gt; 
     
     </summary>
     
@@ -499,87 +616,6 @@
   </entry>
   
   <entry>
-    <title>js 知识点 一</title>
-    <link href="http://yoohannah.github.io/post/js/js1.html"/>
-    <id>http://yoohannah.github.io/post/js/js1.html</id>
-    <published>2018-12-08T01:29:37.000Z</published>
-    <updated>2018-12-22T05:09:03.986Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="1-lt-script-gt-标签几个属性"><a href="#1-lt-script-gt-标签几个属性" class="headerlink" title="1.&lt; script &gt; 标签几个属性"></a>1.&lt; script &gt; 标签几个属性</h1><p><b>async :</b>立即异步下载，因此不保证能够按指定的先后顺序执行，但会在load事件前，DOMContentLoad前后执行<br><b>defer :</b>延迟执行，也不保证按顺序执行，在DOMContentLoad前后执行<br><b>src :</b>外部文件链接<br><b>charset :</b>src指定代码的字符集，防止出现乱码<br><b>language :</b>已废弃，表示脚本语言，<br><b>type :</b>值为脚本语言内容类型（MIME），language替代属性，服务器传递过来类型为application/x-javascript需要注意，一个是可能导致脚本被忽略，另一个是可能触发浏览器XHTML标准模式；另外外链文件不是js文件时，一定要设置该值</p>
-<h1 id="2-js-代码执行过程"><a href="#2-js-代码执行过程" class="headerlink" title="2.js 代码执行过程"></a>2.js 代码执行过程</h1><p>包括两个部分一个是编译，或者叫预处理过程，一个是执行<br>编译过程 首先会创建一个全局作用域，然后进行词法分析，<br>词法分析过程会涉及到变量提升和函数声明提前处理，<br>即词法分析到变量声明会先判断当前域到全局域有没有该变量声明，如果有，就会将该变量挂到该作用域的对象上，<br>如果到全局域都没有则以全局为背景，新建该变量，并为其分配内存，<br>对于基本类型，变量中会保存它的值，对于对象，变量中会保存值所在内存的内存地址，<br>在一定场景下，这里就相当于发生了变量提升，把变量从局部提升到了全局，或者将声明提前到了使用之前，<br><b>避免变量提升</b>可以使用es6的let 关键字或者使用立即执行实现变量声明使用，但要注意使用let重复声明会报错，var 会同名覆盖；<br>当遇到函数声明时，会直接按声明顺序，将声明提前到代码顶端，<br><b>重复声明</b> 的函数会被后者覆盖，<br>如果变量名与函数名相同，则无论原来词法位置如何，先将函数声明提前到顶端，不再进行变量声明，变量名在哪赋值，则原函数在哪被覆盖，<br>覆盖之前调用使用原函数<br>提前之后会为函数创建作用域，<br>这时创建的作用域就是函数的 【【scope】】属性，保存着指向父域到全局域的指针<br>（指针就是指向活动对象的一个地址，全局域浏览器环境就是windows,nodejs环境就是global）<br>将来执行时会根据此指针建立作用域链，作用域链就是指针列表，指向不同层级作用域的内存，在里面取值<br>以上就基本上是编译过程，除了一些特定的编译规则，编译过程还会会使用大量技巧进行优化提升编译速度<br>但在使用js时，需要注意try-catch,with和eval三个语法关键字的使用，因为在使用它们时，会创建块级作用域，<br>破坏掉编译器原有的创建管理作用域的规则，在编译时，编译器也就不会对其中的代码进行优化，最终导致性能变差</p>
-<p>运行过程，基本就是在运行函数，函数在运行时会首先根据【【scope】】属性拿到父域到全局的指针，创建指针列表即作用域链，<br>然后创建函数执行的局部作用域，将函数中声明的变量挂到局部作用域活动对象上，然后将局部作用域指针推向作用域链前端，<br>在用到变量值时，会根据作用域链依次查找取值<br>函数执行结束后，局部活动对象被销毁，作用域链被销毁，进行垃圾回收<br>但是对于声明在一个函数内部的函数来说，这个声明的函数在声明时，就会包含其父域的活动对象，<br>因此在外部使用该函数时，可以访问到其父域的变量，实现了父域访问子域变量，延长了变量的使用范围，也就是常见的闭包现象，<br>缺点就是闭包的函数执行完毕后，因为本身【【scope】】会指向父域的活动对象，所以父域的活动对象始终不会被回收,除非闭包函数被销毁<br>从而有可能造成内存泄露，为什么说有可能，因为父活动对象占的内存其实是比较小的，造成内存泄露的真正原因是使用闭包易造成循环引用，<br>尤其是闭包作用域中保存dom结点时，如果是在IE中，dom和bom都是以C++的COM对象保存的，垃圾回收机制是技术策略，<br>因此循环引用的话，永远都不会被回收</p>
-<p>补充，对于未以分号结尾的语句，会采用能合就合的原则，即，会尝试和下一行语句合并执行，如果能合并执行就合并执行，<br>不能合并执行就在中间加分号再执行，如果再执行不了就会报错<br>好处就是对于条件判断语句可进行一行一行判断<br>坏处就是如果下一行以大括号开头，上一行语句就会变成函数，导致出现意想不到的结果<br>两个例外，<br>对于return，break,continue语句不会做尝试合并；<br>对于++，–自增自减符后没有分号，上一行也没分号情况，自增自减会和下一行合并，上一行自行添加分号</p>
-<p>以上即是我所了解的js运行机制</p>
-<h1 id="3-关于对象继承"><a href="#3-关于对象继承" class="headerlink" title="3.关于对象继承"></a>3.关于对象继承</h1><p>3.0  new 操作符调用构造函数 执行过程<br>  1.创建或者构造一个全新的对象<br>  2.将构造函数的作用域赋给这个新的对象,<br>  3.执行构造函数 (为这个新对象添加属性) ，第二，三步相当于func.call(newobj)<br>  4.如果构造函数没有返回值或返回值非对象，则返回新对象，否则返回构造函数return的对象</p>
-<p>3.1 继承的6种方式及优缺点<br>    <b>第一种原型链方式</b>，子类的原型对象指向父类的实例<br>    缺点<br>        给原型添加方法必须要在替换原型的语句之后；<br>        不能实现多继承（原型指向多个父对象）；<br>        所有属性共享<br>        无法传递参数到父类进行初始化<br>    <b>第二种借助构造函数</b>，在子类构造函数中使用call或者apply执行父类构造函数<br>    优点<br>        可以实现多继承<br>        可以传递参数<br>        方法属性不共享<br>    缺点<br>        只能继承构造函数中属性，不能继承原型上方法，不能复用方法<br>        实例仅为子类实例，不是父类实例<br>    <b>第三种组合继承</b>，以上两组结合在一起，两种方式都执行<br>    缺点<br>        要调用两次父类构造函数，影响性能<br>        实例属性和原型属性各占一份，同名覆盖机制，重复占内存，没必要<br>    <b>第四种原型式继承</b>，借助object()或者object.create()函数,缺点同原型链方式</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">function object(o)&#123;</div><div class="line"> function F()&#123;&#125;</div><div class="line"> F.prototype = o;</div><div class="line"> return new F();</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p><b>第五种寄生式继承</b>，利用原型式继承和增强对象过程的封装函数创建子类，缺点同原型链方式<br><b>第六种寄生组合式继承</b>，保留借助构造函数部分，原型部分功能借助中间函数处理，<br>中间函数借助object拿到父类prototype，给到子类的prototype,从而完美解决组合继承的缺点</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">function inheritPrototype(subType,superType)&#123;</div><div class="line">  var prototype = object(superType.prototype)</div><div class="line">  prototype.constructor = subType</div><div class="line">  subType.prototype = prototype</div><div class="line">&#125;</div><div class="line">subType.prototype.__proto__ = superType</div></pre></td></tr></table></figure>
-<p>3.2 es6 使用class extend实现继承<br>使用class声明构造函数时，本来挂在this上的属性，放在constructor（）函数里面执行初始化，<br>挂在prototype上的方法直接放在class里面声明</p>
-<p>使用extend继承时，需要在constructor里面先执行super函数才能使用this关键字，<br>增强方法同样直接在class中和constructor并列声明，相当于挂在prototype上</p>
-<p>注意super函数只能在consructor中运行；super用作对象在constructor中使用时，相当于this,<br>添加属性会添加在当前对象上，运行函数时会调用继承的父类的方法</p>
-<p>还有就是class extend继承null和 什么也不继承是，相当于继承Function.prototype<br>继承Object时，子类就相当于object 的复制，子类实例就是object实例</p>
-<h1 id="4-关于this-四种使用场景"><a href="#4-关于this-四种使用场景" class="headerlink" title="4.关于this 四种使用场景"></a>4.关于this 四种使用场景</h1><p>   普通函数执行，指向全局作用域<br>   对象属性方法调用，指向调用对象<br>   call,apply中强制绑定对象，this执行绑定的对象<br>   构造函数中this指向构造的新对象<br>   （箭头函数中this,指向词法作用域的父域）</p>
-<h1 id="5-js文件位置"><a href="#5-js文件位置" class="headerlink" title="5.js文件位置"></a>5.js文件位置</h1><p>   放html底部原因：<br>   下载解析执行过程是阻断式的，会停止页面渲染，造成白屏，影响用户体验；<br>   另外JS中如果有对dom的操作，页面中还没有dom,获取不到，是不符合逻辑的，会报错</p>
-<p>   哪些js功能文件可以放顶部：<br>   与css相关的js,比如rem单位的换算，需要根据根结点进行设置<br>   使用的框架需要在根结点将浏览器支持的样式罗列出来</p>
-<h1 id="6-什么情况下用内部文件，内部文件比外部文件好处在哪？"><a href="#6-什么情况下用内部文件，内部文件比外部文件好处在哪？" class="headerlink" title="6.什么情况下用内部文件，内部文件比外部文件好处在哪？"></a>6.什么情况下用内部文件，内部文件比外部文件好处在哪？</h1><p>   内部文件相比外部文件最大好处就是性能提升，因为访问外部文件时，不管文件大小都会造成一次网络请求链接，请求服务器，下载文件，<br>   解析文件，除了文件本身代码外，还要处理文件头文件尾的请求，增加了链接数，从而造成性能影响<br>   对于功能短小精悍，不会被到处复用的js代码不适合采用外部文件，应该采用内部文件写法，尤其对手机端页面有性能提升</p>
-<h1 id="7-开发过程避免缓存方法"><a href="#7-开发过程避免缓存方法" class="headerlink" title="7.开发过程避免缓存方法"></a>7.开发过程避免缓存方法</h1><p>   在浏览器开启禁用缓存的模式<br>   手动清缓存 ctrl+shfit+del<br>   引用的文件名添加随机数，浏览器根据文件名不同，就会重新获取资源更新缓存</p>
-<h1 id="8-使用严格模式弊端及解决办法"><a href="#8-使用严格模式弊端及解决办法" class="headerlink" title="8.使用严格模式弊端及解决办法"></a>8.使用严格模式弊端及解决办法</h1><p>   在代码压缩时，’use strict’ 这一行可能不在位于第一行，<br>   或者后续代码不需要在严格模式下执行，被压缩在了严格模式范围内，导致了全部以严格模式执行</p>
-<p>   解决办法就是，将需要严格模式执行的代码放在匿名函数中，形成代码块，在函数中使用严格模式</p>
-<h1 id="9-立即执行函数好处"><a href="#9-立即执行函数好处" class="headerlink" title="9.立即执行函数好处"></a>9.立即执行函数好处</h1><p>   避免变量污染：有些变量仅在小功能内使用，将小功能封装起来，就可以避免这些变量暴露到全局，<br>   另外函数本身没有函数名，不会增加全局变量<br>   提升性能：功能所需变量全都在函数内时，查找变量快<br>   有利于压缩：一部分代码执行需要用到的变量变量名太长，将这段代码封装成立即执行函数，将长变量名以参数形式传进去<br>   避免全局命名冲突：一段代码需要用到两个代表不同功能但名称相同的变量，可以将该段代码封装成立即执行函数，<br>   将其中一个变量以参数形式传递进来，达到换名的目的<br>   保存闭包状态：循环执行异步代码时，将异步代码用立即执行函数包裹，函数内可保存本次循环的状态<br>   改变代码运行顺序：umd,通用模块规范，function（fn）{fn()}()</p>
-<h1 id="10-变量类型"><a href="#10-变量类型" class="headerlink" title="10.变量类型"></a>10.变量类型</h1><p>   根据当前变量的值的类型确定<br>   如果想要进行标记，方法有三种<br>   初始化时指定相应类型值<br>   使用匈牙利标记法，用单字母表示类型，添加到变量命中，例sName 代表string类型<br>   使用注释，变量声明时，在旁边添加注释</p>
-<h1 id="11-null-vs-undefined"><a href="#11-null-vs-undefined" class="headerlink" title="11.null vs undefined"></a>11.null vs undefined</h1><p>   转数字时，null –&gt;0;undefined–&gt;NaN<br>   undefined可以当做windows对象上的一个属性，null不行</p>
-<h1 id="12-类型转换"><a href="#12-类型转换" class="headerlink" title="12. 类型转换"></a>12. 类型转换</h1><p>基本类型包括，undefined，null,boolean,string,number</p>
-<p>基本类型 —&gt; boolean   Boolean(someval) 相当于 !!someval<br>undefined，null,NaN,’’,+0,-0 —&gt; false<br>其他 —&gt; true </p>
-<p>基本类型 —&gt; string  String（someval）相当于 someval+’’<br>一般情况直接加引号<br>[] —&gt; ‘’<br>{} —&gt; ‘[object object]’</p>
-<p>基本类型—&gt;number  + someval  相当于 Number（someval）<br>undefined,{} —&gt; NaN<br>false, null,’’,[],—&gt; 0<br>true —&gt; 1<br>‘123’ —&gt; 123<br>‘abc’ —&gt; NaN<br>[]—&gt; toString —&gt; ‘’ —&gt; 0<br>{} —&gt; valueOf —&gt; {} —&gt; toString —&gt; ‘[object object]’ —&gt; NaN</p>
-<p>基本类型 —&gt;对象<br>undefined，null —&gt; {}<br>true/123 —&gt; {initval:true/123}<br>‘abc’ —&gt; {initval:’abc’,length:3,0:’a’,1:’b’,2:’c’}</p>
-<p>对象 —&gt;基本类型</p>
-<p>关于–对象分类：<br>内部对象（错误对象；常用对象：Boolean,Number,String,Object,Array,Function,Date,Exec;内置对象：Math,global,Json）<br>宿主对象：windows,document<br>自定义对象</p>
-<p>关于–属性访问<br>obj.someprop—&gt;检查obj是不是null/undefined—&gt;是|不是—&gt;报错|是不是Object,不是的话转object—&gt;取值<br>obj[someval]—&gt;检查obj是不是null/undefined—&gt;是|不是—&gt;报错|是不是Object,不是的话转object—&gt;计算someval拿到string—&gt;取值</p>
-<p>Boolean —&gt;true<br>Number —&gt;基本类型转的|{}/{a:1}|Date—&gt;相应值|NaN|时间戳<br>Array.toString:数组每一项转字符串<br>Function.toString:原代码字符串形式<br>Date.toString:日期和时间组合形式<br>Exec.toString:正则字符串形式</p>
-<p>运算转换</p>
-<p>Number()参数不能有非数字<br>parseInt()参数只能为字符串，非字符串会进行强制转化字符串，可含非数字，但不能以非数字开头<br>一元操作符对任何数据类型有效，得到数字</p>
-<p>&#43;二元运算侧重转字符串，然后进行字符串拼接<br>其中一个为字符串或者两个都是对象时，转字符串拼接<br>undefined,null,Boolean,数字混合运算+时，会被转数字再计算<br>{}为第一个运算值时，会被当做函数结束，不参与计算<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">null + null --&gt; 0</div><div class="line">undefined + null --&gt; NaN</div><div class="line">[] + [] --&gt; &apos;&apos;</div><div class="line">1 + [1,2] --&gt; &apos;11,2&apos;</div><div class="line">1 + &#123;a:1&#125; --&gt; &apos;1[object object]&apos;</div><div class="line">&#123;a:1&#125; + 1 --&gt; 1</div><div class="line">&#123;&#125; + &#123;&#125; --&gt; NaN</div><div class="line">(&#123;&#125;) + &#123;&#125; --&gt; &apos;[object object][object object]&apos;</div><div class="line">[] + &#123;&#125; --&gt; &apos;[object object]&apos;</div><div class="line">&#123;&#125; + [] --&gt; 0</div><div class="line">var a = &#123;&#125;</div><div class="line">a + a --&gt;&apos;[object object][object object]&apos;</div></pre></td></tr></table></figure></p>
-<p>&#42;/- 转数字，进行相减,如果不能转数字，返回NaN</p>
-<p>&gt;/&lt; 侧重转数字<br>string &lt; string 字典比较<br>非字符串&lt;非字符串/字符串 都转数字然后比较</p>
-<p>string == number 字符串转数字<br>boolean == 其他类型 二者转数字然后比较<br>null == undefined —&gt;true undefined和null只与对方和自己==比较时为true，其他均为false<br>null === undefined —&gt;false<br>非对象 == 对象 与数字比较object转数字，与字符串比较二者转数字再比较<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line">&apos;0&apos; == null  //false</div><div class="line">&apos;0&apos; == undefined  //false</div><div class="line">&apos;0&apos; == false  //true</div><div class="line">&apos;0&apos; == NaN  //false</div><div class="line">&apos;0&apos; == 0  //true</div><div class="line">&apos;0&apos; == &apos;&apos;  //true</div><div class="line"></div><div class="line">false == null  //false</div><div class="line">false == undefined  //false</div><div class="line">false == NaN  //false</div><div class="line">false == 0  //true</div><div class="line">false == &apos;&apos;  //true</div><div class="line">false == []  //true</div><div class="line">false == &#123;&#125; //false</div><div class="line"></div><div class="line">&apos;&apos; == null  //false</div><div class="line">&apos;&apos; == undefined  //false</div><div class="line">&apos;&apos; == NaN  //false</div><div class="line">&apos;&apos; == 0  //true</div><div class="line">&apos;&apos; == []  //true</div><div class="line">&apos;&apos; == &#123;&#125; //false</div><div class="line"></div><div class="line">0 == null  //false</div><div class="line">0 == undefined  //false</div><div class="line">0 == NaN  //false</div><div class="line">0 == []  //true</div><div class="line">0 == &#123;&#125; //false</div><div class="line"></div><div class="line">[] == ![]</div></pre></td></tr></table></figure></p>
-<p>&amp;&amp;和|| 计算结果根据短路原则判断到了哪里，返回最后一个进行判断的值</p>
-<p>运算符优先级<br>属性访问.<br>一元操作符（+，-，++，–）<br>二元操作符（+-*/）<br>比较（&gt;,&lt;)<br>相等（==，===，！=）<br>与&amp;&amp;，或||<br>三目运算符<br>赋值</p>
-<p>运算符结合性<br>除了一元操作符，三目运算符和赋值是右结合，其他都是左结合</p>
-<p>减少小数计算误差<br>尽量不使用小数进行比较或运算<br>转整数计算，再转回相应位数小数<br>使用toFixed()四舍五入<br>两个情境需要重复计算时，保证前后书写顺序</p>
-<h1 id="13-数组相关方法"><a href="#13-数组相关方法" class="headerlink" title="13. 数组相关方法"></a>13. 数组相关方法</h1><p><img src="/image/arrmethod.jpg" alt="arrmethod"></p>
-<h1 id="14-字符串相关方法"><a href="#14-字符串相关方法" class="headerlink" title="14.字符串相关方法"></a>14.字符串相关方法</h1><p><img src="/image/strmethod.jpg" alt="strmethod"></p>
-<h1 id="15-日期相关方法"><a href="#15-日期相关方法" class="headerlink" title="15.日期相关方法"></a>15.日期相关方法</h1><p>   一共 33个<br>   set/get（UTC）FullYear,Month,Date,Hours,Minutes,Seconds,Millseconds<br>   set/get Time<br>   get(UTC) Day<br>   getTimezoneOffset</p>
-<h1 id="16-Math三个舍入方法"><a href="#16-Math三个舍入方法" class="headerlink" title="16. Math三个舍入方法"></a>16. Math三个舍入方法</h1><p>  Math.ceil:比值大的最小整数<br>  Math.round:四舍五入<br>  Math.floor:比值小的最大整数</p>
-<h1 id="17-setInterval-注意问题"><a href="#17-setInterval-注意问题" class="headerlink" title="17. setInterval 注意问题"></a>17. setInterval 注意问题</h1><p>累积效应<br>代码执行时间大于间隔时间，后续调用会进行累积，累积会在短时间内连续触发</p>
-<p>当用于动画时，因与显示器刷新频率不统一会造成视觉卡顿，解决办法如下：<br>一种是使用CSS3创建动画，根据显示器刷新执行动画<br>另一种是使用 requestAnimationframe(function(){})函数，也是在显示器刷新时执行<br>可以解决CSS3无法实现的，例如滚动控制等效果</p>
-<h1 id="18-关于DOM"><a href="#18-关于DOM" class="headerlink" title="18. 关于DOM"></a>18. 关于DOM</h1><p>   document 三个属性<br>   url：地址栏中URL<br>   domain:域名，跨域域名 X；父域名到子域名 X；<br>   referer:上一页URL,可在跳转时，判断与当前页是否在同一域，是的话，就可以back,否则 location.href其他页面<br>   dom.getAttribute(‘style’),得到样式字符串<br>   dom.style 得到到样式对象<br>   dom.getAttribute(‘onclick’) ,得到代码字符串<br>   dom.onclick 得到函数对象</p>
-<p>   动态合集<br>   使用时可能会造成死循环<br>   使用框架如Jquery获取的合集不具有动态性<br>   使用 queryselect(all)()获取到的也是静态合集</p>
-<p>   动态合集生成原理：<br>   浏览器通过DOM树预先缓存起来，获取时，浏览器会通过缓存直接注册，创建一个变量返回</p>
-<p>   静态合集生成原理：<br>   获取标识是一个CSS选择器，浏览器会先去解析字符串，判断是一个CSS选择器，<br>   分析选择器并创建一个选择器结构，浏览器根据DOM树创建一个静态文件，即DOM树的一个快照<br>   然后拿选择器和快照进行对比，符合选择器就放到合集中，知道整个快照对比完，再把合集的快照返回</p>
-<h1 id="19-事件"><a href="#19-事件" class="headerlink" title="19. 事件"></a>19. 事件</h1><p>   绑定方式</p>
-<p>   直接通过HTML属性绑定<br>   缺点<br>   有可能响应函数还未被解析就被触发<br>   事件名和回调1对1，修改繁琐<br>   响应执行时，作用域为全局，不同浏览器解析规则不同，造成某些对象无法访问</p>
-<p>   使用dom属性绑定<br>   冒泡阶段执行<br>   缺点<br>   只能绑定一个响应，后续赋值会被覆盖</p>
-<p>   IE attachEvent/detachEvent绑定/解绑<br>   冒泡阶段执行<br>   绑定多个时按按绑定顺序的逆序执行</p>
-<p>   addEventListener()/removeEventListener()绑定/解绑<br>   第三个参数为对象时，passive属性为true时，会针对touchstart,touchend等特定事件通过开启两个线程，<br>   一个执行浏览器默认行为，一个执行JS进行优化</p>
-<p>   事件优先级<br>   浏览器在绑定事件而不是JS在绑定事件</p>
-<p>   1.html标签绑定事件会被dom属性事件覆盖<br>   2.html标签优先执行，即使被属性事件覆盖，则执行被覆盖的属性事件<br>   3.仅有监听事件和属性事件时，按绑定顺序执行，即事件对象的冒泡事件可能会在捕获事件之前执行</p>
-<p>   event对象属性<br>   curentTarget:响应函数绑定的对象<br>   target:发生事件的对象</p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;h1 id=&quot;1-lt-script-gt-标签几个属性&quot;&gt;&lt;a href=&quot;#1-lt-script-gt-标签几个属性&quot; class=&quot;headerlink&quot; title=&quot;1.&amp;lt; script &amp;gt; 标签几个属性&quot;&gt;&lt;/a&gt;1.&amp;lt; script &amp;gt; 
-    
-    </summary>
-    
-    
-      <category term="js" scheme="http://yoohannah.github.io/tags/js/"/>
-    
-  </entry>
-  
-  <entry>
     <title>拖拽</title>
     <link href="http://yoohannah.github.io/post/react/course/drag.html"/>
     <id>http://yoohannah.github.io/post/react/course/drag.html</id>
@@ -656,63 +692,6 @@
   </entry>
   
   <entry>
-    <title>表单 &amp; 列表</title>
-    <link href="http://yoohannah.github.io/post/react/course/formList.html"/>
-    <id>http://yoohannah.github.io/post/react/course/formList.html</id>
-    <published>2018-12-04T13:12:37.000Z</published>
-    <updated>2018-12-22T05:13:44.626Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="表单功能点"><a href="#表单功能点" class="headerlink" title="表单功能点"></a>表单功能点</h1><ol>
-<li>初始数据，提交和跳转</li>
-</ol>
-<p>表单各项配置的优化，可以通过对UI框架的API进行封装成高阶组件，然后在使用时，通过配置高阶组件的属性，将需要的配置项传递给UI框架API，减少代码冗余，配置清晰</p>
-<p>提交后状态通过中间件返回promise判断接下来操作</p>
-<p>2.<br>错误处理（可依靠UI框架进行判断）<br>动态表单元素（在传入高阶组件属性时采用函数返回值形式动态加载表单元素，在函数中处理要不要显示表单元素）<br>内容动态加载（在componentDidMount中进行数据请求，以及初始状态处理）</p>
-<h1 id="列表页功能点"><a href="#列表页功能点" class="headerlink" title="列表页功能点"></a>列表页功能点</h1><h2 id="搜索，数据缓存和分页"><a href="#搜索，数据缓存和分页" class="headerlink" title="搜索，数据缓存和分页"></a>搜索，数据缓存和分页</h2><p>开发列表也要考虑的技术要点<br>1.如何翻页 (数据来自服务器还是客户端缓存)<br>2.如何进行内容搜索 （当前页面数据搜索还是服务器端数据搜索）<br>3.如何缓存数据<br>4.何时进行页面刷新</p>
-<p>列表页数据通过store拿数据渲染，翻页，查找，刷新通过触发action然后从服务器拿到数据后，更新store,从而组件重新渲染</p>
-<p>store 模型<br>listItems:当前页id集合数组[id1,id2]<br>byId:{id1:{id:id1,name:xxx},id2:{id:id2,name:xxx}}<br>keyword:关键字string<br>page:number 页数<br>fetchListPending:bool是否正在加载数据<br>FetchListError:OBJECT数据加载出错<br>listNeedReload:bool是否需要重新加载（做判断条件，例如编辑之后，设为true,在列表页拿到判断为true则重新获取列表数据）</p>
-<p>URL设计<br>将页数和关键字当做路由参数传递在componentDidupdated中获取参数判断是否重新获取数据</p>
-<h2 id="缓存更新，加载状态，错误处理"><a href="#缓存更新，加载状态，错误处理" class="headerlink" title="缓存更新，加载状态，错误处理"></a>缓存更新，加载状态，错误处理</h2><p>通过store模型中的相关数据进行判断展示</p>
-<h1 id="页面数据需要来源多个请求的处理"><a href="#页面数据需要来源多个请求的处理" class="headerlink" title="页面数据需要来源多个请求的处理"></a>页面数据需要来源多个请求的处理</h1><p>页面数据来自多个请求<br>1.请求之间无依赖关系，可以并发进行<br>2.请求有依赖，需要依次进行 （promise）<br>3.请求完成之前，页面显示 Loading 状态<br>loading数据状态由当前数据推导确定</p>
-<h1 id="内容页的加载和缓存"><a href="#内容页的加载和缓存" class="headerlink" title="内容页的加载和缓存"></a>内容页的加载和缓存</h1><p>内容页和列表页的数据关系<br>1.简单业务：列表页数据包含内容页的数据 （注意页面刷新情况数据的获取）<br>2.复杂业务：内容页数据需要额外获取 （每次进来都重新获取）<br>3.内容页数据的缓存（将数据放在store中，在store中拿数据）</p>
-<h1 id="基于React-Router-实现分步操作"><a href="#基于React-Router-实现分步操作" class="headerlink" title="基于React Router 实现分步操作"></a>基于React Router 实现分步操作</h1><p>向导页面需要考虑的技术要点<br>1.使用 URL进行导航的好处 （可以直接刷新其中一个步骤）</p>
-<ol>
-<li>表单内容存放的位置 </li>
-<li>页面状态如何切换</li>
-</ol>
-<p>将表单元素放在一个统一的form中，通过路由判断第几步，进而显示不同的表单元素，需要注意的是，切换下一步时，当前组件消失，配置的数据也会消失，需要将当前所填数据进行保存，以便在返回上一步时有数据</p>
-<h1 id="集成第三方-JS-库的技术要点"><a href="#集成第三方-JS-库的技术要点" class="headerlink" title="集成第三方 JS 库的技术要点"></a>集成第三方 JS 库的技术要点</h1><p>1.使用 ref 获取原生 DOM 节点引用<br>2.手动将组件状态更新到 DOM 节点<br>(对于数据驱动UI展示的情况,第一次渲染和之后更新需要手动操作DOM的过程，将数据注入过程隔离出来，单独处理成一个函数，再当react 部分操作导致需要重新渲染时，再调用，将react状态映射到第三方DOM中)<br>3.组件销毁时移除原生节点 DOM 事件</p>
-<h1 id="基于路由实现菜单导航"><a href="#基于路由实现菜单导航" class="headerlink" title="基于路由实现菜单导航"></a>基于路由实现菜单导航</h1><p>1.菜单导航只是改变 URL 状态<br>2.根据当前 URL 显示菜单的当前状态(使用navLink标签实现，注意react-router和redux一起使用时，url发生变化，组建要重新render时，必须要让组件绑定到router的store上，即让react-router也一起渲染)</p>
-<h1 id="如何避免应用出现性能问题"><a href="#如何避免应用出现性能问题" class="headerlink" title="如何避免应用出现性能问题"></a>如何避免应用出现性能问题</h1><p>1.了解常见的性能问题场景 （键盘输入，鼠标移动是否卡顿）<br>2.时刻注意代码的潜在性能问题 （何时拆分组件，有优化空间；能否高效更新，组件拆分是否够细，足够细的话，组件越接近纯函数，就越可能减少参与到diff操作的可能性，从而提高渲染速度）<br>3.注重可重构的代码 （代码耦合性低，几乎不依赖外界，也不被外界依赖，对于有重构可能性的代码保留重构空间，当其他优先级较高的性能问题解决后，再进行代码重构）<br>4.了解如何使用工具定位性能问题</p>
-<h1 id="网络性能优化：自动化按需加载"><a href="#网络性能优化：自动化按需加载" class="headerlink" title="网络性能优化：自动化按需加载"></a>网络性能优化：自动化按需加载</h1><p>1.什么是按需加载 (切换页面时才加载相应页面，而不是一开始就将所有页面加载进来)<br>2.使用 Webpack 的 import API<br>3.使用 react-loadable 库实现 React 异步加载<br>利用分包加载,在配置路由时实现,在总路由中删除，防止打包到总包中<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">import loadable from &apos;react-loadable&apos;</div><div class="line">const listPage = loadable(&#123;</div><div class="line">    loader:()=&gt;import (&apos;./listPage&apos;),</div><div class="line">    loading:()=&gt;&lt;div&gt;loading...&lt;/div&gt;</div><div class="line">&#125;)</div></pre></td></tr></table></figure></p>
-<p>listPage页面在加载该页时，会自动加载listPage的独立打包文件</p>
-<p>使用 reselect 避免重复计算<br>reselect 可以创建自动缓存的数据处理流程，通过保存计算结果，避免重复计算</p>
-<h1 id="异步渲染的两个部分"><a href="#异步渲染的两个部分" class="headerlink" title="异步渲染的两个部分"></a>异步渲染的两个部分</h1><p>时间分片<br>DOM操作的优先级低于浏览器原生行为，例如键盘和鼠标输入，从而保证操作的流畅。<br>（setstate导致的重新render等页面行为（滚动，输入）结束后再执行）<br>1.虚拟 DOM 的 diff 操作可以分片进行 （对操作进行序列化，然后进行合并或者优先级处理）<br>2.React 新 API: unstatble_deferredUpdates（低级别的setstate）<br>3.Chrome 新 API:requestIdleCallback(浏览器级别的api,告诉代码内存空闲（不再滚动或敲击键盘），可以进行一些之前优先级低的UI更新操作，时间分片基础)</p>
-<p>渲染挂起<br>虚拟DOM节点可以等待某个异步操作的完成,并指定timeout后,才完成真正的渲染<br>（可以不再注意什么时候显示loading状态，取消loading状态，虚拟dom节点可以自己等待异步操作的完成，只要虚拟dom节点返回一个promise,渲染引擎就会等promise结束后再去render）</p>
-<ol>
-<li><p>新内置组件：Timeout </p>
-</li>
-<li><p>unstatble_deferUpdate</p>
-</li>
-</ol>
-<h1 id="借助工具发现性能问题"><a href="#借助工具发现性能问题" class="headerlink" title="借助工具发现性能问题"></a>借助工具发现性能问题</h1><p>1.使用 React DevTool 找到多余渲染<br>chrome 插件，可查看react应用的状态，帮助找到不必要的render，从而进行调优—&gt; [highlight update]<br>2.使用 Chrome DevTool 定位性能瓶颈<br>什么样的组件花了多长时间做了什么样的渲染—&gt;performance</p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;h1 id=&quot;表单功能点&quot;&gt;&lt;a href=&quot;#表单功能点&quot; class=&quot;headerlink&quot; title=&quot;表单功能点&quot;&gt;&lt;/a&gt;表单功能点&lt;/h1&gt;&lt;ol&gt;
-&lt;li&gt;初始数据，提交和跳转&lt;/li&gt;
-&lt;/ol&gt;
-&lt;p&gt;表单各项配置的优化，可以通过对UI框架的API进行封装
-    
-    </summary>
-    
-    
-      <category term="react" scheme="http://yoohannah.github.io/tags/react/"/>
-    
-  </entry>
-  
-  <entry>
     <title>Rekit</title>
     <link href="http://yoohannah.github.io/post/react/course/rekit.html"/>
     <id>http://yoohannah.github.io/post/react/course/rekit.html</id>
@@ -766,44 +745,54 @@
   </entry>
   
   <entry>
-    <title>Redux</title>
-    <link href="http://yoohannah.github.io/post/react/course/redux.html"/>
-    <id>http://yoohannah.github.io/post/react/course/redux.html</id>
-    <published>2018-12-04T13:10:37.000Z</published>
-    <updated>2018-12-22T05:13:52.303Z</updated>
+    <title>表单 &amp; 列表</title>
+    <link href="http://yoohannah.github.io/post/react/course/formList.html"/>
+    <id>http://yoohannah.github.io/post/react/course/formList.html</id>
+    <published>2018-12-04T13:12:37.000Z</published>
+    <updated>2018-12-22T05:13:44.626Z</updated>
     
-    <content type="html"><![CDATA[<h1 id="为什么需要redux"><a href="#为什么需要redux" class="headerlink" title="为什么需要redux"></a>为什么需要redux</h1><p>原有组件间通信方式错综复杂，逐层传递，不明了，方便组件间通信<br>用store管理所有组件的状态</p>
-<h1 id="redux-特性"><a href="#redux-特性" class="headerlink" title="redux 特性"></a>redux 特性</h1><p>single source of truth：状态来源唯一；</p>
-<p>可预测性：state +action = new state</p>
-<p>纯函数更新Store：输出取决于输入，内部不会依赖任何除参数以外外部元素产生副作用</p>
-<p>store 三个函数</p>
-<p>getState()</p>
-<p>dispatch(action)</p>
-<p>subscribe(listener)</p>
-<p>action 描述行为的对象集合</p>
-<p>reducer 更新state的具体行为</p>
-<h1 id="几个工具函数"><a href="#几个工具函数" class="headerlink" title="几个工具函数"></a>几个工具函数</h1><p>combineReducers   把多个reducer 合成一个新的reducer，并定义每个reducer在store中的对应节点</p>
-<p>bindActionCreators  封装actionCreator和store.dispatch调用过程<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">function actionCreator()&#123;</div><div class="line">return &#123;</div><div class="line">type:&apos;addItem&apos;,</div><div class="line">text:&apos;......&apos;</div><div class="line">&#125;</div><div class="line">&#125;</div><div class="line">store.dispatch(actionCreator())</div><div class="line">===&gt;</div><div class="line">actionCreator = bindActionCreators(actionCreator,store.dispatch)</div><div class="line">actionCreator()</div></pre></td></tr></table></figure></p>
-<p>connect  创建高阶组件，对store 特定属性进行监听和绑定，从而在这些属性变化时自动刷新组件<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div></pre></td><td class="code"><pre><div class="line">import React from &quot;react&quot;;</div><div class="line">import &#123; bindActionCreators, createStore &#125; from &quot;redux&quot;;</div><div class="line">import &#123; Provider, connect &#125; from &quot;react-redux&quot;;</div><div class="line"></div><div class="line">// Store initial state</div><div class="line">const initialState = &#123; count: 0 &#125;;</div><div class="line"></div><div class="line">// reducer</div><div class="line">const counter = (state = initialState, action) =&gt; &#123;</div><div class="line">    switch (action.type) &#123;</div><div class="line">        case &quot;PLUS_ONE&quot;:</div><div class="line">            return &#123; count: state.count + 1 &#125;;</div><div class="line">        case &quot;MINUS_ONE&quot;:</div><div class="line">            return &#123; count: state.count - 1 &#125;;</div><div class="line">        case &quot;CUSTOM_COUNT&quot;:</div><div class="line">            return &#123; count: state.count + action.payload.count &#125;;</div><div class="line">        default:</div><div class="line">            break;</div><div class="line">    &#125;</div><div class="line">    return state;</div><div class="line">&#125;;</div><div class="line"></div><div class="line">// Create store</div><div class="line">const store = createStore(counter);</div><div class="line"></div><div class="line">// Action creator</div><div class="line">function plusOne() &#123;</div><div class="line">// action</div><div class="line">return &#123; type: &quot;PLUS_ONE&quot; &#125;;</div><div class="line">&#125;</div><div class="line"></div><div class="line">function minusOne() &#123;</div><div class="line">return &#123; type: &quot;MINUS_ONE&quot; &#125;;</div><div class="line">&#125;</div><div class="line"></div><div class="line">export class Counter extends React.Component &#123;</div><div class="line">    render() &#123;</div><div class="line">        const &#123; count, plusOne, minusOne &#125; = this.props;//这三者通过connect关联store后获得</div><div class="line">        return (</div><div class="line">            &lt;div className=&quot;counter&quot;&gt;</div><div class="line">            &lt;button onClick=&#123;minusOne&#125;&gt;-&lt;/button&gt;</div><div class="line">            &lt;span style=&#123;&#123; display: &quot;inline-block&quot;, margin: &quot;0 10px&quot; &#125;&#125;&gt;</div><div class="line">            &#123;count&#125;</div><div class="line">            &lt;/span&gt;</div><div class="line">            &lt;button onClick=&#123;plusOne&#125;&gt;+&lt;/button&gt;</div><div class="line">            &lt;/div&gt;</div><div class="line">        );</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line">//组件需要数据,state是store.getState()获得的数据集合根节点</div><div class="line">//性能问题：如果将store中的整个state绑定到组件上，那state上任何一个属性发生变化都会引起组件更新，所以向组件传递数据时，将数据绑定到尽可能的最小范围，实现只有绑定的数据变化时才引起组件更新</div><div class="line">function mapStateToProps(state) &#123; </div><div class="line">    return &#123;</div><div class="line">        count: state.count</div><div class="line">    &#125;;</div><div class="line">&#125;</div><div class="line">//组件中需要用到的触发函数</div><div class="line">function mapDispatchToProps(dispatch) &#123;</div><div class="line">    return bindActionCreators(&#123; plusOne, minusOne &#125;, dispatch);</div><div class="line">&#125;</div><div class="line">//使用connect将redux和react 组件结合起来,形成高阶组件</div><div class="line">const ConnectedCounter = connect(mapStateToProps, mapDispatchToProps)(Counter);</div><div class="line"></div><div class="line">export default class CounterSample extends React.Component &#123;</div><div class="line">    render() &#123;</div><div class="line">        return (</div><div class="line">            &lt;Provider store=&#123;store&#125;&gt; //根节点定义Provider，挂上store,其所有子节点均可以访问到</div><div class="line">                &lt;ConnectedCounter /&gt;</div><div class="line">            &lt;/Provider&gt;</div><div class="line">        );</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>主要流程</p>
-<p>1.定义redux store中需要的东西：reducer,actionCreator<br>2.使用createStore 根据reducer创建store<br>3.定义组件，确定需要哪些数据和触发函数<br>4.根据组件需要,创建数据获取函数，封装触发函数相应actionCreator<br>5.使用connect结合redux和组件形成高阶组件在Provider 中使用</p>
-<h1 id="异步Action"><a href="#异步Action" class="headerlink" title="异步Action"></a>异步Action</h1><p>异步 action不是特殊action而是多个同步 action的组合使用</p>
-<p>一个AJAX的Action发出后，到达中间件，进行预处理，根据预处理的结果dispatch不同的action出去,给reducer,然后更新store</p>
-<p>异步Action不是redux的一个概念而是action的一种设计模式</p>
-<p>不同的action还是同步的action,只是异步action把这些同步的action放在了不同阶段去dispath</p>
-<p> 中间件<br>1.截获某种特定类型的action,进行特殊处理<br>2.发出action</p>
-<h1 id="如何组织action和reducer"><a href="#如何组织action和reducer" class="headerlink" title="如何组织action和reducer"></a>如何组织action和reducer</h1><p>‘标准’形式redux action的问题<br>1.所有Action放一个文件，会无限扩展<br>2.Action,Reducer分开,实现业务逻辑时需要来回切换<br>3.系统中有哪些Action不够直观<br>新的方式<br>单个action和reducer放在同一个文件，一个文件一个action<br>然后将所有action导入同一文件，所有reducer导入同一文件<br>1.易于开发：不用在action和reducer文件间来回切换<br>2.易于维护：每个action文件都很小，容易理解<br>3.易于测试：每个业务逻辑只需要对应一个测试文件<br>4.易于理解：文件名就是action名字，文件列表就是action列表<br><a href="https://github.com/supnate/rekit-todomvc" target="_blank" rel="external">a sample</a><br>问题：拆分这么细的话，文件会多很多，对包的大小也会有影响</p>
-<p>答：webpack 确实会为每个文件生成一小段固定的元代码，同样的代码行数，文件越多 bundle 确实会越大。但这个并不会成为性能瓶颈，两个原因：1. 拆分后代码数量不会显著增多，增加的元代码部分相比整个包的大小基本可以忽略；2. 生产环境普遍会启用 gzip，对于重复的元代码信息会被有效压缩，对比拆分前，gzip 后的包大小基本没有差异</p>
-<h1 id="不可变数据"><a href="#不可变数据" class="headerlink" title="不可变数据"></a>不可变数据</h1><p>redux在修改state时采用新对象替换老对象的思路，不在原来对象上做修改，在新对象中复制老对象,包含要修改的部分,通过对比新老对象的引用不同，引起节点更新—-redux运行基础</p>
-<p>为何需要不可变数据<br>1.性能优化（通过对比新旧state不是同一个引用即可判断store发生了变化，从而不用进行深层遍历，比较具体的值，redux中的store都是不可变数据，每个节点都是不可变数据，当一个组件绑定在一个节点上，只需判断前后状态的引用是否相等，从而判断store是否发生变化，进而决定是否要更新组件）<br>2.易于调试和跟踪（store变化时可以看到前后状态，便于调试）<br>3.易于推测(任何时刻可以知道是什么引起store发生变化，根据action前后的状态判断，action是否被进行了正确处理)</p>
-<p>如何操作不可变数据<br>1.原生写法{…},Object.assign() 性能最好<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">const state = &#123;</div><div class="line">    filter:&apos;completed&apos;,</div><div class="line">    todos:[&apos;learn react&apos;]</div><div class="line">&#125;</div><div class="line">const newState1 = &#123;...state,todos:[...state.todos,&apos;learn redux&apos;]&#125;</div><div class="line">const newState = Object.assign(&#123;&#125;,state,&#123;todos:[...state.todos,&apos;learn redux&apos;]&#125;)</div></pre></td></tr></table></figure></p>
-<p>2.immutability-helper 适合需要深层次节点处理，需要引入类库，熟悉相应语法<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">import update from &apos;immutability-helper&apos;</div><div class="line">const state = &#123;</div><div class="line">    filter:&apos;completed&apos;,</div><div class="line">    todos:[&apos;learn react&apos;]</div><div class="line">&#125;</div><div class="line">const newState = update(state,&#123;todos:&#123;$push:[&apos;learn redux&apos;]&#125;)</div></pre></td></tr></table></figure></p>
-<p>3.immer 可以像操作原对象一样生成新对象，性能最差(当节点层数多，结构复杂时，需要为每个属性建立代理)，适合应用程序小，场景简单的情况<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">import produce from &apos;immer&apos;</div><div class="line">const state = &#123;</div><div class="line">    filter:&apos;completed&apos;,</div><div class="line">    todos:[&apos;learn react&apos;]</div><div class="line">&#125;</div><div class="line">const newState = produce(state,draftState =&gt;&#123;</div><div class="line">    draftState.todos.push(&apos;learn redux&apos;)</div><div class="line">&#125;)</div></pre></td></tr></table></figure></p>
+    <content type="html"><![CDATA[<h1 id="表单功能点"><a href="#表单功能点" class="headerlink" title="表单功能点"></a>表单功能点</h1><ol>
+<li>初始数据，提交和跳转</li>
+</ol>
+<p>表单各项配置的优化，可以通过对UI框架的API进行封装成高阶组件，然后在使用时，通过配置高阶组件的属性，将需要的配置项传递给UI框架API，减少代码冗余，配置清晰</p>
+<p>提交后状态通过中间件返回promise判断接下来操作</p>
+<p>2.<br>错误处理（可依靠UI框架进行判断）<br>动态表单元素（在传入高阶组件属性时采用函数返回值形式动态加载表单元素，在函数中处理要不要显示表单元素）<br>内容动态加载（在componentDidMount中进行数据请求，以及初始状态处理）</p>
+<h1 id="列表页功能点"><a href="#列表页功能点" class="headerlink" title="列表页功能点"></a>列表页功能点</h1><h2 id="搜索，数据缓存和分页"><a href="#搜索，数据缓存和分页" class="headerlink" title="搜索，数据缓存和分页"></a>搜索，数据缓存和分页</h2><p>开发列表也要考虑的技术要点<br>1.如何翻页 (数据来自服务器还是客户端缓存)<br>2.如何进行内容搜索 （当前页面数据搜索还是服务器端数据搜索）<br>3.如何缓存数据<br>4.何时进行页面刷新</p>
+<p>列表页数据通过store拿数据渲染，翻页，查找，刷新通过触发action然后从服务器拿到数据后，更新store,从而组件重新渲染</p>
+<p>store 模型<br>listItems:当前页id集合数组[id1,id2]<br>byId:{id1:{id:id1,name:xxx},id2:{id:id2,name:xxx}}<br>keyword:关键字string<br>page:number 页数<br>fetchListPending:bool是否正在加载数据<br>FetchListError:OBJECT数据加载出错<br>listNeedReload:bool是否需要重新加载（做判断条件，例如编辑之后，设为true,在列表页拿到判断为true则重新获取列表数据）</p>
+<p>URL设计<br>将页数和关键字当做路由参数传递在componentDidupdated中获取参数判断是否重新获取数据</p>
+<h2 id="缓存更新，加载状态，错误处理"><a href="#缓存更新，加载状态，错误处理" class="headerlink" title="缓存更新，加载状态，错误处理"></a>缓存更新，加载状态，错误处理</h2><p>通过store模型中的相关数据进行判断展示</p>
+<h1 id="页面数据需要来源多个请求的处理"><a href="#页面数据需要来源多个请求的处理" class="headerlink" title="页面数据需要来源多个请求的处理"></a>页面数据需要来源多个请求的处理</h1><p>页面数据来自多个请求<br>1.请求之间无依赖关系，可以并发进行<br>2.请求有依赖，需要依次进行 （promise）<br>3.请求完成之前，页面显示 Loading 状态<br>loading数据状态由当前数据推导确定</p>
+<h1 id="内容页的加载和缓存"><a href="#内容页的加载和缓存" class="headerlink" title="内容页的加载和缓存"></a>内容页的加载和缓存</h1><p>内容页和列表页的数据关系<br>1.简单业务：列表页数据包含内容页的数据 （注意页面刷新情况数据的获取）<br>2.复杂业务：内容页数据需要额外获取 （每次进来都重新获取）<br>3.内容页数据的缓存（将数据放在store中，在store中拿数据）</p>
+<h1 id="基于React-Router-实现分步操作"><a href="#基于React-Router-实现分步操作" class="headerlink" title="基于React Router 实现分步操作"></a>基于React Router 实现分步操作</h1><p>向导页面需要考虑的技术要点<br>1.使用 URL进行导航的好处 （可以直接刷新其中一个步骤）</p>
+<ol>
+<li>表单内容存放的位置 </li>
+<li>页面状态如何切换</li>
+</ol>
+<p>将表单元素放在一个统一的form中，通过路由判断第几步，进而显示不同的表单元素，需要注意的是，切换下一步时，当前组件消失，配置的数据也会消失，需要将当前所填数据进行保存，以便在返回上一步时有数据</p>
+<h1 id="集成第三方-JS-库的技术要点"><a href="#集成第三方-JS-库的技术要点" class="headerlink" title="集成第三方 JS 库的技术要点"></a>集成第三方 JS 库的技术要点</h1><p>1.使用 ref 获取原生 DOM 节点引用<br>2.手动将组件状态更新到 DOM 节点<br>(对于数据驱动UI展示的情况,第一次渲染和之后更新需要手动操作DOM的过程，将数据注入过程隔离出来，单独处理成一个函数，再当react 部分操作导致需要重新渲染时，再调用，将react状态映射到第三方DOM中)<br>3.组件销毁时移除原生节点 DOM 事件</p>
+<h1 id="基于路由实现菜单导航"><a href="#基于路由实现菜单导航" class="headerlink" title="基于路由实现菜单导航"></a>基于路由实现菜单导航</h1><p>1.菜单导航只是改变 URL 状态<br>2.根据当前 URL 显示菜单的当前状态(使用navLink标签实现，注意react-router和redux一起使用时，url发生变化，组建要重新render时，必须要让组件绑定到router的store上，即让react-router也一起渲染)</p>
+<h1 id="如何避免应用出现性能问题"><a href="#如何避免应用出现性能问题" class="headerlink" title="如何避免应用出现性能问题"></a>如何避免应用出现性能问题</h1><p>1.了解常见的性能问题场景 （键盘输入，鼠标移动是否卡顿）<br>2.时刻注意代码的潜在性能问题 （何时拆分组件，有优化空间；能否高效更新，组件拆分是否够细，足够细的话，组件越接近纯函数，就越可能减少参与到diff操作的可能性，从而提高渲染速度）<br>3.注重可重构的代码 （代码耦合性低，几乎不依赖外界，也不被外界依赖，对于有重构可能性的代码保留重构空间，当其他优先级较高的性能问题解决后，再进行代码重构）<br>4.了解如何使用工具定位性能问题</p>
+<h1 id="网络性能优化：自动化按需加载"><a href="#网络性能优化：自动化按需加载" class="headerlink" title="网络性能优化：自动化按需加载"></a>网络性能优化：自动化按需加载</h1><p>1.什么是按需加载 (切换页面时才加载相应页面，而不是一开始就将所有页面加载进来)<br>2.使用 Webpack 的 import API<br>3.使用 react-loadable 库实现 React 异步加载<br>利用分包加载,在配置路由时实现,在总路由中删除，防止打包到总包中<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">import loadable from &apos;react-loadable&apos;</div><div class="line">const listPage = loadable(&#123;</div><div class="line">    loader:()=&gt;import (&apos;./listPage&apos;),</div><div class="line">    loading:()=&gt;&lt;div&gt;loading...&lt;/div&gt;</div><div class="line">&#125;)</div></pre></td></tr></table></figure></p>
+<p>listPage页面在加载该页时，会自动加载listPage的独立打包文件</p>
+<p>使用 reselect 避免重复计算<br>reselect 可以创建自动缓存的数据处理流程，通过保存计算结果，避免重复计算</p>
+<h1 id="异步渲染的两个部分"><a href="#异步渲染的两个部分" class="headerlink" title="异步渲染的两个部分"></a>异步渲染的两个部分</h1><p>时间分片<br>DOM操作的优先级低于浏览器原生行为，例如键盘和鼠标输入，从而保证操作的流畅。<br>（setstate导致的重新render等页面行为（滚动，输入）结束后再执行）<br>1.虚拟 DOM 的 diff 操作可以分片进行 （对操作进行序列化，然后进行合并或者优先级处理）<br>2.React 新 API: unstatble_deferredUpdates（低级别的setstate）<br>3.Chrome 新 API:requestIdleCallback(浏览器级别的api,告诉代码内存空闲（不再滚动或敲击键盘），可以进行一些之前优先级低的UI更新操作，时间分片基础)</p>
+<p>渲染挂起<br>虚拟DOM节点可以等待某个异步操作的完成,并指定timeout后,才完成真正的渲染<br>（可以不再注意什么时候显示loading状态，取消loading状态，虚拟dom节点可以自己等待异步操作的完成，只要虚拟dom节点返回一个promise,渲染引擎就会等promise结束后再去render）</p>
+<ol>
+<li><p>新内置组件：Timeout </p>
+</li>
+<li><p>unstatble_deferUpdate</p>
+</li>
+</ol>
+<h1 id="借助工具发现性能问题"><a href="#借助工具发现性能问题" class="headerlink" title="借助工具发现性能问题"></a>借助工具发现性能问题</h1><p>1.使用 React DevTool 找到多余渲染<br>chrome 插件，可查看react应用的状态，帮助找到不必要的render，从而进行调优—&gt; [highlight update]<br>2.使用 Chrome DevTool 定位性能瓶颈<br>什么样的组件花了多长时间做了什么样的渲染—&gt;performance</p>
 ]]></content>
     
     <summary type="html">
     
-      &lt;h1 id=&quot;为什么需要redux&quot;&gt;&lt;a href=&quot;#为什么需要redux&quot; class=&quot;headerlink&quot; title=&quot;为什么需要redux&quot;&gt;&lt;/a&gt;为什么需要redux&lt;/h1&gt;&lt;p&gt;原有组件间通信方式错综复杂，逐层传递，不明了，方便组件间通信&lt;br&gt;用sto
+      &lt;h1 id=&quot;表单功能点&quot;&gt;&lt;a href=&quot;#表单功能点&quot; class=&quot;headerlink&quot; title=&quot;表单功能点&quot;&gt;&lt;/a&gt;表单功能点&lt;/h1&gt;&lt;ol&gt;
+&lt;li&gt;初始数据，提交和跳转&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;表单各项配置的优化，可以通过对UI框架的API进行封装
     
     </summary>
     
