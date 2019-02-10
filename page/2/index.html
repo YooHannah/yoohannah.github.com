@@ -259,7 +259,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="http://yoohannah.github.io/post/vue/basic/commanders.html">
+  <link itemprop="mainEntityOfPage" href="http://yoohannah.github.io/post/vue/basic/filestructor.html">
 
   <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
     <meta itemprop="name" content="YooHannah">
@@ -284,8 +284,8 @@
             
               
                 
-                <a class="post-title-link" href="/post/vue/basic/commanders.html" itemprop="url">
-                  指令
+                <a class="post-title-link" href="/post/vue/basic/filestructor.html" itemprop="url">
+                  文件结构
                 </a>
               
             
@@ -337,13 +337,46 @@
       
         
           
-            <p>指令的职责是，当表达式的值改变时，将其产生的连带影响，响应式地作用于 DOM</p>
-<h1 id="简单指令"><a href="#简单指令" class="headerlink" title="简单指令"></a>简单指令</h1><p>v-if 条件指令，绑定值为真时构建DOM,假时bu构建或者删除已存在DOM<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">&lt;p v-if=&quot;seen&quot;&gt;现在你看到我了&lt;/p&gt;</div><div class="line"></div><div class="line">export default &#123;</div><div class="line">    name: &apos;vpc&apos;,</div><div class="line">    data () &#123;</div><div class="line">      return &#123;</div><div class="line">        seen: true</div><div class="line">      &#125;</div><div class="line">   &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>v-for 循环指令，根据绑定值，循环输出DOM元素<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&lt;div v-for=&quot;(item, index) in modalFooter&quot;&gt;</div><div class="line">  &lt;button  @click=&quot;customFunc(item.Func)&quot; type=&quot;button&quot; class=&quot;btn btn-primary&quot; v-if=&apos;item.name&apos;&gt;&#123;&#123;item.name&#125;&#125;&lt;/button&gt;</div><div class="line">&lt;/div&gt;</div><div class="line">//根据数据modalFooter数组循环出多个数组</div></pre></td></tr></table></figure></p>
-<p>v-on 监听 DOM 事件的指令,触发事件的回调函数放在method中，可以简写成‘@事件名’<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">&lt;div id=&quot;app-5&quot;&gt;</div><div class="line">  &lt;p&gt;&#123;&#123; message &#125;&#125;&lt;/p&gt;</div><div class="line">  &lt;button v-on:click=&quot;reverseMessage&quot;&gt;逆转消息&lt;/button&gt;</div><div class="line"> //或者 &lt;button @click=&quot;reverseMessage&quot;&gt;逆转消息&lt;/button&gt;</div><div class="line">&lt;/div&gt;</div><div class="line"></div><div class="line">var app5 = new Vue(&#123;</div><div class="line">  el: &apos;#app-5&apos;,</div><div class="line">  data: &#123;</div><div class="line">    message: &apos;Hello Vue.js!&apos;</div><div class="line">  &#125;,</div><div class="line">  methods: &#123;</div><div class="line">    reverseMessage: function () &#123;</div><div class="line">      this.message = this.message.split(&apos;&apos;).reverse().join(&apos;&apos;)</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">&#125;)</div></pre></td></tr></table></figure></p>
-<p>v-model 双向绑定指令,绑定的值在页面更改后js可以及时更改，js改变该值后,页面能马上渲染响应<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">&lt;div id=&quot;app-6&quot;&gt;</div><div class="line">  &lt;p&gt;&#123;&#123; message &#125;&#125;&lt;/p&gt;</div><div class="line">  &lt;input v-model=&quot;message&quot;&gt;</div><div class="line">&lt;/div&gt;</div><div class="line"></div><div class="line">var app6 = new Vue(&#123;</div><div class="line">  el: &apos;#app-6&apos;,</div><div class="line">  data: &#123;</div><div class="line">    message: &apos;Hello Vue!&apos;</div><div class="line">  &#125;</div><div class="line">&#125;)</div></pre></td></tr></table></figure></p>
-<p>v-bind 绑定HTML标签属性,响应式地更新 HTML 特性 缩写形式”  :属性名=’响应函数名’  “<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">&lt;div id=&quot;app-2&quot;&gt;</div><div class="line">  &lt;span v-bind:title=&quot;message&quot;&gt;</div><div class="line">  //或者&lt;span :title=&quot;message&quot;&gt;</div><div class="line">    鼠标悬停几秒钟查看此处动态绑定的提示信息！</div><div class="line">  &lt;/span&gt;</div><div class="line">&lt;/div&gt;</div><div class="line"></div><div class="line">var app2 = new Vue(&#123;</div><div class="line">  el: &apos;#app-2&apos;,</div><div class="line">  data: &#123;</div><div class="line">    message: &apos;页面加载于 &apos; + new Date().toLocaleString()</div><div class="line">  &#125;</div><div class="line">&#125;)</div><div class="line">//在这里，该指令的意思是：“将这个元素节点的 title 特性和 Vue 实例的 message 属性保持一致”</div></pre></td></tr></table></figure></p>
-<h1 id="自定义指令"><a href="#自定义指令" class="headerlink" title="自定义指令"></a>自定义指令</h1>
+            <h1 id="构建"><a href="#构建" class="headerlink" title="构建"></a>构建</h1><p>使用命令行构建<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">npm install --global vue-cli //全局安装vue命令</div><div class="line">vue init webpack my-project //使用vue命令构建名为my-project的项目</div><div class="line">cd my-project //进入项目所在文件夹</div><div class="line">npm run dev //运行项目</div></pre></td></tr></table></figure></p>
+<h1 id="文件结构"><a href="#文件结构" class="headerlink" title="文件结构"></a>文件结构</h1><pre><code class="lang-bash">.
+├── build/                      <span class="hljs-comment"># webpack config files</span>
+│   └── ...
+├── config/
+│   ├── index.js                <span class="hljs-comment"># main project config</span>
+│   └── ...
+├── src/
+│   ├── main.js                 <span class="hljs-comment"># app entry file</span>
+│   ├── App.vue                 <span class="hljs-comment"># main app component</span>
+│   ├── components/             <span class="hljs-comment"># ui components</span>
+│   │   └── ...
+│   └── assets/                 <span class="hljs-comment"># module assets (processed by webpack)</span>
+│       └── ...
+├── static/                     <span class="hljs-comment"># pure static assets (directly copied)</span>
+├── <span class="hljs-built_in">test</span>/
+│   └── unit/                   <span class="hljs-comment"># unit tests</span>
+│   │   ├── specs/              <span class="hljs-comment"># test spec files</span>
+│   │   ├── eslintrc            <span class="hljs-comment"># config file for eslint with extra settings only for unit tests</span>
+│   │   ├── index.js            <span class="hljs-comment"># test build entry file</span>
+│   │   ├── jest.conf.js        <span class="hljs-comment"># Config file when using Jest for unit tests</span>
+│   │   └── karma.conf.js       <span class="hljs-comment"># test runner config file when using Karma for unit tests</span>
+│   │   ├── setup.js            <span class="hljs-comment"># file that runs before Jest runs your unit tests</span>
+│   └── e2e/                    <span class="hljs-comment"># e2e tests</span>
+│   │   ├── specs/              <span class="hljs-comment"># test spec files</span>
+│   │   ├── custom-assertions/  <span class="hljs-comment"># custom assertions for e2e tests</span>
+│   │   ├── runner.js           <span class="hljs-comment"># test runner script</span>
+│   │   └── nightwatch.conf.js  <span class="hljs-comment"># test runner config file</span>
+├── .babelrc                    <span class="hljs-comment"># babel config</span>
+├── .editorconfig               <span class="hljs-comment"># indentation, spaces/tabs and similar settings for your editor</span>
+├── .eslintrc.js                <span class="hljs-comment"># eslint config</span>
+├── .eslintignore               <span class="hljs-comment"># eslint ignore rules</span>
+├── .gitignore                  <span class="hljs-comment"># sensible defaults for gitignore</span>
+├── .postcssrc.js               <span class="hljs-comment"># postcss config</span>
+├── index.html                  <span class="hljs-comment"># index.html template</span>
+├── package.json                <span class="hljs-comment"># build scripts and dependencies</span>
+└── README.md                   <span class="hljs-comment"># Default README file</span>
+</code></pre>
+
+
           
         
       

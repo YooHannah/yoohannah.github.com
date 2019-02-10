@@ -98,7 +98,7 @@
 <meta property="og:image" content="http://yoohannah.github.io/image/coverage1.png">
 <meta property="og:image" content="http://yoohannah.github.io/image/coverage2.png">
 <meta property="og:image" content="http://yoohannah.github.io/image/coverage3.png">
-<meta property="og:updated_time" content="2018-12-22T05:15:29.748Z">
+<meta property="og:updated_time" content="2019-02-09T13:02:38.088Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Karma test">
 <meta name="twitter:description" content="Karma testKarma是由Google团队开发的一套前端测试运行框架。它不同于测试框架（例如jasmine，mocha等），运行在这些测试框架之上。主要完成以下工作：Karma启动一个web服务器，生成包含js源代码和js测试脚本的页面；运行浏览器加载页面，并显示测试的结果；如果开启检测，则当文件有修改时，执行继续执行以上过程。 搭建测试环境npm install -g karma-cli">
@@ -356,7 +356,7 @@
 <p>方法二：<br>更改package.json文件,保留测试命令karma start<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&quot;scripts&quot;: &#123;</div><div class="line">		&quot;test&quot;: &quot;karma start&quot;,</div><div class="line">    &quot;report&quot;: &quot;find coverage -name lcov.info -print0 | xargs -0 cat | ./node_modules/coveralls/bin/coveralls.js &amp;&amp; rm -rf ./coverage&quot;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
 <p>也要更改.travis.yml文件，添加以下语句<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">after_success:</div><div class="line">  - &quot;npm run report&quot;</div></pre></td></tr></table></figure></p>
 <p>然后push代码，等Travi CI 完成测试后，我们可以在<a href="https://coveralls.io" target="_blank" rel="external">Coveralls</a>上获取标志,<br>在总的测试结果那个页面不是具体某次提交的页面获取<br><img src="/image/coverage3.png" alt="coverage3"><br>点击EMBED可以获取不同格式的标志代码，<br>复制粘贴MARKDOWN 格式可以放在readme.md文件中直接使用</p>
-<p>相关链接：<br><a href="https://csbun.github.io/blog/2015/11/karma/" target="_blank" rel="external">使用 Karma 在真实浏览器上测试</a><br><a href="https://segmentfault.com/a/1190000006895064" target="_blank" rel="external">前端单元测试之Karma环境搭建</a></p>
+<p>相关链接：<br><a href="https://csbun.github.io/blog/2015/11/karma/" target="_blank" rel="external">使用 Karma 在真实浏览器上测试</a><br><a href="https://segmentfault.com/a/1190000006895064" target="_blank" rel="external">前端单元测试之Karma环境搭建</a><br><a href="https://imweb.io/topic/5833d14cf8a1d5546059a301" target="_blank" rel="external">前端自动化测试解决方案探析</a></p>
 
       
     </div>
@@ -389,8 +389,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/post/test/assert.html" rel="next" title="断言语句assert">
-                <i class="fa fa-chevron-left"></i> 断言语句assert
+              <a href="/post/knowledge/Karmatest.html" rel="next" title="Karma test">
+                <i class="fa fa-chevron-left"></i> Karma test
               </a>
             
           </div>

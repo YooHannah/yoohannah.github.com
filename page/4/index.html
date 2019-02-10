@@ -1140,6 +1140,7 @@
 <h1 id="其他资源的优化"><a href="#其他资源的优化" class="headerlink" title="其他资源的优化"></a>其他资源的优化</h1><p>也适用于图片</p>
 <p>·懒加载：图片；组件，模块<br>·预加载：提前加载下一页；异步加载，提前发送数据请求加载数据资源<br>·减小传输体积——压缩；减少传输数量——打包<br>·打包分块，资源复用<br>·加快速度——静态资源放CDN<br>·网速，服务器响应,CDN</p>
 <h1 id="提高首页-加载速度"><a href="#提高首页-加载速度" class="headerlink" title="提高首页/加载速度"></a>提高首页/加载速度</h1><p>·雪碧图<br>·js放底部，css放头部<br>·减少DOM数量<br>·script标签设置异步加载async<br>·减少DNS查找,允许高度并行下载;<br>·减少http请求<br>·设置http头部缓存字段expires,E-tag,last-modified；减少/不使用cookie</p>
+<p><a href="https://github.com/TeamStuQ/skill-map/blob/master/data/map-MobilePerformanceOptimization.md" target="_blank" rel="external">移动端性能优化</a></p>
 
           
         
@@ -1267,7 +1268,7 @@
 <p>一般的上报方案是<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">var img = new Image</div><div class="line">img.src = `$&#123;url&#125;`</div><div class="line">//url是上报的接口,上报的数据随接口给到后台</div></pre></td></tr></table></figure></p>
 <p>1.上报不需要返回值,Image请求不会返回值<br>2.可以自动跨域,拿不到返回值，上报也不需要确定是否上报成功</p>
 <p>服务端拿到接口传过来的数据，将数据写到log文件中，<br>在需要时进行搜索统计，或者在定时/计划任务时进行查询</p>
-<p><a href="http://www.cnblogs.com/longjshz/p/5805903.html" target="_blank" rel="external">使用grep命令进行查找</a></p>
+<p><a href="http://www.cnblogs.com/longjshz/p/5805903.html" target="_blank" rel="external">使用grep命令进行查找</a><br><a href="https://cloud.tencent.com/developer/article/1004564" target="_blank" rel="external">bad.js使用</a></p>
 <h1 id="上报"><a href="#上报" class="headerlink" title="上报"></a>上报</h1><h2 id="业务数据上报"><a href="#业务数据上报" class="headerlink" title="业务数据上报"></a>业务数据上报</h2><h3 id="人工标上报点"><a href="#人工标上报点" class="headerlink" title="人工标上报点"></a>人工标上报点</h3><p>对onclick等触发事件手动帮上上报函数<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">function report(data)&#123;</div><div class="line">var url = &apos;....&apos;+data</div><div class="line">	var img = new Image</div><div class="line">  img.src = `$&#123;url&#125;`</div><div class="line">&#125; </div><div class="line">dom.addEventListener(&quot;click&quot;, report);</div></pre></td></tr></table></figure></p>
 <h3 id="点击截获上报"><a href="#点击截获上报" class="headerlink" title="点击截获上报"></a>点击截获上报</h3><p>通过事件冒泡和DOM上的标记找到对应行动点,获取具体操作对象DOM进行上报</p>
 <h3 id="百度统计-google-analytics"><a href="#百度统计-google-analytics" class="headerlink" title="百度统计/google analytics"></a>百度统计/google analytics</h3><p>通过发送带上COOKIE的Image请求来定位用户与站点信息,对整个页面做定位</p>

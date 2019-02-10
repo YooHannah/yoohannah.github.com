@@ -96,7 +96,7 @@
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://yoohannah.github.io/image/CACHE1.png">
 <meta property="og:image" content="http://yoohannah.github.io/image/CACHE2.png">
-<meta property="og:updated_time" content="2018-12-22T05:10:30.732Z">
+<meta property="og:updated_time" content="2019-02-09T06:44:11.418Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="关于缓存">
 <meta name="twitter:description" content="缓存的好处 利用缓存，可减少对源服务器的访问，因此也就节省了通信流量和通信时间 从而减少了延迟(加快页面打开速度)，降低网络负载，保证稳定性(服务能正常使用) 浏览器本地存储与服务器端存储之间的区别其实数据既可以在浏览器本地存储，也可以在服务器端存储。 浏览器端可以保存一些数据，需要的时候直接从本地获取，sessionStorage、localStorage和cookie都由浏览器存储在本地的数据">
@@ -348,7 +348,7 @@
 <p>cache-control:通过配置参数，设置缓存机制，相关参数如下：<br>public:允许多用户共享缓存<br>private：只允许特定用户使用缓存<br>no-cache:在请求中配置，告诉服务器，我不要缓存的响应,中间服务器必须从源服务器取资源;<br>在响应中配置，告诉中间服务器不能对响应进行缓存，源服务器以后对中间服务器提出的有效性校验不在进行确认<br>no-store:请求/响应中含有机密信息，不允许缓存资源<br>max-age:缓存保存时长<br>缓存保存到现在的时长小于该值，就可以返回缓存，否则像源服务器请求资源</p>
 <p>last-modified:资源最终修改时间<br>服务器会比较请求的该值与资源最终修改时间，不一致的话就返回新资源，一致的话，就返回304，not modified<br>漏洞：时间精确度到秒，可能存在同一秒保存两次文件，无法区分，<br>也可能因为通过cdn,造成服务器上文件修改时间并不一致</p>
 <p>E-Tag:服务器为每份资源提供的唯一性标识，相当于文件MD5值<br>服务器会跟剧请求的if-no-match与资源ttag比较，不一致返回新资源，一致返回304</p>
-<p>服务器处理机制：<br>当首部字段Cache-Control有指定max-age指令，Expires也存在时，会优先处理max-age，用于判断资源是否失效<br>当判断max-age失效后，会去判断last-modified和E-Tag，如果服务器仅支持http1.0,则仅根据last-modified做校验<br>如果服务器支持http1.1,则先根据E-Tag做校验，然后在根据last-modified做校验</p>
+<p>服务器处理机制：<br>当首部字段Cache-Control有指定max-age指令，Expires也存在时，会优先处理max-age，用于判断资源是否失效<br>当判断max-age失效后，会去判断last-modified和E-Tag，如果服务器仅支持http1.0,则仅根据last-modified做校验<br>如果服务器支持http1.1,则先根据E-Tag做校验，然后在根据last-modified做校验<br><a href="https://iammapping.com/the-http-guide-of-web-cache/" target="_blank" rel="external">相关链接</a></p>
 <h1 id="资源缓存"><a href="#资源缓存" class="headerlink" title="资源缓存"></a>资源缓存</h1><p>HTML等页面文件:短效缓存，本地服务器<br>更新策略:使用no-cache</p>
 <p>css、js:长效缓存，CDN<br>更新策略：在URI上添加更新标识(md5,timestamp,version)<br>MD5：不同文件MD5值如果相同，有覆盖危险<br>timestamp:文件修改/上线时间，因为可能存在不正确性，所以需要其他操作判断文件是否有变化<br>version:每次都需要更新版本号</p>
 <p>Image:长效缓存,CDN<br>更新策略：使用随机名字</p>
