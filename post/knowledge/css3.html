@@ -1,0 +1,683 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="css," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="My Little World" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="border-image会覆盖border属性设置的边框样式原理依据border-image-slice将图片切成九宫格EFGH位于边框四角，不参与拉伸或重复ABCD分别在各自所在边上进行拉伸或者重复I不参加修饰 border-image-source图片地址格式url(imgurl)  border-image-slice从距离top，right,bottom,left边多少切割图片，切4刀，形">
+<meta name="keywords" content="css">
+<meta property="og:type" content="article">
+<meta property="og:title" content="关于CSS3样式的一点小结">
+<meta property="og:url" content="http://yoohannah.github.io/post/knowledge/css3.html">
+<meta property="og:site_name" content="My Little World">
+<meta property="og:description" content="border-image会覆盖border属性设置的边框样式原理依据border-image-slice将图片切成九宫格EFGH位于边框四角，不参与拉伸或重复ABCD分别在各自所在边上进行拉伸或者重复I不参加修饰 border-image-source图片地址格式url(imgurl)  border-image-slice从距离top，right,bottom,left边多少切割图片，切4刀，形">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoohannah.github.io/image/borderOri.jpg">
+<meta property="og:image" content="http://yoohannah.github.io/image/borderimg.jpg">
+<meta property="og:image" content="http://yoohannah.github.io/image/borderimg1.jpg">
+<meta property="og:image" content="http://yoohannah.github.io/image/bgimg2.png">
+<meta property="og:image" content="http://yoohannah.github.io/image/bgimg1.png">
+<meta property="og:image" content="http://yoohannah.github.io/image/bgimg3.png">
+<meta property="og:updated_time" content="2019-02-21T14:27:51.225Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="关于CSS3样式的一点小结">
+<meta name="twitter:description" content="border-image会覆盖border属性设置的边框样式原理依据border-image-slice将图片切成九宫格EFGH位于边框四角，不参与拉伸或重复ABCD分别在各自所在边上进行拉伸或者重复I不参加修饰 border-image-source图片地址格式url(imgurl)  border-image-slice从距离top，right,bottom,left边多少切割图片，切4刀，形">
+<meta name="twitter:image" content="http://yoohannah.github.io/image/borderOri.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoohannah.github.io/post/knowledge/css3.html"/>
+
+
+
+
+
+  <title> 关于CSS3样式的一点小结 | My Little World </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">My Little World</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">learn and share</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://yoohannah.github.io/post/knowledge/css3.html">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="YooHannah">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="/psb.jpg">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="My Little World">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="My Little World" src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                关于CSS3样式的一点小结
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-02-21T22:27:58+08:00">
+                2019-02-21
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="border-image"><a href="#border-image" class="headerlink" title="border-image"></a>border-image</h1><p>会覆盖border属性设置的边框样式<br>原理依据border-image-slice将图片切成九宫格<br><img src="/image/borderOri.jpg" alt="borderOri"><br>EFGH位于边框四角，不参与拉伸或重复<br>ABCD分别在各自所在边上进行拉伸或者重复<br>I不参加修饰</p>
+<h2 id="border-image-source"><a href="#border-image-source" class="headerlink" title="border-image-source"></a>border-image-source</h2><p>图片地址<br>格式url(imgurl) </p>
+<h2 id="border-image-slice"><a href="#border-image-slice" class="headerlink" title="border-image-slice"></a>border-image-slice</h2><p>从距离top，right,bottom,left边多少切割图片，切4刀，形成9宫格<br>可为数字(图像的像素（位图图像）或向量的坐标（如果图像是矢量图像）)/百分数(水平/垂直偏移图像宽度的百分之多少)<br>不设置时，图片整体位于边框四角。<br>一个值时表示4个距离一致；两个值表示垂直方向两刀和水平两刀距离相同，四个值表示距离四个边各自的距离<br>特殊情况，<br>如果距上下边的长度等于高的一半，即在图片水平中线来一刀，则BD两个切片不会被切出来，左右边框会因为没有切片覆盖显示background-color<br>同理，距左右边的长度等于宽的一半，在图片垂直中线来一刀，则AC两个切片不会被切出来，上下边框会因为没有切片覆盖显示background-color<br>所以如果仅装饰边框4个角，可以采用距离边等于宽高一半的方法切割图片</p>
+<h2 id="border-image-repeat"><a href="#border-image-repeat" class="headerlink" title="border-image-repeat"></a>border-image-repeat</h2><p>水平边要不要repeat 垂直边要不要repeat 默认拉伸<br>可取值：stretch 默认拉伸；repeat 重复切片；round;重复切片，但会适当调整大小，避免出现半截图片<br><img src="/image/borderimg.jpg" alt="borderimg"><br><img src="/image/borderimg1.jpg" alt="borderimg1"></p>
+<h1 id="border-radius"><a href="#border-radius" class="headerlink" title="border-radius"></a>border-radius</h1><p>设置边框外圆半径<br>5px ———— 4个角都设半径为5px的圆形圆角<br>5px/10px  ———— 4个角都设水平半径为5px，垂直半径为10px的椭圆形圆角<br>5px 10px  左上和右下角半径5px圆形，右上和左下半径10px的圆形圆角<br>5px 10px 20px  左上角半径5px圆形，右上和左下半径10px的圆形,右下角半径20px圆形圆角<br>5px 10px 20px 15px 左上角半径5px圆形，右上半径10px的圆形,右下角半径20px圆形,左下15p圆形圆角<br>5px 10px 20px 15px/10px 15px 25px 20px 四个角同时设置椭圆型圆角</p>
+<p>当半径值小于等于边框border宽度时，border内部不会具有圆角效果，内圆半径=外圆半径-边框宽度<br>若相邻边宽不同，则角会从宽边平滑到窄边<br>表格table设置圆角时，只有将border-collapse:separate时才正常显示<br>如果想取消原有圆角设置，可以将对应值设置为0<br>特殊应用：直接通过设置容器长宽和border-radius绘制圆形，半圆，扇形，椭圆<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">width:300px</div><div class="line">height:300px</div><div class="line">border-radius:150px;//圆形</div><div class="line">border-radius: 0 300px 0px 0px;//扇形</div><div class="line"></div><div class="line">width:600px</div><div class="line">height:300px</div><div class="line">border-radius:150px;//椭圆形</div><div class="line">border-radius: 300px 300px 0px 0px;//半圆</div></pre></td></tr></table></figure></p>
+<h1 id="box-shadow"><a href="#box-shadow" class="headerlink" title="box-shadow"></a>box-shadow</h1><p>边框阴影，由多个值配置<br>insert ？ 水平方向偏移（正右负左）垂直偏移（正下负上）模糊半径 伸缩半径(相当于阴影宽度)<br>设置insert时，设置内阴影，不设时，设置外阴影<br>内阴影用在img标签上无效<br>实例应用<br>1.单边阴影<br>box-shadow:red 0px -5px 5px -3px,给top边设置了阴影，通过设置伸缩半径-3px防止其他边模糊半径5px效果<br>2.四边阴影<br>box-shadow:0 0 10px red;//10px为模糊半径<br>box-shadow:0 0 0 10px red;//10px为伸缩半径,此效果相当于设置了一个宽10px的红边，但不占文档流<br>层级关系：外阴影—&gt;背景色—&gt;背景图—&gt;内阴影—&gt;边框<br>3.多层阴影<br>每组用逗号隔开，靠前的设置面积（伸缩半径）太大的话会遮盖之后的设置<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">//彩虹色</div><div class="line">box-shadow: red 0px 0px 10px 10px, inset orange 0px 0px 10px 15px, inset yellow 0px 0px 10px 30px, inset green 0px 0px 10px 45px, inset blue 0px 0px 10px 60px, inset purple 0px 0px 10px 75px;</div></pre></td></tr></table></figure></p>
+<h1 id="background-attachment"><a href="#background-attachment" class="headerlink" title="background-attachment"></a>background-attachment</h1><p>背景图是否随页面滚动条滚动，始终不会随容器滚动条滚动<br>scroll ———— 滚动<br>fixed ———— 不滚动</p>
+<h1 id="background-image"><a href="#background-image" class="headerlink" title="background-image"></a>background-image</h1><p>1.起始位置<br>background-color始终从border与margin交界线的左上角(用A表示)开始<br>background-image默认从padding与border交界线的左上角(用B表示)开始,但是可以通过设置background-position决定起始点<br>2.在Z轴上，覆盖顺序<br>background-color ——&gt; background-image ——&gt; border,conten的背景色<br>background-repeat值为repeat和no-repeat时,对覆盖有不同影响</p>
+<h2 id="background-repeat"><a href="#background-repeat" class="headerlink" title="background-repeat"></a>background-repeat</h2><p>图片比容器小时，重复方式<br>no-repeat ———— 仅从B点开始铺一次,background-image不会填充border部分的background-color,图片不够大时会显示background-color<br><img src="/image/bgimg2.png" alt="bgimg2"><br>repeat ———— 从B点开始,先垂直重复，再整体水平重复，background-image会覆盖border部分的background-color,图片起点还是B,然后垂直重复,整体水平重复<br><img src="/image/bgimg1.png" alt="bgimg1"><br>repeat-x ———— 从B点开始，仅水平重复，不再整体垂直重复，覆盖border<br>repeat-y ———— 从B点开始，仅垂直重复，不再整体水平重复,覆盖border</p>
+<h2 id="background-position"><a href="#background-position" class="headerlink" title="background-position"></a>background-position</h2><p>背景图片开始位置在padding与border交界线什么地方<br>两个值为长度或者百分数时，第一个值表示容器水平方向的位置，相对于left边位置；第二个值表示容器垂直方向的位置，相对于TOP边位置，可以混用<br>但只设一个值时，表示距离left位置，垂直方向默认为居中<br>两个值为关键字时，left,right,center表示水平位置，top,bottom,center表示垂直位置，<br>前后位置可随意，left bottom 等于 bottom left<br>仅设置一个值时，另一个方向默认center,例left 相当于left center,背景图位于左边垂直中间位置；center，即水平垂直居中<br><img src="/image/bgimg3.png" alt="bgimg3"></p>
+<h2 id="background-origin"><a href="#background-origin" class="headerlink" title="background-origin"></a>background-origin</h2><p>同样可以重置图片开始位置，指定居于哪条线，<br>同时指定background-position时，先根据background-origin确定线，依线根据background-position确定位置<br>border-box ———— margin与border交界线<br>padding-box ———— border与padding交界线,默认值<br>content-box ———— padding与内容块交界线</p>
+<h2 id="background-clip"><a href="#background-clip" class="headerlink" title="background-clip"></a>background-clip</h2><p>设置背景色background-color铺设范围<br>border-box ———— 从margin与border交界线开始铺<br>padding-box ———— 从border与padding交界线开始铺<br>content-box ———— 从padding与内容块交界线开始铺</p>
+<h2 id="background-size"><a href="#background-size" class="headerlink" title="background-size"></a>background-size</h2><p>以background-origin设置的值为容器,设置图片大小<br>auto 原始尺寸<br>具体长度值1个或2个<br>百分数1个或2个 相对容器的百分之多少，不是图片大小<br>contain 放大，铺满容器<br>cover 按照图片宽高比例，缩放</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/css/" rel="tag"># css</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/post/knowledge/css3flex.html" rel="next" title="探索flex布局">
+                <i class="fa fa-chevron-left"></i> 探索flex布局
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/psb.jpg"
+               alt="YooHannah" />
+          <p class="site-author-name" itemprop="name">YooHannah</p>
+          <p class="site-description motion-element" itemprop="description"></p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">159</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">1</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">19</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#border-image"><span class="nav-number">1.</span> <span class="nav-text">border-image</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#border-image-source"><span class="nav-number">1.1.</span> <span class="nav-text">border-image-source</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#border-image-slice"><span class="nav-number">1.2.</span> <span class="nav-text">border-image-slice</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#border-image-repeat"><span class="nav-number">1.3.</span> <span class="nav-text">border-image-repeat</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#border-radius"><span class="nav-number">2.</span> <span class="nav-text">border-radius</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#box-shadow"><span class="nav-number">3.</span> <span class="nav-text">box-shadow</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#background-attachment"><span class="nav-number">4.</span> <span class="nav-text">background-attachment</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#background-image"><span class="nav-number">5.</span> <span class="nav-text">background-image</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#background-repeat"><span class="nav-number">5.1.</span> <span class="nav-text">background-repeat</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#background-position"><span class="nav-number">5.2.</span> <span class="nav-text">background-position</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#background-origin"><span class="nav-number">5.3.</span> <span class="nav-text">background-origin</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#background-clip"><span class="nav-number">5.4.</span> <span class="nav-text">background-clip</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#background-size"><span class="nav-number">5.5.</span> <span class="nav-text">background-size</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">YooHannah</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+  
+  <script type="text/javascript" src="/lib/treedocument/treedocument.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+	
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+
+</body>
+</html>
