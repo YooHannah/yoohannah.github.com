@@ -95,7 +95,7 @@
 <meta property="og:description" content="其实按照官网一步一步来就好了，也不用翻墙，基本上，就是耗时间我配置的是window android环境中文文档1.安装node可以直接使用nvm安装，但版本必须是8.或者10.带来的问题是，nvm切换版本后，npm可能找不到，可以直接用全局安装的yarn代替npm 与 Yarn 常用命令对比或者直接将npm文件夹从能用的版本移到不能用的版本 2.python2官网说不支持Python3.X,因为很">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://yoohannah.github.io/image/native1.png">
-<meta property="og:updated_time" content="2019-03-03T03:54:33.572Z">
+<meta property="og:updated_time" content="2019-03-04T14:50:20.085Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="react Native 环境配置">
 <meta name="twitter:description" content="其实按照官网一步一步来就好了，也不用翻墙，基本上，就是耗时间我配置的是window android环境中文文档1.安装node可以直接使用nvm安装，但版本必须是8.或者10.带来的问题是，nvm切换版本后，npm可能找不到，可以直接用全局安装的yarn代替npm 与 Yarn 常用命令对比或者直接将npm文件夹从能用的版本移到不能用的版本 2.python2官网说不支持Python3.X,因为很">
@@ -301,8 +301,8 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-03-03T11:16:37+08:00">
-                2019-03-03
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-03-04T22:50:37+08:00">
+                2019-03-04
               </time>
             
 
@@ -339,7 +339,8 @@
       
         <p>其实按照官网一步一步来就好了，也不用翻墙，基本上，就是耗时间<br>我配置的是window android环境<br><a href="https://reactnative.cn/docs/getting-started.html" target="_blank" rel="external">中文文档</a><br>1.安装node<br>可以直接使用nvm安装，但版本必须是8.<em>或者10.</em><br>带来的问题是，nvm切换版本后，npm可能找不到，可以直接用全局安装的yarn代替<br><a href="http://yuanhehe.cn/2017/06/11/npm-%E4%B8%8E-Yarn-%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E5%AF%B9%E6%AF%94/" target="_blank" rel="external">npm 与 Yarn 常用命令对比</a><br>或者直接将npm文件夹从能用的版本移到不能用的版本</p>
 <p>2.python2<br>官网说不支持Python3.X,因为很早之前安装的python没管，今天一看是3.*，能跑起来</p>
-<p>3.JDK<br><a href="https://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html" target="_blank" rel="external">下载地址</a><br>我下载的这个<br><img src="/image/native1.png" alt="native1"><br>安装过程注意，jdk和jre使用不同文件夹<br><a href="https://jingyan.baidu.com/article/6dad5075d1dc40a123e36ea3.html" target="_blank" rel="external">安装与环境配置</a><br>4.Android Studio<br>按文档步骤安装好后，需要先创建项目再创建虚拟机<br>构建虚拟机过程文档应该需要翻墙，但其实可以直接百度<br><a href="https://jingyan.baidu.com/article/3aed632edf252e701080911f.html" target="_blank" rel="external">构建虚拟机</a></p>
+<p>3.JDK<br><a href="https://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html" target="_blank" rel="external">下载地址</a><br>我下载的这个<br><img src="/image/native1.png" alt="native1"><br>安装过程注意，jdk和jre使用不同文件夹<br><a href="https://jingyan.baidu.com/article/6dad5075d1dc40a123e36ea3.html" target="_blank" rel="external">安装与环境配置</a><br>4.Android Studio<br>按文档步骤安装好后，需要先创建项目再创建虚拟机<br>构建虚拟机过程文档应该需要翻墙，但其实可以直接百度<br><a href="https://jingyan.baidu.com/article/3aed632edf252e701080911f.html" target="_blank" rel="external">构建虚拟机</a><br>相当于在PC上调试<br>5.链接真机测试<br>数据线链接手机和电脑，在git里跑’react-native run-android’<br>遇到的问题<br>1.第一次跑时，出现：unable to load script from assets<br> 解决如下：<br> 第一步：在Android/app/src/main目录下创建一个空的assets文件夹。<br> 第二步：执行<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">react-native bundle --platform android --dev false --entry-file index.js --bundle-output android/app/src/main/assets/index.android.bundle --assets-dest android/app/src/main/res/</div></pre></td></tr></table></figure></p>
+<p>再重新跑react-native run-android<br>2.摇晃手机reload 后：could not connect to development sever<br>华为手机andorid版本较低,4.*<br>点击dev setting，选择Debug server host&amp;port for device,填入PC电脑的IP地址和端口号</p>
 
       
     </div>
@@ -372,8 +373,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/post/knowledge/loadingcount.html" rel="next" title="多请求loading处理">
-                <i class="fa fa-chevron-left"></i> 多请求loading处理
+              <a href="/post/performance/webpackdetail.html" rel="next" title="webpack配置">
+                <i class="fa fa-chevron-left"></i> webpack配置
               </a>
             
           </div>
@@ -381,10 +382,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/post/performance/webpackdetail.html" rel="prev" title="webpack配置">
-                webpack配置 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
