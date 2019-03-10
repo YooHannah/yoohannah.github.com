@@ -1,0 +1,711 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="performance," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="My Little World" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="基本配置12345678const path = require(&amp;apos;path&amp;apos;);module.export = &amp;#123;	entry:&amp;apos;./main.js&amp;apos;,	output:&amp;#123;		filename:&amp;apos;bundle.js&amp;apos;,		path:path.resolve(__dirname,&amp;apos;./dist&amp;apos;)	&amp;">
+<meta name="keywords" content="performance">
+<meta property="og:type" content="article">
+<meta property="og:title" content="webpack应用">
+<meta property="og:url" content="http://yoohannah.github.io/post/performance/webpackConfig.html">
+<meta property="og:site_name" content="My Little World">
+<meta property="og:description" content="基本配置12345678const path = require(&amp;apos;path&amp;apos;);module.export = &amp;#123;	entry:&amp;apos;./main.js&amp;apos;,	output:&amp;#123;		filename:&amp;apos;bundle.js&amp;apos;,		path:path.resolve(__dirname,&amp;apos;./dist&amp;apos;)	&amp;">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-03-10T09:11:11.541Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="webpack应用">
+<meta name="twitter:description" content="基本配置12345678const path = require(&amp;apos;path&amp;apos;);module.export = &amp;#123;	entry:&amp;apos;./main.js&amp;apos;,	output:&amp;#123;		filename:&amp;apos;bundle.js&amp;apos;,		path:path.resolve(__dirname,&amp;apos;./dist&amp;apos;)	&amp;">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoohannah.github.io/post/performance/webpackConfig.html"/>
+
+
+
+
+
+  <title> webpack应用 | My Little World </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">My Little World</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">learn and share</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://yoohannah.github.io/post/performance/webpackConfig.html">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="YooHannah">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="/psb.jpg">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="My Little World">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="My Little World" src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                webpack应用
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-03-10T17:08:02+08:00">
+                2019-03-10
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="基本配置"><a href="#基本配置" class="headerlink" title="基本配置"></a>基本配置</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">const path = require(&apos;path&apos;);</div><div class="line">module.export = &#123;</div><div class="line">	entry:&apos;./main.js&apos;,</div><div class="line">	output:&#123;</div><div class="line">		filename:&apos;bundle.js&apos;,</div><div class="line">		path:path.resolve(__dirname,&apos;./dist&apos;)</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h1 id="接入babel"><a href="#接入babel" class="headerlink" title="接入babel"></a>接入babel</h1><h2 id="配置-babelrc"><a href="#配置-babelrc" class="headerlink" title="配置.babelrc"></a>配置.babelrc</h2><p>需要额外配置.babelrc文件，该文件是一个JSON格式文件<br>plugins属性，告诉Babel要使用哪些插件，这些插件可以控制如何转换代码<br>babel-plugin-transform-runtime：减少冗余代码<br>babel-runtime:可以导入babel-plugin-transform-runtime依赖的辅助函数<br>以上二者需要配套使用<br>presents属性，告诉Babel要转换的源码使用了那些新的语法特性，其值是一组plugins数组，<br>每一项，<br>如果不需要配置参数则使用字符串，表示插件名；<br>如果需要配置参数则使用数组，数组第一项为插件名，第二项为配置项组成的对象；<br>可以分为三大类：<br>1.已经被写入ES标准的特性：ES2015,ES2016,ES2017,Env (包含当前所有ES标准里的新特性)<br>2.社区提出但还未写入ES标准的特性：stage0,stage1,stage2,stage3,stage4,分别表示被纳入es标准的进度<br>3.特定场景下的语法特性，和es标准没有关系，例如要支持JSX，则使用babel-preset-react</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">	&quot;plugins&quot;:[[&quot;transform-runtime&quot;,&#123;&quot;polyfill&quot;:false&#125;]]</div><div class="line">	&quot;presents&quot;:[[&quot;es2015&quot;,&#123;&quot;modules&quot;:false&#125;],&quot;stage-4&quot;,&quot;react&quot;]</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="webpack配置"><a href="#webpack配置" class="headerlink" title="webpack配置"></a>webpack配置</h2><p>Babel是转换代码功能，所以要配置相应loader<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">modules:&#123;</div><div class="line">  rules:[&#123;</div><div class="line">    test:/\.js$/,</div><div class="line">    use:[&apos;babel-loader&apos;]</div><div class="line">  &#125;]</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h2 id="安装依赖模块"><a href="#安装依赖模块" class="headerlink" title="安装依赖模块"></a>安装依赖模块</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">npm i -D babel-core babel-loader //webpack配置相关依赖</div><div class="line">npm i -D babel-preset-env</div><div class="line">npm i -D babel-preset-* //配置文件中的相关依赖</div></pre></td></tr></table></figure>
+<h1 id="使用TypeScript"><a href="#使用TypeScript" class="headerlink" title="使用TypeScript"></a>使用TypeScript</h1><h2 id="配置-tsconfig-json文件"><a href="#配置-tsconfig-json文件" class="headerlink" title="配置 tsconfig.json文件"></a>配置 tsconfig.json文件</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">&quot;compilerOptions&quot;:&#123;</div><div class="line">	&quot;module&quot;:&quot;commonjs&quot;,//编译的代码采用的模块规范</div><div class="line">	&quot;target&quot;:&quot;es5&quot;,//编译出的代码采用es哪个版本</div><div class="line">	&quot;sourceMap&quot;:true,//输出Source Map 以方便调试</div><div class="line">	&quot;importHelpers&quot;:true//禁止辅助函数重复出现在多个文件</div><div class="line">&#125;,</div><div class="line">&quot;exclude&quot;:[</div><div class="line">	&quot;node_modules&quot;</div><div class="line">]</div></pre></td></tr></table></figure>
+<h2 id="webpack配置-1"><a href="#webpack配置-1" class="headerlink" title="webpack配置"></a>webpack配置</h2><p>使用loader做转换；修改文件查找规则</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">resolve:&#123;</div><div class="line">	extension:[&apos;.ts&apos;,&apos;.js&apos;]</div><div class="line">&#125;</div><div class="line">modules:&#123;</div><div class="line">  rules:[&#123;</div><div class="line">    test:/\.ts$/,</div><div class="line">    loader:&apos;awesome-typescript-loader&apos;</div><div class="line">  &#125;]</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="安装依赖模块-1"><a href="#安装依赖模块-1" class="headerlink" title="安装依赖模块"></a>安装依赖模块</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">npm i -D typescript awesome-typescript-loader</div></pre></td></tr></table></figure>
+<h1 id="使用Flow检查器"><a href="#使用Flow检查器" class="headerlink" title="使用Flow检查器"></a>使用Flow检查器</h1><h2 id="使用语法"><a href="#使用语法" class="headerlink" title="使用语法"></a>使用语法</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">//@flow /*告诉检查器这个文件需要被检查*/</div><div class="line">function squarel(n:number):number&#123;</div><div class="line">	return n*n</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="使用配置"><a href="#使用配置" class="headerlink" title="使用配置"></a>使用配置</h2><p>1.全局使用<br>npm i -g flow-bin 将可执行文件安装在全局，直接在项目根目录下使用flow命令执行代码检查<br>2.局部使用<br>npm i -D flow-bin 在项目中生成可执行文件，仅在某个项目中使用，<br>在package.json中配置使用命令<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&quot;script&quot;:&#123;</div><div class="line">	&quot;flow&quot;:&quot;flow&quot;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>使用 npm run flow 执行代码检查</p>
+<h2 id="去除静态语法"><a href="#去除静态语法" class="headerlink" title="去除静态语法"></a>去除静态语法</h2><p>采用flow静态语法的js无法在引擎中运行，所要去掉<br>1.使用flow-remove-types<br>2.一般使用flow的项目会使用es6,所以集成到babel配置中，<br>安装依赖模块：npm i -D babel-preset-flow<br>修改.babelrc,在preset中加入’flow’：”presets”:[…[],”flow”]</p>
+<h1 id="使用SCSS"><a href="#使用SCSS" class="headerlink" title="使用SCSS"></a>使用SCSS</h1><p>SCSS又叫做SASS，可以使用一定语法编写css样式<br>转换方式<br>1.全局单文件转换<br>全局安装node-sass:npm i -g node-sass<br>执行命令：node-sass main.scss main.css  //main.css即main.scss编译后的css文件</p>
+<p>2.使用sass-loader</p>
+<h2 id="webpack配置-2"><a href="#webpack配置-2" class="headerlink" title="webpack配置"></a>webpack配置</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">modules:&#123;</div><div class="line">  rules:[&#123;</div><div class="line">    test:/\.scss$/,</div><div class="line">    use:[&apos;style-loader&apos;,&apos;css-loader&apos;,&apos;sass-loader&apos;]</div><div class="line">  &#125;]</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="安装依赖模块-2"><a href="#安装依赖模块-2" class="headerlink" title="安装依赖模块"></a>安装依赖模块</h2><p>npm i -D style-loader css-loader sass-loader //webpack loader<br>npm i -D node-sass //sass-loader 依赖node-sass</p>
+<h2 id="具体处理流程"><a href="#具体处理流程" class="headerlink" title="具体处理流程"></a>具体处理流程</h2><p>sass-loader将scss源码转换为css,再将css代码交给css-loader<br>css-loader会找出css代码中@import 和 url()这样的导入语句，告诉webpack依赖这些资源，同时支持CSS modules,压缩CSS等功能<br>处理完后将结果给到style-loader<br>style-loader 会将CSS代码转换成字符串后，注入到js代码中，通过js向DOM增加样式，<br>如果想将css提取到单独文件中，可再使用ExtractTextPlugin插件提取</p>
+<h1 id="使用PostCSS"><a href="#使用PostCSS" class="headerlink" title="使用PostCSS"></a>使用PostCSS</h1><p>使用相应的loader 可以为css样式增加兼容浏览器的前缀，可以配置相应的配置文件，兼容下一代CSS语法</p>
+<h2 id="配置postcss-config-js文件"><a href="#配置postcss-config-js文件" class="headerlink" title="配置postcss.config.js文件"></a>配置postcss.config.js文件</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">module.exports = &#123;</div><div class="line">	plugins:[</div><div class="line">		require(&apos;postcss-cssnext&apos;) //postcss-cssnext支持下一代css语法编写</div><div class="line">	]</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="webpack配置-3"><a href="#webpack配置-3" class="headerlink" title="webpack配置"></a>webpack配置</h2><p>需要先将下一代语法转换成可识别css,同时添加前缀<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">modules:&#123;</div><div class="line">  rules:[&#123;</div><div class="line">    test:/\.scss$/,</div><div class="line">    use:[&apos;style-loader&apos;,&apos;css-loader&apos;,&apos;postcss-loader&apos;]</div><div class="line">  &#125;]</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h2 id="安装依赖模块-3"><a href="#安装依赖模块-3" class="headerlink" title="安装依赖模块"></a>安装依赖模块</h2><p>npm i -D style-loader css-loader postcss-loader //webpack loader 依赖<br>npm i -D postcss-cssnext // postcss-loader 依赖 </p>
+<h1 id="使用react"><a href="#使用react" class="headerlink" title="使用react"></a>使用react</h1><h2 id="借助Bable"><a href="#借助Bable" class="headerlink" title="借助Bable"></a>借助Bable</h2><p>1.修改配置文件.babelrc，在preset中加入’react’：”presets”:[…[],”react”]<br>2.安装依赖模块<br>npm i -D react react-dom//react 基础依赖<br>npm i -D bable-preset-react //bable转换依赖</p>
+<h2 id="借助typescript"><a href="#借助typescript" class="headerlink" title="借助typescript"></a>借助typescript</h2><p>1.修改配置文件tsconfig.json<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&quot;compilerOptions&quot;:&#123;</div><div class="line">	...,</div><div class="line">	&quot;jsx&quot;:&quot;react&quot;//typescript本身支持jsx,开启JSX，支持react</div><div class="line">&#125;,</div></pre></td></tr></table></figure></p>
+<p>2.修改webapck配置文件<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">resolve:&#123;</div><div class="line">	extension:[&apos;.ts&apos;,&apos;.tsx&apos;,.js&apos;] //typescript 原生支持jsx语法，只不过jsx语法文件后缀必须是tsx</div><div class="line">&#125;</div><div class="line">modules:&#123;</div><div class="line">  rules:[&#123;</div><div class="line">    test:/\.tsx?$/,//同时匹配ts,tsx后缀文件</div><div class="line">    loader:&apos;awesome-typescript-loader&apos;</div><div class="line">  &#125;]</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>3.安装依赖模块<br>npm i -D react react-dom//react 基础依赖<br>npm i -D @types/react @types/react-dom //react react-dom对应的ts接口描述模块，用于编译react，react-dom</p>
+<h1 id="使用VUE"><a href="#使用VUE" class="headerlink" title="使用VUE"></a>使用VUE</h1><h2 id="引入"><a href="#引入" class="headerlink" title="引入"></a>引入</h2><p>1.修改webapck配置文件<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">modules:&#123;</div><div class="line">  rules:[&#123;</div><div class="line">    test:/\.vue$/,</div><div class="line">    use:[&apos;vue-loader&apos;]</div><div class="line">  &#125;]</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>2.安装依赖模块<br>npm i -S vue //vue框架依赖<br>npm i -D vue-loader css-loader vue-template-compiler //构建所需依赖<br>歌loader作用<br>vue-loader:解析转换.vue文件，提取其中的逻辑代码script样式代码style以及html模板template,然后交给对应的loader去处理<br>css-loader:加载vue-loader提取的CSS代码<br>vue-template-compiler：将vue-loader提取的HTML模板编译成对应可执行的js代码。</p>
+<h2 id="构建使用ts编写的vue"><a href="#构建使用ts编写的vue" class="headerlink" title="构建使用ts编写的vue"></a>构建使用ts编写的vue</h2><p>1.配置 tsconfig.json文件<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&quot;compilerOptions&quot;:&#123;</div><div class="line">	&quot;target&quot;:&quot;es5&quot;,//构建es5版本的js,与VUE浏览器支持保持一致</div><div class="line">	&quot;module&quot;:&apos;es015&apos;,//使用es2015模块化格式</div><div class="line">	&quot;strict&quot;:true,//开启严格模式，对this上数据属性进行严格推断</div><div class="line">	&quot;moduleResolution&quot;:&apos;node&apos;</div><div class="line">&#125;,</div></pre></td></tr></table></figure></p>
+<p>2.webpack配置<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">resolve:&#123;</div><div class="line">	extension:[&apos;.ts&apos;,&apos;.js&apos;,&apos;.vue&apos;,&apos;json&apos;] //增加对.ts，.vue文件支持</div><div class="line">modules:&#123;</div><div class="line">  rules:[&#123;</div><div class="line">    test:/\.ts$/,//匹配ts后缀文件</div><div class="line">    loader:&apos;ts-loader&apos;,</div><div class="line">    exclude:/node_modules/,</div><div class="line">    options:&#123;</div><div class="line">    	appendTsSuffixTo:[/\.vue$/] //让tsc将vue文件当成一个ts模块去处理，以解决module not found的问题，tsc本身不会处理.vue结尾文件</div><div class="line">    &#125;</div><div class="line">  &#125;]</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>3.新增文件vue-shims.d.ts<br>用以ts支持.vue结尾文件，可识别import 语句导入的.vue文件<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">declare module &quot;*.vue&quot;&#123;</div><div class="line">	import Vue from &quot;vue&quot;;</div><div class="line">	export default Vue</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>4.vue文件编写<br>script 部分<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">&lt;script lang=&apos;ts&apos;&gt;//lang指明代码语法为ts</div><div class="line">improt Vue from &quot;vue&quot;</div><div class="line">export default Vue.extend(&#123; //Vue.extend启用ts类型推断</div><div class="line">	data()&#123;</div><div class="line">		return&#123;</div><div class="line">			msg:&apos;hello world&apos;</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line">&#125;)</div><div class="line">&lt;/script</div></pre></td></tr></table></figure></p>
+<p>5.安装依赖<br>npm i -D ts-loader typescript</p>
+<h1 id="单页自动生成html"><a href="#单页自动生成html" class="headerlink" title="单页自动生成html"></a>单页自动生成html</h1><p>利用模板文件和插件生成</p>
+<h2 id="模板文件"><a href="#模板文件" class="headerlink" title="模板文件"></a>模板文件</h2><p>模板文件用于描述哪些资源需要被以某种方式加入到输出的HTML文件中<br>资源链接URL字符串里问号前面的部分表示资源内容来自哪里，后面的参数表示这些资源注入的方式,可用&amp;链接<br>_inline:资源是要引入动态资源<br>_dist:只在生产环境下才引入该资源<br>_dev:只在开发环境才引入该资源<br>_ie:只在IE浏览器中引入</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">&lt;html lang=&quot;en&quot;&gt;</div><div class="line">  &lt;head&gt;</div><div class="line">    &lt;meta charset=&quot;utf-8&quot;&gt;</div><div class="line">     &lt;!--导入chunck app 中的css代码，可知要将css单独打包一个文件--&gt;</div><div class="line">    &lt;link rel=&quot;stylesheet&quot; href=&quot;app?_inline&quot;&gt;</div><div class="line">    &lt;!--在这里引入/google_analytics的js代码--&gt;</div><div class="line">    &lt;script src=&quot;./google_analytics.js?_inline&quot;&gt;&lt;/script&gt;</div><div class="line">  &lt;/head&gt;</div><div class="line">  &lt;body&gt;</div><div class="line">    &lt;div id=&apos;app&apos;&gt;&lt;/div&gt;</div><div class="line">    &lt;!--导入chunck app 中的js代码--&gt;</div><div class="line">    &lt;script type=&quot;text/javascript&quot; src=&quot;app&quot;&gt;&lt;/script&gt;</div><div class="line">  &lt;/body&gt;</div><div class="line">&lt;/html&gt;</div></pre></td></tr></table></figure>
+<h2 id="webpack配置-4"><a href="#webpack配置-4" class="headerlink" title="webpack配置"></a>webpack配置</h2><p>使用web-webpack-plugin的webplugin自动生成index.html<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line">const &#123;WebPlugin&#125; = require(&apos;web-webpack-plugin&apos;)</div><div class="line">plugins:[</div><div class="line">	new WebPlugin(&#123;//自动生成index.html文件</div><div class="line">		template:&apos;./template.html&apos;,//模板文件</div><div class="line">		filename:&apos;index.html&apos;//输出文件名</div><div class="line">	&#125;)，</div><div class="line">	new ExtractTextPlugin(&#123;</div><div class="line">		filename:`[name]_[contenthas:8].css` // 为输出的css文件名称加上Hash值</div><div class="line">	&#125;)，</div><div class="line">	new DefinePlugin(&#123;</div><div class="line">		&apos;process.env&apos;:&#123;//定义NODE_ENV环境变量为production，去除源码中只有开发时才需要的部分</div><div class="line">			NODE_ENV:JSON.stringify(&apos;production&apos;)</div><div class="line">		&#125;</div><div class="line">	&#125;)，</div><div class="line">	new UglifyJsPlugin(&#123;//压缩输出的js代码</div><div class="line">		beautify:false,//最紧凑的输出</div><div class="line">		comments:false,//删除所有注释</div><div class="line">		compress:&#123;</div><div class="line">			warnings:false,//删除没有用到的代码时，不发出警告</div><div class="line">			drop_console:true,//删除所有console语句，兼容IE</div><div class="line">			collapse_vars:true,//内嵌已定义但只用到了一次的变量</div><div class="line">			reduce_vars:true//提取出出现多次但没有定义成变量去引用的静态值</div><div class="line">		&#125;</div><div class="line">	&#125;)</div><div class="line"></div><div class="line">]</div></pre></td></tr></table></figure></p>
+<h1 id="自动生成多个单页"><a href="#自动生成多个单页" class="headerlink" title="自动生成多个单页"></a>自动生成多个单页</h1><p>需要解决的问题<br>1.要能够将公共代码提取出来，并能够注入到每个单页应用中<br>2.模板文件要支持注入公共文件和各个单页独自依赖的资源</p>
+<h2 id="模板文件-1"><a href="#模板文件-1" class="headerlink" title="模板文件"></a>模板文件</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">&lt;html lang=&quot;en&quot;&gt;</div><div class="line">  &lt;head&gt;</div><div class="line">    &lt;meta charset=&quot;utf-8&quot;&gt;</div><div class="line">    &lt;!--在这里注入该页面所依赖但没有手动导入的CSS--&gt;</div><div class="line">    &lt;!--STYLE--&gt;</div><div class="line">    &lt;!--在这里引入/google_analytics的js代码--&gt;</div><div class="line">    &lt;script src=&quot;./google_analytics.js?_inline&quot;&gt;&lt;/script&gt;</div><div class="line">  &lt;/head&gt;</div><div class="line">  &lt;body&gt;</div><div class="line">    &lt;div id=&apos;app&apos;&gt;&lt;/div&gt;</div><div class="line">    &lt;!-- 在这里注入该页面所依赖但没有手动导入的JS--&gt;</div><div class="line">    &lt;!--SCRIPT--&gt;</div><div class="line">  &lt;/body&gt;</div><div class="line">&lt;/html&gt;</div></pre></td></tr></table></figure>
+<p>此时模板文件被当作项目中所有单页的模板，因此不能直接写Chunck名称去引入资源，<br>因为需要被注入当前页面的Chunck名称不固定，每个单页都会有自己的名称<br><!--STYLE--><!--SCRIPT-->的作用在于保证该页面所依赖的资源都会被注入生成的HTML模板中<br>如果<!--STYLE-->不存在，就注入到head标签最后<br>如果<!--SCRIPT-->不存在，就注入到body标签最后</p>
+<h2 id="webpack配置-5"><a href="#webpack配置-5" class="headerlink" title="webpack配置"></a>webpack配置</h2><p>使用web-webpack-plugin的autoWebPlugin自动生成多个单页的index.html文件<br>但是对目录结构有要求，即所有单页各自的入口文件和依赖资源组成各自的一个文件夹，<br>多个文件夹放在同一目录A下，其他公共资源以及模板文件，webpack配置文件放在与A目录同级目录下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">const &#123;AutoWebPlugin&#125; = require(&apos;web-webpack-plugin&apos;)</div><div class="line">const autoWebPlugin = new AutoWebPlugin(&apos;pages&apos;,&#123; //pages 为各个单页的父目录A</div><div class="line">	template:&apos;./template.html&apos;,//模板文件</div><div class="line">	postEntry:[&apos;./common.css&apos;],//所有页面都依赖这份通用的CSS样式文件</div><div class="line">	commonChunk：&#123;</div><div class="line">		name:&apos;common&apos;,//提取公共代码chunk的名称</div><div class="line">	&#125;</div><div class="line">&#125;)</div><div class="line">module.exports=&#123;</div><div class="line">	//AutoWebPlugin会为寻找到的所有单页生成对应的入口配置，</div><div class="line">	//autoWebPlugin.entry可以获取所有由autoWebPlugin生成的入口配置</div><div class="line">	entry:autoWebPlugin.entry(&#123;//可加入额外需要的Chunk入口&#125;)，</div><div class="line">	plugins:[autoWebPlugin]</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h1 id="构建基于react的同构应用"><a href="#构建基于react的同构应用" class="headerlink" title="构建基于react的同构应用"></a>构建基于react的同构应用</h1><p>同构应用：写一份代码可同时在浏览器和服务器中运行的应用<br>能在服务器运行的原理核心是虚拟DOM<br>虚拟DOM好处：<br>1.操作DOM树是高耗时操作，可通过DOM diff算法找到两个不同Object的最小差异，得出最小的DOM操作<br>2.虚拟DOM在渲染时不仅可以通过操作DOM树表示结果，也可以有其他表示方式，例如将虚拟DOM渲染成字符串(服务器渲染)<br>或者渲染成手机APP原生UI组件（react Native）</p>
+<h2 id="服务器端构建配置"><a href="#服务器端构建配置" class="headerlink" title="服务器端构建配置"></a>服务器端构建配置</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line">const path = require(&apos;path&apos;)</div><div class="line">const nodeExternals = require(&apos;webpack-node-externals&apos;)</div><div class="line">module.exports = &#123;</div><div class="line">	entry:&apos;./main_server.js&apos;</div><div class="line">	target:&apos;node&apos;,//目标运行环境是node.js,源码依赖的nodejs原生模块没必要打包进去</div><div class="line">	externals:[nodeExternals()],//不打包node_modules中的第三方组件</div><div class="line">	output:&#123;</div><div class="line">		libraryTarget:&apos;commonjs2&apos;,//输出CommonJS2规范，供nodejs的http服务器代码调用</div><div class="line">		fillname:&apos;bundle.server.js&apos;,</div><div class="line">		path:path(resolve(__dirname,&apos;./dist&apos;))</div><div class="line">	&#125;,</div><div class="line">	module:&#123;</div><div class="line">		rules:[</div><div class="line">			&#123;</div><div class="line">				test:/\.js$/,</div><div class="line">				use:[&apos;babel-loader&apos;],</div><div class="line">				exclude:path.resolve(__dirname,&apos;node_modules&apos;),</div><div class="line">			&#125;,</div><div class="line">			&#123;</div><div class="line">				test:/\.css/,</div><div class="line">				use:[&apos;ignore-loader&apos;],//css文件不能打包到服务端代码，影响服务端渲染性能</div><div class="line">			&#125;</div><div class="line">		]</div><div class="line">	&#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="文件准备"><a href="#文件准备" class="headerlink" title="文件准备"></a>文件准备</h2><p>一个仅包含根组件代码，不能包含渲染入口代码，而且需要导出根组件以供渲染入口调用的文件 rootComponent.js<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">import react,&#123;Component&#125; from &apos;react&apos;;</div><div class="line">import &apos;main.css&apos;</div><div class="line">export class RootComponent extends Component&#123;</div><div class="line">	render()&#123;</div><div class="line">		return &lt;h1&gt;hello world &lt;/h1&gt;</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>不同环境渲染入口文件，一个环境一个<br>main_server.js<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">import react from &apos;react&apos;;</div><div class="line">import RootComponent from &apos;./rootComponent&apos;</div><div class="line">import &#123;renderToString&#125; from &apos;react-dom/server&apos; //计算表示虚拟DOM的HTML形式字符串</div><div class="line">export function render()&#123;</div><div class="line">	return renderToString(&lt;RootComponent&gt;)</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>main_browser.js<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">import react from &apos;react&apos;;</div><div class="line">import RootComponent from &apos;./rootComponent&apos;</div><div class="line">import &#123;render&#125; from &apos;react-dom&apos; //操作浏览器DOM树展示出结果</div><div class="line">render(&lt;RootComponent&gt;,window.document.getElementById(&apos;app&apos;))</div></pre></td></tr></table></figure></p>
+<p>http.server.js</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line">const express = require(&apos;express&apos;)</div><div class="line">const &#123;render &#125; = require(&apos;./dist/bundle_server&apos;)</div><div class="line">const app = express();</div><div class="line">app.get(&apos;/&apos;,function(req.res)&#123;</div><div class="line">	res.send(`</div><div class="line">		&lt;html lang=&quot;en&quot;&gt;</div><div class="line">		  &lt;head&gt;</div><div class="line">		    &lt;meta charset=&quot;utf-8&quot;&gt;</div><div class="line">		  &lt;/head&gt;</div><div class="line">		  &lt;body&gt;</div><div class="line">		    &lt;div id=&apos;app&apos;&gt;$&#123;render()&#125;&lt;/div&gt;</div><div class="line">		    &lt;!--导入WEBPACK输出的用于浏览器端渲染的js文件--&gt;</div><div class="line">		    &lt;script src=&apos;./dist/bundle_browser.js&apos;&gt;&lt;/script&gt;</div><div class="line">		  &lt;/body&gt;</div><div class="line">		&lt;/html&gt; </div><div class="line">	`)</div><div class="line">&#125;)</div><div class="line">app.use(express.static(&apos;.&apos;));</div><div class="line">app.listen(3000,function()&#123;</div><div class="line">	console.log(&apos;app is listening 3000&apos;)</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+<h2 id="执行命令"><a href="#执行命令" class="headerlink" title="执行命令"></a>执行命令</h2><p>webpack –config webpac_server.config.js 得到./dist/bundle_server.js<br>webpack –config webpac.config.js 得到./dist/bundle_browser.js<br>node ./http_server.js 启动 http 服务器，访问’localhost:3000’看到服务器返回了html</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/performance/" rel="tag"># performance</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/post/knowledge/reactNativeCreat.html" rel="next" title="react Native 环境配置">
+                <i class="fa fa-chevron-left"></i> react Native 环境配置
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/psb.jpg"
+               alt="YooHannah" />
+          <p class="site-author-name" itemprop="name">YooHannah</p>
+          <p class="site-description motion-element" itemprop="description"></p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">161</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">1</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">17</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#基本配置"><span class="nav-number">1.</span> <span class="nav-text">基本配置</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#接入babel"><span class="nav-number">2.</span> <span class="nav-text">接入babel</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#配置-babelrc"><span class="nav-number">2.1.</span> <span class="nav-text">配置.babelrc</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#webpack配置"><span class="nav-number">2.2.</span> <span class="nav-text">webpack配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装依赖模块"><span class="nav-number">2.3.</span> <span class="nav-text">安装依赖模块</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#使用TypeScript"><span class="nav-number">3.</span> <span class="nav-text">使用TypeScript</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#配置-tsconfig-json文件"><span class="nav-number">3.1.</span> <span class="nav-text">配置 tsconfig.json文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#webpack配置-1"><span class="nav-number">3.2.</span> <span class="nav-text">webpack配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装依赖模块-1"><span class="nav-number">3.3.</span> <span class="nav-text">安装依赖模块</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#使用Flow检查器"><span class="nav-number">4.</span> <span class="nav-text">使用Flow检查器</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#使用语法"><span class="nav-number">4.1.</span> <span class="nav-text">使用语法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用配置"><span class="nav-number">4.2.</span> <span class="nav-text">使用配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#去除静态语法"><span class="nav-number">4.3.</span> <span class="nav-text">去除静态语法</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#使用SCSS"><span class="nav-number">5.</span> <span class="nav-text">使用SCSS</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#webpack配置-2"><span class="nav-number">5.1.</span> <span class="nav-text">webpack配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装依赖模块-2"><span class="nav-number">5.2.</span> <span class="nav-text">安装依赖模块</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#具体处理流程"><span class="nav-number">5.3.</span> <span class="nav-text">具体处理流程</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#使用PostCSS"><span class="nav-number">6.</span> <span class="nav-text">使用PostCSS</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#配置postcss-config-js文件"><span class="nav-number">6.1.</span> <span class="nav-text">配置postcss.config.js文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#webpack配置-3"><span class="nav-number">6.2.</span> <span class="nav-text">webpack配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装依赖模块-3"><span class="nav-number">6.3.</span> <span class="nav-text">安装依赖模块</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#使用react"><span class="nav-number">7.</span> <span class="nav-text">使用react</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#借助Bable"><span class="nav-number">7.1.</span> <span class="nav-text">借助Bable</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#借助typescript"><span class="nav-number">7.2.</span> <span class="nav-text">借助typescript</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#使用VUE"><span class="nav-number">8.</span> <span class="nav-text">使用VUE</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#引入"><span class="nav-number">8.1.</span> <span class="nav-text">引入</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#构建使用ts编写的vue"><span class="nav-number">8.2.</span> <span class="nav-text">构建使用ts编写的vue</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#单页自动生成html"><span class="nav-number">9.</span> <span class="nav-text">单页自动生成html</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#模板文件"><span class="nav-number">9.1.</span> <span class="nav-text">模板文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#webpack配置-4"><span class="nav-number">9.2.</span> <span class="nav-text">webpack配置</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#自动生成多个单页"><span class="nav-number">10.</span> <span class="nav-text">自动生成多个单页</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#模板文件-1"><span class="nav-number">10.1.</span> <span class="nav-text">模板文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#webpack配置-5"><span class="nav-number">10.2.</span> <span class="nav-text">webpack配置</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#构建基于react的同构应用"><span class="nav-number">11.</span> <span class="nav-text">构建基于react的同构应用</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#服务器端构建配置"><span class="nav-number">11.1.</span> <span class="nav-text">服务器端构建配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#文件准备"><span class="nav-number">11.2.</span> <span class="nav-text">文件准备</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#执行命令"><span class="nav-number">11.3.</span> <span class="nav-text">执行命令</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">YooHannah</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+  
+  <script type="text/javascript" src="/lib/treedocument/treedocument.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+	
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+
+</body>
+</html>
