@@ -259,6 +259,123 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://yoohannah.github.io/post/react/EventEmitter.html">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="YooHannah">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="/psb.jpg">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="My Little World">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="My Little World" src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/post/react/EventEmitter.html" itemprop="url">
+                  实现一个 EventEmitter
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-10-21T21:07:02+08:00">
+                2017-10-21
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="实现一个-EventEmitter"><a href="#实现一个-EventEmitter" class="headerlink" title="实现一个 EventEmitter"></a>实现一个 EventEmitter</h1><p>EventEmitter 模块，它是一个类，它的实例具有以下几个方法：on、emit、off：<br>on(eventName, func)：监听 eventName 事件，事件触发的时候调用 func 函数。<br>emit(eventName, arg1, arg2, arg3…)：触发 eventName 事件，并且把参数 arg1, arg2, arg3… 传给事件处理函数。<br>off(eventName, func)：停止监听某个事件。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div></pre></td><td class="code"><pre><div class="line">class EventEmitter &#123;</div><div class="line">  /* TODO */</div><div class="line">  constructor() &#123;</div><div class="line">    this.listeners = [];</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  on(eventName, func)&#123;</div><div class="line">    for(let i=0;i&lt;this.listeners.length;i++)&#123;</div><div class="line">      if(this.listeners[i].name === eventName)&#123;</div><div class="line">          this.listeners[i].funcs.push(func);</div><div class="line">          return</div><div class="line">      &#125;</div><div class="line">    &#125;</div><div class="line">    this.listeners.push(&#123;</div><div class="line">      name:eventName,</div><div class="line">      funcs:[]</div><div class="line">    &#125;)</div><div class="line">    this.listeners[this.listeners.length-1].funcs.push(func)</div><div class="line">  &#125;</div><div class="line">  emit(eventName, ...args)&#123;</div><div class="line">    for(let j=0;j&lt;this.listeners.length;j++)&#123;</div><div class="line">        if(this.listeners[j].name === eventName)&#123;</div><div class="line">            for(let k =0;k&lt;this.listeners[j].funcs.length;k++)&#123;</div><div class="line">              this.listeners[j].funcs[k](args)</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">  off(eventName, func)&#123;</div><div class="line">      for(let j=0;j&lt;this.listeners.length;j++)&#123;</div><div class="line">        if(this.listeners[j].name === eventName)&#123;</div><div class="line">          if(func == undefined)&#123; //整个事件不再监听</div><div class="line">            this.listeners.splice(j,1);</div><div class="line">           &#125;</div><div class="line">          for(let k =0;k&lt;this.listeners[j].funcs.length;k++)&#123;</div><div class="line">                if(func === this.listeners[j].funcs[k])&#123;</div><div class="line">                  this.listeners[j].funcs.splice(k,1);</div><div class="line">                  return</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">      &#125;</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">const emitter = new EventEmitter()</div><div class="line">const sayHi = (name) =&gt; console.log(`Hello $&#123;name&#125;`)</div><div class="line">const sayHi2 = (name) =&gt; console.log(`Good night, $&#123;name&#125;`)</div><div class="line"></div><div class="line">emitter.on(&apos;hi&apos;, sayHi)</div><div class="line">emitter.on(&apos;hi&apos;, sayHi2)</div><div class="line">emitter.on(&apos;hi2&apos;, sayHi)</div><div class="line">emitter.on(&apos;hi2&apos;, sayHi2)</div><div class="line">emitter.emit(&apos;hi&apos;, &apos;ScriptOJ&apos;)</div><div class="line">// =&gt; Hello ScriptOJ</div><div class="line">// =&gt; Good night, ScriptOJ</div><div class="line"></div><div class="line">emitter.off(&apos;hi&apos;, sayHi)</div><div class="line">emitter.emit(&apos;hi&apos;, &apos;ScriptOJ&apos;)</div><div class="line">emitter.emit(&apos;hi2&apos;, &apos;ScriptOJ&apos;)</div><div class="line"></div><div class="line">const emitter2 = new EventEmitter()</div><div class="line">emitter2.on(&apos;hi&apos;, (name, age) =&gt; &#123;</div><div class="line">  console.log(`I am $&#123;name&#125;, and I am $&#123;age&#125; years old`)</div><div class="line">&#125;)</div><div class="line">emitter2.emit(&apos;hi&apos;, &apos;Jerry&apos;, 12)</div></pre></td></tr></table></figure>
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
   <link itemprop="mainEntityOfPage" href="http://yoohannah.github.io/post/react/react.html">
 
   <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1354,139 +1471,6 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="http://yoohannah.github.io/post/test/Karmatest.html">
-
-  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
-    <meta itemprop="name" content="YooHannah">
-    <meta itemprop="description" content="">
-    <meta itemprop="image" content="/psb.jpg">
-  </span>
-
-  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-    <meta itemprop="name" content="My Little World">
-    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
-      <img style="display:none;" itemprop="url image" alt="My Little World" src="">
-    </span>
-  </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/post/test/Karmatest.html" itemprop="url">
-                  Karma test
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-08-12T23:54:02+08:00">
-                2017-08-12
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="Karma-test"><a href="#Karma-test" class="headerlink" title="Karma test"></a>Karma test</h1><p>Karma是由Google团队开发的一套前端测试运行框架。它不同于测试框架（例如jasmine，mocha等），运行在这些测试框架之上。主要完成以下工作：<br>Karma启动一个web服务器，生成包含js源代码和js测试脚本的页面；<br>运行浏览器加载页面，并显示测试的结果；<br>如果开启检测，则当文件有修改时，执行继续执行以上过程。</p>
-<h1 id="搭建测试环境"><a href="#搭建测试环境" class="headerlink" title="搭建测试环境"></a>搭建测试环境</h1><p>npm install -g karma-cli //让全局都可以运行karma的命令行,命令行工具<br>npm i karma –save-dev //只在当前项目中使用karma<br>npm install //安装项目的依赖 package.json<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">&quot;devDependencies&quot;: &#123;</div><div class="line">    &quot;karma&quot;: &quot;^1.7.0&quot;,</div><div class="line">    &quot;karma-chrome-launcher&quot;: &quot;^2.2.0&quot;,</div><div class="line">    &quot;karma-mocha&quot;: &quot;^1.3.0&quot;,</div><div class="line">    &quot;mocha&quot;: &quot;^3.5.0&quot;,</div><div class="line">    &quot;should&quot;: &quot;^11.2.1&quot;</div><div class="line">  &#125;</div></pre></td></tr></table></figure></p>
-<p>karma init //在cmd中运行该命令,构建karma.conf.js文件,运行后会询问相关问题然后生成karma.conf.js文件<br><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div></pre></td><td class="code"><pre><div class="line">Which testing framework do you want to use ?</div><div class="line">Press tab to list possible options. Enter to move to the next question.</div><div class="line">&gt; mocha //选择要使用的框架,不能直接输入,是选择题,点击键盘箭头可更改选项</div><div class="line"></div><div class="line">Do you want to use Require.js ?</div><div class="line">This will add Require.js plugin.</div><div class="line">Press tab to list possible options. Enter to move to the next question.</div><div class="line">&gt; no  //是否add Require.js plugin</div><div class="line"></div><div class="line">Do you want to capture any browsers automatically ?</div><div class="line">Press tab to list possible options. Enter empty string to move to the next quest</div><div class="line">ion.</div><div class="line">&gt; Chrome //选择用哪个浏览器打开测试页，也是选择题，不能输入</div><div class="line">&gt;</div><div class="line"></div><div class="line">What is the location of your source and test files ?</div><div class="line">You can use glob patterns, eg. "js/*.js" or "test/**/*Spec.js".</div><div class="line">Enter empty string to move to the next question.</div><div class="line">&gt; src/*.js  //添加要测试的代码的路径，不是测试用例代码的路径，同时，代码中用到的其他文件也在这里同时添加，</div><div class="line">11 08 2017 15:03:13.822:WARN [init]: There is no file matching this pattern.</div><div class="line"></div><div class="line">&gt; //	回车可以切换下一行继续添加，连续回车进入下一个问题</div><div class="line"></div><div class="line">Should any of the files included by the previous patterns be excluded ?</div><div class="line">You can use glob patterns, eg. "**/*.swp".</div><div class="line">Enter empty string to move to the next question.</div><div class="line">&gt;</div><div class="line"></div><div class="line">Do you want Karma to watch all the files and run the tests on change ?</div><div class="line">Press tab to list possible options.</div><div class="line">&gt; yes //是否跟所有文件自动开启测试</div><div class="line"></div><div class="line"></div><div class="line">Config file generated at "G:\css\homework1\karma.conf.js".</div></pre></td></tr></table></figure></p>
-<p>karma.conf.js文件<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div></pre></td><td class="code"><pre><div class="line">module.exports = function(config) &#123;</div><div class="line">  config.set(&#123;</div><div class="line"></div><div class="line">    // base path that will be used to resolve all patterns (eg. files, exclude)</div><div class="line">    basePath: &apos;&apos;,//根路径，后面配置的基本所有相对路径都会根据这个路径来构造。</div><div class="line"></div><div class="line"></div><div class="line">    // frameworks to use 使用到的框架</div><div class="line">    // available frameworks: https://npmjs.org/browse/keyword/karma-adapter</div><div class="line">    frameworks: [&apos;mocha&apos;],</div><div class="line"></div><div class="line"></div><div class="line">    // list of files / patterns to load in the browser  将会在浏览器里面执行的代码</div><div class="line">    files: [</div><div class="line">      &apos;node_modules/should/should.js&apos;,</div><div class="line">      &apos;js/*.js&apos;,</div><div class="line">      &apos;quz/*.js&apos;,</div><div class="line">      &apos;test/*.js&apos;</div><div class="line">    ],</div><div class="line"></div><div class="line"></div><div class="line">    // list of files to exclude 需要从 files 中排除掉的文件</div><div class="line">    exclude: [</div><div class="line">    ],</div><div class="line"></div><div class="line"></div><div class="line">    // preprocess matching files before serving them to the browser需要做预处理的文件，以及这些文件对应的预处理器。</div><div class="line">    // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor</div><div class="line">    preprocessors: &#123;////此处就可以将 coffee 、 ES6 等代码转换一下。</div><div class="line">        &apos;js/*.js&apos;: [&apos;coverage&apos;],//测试覆盖率</div><div class="line">        &apos;quz/*.js&apos;: [&apos;coverage&apos;]//测试覆盖率</div><div class="line">    &#125;,</div><div class="line"></div><div class="line"></div><div class="line">    // test results reporter to use 测试结果报告器</div><div class="line">    // possible values: &apos;dots&apos;, &apos;progress&apos;</div><div class="line">    // available reporters: https://npmjs.org/browse/keyword/karma-reporter</div><div class="line">    reporters: [&apos;progress&apos;, &apos;coverage&apos;],</div><div class="line"></div><div class="line">     // 覆盖率报告器配置</div><div class="line">    coverageReporter: &#123;</div><div class="line">      type : &apos;lcov&apos;, //html格式会生成html文件，lcov格式可以和coveralls结合生成coveralls徽章</div><div class="line">      dir : &apos;coverage/&apos;</div><div class="line">    &#125;,</div><div class="line"></div><div class="line">    // web server port 服务器端口号</div><div class="line">    port: 9876,</div><div class="line"></div><div class="line"></div><div class="line">    // enable / disable colors in the output (reporters and logs)</div><div class="line">    colors: true,</div><div class="line"></div><div class="line"></div><div class="line">    // level of logging 日志级别</div><div class="line">    // possible values: config.LOG_DISABLE || config.LOG_ERROR || config.LOG_WARN || config.LOG_INFO || config.LOG_DEBUG</div><div class="line">    logLevel: config.LOG_INFO,</div><div class="line"></div><div class="line"></div><div class="line">    // enable / disable watching file and executing tests whenever any file changes 启用/禁用监视文件变化重新执行测试的功能</div><div class="line">    autoWatch: true,</div><div class="line"></div><div class="line"></div><div class="line">    // start these browsers 使用的浏览器</div><div class="line">    // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher</div><div class="line">    browsers: [&apos;Chrome&apos;],</div><div class="line"></div><div class="line"></div><div class="line">    // Continuous Integration mode true测试一次就结束,false测试完一直处于测试状态</div><div class="line">    // if true, Karma captures browsers, runs the tests and exits</div><div class="line">    singleRun: true,</div><div class="line"></div><div class="line">    // Concurrency level</div><div class="line">    // how many browser should be started simultaneous</div><div class="line">    concurrency: Infinity</div><div class="line">  &#125;)</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<h1 id="集成测试Travis-CI"><a href="#集成测试Travis-CI" class="headerlink" title="集成测试Travis CI"></a>集成测试Travis CI</h1><p><a href="/post/knowledge/TravishCI.html">Travish CI使用</a><br>通过Travis CI测试我们可以获得一个测试通过的标志<a href="https://travis-ci.org/YooHannah/homework1" target="_blank" rel="external"><img src="https://travis-ci.org/YooHannah/homework1.svg?branch=develop" alt="Build Status"></a>，可以将它放在github仓库readme.md文件里面<br><img src="/image/coverage1.png" alt="coverage1"><br>更改链接中branch的值可以获得对应分支的测试结果</p>
-<h1 id="测试代码覆盖率-Coverage"><a href="#测试代码覆盖率-Coverage" class="headerlink" title="测试代码覆盖率 Coverage"></a>测试代码覆盖率 Coverage</h1><p>衡量测试脚本的质量–代码覆盖率:测试中运行到的代码占所有代码的比率</p>
-<p>安装测试覆盖率工具<br>npm i –save-dev karma-coverage</p>
-<p>修改配置文件karma.conf.js<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">// modified</div><div class="line">preprocessors: &#123;</div><div class="line">    &apos;src/**/*.js&apos;: [&apos;coverage&apos;], //要测试的功能代码路径：[&apos;coverage&apos;]   多个文件夹就逗号隔开，按格式写下去</div><div class="line">    &apos;js/*.js&apos;: [&apos;coverage&apos;],</div><div class="line">    &apos;quz/*.js&apos;: [&apos;coverage&apos;]</div><div class="line">&#125;,</div><div class="line"></div><div class="line">//modified</div><div class="line">reporters: [&apos;progress&apos;, &apos;coverage&apos;],</div><div class="line"></div><div class="line">// add</div><div class="line">coverageReporter: &#123;</div><div class="line">  type : &apos;html&apos;,</div><div class="line">  dir : &apos;coverage/&apos;</div><div class="line">&#125;,</div></pre></td></tr></table></figure></p>
-<p>运行karma start,会新增coverage文件夹,里面只有一个浏览器名的文件夹，里面是根据preprocessors添加的路径生成对应的文件夹和其他文件，<br>其他文件里面有index.html文件，是整个测试的测试报告，文件夹里是每个文件的覆盖测试结果和代码具体的覆盖情况</p>
-<p>注意：如果不想将测试结果上传github,记得更改.gitignore文件，将coverage文件夹忽略掉</p>
-<h1 id="获取覆盖率标志"><a href="#获取覆盖率标志" class="headerlink" title="获取覆盖率标志"></a>获取覆盖率标志</h1><p>github 仓库经常会看到这个标志<br><img src="/image/coverage2.png" alt="coverage2"><br>就是说项目的测试覆盖率是91%，要获取这个标志我们需要将测试覆盖率放到<a href="https://coveralls.io" target="_blank" rel="external">Coveralls</a>上</p>
-<p>安装 coveralls方便我们在Travis CI上测试完之后将结果上传<br>npm i coveralls –save-dev</p>
-<p>更改karma.conf.js<br>coverageReporter: {<br>  type : ‘lcov’, //将html改为lcov<br>  dir : ‘coverage/‘<br>},<br>接下来操作步骤可以有两种<br>方法一：<br>仅更改 package.json文件,不保留测试命令karma start<br>更改package.json的scripts<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&quot;scripts&quot;: &#123;</div><div class="line">    &quot;test&quot;: &quot;./node_modules/karma/bin/karma start --browsers Firefox --single-run &amp;&amp; find coverage -name lcov.info -print0 | xargs -0 cat | ./node_modules/coveralls/bin/coveralls.js &amp;&amp; rm -rf ./coverage&quot;</div><div class="line">  &#125;</div></pre></td></tr></table></figure></p>
-<p>方法二：<br>更改package.json文件,保留测试命令karma start<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&quot;scripts&quot;: &#123;</div><div class="line">		&quot;test&quot;: &quot;karma start&quot;,</div><div class="line">    &quot;report&quot;: &quot;find coverage -name lcov.info -print0 | xargs -0 cat | ./node_modules/coveralls/bin/coveralls.js &amp;&amp; rm -rf ./coverage&quot;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>也要更改.travis.yml文件，添加以下语句<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">after_success:</div><div class="line">  - &quot;npm run report&quot;</div></pre></td></tr></table></figure></p>
-<p>然后push代码，等Travi CI 完成测试后，我们可以在<a href="https://coveralls.io" target="_blank" rel="external">Coveralls</a>上获取标志,<br>在总的测试结果那个页面不是具体某次提交的页面获取<br><img src="/image/coverage3.png" alt="coverage3"><br>点击EMBED可以获取不同格式的标志代码，<br>复制粘贴MARKDOWN 格式可以放在readme.md文件中直接使用</p>
-<p>相关链接：<br><a href="https://csbun.github.io/blog/2015/11/karma/" target="_blank" rel="external">使用 Karma 在真实浏览器上测试</a><br><a href="https://segmentfault.com/a/1190000006895064" target="_blank" rel="external">前端单元测试之Karma环境搭建</a><br><a href="https://imweb.io/topic/5833d14cf8a1d5546059a301" target="_blank" rel="external">前端自动化测试解决方案探析</a></p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
   <link itemprop="mainEntityOfPage" href="http://yoohannah.github.io/post/test/assert.html">
 
   <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1616,7 +1600,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="http://yoohannah.github.io/post/js/var.html">
+  <link itemprop="mainEntityOfPage" href="http://yoohannah.github.io/post/test/Karmatest.html">
 
   <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
     <meta itemprop="name" content="YooHannah">
@@ -1641,8 +1625,8 @@
             
               
                 
-                <a class="post-title-link" href="/post/js/var.html" itemprop="url">
-                  变量提升
+                <a class="post-title-link" href="/post/test/Karmatest.html" itemprop="url">
+                  Karma test
                 </a>
               
             
@@ -1656,8 +1640,8 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-08-09T22:02:37+08:00">
-                2017-08-09
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-08-12T23:54:02+08:00">
+                2017-08-12
               </time>
             
 
@@ -1694,29 +1678,23 @@
       
         
           
-            <p>一个变量的生成需要经历 创建、初始化、赋值三个阶段<br>let 的「创建」过程被提升了，但是初始化没有提升。<br>var 的「创建」和「初始化」都被提升了。<br>function 的「创建」「初始化」和「赋值」都被提升了。<br>const，其实 const 和 let 只有一个区别，那就是 const 只有「创建」和「初始化」，没有「赋值」过程。<br><a href="https://zhuanlan.zhihu.com/p/28140450" target="_blank" rel="external">let</a><br>1、<br>假设有如下代码：</p>
-<p>function fn(){<br>  var x = 1<br>  var y = 2<br>}<br>fn()</p>
-<p>在执行 fn 时，会有以下过程（不完全）：</p>
-<p>进入 fn，为 fn 创建一个环境。<br>找到 fn 中所有用 var 声明的变量，在这个环境中「创建」这些变量（即 x 和 y）。<br>将这些变量「初始化」为 undefined。<br>开始执行代码<br>x = 1 将 x 变量「赋值」为 1<br>y = 2 将 y 变量「赋值」为 2<br>也就是说 var 声明会在代码执行之前就将「创建变量，并将其初始化为 undefined」。</p>
-<p>这就解释了为什么在 var x = 1 之前 console.log(x) 会得到 undefined。</p>
-<p>2、<br>fn2()</p>
-<p>function fn2(){<br>  console.log(2)<br>}<br>JS 引擎会有一下过程：</p>
-<p>找到所有用 function 声明的变量，在环境中「创建」这些变量。<br>将这些变量「初始化」并「赋值」为 function(){ console.log(2) }。<br>开始执行代码 fn2()<br>也就是说 function 声明会在代码执行之前就「创建、初始化并赋值」<br>3、<br>{<br>  let x = 1<br>  x = 2<br>}<br>只看 {} 里面的过程：</p>
-<p>找到所有用 let 声明的变量，在环境中「创建」这些变量<br>开始执行代码（注意现在还没有初始化）<br>执行 x = 1，将 x 「初始化」为 1（这并不是一次赋值，如果代码是 let x，就将 x 初始化为 undefined）<br>执行 x = 2，对 x 进行「赋值」<br>这就解释了为什么在 let x 之前使用 x 会报错：</p>
-<p>let x = ‘global’<br>{<br>  console.log(x) // Uncaught ReferenceError: x is not defined<br>  let x = 1<br>}<br>原因有两个</p>
-<p>console.log(x) 中的 x 指的是下面的 x，而不是全局的 x<br>执行 log 时 x 还没「初始化」，所以不能使用（也就是所谓的暂时死区）</p>
-<p>补充<br>1.<br>在进入一个执行环境后，先把 var 和 function 声明的变量前置， 再去顺序执行代码<br>是 var 声明在前还是 function 声明的在前？按先来后到，同名覆盖。当然如果一个变量已经有值，再 var 是无效的<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">var fn</div><div class="line">function fn()&#123;&#125;</div><div class="line"></div><div class="line">console.log(fn)  //function</div><div class="line"></div><div class="line">function fn()&#123;&#125;</div><div class="line">var fn   //已经声明过 fn， 再 var 无效，并不会重置为 undefined</div><div class="line"></div><div class="line">console.log(fn)  //function</div></pre></td></tr></table></figure></p>
-<p>2.<br>函数在执行的过程中，先从自己内部找变量<br>如果找不到，再从创建当前函数所在的作用域去找, 以此往上<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line">var a = 1</div><div class="line">function fn1()&#123;</div><div class="line">  function fn2()&#123;</div><div class="line">    console.log(a)</div><div class="line">  &#125;</div><div class="line">  var a = 2</div><div class="line">  return fn2</div><div class="line">&#125;</div><div class="line">var fn = fn1()</div><div class="line">fn() //输出多少 2</div><div class="line">////////////////////////////////</div><div class="line">var a = 1</div><div class="line">function fn1()&#123;</div><div class="line">  var a = 2</div><div class="line">  return fn2</div><div class="line">&#125;</div><div class="line">function fn2()&#123;</div><div class="line">  console.log(a)</div><div class="line">&#125;</div><div class="line">var fn = fn1()</div><div class="line">fn() //输出多少 1</div></pre></td></tr></table></figure></p>
-<h1 id="相关"><a href="#相关" class="headerlink" title="相关"></a>相关</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">var a = &#123;n:1&#125;;</div><div class="line">var b = a;</div><div class="line">a.x = a = &#123;n:2&#125;;</div><div class="line">console.log(a)//&#123;n:2&#125;</div><div class="line">console.log(b)//&#123;n:1,x:&#123;n:2&#125;&#125;</div></pre></td></tr></table></figure>
-<p>a.x = a = {n:2};执行顺序</p>
-<ol>
-<li>a.x,这时a,b指向{n:1},增加x,属性，但值为undefined，即这时a,b为{n:1,x:undefined}</li>
-</ol>
-<p>2.a={n:2},a这时指向{n:2},b依然为{n:1,x:undefined}</p>
-<p>3.a.x = a;这时的x是{n:1,x:undefined}中的x,指向a,此时a指向{n:2}</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">a==1 &amp;&amp; a==2 &amp;&amp; a==3</div></pre></td></tr></table></figure>
-<p>可能为true<br>关键在于==在比较两端之前会调用对象的valueof,toString等方法，只要a对象中的toString方法有递增值返回就可以实现<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">const a = &#123;</div><div class="line">  i: 1,</div><div class="line">  toString: function () &#123;</div><div class="line">    return a.i++;</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>立即执行函数的目的<br>造出一个函数作用域，防止污染全局变量<br>ES 6 新语法<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">let name</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+            <h1 id="Karma-test"><a href="#Karma-test" class="headerlink" title="Karma test"></a>Karma test</h1><p>Karma是由Google团队开发的一套前端测试运行框架。它不同于测试框架（例如jasmine，mocha等），运行在这些测试框架之上。主要完成以下工作：<br>Karma启动一个web服务器，生成包含js源代码和js测试脚本的页面；<br>运行浏览器加载页面，并显示测试的结果；<br>如果开启检测，则当文件有修改时，执行继续执行以上过程。</p>
+<h1 id="搭建测试环境"><a href="#搭建测试环境" class="headerlink" title="搭建测试环境"></a>搭建测试环境</h1><p>npm install -g karma-cli //让全局都可以运行karma的命令行,命令行工具<br>npm i karma –save-dev //只在当前项目中使用karma<br>npm install //安装项目的依赖 package.json<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">&quot;devDependencies&quot;: &#123;</div><div class="line">    &quot;karma&quot;: &quot;^1.7.0&quot;,</div><div class="line">    &quot;karma-chrome-launcher&quot;: &quot;^2.2.0&quot;,</div><div class="line">    &quot;karma-mocha&quot;: &quot;^1.3.0&quot;,</div><div class="line">    &quot;mocha&quot;: &quot;^3.5.0&quot;,</div><div class="line">    &quot;should&quot;: &quot;^11.2.1&quot;</div><div class="line">  &#125;</div></pre></td></tr></table></figure></p>
+<p>karma init //在cmd中运行该命令,构建karma.conf.js文件,运行后会询问相关问题然后生成karma.conf.js文件<br><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div></pre></td><td class="code"><pre><div class="line">Which testing framework do you want to use ?</div><div class="line">Press tab to list possible options. Enter to move to the next question.</div><div class="line">&gt; mocha //选择要使用的框架,不能直接输入,是选择题,点击键盘箭头可更改选项</div><div class="line"></div><div class="line">Do you want to use Require.js ?</div><div class="line">This will add Require.js plugin.</div><div class="line">Press tab to list possible options. Enter to move to the next question.</div><div class="line">&gt; no  //是否add Require.js plugin</div><div class="line"></div><div class="line">Do you want to capture any browsers automatically ?</div><div class="line">Press tab to list possible options. Enter empty string to move to the next quest</div><div class="line">ion.</div><div class="line">&gt; Chrome //选择用哪个浏览器打开测试页，也是选择题，不能输入</div><div class="line">&gt;</div><div class="line"></div><div class="line">What is the location of your source and test files ?</div><div class="line">You can use glob patterns, eg. "js/*.js" or "test/**/*Spec.js".</div><div class="line">Enter empty string to move to the next question.</div><div class="line">&gt; src/*.js  //添加要测试的代码的路径，不是测试用例代码的路径，同时，代码中用到的其他文件也在这里同时添加，</div><div class="line">11 08 2017 15:03:13.822:WARN [init]: There is no file matching this pattern.</div><div class="line"></div><div class="line">&gt; //	回车可以切换下一行继续添加，连续回车进入下一个问题</div><div class="line"></div><div class="line">Should any of the files included by the previous patterns be excluded ?</div><div class="line">You can use glob patterns, eg. "**/*.swp".</div><div class="line">Enter empty string to move to the next question.</div><div class="line">&gt;</div><div class="line"></div><div class="line">Do you want Karma to watch all the files and run the tests on change ?</div><div class="line">Press tab to list possible options.</div><div class="line">&gt; yes //是否跟所有文件自动开启测试</div><div class="line"></div><div class="line"></div><div class="line">Config file generated at "G:\css\homework1\karma.conf.js".</div></pre></td></tr></table></figure></p>
+<p>karma.conf.js文件<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div></pre></td><td class="code"><pre><div class="line">module.exports = function(config) &#123;</div><div class="line">  config.set(&#123;</div><div class="line"></div><div class="line">    // base path that will be used to resolve all patterns (eg. files, exclude)</div><div class="line">    basePath: &apos;&apos;,//根路径，后面配置的基本所有相对路径都会根据这个路径来构造。</div><div class="line"></div><div class="line"></div><div class="line">    // frameworks to use 使用到的框架</div><div class="line">    // available frameworks: https://npmjs.org/browse/keyword/karma-adapter</div><div class="line">    frameworks: [&apos;mocha&apos;],</div><div class="line"></div><div class="line"></div><div class="line">    // list of files / patterns to load in the browser  将会在浏览器里面执行的代码</div><div class="line">    files: [</div><div class="line">      &apos;node_modules/should/should.js&apos;,</div><div class="line">      &apos;js/*.js&apos;,</div><div class="line">      &apos;quz/*.js&apos;,</div><div class="line">      &apos;test/*.js&apos;</div><div class="line">    ],</div><div class="line"></div><div class="line"></div><div class="line">    // list of files to exclude 需要从 files 中排除掉的文件</div><div class="line">    exclude: [</div><div class="line">    ],</div><div class="line"></div><div class="line"></div><div class="line">    // preprocess matching files before serving them to the browser需要做预处理的文件，以及这些文件对应的预处理器。</div><div class="line">    // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor</div><div class="line">    preprocessors: &#123;////此处就可以将 coffee 、 ES6 等代码转换一下。</div><div class="line">        &apos;js/*.js&apos;: [&apos;coverage&apos;],//测试覆盖率</div><div class="line">        &apos;quz/*.js&apos;: [&apos;coverage&apos;]//测试覆盖率</div><div class="line">    &#125;,</div><div class="line"></div><div class="line"></div><div class="line">    // test results reporter to use 测试结果报告器</div><div class="line">    // possible values: &apos;dots&apos;, &apos;progress&apos;</div><div class="line">    // available reporters: https://npmjs.org/browse/keyword/karma-reporter</div><div class="line">    reporters: [&apos;progress&apos;, &apos;coverage&apos;],</div><div class="line"></div><div class="line">     // 覆盖率报告器配置</div><div class="line">    coverageReporter: &#123;</div><div class="line">      type : &apos;lcov&apos;, //html格式会生成html文件，lcov格式可以和coveralls结合生成coveralls徽章</div><div class="line">      dir : &apos;coverage/&apos;</div><div class="line">    &#125;,</div><div class="line"></div><div class="line">    // web server port 服务器端口号</div><div class="line">    port: 9876,</div><div class="line"></div><div class="line"></div><div class="line">    // enable / disable colors in the output (reporters and logs)</div><div class="line">    colors: true,</div><div class="line"></div><div class="line"></div><div class="line">    // level of logging 日志级别</div><div class="line">    // possible values: config.LOG_DISABLE || config.LOG_ERROR || config.LOG_WARN || config.LOG_INFO || config.LOG_DEBUG</div><div class="line">    logLevel: config.LOG_INFO,</div><div class="line"></div><div class="line"></div><div class="line">    // enable / disable watching file and executing tests whenever any file changes 启用/禁用监视文件变化重新执行测试的功能</div><div class="line">    autoWatch: true,</div><div class="line"></div><div class="line"></div><div class="line">    // start these browsers 使用的浏览器</div><div class="line">    // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher</div><div class="line">    browsers: [&apos;Chrome&apos;],</div><div class="line"></div><div class="line"></div><div class="line">    // Continuous Integration mode true测试一次就结束,false测试完一直处于测试状态</div><div class="line">    // if true, Karma captures browsers, runs the tests and exits</div><div class="line">    singleRun: true,</div><div class="line"></div><div class="line">    // Concurrency level</div><div class="line">    // how many browser should be started simultaneous</div><div class="line">    concurrency: Infinity</div><div class="line">  &#125;)</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h1 id="集成测试Travis-CI"><a href="#集成测试Travis-CI" class="headerlink" title="集成测试Travis CI"></a>集成测试Travis CI</h1><p><a href="/post/knowledge/TravishCI.html">Travish CI使用</a><br>通过Travis CI测试我们可以获得一个测试通过的标志<a href="https://travis-ci.org/YooHannah/homework1" target="_blank" rel="external"><img src="https://travis-ci.org/YooHannah/homework1.svg?branch=develop" alt="Build Status"></a>，可以将它放在github仓库readme.md文件里面<br><img src="/image/coverage1.png" alt="coverage1"><br>更改链接中branch的值可以获得对应分支的测试结果</p>
+<h1 id="测试代码覆盖率-Coverage"><a href="#测试代码覆盖率-Coverage" class="headerlink" title="测试代码覆盖率 Coverage"></a>测试代码覆盖率 Coverage</h1><p>衡量测试脚本的质量–代码覆盖率:测试中运行到的代码占所有代码的比率</p>
+<p>安装测试覆盖率工具<br>npm i –save-dev karma-coverage</p>
+<p>修改配置文件karma.conf.js<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">// modified</div><div class="line">preprocessors: &#123;</div><div class="line">    &apos;src/**/*.js&apos;: [&apos;coverage&apos;], //要测试的功能代码路径：[&apos;coverage&apos;]   多个文件夹就逗号隔开，按格式写下去</div><div class="line">    &apos;js/*.js&apos;: [&apos;coverage&apos;],</div><div class="line">    &apos;quz/*.js&apos;: [&apos;coverage&apos;]</div><div class="line">&#125;,</div><div class="line"></div><div class="line">//modified</div><div class="line">reporters: [&apos;progress&apos;, &apos;coverage&apos;],</div><div class="line"></div><div class="line">// add</div><div class="line">coverageReporter: &#123;</div><div class="line">  type : &apos;html&apos;,</div><div class="line">  dir : &apos;coverage/&apos;</div><div class="line">&#125;,</div></pre></td></tr></table></figure></p>
+<p>运行karma start,会新增coverage文件夹,里面只有一个浏览器名的文件夹，里面是根据preprocessors添加的路径生成对应的文件夹和其他文件，<br>其他文件里面有index.html文件，是整个测试的测试报告，文件夹里是每个文件的覆盖测试结果和代码具体的覆盖情况</p>
+<p>注意：如果不想将测试结果上传github,记得更改.gitignore文件，将coverage文件夹忽略掉</p>
+<h1 id="获取覆盖率标志"><a href="#获取覆盖率标志" class="headerlink" title="获取覆盖率标志"></a>获取覆盖率标志</h1><p>github 仓库经常会看到这个标志<br><img src="/image/coverage2.png" alt="coverage2"><br>就是说项目的测试覆盖率是91%，要获取这个标志我们需要将测试覆盖率放到<a href="https://coveralls.io" target="_blank" rel="external">Coveralls</a>上</p>
+<p>安装 coveralls方便我们在Travis CI上测试完之后将结果上传<br>npm i coveralls –save-dev</p>
+<p>更改karma.conf.js<br>coverageReporter: {<br>  type : ‘lcov’, //将html改为lcov<br>  dir : ‘coverage/‘<br>},<br>接下来操作步骤可以有两种<br>方法一：<br>仅更改 package.json文件,不保留测试命令karma start<br>更改package.json的scripts<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&quot;scripts&quot;: &#123;</div><div class="line">    &quot;test&quot;: &quot;./node_modules/karma/bin/karma start --browsers Firefox --single-run &amp;&amp; find coverage -name lcov.info -print0 | xargs -0 cat | ./node_modules/coveralls/bin/coveralls.js &amp;&amp; rm -rf ./coverage&quot;</div><div class="line">  &#125;</div></pre></td></tr></table></figure></p>
+<p>方法二：<br>更改package.json文件,保留测试命令karma start<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&quot;scripts&quot;: &#123;</div><div class="line">		&quot;test&quot;: &quot;karma start&quot;,</div><div class="line">    &quot;report&quot;: &quot;find coverage -name lcov.info -print0 | xargs -0 cat | ./node_modules/coveralls/bin/coveralls.js &amp;&amp; rm -rf ./coverage&quot;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>也要更改.travis.yml文件，添加以下语句<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">after_success:</div><div class="line">  - &quot;npm run report&quot;</div></pre></td></tr></table></figure></p>
+<p>然后push代码，等Travi CI 完成测试后，我们可以在<a href="https://coveralls.io" target="_blank" rel="external">Coveralls</a>上获取标志,<br>在总的测试结果那个页面不是具体某次提交的页面获取<br><img src="/image/coverage3.png" alt="coverage3"><br>点击EMBED可以获取不同格式的标志代码，<br>复制粘贴MARKDOWN 格式可以放在readme.md文件中直接使用</p>
+<p>相关链接：<br><a href="https://csbun.github.io/blog/2015/11/karma/" target="_blank" rel="external">使用 Karma 在真实浏览器上测试</a><br><a href="https://segmentfault.com/a/1190000006895064" target="_blank" rel="external">前端单元测试之Karma环境搭建</a><br><a href="https://imweb.io/topic/5833d14cf8a1d5546059a301" target="_blank" rel="external">前端自动化测试解决方案探析</a></p>
 
           
         
@@ -1791,7 +1769,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">161</span>
+              <span class="site-state-item-count">162</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>

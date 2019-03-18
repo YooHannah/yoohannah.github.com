@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoohannah.github.io/"/>
-  <updated>2019-03-10T09:11:11.541Z</updated>
+  <updated>2019-03-18T00:00:58.433Z</updated>
   <id>http://yoohannah.github.io/</id>
   
   <author>
@@ -14,6 +14,55 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title></title>
+    <link href="http://yoohannah.github.io/post/knowledge/reactNativeKnowledge.html"/>
+    <id>http://yoohannah.github.io/post/knowledge/reactNativeKnowledge.html</id>
+    <published>2019-03-11T14:21:16.953Z</published>
+    <updated>2019-03-18T00:00:58.433Z</updated>
+    
+    <content type="html"><![CDATA[<p>title: react Native 基础知识<br>date: 2019-03-04 22:50:37<br>tags: js</p>
+<h1 id="常用标签"><a href="#常用标签" class="headerlink" title="常用标签"></a>常用标签</h1><p>Text:用来显示文本<br>View:相当于div或者span这样的容器，常用作其他组件的容器，来帮助控制布局和样式<br>Image:显示图片，属性source指定图片地址，也可以使用style属性控制尺寸</p>
+<h1 id="知识点"><a href="#知识点" class="headerlink" title="知识点"></a>知识点</h1><p>props:子组件通过this.props拿到父组件使用子组件时传递进来的属性值<br>state:自定义组件控制内部逻辑的变量，同react的state,在constructor里面初始化<br>StyleSheet:使用StyleSheet.create()创建样式，相当于style标签,不过使用时在style中使用<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line">import React, &#123; Component &#125; from &apos;react&apos;;</div><div class="line">import &#123; AppRegistry, StyleSheet, Text, View &#125; from &apos;react-native&apos;;</div><div class="line"></div><div class="line">export default class LotsOfStyles extends Component &#123;</div><div class="line">  render() &#123;</div><div class="line">    return (</div><div class="line">      &lt;View&gt;</div><div class="line">        &lt;Text style=&#123;styles.red&#125;&gt;just red&lt;/Text&gt;</div><div class="line">        &lt;Text style=&#123;styles.bigBlue&#125;&gt;just bigBlue&lt;/Text&gt;</div><div class="line">        &lt;Text style=&#123;[styles.bigBlue, styles.red]&#125;&gt;bigBlue, then red&lt;/Text&gt;</div><div class="line">        &lt;Text style=&#123;[styles.red, styles.bigBlue]&#125;&gt;red, then bigBlue&lt;/Text&gt;</div><div class="line">      &lt;/View&gt;</div><div class="line">    );</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">const styles = StyleSheet.create(&#123;</div><div class="line">  bigBlue: &#123;</div><div class="line">    color: &apos;blue&apos;,</div><div class="line">    fontWeight: &apos;bold&apos;,</div><div class="line">    fontSize: 30,</div><div class="line">  &#125;,</div><div class="line">  red: &#123;</div><div class="line">    color: &apos;red&apos;,</div><div class="line">  &#125;,</div><div class="line">&#125;);</div></pre></td></tr></table></figure></p>
+<p>在style属性中可以直接写驼峰式CSS属性进行样式调整<br>但设置width和height是不带单位的，React Native 中的尺寸都是无单位的，表示的是与设备像素密度无关的逻辑像素点。</p>
+<h1 id="Text"><a href="#Text" class="headerlink" title="Text"></a>Text</h1><p>相当于span,但可以被’\n’换行<br>用作子元素时，<br>如果父元素为Text时，多个Text子元素尽可能放一行，一行装不下时，自动换行，子元素Text标签会继承父元素Text一部分样式<br>如果父元素为View时，每个Text子元素成为flex布局的一个块，当容器不够宽时，每个块自动换行，块与块之间不影响<br>必须把文本放在Text组件中，不能直接放在View中</p>
+<h2 id="属性"><a href="#属性" class="headerlink" title="属性"></a>属性</h2><p>selectable:是否可以长按选择文本，以便复制和粘贴<br>selectionColor[Andorid]：选中时高亮颜色<br>suppressHighlighting[IOS]：设为true时，当文本被按下会没有任何视觉效果。默认情况下，文本被按下时会有一个灰色的、椭圆形的高光<br>ellipsizeMode:表示当 Text 组件无法全部显示需要显示的字符串时如何用省略号进行修饰<br>————head ： 从文本内容头部截取显示省略号。例如： “…efg”<br>————middle ： 在文本内容中间截取显示省略号。例如： “ab…yz”<br>————tail ： 从文本内容尾部截取显示省略号。例如： “abcd…”<br>————clip ： 不显示省略号，直接从尾部截断。<br>numberOfLines:文本过长时，最多折叠多少行，执行ellipsizeMode设置的效果<br>onLayout：加载时或者布局变化以后调用，参数为：{nativeEvent: {layout: {x, y, width, height}}}<br>onLongPress：当文本被长按以后调用此回调函数<br>onPress：当文本被点击以后调用此回调函数。<br>llowFontScaling：制字体是否要根据系统的“字体大小”辅助选项来进行缩放。默认值为true。</p>
+<h1 id="TextInput"><a href="#TextInput" class="headerlink" title="TextInput"></a>TextInput</h1><p>有些属性仅在multiline为true或者为false的时候有效，例如当multiline=false时，为元素的某一个边添加边框样式（例如：borderBottomColor，borderLeftWidth等）将不会生效<br>在安卓上长按选择文本会导致windowSoftInputMode设置变为adjustResize，这样可能导致绝对定位的元素被键盘给顶起来。要解决这一问题你需要在AndroidManifest.xml中明确指定合适的windowSoftInputMode( <a href="https://developer.android.com/guide/topics/manifest/activity-element.html" target="_blank" rel="external">https://developer.android.com/guide/topics/manifest/activity-element.html</a> )值，或是自己监听事件来处理布局变化。</p>
+<h2 id="属性-1"><a href="#属性-1" class="headerlink" title="属性"></a>属性</h2><p>placeholder：同input<br>maxLength:限制文本框中最多的字符数。使用这个属性而不用JS逻辑去实现，可以避免闪烁的现象。<br>multiline:如果为true，文本框中可以输入多行文字。默认值为false。注意安卓上如果设置multiline = {true}，文本默认会垂直居中，可设置textAlignVertical: ‘top’样式来使其居顶显示<br>numberOfLines:设置输入框的行数<br>allowFontScaling:控制字体是否要根据系统的“字体大小”辅助选项来进行缩放。默认值为true。<br>autoCapitalize:控制TextInput是否要自动将特定字符切换为大写<br>————characters: 所有的字符。<br>————words: 每个单词的第一个字符。<br>————sentences: 每句话的第一个字符（默认）。<br>————none: 不切换。<br>autoCorrect：如果为false，会关闭拼写自动修正。默认值是true<br>autoFocus：如果为true，在componentDidMount后会获得焦点。默认值为false。<br>blurOnSubmit：如果为true，文本框会在提交的时候失焦。对于单行输入框默认值为true，多行则为false。注意：对于多行输入框来说，如果将blurOnSubmit设为true，则在按下回车键时就会失去焦点同时触发onSubmitEditing事件，而不会换行。<br>caretHidden：如果为true，则隐藏光标。默认值为false。<br>clearButtonMode：是否要在文本框右侧显示“清除”按钮。仅在单行模式下可用。默认值为never。<br>clearTextOnFocus：如果为true，每次开始输入的时候都会清除文本框的内容。<br>defaultValue：<br>提供一个文本框中的初始值。当用户开始输入的时候，值就可以改变。在一些简单的使用情形下，如果你不想用监听消息然后更新value属性的方法来保持属性和状态同步的时候，就可以用defaultValue来代替。<br>editable：如果为false，文本框是不可编辑的。默认值为true<br>enablesReturnKeyAutomatically：如果为true，键盘会在文本框内没有文字的时候禁用确认按钮。默认值为false。<br>inlineImageLeft：指定一个图片放置在左侧。图片必须放置在/android/app/src/main/res/drawable目录下，经过编译后按如下形式引用（无路径无后缀）<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&lt;TextInput</div><div class="line"> inlineImageLeft=&apos;search_icon&apos;</div><div class="line">/&gt;</div></pre></td></tr></table></figure></p>
+<p>inlineImagePadding:给放置在左侧的图片设置padding样式。<br>keyboardAppearance:指定键盘的颜色。<br>keyboardType:决定弹出何种软键盘类型</p>
+<h2 id="响应"><a href="#响应" class="headerlink" title="响应"></a>响应</h2><p>onBlur：当文本框失去焦点的时候调用此回调函数。<br>onChange：当文本框内容变化时调用此回调函数。回调参数为{ nativeEvent: { eventCount, target, text} }<br>onChangeText：当文本框内容变化时调用此回调函数。改变后的文字内容会作为参数传递。<br>onEndEditing：当文本输入结束后调用此回调函数。<br>onKeyPress：当一个键被按下的时候调用此回调。传递给回调函数的参数为{ nativeEvent: { key: keyValue } }，其中keyValue即为被按下的键。会在onChange之前调用。注意：在Android上只有软键盘会触发此事件，物理键盘不会触发。<br>onSubmitEditing：此回调函数当软键盘的确定/提交按钮被按下的时候调用此函数。如果multiline={true}，此属性不可用。</p>
+<h1 id="Button"><a href="#Button" class="headerlink" title="Button"></a>Button</h1><p>样式单一，可能不适合统一UI样式</p>
+<h2 id="属性-2"><a href="#属性-2" class="headerlink" title="属性"></a>属性</h2><p>title:按钮名<br>color：文本的颜色(iOS)，或是按钮的背景色(Android)<br>disabled：禁用</p>
+<h2 id="响应-1"><a href="#响应-1" class="headerlink" title="响应"></a>响应</h2><p>onPress:点击触发</p>
+<h2 id="TouchableHighlight"><a href="#TouchableHighlight" class="headerlink" title="TouchableHighlight"></a>TouchableHighlight</h2><p>用来封装可以点击的元素，来制作按钮或者链接。注意此组件的背景会在用户手指按下时变暗。<br>使其可以正确响应触摸操作。当按下的时候，封装的视图的不透明度会降低，同时会有一个底层的颜色透过而被用户看到，使得视图变暗或变亮<br>只支持一个子节点（不能没有子节点也不能多于一个）。如果你希望包含多个子组件，可以用一个View来包装它们</p>
+<h3 id="属性-3"><a href="#属性-3" class="headerlink" title="属性"></a>属性</h3><p>activeOpacity：指定封装的视图在被触摸操作激活时以多少不透明度显示（0到1之间，默认值为0.85）。需要设置underlayColor。<br>underlayColor：有触摸操作时显示出来的底层的颜色。</p>
+<h3 id="响应-2"><a href="#响应-2" class="headerlink" title="响应"></a>响应</h3><p>onHideUnderlay：底层的颜色被隐藏的时候调用。<br>onShowUnderlay：当底层的颜色被显示的时候调用。</p>
+<h2 id="TouchableNativeFeedback"><a href="#TouchableNativeFeedback" class="headerlink" title="TouchableNativeFeedback"></a>TouchableNativeFeedback</h2><p>用来封装可以点击的元素，在用户手指按下时形成类似墨水涟漪的视觉效果<br>它只支持一个单独的View实例作为子节点</p>
+<h3 id="属性-4"><a href="#属性-4" class="headerlink" title="属性"></a>属性</h3><p>background：决定在触摸反馈的时候显示什么类型的背景,它接受一个有着type属性和一些基于type属性的额外数据的对象。<br>一般用本组件的几个静态方法来创建这个对象<br>——————SelectableBackground()：创建一个对象，表示安卓主题默认的对于被选中对象的背景<br>——————SelectableBackgroundBorderless()：创建一个对象，表示安卓主题默认的对于被选中的无边框对象的背景<br>——————Ripple(color: string, borderless: boolean)：创建一个对象，当按钮被按下时产生一个涟漪状的背景，你可以通过color参数来指定颜色，如果参数borderless是true，那么涟漪还会渲染到视图的范围之外</p>
+<h1 id="ScrollView"><a href="#ScrollView" class="headerlink" title="ScrollView"></a>ScrollView</h1><p>一个通用的可滚动的容器，你可以在其中放入多个组件和视图，而且这些组件并不需要是同类型的,适合用来显示数量不多的滚动元素</p>
+<h2 id="属性-5"><a href="#属性-5" class="headerlink" title="属性"></a>属性</h2><p>horizontal：为true时，元素水平排列，默认false，垂直排列<br>scrollsToTop：当此值为true时，点击状态栏的时候视图会滚动到顶部。默认值为true<br>indicatorStyle：设置滚动条的样式。默认default 同black,’white’白色滚动条<br>overScrollMode：覆盖默认的overScroll模式<br>——————‘auto’ ： 默认值，允许用户在内容超出视图高度之后可以滚动视图。<br>——————‘always’ ： 无论内容尺寸，用户始终可以滚动视图。<br>——————‘never’ ： 始终不允许用户滚动视图。<br>stickyHeaderIndices：一个子视图下标的数组，用于决定哪些成员会在滚动之后固定在屏幕顶端。举个例子，传递stickyHeaderIndices={[0]}会让第一个成员固定在滚动视图顶端。这个属性不能和horizontal={true}一起使用。<br>scrollEnabled：当值为false的时候，内容不能滚动，默认值为true。注意即便禁止用户滚动，你也仍然可以调用scrollTo来滚动。<br>showsHorizontalScrollIndicator：为true的时候，显示一个水平方向的滚动条。<br>showsVerticalScrollIndicator：为true的时候，显示一个垂直方向的滚动条<br>refreshControl：用于为ScrollView提供下拉刷新功能。只能用于垂直视图，即horizontal不能为true。<br>pagingEnabled：当值为true时，滚动条会停在滚动视图的尺寸的整数倍位置。这个可以用在水平分页上。默认值为false。注意：垂直分页在Android上不支持。</p>
+<h2 id="响应-3"><a href="#响应-3" class="headerlink" title="响应"></a>响应</h2><p>onScrollBeginDrag：当用户开始拖动此视图时调用此函数<br>onScrollEndDrag：当用户停止拖动此视图时调用此函数。<br>onScroll：在滚动的过程中，每帧最多调用一次此回调函数。调用的频率可以用scrollEventThrottle属性来控制。<br>onMomentumScrollBegin:滚动动画开始时调用此函数。<br>onMomentumScrollEnd：滚动动画结束时调用此函数<br>scrollTo(([y]: number),([x]: number),([animated]: boolean),([duration]: number))：滚到指定位置时<br>scrollToEnd(([options]: {animated: boolean, duration: number}));滚到视图底部</p>
+<h2 id="FlatList"><a href="#FlatList" class="headerlink" title="FlatList"></a>FlatList</h2><p>用于显示一个垂直的滚动列表，其中的元素之间结构近似而仅数据不同<br>更适于长列表数据，且元素个数可以增删。和ScrollView不同的是，FlatList并不立即渲染所有元素，而是优先渲染屏幕上可见的元素。</p>
+<h3 id="属性-6"><a href="#属性-6" class="headerlink" title="属性"></a>属性</h3><p>data：数据源<br>renderItem：返回重复的子组件<br>ItemSeparatorComponent：行与行之间的分隔线组件。不会出现在第一行之前和最后一行之后。值是一个组件<br>ListEmptyComponent：列表为空时渲染该组件。<br>ListHeaderComponent：头部组件<br>ListFooterComponent：尾部组件。<br>horizontal：设置为 true 则变为水平布局模式</p>
+<p>extraData：如果有除data以外的数据用在列表中（不论是用在renderItem还是头部或者尾部组件中），请在此属性中指定。同时此数据在修改时也需要先修改其引用地址（比如先复制到一个新的 Object 或者数组中），然后再修改其值，否则界面很可能不会刷新。</p>
+<p>initialNumToRender：指定一开始渲染的元素数量，最好刚刚够填满一个屏幕，这样保证了用最短的时间给用户呈现可见的内容。注意这第一批次渲染的元素不会在滑动过程中被卸载，这样是为了保证用户执行返回顶部的操作时，不需要重新渲染首批元素</p>
+<p>initialScrollIndex:开始时屏幕顶端的元素是列表中的第 initialScrollIndex个元素, 而不是第一个元素。如果设置了这个属性，则第一批initialNumToRender范围内的元素不会再保留在内存里，而是直接立刻渲染位于 initialScrollIndex 位置的元素。需要先设置 getItemLayout 属性。</p>
+<p>keyExtractor:此函数用于为给定的 item 生成一个不重复的 key。Key 的作用是使 React 能够区分同类元素的不同个体，以便在刷新时能够确定其变化的位置，减少重新渲染的开销。若不指定此函数，则默认抽取item.key作为 key 值。若item.key也不存在，则使用数组下标。</p>
+<p>onEndReachedThreshold：决定当距离内容最底部还有多远时触发onEndReached回调。注意此参数是一个比值而非像素单位<br>refreshing：在等待加载新数据时将此属性设为 true，列表就会显示出一个正在加载的符号</p>
+<h2 id="响应-4"><a href="#响应-4" class="headerlink" title="响应"></a>响应</h2><p>onEndReached：当列表被滚动到距离内容最底部不足onEndReachedThreshold的距离时调用<br>onRefresh：如果设置了此选项，则会在列表头部添加一个标准的RefreshControl控件，以便实现“下拉刷新”的功能。同时你需要正确设置refreshing属性<br>onViewableItemsChanged：在可见行元素变化时调用。可见范围和变化频率等参数的配置请设置viewabilityConfig属性<br>scrollToOffset()：滚动列表到指定的偏移（以像素为单位），等同于ScrollView的scrollTo方法。</p>
+<h2 id="SectionList"><a href="#SectionList" class="headerlink" title="SectionList"></a>SectionList</h2><p>要渲染的是一组需要分组的数据，也许还带有分组标签的数据<br><a href="https://reactnative.cn/docs/sectionlist/" target="_blank" rel="external">文档</a></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;title: react Native 基础知识&lt;br&gt;date: 2019-03-04 22:50:37&lt;br&gt;tags: js&lt;/p&gt;
+&lt;h1 id=&quot;常用标签&quot;&gt;&lt;a href=&quot;#常用标签&quot; class=&quot;headerlink&quot; title=&quot;常用标签&quot;&gt;&lt;/a&gt;常
+    
+    </summary>
+    
+    
+  </entry>
   
   <entry>
     <title>webpack应用</title>
@@ -89,7 +138,7 @@
     <link href="http://yoohannah.github.io/post/knowledge/reactNativeCreat.html"/>
     <id>http://yoohannah.github.io/post/knowledge/reactNativeCreat.html</id>
     <published>2019-03-04T14:50:37.000Z</published>
-    <updated>2019-03-04T14:50:20.085Z</updated>
+    <updated>2019-03-11T14:22:20.419Z</updated>
     
     <content type="html"><![CDATA[<p>其实按照官网一步一步来就好了，也不用翻墙，基本上，就是耗时间<br>我配置的是window android环境<br><a href="https://reactnative.cn/docs/getting-started.html" target="_blank" rel="external">中文文档</a><br>1.安装node<br>可以直接使用nvm安装，但版本必须是8.<em>或者10.</em><br>带来的问题是，nvm切换版本后，npm可能找不到，可以直接用全局安装的yarn代替<br><a href="http://yuanhehe.cn/2017/06/11/npm-%E4%B8%8E-Yarn-%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E5%AF%B9%E6%AF%94/" target="_blank" rel="external">npm 与 Yarn 常用命令对比</a><br>或者直接将npm文件夹从能用的版本移到不能用的版本</p>
 <p>2.python2<br>官网说不支持Python3.X,因为很早之前安装的python没管，今天一看是3.*，能跑起来</p>
@@ -513,6 +562,36 @@
   </entry>
   
   <entry>
+    <title>触发render</title>
+    <link href="http://yoohannah.github.io/post/react/renderfire.html"/>
+    <id>http://yoohannah.github.io/post/react/renderfire.html</id>
+    <published>2018-12-22T03:40:37.000Z</published>
+    <updated>2018-12-22T03:42:29.036Z</updated>
+    
+    <content type="html"><![CDATA[<p>在react中，触发render的有4条路径。</p>
+<p>以下假设shouldComponentUpdate都是按照默认返回true的方式。</p>
+<p>首次渲染Initial Render</p>
+<p>调用this.setState （并不是一次setState会触发一次render，React可能会合并操作，再一次性进行render）</p>
+<p>父组件发生更新（一般就是props发生改变，但是就算props没有改变或者父子组件之间没有数据交换也会触发render）</p>
+<p>调用this.forceUpdate</p>
+<p><a href="https://www.cnblogs.com/AnnieBabygn/p/6560833.html" target="_blank" rel="external">https://www.cnblogs.com/AnnieBabygn/p/6560833.html</a></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;在react中，触发render的有4条路径。&lt;/p&gt;
+&lt;p&gt;以下假设shouldComponentUpdate都是按照默认返回true的方式。&lt;/p&gt;
+&lt;p&gt;首次渲染Initial Render&lt;/p&gt;
+&lt;p&gt;调用this.setState （并不是一次setState会
+    
+    </summary>
+    
+    
+      <category term="react" scheme="http://yoohannah.github.io/tags/react/"/>
+    
+  </entry>
+  
+  <entry>
     <title>vue对象属性</title>
     <link href="http://yoohannah.github.io/post/vue/basic/vueprops.html"/>
     <id>http://yoohannah.github.io/post/vue/basic/vueprops.html</id>
@@ -546,58 +625,6 @@
   </entry>
   
   <entry>
-    <title>定时器</title>
-    <link href="http://yoohannah.github.io/post/knowledge/clock.html"/>
-    <id>http://yoohannah.github.io/post/knowledge/clock.html</id>
-    <published>2018-12-22T03:40:37.000Z</published>
-    <updated>2018-12-22T05:00:44.717Z</updated>
-    
-    <content type="html"><![CDATA[<p>1.使用 setInterval<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">this.timerID = setInterval(fn, time);</div><div class="line">clearInterval(this.timerID);</div></pre></td></tr></table></figure></p>
-<p> 2.angular 中使用 $interval<br> <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">this.timerID = $interval(fn, time);</div><div class="line">$interval.cancel(this.timerID)</div></pre></td></tr></table></figure></p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;1.使用 setInterval&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;2&lt;/div&gt;
-    
-    </summary>
-    
-    
-      <category term="knowledge" scheme="http://yoohannah.github.io/tags/knowledge/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>触发render</title>
-    <link href="http://yoohannah.github.io/post/react/renderfire.html"/>
-    <id>http://yoohannah.github.io/post/react/renderfire.html</id>
-    <published>2018-12-22T03:40:37.000Z</published>
-    <updated>2018-12-22T03:42:29.036Z</updated>
-    
-    <content type="html"><![CDATA[<p>在react中，触发render的有4条路径。</p>
-<p>以下假设shouldComponentUpdate都是按照默认返回true的方式。</p>
-<p>首次渲染Initial Render</p>
-<p>调用this.setState （并不是一次setState会触发一次render，React可能会合并操作，再一次性进行render）</p>
-<p>父组件发生更新（一般就是props发生改变，但是就算props没有改变或者父子组件之间没有数据交换也会触发render）</p>
-<p>调用this.forceUpdate</p>
-<p><a href="https://www.cnblogs.com/AnnieBabygn/p/6560833.html" target="_blank" rel="external">https://www.cnblogs.com/AnnieBabygn/p/6560833.html</a></p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;在react中，触发render的有4条路径。&lt;/p&gt;
-&lt;p&gt;以下假设shouldComponentUpdate都是按照默认返回true的方式。&lt;/p&gt;
-&lt;p&gt;首次渲染Initial Render&lt;/p&gt;
-&lt;p&gt;调用this.setState （并不是一次setState会
-    
-    </summary>
-    
-    
-      <category term="react" scheme="http://yoohannah.github.io/tags/react/"/>
-    
-  </entry>
-  
-  <entry>
     <title>指令</title>
     <link href="http://yoohannah.github.io/post/vue/basic/commanders.html"/>
     <id>http://yoohannah.github.io/post/vue/basic/commanders.html</id>
@@ -621,6 +648,28 @@
     
     
       <category term="vue" scheme="http://yoohannah.github.io/tags/vue/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>定时器</title>
+    <link href="http://yoohannah.github.io/post/knowledge/clock.html"/>
+    <id>http://yoohannah.github.io/post/knowledge/clock.html</id>
+    <published>2018-12-22T03:40:37.000Z</published>
+    <updated>2018-12-22T05:00:44.717Z</updated>
+    
+    <content type="html"><![CDATA[<p>1.使用 setInterval<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">this.timerID = setInterval(fn, time);</div><div class="line">clearInterval(this.timerID);</div></pre></td></tr></table></figure></p>
+<p> 2.angular 中使用 $interval<br> <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">this.timerID = $interval(fn, time);</div><div class="line">$interval.cancel(this.timerID)</div></pre></td></tr></table></figure></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;1.使用 setInterval&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;2&lt;/div&gt;
+    
+    </summary>
+    
+    
+      <category term="knowledge" scheme="http://yoohannah.github.io/tags/knowledge/"/>
     
   </entry>
   
@@ -694,87 +743,6 @@
     <summary type="html">
     
       &lt;h1 id=&quot;数组的map方法&quot;&gt;&lt;a href=&quot;#数组的map方法&quot; class=&quot;headerlink&quot; title=&quot;数组的map方法&quot;&gt;&lt;/a&gt;数组的map方法&lt;/h1&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td cl
-    
-    </summary>
-    
-    
-      <category term="js" scheme="http://yoohannah.github.io/tags/js/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>js 知识点 一</title>
-    <link href="http://yoohannah.github.io/post/js/js1.html"/>
-    <id>http://yoohannah.github.io/post/js/js1.html</id>
-    <published>2018-12-08T01:29:37.000Z</published>
-    <updated>2019-01-22T13:48:53.953Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="1-lt-script-gt-标签几个属性"><a href="#1-lt-script-gt-标签几个属性" class="headerlink" title="1.&lt; script &gt; 标签几个属性"></a>1.&lt; script &gt; 标签几个属性</h1><p><b>async :</b>立即异步下载，因此不保证能够按指定的先后顺序执行，但会在load事件前，DOMContentLoad前后执行<br><b>defer :</b>延迟执行，也不保证按顺序执行，在DOMContentLoad前后执行<br><b>src :</b>外部文件链接<br><b>charset :</b>src指定代码的字符集，防止出现乱码<br><b>language :</b>已废弃，表示脚本语言，<br><b>type :</b>值为脚本语言内容类型（MIME），language替代属性，服务器传递过来类型为application/x-javascript需要注意，一个是可能导致脚本被忽略，另一个是可能触发浏览器XHTML标准模式；另外外链文件不是js文件时，一定要设置该值</p>
-<h1 id="2-js-代码执行过程"><a href="#2-js-代码执行过程" class="headerlink" title="2.js 代码执行过程"></a>2.js 代码执行过程</h1><p>包括两个部分一个是编译，或者叫预处理过程，一个是执行<br>编译过程 首先会创建一个全局作用域，然后进行词法分析，<br>词法分析过程会涉及到变量提升和函数声明提前处理，<br>即词法分析到变量声明会先判断当前域到全局域有没有该变量声明，如果有，就会将该变量挂到该作用域的对象上，<br>如果到全局域都没有则以全局为背景，新建该变量，并为其分配内存，<br>对于基本类型，变量中会保存它的值，对于对象，变量中会保存值所在内存的内存地址，<br>在一定场景下，这里就相当于发生了变量提升，把变量从局部提升到了全局，或者将声明提前到了使用之前，<br><b>避免变量提升</b>可以使用es6的let 关键字或者使用立即执行实现变量声明使用，但要注意使用let重复声明会报错，var 会同名覆盖；<br>当遇到函数声明时，会直接按声明顺序，将声明提前到代码顶端，<br><b>重复声明</b> 的函数会被后者覆盖，<br>如果变量名与函数名相同，则无论原来词法位置如何，先将函数声明提前到顶端，不再进行变量声明，变量名在哪赋值，则原函数在哪被覆盖，<br>覆盖之前调用使用原函数<br>提前之后会为函数创建作用域，<br>这时创建的作用域就是函数的 【【scope】】属性，保存着指向父域到全局域的指针<br>（指针就是指向活动对象的一个地址，全局域浏览器环境就是windows,nodejs环境就是global）<br>将来执行时会根据此指针建立作用域链，作用域链就是指针列表，指向不同层级作用域的内存，在里面取值<br>以上就基本上是编译过程，除了一些特定的编译规则，编译过程还会会使用大量技巧进行优化提升编译速度<br>但在使用js时，需要注意try-catch,with和eval三个语法关键字的使用，因为在使用它们时，会创建块级作用域，<br>破坏掉编译器原有的创建管理作用域的规则，在编译时，编译器也就不会对其中的代码进行优化，最终导致性能变差</p>
-<p>运行过程，基本就是在运行函数，函数在运行时会首先根据【【scope】】属性拿到父域到全局的指针，创建指针列表即作用域链，<br>然后创建函数执行的局部作用域，将函数中声明的变量挂到局部作用域活动对象上，然后将局部作用域指针推向作用域链前端，<br>在用到变量值时，会根据作用域链依次查找取值<br>函数执行结束后，局部活动对象被销毁，作用域链被销毁，进行垃圾回收<br>但是对于声明在一个函数内部的函数来说，这个声明的函数在声明时，就会包含其父域的活动对象，<br>因此在外部使用该函数时，可以访问到其父域的变量，实现了父域访问子域变量，延长了变量的使用范围，也就是常见的闭包现象，<br>缺点就是闭包的函数执行完毕后，因为本身【【scope】】会指向父域的活动对象，所以父域的活动对象始终不会被回收,除非闭包函数被销毁<br>从而有可能造成内存泄露，为什么说有可能，因为父活动对象占的内存其实是比较小的，造成内存泄露的真正原因是使用闭包易造成循环引用，<br>尤其是闭包作用域中保存dom结点时，如果是在IE中，dom和bom都是以C++的COM对象保存的，垃圾回收机制是技术策略，<br>因此循环引用的话，永远都不会被回收</p>
-<p>补充，对于未以分号结尾的语句，会采用能合就合的原则，即，会尝试和下一行语句合并执行，如果能合并执行就合并执行，<br>不能合并执行就在中间加分号再执行，如果再执行不了就会报错<br>好处就是对于条件判断语句可进行一行一行判断<br>坏处就是如果下一行以大括号开头，上一行语句就会变成函数，导致出现意想不到的结果<br>两个例外，<br>对于return，break,continue语句不会做尝试合并；<br>对于++，–自增自减符后没有分号，上一行也没分号情况，自增自减会和下一行合并，上一行自行添加分号</p>
-<p>以上即是我所了解的js运行机制</p>
-<h1 id="3-关于对象继承"><a href="#3-关于对象继承" class="headerlink" title="3.关于对象继承"></a>3.关于对象继承</h1><p>3.0  new 操作符调用构造函数 执行过程<br>  1.创建或者构造一个全新的对象<br>  2.将构造函数的作用域赋给这个新的对象,<br>  3.执行构造函数 (为这个新对象添加属性) ，第二，三步相当于func.call(newobj)<br>  4.如果构造函数没有返回值或返回值非对象，则返回新对象，否则返回构造函数return的对象</p>
-<p>3.1 继承的6种方式及优缺点<br>    <b>第一种原型链方式</b>，子类的原型对象指向父类的实例<br>    缺点<br>        给原型添加方法必须要在替换原型的语句之后；<br>        不能实现多继承（原型指向多个父对象）；<br>        所有属性共享<br>        无法传递参数到父类进行初始化<br>    <b>第二种借助构造函数</b>，在子类构造函数中使用call或者apply执行父类构造函数<br>    优点<br>        可以实现多继承<br>        可以传递参数<br>        方法属性不共享<br>    缺点<br>        只能继承构造函数中属性，不能继承原型上方法，不能复用方法<br>        实例仅为子类实例，不是父类实例<br>    <b>第三种组合继承</b>，以上两组结合在一起，两种方式都执行<br>    缺点<br>        要调用两次父类构造函数，影响性能<br>        实例属性和原型属性各占一份，同名覆盖机制，重复占内存，没必要<br>    <b>第四种原型式继承</b>，借助object()或者object.create()函数,缺点同原型链方式</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">function object(o)&#123;</div><div class="line"> function F()&#123;&#125;</div><div class="line"> F.prototype = o;</div><div class="line"> return new F();</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p><b>第五种寄生式继承</b>，利用原型式继承和增强对象过程的封装函数创建子类，缺点同原型链方式<br><b>第六种寄生组合式继承</b>，保留借助构造函数部分，原型部分功能借助中间函数处理，<br>中间函数借助object拿到父类prototype，给到子类的prototype,从而完美解决组合继承的缺点</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">function inheritPrototype(subType,superType)&#123;</div><div class="line">  var prototype = object(superType.prototype)</div><div class="line">  prototype.constructor = subType</div><div class="line">  subType.prototype = prototype</div><div class="line">&#125;</div><div class="line">subType.prototype.__proto__ = superType</div></pre></td></tr></table></figure>
-<p>3.2 es6 使用class extend实现继承<br>使用class声明构造函数时，本来挂在this上的属性，放在constructor（）函数里面执行初始化，<br>挂在prototype上的方法直接放在class里面声明</p>
-<p>使用extend继承时，需要在constructor里面先执行super函数才能使用this关键字，<br>增强方法同样直接在class中和constructor并列声明，相当于挂在prototype上</p>
-<p>注意super函数只能在consructor中运行；super用作对象在constructor中使用时，相当于this,<br>添加属性会添加在当前对象上，运行函数时会调用继承的父类的方法</p>
-<p>还有就是class extend继承null和 什么也不继承是，相当于继承Function.prototype<br>继承Object时，子类就相当于object 的复制，子类实例就是object实例</p>
-<h1 id="4-关于this-四种使用场景"><a href="#4-关于this-四种使用场景" class="headerlink" title="4.关于this 四种使用场景"></a>4.关于this 四种使用场景</h1><p>   普通函数执行，指向全局作用域<br>   对象属性方法调用，指向调用对象<br>   call,apply中强制绑定对象，this执行绑定的对象<br>   构造函数中this指向构造的新对象<br>   （箭头函数中this,指向词法作用域的父域）</p>
-<h1 id="5-js文件位置"><a href="#5-js文件位置" class="headerlink" title="5.js文件位置"></a>5.js文件位置</h1><p>   放html底部原因：<br>   下载解析执行过程是阻断式的，会停止页面渲染，造成白屏，影响用户体验；<br>   另外JS中如果有对dom的操作，页面中还没有dom,获取不到，是不符合逻辑的，会报错</p>
-<p>   哪些js功能文件可以放顶部：<br>   与css相关的js,比如rem单位的换算，需要根据根结点进行设置<br>   使用的框架需要在根结点将浏览器支持的样式罗列出来</p>
-<h1 id="6-什么情况下用内部文件，内部文件比外部文件好处在哪？"><a href="#6-什么情况下用内部文件，内部文件比外部文件好处在哪？" class="headerlink" title="6.什么情况下用内部文件，内部文件比外部文件好处在哪？"></a>6.什么情况下用内部文件，内部文件比外部文件好处在哪？</h1><p>   内部文件相比外部文件最大好处就是性能提升，因为访问外部文件时，不管文件大小都会造成一次网络请求链接，请求服务器，下载文件，<br>   解析文件，除了文件本身代码外，还要处理文件头文件尾的请求，增加了链接数，从而造成性能影响<br>   对于功能短小精悍，不会被到处复用的js代码不适合采用外部文件，应该采用内部文件写法，尤其对手机端页面有性能提升</p>
-<h1 id="7-开发过程避免缓存方法"><a href="#7-开发过程避免缓存方法" class="headerlink" title="7.开发过程避免缓存方法"></a>7.开发过程避免缓存方法</h1><p>   在浏览器开启禁用缓存的模式<br>   手动清缓存 ctrl+shfit+del<br>   引用的文件名添加随机数，浏览器根据文件名不同，就会重新获取资源更新缓存</p>
-<h1 id="8-使用严格模式弊端及解决办法"><a href="#8-使用严格模式弊端及解决办法" class="headerlink" title="8.使用严格模式弊端及解决办法"></a>8.使用严格模式弊端及解决办法</h1><p>   在代码压缩时，’use strict’ 这一行可能不在位于第一行，<br>   或者后续代码不需要在严格模式下执行，被压缩在了严格模式范围内，导致了全部以严格模式执行</p>
-<p>   解决办法就是，将需要严格模式执行的代码放在匿名函数中，形成代码块，在函数中使用严格模式</p>
-<h1 id="9-立即执行函数好处"><a href="#9-立即执行函数好处" class="headerlink" title="9.立即执行函数好处"></a>9.立即执行函数好处</h1><p>   避免变量污染：有些变量仅在小功能内使用，将小功能封装起来，就可以避免这些变量暴露到全局，<br>   另外函数本身没有函数名，不会增加全局变量<br>   提升性能：功能所需变量全都在函数内时，查找变量快<br>   有利于压缩：一部分代码执行需要用到的变量变量名太长，将这段代码封装成立即执行函数，将长变量名以参数形式传进去<br>   避免全局命名冲突：一段代码需要用到两个代表不同功能但名称相同的变量，可以将该段代码封装成立即执行函数，<br>   将其中一个变量以参数形式传递进来，达到换名的目的<br>   保存闭包状态：循环执行异步代码时，将异步代码用立即执行函数包裹，函数内可保存本次循环的状态<br>   改变代码运行顺序：umd,通用模块规范，function（fn）{fn()}()</p>
-<h1 id="10-变量类型"><a href="#10-变量类型" class="headerlink" title="10.变量类型"></a>10.变量类型</h1><p>   根据当前变量的值的类型确定<br>   如果想要进行标记，方法有三种<br>   初始化时指定相应类型值<br>   使用匈牙利标记法，用单字母表示类型，添加到变量命中，例sName 代表string类型<br>   使用注释，变量声明时，在旁边添加注释</p>
-<h1 id="11-null-vs-undefined"><a href="#11-null-vs-undefined" class="headerlink" title="11.null vs undefined"></a>11.null vs undefined</h1><p>   转数字时，null –&gt;0;undefined–&gt;NaN<br>   undefined可以当做windows对象上的一个属性，null不行</p>
-<h1 id="12-类型转换"><a href="#12-类型转换" class="headerlink" title="12. 类型转换"></a>12. 类型转换</h1><p>基本类型包括，undefined，null,boolean,string,number</p>
-<p>基本类型 —&gt; boolean   Boolean(someval) 相当于 !!someval<br>undefined，null,NaN,’’,+0,-0 —&gt; false<br>其他 —&gt; true </p>
-<p>基本类型 —&gt; string  String（someval）相当于 someval+’’<br>一般情况直接加引号<br>[] —&gt; ‘’<br>{} —&gt; ‘[object object]’</p>
-<p>基本类型—&gt;number  + someval  相当于 Number（someval）<br>undefined,{} —&gt; NaN<br>false, null,’’,[],—&gt; 0<br>true —&gt; 1<br>‘123’ —&gt; 123<br>‘abc’ —&gt; NaN<br>[]—&gt; toString —&gt; ‘’ —&gt; 0<br>{} —&gt; valueOf —&gt; {} —&gt; toString —&gt; ‘[object object]’ —&gt; NaN</p>
-<p>基本类型 —&gt;对象<br>undefined，null —&gt; {}<br>true/123 —&gt; {initval:true/123}<br>‘abc’ —&gt; {initval:’abc’,length:3,0:’a’,1:’b’,2:’c’}</p>
-<p>对象 —&gt;基本类型</p>
-<p>关于–对象分类：<br>内部对象（错误对象；常用对象：Boolean,Number,String,Object,Array,Function,Date,Exec;内置对象：Math,global,Json）<br>宿主对象：windows,document<br>自定义对象</p>
-<p>关于–属性访问<br>obj.someprop—&gt;检查obj是不是null/undefined—&gt;是|不是—&gt;报错|是不是Object,不是的话转object—&gt;取值<br>obj[someval]—&gt;检查obj是不是null/undefined—&gt;是|不是—&gt;报错|是不是Object,不是的话转object—&gt;计算someval拿到string—&gt;取值</p>
-<p>Boolean —&gt;true<br>Number —&gt;基本类型转的|{}/{a:1}|Date—&gt;相应值|NaN|时间戳<br>Array.toString:数组每一项转字符串<br>Function.toString:原代码字符串形式<br>Date.toString:日期和时间组合形式<br>Exec.toString:正则字符串形式</p>
-<p>运算转换</p>
-<p>Number()参数不能有非数字<br>parseInt()参数只能为字符串，非字符串会进行强制转化字符串，可含非数字，但不能以非数字开头<br>一元操作符对任何数据类型有效，得到数字</p>
-<p>&#43;二元运算侧重转字符串，然后进行字符串拼接<br>其中一个为字符串或者两个都是对象时，转字符串拼接<br>undefined,null,Boolean,数字混合运算+时，会被转数字再计算<br>{}为第一个运算值时，会被当做函数结束，不参与计算<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">null + null --&gt; 0</div><div class="line">undefined + null --&gt; NaN</div><div class="line">[] + [] --&gt; &apos;&apos;</div><div class="line">1 + [1,2] --&gt; &apos;11,2&apos;</div><div class="line">1 + &#123;a:1&#125; --&gt; &apos;1[object object]&apos;</div><div class="line">&#123;a:1&#125; + 1 --&gt; 1</div><div class="line">&#123;&#125; + &#123;&#125; --&gt; NaN</div><div class="line">(&#123;&#125;) + &#123;&#125; --&gt; &apos;[object object][object object]&apos;</div><div class="line">[] + &#123;&#125; --&gt; &apos;[object object]&apos;</div><div class="line">&#123;&#125; + [] --&gt; 0</div><div class="line">var a = &#123;&#125;</div><div class="line">a + a --&gt;&apos;[object object][object object]&apos;</div></pre></td></tr></table></figure></p>
-<p>&#42;/- 转数字，进行相减,如果不能转数字，返回NaN</p>
-<p>&gt;/&lt; 侧重转数字<br>string &lt; string 字典比较<br>非字符串&lt;非字符串/字符串 都转数字然后比较</p>
-<p>string == number 字符串转数字<br>boolean == 其他类型 二者转数字然后比较<br>null == undefined —&gt;true undefined和null只与对方和自己==比较时为true，其他均为false<br>null === undefined —&gt;false<br>非对象 == 对象 与数字比较object转数字，与字符串比较二者转数字再比较<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line">&apos;0&apos; == null  //false</div><div class="line">&apos;0&apos; == undefined  //false</div><div class="line">&apos;0&apos; == false  //true</div><div class="line">&apos;0&apos; == NaN  //false</div><div class="line">&apos;0&apos; == 0  //true</div><div class="line">&apos;0&apos; == &apos;&apos;  //false</div><div class="line"></div><div class="line">false == null  //false</div><div class="line">false == undefined  //false</div><div class="line">false == NaN  //false</div><div class="line">false == 0  //true</div><div class="line">false == &apos;&apos;  //true</div><div class="line">false == []  //true</div><div class="line">false == &#123;&#125; //false</div><div class="line"></div><div class="line">&apos;&apos; == null  //false</div><div class="line">&apos;&apos; == undefined  //false</div><div class="line">&apos;&apos; == NaN  //false</div><div class="line">&apos;&apos; == 0  //true</div><div class="line">&apos;&apos; == []  //true</div><div class="line">&apos;&apos; == &#123;&#125; //false</div><div class="line"></div><div class="line">0 == null  //false</div><div class="line">0 == undefined  //false</div><div class="line">0 == NaN  //false</div><div class="line">0 == []  //true</div><div class="line">0 == &#123;&#125; //false</div><div class="line"></div><div class="line">[] == ![] //true</div></pre></td></tr></table></figure></p>
-<p>&amp;&amp;和|| 计算结果根据短路原则判断到了哪里，返回最后一个进行判断的值</p>
-<p>运算符优先级<br>属性访问.<br>一元操作符（+，-，++，–）<br>二元操作符（+-*/）<br>比较（&gt;,&lt;)<br>相等（==，===，！=）<br>与&amp;&amp;，或||<br>三目运算符<br>赋值</p>
-<p>运算符结合性<br>除了一元操作符，三目运算符和赋值是右结合，其他都是左结合</p>
-<p>减少小数计算误差<br>尽量不使用小数进行比较或运算<br>转整数计算，再转回相应位数小数<br>使用toFixed()四舍五入<br>两个情境需要重复计算时，保证前后书写顺序</p>
-<h1 id="13-数组相关方法"><a href="#13-数组相关方法" class="headerlink" title="13. 数组相关方法"></a>13. 数组相关方法</h1><p><img src="/image/arrmethod.jpg" alt="arrmethod"></p>
-<h1 id="14-字符串相关方法"><a href="#14-字符串相关方法" class="headerlink" title="14.字符串相关方法"></a>14.字符串相关方法</h1><p><img src="/image/strmethod.jpg" alt="strmethod"></p>
-<h1 id="15-日期相关方法"><a href="#15-日期相关方法" class="headerlink" title="15.日期相关方法"></a>15.日期相关方法</h1><p>   一共 33个<br>   set/get（UTC）FullYear,Month,Date,Hours,Minutes,Seconds,Millseconds<br>   set/get Time<br>   get(UTC) Day<br>   getTimezoneOffset</p>
-<h1 id="16-Math三个舍入方法"><a href="#16-Math三个舍入方法" class="headerlink" title="16. Math三个舍入方法"></a>16. Math三个舍入方法</h1><p>  Math.ceil:比值大的最小整数<br>  Math.round:四舍五入<br>  Math.floor:比值小的最大整数</p>
-<h1 id="17-setInterval-注意问题"><a href="#17-setInterval-注意问题" class="headerlink" title="17. setInterval 注意问题"></a>17. setInterval 注意问题</h1><p>累积效应<br>代码执行时间大于间隔时间，后续调用会进行累积，累积会在短时间内连续触发</p>
-<p>当用于动画时，因与显示器刷新频率不统一会造成视觉卡顿，解决办法如下：<br>一种是使用CSS3创建动画，根据显示器刷新执行动画<br>另一种是使用 requestAnimationframe(function(){})函数，也是在显示器刷新时执行<br>可以解决CSS3无法实现的，例如滚动控制等效果</p>
-<h1 id="18-关于DOM"><a href="#18-关于DOM" class="headerlink" title="18. 关于DOM"></a>18. 关于DOM</h1><p>   document 三个属性<br>   url：地址栏中URL<br>   domain:域名，跨域域名 X；父域名到子域名 X；<br>   referer:上一页URL,可在跳转时，判断与当前页是否在同一域，是的话，就可以back,否则 location.href其他页面<br>   dom.getAttribute(‘style’),得到样式字符串<br>   dom.style 得到到样式对象<br>   dom.getAttribute(‘onclick’) ,得到代码字符串<br>   dom.onclick 得到函数对象</p>
-<p>   动态合集<br>   使用时可能会造成死循环<br>   使用框架如Jquery获取的合集不具有动态性<br>   使用 queryselect(all)()获取到的也是静态合集</p>
-<p>   动态合集生成原理：<br>   浏览器通过DOM树预先缓存起来，获取时，浏览器会通过缓存直接注册，创建一个变量返回</p>
-<p>   静态合集生成原理：<br>   获取标识是一个CSS选择器，浏览器会先去解析字符串，判断是一个CSS选择器，<br>   分析选择器并创建一个选择器结构，浏览器根据DOM树创建一个静态文件，即DOM树的一个快照<br>   然后拿选择器和快照进行对比，符合选择器就放到合集中，知道整个快照对比完，再把合集的快照返回</p>
-<h1 id="19-事件"><a href="#19-事件" class="headerlink" title="19. 事件"></a>19. 事件</h1><p>   绑定方式</p>
-<p>   直接通过HTML属性绑定<br>   缺点<br>   有可能响应函数还未被解析就被触发<br>   事件名和回调1对1，修改繁琐<br>   响应执行时，作用域为全局，不同浏览器解析规则不同，造成某些对象无法访问</p>
-<p>   使用dom属性绑定<br>   冒泡阶段执行<br>   缺点<br>   只能绑定一个响应，后续赋值会被覆盖</p>
-<p>   IE attachEvent/detachEvent绑定/解绑<br>   冒泡阶段执行<br>   绑定多个时按按绑定顺序的逆序执行</p>
-<p>   addEventListener()/removeEventListener()绑定/解绑<br>   第三个参数为对象时，passive属性为true时，会针对touchstart,touchend等特定事件通过开启两个线程，<br>   一个执行浏览器默认行为，一个执行JS进行优化</p>
-<p>   事件优先级<br>   浏览器在绑定事件而不是JS在绑定事件</p>
-<p>   1.html标签绑定事件会被dom属性事件覆盖<br>   2.html标签优先执行，即使被属性事件覆盖，则执行被覆盖的属性事件<br>   3.仅有监听事件和属性事件时，按绑定顺序执行，即事件对象的冒泡事件可能会在捕获事件之前执行</p>
-<p>   event对象属性<br>   curentTarget:响应函数绑定的对象<br>   target:发生事件的对象</p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;h1 id=&quot;1-lt-script-gt-标签几个属性&quot;&gt;&lt;a href=&quot;#1-lt-script-gt-标签几个属性&quot; class=&quot;headerlink&quot; title=&quot;1.&amp;lt; script &amp;gt; 标签几个属性&quot;&gt;&lt;/a&gt;1.&amp;lt; script &amp;gt; 
     
     </summary>
     
