@@ -88,8 +88,8 @@
   
   <entry>
     <title>webpack应用</title>
-    <link href="http://yoohannah.github.io/post/performance/webpackConfig.html"/>
-    <id>http://yoohannah.github.io/post/performance/webpackConfig.html</id>
+    <link href="http://yoohannah.github.io/post/performance/webpackconfig.html"/>
+    <id>http://yoohannah.github.io/post/performance/webpackconfig.html</id>
     <published>2019-03-10T09:08:02.000Z</published>
     <updated>2019-03-10T09:11:11.541Z</updated>
     
@@ -584,28 +584,6 @@
   </entry>
   
   <entry>
-    <title>定时器</title>
-    <link href="http://yoohannah.github.io/post/knowledge/clock.html"/>
-    <id>http://yoohannah.github.io/post/knowledge/clock.html</id>
-    <published>2018-12-22T03:40:37.000Z</published>
-    <updated>2018-12-22T05:00:44.717Z</updated>
-    
-    <content type="html"><![CDATA[<p>1.使用 setInterval<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">this.timerID = setInterval(fn, time);</div><div class="line">clearInterval(this.timerID);</div></pre></td></tr></table></figure></p>
-<p> 2.angular 中使用 $interval<br> <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">this.timerID = $interval(fn, time);</div><div class="line">$interval.cancel(this.timerID)</div></pre></td></tr></table></figure></p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;1.使用 setInterval&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;2&lt;/div&gt;
-    
-    </summary>
-    
-    
-      <category term="knowledge" scheme="http://yoohannah.github.io/tags/knowledge/"/>
-    
-  </entry>
-  
-  <entry>
     <title>文件结构</title>
     <link href="http://yoohannah.github.io/post/vue/basic/filestructor.html"/>
     <id>http://yoohannah.github.io/post/vue/basic/filestructor.html</id>
@@ -692,32 +670,24 @@
   </entry>
   
   <entry>
-    <title>触发render</title>
-    <link href="http://yoohannah.github.io/post/react/renderfire.html"/>
-    <id>http://yoohannah.github.io/post/react/renderfire.html</id>
+    <title>定时器</title>
+    <link href="http://yoohannah.github.io/post/knowledge/clock.html"/>
+    <id>http://yoohannah.github.io/post/knowledge/clock.html</id>
     <published>2018-12-22T03:40:37.000Z</published>
-    <updated>2018-12-22T03:42:29.036Z</updated>
+    <updated>2018-12-22T05:00:44.717Z</updated>
     
-    <content type="html"><![CDATA[<p>在react中，触发render的有4条路径。</p>
-<p>以下假设shouldComponentUpdate都是按照默认返回true的方式。</p>
-<p>首次渲染Initial Render</p>
-<p>调用this.setState （并不是一次setState会触发一次render，React可能会合并操作，再一次性进行render）</p>
-<p>父组件发生更新（一般就是props发生改变，但是就算props没有改变或者父子组件之间没有数据交换也会触发render）</p>
-<p>调用this.forceUpdate</p>
-<p><a href="https://www.cnblogs.com/AnnieBabygn/p/6560833.html" target="_blank" rel="external">https://www.cnblogs.com/AnnieBabygn/p/6560833.html</a></p>
+    <content type="html"><![CDATA[<p>1.使用 setInterval<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">this.timerID = setInterval(fn, time);</div><div class="line">clearInterval(this.timerID);</div></pre></td></tr></table></figure></p>
+<p> 2.angular 中使用 $interval<br> <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">this.timerID = $interval(fn, time);</div><div class="line">$interval.cancel(this.timerID)</div></pre></td></tr></table></figure></p>
 ]]></content>
     
     <summary type="html">
     
-      &lt;p&gt;在react中，触发render的有4条路径。&lt;/p&gt;
-&lt;p&gt;以下假设shouldComponentUpdate都是按照默认返回true的方式。&lt;/p&gt;
-&lt;p&gt;首次渲染Initial Render&lt;/p&gt;
-&lt;p&gt;调用this.setState （并不是一次setState会
+      &lt;p&gt;1.使用 setInterval&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;2&lt;/div&gt;
     
     </summary>
     
     
-      <category term="react" scheme="http://yoohannah.github.io/tags/react/"/>
+      <category term="knowledge" scheme="http://yoohannah.github.io/tags/knowledge/"/>
     
   </entry>
   
@@ -751,6 +721,36 @@
     
     
       <category term="vue" scheme="http://yoohannah.github.io/tags/vue/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>触发render</title>
+    <link href="http://yoohannah.github.io/post/react/renderfire.html"/>
+    <id>http://yoohannah.github.io/post/react/renderfire.html</id>
+    <published>2018-12-22T03:40:37.000Z</published>
+    <updated>2018-12-22T03:42:29.036Z</updated>
+    
+    <content type="html"><![CDATA[<p>在react中，触发render的有4条路径。</p>
+<p>以下假设shouldComponentUpdate都是按照默认返回true的方式。</p>
+<p>首次渲染Initial Render</p>
+<p>调用this.setState （并不是一次setState会触发一次render，React可能会合并操作，再一次性进行render）</p>
+<p>父组件发生更新（一般就是props发生改变，但是就算props没有改变或者父子组件之间没有数据交换也会触发render）</p>
+<p>调用this.forceUpdate</p>
+<p><a href="https://www.cnblogs.com/AnnieBabygn/p/6560833.html" target="_blank" rel="external">https://www.cnblogs.com/AnnieBabygn/p/6560833.html</a></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;在react中，触发render的有4条路径。&lt;/p&gt;
+&lt;p&gt;以下假设shouldComponentUpdate都是按照默认返回true的方式。&lt;/p&gt;
+&lt;p&gt;首次渲染Initial Render&lt;/p&gt;
+&lt;p&gt;调用this.setState （并不是一次setState会
+    
+    </summary>
+    
+    
+      <category term="react" scheme="http://yoohannah.github.io/tags/react/"/>
     
   </entry>
   
