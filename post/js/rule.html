@@ -86,18 +86,18 @@
 
 
 
-<meta name="description" content="common.js 规范node.js的模块编程规范，适用于服务端，不能在浏览器使用涉及到四个环境变量module,exports,require,global同步加载require()引入module.exports() 输出 AMD规范(require,js)依赖在服务端，异步加载require([module], callback); 引入，等待所有依赖模块加载完后再执行回调函数define">
+<meta name="description" content="common.js 规范node.js的模块编程规范，适用于服务端，不能在浏览器使用涉及到四个环境变量module,exports,require,global同步加载require()引入module.exports() 输出 AMD规范(require.js)依赖在服务端，异步加载，提前加载所需模块require([module], callback); 引入，等待所有依赖模块加载完后再执行回">
 <meta name="keywords" content="js">
 <meta property="og:type" content="article">
-<meta property="og:title" content="三种规范">
+<meta property="og:title" content="四种规范">
 <meta property="og:url" content="http://yoohannah.github.io/post/js/rule.html">
 <meta property="og:site_name" content="My Little World">
-<meta property="og:description" content="common.js 规范node.js的模块编程规范，适用于服务端，不能在浏览器使用涉及到四个环境变量module,exports,require,global同步加载require()引入module.exports() 输出 AMD规范(require,js)依赖在服务端，异步加载require([module], callback); 引入，等待所有依赖模块加载完后再执行回调函数define">
+<meta property="og:description" content="common.js 规范node.js的模块编程规范，适用于服务端，不能在浏览器使用涉及到四个环境变量module,exports,require,global同步加载require()引入module.exports() 输出 AMD规范(require.js)依赖在服务端，异步加载，提前加载所需模块require([module], callback); 引入，等待所有依赖模块加载完后再执行回">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-01-21T13:44:41.650Z">
+<meta property="og:updated_time" content="2019-06-09T11:45:29.622Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="三种规范">
-<meta name="twitter:description" content="common.js 规范node.js的模块编程规范，适用于服务端，不能在浏览器使用涉及到四个环境变量module,exports,require,global同步加载require()引入module.exports() 输出 AMD规范(require,js)依赖在服务端，异步加载require([module], callback); 引入，等待所有依赖模块加载完后再执行回调函数define">
+<meta name="twitter:title" content="四种规范">
+<meta name="twitter:description" content="common.js 规范node.js的模块编程规范，适用于服务端，不能在浏览器使用涉及到四个环境变量module,exports,require,global同步加载require()引入module.exports() 输出 AMD规范(require.js)依赖在服务端，异步加载，提前加载所需模块require([module], callback); 引入，等待所有依赖模块加载完后再执行回">
 
 
 
@@ -131,7 +131,7 @@
 
 
 
-  <title> 三种规范 | My Little World </title>
+  <title> 四种规范 | My Little World </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -286,7 +286,7 @@
             
             
               
-                三种规范
+                四种规范
               
             
           </h1>
@@ -336,9 +336,10 @@
 
       
         <h1 id="common-js-规范"><a href="#common-js-规范" class="headerlink" title="common.js 规范"></a>common.js 规范</h1><p>node.js的模块编程规范，适用于服务端，不能在浏览器使用<br>涉及到四个环境变量<br>module,exports,require,global<br>同步加载<br>require()引入<br>module.exports() 输出</p>
-<h1 id="AMD规范-require-js"><a href="#AMD规范-require-js" class="headerlink" title="AMD规范(require,js)"></a>AMD规范(require,js)</h1><p>依赖在服务端，异步加载<br>require([module], callback); 引入，等待所有依赖模块加载完后再执行回调函数<br>define() 输出<br>CMD规范（sea.js)</p>
-<h1 id="es6规范"><a href="#es6规范" class="headerlink" title="es6规范"></a>es6规范</h1><p>使用import 引入模块<br>使用export 输出</p>
-<p><a href="https://segmentfault.com/a/1190000010913832" target="_blank" rel="external">相关</a></p>
+<h1 id="AMD规范-require-js"><a href="#AMD规范-require-js" class="headerlink" title="AMD规范(require.js)"></a>AMD规范(require.js)</h1><p>依赖在服务端，异步加载，提前加载所需模块<br>require([module], callback); 引入，等待所有依赖模块加载完后再执行回调函数<br>define() 输出return的内容</p>
+<h1 id="CMD规范（sea-js"><a href="#CMD规范（sea-js" class="headerlink" title="CMD规范（sea.js)"></a>CMD规范（sea.js)</h1><p>可异步加载，按需加载，不用提前加载<br>define 定义<br>export 输出<br>require 引入</p>
+<h1 id="es6规范"><a href="#es6规范" class="headerlink" title="es6规范"></a>es6规范</h1><p>使用import 引入模块，需要bable转成require，浏览器才能运行<br>使用export 输出</p>
+<p><a href="https://www.imooc.com/article/20057#" target="_blank" rel="external">链接</a><br><a href="https://segmentfault.com/a/1190000010913832" target="_blank" rel="external">相关</a></p>
 
       
     </div>
@@ -510,7 +511,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#common-js-规范"><span class="nav-number">1.</span> <span class="nav-text">common.js 规范</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#AMD规范-require-js"><span class="nav-number">2.</span> <span class="nav-text">AMD规范(require,js)</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#es6规范"><span class="nav-number">3.</span> <span class="nav-text">es6规范</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#common-js-规范"><span class="nav-number">1.</span> <span class="nav-text">common.js 规范</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#AMD规范-require-js"><span class="nav-number">2.</span> <span class="nav-text">AMD规范(require.js)</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#CMD规范（sea-js"><span class="nav-number">3.</span> <span class="nav-text">CMD规范（sea.js)</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#es6规范"><span class="nav-number">4.</span> <span class="nav-text">es6规范</span></a></li></ol></div>
             
 
           </div>

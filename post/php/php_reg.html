@@ -86,18 +86,18 @@
 
 
 
-<meta name="description" content="正则表达示主要用在以下一些地方：1.匹配邮箱、手机号码、验证码2.替换敏感的关键词。例如：涉及政治和骂人的话3.文章采集。4.早期的表情替换技术,ubb文件编码、markdown编辑器替换等5.以后自己写模板引擎也需要用到正则表达示 定界符定界符，就是定一个边界，边界已内的就是正则表达示定界符，不能用a-zA-Z0-9\ 其他的都可以用。必须成对出现，有开始就有结束。/中间写正则/    正确$中">
+<meta name="description" content="正则表达示主要用在以下一些地方：1.匹配邮箱、手机号码、验证码2.替换敏感的关键词。例如：涉及政治和骂人的话3.文章采集。4.早期的表情替换技术,ubb文件编码、markdown编辑器替换等5.以后自己写模板引擎也需要用到正则表达示 正则表达式常见项目场景开发工具中批量替换客户端，服务端数据校验客户端HTML检索（Sizzle）服务端文本提取数据爬虫的实现 定界符定界符，就是定一个边界，边界已内的">
 <meta name="keywords" content="php">
 <meta property="og:type" content="article">
 <meta property="og:title" content="正则表达式">
 <meta property="og:url" content="http://yoohannah.github.io/post/php/php_reg.html">
 <meta property="og:site_name" content="My Little World">
-<meta property="og:description" content="正则表达示主要用在以下一些地方：1.匹配邮箱、手机号码、验证码2.替换敏感的关键词。例如：涉及政治和骂人的话3.文章采集。4.早期的表情替换技术,ubb文件编码、markdown编辑器替换等5.以后自己写模板引擎也需要用到正则表达示 定界符定界符，就是定一个边界，边界已内的就是正则表达示定界符，不能用a-zA-Z0-9\ 其他的都可以用。必须成对出现，有开始就有结束。/中间写正则/    正确$中">
+<meta property="og:description" content="正则表达示主要用在以下一些地方：1.匹配邮箱、手机号码、验证码2.替换敏感的关键词。例如：涉及政治和骂人的话3.文章采集。4.早期的表情替换技术,ubb文件编码、markdown编辑器替换等5.以后自己写模板引擎也需要用到正则表达示 正则表达式常见项目场景开发工具中批量替换客户端，服务端数据校验客户端HTML检索（Sizzle）服务端文本提取数据爬虫的实现 定界符定界符，就是定一个边界，边界已内的">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-07-30T07:44:19.236Z">
+<meta property="og:updated_time" content="2019-06-09T11:57:42.476Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="正则表达式">
-<meta name="twitter:description" content="正则表达示主要用在以下一些地方：1.匹配邮箱、手机号码、验证码2.替换敏感的关键词。例如：涉及政治和骂人的话3.文章采集。4.早期的表情替换技术,ubb文件编码、markdown编辑器替换等5.以后自己写模板引擎也需要用到正则表达示 定界符定界符，就是定一个边界，边界已内的就是正则表达示定界符，不能用a-zA-Z0-9\ 其他的都可以用。必须成对出现，有开始就有结束。/中间写正则/    正确$中">
+<meta name="twitter:description" content="正则表达示主要用在以下一些地方：1.匹配邮箱、手机号码、验证码2.替换敏感的关键词。例如：涉及政治和骂人的话3.文章采集。4.早期的表情替换技术,ubb文件编码、markdown编辑器替换等5.以后自己写模板引擎也需要用到正则表达示 正则表达式常见项目场景开发工具中批量替换客户端，服务端数据校验客户端HTML检索（Sizzle）服务端文本提取数据爬虫的实现 定界符定界符，就是定一个边界，边界已内的">
 
 
 
@@ -336,6 +336,7 @@
 
       
         <p>正则表达示主要用在以下一些地方：<br>1.匹配邮箱、手机号码、验证码<br>2.替换敏感的关键词。例如：涉及政治和骂人的话<br>3.文章采集。<br>4.早期的表情替换技术,ubb文件编码、markdown编辑器替换等<br>5.以后自己写模板引擎也需要用到正则表达示</p>
+<p>正则表达式常见项目场景<br>开发工具中批量替换<br>客户端，服务端数据校验<br>客户端HTML检索（Sizzle）<br>服务端文本提取<br>数据爬虫的实现</p>
 <h1 id="定界符"><a href="#定界符" class="headerlink" title="定界符"></a>定界符</h1><p>定界符，就是定一个边界，边界已内的就是正则表达示<br>定界符，不能用a-zA-Z0-9\ 其他的都可以用。必须成对出现，有开始就有结束。<br>/中间写正则/    正确<br>$中间写正则$    正确<br>%中间写正则%    正确<br>^中间写正则^    正确<br>@中间写正则@    正确<br>(中间写正则)    错误<br>A中间写正则A    错误</p>
 <h1 id="匹配函数和原子"><a href="#匹配函数和原子" class="headerlink" title="匹配函数和原子"></a>匹配函数和原子</h1><p>preg_matc 函数：根据$正则变量，匹配$字符串变量。如果存在则返回匹配的个数，把匹配到的结果放到$结果变量里。如果没有匹配到结果返回0。<br>int preg_match ( string $正则 , string $字符串 [, array &amp;$结果] )</p>
 <p>原子：需要匹配的内容，我们见到的空格、回车、换行、0-9、A-Za-z、中文、标点符号、特殊符号全为原子<br>特殊标志的原子：<br>原子    说明<br>\d    匹配一个0-9<br>\D    除了0-9以外的所有字符<br>\w    a-zA-Z0-9<em><br>\W    除了0-9A-Za-z</em>以外的所有字符<br>\s    匹配所有空白字符\n \t \r 空格<br>\S    匹配所有非空白字符<br>[ ]    指定范围的原子</p>
