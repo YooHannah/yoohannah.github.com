@@ -96,7 +96,7 @@
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://yoohannah.github.io/image/arrmethod.jpg">
 <meta property="og:image" content="http://yoohannah.github.io/image/strmethod.jpg">
-<meta property="og:updated_time" content="2019-06-02T09:58:57.540Z">
+<meta property="og:updated_time" content="2019-07-20T02:30:38.172Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="js 知识点 一">
 <meta name="twitter:description" content="1.&amp;lt; script &amp;gt; 标签几个属性async :立即异步下载，因此不保证能够按指定的先后顺序执行，但会在load事件前，DOMContentLoad前后执行defer :延迟执行，也不保证按顺序执行，在DOMContentLoad前后执行src :外部文件链接charset :src指定代码的字符集，防止出现乱码language :已废弃，表示脚本语言，type :值为脚本语言内容">
@@ -343,6 +343,7 @@
 <p>运行过程，基本就是在运行函数，函数在运行时会首先根据【【scope】】属性拿到父域到全局的指针，创建指针列表即作用域链，<br>然后创建函数执行的局部作用域，将函数中声明的变量挂到局部作用域活动对象上，然后将局部作用域指针推向作用域链前端，<br>在用到变量值时，会根据作用域链依次查找取值<br>函数执行结束后，局部活动对象被销毁，作用域链被销毁，进行垃圾回收<br>但是对于声明在一个函数内部的函数来说，这个声明的函数在声明时，就会包含其父域的活动对象，<br>因此在外部使用该函数时，可以访问到其父域的变量，实现了父域访问子域变量，延长了变量的使用范围，也就是常见的闭包现象，<br>缺点就是闭包的函数执行完毕后，因为本身【【scope】】会指向父域的活动对象，所以父域的活动对象始终不会被回收,除非闭包函数被销毁<br>从而有可能造成内存泄露，为什么说有可能，因为父活动对象占的内存其实是比较小的，造成内存泄露的真正原因是使用闭包易造成循环引用，<br>尤其是闭包作用域中保存dom结点时，如果是在IE中，dom和bom都是以C++的COM对象保存的，垃圾回收机制是计数策略，<br>因此循环引用的话，永远都不会被回收</p>
 <p>补充，对于未以分号结尾的语句，会采用能合就合的原则，即，会尝试和下一行语句合并执行，如果能合并执行就合并执行，<br>不能合并执行就在中间加分号再执行，如果再执行不了就会报错<br>好处就是对于条件判断语句可进行一行一行判断<br>坏处就是如果下一行以大括号开头，上一行语句就会变成函数，导致出现意想不到的结果<br>两个例外，<br>对于return，break,continue语句不会做尝试合并；<br>对于++，–自增自减符后没有分号，上一行也没分号情况，自增自减会和下一行合并，上一行自行添加分号</p>
 <p>以上即是我所了解的js运行机制</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div></pre></td><td class="code"><pre><div class="line">//补充1</div><div class="line">每个值都有内存地址，变量名指向内存地址/保存内存地址</div><div class="line">变量名携带内存地址存储在栈中</div><div class="line">保存变量值的内存空间在堆中(数据类型：object,function,函数缓存区，函数加载区)，相同模样的值，内存地址不同，（即不同变量名，赋值为看似一样的对象时，会不相等；更改变量的值，即更改指向的地址）</div><div class="line">常量值保存在池中（数据类型：string,number,boolean），相同值，内存地址相同</div><div class="line"></div><div class="line">变量是个引用，常量是个值</div><div class="line">== 比较值</div><div class="line">=== 比较地址</div><div class="line"></div><div class="line">//补充2</div><div class="line">function func(a,b,c)&#123;</div><div class="line">  /*</div><div class="line">   * 逻辑代码执行前</div><div class="line">   * step1 创建AO对象</div><div class="line">   * AO =&#123;&#125;</div><div class="line">   * step2 初始化AO对象</div><div class="line">   * AO = &#123;</div><div class="line">   *  this:undefined,//内置</div><div class="line">   *  arguments:undefined,//默认</div><div class="line">   *  a:undefined,//参数</div><div class="line">   *  b:undefined,//参数</div><div class="line">   *  c:undefined,//参数</div><div class="line">   *  inner:undefined//函数内声明</div><div class="line">   * &#125;</div><div class="line">   * step3 赋值</div><div class="line">   * AO = &#123;</div><div class="line">   *  this:window,//内置</div><div class="line">   *  arguments:[length:2,0:1,1:2],//默认</div><div class="line">   *  a:1,//参数</div><div class="line">   *  b:2,//参数</div><div class="line">   *  c:undefined,//参数</div><div class="line">   *  inner:undefined//仅声明还未执行</div><div class="line">   * &#125;</div><div class="line">   *  step4 处理函数声明，有相同变量名的函数覆盖赋值已有变量名,新函数名直接挂到AO上</div><div class="line">   * AO = &#123;</div><div class="line">   *  this:window,//内置</div><div class="line">   *  arguments:[length:2,0:1,1:2],//默认</div><div class="line">   *  a:function a()&#123;&#125;,//有同名函数声明进行覆盖</div><div class="line">   *  b:2,//参数</div><div class="line">   *  c:undefined,//参数</div><div class="line">   *  inner:undefined,//仅声明还未执行</div><div class="line">   *  innerFunc:function()&#123;&#125;//添加函数声明</div><div class="line">   * &#125;</div><div class="line">   */</div><div class="line">  console.log(arguments);</div><div class="line">  console.log(global)</div><div class="line">  console.log(inner)</div><div class="line">  ////////////////</div><div class="line">  var inner = 20;//执行到该步,inner被赋值为20</div><div class="line">  function inner()&#123;</div><div class="line"></div><div class="line">  &#125;</div><div class="line">  function innerFunc()&#123;</div><div class="line"></div><div class="line">  &#125;</div><div class="line">  console.log(inner)</div><div class="line">&#125;</div><div class="line"></div><div class="line">var global=20</div><div class="line">func(1,2)</div></pre></td></tr></table></figure>
 <h1 id="3-关于对象继承"><a href="#3-关于对象继承" class="headerlink" title="3.关于对象继承"></a>3.关于对象继承</h1><p>3.0  new 操作符调用构造函数 执行过程<br>  1.创建或者构造一个全新的对象<br>  2.将构造函数的作用域赋给这个新的对象,<br>  3.执行构造函数 (为这个新对象添加属性) ，第二，三步相当于func.call(newobj)<br>  4.如果构造函数没有返回值或返回值非对象，则返回新对象，否则返回构造函数return的对象</p>
 <p>3.1 继承的6种方式及优缺点<br>    <b>第一种原型链方式</b>，子类的原型对象指向父类的实例<br>    缺点<br>        给原型添加方法必须要在替换原型的语句之后；<br>        不能实现多继承（原型指向多个父对象）；<br>        所有属性共享<br>        无法传递参数到父类进行初始化<br>    <b>第二种借助构造函数</b>，在子类构造函数中使用call或者apply执行父类构造函数<br>    优点<br>        可以实现多继承<br>        可以传递参数<br>        属性不共享<br>    缺点<br>        只能继承构造函数中属性，不能继承原型上方法，不能复用方法<br>        实例仅为子类实例，不是父类实例<br>    <b>第三种组合继承</b>，以上两组结合在一起，两种方式都执行<br>    缺点<br>        要调用两次父类构造函数，影响性能<br>        实例属性和原型属性各占一份，同名覆盖机制，重复占内存，没必要<br>    <b>第四种原型式继承</b>，借助object()或者object.create()函数,缺点同原型链方式</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">function object(o)&#123;</div><div class="line"> function F()&#123;&#125;</div><div class="line"> F.prototype = o;</div><div class="line"> return new F();</div><div class="line">&#125;</div></pre></td></tr></table></figure>
@@ -431,7 +432,7 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/post/js/js2.html" rel="next" title="一些jQuery知识">
+              <a href="/post/js/jquery.html" rel="next" title="一些jQuery知识">
                 <i class="fa fa-chevron-left"></i> 一些jQuery知识
               </a>
             
@@ -441,8 +442,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/post/designMode/js1.html" rel="prev" title="js 知识点 一">
-                js 知识点 一 <i class="fa fa-chevron-right"></i>
+              <a href="/post/js/map&reduce.html" rel="prev" title="数组的map和reduce">
+                数组的map和reduce <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -511,7 +512,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">169</span>
+              <span class="site-state-item-count">170</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
