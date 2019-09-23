@@ -259,6 +259,437 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://yoohannah.github.io/post/js/es6.html">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="YooHannah">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="/psb.jpg">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="My Little World">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="My Little World" src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/post/js/es6.html" itemprop="url">
+                  ES6
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-03-06T07:12:37+08:00">
+                2017-03-06
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="let"><a href="#let" class="headerlink" title="let"></a>let</h1><p>1.let 声明的变量在let 命令所在的代码快内有效<br>2.不声明直接用变量或者先用再声明都会报错<br>3.暂时性死区:在变量声明之前就使用变量的代码块<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">暂时性死区的本质就是，只要一进入当前作用域，所要使用的变量就已经存在了，但是不可获取，只有等到声明变量的那一行代码出现，才可以获取和使用该变量。</div></pre></td></tr></table></figure></p>
+<p>4.不允许在同一级别块域内重复声明一个变量<br>5.let 声明的变量,外层代码块不受内层代码块的影响<br>—-外层作用域无法读取内层作用域的变量<br>—-内层作用域可以定义外层作用域的同名变量<br>6.块级作用域内声明的函数，行为类似于var声明的变量,仅在所在的代码块内有效</p>
+<h1 id="const"><a href="#const" class="headerlink" title="const"></a>const</h1><p>1.声明的同时进行复制<br>2.作用域特征同let<br>3.当声明的变量为对象或者数组时，只可以改变对象属性或数组元素的值，但不可以将变量重新赋值</p>
+<p>ES6 6种声明变量的方法：var、function、let、const、import、class<br>var命令和function命令声明的全局变量，依旧是顶层对象的属性;let命令、const命令、class命令声明的全局变量，不属于顶层对象的属性。</p>
+<h1 id="解构赋值"><a href="#解构赋值" class="headerlink" title="解构赋值"></a>解构赋值</h1><h2 id="数组"><a href="#数组" class="headerlink" title="数组"></a>数组</h2><p>1.‘模式匹配’，左右对应相等，变量取值由位置决定<br>2.当右边的数据量大于左边变量数，如果是单层数组，则依次匹配，多余形成数组赋给最后一个变量<br>—-如果变量组成多层数组，则依次匹配，剩余的舍弃<br>3.当右边小于左边变量数，多余的变量的值就等于undefined<br>4.可以提前给变量赋默认值，默认值可以是已声明的其他变量，<br>–注意给变量赋‘undefined’的值的时候，如果变量原来的值不严格等于‘===’undefined，将不会被赋值为undefined</p>
+<h2 id="对象"><a href="#对象" class="headerlink" title="对象"></a>对象</h2><p>1.对象的属性没有次序，变量必须与属性同名，才能取到正确的值，属性是匹配的标志<br>2.若变量与属性名不一致，则先找到同名属性，然后再赋给对应的变量。真正被赋值的是后者(变量)，而不是前者(属性)<br>3.如果在声明对象变量的时候为属性值的变量赋值，则相当于同时声明属性值的变量<br>4.进行套嵌赋值时，注意分清属性名和变量名，被赋值的是变量名，不是属性名<br>5.进行默认值赋值规则同数组，赋空不会生效<br>6.属性名表达式<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">let arr = [1, 2, 3];</div><div class="line">let &#123;0 : first, [arr.length - 1] : last&#125; = arr;</div><div class="line">first // 1</div><div class="line">last // 3</div></pre></td></tr></table></figure></p>
+<p>数组arr的0键对应的值是1，[arr.length - 1]就是2键，对应的值是3</p>
+<h2 id="函数参数"><a href="#函数参数" class="headerlink" title="函数参数"></a>函数参数</h2><p>类似数组，但注意下面两种写法<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">function move(&#123;x = 0, y = 0&#125; = &#123;&#125;) &#123;</div><div class="line">  return [x, y];</div><div class="line">&#125;</div><div class="line"></div><div class="line">move(&#123;x: 3, y: 8&#125;); // [3, 8]</div><div class="line">move(&#123;x: 3&#125;); // [3, 0]</div><div class="line">move(&#123;&#125;); // [0, 0]</div><div class="line">move(); // [0, 0]</div></pre></td></tr></table></figure></p>
+<p>为变量x和y赋值<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">function move(&#123;x, y&#125; = &#123; x: 0, y: 0 &#125;) &#123;</div><div class="line">  return [x, y];</div><div class="line">&#125;</div><div class="line"></div><div class="line">move(&#123;x: 3, y: 8&#125;); // [3, 8]</div><div class="line">move(&#123;x: 3&#125;); // [3, undefined]</div><div class="line">move(&#123;&#125;); // [undefined, undefined]</div><div class="line">move(); // [0, 0]</div></pre></td></tr></table></figure></p>
+<p>为x,y的默认值赋值</p>
+<h2 id="字符串、数字、布尔"><a href="#字符串、数字、布尔" class="headerlink" title="字符串、数字、布尔"></a>字符串、数字、布尔</h2><p>字符串：字符串被转换成数组<br>数字/布尔：先转换成对象</p>
+<h1 id="字符串方法"><a href="#字符串方法" class="headerlink" title="字符串方法"></a>字符串方法</h1><table>
+<thead>
+<tr>
+<th>方法</th>
+<th style="text-align:right">es5/js</th>
+<th style="text-align:center">es6</th>
+<th>2017</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Unicode表示法</td>
+<td style="text-align:right">只限于\u0000——\uFFFF之间的字符</td>
+<td style="text-align:center">只要将码点放入大括号，就能正确解读该字符</td>
+<td></td>
+</tr>
+<tr>
+<td>charCodeAt</td>
+<td style="text-align:right">只会正确返回16位的UTF-16字符的码点</td>
+<td style="text-align:center"></td>
+<td></td>
+</tr>
+<tr>
+<td>codePointAt</td>
+<td style="text-align:right"></td>
+<td style="text-align:center">会正确返回32位的UTF-16字符的码点</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td style="text-align:right"></td>
+<td style="text-align:center"></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td style="text-align:right"></td>
+<td style="text-align:center"></td>
+<td></td>
+</tr>
+<tr>
+<td>String.fromCharCode</td>
+<td style="text-align:right">只会识别16位的UTF-16字符</td>
+<td style="text-align:center"></td>
+<td></td>
+</tr>
+<tr>
+<td>String.fromCodePoint</td>
+<td style="text-align:right"></td>
+<td style="text-align:center">会会识别32位的UTF-16字符</td>
+<td></td>
+</tr>
+<tr>
+<td>for</td>
+<td style="text-align:right">不可以识别大于0xFFFF的码点</td>
+<td style="text-align:center"></td>
+<td></td>
+</tr>
+<tr>
+<td>for…of</td>
+<td style="text-align:right"></td>
+<td style="text-align:center">可以识别大于0xFFFF的码点</td>
+<td></td>
+</tr>
+<tr>
+<td>charAt</td>
+<td style="text-align:right">不能识别码点大于0xFFFF的字符</td>
+<td style="text-align:center"></td>
+<td></td>
+</tr>
+<tr>
+<td>at</td>
+<td style="text-align:right"></td>
+<td style="text-align:center">能识别码点大于0xFFFF的字符</td>
+<td></td>
+</tr>
+<tr>
+<td>normalize</td>
+<td style="text-align:right">‘\u01D1’===’\u004F\u030C’ //false</td>
+<td style="text-align:center">‘\u01D1’.normalize() === ‘\u004F\u030C’.normalize()// true</td>
+<td></td>
+</tr>
+<tr>
+<td>indexOf</td>
+<td style="text-align:right">确定一个字符串是否包含在另一个字符串中</td>
+<td style="text-align:center"></td>
+<td></td>
+</tr>
+<tr>
+<td>includes()</td>
+<td style="text-align:right"></td>
+<td style="text-align:center">返回布尔值，表示是否找到了参数字符串</td>
+<td></td>
+</tr>
+<tr>
+<td>startsWith</td>
+<td style="text-align:right"></td>
+<td style="text-align:center">返回布尔值，表示参数字符串是否在源字符串的头部</td>
+<td></td>
+</tr>
+<tr>
+<td>endsWith</td>
+<td style="text-align:right"></td>
+<td style="text-align:center">返回布尔值，表示参数字符串是否在源字符串的尾部</td>
+<td></td>
+</tr>
+<tr>
+<td>repeat(n)</td>
+<td style="text-align:right"></td>
+<td style="text-align:center">返回一个新字符串，表示将原字符串重复n次。</td>
+<td></td>
+</tr>
+<tr>
+<td>padStart()，padEnd()</td>
+<td style="text-align:right"></td>
+<td style="text-align:center"></td>
+<td>padStart()用于头部补全，padEnd()用于尾部补全</td>
+</tr>
+<tr>
+<td>模板字符串</td>
+<td style="text-align:right"></td>
+<td style="text-align:center">反引号(`),保留空格和换行,变量名写在${}中</td>
+</tr>
+</tbody>
+</table>
+<h1 id="数值处理方法"><a href="#数值处理方法" class="headerlink" title="数值处理方法"></a>数值处理方法</h1><table>
+<thead>
+<tr>
+<th>方法</th>
+<th style="text-align:right">es5/js</th>
+<th style="text-align:center">es6</th>
+<th>2017</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>二进制和八进制表示法</td>
+<td style="text-align:right">在严格模式之中，八进制就不再允许使用前缀0表示</td>
+<td style="text-align:center">二进制0b或0B、八进制0o或0O</td>
+<td></td>
+</tr>
+<tr>
+<td>isFinite()/isNaN()</td>
+<td style="text-align:right">先调用Number()将非数值的值转为数值，再进行判断</td>
+<td style="text-align:center"></td>
+<td></td>
+</tr>
+<tr>
+<td>Number.isFinite()</td>
+<td style="text-align:right"></td>
+<td style="text-align:center">检查一个数值是否为有限的,非数值一律返回false。</td>
+<td></td>
+</tr>
+<tr>
+<td>Number.isNaN()</td>
+<td style="text-align:right"></td>
+<td style="text-align:center">检查一个值是否为NaN,非数值一律返回false。</td>
+<td></td>
+</tr>
+<tr>
+<td>parseInt()、parseFloat()</td>
+<td style="text-align:right"></td>
+<td style="text-align:center">移植到Number对象上面，行为完全保持不变。</td>
+<td></td>
+</tr>
+<tr>
+<td>Number.isInteger()</td>
+<td style="text-align:right"></td>
+<td style="text-align:center">判断一个值是否为整数</td>
+<td></td>
+</tr>
+<tr>
+<td>Number.EPSILON</td>
+<td style="text-align:right"></td>
+<td style="text-align:center">极小的常量,为浮点数计算设置一个误差范围</td>
+<td></td>
+</tr>
+<tr>
+<td>Number.isSafeInteger</td>
+<td style="text-align:right"></td>
+<td style="text-align:center">判断一个整数是否落在整数范围之内</td>
+<td></td>
+</tr>
+<tr>
+<td>Number.MAX_SAFE_INTEGER、Number.MIN_SAFE_INTEGER</td>
+<td style="text-align:right"></td>
+<td style="text-align:center">表示整数范围的上下限</td>
+<td></td>
+</tr>
+<tr>
+<td>Math.trunc</td>
+<td style="text-align:right"></td>
+<td style="text-align:center">去除一个数的小数部分，返回整数部分</td>
+<td></td>
+</tr>
+<tr>
+<td>Math.sign</td>
+<td style="text-align:right"></td>
+<td style="text-align:center">判断一个数到底是正数、负数、还是零</td>
+<td></td>
+</tr>
+<tr>
+<td>Math.cbrt</td>
+<td style="text-align:right"></td>
+<td style="text-align:center">计算一个数的立方根</td>
+<td></td>
+</tr>
+<tr>
+<td>Math.clz32</td>
+<td style="text-align:right"></td>
+<td style="text-align:center">返回一个数的32位无符号整数形式有多少个前导0</td>
+<td></td>
+</tr>
+<tr>
+<td>Math.imul</td>
+<td style="text-align:right"></td>
+<td style="text-align:center">返回两个数以32位带符号整数形式相乘的结果，返回的也是一个32位的带符号整数。</td>
+<td></td>
+</tr>
+<tr>
+<td>Math.fround</td>
+<td style="text-align:right"></td>
+<td style="text-align:center">返回一个数的单精度浮点数形式</td>
+<td></td>
+</tr>
+<tr>
+<td>Math.hypot</td>
+<td style="text-align:right"></td>
+<td style="text-align:center">返回所有参数的平方和的平方根</td>
+<td></td>
+</tr>
+<tr>
+<td>Math.expm1(x)</td>
+<td style="text-align:right"></td>
+<td style="text-align:center">返回Math.exp(x) - 1</td>
+<td></td>
+</tr>
+<tr>
+<td>Math.log1p(x)</td>
+<td style="text-align:right"></td>
+<td style="text-align:center">返回1 + x的自然对数</td>
+<td></td>
+</tr>
+<tr>
+<td>Math.log10(x)</td>
+<td style="text-align:right"></td>
+<td style="text-align:center">返回以10为底的x的对数</td>
+<td></td>
+</tr>
+<tr>
+<td>Math.log2(x)</td>
+<td style="text-align:right"></td>
+<td style="text-align:center">返回以2为底的x的对数</td>
+<td></td>
+</tr>
+<tr>
+<td>Math.sign()</td>
+<td style="text-align:right"></td>
+<td style="text-align:center">判断一个值的正负</td>
+<td></td>
+</tr>
+<tr>
+<td>指数运算符(**)</td>
+<td style="text-align:right"></td>
+<td style="text-align:center">指数运算符与Math.pow的实现不相同</td>
+<td></td>
+</tr>
+<tr>
+<td>Math.sinh(x)</td>
+<td style="text-align:right"></td>
+<td style="text-align:center">返回x的双曲正弦</td>
+<td></td>
+</tr>
+<tr>
+<td>Math.cosh(x)</td>
+<td style="text-align:right"></td>
+<td style="text-align:center">返回x的双曲余弦</td>
+<td></td>
+</tr>
+<tr>
+<td>Math.tanh(x)</td>
+<td style="text-align:right"></td>
+<td style="text-align:center">返回x的双曲正切</td>
+<td></td>
+</tr>
+<tr>
+<td>Math.asinh(x)</td>
+<td style="text-align:right"></td>
+<td style="text-align:center">返回x的反双曲正弦</td>
+<td></td>
+</tr>
+<tr>
+<td>Math.acosh(x)</td>
+<td style="text-align:right"></td>
+<td style="text-align:center">返回x的反双曲余弦</td>
+<td></td>
+</tr>
+<tr>
+<td>Math.atanh(x)</td>
+<td style="text-align:right"></td>
+<td style="text-align:center">返回x的反双曲正切</td>
+</tr>
+</tbody>
+</table>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
   <link itemprop="mainEntityOfPage" href="http://yoohannah.github.io/post/js/ze.html">
 
   <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1626,135 +2057,11 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="http://yoohannah.github.io/post/angular/checkbox.html">
-
-  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
-    <meta itemprop="name" content="YooHannah">
-    <meta itemprop="description" content="">
-    <meta itemprop="image" content="/psb.jpg">
-  </span>
-
-  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-    <meta itemprop="name" content="My Little World">
-    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
-      <img style="display:none;" itemprop="url image" alt="My Little World" src="">
-    </span>
-  </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/post/angular/checkbox.html" itemprop="url">
-                  利用checkbox进行各种勾选
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-02-12T15:33:37+08:00">
-                2017-02-12
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="单选"><a href="#单选" class="headerlink" title="单选"></a>单选</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">html:</div><div class="line">&lt;div ng-repeat=&quot;item in labels track by $index&quot; style=&quot;padding-left: 50px&quot;&gt;</div><div class="line">  &lt;label class=&quot;mt-checkbox mt-checkbox-single mt-checkbox-outline&quot; &gt;&lt;input  type=&quot;checkbox&quot; ng-model=&quot;item.isSelected&quot; ng-click=&quot;updateSingelSelection($index,labels)&quot; /&gt;&lt;span&gt;&lt;/span&gt;&lt;/label&gt;</div><div class="line">  &lt;label&gt;&#123;&#123;item.name&#125;&#125;&lt;/label&gt;</div><div class="line">&lt;/div&gt;</div></pre></td></tr></table></figure>
-<p>val1为选定值的key,或者叫序号,val2为选项集合</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"> $scope.updateSingelSelection = <span class="function"><span class="keyword">function</span>(<span class="params">val1, val2</span>) </span>&#123;</div><div class="line">  $scope.label = val2[val1];  												<span class="comment">//对选定的值做处理</span></div><div class="line">  angular.forEach(val2, <span class="function"><span class="keyword">function</span>(<span class="params">x, index</span>) </span>&#123;				 <span class="comment">//处理其他选项为未选状态</span></div><div class="line">    <span class="keyword">if</span> (val1 != index)</div><div class="line">      x.isSelected = <span class="literal">false</span>;</div><div class="line">  &#125;);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p><img src="/image/checkbox1.png" alt="checkbox1"></p>
-<h1 id="多选"><a href="#多选" class="headerlink" title="多选"></a>多选</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">&lt;div class=&quot;portlet-body dataTables_wrapper&quot; style=&quot;margin: -20px 20px 0px 20px;&quot; ng-if=&quot;detaildata.goods.length&gt;0&quot;&gt;</div><div class="line">	&lt;div class=&quot;table-scrollable&quot;&gt;</div><div class="line">		&lt;table class=&quot;table table-bordered table-hover no-footer&quot;&gt;</div><div class="line">			&lt;thead&gt;</div><div class="line">				&lt;tr role=&quot;row&quot; class=&quot;heading&quot;&gt;</div><div class="line">					&lt;th&gt;ID&lt;/th&gt;</div><div class="line">					&lt;th&gt;</div><div class="line">						&lt;label class=&quot;mt-checkbox mt-checkbox-single mt-checkbox-outline&quot;&gt;&lt;input type=&quot;checkbox&quot; ng-model=&quot;detaildata.goods.allchecked&quot; ng-change=&quot;selectall()&quot;/&gt;&lt;span&gt;&lt;/span&gt;&lt;/label&gt;</div><div class="line">					&lt;/th&gt;</div><div class="line">				&lt;/tr&gt;</div><div class="line">			&lt;/thead&gt;</div><div class="line">			&lt;tbody&gt;</div><div class="line">				&lt;tr role=&quot;row&quot; ng-repeat=&quot;item in detaildata.goods track by $index&quot;&gt;</div><div class="line">					&lt;td&gt;&#123;&#123;item.id&#125;&#125;&lt;/td&gt;</div><div class="line">					&lt;td&gt;</div><div class="line">						&lt;label class=&quot;mt-checkbox mt-checkbox-single mt-checkbox-outline&quot;&gt;&lt;input  type=&quot;checkbox&quot; ng-model=&quot;item.checked&quot; ng-click=&quot;UpdateSelection($index)&quot;/&gt;&lt;span&gt;&lt;/span&gt;&lt;/label&gt;</div><div class="line">					&lt;/td&gt;</div><div class="line">				&lt;/tr&gt;</div><div class="line">			&lt;/tbody&gt;</div><div class="line">		&lt;/table&gt;</div><div class="line">	&lt;/div&gt;</div><div class="line">&lt;/div&gt;</div></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"> $scope.UpdateSelection = function(index)&#123;</div><div class="line">    if($scope.detaildata.goods[index].checked)&#123;</div><div class="line"></div><div class="line">      tempdata2.push($scope.detaildata.goods[index]); 					//处理选中项</div><div class="line"></div><div class="line">      if(tempdata2.length == $scope.detaildata.goods.length)&#123;   //判断是否满足全选条件，						$scope.detaildata.goods.allchecked = true;                //满足则将全选按钮设置为勾选状态</div><div class="line">      &#125;else&#123;</div><div class="line">        $scope.detaildata.goods.allchecked = false;             //否则为未选状态</div><div class="line">      &#125;</div><div class="line">    &#125; else &#123;</div><div class="line">      $scope.alldata.goods[index].checked = false; //全选按钮设为</div><div class="line">      angular.forEach(tempdata2, function(list,num)&#123;</div><div class="line">        if($scope.detaildata.goods[index].deal_id == list.deal_id)&#123;</div><div class="line">         tempdata2.splice(num,1);</div><div class="line">         $scope.detaildata.goods.allchecked = false;</div><div class="line">         return;</div><div class="line">       &#125;</div><div class="line">     &#125;);</div><div class="line"></div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p><div style="margin-bottom: 250px"><br> <img src="/image/checkbox2.png" style="width: 150px;height: 300px;margin-left: 80px" alt="图片名称" align="left"><br> <img src="/image/checkbox.png" alt="图片名称" align="right" style="width: 150px;height: 300px;margin-top: -30px;margin-right: 80px"><br></div></p>
-<h1 id="全选"><a href="#全选" class="headerlink" title="全选"></a>全选</h1><p>注意：若全选按钮放在表格里，那全选按钮的绑定值S也一定要是整个表格绑定值A的一个属性,即，A.S是全选按钮绑定值<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line">$scope.selectall = function()&#123;</div><div class="line"> if($scope.detaildata.goods.allchecked)&#123;</div><div class="line">  for(var i = 0;i &lt; $scope.detaildata.goods.length;i++)&#123;</div><div class="line">    $scope.detaildata.goods[i].checked = true;       //把每个备选项处理为已选状态</div><div class="line">    var num = 0;</div><div class="line">    for(var j = 0;j &lt; tempdata2.length;j++)&#123;</div><div class="line">      if($scope.detaildata.goods[i].deal_id != tempdata2[j].deal_id)&#123;</div><div class="line">        num = num+1;</div><div class="line">      &#125;else&#123;</div><div class="line">        num = num;</div><div class="line">      &#125;</div><div class="line">    &#125;</div><div class="line">    if(num == tempdata2.length)&#123;</div><div class="line">      tempdata2.push($scope.detaildata.goods[i]); //将所有为选择的数据处理到临时集合</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">&#125;else&#123;</div><div class="line">  for(var i = 0;i &lt; $scope.detaildata.goods.length;i++)&#123;</div><div class="line">    $scope.detaildata.goods[i].checked = false; //把每个备选项处理为未选状态</div><div class="line">  &#125;</div><div class="line">  tempdata2 = []; //清空临时集合</div><div class="line">&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<h1 id="勾选方法提炼"><a href="#勾选方法提炼" class="headerlink" title="勾选方法提炼"></a>勾选方法提炼</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div></pre></td><td class="code"><pre><div class="line">//表格勾选 tempdata勾选数据集合，data所有待选数据集合，status勾选状态，keyword数据标志属性</div><div class="line">APP.factory(&apos;selectAll&apos;, function()&#123;</div><div class="line">    //全选按钮的勾选</div><div class="line">  var allChoose = function (tempdata,data,status,keyword1,keyword2) &#123;</div><div class="line">        if(status)&#123;</div><div class="line">            for(var i = 0;i &lt; data.length;i++)&#123;</div><div class="line">              data[i].isSelected = true;       //把每个备选项处理为已选状态</div><div class="line">              var num = 0;</div><div class="line">              for(var j = 0;j &lt; tempdata.length;j++)&#123;</div><div class="line">                if(data[i][keyword1] != tempdata[j][keyword2])&#123;</div><div class="line">                  num = num+1;</div><div class="line">                &#125;else&#123;</div><div class="line">                  num = num;</div><div class="line">                &#125;</div><div class="line">              &#125;</div><div class="line">              if(num == tempdata.length)&#123;</div><div class="line">                tempdata.push(data[i]); //将所有未选择的数据处理到临时集合</div><div class="line">              &#125;</div><div class="line">            &#125;</div><div class="line">          &#125;else&#123;</div><div class="line">            for(var i = 0;i &lt; data.length;i++)&#123;</div><div class="line">              data[i].isSelected = false; //把每个备选项处理为未选状态</div><div class="line">               angular.forEach(tempdata, function(item,num)&#123;</div><div class="line">                if(data[i][keyword1] == item[keyword2])&#123;</div><div class="line">                tempdata.splice(num,1);</div><div class="line">               &#125;</div><div class="line">             &#125;);</div><div class="line">            &#125;</div><div class="line">          &#125;</div><div class="line">      return &#123;</div><div class="line">        &apos;tempdata&apos;:tempdata,</div><div class="line">        &apos;data&apos;:data</div><div class="line">       &#125;;</div><div class="line">  &#125;;</div><div class="line"></div><div class="line">  //检查是否满足全选</div><div class="line">  var checkAll = function (tempdata,data,keyword1,keyword2) &#123;</div><div class="line">       var temp =0;</div><div class="line">        angular.forEach(data, function(item)&#123;</div><div class="line">          item.isSelected = false;</div><div class="line">          angular.forEach(tempdata, function(term)&#123;</div><div class="line">            if(item[keyword1] == term[keyword2])&#123;</div><div class="line">              item.isSelected = true;</div><div class="line">              temp +=1;</div><div class="line">            &#125;</div><div class="line">          &#125;);</div><div class="line">        &#125;);</div><div class="line">        if(temp == data.length)&#123;</div><div class="line">          return &#123;</div><div class="line">            &apos;allChecked&apos;:true,</div><div class="line">            &apos;data&apos;:data,</div><div class="line">            &apos;tempdata&apos;:tempdata</div><div class="line">           &#125;;</div><div class="line">        &#125;else&#123;</div><div class="line">          return &#123;</div><div class="line">            &apos;allChecked&apos;:false,</div><div class="line">            &apos;data&apos;:data,</div><div class="line">            &apos;tempdata&apos;:tempdata</div><div class="line">          &#125;;</div><div class="line">       &#125;</div><div class="line">  &#125;;</div><div class="line"></div><div class="line">  //单项勾选</div><div class="line">  var UpdateSelection = function(tempdata,data,index,keyword1,keyword2)&#123;</div><div class="line">     if(data[index].isSelected)&#123; //添加选中</div><div class="line">            tempdata.push(data[index]);</div><div class="line">          &#125;else&#123;</div><div class="line">            angular.forEach(tempdata, function(item,num)&#123;</div><div class="line">              if(data[index][keyword1] == item[keyword2])&#123;</div><div class="line">               tempdata.splice(num,1);</div><div class="line">             &#125;</div><div class="line">           &#125;);</div><div class="line">          &#125;</div><div class="line">     return checkAll(tempdata,data,keyword1,keyword2)</div><div class="line">  &#125;;</div><div class="line"></div><div class="line">  //众多选项单选</div><div class="line">  var singleSelection = function (choseindex,data) &#123;</div><div class="line">      angular.forEach(data, function(x, index) &#123;</div><div class="line">          if (choseindex != index)</div><div class="line">            x.isSelected = false;</div><div class="line">        &#125;);</div><div class="line">      return data;</div><div class="line">  &#125;;</div><div class="line"></div><div class="line">  return &#123;</div><div class="line">    &apos;allChoose&apos;: allChoose,</div><div class="line">    &apos;checkAll&apos;:checkAll,</div><div class="line">    &apos;UpdateSelection&apos;:UpdateSelection,</div><div class="line">    &apos;singleSelection&apos;:singleSelection</div><div class="line">  &#125;;</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/12/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/12/">12</a><span class="page-number current">13</span><a class="page-number" href="/page/14/">14</a><span class="space">&hellip;</span><a class="page-number" href="/page/17/">17</a><a class="extend next" rel="next" href="/page/14/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/page/12/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/12/">12</a><span class="page-number current">13</span><a class="page-number" href="/page/14/">14</a><span class="space">&hellip;</span><a class="page-number" href="/page/18/">18</a><a class="extend next" rel="next" href="/page/14/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -1795,7 +2102,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">170</span>
+              <span class="site-state-item-count">171</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>

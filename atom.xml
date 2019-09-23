@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoohannah.github.io/"/>
-  <updated>2019-07-20T02:50:32.008Z</updated>
+  <updated>2019-09-23T15:19:25.905Z</updated>
   <id>http://yoohannah.github.io/</id>
   
   <author>
@@ -14,6 +14,37 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>absolute应用</title>
+    <link href="http://yoohannah.github.io/post/knowledge/cssPosition.html"/>
+    <id>http://yoohannah.github.io/post/knowledge/cssPosition.html</id>
+    <published>2019-09-22T23:54:58.000Z</published>
+    <updated>2019-09-23T15:19:25.905Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="问题-背景"><a href="#问题-背景" class="headerlink" title="问题/背景"></a>问题/背景</h1><p>table 的 td 内容在内容较多时会自动进行省略处理，然后鼠标滑过弹层显示具体内容</p>
+<p>td内容还可以配置在线编辑，鼠标滑过，可以显示小笔图标，点击小笔图标或者td块都可以进行在线编辑然后回车或者鼠标点击输入框之外的地方都可以提交发送给后台</p>
+<p>table被包裹在一个div1中,只允许出现水平方向滚动条，不出现垂直方向滚动条<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">.div1&#123;</div><div class="line">  overflow-x: auto;</div><div class="line">  overflow-y: hidden;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>出现的问题就是，如果最后几行的内容过多，弹层显示具体内容时弹层会被遮挡，不能正常飘出来<br><img src="/image/position1.png" alt="position1.png"></p>
+<h1 id="原理知识"><a href="#原理知识" class="headerlink" title="原理知识"></a>原理知识</h1><p>父元素设置position:relative,子元素设置position:absolute,配套使用时，子元素才会会在z轴上相对父元素进行xy面的定位<br>如果最近父元素没有设置position:relative，那么会往父元素的父元素找，看是否设置，如果设置，则相对爷爷元素进行XY面定位，如果没有继续往上找，以此类推<br>即会相对父元素及以上元素中靠近自己最近的，设置了position:relative的长辈元素进行相对定位</p>
+<h1 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h1><p>弹层没有按照预期可以弹到div1以外的地方,被困在div1里面，加上div1不能垂直方向滚动，说明弹层没有相对div1定位,<br>解除div1垂直方向的滚动限制，弹层把div1在垂直方向上撑起来了，滚动滚动条，可以看完整的弹层内容，说明弹层相对div1的子元素定位了，<br>即从盛装省略内容的标签到div1的标签中，有标签设置了position:relative，</p>
+<p>通过查找发现，在线编辑功能的小笔图标使用了position:absolute相对定位，在它最近的div2标签上设置了position:relative，<br>而div2标签包含了弹层所在标签，属于div1子元素，所以弹层就会相对div2定位，沿Z轴飘在div2这一层上面，就弹不到div1以外了</p>
+<h1 id="解决"><a href="#解决" class="headerlink" title="解决"></a>解决</h1><p>将div2上position:relative去掉，给在线编辑功能的小笔图标设置position:absolute的标签div3外加div4,设置position:relative</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div></pre></td><td class="code"><pre><div class="line">解决前：</div><div class="line">&lt;div1 style=&apos;position:relative&apos;&gt;</div><div class="line">  &lt;table&gt;</div><div class="line">    &lt;tbody&gt;</div><div class="line">    &lt;tr&gt;</div><div class="line">      &lt;td&gt;</div><div class="line">      &lt;div2 style=&apos;position:relative&apos;&gt;</div><div class="line">        &lt;div3 style=&quot;position:absolute&quot;&gt;&lt;i class=&quot;fa fa-pencil&quot; &gt;&lt;/i&gt;&lt;/div3&gt;</div><div class="line">        &lt;popwindow&gt;具体内容&lt;/popwindow&gt; /** 组件弹窗div设置有position:absolute**/</div><div class="line">      &lt;/div2&gt;</div><div class="line">      &lt;/td&gt;</div><div class="line">    &lt;/tr&gt;</div><div class="line">    &lt;/tbody&gt;</div><div class="line">  &lt;/table&gt;</div><div class="line">&lt;/div1&gt;</div><div class="line"></div><div class="line">解决后：</div><div class="line">&lt;div1 style=&apos;position:relative&apos;&gt;</div><div class="line">  &lt;table&gt;</div><div class="line">    &lt;tbody&gt;</div><div class="line">    &lt;tr&gt;</div><div class="line">      &lt;td&gt;</div><div class="line">      &lt;div2&gt;</div><div class="line">        &lt;div4 style=&apos;position:relative&apos;&gt;</div><div class="line">          &lt;div3 style=&quot;position:absolute&quot;&gt;&lt;i class=&quot;fa fa-pencil&quot; &gt;&lt;/i&gt;&lt;/div3&gt;</div><div class="line">        &lt;/div4&gt;</div><div class="line">        &lt;popwindow&gt;具体内容&lt;/popwindow&gt; /** 组件弹窗div设置有position:absolute**/</div><div class="line">      &lt;/div2&gt;</div><div class="line">      &lt;/td&gt;</div><div class="line">    &lt;/tr&gt;</div><div class="line">    &lt;/tbody&gt;</div><div class="line">  &lt;/table&gt;</div><div class="line">&lt;/div1&gt;</div></pre></td></tr></table></figure>
+<p>普通省略内容鼠标滑过<br><img src="/image/position2.png" alt="position2.png"><br>在线编辑内容省略时，鼠标滑过<br><img src="/image/position3.png" alt="position3.png"></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;问题-背景&quot;&gt;&lt;a href=&quot;#问题-背景&quot; class=&quot;headerlink&quot; title=&quot;问题/背景&quot;&gt;&lt;/a&gt;问题/背景&lt;/h1&gt;&lt;p&gt;table 的 td 内容在内容较多时会自动进行省略处理，然后鼠标滑过弹层显示具体内容&lt;/p&gt;
+&lt;p&gt;td内容还可以
+    
+    </summary>
+    
+    
+      <category term="css" scheme="http://yoohannah.github.io/tags/css/"/>
+    
+  </entry>
   
   <entry>
     <title>webpack原理</title>
@@ -841,65 +872,6 @@ module.exports = function(source){
     
     
       <category term="knowledge" scheme="http://yoohannah.github.io/tags/knowledge/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>文件结构</title>
-    <link href="http://yoohannah.github.io/post/vue/basic/filestructor.html"/>
-    <id>http://yoohannah.github.io/post/vue/basic/filestructor.html</id>
-    <published>2018-12-22T03:40:37.000Z</published>
-    <updated>2018-12-22T04:36:13.216Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="构建"><a href="#构建" class="headerlink" title="构建"></a>构建</h1><p>使用命令行构建<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">npm install --global vue-cli //全局安装vue命令</div><div class="line">vue init webpack my-project //使用vue命令构建名为my-project的项目</div><div class="line">cd my-project //进入项目所在文件夹</div><div class="line">npm run dev //运行项目</div></pre></td></tr></table></figure></p>
-<h1 id="文件结构"><a href="#文件结构" class="headerlink" title="文件结构"></a>文件结构</h1><pre><code class="lang-bash">.
-├── build/                      <span class="hljs-comment"># webpack config files</span>
-│   └── ...
-├── config/
-│   ├── index.js                <span class="hljs-comment"># main project config</span>
-│   └── ...
-├── src/
-│   ├── main.js                 <span class="hljs-comment"># app entry file</span>
-│   ├── App.vue                 <span class="hljs-comment"># main app component</span>
-│   ├── components/             <span class="hljs-comment"># ui components</span>
-│   │   └── ...
-│   └── assets/                 <span class="hljs-comment"># module assets (processed by webpack)</span>
-│       └── ...
-├── static/                     <span class="hljs-comment"># pure static assets (directly copied)</span>
-├── <span class="hljs-built_in">test</span>/
-│   └── unit/                   <span class="hljs-comment"># unit tests</span>
-│   │   ├── specs/              <span class="hljs-comment"># test spec files</span>
-│   │   ├── eslintrc            <span class="hljs-comment"># config file for eslint with extra settings only for unit tests</span>
-│   │   ├── index.js            <span class="hljs-comment"># test build entry file</span>
-│   │   ├── jest.conf.js        <span class="hljs-comment"># Config file when using Jest for unit tests</span>
-│   │   └── karma.conf.js       <span class="hljs-comment"># test runner config file when using Karma for unit tests</span>
-│   │   ├── setup.js            <span class="hljs-comment"># file that runs before Jest runs your unit tests</span>
-│   └── e2e/                    <span class="hljs-comment"># e2e tests</span>
-│   │   ├── specs/              <span class="hljs-comment"># test spec files</span>
-│   │   ├── custom-assertions/  <span class="hljs-comment"># custom assertions for e2e tests</span>
-│   │   ├── runner.js           <span class="hljs-comment"># test runner script</span>
-│   │   └── nightwatch.conf.js  <span class="hljs-comment"># test runner config file</span>
-├── .babelrc                    <span class="hljs-comment"># babel config</span>
-├── .editorconfig               <span class="hljs-comment"># indentation, spaces/tabs and similar settings for your editor</span>
-├── .eslintrc.js                <span class="hljs-comment"># eslint config</span>
-├── .eslintignore               <span class="hljs-comment"># eslint ignore rules</span>
-├── .gitignore                  <span class="hljs-comment"># sensible defaults for gitignore</span>
-├── .postcssrc.js               <span class="hljs-comment"># postcss config</span>
-├── index.html                  <span class="hljs-comment"># index.html template</span>
-├── package.json                <span class="hljs-comment"># build scripts and dependencies</span>
-└── README.md                   <span class="hljs-comment"># Default README file</span>
-</code></pre>
-
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;h1 id=&quot;构建&quot;&gt;&lt;a href=&quot;#构建&quot; class=&quot;headerlink&quot; title=&quot;构建&quot;&gt;&lt;/a&gt;构建&lt;/h1&gt;&lt;p&gt;使用命令行构建&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutte
-    
-    </summary>
-    
-    
-      <category term="vue" scheme="http://yoohannah.github.io/tags/vue/"/>
     
   </entry>
   
