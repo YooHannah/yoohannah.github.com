@@ -94,7 +94,7 @@
 <meta property="og:site_name" content="My Little World">
 <meta property="og:description" content="git pull 更新代码出现问题123456789There is no tracking information for the current branch.Please specify which branch you want to merge with.See git-pull(1) for details    git pull &amp;lt;remote&amp;gt; &amp;lt;branch&amp;g">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-12-22T05:08:41.302Z">
+<meta property="og:updated_time" content="2019-11-28T14:55:37.353Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="git问题处理">
 <meta name="twitter:description" content="git pull 更新代码出现问题123456789There is no tracking information for the current branch.Please specify which branch you want to merge with.See git-pull(1) for details    git pull &amp;lt;remote&amp;gt; &amp;lt;branch&amp;g">
@@ -369,6 +369,13 @@
 <li>git commit -m ‘’ -n 强制推送<br>3.更新远程分支列表<br>git remote update origin –prune</li>
 </ol>
 <h1 id="IE报vuex-requires-a-Promise-polyfill-in-this-browser问题解决"><a href="#IE报vuex-requires-a-Promise-polyfill-in-this-browser问题解决" class="headerlink" title="IE报vuex requires a Promise polyfill in this browser问题解决"></a>IE报vuex requires a Promise polyfill in this browser问题解决</h1><p>第一步： 安装 babel-polyfill 。 babel-polyfill可以模拟ES6使用的环境，可以使用ES6的所有新方法<br>npm install –save babel-polyfill<br>第二步： 在 Webpack/Browserify/Node中使用<br>在webpack.config.js文件中，使用<br>module.exports = {<br>entry: {<br>app: [“babel-polyfill”, “./src/main.js”]<br>}<br>};</p>
+<h1 id="git-分支处理"><a href="#git-分支处理" class="headerlink" title="git 分支处理"></a>git 分支处理</h1><h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>A同学提交了两次代码，但在第二次提交代码前，B同学有提交自己的代码，并且在合并代码时，<br>将A同学第一次提交的代码merge丢弃了，导致A同学第一次代码无法合并到主分支</p>
+<h2 id="原理知识"><a href="#原理知识" class="headerlink" title="原理知识"></a>原理知识</h2><p>git reset 可以撤销commit命令的提交<br>git rebase 把分叉提交历史’整理’成一条直线<br>git stash 可以把工作现场’储藏起来’，等以后恢复现场后可以继续工作</p>
+<h2 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h2><p>在分支代码处理时，A同学本地有主分支host(公共分支)和自己的本地分支local，<br>工作流程是<br>在自己本地分支local分支开发完毕后，<br>切换host分支，git pull 拉取远端分支更新后，<br>将本地分支local合并merge到host分支<br>然后git push到远端</p>
+<p>而B同学直接在本地的主分支(公共分支)开发，git push时冲突，<br>git pull 拉取远端A同学第一次的代码时，直接将代码变更进行了丢弃<br>然后push了自己的代码到远端分支</p>
+<p>A同学第二次提交时，并不知道B同学丢弃了自己第一次提交的代码，<br>在进行第二次提交时，在host上拉取远程更新之后，<br>继续合并推送最终结果就是自己的第一次代码丢失了</p>
+<h2 id="解决"><a href="#解决" class="headerlink" title="解决"></a>解决</h2><p>利用A同学本地分支local没有合并远程分支的间隙,将A同学的两次提交保存下来，回到两次提交前的状态<br>然后拉取B同学的提交，再将A同学的两次提交拿出来进行合并，这样就可以实现三次提交都保存下来，再提交到远端</p>
+<p>在A同学的本地分支进行操作<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">1.在主分支host上取消第二次提交</div><div class="line">git reset --hard HEAD~1</div><div class="line"></div><div class="line">2.将远端第二次提交撤销掉,让分支保留在B同学提交的状态</div><div class="line">git push --force</div><div class="line"></div><div class="line">3.切换本地分支local,回滚版本到两次提交前</div><div class="line">git reset HEAD^^ </div><div class="line"></div><div class="line">4.保存两次提交 可以通过git stash list查看保存状态</div><div class="line">git stash </div><div class="line">git stash list</div><div class="line"></div><div class="line">5. 合并主分的B同学的提交到本地分支local,这时本地分支就有B同学的代码变更了</div><div class="line">6. 取出A同学的两次提交,与B同学代码进行提交</div><div class="line">git stash pop</div><div class="line">7. 切换主分支host,合并本地分支local,推送到远端</div></pre></td></tr></table></figure></p>
 
       
     </div>
@@ -481,7 +488,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">171</span>
+              <span class="site-state-item-count">174</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -540,7 +547,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#git-pull-更新代码出现问题"><span class="nav-number">1.</span> <span class="nav-text">git pull 更新代码出现问题</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#git-remote-add-origin-遇到远程分支已存在的情况"><span class="nav-number">2.</span> <span class="nav-text">git remote add origin 遇到远程分支已存在的情况</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#git-push-遇到问题"><span class="nav-number">3.</span> <span class="nav-text">git push 遇到问题</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#npm-运行项目错误"><span class="nav-number">4.</span> <span class="nav-text">npm 运行项目错误</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#git-merge-之后，git-commit-出现问题"><span class="nav-number">5.</span> <span class="nav-text">git merge 之后，git commit 出现问题</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#IE报vuex-requires-a-Promise-polyfill-in-this-browser问题解决"><span class="nav-number">6.</span> <span class="nav-text">IE报vuex requires a Promise polyfill in this browser问题解决</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#git-pull-更新代码出现问题"><span class="nav-number">1.</span> <span class="nav-text">git pull 更新代码出现问题</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#git-remote-add-origin-遇到远程分支已存在的情况"><span class="nav-number">2.</span> <span class="nav-text">git remote add origin 遇到远程分支已存在的情况</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#git-push-遇到问题"><span class="nav-number">3.</span> <span class="nav-text">git push 遇到问题</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#npm-运行项目错误"><span class="nav-number">4.</span> <span class="nav-text">npm 运行项目错误</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#git-merge-之后，git-commit-出现问题"><span class="nav-number">5.</span> <span class="nav-text">git merge 之后，git commit 出现问题</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#IE报vuex-requires-a-Promise-polyfill-in-this-browser问题解决"><span class="nav-number">6.</span> <span class="nav-text">IE报vuex requires a Promise polyfill in this browser问题解决</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#git-分支处理"><span class="nav-number">7.</span> <span class="nav-text">git 分支处理</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#背景"><span class="nav-number">7.1.</span> <span class="nav-text">背景</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#原理知识"><span class="nav-number">7.2.</span> <span class="nav-text">原理知识</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#分析"><span class="nav-number">7.3.</span> <span class="nav-text">分析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#解决"><span class="nav-number">7.4.</span> <span class="nav-text">解决</span></a></li></ol></li></ol></div>
             
 
           </div>
