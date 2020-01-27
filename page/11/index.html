@@ -259,6 +259,254 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://yoohannah.github.io/post/angular/ng-class.html">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="YooHannah">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="/psb.jpg">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="My Little World">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="My Little World" src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/post/angular/ng-class.html" itemprop="url">
+                  angular样式绑定ng-class
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-06-25T22:00:37+08:00">
+                2017-06-25
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>ng-class命令可用于绑定不同的样式<br>使用方法即先在js中,定义样式集合<br>$scope.STATUS_NAME = [<br>  {‘labelClass’: ‘label1’},<br>  {‘labelClass’: ‘label2’},<br>  {‘labelClass’: ‘label3’},<br>  {‘labelClass’: ‘label4’}<br> ];<br> 对绑定对象赋值<br> angular.forEach($scope.data, function(data){<br>     //对数组中每一项，根据status属性赋给labelclass属性样式集合中的值<br>   data.labelClass = $scope.STATUS_NAME[data.status].labelClass;<br> });<br>在html中定义不同的样式<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">&lt;style type=&quot;text/css&quot;&gt;</div><div class="line">	.label1&#123;</div><div class="line">    background-color:#87CEFA</div><div class="line">  &#125;</div><div class="line">  .label2&#123;</div><div class="line">    background-color:#90EE90</div><div class="line">  &#125;</div><div class="line">  .label3&#123;</div><div class="line">    background-color:#d2cd93</div><div class="line">  &#125;</div><div class="line">  .label4&#123;</div><div class="line">    background-color:#D3D3D3</div><div class="line">  &#125;</div><div class="line">&lt;/style&gt;</div></pre></td></tr></table></figure></p>
+<p> 在html中使用<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&lt;tr role=&quot;row&quot; ng-repeat=&quot;item in data track by $index&quot;&gt;</div><div class="line">	&lt;td&gt;&lt;span class=&quot;label&quot; ng-class=&quot;item.labelClass&quot;&gt;&#123;&#123;item.status_desc&#125;&#125;&lt;/span&gt;&lt;/td&gt;</div><div class="line">&lt;/tr&gt;</div></pre></td></tr></table></figure></p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://yoohannah.github.io/post/php/CookieAndSession.html">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="YooHannah">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="/psb.jpg">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="My Little World">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="My Little World" src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/post/php/CookieAndSession.html" itemprop="url">
+                  cookie和session
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-05-26T21:38:37+08:00">
+                2017-05-26
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="cookie"><a href="#cookie" class="headerlink" title="cookie"></a>cookie</h1><p>设置cookie<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">bool setcookie  (</div><div class="line">	string $名字</div><div class="line">	[, string $值]</div><div class="line">	[, int $过期时间  = 0]</div><div class="line">	[, string $路径]</div><div class="line">	[, string $域名]</div><div class="line">	[, bool $安全  = false]</div><div class="line">	[, bool $http只读  = false]</div><div class="line">);</div></pre></td></tr></table></figure></p>
+<p> 参数 描述<br>$名字 必需。规定 cookie 的名称。<br>$值 可选。规定 cookie 的值。<br>$有效期 可选。规定 cookie 的有效期。<br>$路径 可选。规定 cookie 的服务器路径。<br>$域名 可选。规定 cookie 的域名。<br>$安全 可选。规定是否通过安全的 HTTPS 连接来传输 cookie。<br>$http安读 可选。如果true，那么js就无法读取改cookie，增加安全性。</p>
+<p>在服务端通过$_COOKIE[‘name’] 来读取cookie了。</p>
+<p><a href="https://github.com/YooHannah/algorithm/tree/master/php/cookie" target="_blank" rel="external">使用cookie例子</a></p>
+<h1 id="session"><a href="#session" class="headerlink" title="session"></a>session</h1><p> session_start(); //开启session<br> $_SESSION[‘userName’] = ‘wang’; //添加session数据<br> $userName = $_SESSION[‘userName’]; //读取session数据<br> unset($_SESSION[‘XXX’]);//销毁单个session数据<br> $_SESSION = array();//销毁全部session数据<br> session_destory();//这个函数会销毁当前会话中的全部数据，并结束当前会话,但是不会重置当前会话所关联的全局变量，也不会重置会话 cookie</p>
+<p> 在php.ini配置文件中有这么一行 session.save_handler = files,<br> files,说明了php默认的是用文件读写的方式来保存session的<br> session.save_path = “/tmp”, “/tmp”即存储路径</p>
+<p><a href="https://github.com/YooHannah/algorithm/tree/master/php/shoppingcart" target="_blank" rel="external">使用session例子</a></p>
+<h1 id="curl"><a href="#curl" class="headerlink" title="curl"></a>curl</h1><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">&lt;?php</div><div class="line"><span class="comment">//初始化</span></div><div class="line">$ch = curl_init();</div><div class="line"><span class="comment">//设置选项，包括URL</span></div><div class="line">curl_setopt($ch, CURLOPT_URL, <span class="string">"http://www.php.cn"</span>);</div><div class="line">curl_setopt($ch, CURLOPT_RETURNTRANSFER, <span class="number">1</span>);</div><div class="line">curl_setopt($ch, CURLOPT_HEADER, <span class="number">0</span>);</div><div class="line"><span class="comment">//执行并获取HTML文档内容</span></div><div class="line">$output = curl_exec($ch);</div><div class="line"><span class="comment">//释放curl句柄</span></div><div class="line">curl_close($ch);</div><div class="line"><span class="comment">//打印获得的数据</span></div><div class="line">print_r($output);</div><div class="line">?&gt;</div></pre></td></tr></table></figure>
+<p>函数    curl_setopt<br>参数1    curl资源变量<br>参数2    curl参数选项<br>参数3    curl参数值</p>
+<p>CURLOPT_URL           这个参数选项规定了请求的url地址。<br>CURLOPT_RETURNTRANSFER   curl请求后返回对应的结果 若需要返回值即为1。不需请求后返回的结果可设置为0。</p>
+<p>如果是get请求，我们不需要设置发送的参数。在post等请求的时候，我们需要设置发送方法为post方法。并设置发送的数据。<br>CURLOPT_POST    值设为1是使用POST方法，0为不使用POST方法<br>CURLOPT_POSTFIELDS  设置传递的数据<br>//声明使用POST方式来进行发送<br>    curl_setopt($ch, CURLOPT_POST, 1);<br>//发送什么数据呢<br>curl_setopt($ch, CURLOPT_POSTFIELDS, $data);</p>
+<p>如果是https有的时候需要忽略https的安全证书。</p>
+<p>CURLOPT_SSL_VERIFYPEER和CURLOPT_SSL_VERIFYHOST 两个参数改为false即忽略了证书。<br>curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);<br>curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);<br>CURLOPT_HEADER  决定是是否处理http的头信息，不接收处理的话可将这个值设置为0。<br>CURLOPT_TIMEOUT 设置请求的超时时间</p>
+<p>$output = curl_exec($ch); 如果执行的结果有数据。使用curl_exec执行后，会将结果返回给$output变量。<br>curl_close($ch); 关闭curl资源。<br><a href="https://github.com/YooHannah/algorithm/blob/master/php/curl1.php" target="_blank" rel="external">curlget 截取页面例子</a><br><a href="https://github.com/YooHannah/algorithm/blob/master/php/curlpost.php" target="_blank" rel="external">curlpost例子</a></p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
   <link itemprop="mainEntityOfPage" href="http://yoohannah.github.io/post/php/php_MySQL.html">
 
   <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1434,258 +1682,11 @@ void clearstatcache ( void ) 功能：清楚文件的状态缓存
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="http://yoohannah.github.io/post/algorithm/sort.html">
-
-  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
-    <meta itemprop="name" content="YooHannah">
-    <meta itemprop="description" content="">
-    <meta itemprop="image" content="/psb.jpg">
-  </span>
-
-  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-    <meta itemprop="name" content="My Little World">
-    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
-      <img style="display:none;" itemprop="url image" alt="My Little World" src="">
-    </span>
-  </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/post/algorithm/sort.html" itemprop="url">
-                  排序
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-04-14T22:18:37+08:00">
-                2017-04-14
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>记录：在排序问题中，通常将数据元素称为记录<br>–输入一个记录集合，排序后输出也是一个记录集合<br>–将排序看成是线性表的一种操作<br>排序依据关键字之间的大小关系，那么对同一记录集合，针对不同的关键字进行排序，可以得到不同的序列</p>
-<h1 id="排序稳定性"><a href="#排序稳定性" class="headerlink" title="排序稳定性"></a>排序稳定性</h1><p>假设Ki=Kj(1&lt;=i&lt;=n,1&lt;=j&lt;=n,i!=j),且在排序前的序列中ri领先于rj(即i&lt;j)<br>–如果排序后ri仍领先于rj,则称所用排序方法是稳定的<br>–反之，若排序后rj仍领先于ri,则称所用排序方法是不稳定的<br>即原来值相同的两个值A和B,排序前A在B前面，排序后位置不变则说排序算法是稳定的，否则是不稳定的</p>
-<h1 id="影响排序算法性能的几个要素"><a href="#影响排序算法性能的几个要素" class="headerlink" title="影响排序算法性能的几个要素"></a>影响排序算法性能的几个要素</h1><p>时间性能(比较，移动)<br>辅助空间(存放临时变量)<br>算法的复杂性</p>
-<h1 id="冒泡排序算法n-2"><a href="#冒泡排序算法n-2" class="headerlink" title="冒泡排序算法n^2"></a>冒泡排序算法n^2</h1><p>两两相邻记录的关键字，如果反序则交换，直到没有反序记录为止<br>注意点：<br>– 每次比较相邻两个元素<br>– 如果有n个元素,比较n-1次，每次减少1次比较<br>– 从下往上比较，即从后往前比较<br><a href="https://github.com/YooHannah/algorithm/blob/master/js/bubblesort.js" target="_blank" rel="external">代码链接</a></p>
-<h1 id="选择排序法n-2"><a href="#选择排序法n-2" class="headerlink" title="选择排序法n^2"></a>选择排序法n^2</h1><p>通过n-i次关键字间的比较，从n-i+1个记录中选出关键字最小的记录，并和第i(1=&lt;i&lt;=n)个记录交换<br><a href="https://github.com/YooHannah/algorithm/blob/master/js/SelectSort.js" target="_blank" rel="external">代码链接</a></p>
-<h1 id="直接插入排序n-2"><a href="#直接插入排序n-2" class="headerlink" title="直接插入排序n^2"></a>直接插入排序n^2</h1><p>连续两个值比较若后面的比前面的小，就将后面的值移到比它大的值的前面<br>适用于记录本身就是有序的,记录数少<br><a href="https://github.com/YooHannah/algorithm/blob/master/js/InsertSort.js" target="_blank" rel="external">代码链接</a></p>
-<h1 id="希尔排序n-logn"><a href="#希尔排序n-logn" class="headerlink" title="希尔排序n*logn"></a>希尔排序n*logn</h1><p>将所有元素按一定间隔f取出n/f个进行比较，再按顺序放回对应的位置，直到所有元素参与完比较之后，算完成一轮比较，<br>再改变间隔进行下一轮比较，直到间隔为1<br>可以将该处理方法套进冒泡、选择和直接插入的方法中<br><a href="https://github.com/YooHannah/algorithm/blob/master/js/shellsort.js" target="_blank" rel="external">代码链接</a></p>
-<h1 id="堆排序n-logn"><a href="#堆排序n-logn" class="headerlink" title="堆排序n*logn"></a>堆排序n*logn</h1><p>大顶堆；每个结点大于等于其左右孩子的完全二叉树<br>小顶堆：每个结点小于等于其左右孩子的完全二叉树<br>各结点一定是堆中所有结点的最大或最小者，如果按照层序遍历方式给结点从1开始编号，则结点之间满足如下关系<br>大顶堆：Ki&gt;=K2i &amp;&amp; Ki&gt;=K2i+1<br>大顶堆：Ki&lt;=K2i &amp;&amp; Ki&lt;=K2i+1<br>其中(1&lt;=i&lt;=n/2取下限)<br>下标i与2i和2i+1是双亲和子女关系<br>堆排序：利用堆进行排序<br>– 将待排序的序列构造成一个大顶堆(从小到大)(或小顶堆(从大到小))<br>– 此时整个序列的最大值就是堆顶的根结点。将它移走(就是将其与堆数组的末尾元素交换，此时末尾元素就是最大值)<br>– 然后将剩余的n-1个序列重新构造成一个堆，这样就会得到n个元素中的此最大值<br>– 如此反复执行，便能得到一个有序序列了<br><a href="https://github.com/YooHannah/algorithm/blob/master/js/HeapSort.js" target="_blank" rel="external">代码链接</a></p>
-<h1 id="归并排序"><a href="#归并排序" class="headerlink" title="归并排序"></a>归并排序</h1><p>将待排序数组每次一份为2，直到每一份的数组长度为1，<br>对拆分的两份结果排序合成一个新数组，参与下次下一次比较排序合并<br><a href="https://github.com/YooHannah/algorithm/blob/master/js/MergeSort.js" target="_blank" rel="external">代码链接</a></p>
-<h1 id="快速排序"><a href="#快速排序" class="headerlink" title="快速排序"></a>快速排序</h1><p>每趟排序指定一个基准点，把比基准点小的元素放在基准点左边，比基准点大的元素放在基准点右边<br>再以基准点为界，把前面的数据(都比基准点小)和后面的数据(都比基准点大)按两部分的最小下标为基准准进行移动,<br>优化<br>选取基准点<br>不必要的交换<br>小数组时的排序方案(使用直接插入排序)<br>递归操作<br>尾递归：函数递归形式的调用出现在函数末尾，可以大大缩减栈空间<br><a href="https://github.com/YooHannah/algorithm/blob/master/js/QuickSort.js" target="_blank" rel="external">代码链接</a></p>
-<h1 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h1><p><img src="/image/qsort.png" alt="qsort"><br>插入排序类:直接插入排序、希尔排序<br>选择排序类：选择排序、堆排序<br>交换排序类：冒泡排序、快速排序<br>归并排序类：归并排序<br><img src="/image/sort.png" alt="sort"></p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="http://yoohannah.github.io/post/algorithm/hash.html">
-
-  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
-    <meta itemprop="name" content="YooHannah">
-    <meta itemprop="description" content="">
-    <meta itemprop="image" content="/psb.jpg">
-  </span>
-
-  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-    <meta itemprop="name" content="My Little World">
-    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
-      <img style="display:none;" itemprop="url image" alt="My Little World" src="">
-    </span>
-  </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/post/algorithm/hash.html" itemprop="url">
-                  散列表(哈希表)
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-04-09T18:21:37+08:00">
-                2017-04-09
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>记录的存储位置 = f(关键字)<br>散列技术是在存储位置和它的关键字之间建立一个确定的对应关系f,使得每个关键字key对应一个存储位置f(key)<br>对应关系函数f称为散列函数(哈希函数)<br>采用三列技术将记录存储在一块连续的存储空间中，这块连续存储空间称为散列表(哈希表)</p>
-<h1 id="查找步骤"><a href="#查找步骤" class="headerlink" title="查找步骤"></a>查找步骤</h1><p>当存储记录时，通过散列函数计算出记录的散列地址<br>当查找记录时，通过散列函数计算记录的散列地址，并按此散列地址访问该记录<br>各记录之间没有任何关系<br>散列表适合1对1查找，不适合查找范围，也不适合关键字对应多个结果的查找<br>散列函数通过不同的关键字，计算出了相同地址，称之为冲突</p>
-<h1 id="构建散列函数"><a href="#构建散列函数" class="headerlink" title="构建散列函数"></a>构建散列函数</h1><p>散列函数原则=计算简单+分布均匀(散列地址)<br>直接定址法<br>取关键字的某个线性函数值为散列地址：f(key)=a*key+b<br>适合查找表小，key比较连续的情况，不常用<br>数字分析法<br>适合处理关键字位数比较大的情况<br>抽取关键字的某几位作为散列地址<br>平方取中法<br>平方取中法是将关键字平方之后取中间若干位数字作为散列地址<br>适合不知道关键字的分布，关键字位数不是很大的情况<br>折叠法<br>将关键字从左到右分割成位数相等的几部分，然后将这几部分叠加求和，并按散列表表长取后几位作为散列地址<br>除留余数法<br>f(key) = key mod p(p &lt;= m)<br>m为表长<br>这个方法不仅可以对关键字直接取模，也可以通过折叠、平方取中后再取模<br>p的取值是关键，最好接近m的最小质数<br>随机数法<br>选择一个随机数，取关键字的随机函数值为它的散列地址<br>f(key) = random(key)<br>random为随机函数，适合关键字长度不等的情况<br>选取方法时要考虑的因素：<br>计算散列地址所需时间<br>关键字长度<br>散列表大小<br>关键字分布情况<br>记录查找频率</p>
-<h1 id="处理散列冲突的方法"><a href="#处理散列冲突的方法" class="headerlink" title="处理散列冲突的方法"></a>处理散列冲突的方法</h1><p>开放定址法<br>一旦发生了冲突，就去寻找下一个空的散列地址，只要散列表足够大，空的散列地址总能找到，并将记录存入<br>1.线性探测法<br>fi(key) = (f(key)+di) mod m<br>其中di = 1,2,…,m-1<br>意思是，散列函数计算的地址已经被其他记录占据，就将散列函数计算的地址每次次加1到m-1的一个数,<br>再mod表长，将每次计算的结果当做新地址去探测有没有记录，如果没有就将该地址做为记录的地址<br>2.二次探测法<br>修改一次探测法di的取值<br>另di = 1^2,-1^2,2^2,-2^2,q^2,-q^2,其中q&lt;=m/2<br>3.随机探测法<br>对di采用随机函数计算得到<br>再散列函数法<br>fi(key) = RHi(key)(i=1,2,3,…k)<br>就是用第一个散列函数计算的地址发生冲突就换第二个散列函数，如果第二个也发生冲突，则换第三个，以此类推<br>链地址法<br>地址处不存放单一记录，而是存放记录的链表，记录1指向记录2，计算得到地址相同，就继续指下去<br>公共溢出区法<br>不发生冲突的关键字放在基本表，将发生冲突的记录依次存放在溢出表，<br>查找时基本表找不到时就去查溢出表，溢出表找不到再宣告失败</p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/10/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/10/">10</a><span class="page-number current">11</span><a class="page-number" href="/page/12/">12</a><span class="space">&hellip;</span><a class="page-number" href="/page/18/">18</a><a class="extend next" rel="next" href="/page/12/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/page/10/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/10/">10</a><span class="page-number current">11</span><a class="page-number" href="/page/12/">12</a><span class="space">&hellip;</span><a class="page-number" href="/page/19/">19</a><a class="extend next" rel="next" href="/page/12/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -1726,7 +1727,7 @@ void clearstatcache ( void ) 功能：清楚文件的状态缓存
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">179</span>
+              <span class="site-state-item-count">181</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>

@@ -96,7 +96,7 @@
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://yoohannah.github.io/image/reactlife.png">
 <meta property="og:image" content="http://yoohannah.github.io/image/vuelife.png">
-<meta property="og:updated_time" content="2018-03-24T14:25:43.826Z">
+<meta property="og:updated_time" content="2020-01-27T12:04:50.395Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="各种框架框架的数据绑定机制">
 <meta name="twitter:description" content="angular js脏检查机制 react虚拟DOM:react 在初始化的时候会render一颗dom树，当state/props发生改变的时候，render函数会再渲染出另外一棵树与之前的dom树进行对比，新渲染的树就是虚拟dom树diff 算法:比较dom树时的算法， 只会对同层节点进行比较；父节点不同,不会再去比较子节点； 同层比较时，遇到结点类型不同,比如结点顺序发生变化时没有key属性">
@@ -347,6 +347,7 @@
 <h1 id="vue1-0"><a href="#vue1-0" class="headerlink" title="vue1.0"></a>vue1.0</h1><p>单检查</p>
 <h1 id="vue2-0"><a href="#vue2-0" class="headerlink" title="vue2.0"></a>vue2.0</h1><p>虚拟DOM和diff算法</p>
 <p><img src="/image/vuelife.png" alt="vuelife"></p>
+<h1 id="检测数据变更的4中方法"><a href="#检测数据变更的4中方法" class="headerlink" title="检测数据变更的4中方法"></a>检测数据变更的4中方法</h1><p>手动触发绑定<br>脏检查机制<br>数据对象劫持,使用Object.defineProperty<br>使用proxy</p>
 
       
     </div>
@@ -459,7 +460,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">179</span>
+              <span class="site-state-item-count">181</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -518,7 +519,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#angular-js"><span class="nav-number">1.</span> <span class="nav-text">angular js</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#react"><span class="nav-number">2.</span> <span class="nav-text">react</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#vue1-0"><span class="nav-number">3.</span> <span class="nav-text">vue1.0</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#vue2-0"><span class="nav-number">4.</span> <span class="nav-text">vue2.0</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#angular-js"><span class="nav-number">1.</span> <span class="nav-text">angular js</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#react"><span class="nav-number">2.</span> <span class="nav-text">react</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#vue1-0"><span class="nav-number">3.</span> <span class="nav-text">vue1.0</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#vue2-0"><span class="nav-number">4.</span> <span class="nav-text">vue2.0</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#检测数据变更的4中方法"><span class="nav-number">5.</span> <span class="nav-text">检测数据变更的4中方法</span></a></li></ol></div>
             
 
           </div>

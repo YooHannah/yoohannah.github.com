@@ -94,7 +94,7 @@
 <meta property="og:site_name" content="My Little World">
 <meta property="og:description" content="1.V8占用操作系统内存很少,为什么？类似于体育场办演唱会，演唱会结束后，清完垃圾才能开下一场，如果场子小，2小时搞定，如果场子大，人多产生垃圾多，清理时间就会变长在64位操作系统中占用1.4G，32位操作系统中占0.7G表面原因是JS设计之初是用于给浏览器跑脚本，脚本跑完一次就结束了，不需要长期运行占用内存，以上这些空间足够实际原因是垃圾回收机制在进行时，会停掉正在运行的整个程序，回收结束后继续">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-06-09T11:58:28.506Z">
+<meta property="og:updated_time" content="2020-01-27T12:17:27.407Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="一点V8引擎知识">
 <meta name="twitter:description" content="1.V8占用操作系统内存很少,为什么？类似于体育场办演唱会，演唱会结束后，清完垃圾才能开下一场，如果场子小，2小时搞定，如果场子大，人多产生垃圾多，清理时间就会变长在64位操作系统中占用1.4G，32位操作系统中占0.7G表面原因是JS设计之初是用于给浏览器跑脚本，脚本跑完一次就结束了，不需要长期运行占用内存，以上这些空间足够实际原因是垃圾回收机制在进行时，会停掉正在运行的整个程序，回收结束后继续">
@@ -345,6 +345,7 @@
 <p>5.优化内存技巧<br>尽量不要定义全局变量<br>全局变量记得销毁掉<br>用匿名自执行函数变全局为局部<br>尽量避免闭包</p>
 <p>在使用立即执行函数实现闭包时，<br>函数内代码，为同步操作时，占用内存与不使用闭包相同<br>但如果包含异步操作，则函数内用到的外界变量会一直处于被引用状态<br>得不到释放从而导致内存增加<br>解决：使用完释放；避免使用闭包</p>
 <p>6.导致内存泄露<br>滥用缓存</p>
+<p>js中导致内存泄露的常见场景<br>闭包函数<br>全局变量<br>对象属性循环使用<br>Dom节点删除时未解绑事件<br>Map和Set数据类型的数据属性直接删除，导致指向的数据没有被删除</p>
 
       
     </div>
@@ -448,7 +449,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">179</span>
+              <span class="site-state-item-count">181</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>

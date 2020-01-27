@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoohannah.github.io/"/>
-  <updated>2020-01-27T05:20:42.064Z</updated>
+  <updated>2020-01-27T13:10:16.995Z</updated>
   <id>http://yoohannah.github.io/</id>
   
   <author>
@@ -14,6 +14,58 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>关于css的一些事</title>
+    <link href="http://yoohannah.github.io/post/knowledge/css.html"/>
+    <id>http://yoohannah.github.io/post/knowledge/css.html</id>
+    <published>2020-01-27T12:41:15.000Z</published>
+    <updated>2020-01-27T13:10:16.995Z</updated>
+    
+    <content type="html"><![CDATA[<p>1.CSS 选择器的优先级<br>!important<br>内联样式（1000）<br>id选择器（100）<br>类选择器（10）<br>元素选择器（1）</p>
+<p>2.为兼容浏览器，对css基本样式做统一处理的三种方法<br>【reset】<br>消除浏览器默认样式，针对具体元素标签重写样式<br>【normalize】<br>样式规范确定的情况下，直接重写全部样式<br>【neat】<br>前两者结合，针对确定的样式直接重写，不确定的进行清除</p>
+<p>3.css预处理语法工具需要具备的特性<br>可以变量声明和计算<br>支持语法表达式<br>可以定义函数进行处理<br>属性可以继承<br>可以自行实现autoprefix类似的兼容性补全功能</p>
+<p>4.实现动画的6种方式<br>纯JS(利用setInternal,16ms)<br>svg(利用标签配置)<br>canvas（利用jsAPI配置）<br>css3-transition(过渡动画，不能独立实现动画)<br>css3-animation(纯css实现动画)<br>requestAnimationFrame(类似setInterval,但性能消耗低)<br>前两种兼容性良好，后四种适用于移动端</p>
+<p>5.屏幕适配布局方案<br>想办法让比例不变<br>A.在html/body标签上加上zoom属性，缺点是不灵活<br>B.使用rem，相对于文档根元素font-size,<br>  利用mediaQuery对常见几种屏幕宽度设置html的font-size<br>  以font-size大小为1rem</p>
+<p>6.响应式设计的两种方案<br>前端或者后端判断useragent来跳转不同站点得到不同页面<br>使用mediaQuery媒体查询让页面根据不同设备自动改变页面布局和显示</p>
+<p>7.根据浏览器屏幕宽度和分辨率加载不同大小的图片<br>使用mediaQuery判断加载不同的背景图<br>使用H5的picture标签<br>模板进行判断然后渲染不同图片<br>请求图片时带上相关参数，让图片服务器吐出不同大小图片</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;1.CSS 选择器的优先级&lt;br&gt;!important&lt;br&gt;内联样式（1000）&lt;br&gt;id选择器（100）&lt;br&gt;类选择器（10）&lt;br&gt;元素选择器（1）&lt;/p&gt;
+&lt;p&gt;2.为兼容浏览器，对css基本样式做统一处理的三种方法&lt;br&gt;【reset】&lt;br&gt;消除浏览器默认样
+    
+    </summary>
+    
+    
+      <category term="css" scheme="http://yoohannah.github.io/tags/css/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Shadow DOM</title>
+    <link href="http://yoohannah.github.io/post/knowledge/shadowDom.html"/>
+    <id>http://yoohannah.github.io/post/knowledge/shadowDom.html</id>
+    <published>2020-01-27T12:18:15.000Z</published>
+    <updated>2020-01-27T12:33:42.519Z</updated>
+    
+    <content type="html"><![CDATA[<p>Shadow DOM是HTML的一个规范，它允许浏览器开发者封装自己的HTML标签，css样式和特定js代码<br>同时也可以让开发者常见类似video这样的自定义一级标签，<br>创建的这些新标签和相关的api被称为 WEB Component</p>
+<p>Shadow host 是shadow dom 的容器元素，就是最终使用的标签元素<br>Shadow root 是shadow dom 具体内容的根节点，可以使用document.createShadowRoot()创建<br>shadow tree 是shadow dom 包含的子节点数</p>
+<p>在shadow root 上可以任意通过DOM操作添加任意shadow tree，同时指定样式和处理逻辑<br>并将自己的API暴露出来<br>完成创建后需要通过document.registerElement()在文档中注册元素<br>shadow dom 创建就完成了</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;Shadow DOM是HTML的一个规范，它允许浏览器开发者封装自己的HTML标签，css样式和特定js代码&lt;br&gt;同时也可以让开发者常见类似video这样的自定义一级标签，&lt;br&gt;创建的这些新标签和相关的api被称为 WEB Component&lt;/p&gt;
+&lt;p&gt;Shadow
+    
+    </summary>
+    
+    
+      <category term="html" scheme="http://yoohannah.github.io/tags/html/"/>
+    
+  </entry>
   
   <entry>
     <title>vuepress相关</title>
@@ -153,7 +205,7 @@
     <link href="http://yoohannah.github.io/post/knowledge/h5.html"/>
     <id>http://yoohannah.github.io/post/knowledge/h5.html</id>
     <published>2020-01-27T02:33:58.000Z</published>
-    <updated>2020-01-27T05:17:35.435Z</updated>
+    <updated>2020-01-27T12:08:30.880Z</updated>
     
     <content type="html"><![CDATA[<p>h5 新增语义化布局标签：header,nav,section,aside,article,footer，均表现为块级<br>canvas,video,audio,sessionStorage,localStorage,<br>拖放API(源对象：ondragstart,ondrag,ondragend；源对象标签属性要设置为draggable=true<br>目标对象：ondragenter,ondragover,ondragleave,ondrop;<br>ondragover事件默认会屏蔽ondrop事件,<br>如果要触发ondrop事件，需要在ondragover事件函数中阻止默认屏蔽行为<br>event.preventDefault()<br>)<br>//谷歌浏览器v56 之后，window,document,body的touchstart,touchmove事件会被默认为pssive:true<br>//解决方法一：window.addEventListener(‘touchstart’,func,{passive:false})<br>//解决方法二，添加样式：*{touch-action:none} 取消所有元素默认事件<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">//实现把A标签拖到B标签</div><div class="line">1.A标签开始拖动时</div><div class="line">ondragstart(event)&#123;</div><div class="line">  event.dataTransfer.setData(&apos;source&apos;,event.target.id)</div><div class="line">&#125;</div><div class="line">2.B标签监听拖拽结束后</div><div class="line">ondrop(event)&#123;</div><div class="line">  var source = document.getElementById(event.dataTransfer.getData(&apos;source&apos;))</div><div class="line">  event.target.appendChild(source)</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
 <p>History常用场景<br>单页应用中：实现网页无刷新更新数据的同时，解决浏览器无法前进/后退的问题<br>pushState:每执行一次都会增加一条历史记录，浏览器在返回时，就不会返回前一个页面，并且不会刷新浏览器<br>replaceState：用来修改当前历史记录，而不是创建一个新的历史记录，点击返回按钮照样会返回上一个页面<br>onpopstate：点击后退，前进或者调用history.back()，history.forward(),history.go()方法</p>
@@ -169,7 +221,7 @@
 <p>#Canvas绘制动画步骤<br>1.清空canvas<br>除非接下来要画的内容会完全充满canvas(例如背景图)，否则需要清空所有，最简单<br>的做法就是clearRect方法<br>2.保存canvas状态<br>如果需要改变一些会改变canvas状态的设置(样式，变形之类的)，又要在每画一帧之时，都是原始状态的话，需要先保存一下<br>3.绘制动画图形<br>重绘动画帧<br>4.恢复canvas状态<br>如果已经保存了canvas的状态，可以先恢复它，然后重绘下一帧</p>
 <h1 id="transform"><a href="#transform" class="headerlink" title="transform"></a>transform</h1><p>2D功能函数组合使用时，先写的后执行<br>perspective：100px 可以设置3d旋转时的景深<br>transform-origin:可以改变中心点</p>
 <h1 id="响应式布局"><a href="#响应式布局" class="headerlink" title="响应式布局"></a>响应式布局</h1><p>可以通过link标签配置media去使用不同比例的CSS样式<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">&lt;link rel=&apos;stylesheet&apos; media=&apos;screen and (max-device-width:480px)&apos; href=&apos;./css1.css&apos;&gt;</div><div class="line">&lt;link rel=&apos;stylesheet&apos; media=&apos;screen and (min-device-width:480px)&apos; href=&apos;./css2.css&apos;&gt;</div></pre></td></tr></table></figure></p>
-<p><a href="https://github.com/YooHannah/algorithm/blob/master/baseJs/touch-event.js" target="_blank" rel="external">一些触摸事件的实现</a></p>
+<p><a href="https://github.com/YooHannah/algorithm/blob/master/baseJs/touchEvent.js" target="_blank" rel="external">一些触摸事件的实现</a></p>
 ]]></content>
     
     <summary type="html">
@@ -241,10 +293,10 @@
     <link href="http://yoohannah.github.io/post/knowledge/calcApprence.html"/>
     <id>http://yoohannah.github.io/post/knowledge/calcApprence.html</id>
     <published>2019-11-28T14:58:58.000Z</published>
-    <updated>2019-11-28T15:00:13.343Z</updated>
+    <updated>2020-01-27T12:38:29.572Z</updated>
     
-    <content type="html"><![CDATA[<h1 id="子元素-position-fixed-，但宽度要和父元素一致"><a href="#子元素-position-fixed-，但宽度要和父元素一致" class="headerlink" title="子元素 position:fixed ，但宽度要和父元素一致"></a>子元素 position:fixed ，但宽度要和父元素一致</h1><h3 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h3><p>父元素宽度随屏幕大小变化，而且margin-left有一个固定值，假设为320px<br>子元素position:fixed<br>如果直接设置子元素宽度为100%<br>则会导致子元素有320px的宽度在可视区域外<br><img src="/image/calc.png" alt="calc.png"></p>
-<h3 id="知识点"><a href="#知识点" class="headerlink" title="知识点"></a>知识点</h3><p>css3的函数calc() 可以用来计算属性值<br>特点：<br>1.浏览器解析calc()结果还是calc(),不会计算参数表达式的值，<br>  意味着浏览器中的值可以更加灵活，能够响应视口的改变，即实际渲染结果始终调用calc计算结果<br>2.可以使用加减乘除，可以套嵌使用，即calc参数表达式中可以包含calc函数调用<br>3.可以进行不同单位间的计算,可以混合绝对单位(如百分比与视口单元)与相对单元(比如像素)<br>应用<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">1.居中</div><div class="line">//居中设置原来</div><div class="line">.center &#123;</div><div class="line">  position: absolute</div><div class="line">  top: 50%;</div><div class="line">  left: 50%;</div><div class="line">  marging-top: -150px;</div><div class="line">  margin-left: -150px;</div><div class="line">&#125;</div><div class="line"></div><div class="line">//使用calc</div><div class="line">.center &#123;</div><div class="line">  position: absolute</div><div class="line">  top: calc(50% - 150px);</div><div class="line">  left: calc(50% - 150px);</div><div class="line">&#125;</div><div class="line"></div><div class="line">2.设置字体，在页面上的任何文本，将会根据视口自动缩放，</div><div class="line">相同比例的视口总会显示相同的文本数量，不管视口的真实尺寸是多少。</div><div class="line">html &#123;  </div><div class="line">    font-size: calc(100vw / 30);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+    <content type="html"><![CDATA[<h1 id="子元素-position-fixed-，但宽度要和父元素一致"><a href="#子元素-position-fixed-，但宽度要和父元素一致" class="headerlink" title="子元素 position:fixed ，但宽度要和父元素一致"></a>子元素 position:fixed ，但宽度要和父元素一致</h1><h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>父元素宽度随屏幕大小变化，而且margin-left有一个固定值，假设为320px<br>子元素position:fixed<br>如果直接设置子元素宽度为100%<br>则会导致子元素有320px的宽度在可视区域外<br><img src="/image/calc.png" alt="calc.png"></p>
+<h2 id="知识点"><a href="#知识点" class="headerlink" title="知识点"></a>知识点</h2><p>css3的函数calc() 可以用来计算属性值<br>特点：<br>1.浏览器解析calc()结果还是calc(),不会计算参数表达式的值，<br>  意味着浏览器中的值可以更加灵活，能够响应视口的改变，即实际渲染结果始终调用calc计算结果<br>2.可以使用加减乘除，可以套嵌使用，即calc参数表达式中可以包含calc函数调用<br>3.可以进行不同单位间的计算,可以混合绝对单位(如百分比与视口单元)与相对单元(比如像素)<br>应用<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">1.居中</div><div class="line">//居中设置原来</div><div class="line">.center &#123;</div><div class="line">  position: absolute</div><div class="line">  top: 50%;</div><div class="line">  left: 50%;</div><div class="line">  marging-top: -150px;</div><div class="line">  margin-left: -150px;</div><div class="line">&#125;</div><div class="line"></div><div class="line">//使用calc</div><div class="line">.center &#123;</div><div class="line">  position: absolute</div><div class="line">  top: calc(50% - 150px);</div><div class="line">  left: calc(50% - 150px);</div><div class="line">&#125;</div><div class="line"></div><div class="line">2.设置字体，在页面上的任何文本，将会根据视口自动缩放，</div><div class="line">相同比例的视口总会显示相同的文本数量，不管视口的真实尺寸是多少。</div><div class="line">html &#123;  </div><div class="line">    font-size: calc(100vw / 30);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">width:calc(100%-320px)</div></pre></td></tr></table></figure>
 <h1 id="input样式兼容"><a href="#input样式兼容" class="headerlink" title="input样式兼容"></a>input样式兼容</h1><p>在safari浏览器中给input设置样式不能直接被使用，会依旧使用浏览器默认样式，<br>此时需要给样式添加<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">-webkit-appearance: none;/*去除系统默认appearance的样式*/</div><div class="line">line-height: normal;</div></pre></td></tr></table></figure></p>
 ]]></content>
@@ -774,101 +826,6 @@ module.exports = function(source){
     <summary type="html">
     
       &lt;p&gt;其实按照官网一步一步来就好了，也不用翻墙，基本上，就是耗时间&lt;br&gt;我配置的是window android环境&lt;br&gt;&lt;a href=&quot;https://reactnative.cn/docs/getting-started.html&quot; target=&quot;_blank&quot; rel
-    
-    </summary>
-    
-    
-      <category term="js" scheme="http://yoohannah.github.io/tags/js/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>webpack配置项</title>
-    <link href="http://yoohannah.github.io/post/performance/webpackdetail.html"/>
-    <id>http://yoohannah.github.io/post/performance/webpackdetail.html</id>
-    <published>2019-03-03T08:21:02.000Z</published>
-    <updated>2019-06-29T08:27:25.816Z</updated>
-    
-    <content type="html"><![CDATA[<p>webpack在启动后会从Entry里配置的Moudule开始，递归解析Entry依赖的所有Module，每找到一个module,就会根据配置的loader去找对应的转换规则，<br>对Module进行转换后，在解析当前Module依赖的Module。这些模块会以Entry为单位进行分组，一个Entry及其所有依赖Module被分到一个组，也就是一个Chunk<br>最后，webpack会将所有Chunk转换成文件输出。webpack会在恰当的时机执行Plugin里定义的逻辑</p>
-<h1 id="entry"><a href="#entry" class="headerlink" title="entry"></a>entry</h1><p>入口，webpack执行构建的第一步将从Entry开始，可抽象成输入<br>配置：<br>方式1： 直接一个文件路径字符串：’./app/entry1’<br>方式2： 文件路径字符串数组：[‘./app/entry1’,’./app/entry2’]<br>方式3： 文件路径字符串对象：{A：’./app/entryA’,B:’./app/entryB’}<br>方式4： 函数，动态导出以上三种形式<br>方式1,2最后只会有一个文件会被导出，即导出一个Chunk,名为main<br>方式3导出多个Chunk,名称分别对应对象KEY值</p>
-<h1 id="output"><a href="#output" class="headerlink" title="output"></a>output</h1><p>输出结果，在webpack经过一系列处理并得到最终想要的代码后输出结果<br>配置：</p>
-<h2 id="filename"><a href="#filename" class="headerlink" title="filename"></a>filename</h2><p>输出文件名<br>方式1：静态，名字写死，如bundle.js，适用于只有一个导出Chunk，一个输出文件<br>方式2：利用Chunk内置变量，动态拼接生成文件名，例如’[name].js’<br>Chunk内置变量有：id,name,hash(name的hash,可指定长度，例如[hash:8]),chunkhash(chunk内容的hash)<br>相关：ExtractTextWebpackPlugin使用contenthash表示文件内容hash,但提取的内容为代码本身，不是一组模块组成的chunck内容</p>
-<h2 id="chunkFilename"><a href="#chunkFilename" class="headerlink" title="chunkFilename"></a>chunkFilename</h2><p>无具体入口的chunk输出的文件名<br>例如通过commonChunkPlugin生成的文件，或者使用import动态加载生成的文件等<br>因为都是chunk输出文件，所以内置变量同filename的chunk</p>
-<h2 id="path"><a href="#path" class="headerlink" title="path"></a>path</h2><p>输出文件的存放目录<br>配置：绝对路径的字符串<br>内置变量：仅有一个，hash,代表一次编译操作的hash值</p>
-<h2 id="publishPath"><a href="#publishPath" class="headerlink" title="publishPath"></a>publishPath</h2><p>配置发布到线上资源的URL前缀<br>配置：字符串<br>内置变量：仅有一个，hash,代表一次编译操作的hash值</p>
-<h2 id="crossOriginloading"><a href="#crossOriginloading" class="headerlink" title="crossOriginloading"></a>crossOriginloading</h2><p>配置异步插入的script标签的crossorign值<br>配置：<br>anonymous，默认，不带cookie<br>use-credentials,加载时，带cookie</p>
-<h2 id="library"><a href="#library" class="headerlink" title="library"></a>library</h2><p>导出库的名称,与libraryTarget配合使用<br>配置：字符串</p>
-<h2 id="libraryTarget"><a href="#libraryTarget" class="headerlink" title="libraryTarget"></a>libraryTarget</h2><p>以何种方式导出库<br>配置：以下字符串<br>‘var’|’commonjs’|’commonjs2’|’this’|’window’|’global’</p>
-<h2 id="libraryExport"><a href="#libraryExport" class="headerlink" title="libraryExport"></a>libraryExport</h2><p>在libraryTarget配置’commonjs’|’commonjs2’时，配置导出模块中哪些子模块被导出</p>
-<h1 id="module"><a href="#module" class="headerlink" title="module"></a>module</h1><p>模块处理规则</p>
-<h2 id="rules"><a href="#rules" class="headerlink" title="rules"></a>rules</h2><p>数组，每一项是处理同一类文件的相关配置对象</p>
-<h3 id="test"><a href="#test" class="headerlink" title="test"></a>test</h3><p>处理哪些文件，文件名命中规则，<br>配置：字符串</p>
-<h3 id="include"><a href="#include" class="headerlink" title="include"></a>include</h3><p>在什么目录范围内匹配<br>配置：字符串/字符串数组（每一项是或的关系，只要满足一个条件就会命中）</p>
-<h3 id="exclude"><a href="#exclude" class="headerlink" title="exclude"></a>exclude</h3><p>排除哪些目录范围，再匹配<br>配置：字符串/字符串数组（每一项是或的关系，只要满足一个条件就会命中）</p>
-<h3 id="use"><a href="#use" class="headerlink" title="use"></a>use</h3><p>配置loader<br>loader可以看作具有文件转换功能的翻译员，告诉webpack在遇到哪些文件时使用哪些loader去加载和转换<br>配置：数组，每一项可以是是字符串，或者对象<br>默认执行顺序为数组倒序执行，即最末尾先执行<br>字符串：loader名称<br>对象：对于该loader的一些相关配置</p>
-<h4 id="loader"><a href="#loader" class="headerlink" title="loader"></a>loader</h4><p>配置：字符串，loader名</p>
-<h4 id="option"><a href="#option" class="headerlink" title="option"></a>option</h4><p>配置：对象，给loader处理函数传入的参数</p>
-<h4 id="enforce"><a href="#enforce" class="headerlink" title="enforce"></a>enforce</h4><p>更改loader执行顺序<br>配置：<br>pre: 放在执行顺序最前面<br>post:放在执行顺序最后</p>
-<h2 id="noparse"><a href="#noparse" class="headerlink" title="noparse"></a>noparse</h2><p>功能类似于exclude,排除不需要进行接续处理的文件，<br>此类文件中不能采用模块化方式编写，即不应包含import,require,define等语句，<br>否则导致无法在浏览器下执行<br>配置：字符串，文件路径</p>
-<h2 id="parse"><a href="#parse" class="headerlink" title="parse"></a>parse</h2><p>更细粒度地配置哪些语法被解析，哪些不被解析，精确到语法层面<br>{cmd:false,commonjs:false….}</p>
-<h1 id="resolve"><a href="#resolve" class="headerlink" title="resolve"></a>resolve</h1><p>配置如何寻找模块对应的文件</p>
-<h2 id="alias"><a href="#alias" class="headerlink" title="alias"></a>alias</h2><p>通过将路径前缀指定别名，进行映射<br>配置：对象，key为别名，值为实际路径<br>例：{components：’./src/components’,…}</p>
-<p>第三方模块一般会包含两套代码<br>一套采用comonjs规范的模块代码，这些文件都放在lib目录下，以package.json中指定的react.js为模块入口<br>一套是将React所有相关代码打包好的完整代码放到一个单独文件中，这些代码没有采用模块化，可以直接执行，<br>其中非压缩文件（dist/xxx.js）用于开发环境，里面包含检查和警告的代码，压缩的代码(dist/xxx.min.js)用于线上环境<br>默认情况下，webpack会从入口文件./node_module/xxx/xxx.js开始递归解析和处理依赖的几十个文件，会是一个耗时操作<br>可以通过配置reaolve.alias,让webpack处理第三方库时，直接使用单独完整的xxx.min.js，从而跳过耗时的递归解析操作</p>
-<h2 id="mainFields"><a href="#mainFields" class="headerlink" title="mainFields"></a>mainFields</h2><p>决定优先使用第三方模块的哪份代码，按数组顺序查找，使用找到的第一份文件<br>默认值和target有关，<br>当target为web或者webwork时，值是[‘browser’,’module’,’main’]<br>当target为其他值时，值时[‘module’,’main’]<br>配置：第三方模块导出文件的关键字<br>例：[‘jsnext:main’,’brower’,’main’]</p>
-<h2 id="extensions"><a href="#extensions" class="headerlink" title="extensions"></a>extensions</h2><p>导入语句没有带文件后缀时，尝试寻找的后缀代表<br>配置：后缀字符串数组<br>例：[‘.ts’,’.js’,’json’]</p>
-<h2 id="modules"><a href="#modules" class="headerlink" title="modules"></a>modules</h2><p>去哪些目录下寻找第三方模块，<br>默认node_modules 含义是先去当前目录的./node_module目录下找，如果没有找到，就去上一级目录../node_module中去找<br>再没有就去../../node_module中找，一次类推<br>配置：字符串数组<br>例：[‘.src/components’,’node_modules’],<br>可以直接在页面中import ‘.src/components’里面的模块，不用再写相对路径</p>
-<h2 id="descriptionFiles"><a href="#descriptionFiles" class="headerlink" title="descriptionFiles"></a>descriptionFiles</h2><p>配置第三方模块名<br>配置：字符串数组</p>
-<h2 id="enforceExtension"><a href="#enforceExtension" class="headerlink" title="enforceExtension"></a>enforceExtension</h2><p>是否强制导入语句中必须带后缀<br>true:必须带<br>false:不用必须带</p>
-<h2 id="enforceModuleExtension"><a href="#enforceModuleExtension" class="headerlink" title="enforceModuleExtension"></a>enforceModuleExtension</h2><p>只对node_module文件夹下模块生效<br>通常设置false，与enforceExtension：true配合，兼容第三方模块，使用时不加后缀</p>
-<h1 id="plugin"><a href="#plugin" class="headerlink" title="plugin"></a>plugin</h1><p>扩展插件，在webpack构建流程中的特定时机注入扩展逻辑，来改变构建结果或者做一些自定义的操作<br>比如将css文件单独打包，或者抽离公共模块<br>不使用plugin处理css文件的原理大概是将CSS内容用JS字符串存储起来，在网页执行JS时，通过DOM操作，动态向HTML head标签里插入HTML style标签<br>使用plugin将css抽离，是从打包好的js文件再提取出来<br>配置：plugin实例数组，使用new操作符调用构造函数，同时将参数传递进去<br>例：[new commonsChunkPlugin({name:’common’})]</p>
-<h1 id="devServer"><a href="#devServer" class="headerlink" title="devServer"></a>devServer</h1><p>配置针对使用webpack-dev-server启动webpack时的一些配置，相当于配置webpack-dev-server<br>devServer 会启动一个http服务器，用于服务网页请求，<br>同时会启动webpack,将webpack构建的文件保存在内存中，在要访问输出的文件时，必须通过HTTP服务访问，<br>同时会开启webpack的监听模式，devServer会让webpack在构建出的js代码里注入一个代理客户端用于控制网页，<br>网页和devServer之间通过webSocket协议通信，以方便devServer主动向客户端发送命令，<br>devServer在收到来自webpack的文件变化通知时，通过注入的客户端控制自动刷新网页，做到实时预览。<br>1.由于devServer不会理会配置的output.path属性，所以获取打包文件时，应该依据HTTP获取，不再依据output.path获取<br>因此要注意使用devServer之后打包文件的获取路径要进行更改。<br>2.index.html因为脱离js模块化系统，webpack不知道它的存在，故，更改index.html，不会被监听到<br>3.除了通过重新刷新整个网页来实现预览，devServer还有一种被称作模块热替换的刷新技术。<br>模块热替换能做到在不重新加载整个网页的情况下，通过将已更新的模块替换老模块，再重新执行一次来实现实时预览。<br>模块热替换相对于默认的刷新机制能提供更快的响应速度和更好的开发体验。<br>可以在执行devServer时加上 –hot开启<br>4.启动webpack时，加上–devtool source-map 可生成souce-map，方便在浏览器中调试源代码</p>
-<p>配置<br>hot是否开启热加载(热替换)<br>模块热替换原理：<br>类似于自动刷新，都需要向要开发的网页中注入一个代理客户端来连接DevServer和网页，区别在于热替换时会多出三个用于热替换的文件<br>在发生文件变化时，会重新生成一个用于替换老模块的补丁文件，补丁文件中会包含新编译的代码，页面会使用新编译的代码<br>当子模块发生更新时，更新事件会一层一层向上传递，会从根组件传递到main.js,直到有某层文件接收了当前变化的模块，<br>就会去执行自定义的逻辑，如果事件一直往上抛，到最外层都没有文件接收它，则会直接刷新网页，<br>最直观的就是修改main.js时，会发生整个页面刷新<br>而对于.css文件，在使用style-loader处理时会注入用于接收CSS的代码，所以在修改.css文件时，会触发模块热替换</p>
-<p>inline<br>开启实现实时预览，自动刷新；<br>不开启，使用iframe方式运行开发的网页，需要去localhost:8080/webpack-dev-pack实时预览<br>historyApiFallback:用于H5History API单页应用开发<br>contentBase:devServer HTTP服务器文件根目录<br>headers:在HTTP响应中注入HTTP响应头<br>host:监听地址<br>port:监听端口<br>allowedHosts:只有HTTP请求的HOST在列表中才正常返回<br>disabledHostCheck:是否关闭用于DNS重新绑定的HTTP请求的HOST检查<br>https:是否运行在https上<br>clientloglevel:配置客户端日志等级</p>
-<h1 id="target"><a href="#target" class="headerlink" title="target"></a>target</h1><p>构建不同运行环境的代码</p>
-<h1 id="devtool"><a href="#devtool" class="headerlink" title="devtool"></a>devtool</h1><p>有很多选项可配置，选项之间可以随意组合<br>6个关键配置项：<br>eval:用eval语句包裹需要安装的模块<br>source-map:生成独立的Source Map文件<br>hidden：不在JS文件中指出 Source Map文件的位置，这样浏览器就不会自动加载Source Map<br>inline:将生成的Source Map转换成BASE64格式内嵌在JS文件中<br>cheap:在生成的Source Map文件中不会包含列信息，这样计算量更小，输出的Source Map文件更小，同时Loader输出的Source Map不会被采用<br>module:来自Loader的Source Map被简单的处理成每行一个模块</p>
-<h2 id="‘source-map’"><a href="#‘source-map’" class="headerlink" title="‘source-map’"></a>‘source-map’</h2><p>仅设置source-map会造成以下两个问题<br>1.会输出质量最高且最详细的Source Map，会造成构建速度缓慢，特别是开发过程中需要频繁修改时会增加等待时间<br>2.会将Source Map暴露，若构建发布到线上代码的Source Map暴露等于源码被泄露<br>解决：<br>1.开发环境下将dev-tool设置成cheap-module-eval-source-map,因为生成这种Source Map的速度最快，能加速构建，<br>在开发环境下不会做代码压缩，所以在Source Map中即使没有列信息，也不会影响断点调试<br>2.生产环境下将dev-tool设置成hidden-source-map,生成最详细的Source Map，但不会将Source Map暴露出去<br>在生产环境会做代码压缩，一个JS文件只有一行，所以需要列信息</p>
-<p>生产环境通常不会将Source Map上传到HTTP服务器让用户获取，而是上传到JS错误错误收集系统，<br>在错误收集系统上根据Source Map和收集到的JS运行错误堆栈，计算出错误所在源码位置</p>
-<h2 id="第三方模块"><a href="#第三方模块" class="headerlink" title="第三方模块"></a>第三方模块</h2><p>webpack是默认不会加载第三方模块附带的Source Map文件的，会在转换过程中生成Source Map，<br>为了让webpack加载这些第三方模块的Source Map，需要使用source-map-loader<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">rules:[&#123;</div><div class="line">	test:/\.js$/,</div><div class="line">	include:[path.resolve(root,&apos;node_module/some-component&apos;)],</div><div class="line">	//加载Source Map时计算量很大，因此要避免让该Loader处理过多的文件，不然会导致构建变慢</div><div class="line">	use:[source-map-loader],</div><div class="line">	//要将source-map-loader的执行顺序放到最前面，</div><div class="line">	//如果在source-map-loader之前有Loader转换了该JS文件，就会导致Source Map映射错误</div><div class="line">	enforce:&apos;pre&apos;</div><div class="line">	&#125;]</div></pre></td></tr></table></figure></p>
-<h1 id="watch"><a href="#watch" class="headerlink" title="watch"></a>watch</h1><p>是否开启监听文件变动模式</p>
-<h1 id="watchOption"><a href="#watchOption" class="headerlink" title="watchOption"></a>watchOption</h1><p>配置监听规则,在开启监听模式时，才有用</p>
-<p>ignore:不监听的文件/文件夹<br>aggregateTimeout:监听到变化发生后，等多少ms再去执行动作，截流，防止文件更新太快而导致重新编译的频率太快，默认为300ms<br>poll:判断文件是否发生变化是通过不停的询问系统指定文件有没有变化实现的，这里配置每秒询问多少次</p>
-<p>文件监听原理：<br>默认情况下，webpack会从配置的Entry文件出发，递归出Entry文件依赖的文件，将这些依赖的文件都加入到监听列表中，而不是监听整个项目目录下的文件<br>然后对列表中每个文件都定时执行检查，定时获取这个文件的最后编辑时间，每次都存下最新的最后编辑时间，如果发现当前获取的和最后编辑时间不一致，<br>就认为该文件发生了变化，watchOption.poll控制定时检查的周期<br>文件发生变化后并不会立刻告诉监听者，而是先缓存起来，收集一段时间的变化后，再一次性告诉监听者。watchOption.aggregateTimeout用于配置这个等待时间<br>这样做的目的就是在编辑代码过程可能会高频地输入文字，导致文件变化的时间高频发生，如果每次都重新执行构建，就会让构建卡死</p>
-<h1 id="externals"><a href="#externals" class="headerlink" title="externals"></a>externals</h1><p>配置哪些模块不用被打包</p>
-<h1 id="resolveloader"><a href="#resolveloader" class="headerlink" title="resolveloader"></a>resolveloader</h1><p>配置如何去寻找loader</p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;webpack在启动后会从Entry里配置的Moudule开始，递归解析Entry依赖的所有Module，每找到一个module,就会根据配置的loader去找对应的转换规则，&lt;br&gt;对Module进行转换后，在解析当前Module依赖的Module。这些模块会以Entry
-    
-    </summary>
-    
-    
-      <category term="performance" scheme="http://yoohannah.github.io/tags/performance/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>多请求loading处理</title>
-    <link href="http://yoohannah.github.io/post/knowledge/loadingcount.html"/>
-    <id>http://yoohannah.github.io/post/knowledge/loadingcount.html</id>
-    <published>2019-03-03T01:53:37.000Z</published>
-    <updated>2019-03-03T03:06:45.427Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h1><p>项目中所有http请求走同一个全局公共函数，函数参数为：请求方法，url, 请求参数，回调函数以及是否需要加loading的一个布尔值</p>
-<p>一般情况下都需要加loading，所以第5个参数一般不填，默认为true,需要加loading<br>不加loading的情况也有，例如下载一个文件的过程，如果是由前端来组装文件流，这个时候是不加loading的</p>
-<p>loading效果的添加是通过jquery判断有没有loading效果对应的DOM，有的话就先remove再append<br>loading效果的消失通过jquery remove掉相关DOM元素</p>
-<p>即在全局公共函数发出http请求前，根据第5个参数，添加loading，请求结束后取消loading</p>
-<h1 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h1><p>一个配置页面，跳转过来时需要加载多项数据进行初始化，而且数据之间有一定关联<br>比如，异步请求A,B,C,D四个数据，请求完D之后，在回调函数中，需要根据D数据发出请求E，再根据E返回数据请求F<br>导致的现象是，ABCD数据回来比较快，然后loading消失，发出E时loading重现，消失和重现时间距离较短，<br>造成页面闪烁</p>
-<h1 id="目标"><a href="#目标" class="headerlink" title="目标"></a>目标</h1><p>加载ABCDEF请求loading仅显示一次，消失一次</p>
-<h1 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h1><p>1.其实本身发出ABCD四个异步请求时也会发生loading问题，即，如果A请求回来的比其他三个早很多，loading会提前结束<br>2.从D返回的数据可能为空这时就不需要去请求E，F请求也就不用发出，同样如果E没数据，也就不要请求F，这时候loading在哪结束需要判断</p>
-<h1 id="解决"><a href="#解决" class="headerlink" title="解决"></a>解决</h1><p>1.在加载loading和消失loading时，添加一层计数，加载loading，计数count加1，消失loading计数count减1，当count减为0时，loading再消失<br>这样就可以解决异步请求loading提前消失<br>2.D请求完才会发出E请求，这时如果ABC请求早已结束，count已经被减为0 ，会重新开始计数，loading会重现造成闪烁，还是不能解决直接问题，<br>解决办法就是,在请求回来时，利用settimeout包裹计数减1,loading消失过程，先执行回调函数再减1，<br>这样，如果D有数据，count会因为要发请求E先加1，然后执行settimeout减1，这样loading就不会因为减到1而消失<br>如果    D没数据不发出请求E，同步执行完回调函数后，执行settimeout减1，count减到0，loading消失</p>
-<h1 id="后续"><a href="#后续" class="headerlink" title="后续"></a>后续</h1><p>回调函数中，有同事代码编写存在BUG，比如没有判断对象是否存在直接去使用其身上的属性值，这样的error会在请求的catch中被捕捉到，<br>因为请求发生错误，状态码非200都会被捕捉到catch中，这时也需要将loading关闭，<br>这样就会造成在回调函数发生错误时，count被减了两次，第一次是请求正常回来时，第二次是回调函数发生错误在catch中被减1，<br>这样count就被减成了小于0，之前的判断以及count等于0，loading消失不再适用，<br>因此将判断界限定为小于1即loading消失，进行容错处理</p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;h1 id=&quot;背景&quot;&gt;&lt;a href=&quot;#背景&quot; class=&quot;headerlink&quot; title=&quot;背景&quot;&gt;&lt;/a&gt;背景&lt;/h1&gt;&lt;p&gt;项目中所有http请求走同一个全局公共函数，函数参数为：请求方法，url, 请求参数，回调函数以及是否需要加loading的一个布尔值&lt;/p
     
     </summary>
     

