@@ -94,7 +94,7 @@
 <meta property="og:site_name" content="My Little World">
 <meta property="og:description" content="释放内部对象且能防止外部修改的方式通过创建中间对象挂载到实例上，通过中间对象的set方法进行拦截123456789101112function initGlobalAPI (Vue) &amp;#123;  var configDef = &amp;#123;&amp;#125;;  configDef.get = function () &amp;#123; return config; &amp;#125;; //config对象是">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2020-01-27T04:01:11.570Z">
+<meta property="og:updated_time" content="2020-02-05T15:16:11.445Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="一些关于vue的零散笔记">
 <meta name="twitter:description" content="释放内部对象且能防止外部修改的方式通过创建中间对象挂载到实例上，通过中间对象的set方法进行拦截123456789101112function initGlobalAPI (Vue) &amp;#123;  var configDef = &amp;#123;&amp;#125;;  configDef.get = function () &amp;#123; return config; &amp;#125;; //config对象是">
@@ -357,7 +357,8 @@
 <p>2.template及script标签构建的组件全局注册<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">Vue.component(&apos;my-comp&apos;,&#123;</div><div class="line">    template:&apos;#mycom&apos;</div><div class="line">&#125;)</div></pre></td></tr></table></figure></p>
 <h2 id="组件局部注册"><a href="#组件局部注册" class="headerlink" title="组件局部注册"></a>组件局部注册</h2><p>1.调用Vue.extend(),创建名为myCom的组件局部注册（只能在注册该组件的实例中使用，一处注册，一处使用）<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">var app = new Vue(&#123;</div><div class="line">    el:&apos;#app&apos;,</div><div class="line">    components:&#123;</div><div class="line">        &apos;my-com&apos;:myCom</div><div class="line">    &#125;</div><div class="line">&#125;)</div></pre></td></tr></table></figure></p>
 <p>2.template及script构建的组件局部注册<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">var app = new Vue(&#123;</div><div class="line">    el:&apos;#app&apos;</div><div class="line">    componnets:&#123;</div><div class="line">        &apos;my-com&apos;:&#123;</div><div class="line">            template:&apos;#myCom&apos;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;)</div></pre></td></tr></table></figure></p>
-<h2 id="组件化处理边界情况"><a href="#组件化处理边界情况" class="headerlink" title="组件化处理边界情况"></a>组件化处理边界情况</h2><p>1.访问根实例 this.$root.xxx<br>2.访问父组件实例：this.$parent.xxx<br>3.访问子组件实例或子元素：&lt;child ref=’xxx’&gt;&lt;/child &gt; =&gt;this.$refs.xxx<br>4.依赖注入：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">provide:function()&#123;</div><div class="line">    return&#123;</div><div class="line">        getMap:this.getMap</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line">inject:[getMap]</div></pre></td></tr></table></figure></p>
+<h2 id="组件化处理边界情况"><a href="#组件化处理边界情况" class="headerlink" title="组件化处理边界情况"></a>组件化处理边界情况</h2><p>1.访问根实例 this.$root.xxx<br>2.访问父组件实例：this.$parent.xxx<br>3.访问子组件实例或子元素：&lt;child ref=’xxx’&gt;&lt;/child &gt; =&gt;this.$refs.xxx<br>4.依赖注入：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">provide:function()&#123; //父组件</div><div class="line">    return&#123;</div><div class="line">        getMap:this.getMap</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line">inject:[getMap]//子组件</div></pre></td></tr></table></figure></p>
+<p>然而，依赖注入还是有负面影响的。它将你应用程序中的组件与它们当前的组织方式耦合起来，使重构变得更加困难。同时所提供的属性是非响应式的。这是出于设计的考虑，因为使用它们来创建一个中心化规模化的数据跟使用 $root做这件事都是不够好的。如果你想要共享的这个属性是你的应用特有的，而不是通用化的，或者如果你想在祖先组件中更新所提供的数据，那么这意味着你可能需要换用一个像 Vuex 这样真正的状态管理方案了</p>
 <p>5.统一处理事件侦听器时，在组件卸载前，统一清除监听器<br>6.组件循环引用，Vue.component注册的组件允许，但是模块化导入的不允许<br>7.模板定义的替代品：<br>A:内联模板：当inline-template这个特殊的特性出现在一个子组件上时，这个组件将会使用其里面的内容作为模板<br>而不是将其作为被分发的内容<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;myCom inline-template&gt;&lt;div&gt;&lt;p&gt;these are compiled as the component&apos;s own template&lt;/p&gt;&lt;/div&gt;&lt;/myCom&gt;</div></pre></td></tr></table></figure></p>
 <p>B:x-template<br>在script标签里使用text/x-template，并且指定id,将这个id赋值给template<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&lt;script type=&apos;text/x-template&apos; id = &apos;mycom&apos;&gt;</div><div class="line">  &lt;div&gt;this is a component&lt;/div&gt;</div><div class="line">&lt;/script&gt;</div><div class="line">Vue.component(&apos;my-comp&apos;,&#123;</div><div class="line">    template:&apos;#mycom&apos;</div><div class="line">&#125;)</div></pre></td></tr></table></figure></p>
 <p>8.强制更新<br>A：使用this.$forceUpdate<br>B：使用v-once创建低开销静态组件，组件包含大量静态内容可以在根元素上添加v-once特性以确保这些内容只计算一次然后缓存起来</p>
@@ -397,8 +398,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/post/knowledge/h5.html" rel="next" title="一些关于H5的知识">
-                <i class="fa fa-chevron-left"></i> 一些关于H5的知识
+              <a href="/post/vue/src1.html" rel="next" title="vue 源码学习一">
+                <i class="fa fa-chevron-left"></i> vue 源码学习一
               </a>
             
           </div>
@@ -477,7 +478,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">181</span>
+              <span class="site-state-item-count">183</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
