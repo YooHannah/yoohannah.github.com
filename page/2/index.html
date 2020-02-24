@@ -259,6 +259,433 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://yoohannah.github.io/post/vue/usual.html">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="YooHannah">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="/psb.jpg">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="My Little World">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="My Little World" src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/post/vue/usual.html" itemprop="url">
+                  一些关于vue的零散笔记
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-01-27T10:48:15+08:00">
+                2020-01-27
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="释放内部对象且能防止外部修改的方式"><a href="#释放内部对象且能防止外部修改的方式" class="headerlink" title="释放内部对象且能防止外部修改的方式"></a>释放内部对象且能防止外部修改的方式</h1><p>通过创建中间对象挂载到实例上，通过中间对象的set方法进行拦截<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">function initGlobalAPI (Vue) &#123;</div><div class="line">  var configDef = &#123;&#125;;</div><div class="line">  configDef.get = function () &#123; return config; &#125;; //config对象是vue对象构建过程的内部对象，存储全局配置项</div><div class="line">  &#123;</div><div class="line">    configDef.set = function () &#123;</div><div class="line">      warn(</div><div class="line">        &apos;Do not replace the Vue.config object, set individual fields instead.&apos;</div><div class="line">      );</div><div class="line">    &#125;;</div><div class="line">  &#125;</div><div class="line">  Object.defineProperty(Vue, &apos;config&apos;, configDef);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p><a href="https://cn.vuejs.org/v2/api/#optionMergeStrategies" target="_blank" rel="external">Vue.config.optionMergeStrategies</a> 应用中<br>Vue.config可以get,得到的即内部的config，但如果进行Vue.config = xxxx set操作就会报错<br>通过Vue.config可以获得内部config，从而可以修改内部config对象上的属性，从而修改到全局配置</p>
+<h1 id="关于3-0的思考"><a href="#关于3-0的思考" class="headerlink" title="关于3.0的思考"></a>关于3.0的思考</h1><p>如何更快<br>Object.defineProperty–&gt;Proxy<br>Virtual Dom重构<br>更多编译优化：<br>Slot默认编译为函数<br>重构vnode factory，统一输入参数，进一步优化编译处理函数(Monomorphic vnode factory)<br>编译时增加vnode/children 类型信息标识，从而做进一步优化（Compiler-generated flags for vnode/children types）</p>
+<p>Function based API 对比Class API 好处<br>更好的TS类型推导支持<br>更灵活的逻辑复用能力<br>Tree-shaking 友好<br>代码更容易压缩</p>
+<p>现有逻辑复用模式<br>Mixins<br>高阶组件<br>基于scoped slots/作用域插槽封装逻辑的组件<br>存在问题<br>数据来源不清晰 （Function based API 数据来源清晰）<br>命名冲突（Function based API 没有命名冲突）<br>无谓的额外组件的性能消耗 （Function based API 没有额外组件性能消耗）</p>
+<p>对比React Hooks<br>同样的逻辑组合，复用能力更强<br>只调用一次<br>符合JS直觉<br>没有闭包变量问题<br>没有内存/GC压力<br>不存在内联回调导致子组件永远更新问题</p>
+<p>2.0<br>mergeOption 选项策略处理<br>插件开发：以默认配置优先；以用户配置为覆盖<br>策略：听过JS 增强配置选项的表达力<br>{}==&gt;function(){}  el===根实例</p>
+<p>数据劫持vue3.0改用proxy原因<br>defineProperty只能监听某个属性，不能对全对象监听，使用proxy可以省去for in提升效率<br>可以监听数组，不用再去单独的对数组做特异性操作</p>
+<p>vue2.0 vdom性能瓶颈<br>虽然能够保证触发更新的组件最小化，但在单个组件内部依然需要遍历该组件的整个Vdom树<br>vdom的性能跟模板大小正相关，跟动态节点的数量无关。<br>在一些组件整个模板内只有少量动态节点的情况下，这些遍历都是性能的浪费</p>
+<h1 id="编译3步骤"><a href="#编译3步骤" class="headerlink" title="编译3步骤"></a>编译3步骤</h1><p>parse：AST<br>optimize:标记静态节点<br>generate 生成目标平台所需的代码 将AST转化成render function字符串</p>
+<h1 id="修饰符"><a href="#修饰符" class="headerlink" title="修饰符"></a>修饰符</h1><p>v-model.lazy 从input事件中转变为在change事件中同步数据<br>v-model.number 可以将输入转换为Number类型<br>v-model.trim 可以自动过滤输入的首尾空格</p>
+<p>v-for 循环时，key尽量赋值为不变的值，即静态值，如item.id ,否则列表增删时，会更新每一项</p>
+<p>当子组件需要向父组件传递数据时，就要用到自定义事件<br>子组件用$emit来触发事件，父组件用$on()来监听子组件的事件<br>自定义组件的v-model ：一个组件上的v-model 默认会利用名为value的prop和名为input的事件<br>将原生事件绑定到组件： 使用v-on的.native修饰符监听原生事件<br>.sync修饰符：父组件监听自定义事件按需更新数据</p>
+<h1 id="组件"><a href="#组件" class="headerlink" title="组件"></a>组件</h1><p>动态组件：VUE 提供了一个特殊的元素&lt;component&gt;用来动态的挂载不同的组件，使用is特性来选择要挂载的组件， 还可以使用&lt;keep-alive&gt;标签使组件进行缓存</p>
+<p>异步组件：VUE允许将组件定义为一个工厂函数，动态地解析组件。VUE只在组件需要渲染时触发工厂函数，并且把结果缓存起来用于后面地再次渲染</p>
+<h2 id="组件创建方式"><a href="#组件创建方式" class="headerlink" title="组件创建方式"></a>组件创建方式</h2><p>1.调用Vue.extend(),创建名为xx的组件，template定义模板的标签，模板的内容需要写在该标签下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">var xx = Vue.extend(&#123;</div><div class="line">    template:&apos;&lt;div&gt;this is a component&lt;/div&gt;&apos;</div><div class="line">&#125;)</div></pre></td></tr></table></figure></p>
+<p>2.使用&lt;template&gt;标签创建，需要加上id属性<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&lt;template id = &apos;mycom&apos;&gt;</div><div class="line">  &lt;div&gt;this is a component&lt;/div&gt;</div><div class="line">&lt;/template&gt;</div></pre></td></tr></table></figure></p>
+<p>3.使用&lt;script&gt;标签创建，需要加id属性，同时还得加type=’text/x-template’ 不执行编译里面的代码<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&lt;script type=&apos;text/x-template&apos; id = &apos;mycom&apos;&gt;</div><div class="line">  &lt;div&gt;this is a component&lt;/div&gt;</div><div class="line">&lt;/script&gt;</div></pre></td></tr></table></figure></p>
+<h2 id="组件全局注册方式"><a href="#组件全局注册方式" class="headerlink" title="组件全局注册方式"></a>组件全局注册方式</h2><p>1.调用Vue.extend(),创建名为myCom的组件全局注册<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Vue.component(&apos;my-com&apos;,myCom)</div></pre></td></tr></table></figure></p>
+<p>2.template及script标签构建的组件全局注册<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">Vue.component(&apos;my-comp&apos;,&#123;</div><div class="line">    template:&apos;#mycom&apos;</div><div class="line">&#125;)</div></pre></td></tr></table></figure></p>
+<h2 id="组件局部注册"><a href="#组件局部注册" class="headerlink" title="组件局部注册"></a>组件局部注册</h2><p>1.调用Vue.extend(),创建名为myCom的组件局部注册（只能在注册该组件的实例中使用，一处注册，一处使用）<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">var app = new Vue(&#123;</div><div class="line">    el:&apos;#app&apos;,</div><div class="line">    components:&#123;</div><div class="line">        &apos;my-com&apos;:myCom</div><div class="line">    &#125;</div><div class="line">&#125;)</div></pre></td></tr></table></figure></p>
+<p>2.template及script构建的组件局部注册<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">var app = new Vue(&#123;</div><div class="line">    el:&apos;#app&apos;</div><div class="line">    componnets:&#123;</div><div class="line">        &apos;my-com&apos;:&#123;</div><div class="line">            template:&apos;#myCom&apos;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;)</div></pre></td></tr></table></figure></p>
+<h2 id="组件化处理边界情况"><a href="#组件化处理边界情况" class="headerlink" title="组件化处理边界情况"></a>组件化处理边界情况</h2><p>1.访问根实例 this.$root.xxx<br>2.访问父组件实例：this.$parent.xxx<br>3.访问子组件实例或子元素：&lt;child ref=’xxx’&gt;&lt;/child &gt; =&gt;this.$refs.xxx<br>4.依赖注入：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">provide:function()&#123; //父组件</div><div class="line">    return&#123;</div><div class="line">        getMap:this.getMap</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line">inject:[getMap]//子组件</div></pre></td></tr></table></figure></p>
+<p>然而，依赖注入还是有负面影响的。它将你应用程序中的组件与它们当前的组织方式耦合起来，使重构变得更加困难。同时所提供的属性是非响应式的。这是出于设计的考虑，因为使用它们来创建一个中心化规模化的数据跟使用 $root做这件事都是不够好的。如果你想要共享的这个属性是你的应用特有的，而不是通用化的，或者如果你想在祖先组件中更新所提供的数据，那么这意味着你可能需要换用一个像 Vuex 这样真正的状态管理方案了</p>
+<p>5.统一处理事件侦听器时，在组件卸载前，统一清除监听器<br>6.组件循环引用，Vue.component注册的组件允许，但是模块化导入的不允许<br>7.模板定义的替代品：<br>A:内联模板：当inline-template这个特殊的特性出现在一个子组件上时，这个组件将会使用其里面的内容作为模板<br>而不是将其作为被分发的内容<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;myCom inline-template&gt;&lt;div&gt;&lt;p&gt;these are compiled as the component&apos;s own template&lt;/p&gt;&lt;/div&gt;&lt;/myCom&gt;</div></pre></td></tr></table></figure></p>
+<p>B:x-template<br>在script标签里使用text/x-template，并且指定id,将这个id赋值给template<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&lt;script type=&apos;text/x-template&apos; id = &apos;mycom&apos;&gt;</div><div class="line">  &lt;div&gt;this is a component&lt;/div&gt;</div><div class="line">&lt;/script&gt;</div><div class="line">Vue.component(&apos;my-comp&apos;,&#123;</div><div class="line">    template:&apos;#mycom&apos;</div><div class="line">&#125;)</div></pre></td></tr></table></figure></p>
+<p>8.强制更新<br>A：使用this.$forceUpdate<br>B：使用v-once创建低开销静态组件，组件包含大量静态内容可以在根元素上添加v-once特性以确保这些内容只计算一次然后缓存起来</p>
+<h2 id="组件通信类型"><a href="#组件通信类型" class="headerlink" title="组件通信类型"></a>组件通信类型</h2><p>父子组件通信<br>1.使用props和$emit父子组件相互通信<br>2.父组件用$children或者利用ref操作子组件<br>3.子组件$parent访问父组件</p>
+<p>非父子组件通信<br>1.使用中央事件总线(eventbus来处理非父子组件间的通信)<br>2.祖先元素通过provide提供数据，后代通过inject获取该数据<br>3.使用$attrs和$listeners实现祖孙组件通信<br>4.$root直接访问根组件</p>
+<h1 id="Vue-use"><a href="#Vue-use" class="headerlink" title="Vue.use"></a>Vue.use</h1><p>Vue.use(myPlugin)本质上是调用myPlugin.install(VUE)<br>使用插件必须在new vue()启动应用之前完成，实例化之前就要配置好<br>使用Vue.use多次注册相同插件，那只会注册成功一次<br>一个测试案例<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">import Vue from &apos;vue&apos;</div><div class="line">import &#123;expect&#125; from &apos;chai&apos;</div><div class="line">import Counter from &apos;@/counter.vue&apos;</div><div class="line"></div><div class="line">describe(&apos;测试Counter.vue&apos;,()=&gt;&#123;</div><div class="line">    const Constructor = Vue.extend(Counter)</div><div class="line">    const vm = new Constructor().$mount()</div><div class="line">    const button = vm.$el.querySelector(&apos;button&apos;)</div><div class="line">    const clickE = new window.Event(&apos;click&apos;)</div><div class="line">    button.dispatchEvent(clickE)</div><div class="line">    vm._watcher.run()</div><div class="line">    expect(Number(vm.$el.querySelector(&apos;span&apos;).textContent)).to.equal(1)</div><div class="line">&#125;)</div></pre></td></tr></table></figure></p>
+<h1 id="vuex"><a href="#vuex" class="headerlink" title="vuex"></a>vuex</h1><p>默认的五种基本对象<br>state:存储状态(对象)<br>getters:对数据获取之前的再次编译，可以理解为state的计算属性，对state的数据进行筛选，过滤<br>mutations:同步修改状态，并且是同步的。在组件中使用$store.commit(‘’,params)<br>actions:异步修改状态，在组件中使用是$store.dispatch(‘’)<br>modules:store的子模块，为了开发大型项目，方便状态管理而使用的</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://yoohannah.github.io/post/knowledge/h5.html">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="YooHannah">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="/psb.jpg">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="My Little World">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="My Little World" src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/post/knowledge/h5.html" itemprop="url">
+                  一些关于H5的知识
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-01-27T10:33:58+08:00">
+                2020-01-27
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>h5 新增语义化布局标签：header,nav,section,aside,article,footer，均表现为块级<br>canvas,video,audio,sessionStorage,localStorage,<br>拖放API(源对象：ondragstart,ondrag,ondragend；源对象标签属性要设置为draggable=true<br>目标对象：ondragenter,ondragover,ondragleave,ondrop;<br>ondragover事件默认会屏蔽ondrop事件,<br>如果要触发ondrop事件，需要在ondragover事件函数中阻止默认屏蔽行为<br>event.preventDefault()<br>)<br>//谷歌浏览器v56 之后，window,document,body的touchstart,touchmove事件会被默认为pssive:true<br>//解决方法一：window.addEventListener(‘touchstart’,func,{passive:false})<br>//解决方法二，添加样式：*{touch-action:none} 取消所有元素默认事件<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">//实现把A标签拖到B标签</div><div class="line">1.A标签开始拖动时</div><div class="line">ondragstart(event)&#123;</div><div class="line">  event.dataTransfer.setData(&apos;source&apos;,event.target.id)</div><div class="line">&#125;</div><div class="line">2.B标签监听拖拽结束后</div><div class="line">ondrop(event)&#123;</div><div class="line">  var source = document.getElementById(event.dataTransfer.getData(&apos;source&apos;))</div><div class="line">  event.target.appendChild(source)</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>History常用场景<br>单页应用中：实现网页无刷新更新数据的同时，解决浏览器无法前进/后退的问题<br>pushState:每执行一次都会增加一条历史记录，浏览器在返回时，就不会返回前一个页面，并且不会刷新浏览器<br>replaceState：用来修改当前历史记录，而不是创建一个新的历史记录，点击返回按钮照样会返回上一个页面<br>onpopstate：点击后退，前进或者调用history.back()，history.forward(),history.go()方法</p>
+<h1 id="跨文档通讯"><a href="#跨文档通讯" class="headerlink" title="跨文档通讯"></a>跨文档通讯</h1><p>定义：跨文档消息传送，来自不同域的页面间传递消息<br>使用场景：内嵌框架和其父文档相互进行数据传输或者通讯</p>
+<h2 id="postMessage"><a href="#postMessage" class="headerlink" title="postMessage"></a>postMessage</h2><p>window.postMessage(message,origin,transfer)<br>message:发送到子文档的信息，一般转成字符串，否则可能出现浏览器不兼容<br>origin:域信息，告诉子文档，消息来源，用于判断来源是否匹配，然后才进行相关操作<br>transfer:转移消息对象，可选参数，是一串和message同时传递的Transferable对象，这些对象的所有权将被转移给消息的接收方，而发送方将不再保有所有权</p>
+<h2 id="onmessage"><a href="#onmessage" class="headerlink" title="onmessage"></a>onmessage</h2><p>onmessage事件回调函数参数event事件对象<br>event.data:postMessage传输过来的第一个参数，通常是字符串类型，（也可以是其他类型，但可能出现浏览器不兼容情况，所以一般转成字符串传递）<br>event.origin:postMessage传输过来的第二个参数，是用来匹配来源方的域<br>event.source:来源方目标文档的window引用，通常用作单次握手回应数据（event.source.postMessage()）<br>event.ports:MessageEvent接口特有属性，用于获取消息端口集合对象</p>
+<h2 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h2><p>父文档A通过iframe内嵌框架加载B子文档<br>通过iframe内嵌框架的onload事件回调父文档的sendMsg函数<br>再sendMsg函数中通过postMessage()函数向子文档B发送消息</p>
+<p>子文档B监听onmessage事件，当文档收到消息后会执行该事件回调函数<br>回调函数内通过event对象判断域是否安全，然后处理推送过来的消息，<br>可以再通过调用event.source.postMessage向父文档发送消息</p>
+<h1 id="地理位置"><a href="#地理位置" class="headerlink" title="地理位置"></a>地理位置</h1><p>navigator.geolocation.getCurrentPosition(success,error,option)<br>success:成功得到位置时的回调函数，使用Position对象作为唯一的参数<br>error:失败时回调，使用PositionError对象作为唯一参数<br>options：可选参数，对请求做一些配置</p>
+<h1 id="离线存储优势"><a href="#离线存储优势" class="headerlink" title="离线存储优势"></a>离线存储优势</h1><p>离线浏览：当用户网络断开时，可以继续访问页面<br>访问速度快：将资源缓存到本地，已缓存资源加载更快<br>减少服务器负载：浏览器将只会从服务器下载更新过或者更改过的资源</p>
+<h1 id="视频播放兼容"><a href="#视频播放兼容" class="headerlink" title="视频播放兼容"></a>视频播放兼容</h1><h2 id="Flv-js"><a href="#Flv-js" class="headerlink" title="Flv.js"></a>Flv.js</h2><p>H5 Flash(FLV)播放器,纯原生js开发，使H5能够支持FLV格式的视频<br>原理：将FLV文件流转码复用为ISO BMFF(MP4碎片)片段，然后通过Media Source Extension将MP4片段汇进浏览器<br>使用es6编写，通过Babel Compiler编译成es5能够支持FLV格式的视频</p>
+<h2 id="Video-js"><a href="#Video-js" class="headerlink" title="Video.js"></a>Video.js</h2><p>几乎兼容所有浏览器,且优先使用H5，在不支持的浏览器中自动使用Flash播放<br>构建视频播放页面耗时短，界面可定制，开源，纯JS和css实现，文档详细</p>
+<p>#Canvas绘制动画步骤<br>1.清空canvas<br>除非接下来要画的内容会完全充满canvas(例如背景图)，否则需要清空所有，最简单<br>的做法就是clearRect方法<br>2.保存canvas状态<br>如果需要改变一些会改变canvas状态的设置(样式，变形之类的)，又要在每画一帧之时，都是原始状态的话，需要先保存一下<br>3.绘制动画图形<br>重绘动画帧<br>4.恢复canvas状态<br>如果已经保存了canvas的状态，可以先恢复它，然后重绘下一帧</p>
+<h1 id="transform"><a href="#transform" class="headerlink" title="transform"></a>transform</h1><p>2D功能函数组合使用时，先写的后执行<br>perspective：100px 可以设置3d旋转时的景深<br>transform-origin:可以改变中心点</p>
+<h1 id="响应式布局"><a href="#响应式布局" class="headerlink" title="响应式布局"></a>响应式布局</h1><p>可以通过link标签配置media去使用不同比例的CSS样式<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">&lt;link rel=&apos;stylesheet&apos; media=&apos;screen and (max-device-width:480px)&apos; href=&apos;./css1.css&apos;&gt;</div><div class="line">&lt;link rel=&apos;stylesheet&apos; media=&apos;screen and (min-device-width:480px)&apos; href=&apos;./css2.css&apos;&gt;</div></pre></td></tr></table></figure></p>
+<p><a href="https://github.com/YooHannah/algorithm/blob/master/baseJs/touchEvent.js" target="_blank" rel="external">一些触摸事件的实现</a></p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://yoohannah.github.io/post/vue/vueRouter.html">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="YooHannah">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="/psb.jpg">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="My Little World">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="My Little World" src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/post/vue/vueRouter.html" itemprop="url">
+                  一些vueRouter官方文档看到的
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-11-28T23:06:15+08:00">
+                2019-11-28
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="复用组件"><a href="#复用组件" class="headerlink" title="复用组件"></a>复用组件</h2><p>当使用路由参数时，例如从 /user/foo 导航到 /user/bar，原来的组件实例会被复用。<br>因为两个路由都渲染同个组件，比起销毁再创建，复用则显得更加高效。不过，这也意味着组件的生命周期钩子不会再被调用。</p>
+<p>复用组件时，想对路由参数的变化作出响应的话，可以简单地 watch (监测变化) $route 对象</p>
+<p>参数或查询的改变并不会触发进入/离开的导航守卫。<br>可以通过观察 $route 对象来应对这些变化，或使用 beforeRouteUpdate 的组件内守卫。</p>
+<h2 id="参数组合"><a href="#参数组合" class="headerlink" title="参数组合"></a>参数组合</h2><p>如果提供了 path，params 会被忽略，query 并不会被忽略。你需要提供路由的 name 或手写完整的带有参数的 path<br> path—–query   name—–params</p>
+<h2 id="beforeRouteUpdate"><a href="#beforeRouteUpdate" class="headerlink" title="beforeRouteUpdate"></a>beforeRouteUpdate</h2><p>如果目的地和当前路由相同，只有参数发生了改变 (比如从一个用户资料到另一个 /users/1 -&gt; /users/2)，你需要使用 beforeRouteUpdate 来响应这个变化 (比如抓取用户信息)</p>
+<h2 id="router-view标签"><a href="#router-view标签" class="headerlink" title="router-view标签"></a>router-view标签</h2><p><router-view> 没有设置名字，那么默认为 default；如果设置了name，那么该视图显示路由中components中配置的name值对应的组件</router-view></p>
+<h2 id="重定向"><a href="#重定向" class="headerlink" title="重定向"></a>重定向</h2><p>重定向三种形式<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">1.</div><div class="line">const router = new VueRouter(&#123;</div><div class="line">  routes: [</div><div class="line">    &#123; path: &apos;/a&apos;, redirect: &apos;/b&apos; &#125;</div><div class="line">  ]</div><div class="line">&#125;)</div><div class="line"></div><div class="line">2.命名的路由</div><div class="line">const router = new VueRouter(&#123;</div><div class="line">  routes: [</div><div class="line">    &#123; path: &apos;/a&apos;, redirect: &#123; name: &apos;foo&apos; &#125;&#125;</div><div class="line">  ]</div><div class="line">&#125;)</div><div class="line">3.方法，动态返回重定向目标：</div><div class="line">const router = new VueRouter(&#123;</div><div class="line">  routes: [</div><div class="line">    &#123; path: &apos;/a&apos;, redirect: to =&gt; &#123;</div><div class="line">      // 方法接收 目标路由 作为参数</div><div class="line">      // return 重定向的 字符串路径/路径对象</div><div class="line">    &#125;&#125;</div><div class="line">  ]</div><div class="line">&#125;)</div></pre></td></tr></table></figure></p>
+<p>导航守卫并没有应用在跳转路由上，而仅仅应用在其目标上,为 /a 路由添加一个 beforeEach 或 beforeLeave 守卫并不会有任何效果</p>
+<p>“重定向”的意思是，当用户访问 /a时，URL 将会被替换成 /b，然后匹配路由为 /b，<br>/a 的别名是 /b，意味着，当用户访问 /b 时，URL 会保持为 /b，但是路由匹配则为 /a，就像用户访问 /a 一样。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">const router = new VueRouter(&#123;</div><div class="line">  routes: [</div><div class="line">    &#123; path: &apos;/a&apos;, component: A, alias: &apos;/b&apos; &#125;</div><div class="line">  ]</div><div class="line">&#125;)</div></pre></td></tr></table></figure></p>
+<h2 id="props"><a href="#props" class="headerlink" title="props"></a>props</h2><p>通过配置props属性实现多路由复用组件<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div></pre></td><td class="code"><pre><div class="line">1.如果 props 被设置为 true，route.params 将会被设置为组件属性。</div><div class="line">const User = &#123;</div><div class="line">  props: [&apos;id&apos;],</div><div class="line">  template: &apos;&lt;div&gt;User &#123;&#123; id &#125;&#125;&lt;/div&gt;&apos;</div><div class="line">&#125;</div><div class="line">const router = new VueRouter(&#123;</div><div class="line">  routes: [</div><div class="line">    &#123; path: &apos;/user/:id&apos;, component: User, props: true &#125;,</div><div class="line"></div><div class="line">    // 对于包含命名视图的路由，你必须分别为每个命名视图添加 `props` 选项：</div><div class="line">    &#123;</div><div class="line">      path: &apos;/user/:id&apos;,</div><div class="line">      components: &#123; default: User, sidebar: Sidebar &#125;,</div><div class="line">      props: &#123; default: true, sidebar: false &#125;</div><div class="line">    &#125;</div><div class="line">  ]</div><div class="line">&#125;)</div><div class="line"></div><div class="line">2.如果 props 是一个对象，它会被按原样设置为组件属性。当 props 是静态的时候有用</div><div class="line">const router = new VueRouter(&#123;</div><div class="line">  routes: [</div><div class="line">    &#123; path: &apos;/promotion/from-newsletter&apos;, component: Promotion, props: &#123; newsletterPopup: false &#125; &#125;</div><div class="line">  ]</div><div class="line">&#125;)</div><div class="line"></div><div class="line">3.创建一个函数返回 props</div><div class="line">const router = new VueRouter(&#123;</div><div class="line">  routes: [</div><div class="line">    &#123; path: &apos;/search&apos;, component: SearchUser, props: (route) =&gt; (&#123; query: route.query.q &#125;) &#125;</div><div class="line">  ]</div><div class="line">&#125;)</div><div class="line">URL /search?q=vue 会将 &#123;query: &apos;vue&apos;&#125; 作为属性传递给 SearchUser 组件</div></pre></td></tr></table></figure></p>
+<p>请尽可能保持 props 函数为无状态的，因为它只会在路由发生变化时起作用。如果你需要状态来定义 props，请使用包装组件，这样 Vue 才可以对状态变化做出反应</p>
+<h2 id="路由生命周期"><a href="#路由生命周期" class="headerlink" title="路由生命周期"></a>路由生命周期</h2><h3 id="全局配置"><a href="#全局配置" class="headerlink" title="全局配置"></a>全局配置</h3><p>router.beforeEach:当一个导航触发时，全局前置守卫按照创建顺序调用。守卫是异步解析执行，此时导航在所有守卫 resolve 完之前一直处于 等待中<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">三个参数</div><div class="line">to: 即将要进入的目标 路由对象</div><div class="line">from: 当前导航正要离开的路由的路由对象</div><div class="line">next：一定要调用该方法来 resolve 这个钩子。执行效果依赖 next 方法的调用参数</div><div class="line">      next(): 进行管道中的下一个钩子。如果全部钩子执行完了，则导航的状态就是 confirmed (确认的)。</div><div class="line">      next(false): 中断当前的导航。如果浏览器的 URL 改变了 (可能是用户手动或者浏览器后退按钮)，那么 URL 地址会重置到 from 路由对应的地址。</div><div class="line">      next(&apos;/&apos;) 或者 next(&#123; path: &apos;/&apos; &#125;): 跳转到一个不同的地址。当前的导航被中断，然后进行一个新的导航。</div><div class="line">      next(error): 如果传入 next 的参数是一个 Error 实例，则导航会被终止且该错误会被传递给 router.onError() 注册过的回调</div></pre></td></tr></table></figure></p>
+<p>router.beforeResolve:在导航被确认之前，同时在所有组件内守卫和异步路由组件被解析之后，解析守卫就被调用</p>
+<p>router.afterEach:不会接受 next 函数也不会改变导航本身</p>
+<h3 id="路由配置"><a href="#路由配置" class="headerlink" title="路由配置"></a>路由配置</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">const router = new VueRouter(&#123;</div><div class="line">  routes: [</div><div class="line">    &#123;</div><div class="line">      path: &apos;/foo&apos;,</div><div class="line">      component: Foo,</div><div class="line">      beforeEnter: (to, from, next) =&gt; &#123;</div><div class="line">        // ...</div><div class="line">      &#125;</div><div class="line">    &#125;</div><div class="line">  ]</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+<h3 id="组件内"><a href="#组件内" class="headerlink" title="组件内"></a>组件内</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">const Foo = &#123;</div><div class="line">  template: `...`,</div><div class="line">  beforeRouteEnter (to, from, next) &#123;</div><div class="line">    // 在渲染该组件的对应路由被 confirm 前调用</div><div class="line">    // 不！能！获取组件实例 `this` </div><div class="line">    // 因为守卫在导航确认前被调用,因此即将登场的新组件还没被创建。</div><div class="line">    //可以通过传一个回调给 next来访问组件实例。在导航被确认的时候执行回调，并且把组件实例作为回调方法的参数。</div><div class="line">    next(vm =&gt; &#123; //是支持给 next 传递回调的唯一钩子，beforeRouteUpdate，beforeRouteLeave都不支持，因为可以访问的到</div><div class="line">      // 通过 `vm` 访问组件实例</div><div class="line">    &#125;)</div><div class="line">  &#125;,</div><div class="line">  beforeRouteUpdate (to, from, next) &#123;</div><div class="line">    // 在当前路由改变，但是该组件被复用时调用</div><div class="line">    // 举例来说，对于一个带有动态参数的路径 /foo/:id，在 /foo/1 和 /foo/2 之间跳转的时候，</div><div class="line">    // 由于会渲染同样的 Foo 组件，因此组件实例会被复用。而这个钩子就会在这个情况下被调用。</div><div class="line">    // 可以访问组件实例 `this`</div><div class="line">  &#125;,</div><div class="line">  beforeRouteLeave (to, from, next) &#123;</div><div class="line">    // 导航离开该组件的对应路由时调用</div><div class="line">    // 可以访问组件实例 `this`</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="完整的导航解析流程"><a href="#完整的导航解析流程" class="headerlink" title="完整的导航解析流程"></a>完整的导航解析流程</h3><ol>
+<li>导航被触发。</li>
+<li>在失活的组件里调用离开守卫。</li>
+<li>调用全局的 beforeEach 守卫。</li>
+<li>在重用的组件里调用 beforeRouteUpdate 守卫 (2.2+)。</li>
+<li>在路由配置里调用 beforeEnter。</li>
+<li>解析异步路由组件。</li>
+<li>在被激活的组件里调用 beforeRouteEnter。</li>
+<li>调用全局的 beforeResolve 守卫 (2.5+)。</li>
+<li>导航被确认。</li>
+<li>调用全局的 afterEach 钩子。</li>
+<li>触发 DOM 更新。</li>
+<li>用创建好的实例调用 beforeRouteEnter 守卫中传给 next 的回调函数。</li>
+</ol>
+<h2 id="数据获取"><a href="#数据获取" class="headerlink" title="数据获取"></a>数据获取</h2><h3 id="导航完成后获取数据"><a href="#导航完成后获取数据" class="headerlink" title="导航完成后获取数据"></a>导航完成后获取数据</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">created () &#123;</div><div class="line">  // 组件创建完后获取数据，</div><div class="line">  // 此时 data 已经被 observed 了</div><div class="line">  this.fetchData()</div><div class="line">&#125;,</div><div class="line">watch: &#123;</div><div class="line">  // 如果路由有变化，会再次执行该方法</div><div class="line">  &apos;$route&apos;: &apos;fetchData&apos;</div><div class="line">&#125;,</div></pre></td></tr></table></figure>
+<h3 id="在导航完成前获取数据"><a href="#在导航完成前获取数据" class="headerlink" title="在导航完成前获取数据"></a>在导航完成前获取数据</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line">beforeRouteEnter (to, from, next) &#123;</div><div class="line">  getPost(to.params.id, (err, post) =&gt; &#123;</div><div class="line">    next(vm =&gt; vm.setData(err, post))</div><div class="line">  &#125;)</div><div class="line">&#125;,</div><div class="line">// 路由改变前，组件就已经渲染完了</div><div class="line">// 逻辑稍稍不同</div><div class="line">beforeRouteUpdate (to, from, next) &#123;</div><div class="line">  this.post = null</div><div class="line">  getPost(to.params.id, (err, post) =&gt; &#123;</div><div class="line">    this.setData(err, post)</div><div class="line">    next()</div><div class="line">  &#125;)</div><div class="line">&#125;,</div><div class="line">methods: &#123;</div><div class="line">  setData (err, post) &#123;</div><div class="line">    if (err) &#123;</div><div class="line">      this.error = err.toString()</div><div class="line">    &#125; else &#123;</div><div class="line">      this.post = post</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="滚动行为"><a href="#滚动行为" class="headerlink" title="滚动行为"></a>滚动行为</h2><p>scrollBehavior 这个功能只在支持 history.pushState 的浏览器中可用。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">const router = new VueRouter(&#123;</div><div class="line">  routes: [...],</div><div class="line">  scrollBehavior (to, from, savedPosition) &#123;</div><div class="line"></div><div class="line">    // return 期望滚动到哪个的位置</div><div class="line">    if (to.hash) &#123;</div><div class="line">      return &#123;</div><div class="line">        selector: to.hash //模拟“滚动到锚点”的行为</div><div class="line">      &#125;</div><div class="line">    &#125;</div><div class="line">    if (savedPosition) &#123;</div><div class="line">      return savedPosition //返回 savedPosition，在按下 后退/前进 按钮时，就会像浏览器的原生表现那样</div><div class="line">    &#125; else &#123;</div><div class="line">      return &#123; x: 0, y: 0 &#125; //让页面滚动到顶部</div><div class="line">    &#125;</div><div class="line">    return new Promise((resolve, reject) =&gt; &#123; //返回一个 Promise 来得出预期的位置描述</div><div class="line">      setTimeout(() =&gt; &#123;</div><div class="line">        resolve(&#123; x: 0, y: 0 &#125;)</div><div class="line">      &#125;, 500)</div><div class="line">    &#125;)</div><div class="line">  &#125;</div><div class="line">&#125;)</div></pre></td></tr></table></figure></p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
   <link itemprop="mainEntityOfPage" href="http://yoohannah.github.io/post/knowledge/calcApprence.html">
 
   <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1202,469 +1629,6 @@ module.exports = function(source){
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="http://yoohannah.github.io/post/knowledge/reactNativeNavigation.html">
-
-  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
-    <meta itemprop="name" content="YooHannah">
-    <meta itemprop="description" content="">
-    <meta itemprop="image" content="/psb.jpg">
-  </span>
-
-  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-    <meta itemprop="name" content="My Little World">
-    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
-      <img style="display:none;" itemprop="url image" alt="My Little World" src="">
-    </span>
-  </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/post/knowledge/reactNativeNavigation.html" itemprop="url">
-                  react-navigation
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-06-02T21:11:37+08:00">
-                2019-06-02
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="react-navigation"><a href="#react-navigation" class="headerlink" title="react-navigation"></a>react-navigation</h1><h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">yarn add react-navigation</div><div class="line">yarn add react-native-gesture-handler</div><div class="line">react-native link react-native-gesture-handler //Link 所有的原生依赖</div></pre></td></tr></table></figure>
-<h2 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div></pre></td><td class="code"><pre><div class="line">APP.js</div><div class="line">import React from &quot;react&quot;; </div><div class="line">import &#123; View, Text &#125; from &quot;react-native&quot;;</div><div class="line">import &#123; createStackNavigator, createAppContainer &#125; from &quot;react-navigation&quot;; </div><div class="line">class HomeScreen extends React.Component &#123;</div><div class="line">     render() &#123;</div><div class="line">          return (</div><div class="line">               &lt;View style=&#123;&#123; flex: 1, alignItems: &quot;center&quot;, justifyContent: &quot;center&quot; &#125;&#125;&gt; </div><div class="line">                    &lt;Text&gt;Home Screen&lt;/Text&gt; </div><div class="line">               &lt;/View&gt; ); </div><div class="line">    &#125; &#125; </div><div class="line">const AppNavigator = createStackNavigator(</div><div class="line">    &#123;</div><div class="line">        HomeComponent: &#123; screen: HomeScreenComponent &#125; //screen属性设置组件路由,HomeScreen只是一个组件</div><div class="line">        Home: HomeScreen,//直接配置页面路由</div><div class="line">        Details: DetailsScreen</div><div class="line">    &#125;,</div><div class="line">    &#123;</div><div class="line">        initialRouteName: &quot;Home&quot;//指定默认路由</div><div class="line">        defaultNavigationOptions: &#123; //指定全局默认标题样式</div><div class="line">            headerStyle: &#123;</div><div class="line">                backgroundColor: &apos;#f4511e&apos;,</div><div class="line">            &#125;,</div><div class="line">            headerTintColor: &apos;#fff&apos;,</div><div class="line">            headerTitleStyle: &#123;</div><div class="line">                fontWeight: &apos;bold&apos;,</div><div class="line">            &#125;,</div><div class="line">        &#125;,</div><div class="line">    &#125;);</div><div class="line">const AppContainer = createAppContainer(AppNavigator);</div><div class="line">export default class App extends React.Component &#123;</div><div class="line">  someEvent() &#123;</div><div class="line">    // call navigate for AppNavigator here:</div><div class="line">    this.navigator &amp;&amp;</div><div class="line">      this.navigator.dispatch( //在 App 容器中使用 dispatch，可以使用 ref 来调用 dispatch 方法</div><div class="line">        NavigationActions.navigate(&#123; routeName: someRouteName &#125;)</div><div class="line">      );</div><div class="line">  &#125;</div><div class="line">  render() &#123;</div><div class="line">    return &lt;AppContainer</div><div class="line">        //每当导航器管理的 navigation state 发生变化时，都会调用该函数 </div><div class="line">        onNavigationStateChange=&#123;handleNavigationChange&#125; </div><div class="line">        uriPrefix=&quot;/app&quot;//应用可能会处理的 URI 前缀， 在处理一用于提取传递给 route 的一个 深度链接时将会用到</div><div class="line">        ref=&#123;nav =&gt; &#123;</div><div class="line">          this.navigator = nav;</div><div class="line">        &#125;&#125;</div><div class="line">    /&gt;;</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h2 id="跳转"><a href="#跳转" class="headerlink" title="跳转"></a>跳转</h2><p>this.props.navigation.navigate(路由名,传参对象)//跳转其他页，如果跳转本页，没反应<br>this.props.navigation.push(路由名)//可以重新加载当前页<br>每次调用 ‘ push ‘ 时, 我们会向导航堆栈中添加新路由。<br>当你调用 ‘ navigate ‘ 时, 它首先尝试查找具有该名称的现有路由, 并且只有在堆栈上没有一个新路由时才会推送该路由。<br>读取页面组件中的参数的方法：<br>this.props.navigation.state.params<br>this.props.navigation.getParam(key值)</p>
-<p>如果当前页面可以执行返回操作，则 stack navigator 会自动提供一个包含返回按钮的标题栏<br>如果导航堆栈中只有一个页面，则没有任何可返回的内容，因此也不存在返回键。<br>this.props.navigation.goBack() //手动返回上一页</p>
-<p>如果处在堆栈深处，上面有多个页面，此时想要将上面所有的页面都销毁，并返回第一个页面。<br>在这种情况下，我们知道我们要回到’ Home ‘，所以我们可以使用’ navigate(‘Home’) ‘,而不是<code>push</code><br>另一个选择是’ navigation.popToTop() ‘，它可以返回到堆栈中的第一个页面。</p>
-<p>如何发现用户离开和回来的某页面？<br>一个包含 页面 A 和 B 的 StackNavigator ，当跳转到 A 时，componentDidMount 方法会被调用； 当跳转到 B 时，componentDidMount 方法也会被调用，但是 A 依然在堆栈中保持 被加载状态，他的 componentWillUnMount 也不会被调用。<br>当从 B 跳转到 A，B的 componentWillUnmount 方法会被调用，但是 A 的 componentDidMount方法不会被调用，应为此时 A 依然是被加载状态。<br>React Navigation 将事件发送到订阅了它们的页面组件： 有4个不同的事件可供订阅：willFocus、willBlur、didFocus 和 didBlur。</p>
-<h2 id="标题栏"><a href="#标题栏" class="headerlink" title="标题栏"></a>标题栏</h2><p>使用 组件静态属性navigationOptions</p>
-<h3 id="内容配置"><a href="#内容配置" class="headerlink" title="内容配置"></a>内容配置</h3><p>title属性<br>方式一:对象<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">static navigationOptions = &#123;</div><div class="line">    title: &apos;Home&apos;,</div><div class="line">  &#125;;</div></pre></td></tr></table></figure></p>
-<p>方式二：返回对象的属性<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">static navigationOptions = (&#123; navigation &#125;) =&gt; &#123;</div><div class="line">    return &#123;</div><div class="line">      title: navigation.getParam(&apos;otherParam&apos;, &apos;A Nested Details Screen&apos;),</div><div class="line">    &#125;;</div><div class="line">  &#125;;</div></pre></td></tr></table></figure></p>
-<p>尝试在navigationOptions中使用this.props可能很诱人，但因为它是组件的静态属性，所以this不会指向一个组件的实例，因此没有 props 可用。 相反，如果我们将navigationOptions作为一个函数，那么React Navigation将会用包含{navigation，navigationOptions，screenProps}的对象调用它 – 在这种情况下，我们只用关心navigation，它是与传递给页面的this.props.navigation相同的对象</p>
-<p>从已加载的页面组件本身更新当前页面的navigationOptions配置<br>this.props.navigation.setParams({otherParam: ‘Updated!’})</p>
-<h3 id="标题样式"><a href="#标题样式" class="headerlink" title="标题样式"></a>标题样式</h3><p>headerStyle：一个应用于 header 的最外层 View 的 样式对象， 如果设置 backgroundColor ，他就是header 的颜色。对象<br>headerTintColor：返回按钮和标题都使用这个属性作为它们的颜色。字符串<br>headerTitleStyle：如果想为标题定制fontFamily，fontWeight和其他Text样式属性，我们可以用它来完成。对象</p>
-<h3 id="全局配置"><a href="#全局配置" class="headerlink" title="全局配置"></a>全局配置</h3><p>配置路由时利用defaultNavigationOptions配置<br>当全局设置了默认样式，具体页面也设置了static navigationOptions，则优先使用具体页面</p>
-<h3 id="使用组件"><a href="#使用组件" class="headerlink" title="使用组件"></a>使用组件</h3><p>headerTitle：配置一个组件，自定义标题的样式<br>headerRight：自定义右侧按钮<br>headerLeft：自定义左侧/返回按钮<br>headerBackImage：自定义返回按钮图片<br>注意在navigationOptions中this绑定的不是 HomeScreen 实例，所以你不能调用setState方法和其上的任何实例方法。 这一点非常重要，因为标题栏中的按钮与标题栏所属的页面进行交互是非常常见的。</p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="http://yoohannah.github.io/post/vue/vuesubmenu.html">
-
-  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
-    <meta itemprop="name" content="YooHannah">
-    <meta itemprop="description" content="">
-    <meta itemprop="image" content="/psb.jpg">
-  </span>
-
-  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-    <meta itemprop="name" content="My Little World">
-    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
-      <img style="display:none;" itemprop="url image" alt="My Little World" src="">
-    </span>
-  </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/post/vue/vuesubmenu.html" itemprop="url">
-                  二级菜单实现
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-04-12T16:38:15+08:00">
-                2019-04-12
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h1><p>page A是一个管理页面，数据通过table 展示<br>page B是一个详情页面，通过page A 中的一条数据跳转链接进来<br>page B数据获取时的参数需要在page A跳转时带进来<br>page B 本来只是一个简单页面,现在要在page B中添加一列菜单，可以导航多个不同内容详情<br>即现在page A要跳转的是一个带菜单的页面，点击每个菜单跳转不同的页面</p>
-<h1 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h1><p>1.vue-router配置时，children属性配置的子页面，在访问时，会在父页面的router-view标签部分进行填充<br>如果父页面没有router-view标签子页面内容就没地方展示<br>菜单就放在父页面，点击跳转子页面路由<br>2.因为页面跳转完成后，当前路由对象不会携带自己的children属性，给子路由配置title，父页面拿不到<br>所以父页面的菜单映射关系需要在其他地方配置，传递进来</p>
-<h1 id="解决"><a href="#解决" class="headerlink" title="解决"></a>解决</h1><h2 id="方案一"><a href="#方案一" class="headerlink" title="方案一"></a>方案一</h2><p>子菜单名和对应路由的映射，放在page A跳转配置中，page A 配置的点击跳转的页面是其中一个子路由<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">&#123;title: &apos;名称&apos;, value: &apos;name&apos;, display: true,</div><div class="line">      shadow: &#123;path: &apos;Adetail_C&apos;, key: &apos;&apos;,title:&apos;AAAA&apos;,submenu:[&#123;</div><div class="line">        path:&apos;Adetail_C&apos;,name:&apos;C&apos;</div><div class="line">      &#125;,&#123;</div><div class="line">        path:&apos;Adetail_D&apos;,name:&apos;D&apos;</div><div class="line">      &#125;]&#125;, </div><div class="line">    &#125;,</div></pre></td></tr></table></figure></p>
-<p>新增子菜单路由页面page A-detail-router,子菜单映射页面page C和page D</p>
-<p>页面page A-detail-router中，可以通过this.$route对象拿到page A配置的菜单映射关系，从而渲染菜单<br>切换子页面时,需要增加把参数传递到子页面中的逻辑</p>
-<p>page C和page D根据路由中传递过来的page A点击数据的信息进行数据请求和页面渲染</p>
-<p>在项目路由配置文件中配置路由</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">&#123; path: &apos;A&apos;,  name: &apos;A&apos;, title: &apos;XX管理&apos;, meta: &#123;keepAlive: true&#125;, component: () =&gt; import(&apos;@/pageA&apos;) &#125;,</div><div class="line">&#123; path: &apos;AdetailRouter&apos;,  name: &apos;AdetailRouter&apos;, title: &apos;XX详情&apos;, meta: &#123;keepAlive: true&#125;, component: () =&gt; import(&apos;@/A-detail-router&apos;), </div><div class="line">    children:[&#123;</div><div class="line">    path:&apos;/Adetail_C&apos;,name: &apos;Adetail_C&apos;,meta: &#123;previousMenu: &apos;A&apos;&#125;, component: () =&gt; import(&apos;@/Adetail_C&apos;)</div><div class="line">    &#125;,&#123;</div><div class="line">    path:&apos;/Adetail_D&apos;,name: &apos;Adetail_D&apos;,meta: &#123;previousMenu: &apos;A&apos;&#125;,component: () =&gt; import(&apos;@/Adetail_D&apos;)</div><div class="line">    &#125;]</div><div class="line">&#125;,</div></pre></td></tr></table></figure>
-<p>children配置path时，以‘/’开头和不以‘/’开头区别：<br>以’/‘开头最终访问路径就是配置路径‘#/子path’，相当于子路由当一级路由<br>但不以‘/’开头最终的访问路径是‘#/父path/子path’,<br>这里使用‘/’开头是因为更外层菜单，在跳转page A同级路由时使用的是push({path:xxx})<br>如果使用不以‘/’开头的配置，跳转page A同级路由，路径就会变成‘#/父path/xxx’，即父路径下跳转<br>会因为没有相应配置路由找不到页面，所以使用‘/’开头，当作父路由跳转<br>其实在跳转page A同级路由时使用的是push({name:xxx}),就可以直接解决‘#/父path/xxx’问题，<br>跳转正确页面</p>
-<p>缺点：<br>直接通过浏览器刷新子页面时，路由对象的params属性数据清空，<br>路由页面菜单映射没有数据支持，菜单没有内容<br>子页面路由因此也拿不到参数，无法请求数据<br>动作流向只有利用路由对象的meta属性的previousMenu跳转回page A</p>
-<h2 id="方案二"><a href="#方案二" class="headerlink" title="方案二"></a>方案二</h2><p>子菜单名和对应路由的映射放在单独json文件中，利用子菜单名字获取映射关系<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">//submenu.json</div><div class="line">&#123;</div><div class="line">    Adetail:&#123;</div><div class="line">        title:&apos;AAAA&apos;</div><div class="line">        submenu:[&#123;</div><div class="line">            name:&apos;Adetail_C&apos;,//路由里配置的name</div><div class="line">            label:&apos;C&apos;,</div><div class="line">            show:true //之后根据路由参数query决定是否显示该菜单</div><div class="line">        &#125;,</div><div class="line">        &#123;</div><div class="line">            name:&apos;Adetail_  D&apos;,</div><div class="line">            label:&apos;D&apos;,</div><div class="line">            show:true</div><div class="line">        &#125;]</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>在路由页面page A-detail-router中根据访问的子菜单路由名获取二级菜单,这样解决刷新页面菜单数据无处获取的问题</p>
-<p>使用动态路由传递参数id保证页面刷新时子页面params至少有一个属性可以依赖来获取数据<br>更改路由配置<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">&#123; path: &apos;A&apos;,  name: &apos;A&apos;, title: &apos;XX管理&apos;, meta: &#123;keepAlive: true&#125;, component: () =&gt; import(&apos;@/pageA&apos;) &#125;,</div><div class="line">&#123; path: &apos;Adetail&apos;,  name: &apos;Adetail&apos;, title: &apos;XX详情&apos;, meta: &#123;keepAlive: true&#125;, component: () =&gt; import(&apos;@/A-detail-router&apos;), </div><div class="line">    children:[&#123;</div><div class="line">    path:&apos;C/:id&apos;,name: &apos;Adetail_C&apos;,meta: &#123;previousMenu: &apos;A&apos;&#125;, component: () =&gt; import(&apos;@/Adetail_C&apos;)</div><div class="line">    &#125;,&#123;</div><div class="line">    path:&apos;D/:id&apos;,name: &apos;Adetail_D&apos;,meta: &#123;previousMenu: &apos;A&apos;&#125;,component: () =&gt; import(&apos;@/Adetail_D&apos;)</div><div class="line">    &#125;]</div><div class="line">&#125;,</div></pre></td></tr></table></figure></p>
-<p>‘：id’对应路由对象中params属性的id属性，所以访问时，一定要在跳转的路由中配置{params:{id:xxxxxx}}<br>更改路由页面page A-detail-router中跳转其他路由页面时,参数配置<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">gotoPage (val,index) &#123;</div><div class="line">    this.active = index</div><div class="line">    this.$router.push(&#123;</div><div class="line">        name: val.name,</div><div class="line">        params:&#123;id:this.$route.params.id&#125;, //给其他子页面传递id</div><div class="line">        query:this.$route.query//其他自定义参数</div><div class="line">    &#125;)</div><div class="line">&#125;,</div></pre></td></tr></table></figure></p>
-<p>这样访问子页面时路径就变成’#/Adetail/C/xxxxxxxxxxxxxxxx’<br>以上处理基本解决掉方案一问题</p>
-<p>后续需要根据page A 数据的其他属性值决定菜单显示,所以在配置跳转时配置要传递的属性key<br>在跳转时，根据KEY获取值，组装成都对象，放在query中使用<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">//配置：</div><div class="line">&#123;title: &apos;名称&apos;, value: &apos;dbname&apos;, display: true,link: &#123;path: &apos;databaseDetail_outline&apos;, key: &apos;dbinstance_id&apos;,query:[&apos;dbtype.dbtype&apos;]&#125;&#125;</div><div class="line">link属性即与跳转相关的配置，</div><div class="line">path:跳转路由名</div><div class="line">key:以数据哪个属性当id，字符串</div><div class="line">query:需要传递的其他参数，字符串数组</div><div class="line">//列表点击跳转</div><div class="line">jump (item, val) &#123;</div><div class="line">     //根据key获取值，key对应的可能不是子属性，而是孙属性，或者更深层次属性，valueFromExpression函数用于获取深层属性值</div><div class="line">    let id = valueFromExpression(item, val.link.key) </div><div class="line">    let router = &#123;</div><div class="line">        name: val.link.path,</div><div class="line">        params: &#123;id: id&#125;</div><div class="line">    &#125;</div><div class="line">    if(val.link.query)&#123;//根据key值组装传参对象</div><div class="line">        router.query = val.link.query.map(key=&gt;&#123;return &#123;[key]:valueFromExpression(item, key)&#125;&#125;).reduce((result,item)=&gt;&#123;return Object.assign(result,item)&#125;,&#123;&#125;)</div><div class="line">    &#125;</div><div class="line">    this.$router.push(router)</div><div class="line">    &#125;,</div></pre></td></tr></table></figure></p>
-<p>因为打算将路由页面page A-detail-router作为公共页面，page A同级页面的其他页面也可以使用<br>所以将判断子菜单是否显示的逻辑放在跳转的那个子页面</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div><div class="line">114</div><div class="line">115</div><div class="line">116</div><div class="line">117</div><div class="line">118</div><div class="line">119</div><div class="line">120</div><div class="line">121</div><div class="line">122</div><div class="line">123</div></pre></td><td class="code"><pre><div class="line">//page A-detail-router</div><div class="line">&lt;template&gt;</div><div class="line">    &lt;div class=&quot;subcontainer&quot; v-if=&quot;submenuConfig&quot;&gt;</div><div class="line">      &lt;div class=&quot;submenu&quot;&gt;</div><div class="line">        &lt;!-- &lt;div  class=&quot;subTitle&quot; @click=&quot;goBack()&quot;&gt;&#123;&#123;submenuConfig.title&#125;&#125;&lt;/div&gt; --&gt;</div><div class="line">        &lt;div  class=&quot;subTitle&quot; @click=&quot;goBack()&quot;&gt;&lt;i class=&quot;fa fa-chevron-left&quot;&gt;&lt;/i&gt;&lt;/div&gt;</div><div class="line">        &lt;template v-for=&quot;(item,index) in submenuConfig.submenu&quot;&gt;</div><div class="line">          &lt;div v-if=&apos;item.show&apos; @click=&quot;gotoPage(item,index)&quot; :key=&quot;index&quot; class=&quot;subbtn&quot; :class=&quot;active===index?&apos;subactive&apos;:&apos;&apos;&quot;&gt;</div><div class="line">            &lt;a&gt;&#123;&#123;item.label&#125;&#125;&lt;/a&gt;</div><div class="line">          &lt;/div&gt;</div><div class="line">        &lt;/template&gt;</div><div class="line">      &lt;/div&gt;</div><div class="line">      &lt;div class=&quot;content&quot;&gt;</div><div class="line">        &lt;router-view&gt;&lt;/router-view&gt;</div><div class="line">      &lt;/div&gt;</div><div class="line">  &lt;/div&gt;</div><div class="line">&lt;/template&gt;</div><div class="line">&lt;script&gt;</div><div class="line">  import submenuText from &apos;../../../common/submenu&apos;</div><div class="line">  export default &#123; </div><div class="line">    name: &apos;submenu_detail&apos;,</div><div class="line">    data() &#123;</div><div class="line">      return &#123;</div><div class="line">        submenuConfig:null,</div><div class="line">        active:0</div><div class="line">      &#125;</div><div class="line">    &#125;,</div><div class="line">    mounted() &#123;</div><div class="line">      let routeName = this.$route.name</div><div class="line">      this.submenuConfig = submenuText[routeName.split(&apos;_&apos;)[0]] //获取菜单配置</div><div class="line">      this.active = this.submenuConfig.submenu.findIndex((item)=&gt;&#123;return item.name === routeName&#125;)</div><div class="line">    &#125;,</div><div class="line">    methods: &#123;</div><div class="line">      gotoPage (val,index) &#123;</div><div class="line">        this.active = index</div><div class="line">        this.$router.push(&#123;</div><div class="line">          name: val.name,</div><div class="line">          params:&#123;id:this.$route.params.id&#125;,</div><div class="line">          query:this.$route.query</div><div class="line">        &#125;)</div><div class="line">      &#125;,</div><div class="line">      goBack()&#123;</div><div class="line">        this.$router.push(&#123;</div><div class="line">          name:this.$route.meta.previousMenu</div><div class="line">        &#125;)</div><div class="line">      &#125;</div><div class="line">    &#125;,</div><div class="line">    components: &#123;</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">&lt;/script&gt;</div><div class="line">&lt;style lang=&quot;less&quot; scoped&gt;</div><div class="line">  .subcontainer&#123;</div><div class="line">    display: flex;</div><div class="line">    flex-grow: row  nowrap;</div><div class="line">    justify-content: space-between;</div><div class="line">    align-content:stretch;</div><div class="line">    margin: -20px;</div><div class="line">    .submenu&#123;</div><div class="line">      display: flex;</div><div class="line">      flex-flow: column;</div><div class="line">      align-content: center;</div><div class="line">      width: 200px;</div><div class="line">      flex:none;</div><div class="line">      background-color: #EAEDF1;</div><div class="line">      height: 100%;</div><div class="line">      position: absolute;</div><div class="line">      .subTitle&#123;</div><div class="line">        //内容为标题时样式</div><div class="line">        // font-weight: bold;</div><div class="line">        // text-indent: 20px;</div><div class="line">        // height: 70px;</div><div class="line">        // line-height: 70px;</div><div class="line">        // background: #D9DEE4;</div><div class="line">        // overflow: hidden;</div><div class="line">        // text-overflow: ellipsis;</div><div class="line">        // white-space: nowrap;</div><div class="line">        font-weight: bold;</div><div class="line">        height: 70px;</div><div class="line">        line-height: 70px;</div><div class="line">        background: #D9DEE4;</div><div class="line">        font-size: 20px;</div><div class="line">        color: #546478;</div><div class="line">        text-align: center</div><div class="line">      &#125;</div><div class="line">      .subTitle:hover&#123;</div><div class="line">        color: #0080FF;</div><div class="line">      &#125;</div><div class="line">      .subbtn&#123;</div><div class="line">        width: 100%;</div><div class="line">        font-size: 15px;</div><div class="line">        text-align: center;</div><div class="line">        padding: 10px 0px;</div><div class="line">        a&#123;</div><div class="line">          color:#000;</div><div class="line">        &#125;</div><div class="line">      &#125;</div><div class="line">      .subbtn:hover&#123;</div><div class="line">        background-color: #f8f8f8;</div><div class="line">        background: #f8f8f8;</div><div class="line">      &#125;</div><div class="line">      .subactive&#123;</div><div class="line">          background-color: #fff;</div><div class="line">        background: #fff;</div><div class="line">      &#125;</div><div class="line">    &#125;</div><div class="line">    .content&#123;</div><div class="line">      flex:1;</div><div class="line">      padding: 20px;</div><div class="line">      margin-left: 200px;</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">&lt;/style&gt;</div><div class="line"></div><div class="line">//子菜单页面</div><div class="line">mounted() &#123;</div><div class="line">      if(this.$route.query[&apos;dbtype.dbtype&apos;] != &apos;mysql&apos;)&#123;</div><div class="line">        this.$parent.submenuConfig.submenu[1].show = false</div><div class="line">      &#125;else&#123;</div><div class="line">        this.$parent.submenuConfig.submenu[1].show = true</div><div class="line">      &#125;</div><div class="line">      this.getDetail(this.$route.params.id)</div><div class="line">    &#125;,</div></pre></td></tr></table></figure>
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="http://yoohannah.github.io/post/performance/webpackconfig.html">
-
-  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
-    <meta itemprop="name" content="YooHannah">
-    <meta itemprop="description" content="">
-    <meta itemprop="image" content="/psb.jpg">
-  </span>
-
-  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-    <meta itemprop="name" content="My Little World">
-    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
-      <img style="display:none;" itemprop="url image" alt="My Little World" src="">
-    </span>
-  </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/post/performance/webpackconfig.html" itemprop="url">
-                  webpack应用
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-03-10T17:08:02+08:00">
-                2019-03-10
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="基本配置"><a href="#基本配置" class="headerlink" title="基本配置"></a>基本配置</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">const path = require(&apos;path&apos;);</div><div class="line">module.export = &#123;</div><div class="line">	entry:&apos;./main.js&apos;,</div><div class="line">	output:&#123;</div><div class="line">		filename:&apos;bundle.js&apos;,</div><div class="line">		path:path.resolve(__dirname,&apos;./dist&apos;)</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h1 id="接入babel"><a href="#接入babel" class="headerlink" title="接入babel"></a>接入babel</h1><h2 id="配置-babelrc"><a href="#配置-babelrc" class="headerlink" title="配置.babelrc"></a>配置.babelrc</h2><p>需要额外配置.babelrc文件，该文件是一个JSON格式文件<br>plugins属性，告诉Babel要使用哪些插件，这些插件可以控制如何转换代码<br>babel-plugin-transform-runtime：减少冗余代码<br>babel-runtime:可以导入babel-plugin-transform-runtime依赖的辅助函数<br>以上二者需要配套使用<br>presents属性，告诉Babel要转换的源码使用了那些新的语法特性，其值是一组plugins数组，<br>每一项，<br>如果不需要配置参数则使用字符串，表示插件名；<br>如果需要配置参数则使用数组，数组第一项为插件名，第二项为配置项组成的对象；<br>可以分为三大类：<br>1.已经被写入ES标准的特性：ES2015,ES2016,ES2017,Env (包含当前所有ES标准里的新特性)<br>2.社区提出但还未写入ES标准的特性：stage0,stage1,stage2,stage3,stage4,分别表示被纳入es标准的进度<br>3.特定场景下的语法特性，和es标准没有关系，例如要支持JSX，则使用babel-preset-react</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">	&quot;plugins&quot;:[[&quot;transform-runtime&quot;,&#123;&quot;polyfill&quot;:false&#125;]]</div><div class="line">	&quot;presents&quot;:[[&quot;es2015&quot;,&#123;&quot;modules&quot;:false&#125;],&quot;stage-4&quot;,&quot;react&quot;]</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h2 id="webpack配置"><a href="#webpack配置" class="headerlink" title="webpack配置"></a>webpack配置</h2><p>Babel是转换代码功能，所以要配置相应loader<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">modules:&#123;</div><div class="line">  rules:[&#123;</div><div class="line">    test:/\.js$/,</div><div class="line">    use:[&apos;babel-loader&apos;]</div><div class="line">  &#125;]</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<h2 id="安装依赖模块"><a href="#安装依赖模块" class="headerlink" title="安装依赖模块"></a>安装依赖模块</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">npm i -D babel-core babel-loader //webpack配置相关依赖</div><div class="line">npm i -D babel-preset-env</div><div class="line">npm i -D babel-preset-* //配置文件中的相关依赖</div></pre></td></tr></table></figure>
-<h1 id="使用TypeScript"><a href="#使用TypeScript" class="headerlink" title="使用TypeScript"></a>使用TypeScript</h1><h2 id="配置-tsconfig-json文件"><a href="#配置-tsconfig-json文件" class="headerlink" title="配置 tsconfig.json文件"></a>配置 tsconfig.json文件</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">&quot;compilerOptions&quot;:&#123;</div><div class="line">	&quot;module&quot;:&quot;commonjs&quot;,//编译的代码采用的模块规范</div><div class="line">	&quot;target&quot;:&quot;es5&quot;,//编译出的代码采用es哪个版本</div><div class="line">	&quot;sourceMap&quot;:true,//输出Source Map 以方便调试</div><div class="line">	&quot;importHelpers&quot;:true//禁止辅助函数重复出现在多个文件</div><div class="line">&#125;,</div><div class="line">&quot;exclude&quot;:[</div><div class="line">	&quot;node_modules&quot;</div><div class="line">]</div></pre></td></tr></table></figure>
-<h2 id="webpack配置-1"><a href="#webpack配置-1" class="headerlink" title="webpack配置"></a>webpack配置</h2><p>使用loader做转换；修改文件查找规则</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">resolve:&#123;</div><div class="line">	extension:[&apos;.ts&apos;,&apos;.js&apos;]</div><div class="line">&#125;</div><div class="line">modules:&#123;</div><div class="line">  rules:[&#123;</div><div class="line">    test:/\.ts$/,</div><div class="line">    loader:&apos;awesome-typescript-loader&apos;</div><div class="line">  &#125;]</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h2 id="安装依赖模块-1"><a href="#安装依赖模块-1" class="headerlink" title="安装依赖模块"></a>安装依赖模块</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">npm i -D typescript awesome-typescript-loader</div></pre></td></tr></table></figure>
-<h1 id="使用Flow检查器"><a href="#使用Flow检查器" class="headerlink" title="使用Flow检查器"></a>使用Flow检查器</h1><h2 id="使用语法"><a href="#使用语法" class="headerlink" title="使用语法"></a>使用语法</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">//@flow /*告诉检查器这个文件需要被检查*/</div><div class="line">function squarel(n:number):number&#123;</div><div class="line">	return n*n</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h2 id="使用配置"><a href="#使用配置" class="headerlink" title="使用配置"></a>使用配置</h2><p>1.全局使用<br>npm i -g flow-bin 将可执行文件安装在全局，直接在项目根目录下使用flow命令执行代码检查<br>2.局部使用<br>npm i -D flow-bin 在项目中生成可执行文件，仅在某个项目中使用，<br>在package.json中配置使用命令<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&quot;script&quot;:&#123;</div><div class="line">	&quot;flow&quot;:&quot;flow&quot;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>使用 npm run flow 执行代码检查</p>
-<h2 id="去除静态语法"><a href="#去除静态语法" class="headerlink" title="去除静态语法"></a>去除静态语法</h2><p>采用flow静态语法的js无法在引擎中运行，所要去掉<br>1.使用flow-remove-types<br>2.一般使用flow的项目会使用es6,所以集成到babel配置中，<br>安装依赖模块：npm i -D babel-preset-flow<br>修改.babelrc,在preset中加入’flow’：”presets”:[…[],”flow”]</p>
-<h1 id="使用SCSS"><a href="#使用SCSS" class="headerlink" title="使用SCSS"></a>使用SCSS</h1><p>SCSS又叫做SASS，可以使用一定语法编写css样式<br>转换方式<br>1.全局单文件转换<br>全局安装node-sass:npm i -g node-sass<br>执行命令：node-sass main.scss main.css  //main.css即main.scss编译后的css文件</p>
-<p>2.使用sass-loader</p>
-<h2 id="webpack配置-2"><a href="#webpack配置-2" class="headerlink" title="webpack配置"></a>webpack配置</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">modules:&#123;</div><div class="line">  rules:[&#123;</div><div class="line">    test:/\.scss$/,</div><div class="line">    use:[&apos;style-loader&apos;,&apos;css-loader&apos;,&apos;sass-loader&apos;]</div><div class="line">  &#125;]</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h2 id="安装依赖模块-2"><a href="#安装依赖模块-2" class="headerlink" title="安装依赖模块"></a>安装依赖模块</h2><p>npm i -D style-loader css-loader sass-loader //webpack loader<br>npm i -D node-sass //sass-loader 依赖node-sass</p>
-<h2 id="具体处理流程"><a href="#具体处理流程" class="headerlink" title="具体处理流程"></a>具体处理流程</h2><p>sass-loader将scss源码转换为css,再将css代码交给css-loader<br>css-loader会找出css代码中@import 和 url()这样的导入语句，告诉webpack依赖这些资源，同时支持CSS modules,压缩CSS等功能<br>处理完后将结果给到style-loader<br>style-loader 会将CSS代码转换成字符串后，注入到js代码中，通过js向DOM增加样式，<br>如果想将css提取到单独文件中，可再使用ExtractTextPlugin插件提取</p>
-<h1 id="使用PostCSS"><a href="#使用PostCSS" class="headerlink" title="使用PostCSS"></a>使用PostCSS</h1><p>使用相应的loader 可以为css样式增加兼容浏览器的前缀，可以配置相应的配置文件，兼容下一代CSS语法</p>
-<h2 id="配置postcss-config-js文件"><a href="#配置postcss-config-js文件" class="headerlink" title="配置postcss.config.js文件"></a>配置postcss.config.js文件</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">module.exports = &#123;</div><div class="line">	plugins:[</div><div class="line">		require(&apos;postcss-cssnext&apos;) //postcss-cssnext支持下一代css语法编写</div><div class="line">	]</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h2 id="webpack配置-3"><a href="#webpack配置-3" class="headerlink" title="webpack配置"></a>webpack配置</h2><p>需要先将下一代语法转换成可识别css,同时添加前缀<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">modules:&#123;</div><div class="line">  rules:[&#123;</div><div class="line">    test:/\.scss$/,</div><div class="line">    use:[&apos;style-loader&apos;,&apos;css-loader&apos;,&apos;postcss-loader&apos;]</div><div class="line">  &#125;]</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<h2 id="安装依赖模块-3"><a href="#安装依赖模块-3" class="headerlink" title="安装依赖模块"></a>安装依赖模块</h2><p>npm i -D style-loader css-loader postcss-loader //webpack loader 依赖<br>npm i -D postcss-cssnext // postcss-loader 依赖 </p>
-<h1 id="使用react"><a href="#使用react" class="headerlink" title="使用react"></a>使用react</h1><h2 id="借助Bable"><a href="#借助Bable" class="headerlink" title="借助Bable"></a>借助Bable</h2><p>1.修改配置文件.babelrc，在preset中加入’react’：”presets”:[…[],”react”]<br>2.安装依赖模块<br>npm i -D react react-dom//react 基础依赖<br>npm i -D bable-preset-react //bable转换依赖</p>
-<h2 id="借助typescript"><a href="#借助typescript" class="headerlink" title="借助typescript"></a>借助typescript</h2><p>1.修改配置文件tsconfig.json<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&quot;compilerOptions&quot;:&#123;</div><div class="line">	...,</div><div class="line">	&quot;jsx&quot;:&quot;react&quot;//typescript本身支持jsx,开启JSX，支持react</div><div class="line">&#125;,</div></pre></td></tr></table></figure></p>
-<p>2.修改webapck配置文件<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">resolve:&#123;</div><div class="line">	extension:[&apos;.ts&apos;,&apos;.tsx&apos;,.js&apos;] //typescript 原生支持jsx语法，只不过jsx语法文件后缀必须是tsx</div><div class="line">&#125;</div><div class="line">modules:&#123;</div><div class="line">  rules:[&#123;</div><div class="line">    test:/\.tsx?$/,//同时匹配ts,tsx后缀文件</div><div class="line">    loader:&apos;awesome-typescript-loader&apos;</div><div class="line">  &#125;]</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>3.安装依赖模块<br>npm i -D react react-dom//react 基础依赖<br>npm i -D @types/react @types/react-dom //react react-dom对应的ts接口描述模块，用于编译react，react-dom</p>
-<h1 id="使用VUE"><a href="#使用VUE" class="headerlink" title="使用VUE"></a>使用VUE</h1><h2 id="引入"><a href="#引入" class="headerlink" title="引入"></a>引入</h2><p>1.修改webapck配置文件<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">modules:&#123;</div><div class="line">  rules:[&#123;</div><div class="line">    test:/\.vue$/,</div><div class="line">    use:[&apos;vue-loader&apos;]</div><div class="line">  &#125;]</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>2.安装依赖模块<br>npm i -S vue //vue框架依赖<br>npm i -D vue-loader css-loader vue-template-compiler //构建所需依赖<br>歌loader作用<br>vue-loader:解析转换.vue文件，提取其中的逻辑代码script样式代码style以及html模板template,然后交给对应的loader去处理<br>css-loader:加载vue-loader提取的CSS代码<br>vue-template-compiler：将vue-loader提取的HTML模板编译成对应可执行的js代码。</p>
-<h2 id="构建使用ts编写的vue"><a href="#构建使用ts编写的vue" class="headerlink" title="构建使用ts编写的vue"></a>构建使用ts编写的vue</h2><p>1.配置 tsconfig.json文件<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&quot;compilerOptions&quot;:&#123;</div><div class="line">	&quot;target&quot;:&quot;es5&quot;,//构建es5版本的js,与VUE浏览器支持保持一致</div><div class="line">	&quot;module&quot;:&apos;es015&apos;,//使用es2015模块化格式</div><div class="line">	&quot;strict&quot;:true,//开启严格模式，对this上数据属性进行严格推断</div><div class="line">	&quot;moduleResolution&quot;:&apos;node&apos;</div><div class="line">&#125;,</div></pre></td></tr></table></figure></p>
-<p>2.webpack配置<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">resolve:&#123;</div><div class="line">	extension:[&apos;.ts&apos;,&apos;.js&apos;,&apos;.vue&apos;,&apos;json&apos;] //增加对.ts，.vue文件支持</div><div class="line">modules:&#123;</div><div class="line">  rules:[&#123;</div><div class="line">    test:/\.ts$/,//匹配ts后缀文件</div><div class="line">    loader:&apos;ts-loader&apos;,</div><div class="line">    exclude:/node_modules/,</div><div class="line">    options:&#123;</div><div class="line">    	appendTsSuffixTo:[/\.vue$/] //让tsc将vue文件当成一个ts模块去处理，以解决module not found的问题，tsc本身不会处理.vue结尾文件</div><div class="line">    &#125;</div><div class="line">  &#125;]</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>3.新增文件vue-shims.d.ts<br>用以ts支持.vue结尾文件，可识别import 语句导入的.vue文件<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">declare module &quot;*.vue&quot;&#123;</div><div class="line">	import Vue from &quot;vue&quot;;</div><div class="line">	export default Vue</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>4.vue文件编写<br>script 部分<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">&lt;script lang=&apos;ts&apos;&gt;//lang指明代码语法为ts</div><div class="line">improt Vue from &quot;vue&quot;</div><div class="line">export default Vue.extend(&#123; //Vue.extend启用ts类型推断</div><div class="line">	data()&#123;</div><div class="line">		return&#123;</div><div class="line">			msg:&apos;hello world&apos;</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line">&#125;)</div><div class="line">&lt;/script</div></pre></td></tr></table></figure></p>
-<p>5.安装依赖<br>npm i -D ts-loader typescript</p>
-<h1 id="单页自动生成html"><a href="#单页自动生成html" class="headerlink" title="单页自动生成html"></a>单页自动生成html</h1><p>利用模板文件和插件生成</p>
-<h2 id="模板文件"><a href="#模板文件" class="headerlink" title="模板文件"></a>模板文件</h2><p>模板文件用于描述哪些资源需要被以某种方式加入到输出的HTML文件中<br>资源链接URL字符串里问号前面的部分表示资源内容来自哪里，后面的参数表示这些资源注入的方式,可用&amp;链接<br>_inline:资源是要引入动态资源<br>_dist:只在生产环境下才引入该资源<br>_dev:只在开发环境才引入该资源<br>_ie:只在IE浏览器中引入</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">&lt;html lang=&quot;en&quot;&gt;</div><div class="line">  &lt;head&gt;</div><div class="line">    &lt;meta charset=&quot;utf-8&quot;&gt;</div><div class="line">     &lt;!--导入chunck app 中的css代码，可知要将css单独打包一个文件--&gt;</div><div class="line">    &lt;link rel=&quot;stylesheet&quot; href=&quot;app?_inline&quot;&gt;</div><div class="line">    &lt;!--在这里引入/google_analytics的js代码--&gt;</div><div class="line">    &lt;script src=&quot;./google_analytics.js?_inline&quot;&gt;&lt;/script&gt;</div><div class="line">  &lt;/head&gt;</div><div class="line">  &lt;body&gt;</div><div class="line">    &lt;div id=&apos;app&apos;&gt;&lt;/div&gt;</div><div class="line">    &lt;!--导入chunck app 中的js代码--&gt;</div><div class="line">    &lt;script type=&quot;text/javascript&quot; src=&quot;app&quot;&gt;&lt;/script&gt;</div><div class="line">  &lt;/body&gt;</div><div class="line">&lt;/html&gt;</div></pre></td></tr></table></figure>
-<h2 id="webpack配置-4"><a href="#webpack配置-4" class="headerlink" title="webpack配置"></a>webpack配置</h2><p>使用web-webpack-plugin的webplugin自动生成index.html<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line">const &#123;WebPlugin&#125; = require(&apos;web-webpack-plugin&apos;)</div><div class="line">plugins:[</div><div class="line">	new WebPlugin(&#123;//自动生成index.html文件</div><div class="line">		template:&apos;./template.html&apos;,//模板文件</div><div class="line">		filename:&apos;index.html&apos;//输出文件名</div><div class="line">	&#125;)，</div><div class="line">	new ExtractTextPlugin(&#123;</div><div class="line">		filename:`[name]_[contenthas:8].css` // 为输出的css文件名称加上Hash值</div><div class="line">	&#125;)，</div><div class="line">	new DefinePlugin(&#123;</div><div class="line">		&apos;process.env&apos;:&#123;//定义NODE_ENV环境变量为production，去除源码中只有开发时才需要的部分</div><div class="line">			NODE_ENV:JSON.stringify(&apos;production&apos;)</div><div class="line">		&#125;</div><div class="line">	&#125;)，</div><div class="line">	new UglifyJsPlugin(&#123;//压缩输出的js代码</div><div class="line">		beautify:false,//最紧凑的输出</div><div class="line">		comments:false,//删除所有注释</div><div class="line">		compress:&#123;</div><div class="line">			warnings:false,//删除没有用到的代码时，不发出警告</div><div class="line">			drop_console:true,//删除所有console语句，兼容IE</div><div class="line">			collapse_vars:true,//内嵌已定义但只用到了一次的变量</div><div class="line">			reduce_vars:true//提取出出现多次但没有定义成变量去引用的静态值</div><div class="line">		&#125;</div><div class="line">	&#125;)</div><div class="line"></div><div class="line">]</div></pre></td></tr></table></figure></p>
-<h1 id="自动生成多个单页"><a href="#自动生成多个单页" class="headerlink" title="自动生成多个单页"></a>自动生成多个单页</h1><p>需要解决的问题<br>1.要能够将公共代码提取出来，并能够注入到每个单页应用中<br>2.模板文件要支持注入公共文件和各个单页独自依赖的资源</p>
-<h2 id="模板文件-1"><a href="#模板文件-1" class="headerlink" title="模板文件"></a>模板文件</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">&lt;html lang=&quot;en&quot;&gt;</div><div class="line">  &lt;head&gt;</div><div class="line">    &lt;meta charset=&quot;utf-8&quot;&gt;</div><div class="line">    &lt;!--在这里注入该页面所依赖但没有手动导入的CSS--&gt;</div><div class="line">    &lt;!--STYLE--&gt;</div><div class="line">    &lt;!--在这里引入/google_analytics的js代码--&gt;</div><div class="line">    &lt;script src=&quot;./google_analytics.js?_inline&quot;&gt;&lt;/script&gt;</div><div class="line">  &lt;/head&gt;</div><div class="line">  &lt;body&gt;</div><div class="line">    &lt;div id=&apos;app&apos;&gt;&lt;/div&gt;</div><div class="line">    &lt;!-- 在这里注入该页面所依赖但没有手动导入的JS--&gt;</div><div class="line">    &lt;!--SCRIPT--&gt;</div><div class="line">  &lt;/body&gt;</div><div class="line">&lt;/html&gt;</div></pre></td></tr></table></figure>
-<p>此时模板文件被当作项目中所有单页的模板，因此不能直接写Chunck名称去引入资源，<br>因为需要被注入当前页面的Chunck名称不固定，每个单页都会有自己的名称<br><!--STYLE--><!--SCRIPT-->的作用在于保证该页面所依赖的资源都会被注入生成的HTML模板中<br>如果<!--STYLE-->不存在，就注入到head标签最后<br>如果<!--SCRIPT-->不存在，就注入到body标签最后</p>
-<h2 id="webpack配置-5"><a href="#webpack配置-5" class="headerlink" title="webpack配置"></a>webpack配置</h2><p>使用web-webpack-plugin的autoWebPlugin自动生成多个单页的index.html文件<br>但是对目录结构有要求，即所有单页各自的入口文件和依赖资源组成各自的一个文件夹，<br>多个文件夹放在同一目录A下，其他公共资源以及模板文件，webpack配置文件放在与A目录同级目录下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">const &#123;AutoWebPlugin&#125; = require(&apos;web-webpack-plugin&apos;)</div><div class="line">const autoWebPlugin = new AutoWebPlugin(&apos;pages&apos;,&#123; //pages 为各个单页的父目录A</div><div class="line">	template:&apos;./template.html&apos;,//模板文件</div><div class="line">	postEntry:[&apos;./common.css&apos;],//所有页面都依赖这份通用的CSS样式文件</div><div class="line">	commonChunk：&#123;</div><div class="line">		name:&apos;common&apos;,//提取公共代码chunk的名称</div><div class="line">	&#125;</div><div class="line">&#125;)</div><div class="line">module.exports=&#123;</div><div class="line">	//AutoWebPlugin会为寻找到的所有单页生成对应的入口配置，</div><div class="line">	//autoWebPlugin.entry可以获取所有由autoWebPlugin生成的入口配置</div><div class="line">	entry:autoWebPlugin.entry(&#123;//可加入额外需要的Chunk入口&#125;)，</div><div class="line">	plugins:[autoWebPlugin]</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<h1 id="构建基于react的同构应用"><a href="#构建基于react的同构应用" class="headerlink" title="构建基于react的同构应用"></a>构建基于react的同构应用</h1><p>同构应用：写一份代码可同时在浏览器和服务器中运行的应用<br>能在服务器运行的原理核心是虚拟DOM<br>虚拟DOM好处：<br>1.操作DOM树是高耗时操作，可通过DOM diff算法找到两个不同Object的最小差异，得出最小的DOM操作<br>2.虚拟DOM在渲染时不仅可以通过操作DOM树表示结果，也可以有其他表示方式，例如将虚拟DOM渲染成字符串(服务器渲染)<br>或者渲染成手机APP原生UI组件（react Native）</p>
-<h2 id="服务器端构建配置"><a href="#服务器端构建配置" class="headerlink" title="服务器端构建配置"></a>服务器端构建配置</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line">const path = require(&apos;path&apos;)</div><div class="line">const nodeExternals = require(&apos;webpack-node-externals&apos;)</div><div class="line">module.exports = &#123;</div><div class="line">	entry:&apos;./main_server.js&apos;</div><div class="line">	target:&apos;node&apos;,//目标运行环境是node.js,源码依赖的nodejs原生模块没必要打包进去</div><div class="line">	externals:[nodeExternals()],//不打包node_modules中的第三方组件</div><div class="line">	output:&#123;</div><div class="line">		libraryTarget:&apos;commonjs2&apos;,//输出CommonJS2规范，供nodejs的http服务器代码调用</div><div class="line">		fillname:&apos;bundle.server.js&apos;,</div><div class="line">		path:path(resolve(__dirname,&apos;./dist&apos;))</div><div class="line">	&#125;,</div><div class="line">	module:&#123;</div><div class="line">		rules:[</div><div class="line">			&#123;</div><div class="line">				test:/\.js$/,</div><div class="line">				use:[&apos;babel-loader&apos;],</div><div class="line">				exclude:path.resolve(__dirname,&apos;node_modules&apos;),</div><div class="line">			&#125;,</div><div class="line">			&#123;</div><div class="line">				test:/\.css/,</div><div class="line">				use:[&apos;ignore-loader&apos;],//css文件不能打包到服务端代码，影响服务端渲染性能</div><div class="line">			&#125;</div><div class="line">		]</div><div class="line">	&#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h2 id="文件准备"><a href="#文件准备" class="headerlink" title="文件准备"></a>文件准备</h2><p>一个仅包含根组件代码，不能包含渲染入口代码，而且需要导出根组件以供渲染入口调用的文件 rootComponent.js<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">import react,&#123;Component&#125; from &apos;react&apos;;</div><div class="line">import &apos;main.css&apos;</div><div class="line">export class RootComponent extends Component&#123;</div><div class="line">	render()&#123;</div><div class="line">		return &lt;h1&gt;hello world &lt;/h1&gt;</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>不同环境渲染入口文件，一个环境一个<br>main_server.js<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">import react from &apos;react&apos;;</div><div class="line">import RootComponent from &apos;./rootComponent&apos;</div><div class="line">import &#123;renderToString&#125; from &apos;react-dom/server&apos; //计算表示虚拟DOM的HTML形式字符串</div><div class="line">export function render()&#123;</div><div class="line">	return renderToString(&lt;RootComponent&gt;)</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>main_browser.js<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">import react from &apos;react&apos;;</div><div class="line">import RootComponent from &apos;./rootComponent&apos;</div><div class="line">import &#123;render&#125; from &apos;react-dom&apos; //操作浏览器DOM树展示出结果</div><div class="line">render(&lt;RootComponent&gt;,window.document.getElementById(&apos;app&apos;))</div></pre></td></tr></table></figure></p>
-<p>http.server.js</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line">const express = require(&apos;express&apos;)</div><div class="line">const &#123;render &#125; = require(&apos;./dist/bundle_server&apos;)</div><div class="line">const app = express();</div><div class="line">app.get(&apos;/&apos;,function(req.res)&#123;</div><div class="line">	res.send(`</div><div class="line">		&lt;html lang=&quot;en&quot;&gt;</div><div class="line">		  &lt;head&gt;</div><div class="line">		    &lt;meta charset=&quot;utf-8&quot;&gt;</div><div class="line">		  &lt;/head&gt;</div><div class="line">		  &lt;body&gt;</div><div class="line">		    &lt;div id=&apos;app&apos;&gt;$&#123;render()&#125;&lt;/div&gt;</div><div class="line">		    &lt;!--导入WEBPACK输出的用于浏览器端渲染的js文件--&gt;</div><div class="line">		    &lt;script src=&apos;./dist/bundle_browser.js&apos;&gt;&lt;/script&gt;</div><div class="line">		  &lt;/body&gt;</div><div class="line">		&lt;/html&gt; </div><div class="line">	`)</div><div class="line">&#125;)</div><div class="line">app.use(express.static(&apos;.&apos;));</div><div class="line">app.listen(3000,function()&#123;</div><div class="line">	console.log(&apos;app is listening 3000&apos;)</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
-<h2 id="执行命令"><a href="#执行命令" class="headerlink" title="执行命令"></a>执行命令</h2><p>webpack –config webpac_server.config.js 得到./dist/bundle_server.js<br>webpack –config webpac.config.js 得到./dist/bundle_browser.js<br>node ./http_server.js 启动 http 服务器，访问’localhost:3000’看到服务器返回了html</p>
-<h1 id="基于react-的Electron应用"><a href="#基于react-的Electron应用" class="headerlink" title="基于react 的Electron应用"></a>基于react 的Electron应用</h1><p> Electron 可以使用开发web应用的技术去开发跨平台的桌面应用，例如Atom，VSCode<br> 是nodejs和Chromium浏览器的结合体，用Chromium浏览器显示出的WEB页面作为应用的GUI，通过Nodejs和操作系统交互<br> 当操作一个Electron应用的一个窗口时，实际是在操作一个网页，当操作需要操作系统完成时，网页会通过Nodejs和操作系统交互<br> 优点<br> 1.降低了开发门槛，只需掌握网页开发技术和Nodejs,大量Web开发技术和现成库可以复用于Electron<br>   而且由于Electron环境内置了浏览器和Nodejs的API，在开发网页时除了可以使用浏览器提供的API，还可以会用Nodejs的API<br> 2.由于Chromium浏览器和Nodejs都是跨平台的，所有Electron能做到在不同操作系统运行一份代码</p>
-<h2 id="构建"><a href="#构建" class="headerlink" title="构建"></a>构建</h2><p>Electron 应用每个窗口对应一个网页，所以相当于需要构建多单页面应用<br>在网页JS代码中可能会调用Nodejs原生模块或者Electron模块，输出的代码依赖这些模块但由于这些模块都是内置支持的，<br>所有构建出的代码不能将这些模块打包进去<br>由于webpack内置了对Electron的支持，只需要告诉webpack我要在electron环境里运行就可以实现<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">target:&apos;electron-renderer&apos;</div></pre></td></tr></table></figure></p>
-<h2 id="运行"><a href="#运行" class="headerlink" title="运行"></a>运行</h2><p>安装electron执行环境到项目中<br>npm i -D electron</p>
-<p>在项目目录下执行electron ./就可以启动桌面应用</p>
-<h1 id="构建Npm模块"><a href="#构建Npm模块" class="headerlink" title="构建Npm模块"></a>构建Npm模块</h1><h2 id="要求"><a href="#要求" class="headerlink" title="要求"></a>要求</h2><p>1.源码若采用es6编写需要转换成es5,并且要遵守commonjs规范，同时提供Source Map方便调式</p>
-<p>解决:<br>使用Babel将es6转换成es5<br>通过开启devtool:’source-map’输出Source Map以发布调试<br>设置output.libraryTarget = ‘commonjs2’ 实现输出代码符合CommomJS2规范<br>2.若为UI组件，则依赖的其他资源文件如css文件也需要包含的发布的模块中</p>
-<p>解决：通过css-loader,extract-text-webpack-plugin实现，将css打包到单独文件</p>
-<p>3.尽量减少代码冗余，（例如，Babel将es6转换成es5时，会注入一些辅助函数，例如实现class,extend语法的辅助函数，Babel会在每个输出文件中中内嵌依赖的辅助函数，多文件依赖的话，就会造成辅助函数重复出现，造成代码冗余）减少发布出去的组件的代码文件大小</p>
-<p>解决：通过引入相同函数解决重复代码<br>使用babel-plugin-transform-runtime 将嵌入辅助函数代码转成引入辅助函数<br>引入bable-runtime模块用于提供辅助函数</p>
-<p>4.发布出去的组件代码中不能含有其依赖的模块代码，例如react,babel-runtime,而是让用户可选择性的安装，否则可能在其他模块也依赖相同模块时，造成重复打包</p>
-<p>解决：配置externals将外部环境提供的模块屏蔽掉，不进行打包</p>
-<h2 id="webpack配置-6"><a href="#webpack配置-6" class="headerlink" title="webpack配置"></a>webpack配置</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div></pre></td><td class="code"><pre><div class="line">const path = require(&apos;path&apos;)</div><div class="line">const ExtractTextPlugin = require(&apos;extract-text-webpack-plugin&apos;)</div><div class="line"></div><div class="line">module.exports = &#123;</div><div class="line">	entry:&apos;./src/index.js&apos;</div><div class="line">	output:&#123;</div><div class="line">		fillname:&apos;index.js&apos;,</div><div class="line">		path:path.resolve(__dirname,&apos;lib&apos;),</div><div class="line">		libraryTarget:&apos;commonjs2&apos;,</div><div class="line">	&#125;,</div><div class="line">	externals:/^(react|babel-runtime)/,</div><div class="line">	module:&#123;</div><div class="line">		rules:[</div><div class="line">		&#123;</div><div class="line">			test:/\.js$/,</div><div class="line">			use:[&apos;babel-loader&apos;],</div><div class="line">			exclude:path.resolve(__dirname,&apos;node_module&apos;),</div><div class="line">		&#125;,</div><div class="line">		&#123;</div><div class="line">			test:/\.css/,</div><div class="line">			use:ExtractTextPlugin.extract(&#123;</div><div class="line">				use:[&apos;css-loader&apos;]</div><div class="line">			&#125;)</div><div class="line">		&#125;]</div><div class="line">	&#125;,</div><div class="line">	plugins:[</div><div class="line">		new ExtractTextPlugin(&#123;</div><div class="line">			fillname:&apos;index.css&apos;</div><div class="line">		&#125;)</div><div class="line">	],</div><div class="line">	devtool:&apos;source-map&apos;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>.babellrc文件<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">	&apos;plugins&apos;:[</div><div class="line">		[</div><div class="line">			&apos;transform-runtime&apos;,//默认自动注入ES6 API的polyfill</div><div class="line">			&#123;</div><div class="line">				&apos;polyfill&apos;:false//防止使用者在其他地方注入其他polyfill库，所以关闭注入polyfill功能</div><div class="line">			&#125;</div><div class="line">		]</div><div class="line">	]</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<h2 id="发布到Npm"><a href="#发布到Npm" class="headerlink" title="发布到Npm"></a>发布到Npm</h2><p>修改package.json入口文件为打包后的文件<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">main:&apos;lib/index.js&apos;,//webpack使用于构建不可分割的NPM模块，不能保持同源码结构一致例如如果打包lodash，会将所有工具函数打包进去，不适合仅用几个工具函数的场景</div><div class="line">&apos;jsnext:main&apos;:&apos;src/index.js&apos;//指出采用ES6编写的模块入口文件位置，便于实现Tree Sharking</div></pre></td></tr></table></figure></p>
-<h1 id="离线应用-service-workers打包"><a href="#离线应用-service-workers打包" class="headerlink" title="离线应用 service workers打包"></a>离线应用 service workers打包</h1><p><a href="/post/performance/cache/serviceworker.html">service workers了解</a></p>
-<h2 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h2><p>1.如何生成sw.js文件<br>2.sw.js文件中的cacheFileList变量(代表被缓存文件的URL)，需要根据输出文件列表所对应的URL来决定，不能写成静态值</p>
-<h2 id="解决"><a href="#解决" class="headerlink" title="解决"></a>解决</h2><p>使用serviceworker-webpack-plugin,根据自定义sw.js生成含有输出文件列表的sw.js<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div></pre></td><td class="code"><pre><div class="line">const path = require(&apos;path&apos;)</div><div class="line">const ExtractTextPlugin = require(&apos;extract-text-webpack-plugin&apos;)</div><div class="line">const &#123;WebPlugin&#125; = require(&apos;web-webpack-plugin&apos;)</div><div class="line">const ServiceWorkerWebpackPlugin = require(&apos;serviceworker-webpack-plugin&apos;)</div><div class="line"></div><div class="line">module.exports = &#123;</div><div class="line">	entry:&#123;</div><div class="line">		app:&apos;./main.js&apos; //Chunk app 的js执行入口文件</div><div class="line">	&#125;,</div><div class="line">	output:&#123;</div><div class="line">		fillname:&apos;[name].js&apos;,</div><div class="line">		publicPath:&apos;&apos;,</div><div class="line">	&#125;,</div><div class="line">	module:&#123;</div><div class="line">		rules:[</div><div class="line">		&#123;</div><div class="line">			test:/\.css/,//增加对CSS文件支持，</div><div class="line">			use:ExtractTextPlugin.extract(&#123;//提取到单独文件</div><div class="line">				use:[&apos;css-loader&apos;]//压缩CSS代码</div><div class="line">			&#125;)</div><div class="line">		&#125;]</div><div class="line">	&#125;,</div><div class="line">	plugins:[</div><div class="line">		//一个WebPlugin对应一个HTML</div><div class="line">	    new WebPlugin(&#123;</div><div class="line">	    	template:&apos;./template/html&apos;,//HTML模板文件所在的文件路径</div><div class="line">	    	fillname:&apos;index.html&apos;//输出的HTML文件名称</div><div class="line">	    &#125;),</div><div class="line">		new ExtractTextPlugin(&#123;</div><div class="line">			fillname:&apos;[name].css&apos;</div><div class="line">		&#125;),</div><div class="line">		new ServiceWorkerWebpackPlugin(&#123;</div><div class="line">			//自定义的sw.js文件所在路径</div><div class="line">			//ServiceWorkerWebpackPlugin会将文件列表注入生成的sw.js</div><div class="line">			entry:path.join(__dirname,&apos;sw.js&apos;)</div><div class="line">		&#125;)</div><div class="line">	],</div><div class="line">	devServer:&#123;</div><div class="line">		//Service workers依赖HTTPs,使用devServer提供https功能</div><div class="line">		https:true</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>构建出的sw.js文件会在头部注入一个变量serviceWorkerOption.assets到全局，里面存放着所有需要被缓存的文件的URL列表<br>因此需要将sw.js文件中写成静态值的cacheFileList替换成serviceWorkerOption.assets<br>var cacheFileList = global.serviceWorkerOption.assets</p>
-<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><p>npm -i -D web-webpack-plugin serviceworker-webpack-plugin</p>
-<h1 id="代码检查"><a href="#代码检查" class="headerlink" title="代码检查"></a>代码检查</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">module.exports = &#123;</div><div class="line">	module:&#123;</div><div class="line">		rules:[</div><div class="line">		&#123;</div><div class="line">			test:/\.js$/,</div><div class="line">			exclude:/node_module/,//不检查node_module下文件</div><div class="line">			loader:&apos;tslint-loader&apos;,//整合typeScript代码检查</div><div class="line">			enforce:&apos;pre&apos;//将执行顺序放到最前面，防止其他Loader将处理后的代码交给tslint-loader检查</div><div class="line">		&#125;，&#123;</div><div class="line">			test:/\.js$/,</div><div class="line">			exclude:/node_module/,//不检查node_module下文件</div><div class="line">			loader:&apos;eslint-loader&apos;,//整合eslint检查代码</div><div class="line">			enforce:&apos;pre&apos;//将执行顺序放到最前面，防止其他Loader将处理后的代码交给tslint-loader检查</div><div class="line">		&#125;]</div><div class="line">	&#125;，</div><div class="line">	plugin:[</div><div class="line">		new StyleLintPlugin() //整合stylelint，检查css代码，可以解析SCSS,Less</div><div class="line">	]</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h2 id="导致问题"><a href="#导致问题" class="headerlink" title="导致问题"></a>导致问题</h2><p>1.执行检查步骤计算量大，或导致webpack构建变慢<br>2.整合代码检查到webpack后，输出的错误信息是通过行号来定位错误的，没有编辑器集成显示错误直观</p>
-<h2 id="解决-1"><a href="#解决-1" class="headerlink" title="解决"></a>解决</h2><p>1.将代码检查步骤当道代码提交时，即在代码提交前调用以上检查工具去检查代码，只有检查都通过时才提交代码，这样保证仓库内代码都经过检查<br>2.使用集成了代码检查功能的编辑器，让编辑器实时，直观的显示错误<br>安装 npm i -D husky 接入git hook,通过git 的hook功能做到在提交代码前触发执行，husky会通过Npm Script Hook自动配置好HOOK<br>但需要在package.json定义脚本，如下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">	&quot;script&quot;:&#123;</div><div class="line">		&quot;precommit&quot;:&quot;npm run lint&quot;,//git commit 前执行的脚本</div><div class="line">		&quot;prepush&quot;:&apos;lint&apos;,//git push前会执行的脚本</div><div class="line">		&quot;lint&quot;:&apos;eslint &amp;&amp; stylelint&apos;//调用eslint,stylelint检查工具</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<h1 id="在nodejs中使用"><a href="#在nodejs中使用" class="headerlink" title="在nodejs中使用"></a>在nodejs中使用</h1><p>通过调用Webpack的API，执行构建</p>
-<h2 id="一次构建"><a href="#一次构建" class="headerlink" title="一次构建"></a>一次构建</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">const webpack = require(&apos;webpack&apos;)</div><div class="line">//import webpack from &apos;webpack&apos;</div><div class="line"></div><div class="line">1.使用模块方式一</div><div class="line">webpack(&#123;</div><div class="line">	//webpack配置，和webpack.config.js一样</div><div class="line">&#125;,(err,stats)=&gt;&#123;</div><div class="line">	if(err || stats.hasErrors())&#123;</div><div class="line">		//构建过程出错</div><div class="line">	&#125;</div><div class="line">	//成功执行完构建</div><div class="line">&#125;)</div><div class="line">2.使用模块方式二</div><div class="line">const config = require(&apos;./webpack.config.js&apos;)</div><div class="line">webpack(config,callback)</div></pre></td></tr></table></figure>
-<h2 id="启动监听模式"><a href="#启动监听模式" class="headerlink" title="启动监听模式"></a>启动监听模式</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">//不给webpack传递callback就会返回compiler实例，用于控制启动，而不是像上面那样立即启动</div><div class="line">const compiler = webpack(config)</div><div class="line">//调用compiler.watch并以监听模式启动，返回watching用于关闭监听</div><div class="line">const watching = compiler.watch(&#123;</div><div class="line">	//watchOptions</div><div class="line">	aggregateTimeout:300</div><div class="line">&#125;,(err,stats)=&gt;&#123;</div><div class="line">	//每次因文件发生变化而重新执行完/构建后</div><div class="line">&#125;)</div><div class="line">//调用watching.close关闭监听</div><div class="line">watching.close(()=&gt;&#123;</div><div class="line">	//在监听关闭后</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
-<h2 id="加载图片相关的loader"><a href="#加载图片相关的loader" class="headerlink" title="加载图片相关的loader"></a>加载图片相关的loader</h2><p>1.file-loader<br>将js和CSS中导入图片的地址替换成 webpack输出文件的地址，输出文件名是根据内容计算出的HASH值<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">rules:[&#123;</div><div class="line">	test:/\.png$/,</div><div class="line">	use:[&apos;fill-loader&apos;]</div><div class="line">	&#125;]</div></pre></td></tr></table></figure></p>
-<p>2.url-loder<br>将图片转base64直接注入到引入的地方，<br>一般利用url-loder将网页需要用到的小图片资源注入代码中，以减少加载次数，为一个很小图片而2新建一次HTTP连接不划算<br>如果图片体积太大会导致js,CSS文件过大而带来网页加载缓慢的问题<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">rules:[&#123;</div><div class="line">	test:&apos;/\./png$/&apos;,</div><div class="line">	use:[&#123;</div><div class="line">		loader:&apos;url-loader&apos;,</div><div class="line">		options:&#123;</div><div class="line">			//30KB以下文件采用url-loader,控制文件大小</div><div class="line">			limit:1024*30,</div><div class="line">			//否则采用file-loader,默认值是file-loader</div><div class="line">			fallback:&apos;file-loader&apos;</div><div class="line">		&#125;</div><div class="line">		&#125;]</div><div class="line">	&#125;]</div></pre></td></tr></table></figure></p>
-<p>还可以以下方式优化，同样适用于其他二进制类型的资源，如PDF,SWF<br>A.通过imagin-webpack-plugin压缩图片<br>B.通过webpack-spritesmith插件制作雪碧图</p>
-<p>以上两个loader都可用于处理svg图片，但svg文件是文本格式文件，还有其他方法</p>
-<p>3.raw-loader<br>可以将文本文件内容读取出来，注入js/CSS中<br>由于会直接返回svg的文本内容，并且无法通过CSS展示SVG的文本内容，因此采用该loader后无法在CSS中导入SVG<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">rules:[&#123;</div><div class="line">	test:/\./svg$/,</div><div class="line">	use:&apos;raw-loader&apos;</div><div class="line">	&#125;]</div></pre></td></tr></table></figure></p>
-<p>4.svg-inline-loader<br>类似raw-loader，但会分析SVG内容，去除其中不必要的部分代码，以减少SVG文件大小，相当于增加了对SVG的压缩能力<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">rules:[&#123;</div><div class="line">	test:/\.svg$/,</div><div class="line">	use:[&apos;svg-inline-loader&apos;]</div><div class="line">	&#125;]</div></pre></td></tr></table></figure></p>
-<h2 id="DevServer-实现"><a href="#DevServer-实现" class="headerlink" title="DevServer 实现"></a>DevServer 实现</h2><p>webpack-dev-server本身基于webpack-dev-middleware和expressjs,而webpack-dev-middleware是一个express.js的中间件<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div></pre></td><td class="code"><pre><div class="line">const express = require(&apos;express&apos;)</div><div class="line">const wepack = require(&apos;webpack&apos;)</div><div class="line">const webpackMiddleware = require(&apos;webpack-dev-middleware&apos;)</div><div class="line"></div><div class="line">const config = require(&apos;./webpack.config.js&apos;)</div><div class="line">const app = expree()</div><div class="line">const compiler = webpack(config)</div><div class="line">app.use(webpackMiddleware(compiler,&#123;</div><div class="line">	//在webpack-dev-middleware支持的所有配置项中</div><div class="line">	//只有publicPath属性为必填项，其他都是选填项</div><div class="line"></div><div class="line">	//webpack输出资源绑定HTTP服务器上的根目录</div><div class="line">	//同WEBPACK配置中的publicPath</div><div class="line">	publicPath:&apos;/assets/&apos;,</div><div class="line"></div><div class="line">	//不输出info类型的日志到控制台，只输出warn和error类型的日志</div><div class="line">	noInfo:false,</div><div class="line">	//不输出任何类型的日志到控制台</div><div class="line">	quiet:false,</div><div class="line">	//切换到懒惰模式，意味着不监听文件的变化，只会在有请求时再编译对应的文件，适合页面很多的项目</div><div class="line">	lazy:true,</div><div class="line">	//watchOptions,只在非懒惰模式下才有效</div><div class="line">	watchOptions:&#123;</div><div class="line">		aggregationTimeout:300,</div><div class="line">		poll:true</div><div class="line">	&#125;,</div><div class="line"></div><div class="line">	//默认的URL路径，默认是&apos;index.html&apos;</div><div class="line">	index:&apos;index.html&apos;,</div><div class="line">	//自定义HTTP头</div><div class="line">	headers:&#123;&apos;X-Custom-Header&apos;:&apos;yes&apos;&#125;,</div><div class="line">	//为特定后缀的文件添加HTTP mimeTypes,作为文件类型映射表</div><div class="line">	mimeTypes:&#123;&apos;text/html&apos;:[&apos;phtml&apos;]&#125;,</div><div class="line"></div><div class="line">	//统计信息输出样式</div><div class="line">	stats:&#123;</div><div class="line">		colors:true</div><div class="line">	&#125;,</div><div class="line">	//自定义输出日志的展示方法</div><div class="line">	reporter:null,</div><div class="line">	//开启或关闭服务端渲染</div><div class="line">	serverSideRender:false</div><div class="line"></div><div class="line">&#125;))</div><div class="line">//webpackMiddleware函数返回一个Expressjs中间件，该中间件有俩个功能</div><div class="line">//1.接收来自webpack compiler实例输出的文件，但不会将文件输出到硬盘中，而会保存在内存中</div><div class="line">//2.在express.js上注册路由，拦截HTTP收到的请求，根据请求路径响应对应文件内容</div><div class="line"></div><div class="line">//webpack-dev-middleware没有模块热替换功能，但Devserver有，</div><div class="line">//可通过webpack-hot-middleware中间件来支持模块热替换，响应用于替换老模块的资源</div><div class="line">app.use(require(&apos;webpack-hot-middleware&apos;)(compiler))</div><div class="line">//将项目根目录作为静态资源目录，用于服务器HTML文件</div><div class="line">app.use(express.static(&apos;.&apos;))</div><div class="line"></div><div class="line">app.listen(3000)</div></pre></td></tr></table></figure></p>
-<p>响应模块热替换功能还需要作如下配置<br>1.修改webpack.config.js文件，加入HotModuleReplacementPlugin插件<br>  相当于执行 webpack-dev-server –hot工作<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">const HotModuleReplacementPlugin= require(&apos;webpack/lib/HotModuleReplacementPlugin&apos;)</div><div class="line">module.exports=&#123;</div><div class="line">	entry:[</div><div class="line">		&apos;webpack-hot-middleware/client&apos;,//为了支持模块热替换注入代理客户端</div><div class="line">		&apos;./src/main.js&apos;</div><div class="line">	],</div><div class="line">	output:&#123;</div><div class="line">		filename:&apos;bundle.js&apos;</div><div class="line">	&#125;,</div><div class="line">	plugin:[</div><div class="line">		//为了支持模块热替换，生成.hot-update.json文件</div><div class="line">		new HotModuleReplacementPlugin(),</div><div class="line">	]</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>2.修改入口文件main.js,加入替换逻辑<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">//在文件末尾加入</div><div class="line">if(module.hot)&#123;</div><div class="line">	moudule.hot.accept()</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>3.安装以上配置中用到的依赖<br>npm i -D webpack-dev-middleware webpack-hot-middleware express</p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1710,7 +1674,7 @@ module.exports = function(source){
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">183</span>
+              <span class="site-state-item-count">186</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
