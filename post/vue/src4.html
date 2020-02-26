@@ -68,7 +68,7 @@
 <link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="js," />
+  <meta name="keywords" content="vue," />
 
 
 
@@ -86,18 +86,18 @@
 
 
 
-<meta name="description" content="单例模式定义：保证一个类仅有一个实例，并提供一个访问它的全局访问点 主要思想&amp;lt;通用惰性单例&amp;gt;管理单例逻辑（保证实现单例的过程）和创建过程（具体业务逻辑）分开，创建过程函数作为参数给到管理单例逻辑函数中，通过调用单例逻辑函数，业务逻辑函数只执行一次 用途1.创建单一对象2.利用业务逻辑仅执行一次，进行事件挂载 注意事项业务逻辑函数一定要return 一个真正 12345678910111">
-<meta name="keywords" content="js">
+<meta name="description" content="vue双向绑定原理，依赖收集是在created声明周期之前，render生成虚拟dom的时候 数据劫持">
+<meta name="keywords" content="vue">
 <meta property="og:type" content="article">
-<meta property="og:title" content="单例模式">
-<meta property="og:url" content="http://yoohannah.github.io/post/designMode/singleInstance.html">
+<meta property="og:title" content="vue 源码学习三">
+<meta property="og:url" content="http://yoohannah.github.io/post/vue/src4.html">
 <meta property="og:site_name" content="My Little World">
-<meta property="og:description" content="单例模式定义：保证一个类仅有一个实例，并提供一个访问它的全局访问点 主要思想&amp;lt;通用惰性单例&amp;gt;管理单例逻辑（保证实现单例的过程）和创建过程（具体业务逻辑）分开，创建过程函数作为参数给到管理单例逻辑函数中，通过调用单例逻辑函数，业务逻辑函数只执行一次 用途1.创建单一对象2.利用业务逻辑仅执行一次，进行事件挂载 注意事项业务逻辑函数一定要return 一个真正 12345678910111">
+<meta property="og:description" content="vue双向绑定原理，依赖收集是在created声明周期之前，render生成虚拟dom的时候 数据劫持">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-11-04T16:07:22.772Z">
+<meta property="og:updated_time" content="2020-02-26T13:58:22.253Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="单例模式">
-<meta name="twitter:description" content="单例模式定义：保证一个类仅有一个实例，并提供一个访问它的全局访问点 主要思想&amp;lt;通用惰性单例&amp;gt;管理单例逻辑（保证实现单例的过程）和创建过程（具体业务逻辑）分开，创建过程函数作为参数给到管理单例逻辑函数中，通过调用单例逻辑函数，业务逻辑函数只执行一次 用途1.创建单一对象2.利用业务逻辑仅执行一次，进行事件挂载 注意事项业务逻辑函数一定要return 一个真正 12345678910111">
+<meta name="twitter:title" content="vue 源码学习三">
+<meta name="twitter:description" content="vue双向绑定原理，依赖收集是在created声明周期之前，render生成虚拟dom的时候 数据劫持">
 
 
 
@@ -125,13 +125,13 @@
 
 
 
-  <link rel="canonical" href="http://yoohannah.github.io/post/designMode/singleInstance.html"/>
+  <link rel="canonical" href="http://yoohannah.github.io/post/vue/src4.html"/>
 
 
 
 
 
-  <title> 单例模式 | My Little World </title>
+  <title> vue 源码学习三 | My Little World </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -262,7 +262,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="http://yoohannah.github.io/post/designMode/singleInstance.html">
+  <link itemprop="mainEntityOfPage" href="http://yoohannah.github.io/post/vue/src4.html">
 
   <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
     <meta itemprop="name" content="YooHannah">
@@ -286,7 +286,7 @@
             
             
               
-                单例模式
+                vue 源码学习三
               
             
           </h1>
@@ -299,8 +299,8 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-11-04T23:11:09+08:00">
-                2018-11-04
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-01-27T10:48:15+08:00">
+                2020-01-27
               </time>
             
 
@@ -335,12 +335,8 @@
       
 
       
-        <p>单例模式定义：保证一个类仅有一个实例，并提供一个访问它的全局访问点</p>
-<p>主要思想&lt;通用惰性单例&gt;<br>管理单例逻辑（保证实现单例的过程）和创建过程（具体业务逻辑）分开，创建过程函数作为参数给到管理单例逻辑函数中，<br>通过调用单例逻辑函数，业务逻辑函数只执行一次</p>
-<p>用途<br>1.创建单一对象<br>2.利用业务逻辑仅执行一次，进行事件挂载</p>
-<p>注意事项<br>业务逻辑函数一定要return 一个真正</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div></pre></td><td class="code"><pre><div class="line">var getSingle = function(fn)&#123;</div><div class="line"> 	var ret;</div><div class="line"> 	return function()&#123;</div><div class="line"> 		return ret || (ret = fn.apply(this,arguments));</div><div class="line"> 		//第一次执行时，会运行函数，返回创建的实例给到ret,</div><div class="line"> 		//以后再执行时，ret 即第一次创建的实例直接返回</div><div class="line"> 	&#125;</div><div class="line"> &#125;</div><div class="line"> </div><div class="line"> //返回单例</div><div class="line"> var creatObj = function(name)&#123;</div><div class="line"> 	this.aaaa = &#123;</div><div class="line">		name:name,</div><div class="line">		getName:function()&#123;console.log(this)&#125;</div><div class="line">	&#125;</div><div class="line">	return this </div><div class="line"> &#125;</div><div class="line">var creatObj1 = getSingle(creatObj)</div><div class="line">var obj = creatObj1(&apos;aaa&apos;)</div><div class="line">console.log(obj)  //返回window 对象(满足全局可访问)，带有aaaa属性，值为字面量对象</div><div class="line">obj.aaaa.getName()//&#123;name: &quot;kitty&quot;, getName: ƒ&#125;</div><div class="line"></div><div class="line">var obj1 = creatObj1(&apos;aaa&apos;)</div><div class="line">console.log(obj=== obj1) //true</div><div class="line"></div><div class="line">obj1.aaaa.getName() //&#123;name: &quot;kitty&quot;, getName: ƒ&#125;</div><div class="line"></div><div class="line">//事件仅挂载一次</div><div class="line"></div><div class="line">var bindEvent = getSingle(function()&#123;</div><div class="line">	document.getElementById(&apos;div1&apos;).onclick = function()&#123;</div><div class="line">		console.log(&apos;click&apos;)</div><div class="line">	&#125;</div><div class="line">	return true //保证只执行一次</div><div class="line">&#125;)</div><div class="line"></div><div class="line">var render = function()&#123;</div><div class="line">	console.log(&apos;开始渲染&apos;)；</div><div class="line">	bindEvent()</div><div class="line">&#125;</div><div class="line"></div><div class="line">render()</div><div class="line">render()</div><div class="line">render()</div><div class="line">//渲染多次，div1只挂载一次事件</div></pre></td></tr></table></figure>
-
+        <p>vue双向绑定原理，依赖收集是<br>在created声明周期之前，<br>render生成虚拟dom的时候</p>
+<h1 id="数据劫持"><a href="#数据劫持" class="headerlink" title="数据劫持"></a>数据劫持</h1>
       
     </div>
 
@@ -363,7 +359,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/js/" rel="tag"># js</a>
+            <a href="/tags/vue/" rel="tag"># vue</a>
           
         </div>
       
@@ -372,8 +368,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/post/designMode/basic.html" rel="next" title="基础知识">
-                <i class="fa fa-chevron-left"></i> 基础知识
+              <a href="/post/knowledge/h5.html" rel="next" title="一些关于H5的知识">
+                <i class="fa fa-chevron-left"></i> 一些关于H5的知识
               </a>
             
           </div>
@@ -382,8 +378,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/post/designMode/strategies.html" rel="prev" title="策略模式">
-                策略模式 <i class="fa fa-chevron-right"></i>
+              <a href="/post/vue/usual.html" rel="prev" title="一些关于vue的零散笔记">
+                一些关于vue的零散笔记 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -431,8 +427,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/psb.jpg"
@@ -492,6 +497,22 @@
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#数据劫持"><span class="nav-number">1.</span> <span class="nav-text">数据劫持</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
     </div>
