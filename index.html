@@ -342,6 +342,7 @@
 <h1 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h1><p>使用vue框架编写项目，使用vue-router进行路由切换</p>
 <h1 id="解决"><a href="#解决" class="headerlink" title="解决"></a>解决</h1><h2 id="利用路由"><a href="#利用路由" class="headerlink" title="利用路由"></a>利用路由</h2><p>在路由生命钩子函数中添加onerror的处理，<br>让当前页面重新load一下，把资源拉回来，再让用户自己去点击要切换的页面<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">router.onError((error) =&gt; &#123;</div><div class="line">  const pattern = /Loading chunk (\d)+ failed/g</div><div class="line">  const isChunkLoadFailed = error.message.match(pattern)</div><div class="line">  if (isChunkLoadFailed) &#123;</div><div class="line">    $Message(&apos;系统更新，页面将进行刷新操作！&apos;)</div><div class="line">    window.location.reload()</div><div class="line">  &#125;</div><div class="line">&#125;)</div></pre></td></tr></table></figure></p>
 <h2 id="轮询"><a href="#轮询" class="headerlink" title="轮询"></a>轮询</h2><p>使用webpack打包的时候生成一个hash.json的文件，然后前端轮询，<br>发现hash改变，就弹窗提示用户进行更新</p>
+<h2 id="借助CDN缓存策略"><a href="#借助CDN缓存策略" class="headerlink" title="借助CDN缓存策略"></a>借助CDN缓存策略</h2><p>发版代码放到cdn上，用户未进行任何刷新操作则仍使用老代码，<br>用户进行了手动刷新，则拿到最新版本，进入新页面</p>
 
           
         
@@ -639,6 +640,7 @@
 <p>而我们这里要讲的 parser 就是在编译器对源代码处理的第一步<br>parser 把某种特定格式的文本（字符串）转换成某种数据结构的程序(对象)<br>并且这个数据结构是编译器能够理解的<br>因为编译器的后续步骤<br>比如上面提到的 句法分析，类型检查/推导，代码优化，代码生成 等等都依赖于该数据结构</p>
 <p><b>注：parse &amp; parser 这两个单词，不要混淆，parse 是动词，代表“解析”的过程，parser 是名词，代表“解析器”。</b><br>Vue 的编译器也不例外, 在词法分析阶段 Vue 会把字符串模板解析成一个个的令牌(token)<br>该令牌将用于句法分析阶段，在句法分析阶段会根据令牌生成一棵 AST<br>最后再根据该 AST生成最终的渲染函数，这样就完成了代码的生成</p>
 <h1 id="parse"><a href="#parse" class="headerlink" title="parse"></a>parse</h1><p>进入baseCompile第一步就是调用parse,将HTML转成AST</p>
+<h2 id="标签配对原理"><a href="#标签配对原理" class="headerlink" title="标签配对原理"></a>标签配对原理</h2><p>在parse函数和parseHTML函数中都会声明一个stack数组用来存放开始标签<br>parse函数中的stack在传给parseHTML函数中的回调函数中被调用<br>parseHTML函数中的stack在解析开始结束标签时被调用<br>其实两个stack装的结点相同<br>只是parse函数中stack存放的虚拟节点对象是对parseHTML函数中存放的对象做了进一步处理的结果<br>配对原理就是<br>每遇到一个开始标签就push进stack中<br>每遇到一个结尾标签就在stack中找到与该结尾标签tag相同的最近一次push进去的开始标签的位置<br>如果该位置不是在stack最后一位，说明之前解析到的开始标签中存在未闭合的标签，<br>则先将与结束标签相同的开始标签之后的包括开始标签调用parseHTML传入的回调进行闭合，<br>然后通过更改stack长度，直接将开始标签及以后的标签全部pop出stack<br>parseHTML传入的回调会处理parse函数中声明的stack数组</p>
 <h2 id="变量声明"><a href="#变量声明" class="headerlink" title="变量声明"></a>变量声明</h2><p>parse函数中会声明一系列变量<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line">warn$2 = options.warn || baseWarn; //打印警告信息</div><div class="line">//一个编译器选项，其作用是通过给定的标签名字判断该标签是否是 pre 标签</div><div class="line">platformIsPreTag = options.isPreTag || no;</div><div class="line">//一个编译器选项，其作用是用来检测一个属性在标签中是否要使用元素对象原生的 prop 进行绑定</div><div class="line">platformMustUseProp = options.mustUseProp || no;</div><div class="line">//一个编译器选项，其作用是用来获取元素(标签)的命名空间</div><div class="line">platformGetTagNamespace = options.getTagNamespace || no;</div><div class="line"></div><div class="line">transforms = pluckModuleFunction(options.modules, &apos;transformNode&apos;);</div><div class="line">preTransforms = pluckModuleFunction(options.modules, &apos;preTransformNode&apos;);</div><div class="line">postTransforms = pluckModuleFunction(options.modules, &apos;postTransformNode&apos;);</div><div class="line"></div><div class="line">delimiters = options.delimiters;//在创建 Vue 实例对象时所传递的 delimiters 选项</div><div class="line">/**存储开始标签，与解析到的闭合标签对比，进行一元标签处理和双标签判断处理**/</div><div class="line">var stack = [];</div><div class="line">//options.preserveWhitespace 选项用来告诉编译器在编译 html 字符串时是否放弃标签之间的空格</div><div class="line">//如果为 true 则代表放弃。</div><div class="line">var preserveWhitespace = options.preserveWhitespace !== false;</div><div class="line">var whitespaceOption = options.whitespace;</div><div class="line">var currentParent;/**维护元素描述对象之间的父子关系，当前节点父元素**/</div><div class="line">var inVPre = false;//标识当前解析的标签是否在拥有 v-pre 的标签之内</div><div class="line">var inPre = false;//标识当前正在解析的标签是否在 &lt;pre&gt;&lt;/pre&gt; 标签之内</div><div class="line">var root;/**存储最终生成的AST**/</div></pre></td></tr></table></figure></p>
 <h2 id="parseHTML"><a href="#parseHTML" class="headerlink" title="parseHTML"></a>parseHTML</h2><p>parse 函数中会执行parseHTML函数，然后返回root,即AST<br>parseHTML 函数的作用就是用来做词法分析的<br>parse函数的作用则是在词法分析的基础上传入回调，做句法分析从而生成一棵AST<br>被调用时传入参数如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">parseHTML(template, &#123;</div><div class="line">  warn: warn$2,</div><div class="line">  expectHTML: options.expectHTML,</div><div class="line">  isUnaryTag: options.isUnaryTag,</div><div class="line">  canBeLeftOpenTag: options.canBeLeftOpenTag,</div><div class="line">  shouldDecodeNewlines: options.shouldDecodeNewlines,</div><div class="line">  shouldDecodeNewlinesForHref: options.shouldDecodeNewlinesForHref,</div><div class="line">  shouldKeepComment: options.comments,//对应配置项comments,true为保留模板中注释语句</div><div class="line">  outputSourceRange: options.outputSourceRange,</div></pre></td></tr></table></figure></p>
 <h3 id="start"><a href="#start" class="headerlink" title="start"></a>start</h3><p> 解析完一段模板的开始标签后的回调<br> 例如：&lt;div id=’jk’ class=’menu’ v-if=’isShow’&gt;&lt;span&gt;123&lt;/span&gt;&lt;/div&gt;<br> 解析完&lt;div id=’jk’ class=’menu’ v-if=’isShow’&gt;的回调函数<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">start: function start (tag, attrs, unary, start$1, end) &#123;</div><div class="line">  // check namespace.</div><div class="line">  // inherit parent ns if there is one</div><div class="line">  var ns = (currentParent &amp;&amp; currentParent.ns) || platformGetTagNamespace(tag);</div></pre></td></tr></table></figure></p>
@@ -665,7 +667,13 @@
 <h4 id="createASTElement"><a href="#createASTElement" class="headerlink" title="createASTElement"></a>createASTElement</h4><p>创建虚拟节点<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">function createASTElement (</div><div class="line">  tag,</div><div class="line">  attrs,</div><div class="line">  parent</div><div class="line">) &#123;</div><div class="line">  return &#123;</div><div class="line">    type: 1,</div><div class="line">    tag: tag,</div><div class="line">    attrsList: attrs,</div><div class="line">    attrsMap: makeAttrsMap(attrs),</div><div class="line">    rawAttrsMap: &#123;&#125;,</div><div class="line">    parent: parent,</div><div class="line">    children: []</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
 <h4 id="parseEndTag"><a href="#parseEndTag" class="headerlink" title="parseEndTag"></a>parseEndTag</h4><p>处理结束标签<br>  <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div></pre></td><td class="code"><pre><div class="line">  function parseEndTag (tagName, start, end) &#123;</div><div class="line">    var pos, lowerCasedTagName;</div><div class="line">    //当 start 和 end 不存在时，将这两个变量的值设置为当前字符流的读入位置，即index</div><div class="line">    //在handleStartTag 函数中调用时会被这样这样调用</div><div class="line">    if (start == null) &#123; start = index; &#125;</div><div class="line">    if (end == null) &#123; end = index; &#125;</div><div class="line">    //找到最近的相同类型的开始标签的位置</div><div class="line">    if (tagName) &#123;</div><div class="line">      lowerCasedTagName = tagName.toLowerCase();</div><div class="line">      for (pos = stack.length - 1; pos &gt;= 0; pos--) &#123;</div><div class="line">        if (stack[pos].lowerCasedTag === lowerCasedTagName) &#123;</div><div class="line">          break</div><div class="line">        &#125;</div><div class="line">      &#125;</div><div class="line">    &#125; else &#123;//调用 parseEndTag() 函数时不传递任何参数，就处理stack栈中剩余未处理的标签,</div><div class="line">      pos = 0;</div><div class="line">    &#125;</div><div class="line">    //删除最近开始标签 以后的开始标签(可能是一元标签)</div><div class="line">    if (pos &gt;= 0) &#123;//检测是否缺少闭合标签</div><div class="line">      // Close all the open elements, up the stack</div><div class="line">      for (var i = stack.length - 1; i &gt;= pos; i--) &#123;</div><div class="line">        if (i &gt; pos || !tagName &amp;&amp; options.warn) &#123;</div><div class="line">          //如果发现 stack 数组中存在索引大于 pos 的元素，那么一定有元素是缺少闭合标签的</div><div class="line">          options.warn((&quot;tag &lt;&quot; + (stack[i].tag) + &quot;&gt; has no matching end tag.&quot;),&#123; start: stack[i].start, end: stack[i].end &#125;);</div><div class="line">        &#125;</div><div class="line">        if (options.end) &#123;</div><div class="line">          options.end(stack[i].tag, start, end);//回调parse函数调用时传递进来的回调函数</div><div class="line">        &#125;</div><div class="line">      &#125;</div><div class="line">      //从stack中删除开标签</div><div class="line">      stack.length = pos;</div><div class="line">      lastTag = pos &amp;&amp; stack[pos - 1].tag;//将lastTag重制为stack栈顶元素</div><div class="line">    &#125; else if (lowerCasedTagName === &apos;br&apos;) &#123;</div><div class="line">      //为了与浏览器的行为相同，专门处理br与p的结束标签,即：&lt;/br&gt; 和&lt;/p&gt;。</div><div class="line">      //&lt;/br&gt; 标签被正常解析为 &lt;br&gt; 标签，而&lt;/p&gt;标签被正常解析为 &lt;p&gt;&lt;/p&gt;</div><div class="line">      if (options.start) &#123;</div><div class="line">        options.start(tagName, [], true, start, end);</div><div class="line">      &#125;</div><div class="line">    &#125; else if (lowerCasedTagName === &apos;p&apos;) &#123;</div><div class="line">      if (options.start) &#123;</div><div class="line">        options.start(tagName, [], false, start, end);</div><div class="line">      &#125;</div><div class="line">      if (options.end) &#123;</div><div class="line">        options.end(tagName, start, end);</div><div class="line">      &#125;</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
 <p>主要作用是<br>1.利用stack进行配对，处理stack和lastTag<br>2.特殊处理br和p标签<br>3.调用end回调函数处理父子关系</p>
+<h4 id="closeElement"><a href="#closeElement" class="headerlink" title="closeElement"></a>closeElement</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">function closeElement(element) &#123;</div><div class="line">  trimEndingWhitespace(element);</div><div class="line">  if (!inVPre &amp;&amp; !element.processed) &#123;</div><div class="line">    //processElement会继续处理element上的属性key,is,inline-template,ref,v-bind,v-on等等</div><div class="line">    element = processElement(element, options);</div><div class="line">  &#125;</div></pre></td></tr></table></figure>
+<p>使用 v-if 或 v-else-if 或 v-else 创建多个根结点时<br>v-else-if 或 v-else创建的虚拟节点放到v-if节点的ifconditions属性下面【待验证】<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div></pre></td><td class="code"><pre><div class="line">  if (!stack.length &amp;&amp; element !== root) &#123;</div><div class="line">    // allow root elements with v-if, v-else-if and v-else</div><div class="line">    if (root.if &amp;&amp; (element.elseif || element.else)) &#123;</div><div class="line">      &#123;</div><div class="line">        checkRootConstraints(element);</div><div class="line">      &#125;</div><div class="line">      //给root.ifconditions属性push if,elseif,else等条件模板下的虚拟dom对象</div><div class="line">      addIfCondition(root, &#123; </div><div class="line">        exp: element.elseif,</div><div class="line">        block: element</div><div class="line">      &#125;);</div><div class="line">    &#125; else &#123;</div><div class="line">      warnOnce(</div><div class="line">        &quot;Component template should contain exactly one root element. &quot; +</div><div class="line">        &quot;If you are using v-if on multiple elements, &quot; +</div><div class="line">        &quot;use v-else-if to chain them instead.&quot;,</div><div class="line">        &#123; start: element.start &#125;</div><div class="line">      );</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">  if (currentParent &amp;&amp; !element.forbidden) &#123;</div><div class="line">    if (element.elseif || element.else) &#123;</div><div class="line">      processIfConditions(element, currentParent);</div><div class="line">    &#125; else &#123;</div><div class="line">      if (element.slotScope) &#123;</div><div class="line">        var name = element.slotTarget || &apos;&quot;default&quot;&apos;</div><div class="line">        ;(currentParent.scopedSlots || (currentParent.scopedSlots = &#123;&#125;))[name] = element;</div><div class="line">      &#125;</div><div class="line">      //这样就建立了元素描述对象间的父子级关系。</div><div class="line">      currentParent.children.push(element);</div><div class="line">      element.parent = currentParent;</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">  element.children = element.children.filter(function (c) &#123; return !(c).slotScope; &#125;);</div><div class="line">  trimEndingWhitespace(element);</div><div class="line">  if (element.pre) &#123;</div><div class="line">    inVPre = false;</div><div class="line">  &#125;</div><div class="line">  if (platformIsPreTag(element.tag)) &#123;</div><div class="line">    inPre = false;</div><div class="line">  &#125;</div><div class="line">  for (var i = 0; i &lt; postTransforms.length; i++) &#123;</div><div class="line">    postTransforms[i](element, options);</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>主要作用是<br>1.处理条件渲染节点关系<br>2.建立父子结点关系</p>
 <h4 id="isForbiddenTag"><a href="#isForbiddenTag" class="headerlink" title="isForbiddenTag"></a>isForbiddenTag</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">function isForbiddenTag(el) &#123;</div><div class="line">	return (</div><div class="line">		el.tag === &apos;style&apos; ||</div><div class="line">		(el.tag === &apos;script&apos; &amp;&amp; (</div><div class="line">			!el.attrsMap.type ||</div><div class="line">			el.attrsMap.type === &apos;text/javascript&apos;</div><div class="line">		))</div><div class="line">	)</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h1 id="optimize"><a href="#optimize" class="headerlink" title="optimize"></a>optimize</h1><p>通过两个递归函数给结点挂载static和staticRoot两个属性<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div></pre></td><td class="code"><pre><div class="line">function optimize (root, options) &#123;</div><div class="line">  if (!root) &#123; return &#125;</div><div class="line">  isStaticKey = genStaticKeysCached(options.staticKeys || &apos;&apos;);</div><div class="line">  isPlatformReservedTag = options.isReservedTag || no;</div><div class="line">  // first pass: mark all non-static nodes.</div><div class="line">  markStatic$1(root);</div><div class="line">  // second pass: mark static roots.</div><div class="line">  markStaticRoots(root, false);</div><div class="line">&#125;</div><div class="line">function markStatic$1 (node) &#123;</div><div class="line">    node.static = isStatic(node);</div><div class="line">    if (node.type === 1) &#123;</div><div class="line">      // do not make component slot content static. this avoids</div><div class="line">      // 1. components not able to mutate slot nodes</div><div class="line">      // 2. static slot content fails for hot-reloading</div><div class="line">      if (</div><div class="line">        !isPlatformReservedTag(node.tag) &amp;&amp;</div><div class="line">        node.tag !== &apos;slot&apos; &amp;&amp;</div><div class="line">        node.attrsMap[&apos;inline-template&apos;] == null</div><div class="line">      ) &#123;</div><div class="line">        return</div><div class="line">      &#125;</div><div class="line">      for (var i = 0, l = node.children.length; i &lt; l; i++) &#123;</div><div class="line">        var child = node.children[i];</div><div class="line">        markStatic$1(child);</div><div class="line">        if (!child.static) &#123;//子节点一但为动态结点，则父节点为动态结点</div><div class="line">          node.static = false;</div><div class="line">        &#125;</div><div class="line">      &#125;</div><div class="line">      if (node.ifConditions) &#123; //处理条件渲染节点是否为静态结点</div><div class="line">        for (var i$1 = 1, l$1 = node.ifConditions.length; i$1 &lt; l$1; i$1++) &#123;</div><div class="line">          var block = node.ifConditions[i$1].block;</div><div class="line">          markStatic$1(block);</div><div class="line">          if (!block.static) &#123;</div><div class="line">            node.static = false;</div><div class="line">          &#125;</div><div class="line">        &#125;</div><div class="line">      &#125;</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  function markStaticRoots (node, isInFor) &#123;</div><div class="line">    if (node.type === 1) &#123;</div><div class="line">      if (node.static || node.once) &#123;</div><div class="line">        node.staticInFor = isInFor;</div><div class="line">      &#125;</div><div class="line">      //对只含有一个纯文本结点的node添加staticRoot = false</div><div class="line">      //否则staticRoot = true</div><div class="line">      if (node.static &amp;&amp; node.children.length &amp;&amp; !(</div><div class="line">        node.children.length === 1 &amp;&amp;</div><div class="line">        node.children[0].type === 3</div><div class="line">      )) &#123;</div><div class="line">        node.staticRoot = true;</div><div class="line">        return</div><div class="line">      &#125; else &#123;</div><div class="line">        node.staticRoot = false;</div><div class="line">      &#125;</div><div class="line">      if (node.children) &#123;</div><div class="line">        for (var i = 0, l = node.children.length; i &lt; l; i++) &#123;</div><div class="line">          markStaticRoots(node.children[i], isInFor || !!node.for);</div><div class="line">        &#125;</div><div class="line">      &#125;</div><div class="line">      if (node.ifConditions) &#123;</div><div class="line">        for (var i$1 = 1, l$1 = node.ifConditions.length; i$1 &lt; l$1; i$1++) &#123;</div><div class="line">          markStaticRoots(node.ifConditions[i$1].block, isInFor);</div><div class="line">        &#125;</div><div class="line">      &#125;</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">  function isStatic (node) &#123;</div><div class="line">    if (node.type === 2) &#123; // expression</div><div class="line">      return false</div><div class="line">    &#125;</div><div class="line">    if (node.type === 3) &#123; // text</div><div class="line">      return true</div><div class="line">    &#125;</div><div class="line">    return !!(node.pre || (</div><div class="line">      !node.hasBindings &amp;&amp; // no dynamic bindings</div><div class="line">      !node.if &amp;&amp; !node.for &amp;&amp; // not v-if or v-for or v-else</div><div class="line">      !isBuiltInTag(node.tag) &amp;&amp; // not a built-in</div><div class="line">      isPlatformReservedTag(node.tag) &amp;&amp; // not a component</div><div class="line">      !isDirectChildOfTemplateFor(node) &amp;&amp;</div><div class="line">      Object.keys(node).every(isStaticKey)</div><div class="line">    ))</div><div class="line">  &#125;</div></pre></td></tr></table></figure></p>
+<h1 id="generate"><a href="#generate" class="headerlink" title="generate"></a>generate</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div></pre></td><td class="code"><pre><div class="line">function generate (</div><div class="line">    ast,</div><div class="line">    options</div><div class="line">  ) &#123;</div><div class="line">    var state = new CodegenState(options);</div><div class="line">    var code = ast ? genElement(ast, state) : &apos;_c(&quot;div&quot;)&apos;;</div><div class="line">    return &#123;</div><div class="line">      render: (&quot;with(this)&#123;return &quot; + code + &quot;&#125;&quot;),</div><div class="line">      staticRenderFns: state.staticRenderFns</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  function genElement (el, state) &#123;</div><div class="line">    if (el.parent) &#123;</div><div class="line">      el.pre = el.pre || el.parent.pre;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    if (el.staticRoot &amp;&amp; !el.staticProcessed) &#123;</div><div class="line">      return genStatic(el, state)</div><div class="line">    &#125; else if (el.once &amp;&amp; !el.onceProcessed) &#123;</div><div class="line">      return genOnce(el, state)</div><div class="line">    &#125; else if (el.for &amp;&amp; !el.forProcessed) &#123;</div><div class="line">      return genFor(el, state)</div><div class="line">    &#125; else if (el.if &amp;&amp; !el.ifProcessed) &#123;</div><div class="line">      return genIf(el, state)</div><div class="line">    &#125; else if (el.tag === &apos;template&apos; &amp;&amp; !el.slotTarget &amp;&amp; !state.pre) &#123;</div><div class="line">      return genChildren(el, state) || &apos;void 0&apos;</div><div class="line">    &#125; else if (el.tag === &apos;slot&apos;) &#123;</div><div class="line">      return genSlot(el, state)</div><div class="line">    &#125; else &#123;</div><div class="line">      var code;</div><div class="line">      if (el.component) &#123;</div><div class="line">        code = genComponent(el.component, el, state);</div><div class="line">      &#125; else &#123;</div><div class="line">        var data;</div><div class="line">        if (!el.plain || (el.pre &amp;&amp; state.maybeComponent(el))) &#123;</div><div class="line">          data = genData$2(el, state);</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        var children = el.inlineTemplate ? null : genChildren(el, state, true);</div><div class="line">        code = &quot;_c(&apos;&quot; + (el.tag) + &quot;&apos;&quot; + (data ? (&quot;,&quot; + data) : &apos;&apos;) + (children ? (&quot;,&quot; + children) : &apos;&apos;) + &quot;)&quot;;</div><div class="line">      &#125;</div><div class="line">      for (var i = 0; i &lt; state.transforms.length; i++) &#123;</div><div class="line">        code = state.transforms[i](el, code);</div><div class="line">      &#125;</div><div class="line">      return code</div><div class="line">    &#125;</div><div class="line">  &#125;</div></pre></td></tr></table></figure>
+
           
         
       
@@ -1316,6 +1324,126 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://yoohannah.github.io/post/vue/src1.html">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="YooHannah">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="/psb.jpg">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="My Little World">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="My Little World" src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/post/vue/src1.html" itemprop="url">
+                  vue 源码学习一
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-01-27T10:48:15+08:00">
+                2020-01-27
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="new-vue时发生了什么"><a href="#new-vue时发生了什么" class="headerlink" title="new vue时发生了什么"></a>new vue时发生了什么</h1><p>平常练习时使用vue顺序是，将vue.js引入html,<br>new vue就可以开始使用vue框架写东西<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">&lt;body&gt;</div><div class="line">  &lt;div id = &apos;app&apos;&gt;</div><div class="line">    &lt;p&gt;&#123;&#123;a&#125;&#125;&lt;/p&gt;</div><div class="line">  &lt;/div&gt;</div><div class="line">  &lt;script type=&quot;text/javascript&quot; src=&quot;vue.js&quot;&gt;&lt;/script&gt;</div><div class="line">  &lt;script&gt;</div><div class="line">    let app = new Vue(&#123;</div><div class="line">      el:&apos;#app&apos;,</div><div class="line">      data:&#123;</div><div class="line">        a:&apos;hello world&apos;</div><div class="line">      &#125;,</div><div class="line">      method:&#123;&#125;,</div><div class="line">    &#125;)</div><div class="line">  &lt;/script&gt;</div><div class="line">&lt;/body&gt;</div></pre></td></tr></table></figure></p>
+<p>代码运行顺序是，当我们在script标签引入文件时，<br>引入的vuejs文件会先执行一遍，<br>执行的结果就是帮助我们生成一个挂载在全局的，vue对象的构造函数<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line">(function (global, factory) &#123;</div><div class="line">  typeof exports === &apos;object&apos; &amp;&amp; typeof module !== &apos;undefined&apos; ? module.exports = factory() :</div><div class="line">  typeof define === &apos;function&apos; &amp;&amp; define.amd ? define(factory) :</div><div class="line">  (global = global || self, global.Vue = factory());//将vue挂到全局上下文中</div><div class="line">&#125;(this, function () &#123; &apos;use strict&apos;;</div><div class="line">  function Vue (options) &#123;</div><div class="line">    if (!(this instanceof Vue)</div><div class="line">    ) &#123;</div><div class="line">      warn(&apos;Vue is a constructor and should be called with the `new` keyword&apos;);</div><div class="line">    &#125;</div><div class="line">    this._init(options);</div><div class="line">  &#125;</div><div class="line">  initMixin(Vue);</div><div class="line">  stateMixin(Vue);</div><div class="line">  eventsMixin(Vue);</div><div class="line">  lifecycleMixin(Vue);</div><div class="line">  renderMixin(Vue);</div><div class="line">  initGlobalAPI(Vue);</div><div class="line">  Vue.compile = compileToFunctions;</div><div class="line"></div><div class="line">  return Vue;</div><div class="line"></div><div class="line">&#125;));</div></pre></td></tr></table></figure></p>
+<p>当代码运行到new vue时，代码就会调用function Vue<br>function Vue 中会【调用】自己的_init()方法，<br>对即将生成的vue对象做初始化工作，即开始生成vue对象</p>
+<p>_init方法定义在initMixin函数中<br>在调用initMixin生成构造函数流程中被挂到vue上<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div></pre></td><td class="code"><pre><div class="line">Vue.prototype._init = function (options) &#123;</div><div class="line">  var vm = this;</div><div class="line">  vm._uid = uid$3++;</div><div class="line"></div><div class="line">  var startTag, endTag;</div><div class="line">  vm._isVue = true;// a flag to avoid this being observed</div><div class="line">  // 合并选项,将配置项以内置选项进行合并</div><div class="line">  if (options &amp;&amp; options._isComponent) &#123;</div><div class="line">    //优化内部组件实例化过程</div><div class="line">    // 由于动态选项合并非常慢，并且内部组件选项均不需要特殊处理。</div><div class="line">    initInternalComponent(vm, options);</div><div class="line">  &#125; else &#123;</div><div class="line">    vm.$options = mergeOptions(</div><div class="line">      resolveConstructorOptions(vm.constructor),</div><div class="line">      options || &#123;&#125;,</div><div class="line">      vm</div><div class="line">    );</div><div class="line">  &#125;</div><div class="line">  /* istanbul ignore else */</div><div class="line">  &#123;</div><div class="line">    initProxy(vm);</div><div class="line">  &#125;</div><div class="line">  // expose real self</div><div class="line">  vm._self = vm;</div><div class="line">  initLifecycle(vm);</div><div class="line">  initEvents(vm);</div><div class="line">  initRender(vm);</div><div class="line">  callHook(vm, &apos;beforeCreate&apos;);//运行订阅了beforecreate钩子的相关方法</div><div class="line">  initInjections(vm); // resolve injections before data/props</div><div class="line">  initState(vm);</div><div class="line">  initProvide(vm); // resolve provide after data/props</div><div class="line">  callHook(vm, &apos;created&apos;);</div><div class="line">  if (vm.$options.el) &#123;//如果配置了el,就进行挂载处理挂载</div><div class="line">    vm.$mount(vm.$options.el);//会给给option挂上render，staticRenderFns属性</div><div class="line">  &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure></p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
   <link itemprop="mainEntityOfPage" href="http://yoohannah.github.io/post/vue/src4.html">
 
   <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1424,153 +1552,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="http://yoohannah.github.io/post/vue/usual.html">
-
-  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
-    <meta itemprop="name" content="YooHannah">
-    <meta itemprop="description" content="">
-    <meta itemprop="image" content="/psb.jpg">
-  </span>
-
-  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-    <meta itemprop="name" content="My Little World">
-    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
-      <img style="display:none;" itemprop="url image" alt="My Little World" src="">
-    </span>
-  </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/post/vue/usual.html" itemprop="url">
-                  一些关于vue的零散笔记
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-01-27T10:48:15+08:00">
-                2020-01-27
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="释放内部对象且能防止外部修改的方式"><a href="#释放内部对象且能防止外部修改的方式" class="headerlink" title="释放内部对象且能防止外部修改的方式"></a>释放内部对象且能防止外部修改的方式</h1><p>通过创建中间对象挂载到实例上，通过中间对象的set方法进行拦截<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">function initGlobalAPI (Vue) &#123;</div><div class="line">  var configDef = &#123;&#125;;</div><div class="line">  configDef.get = function () &#123; return config; &#125;; //config对象是vue对象构建过程的内部对象，存储全局配置项</div><div class="line">  &#123;</div><div class="line">    configDef.set = function () &#123;</div><div class="line">      warn(</div><div class="line">        &apos;Do not replace the Vue.config object, set individual fields instead.&apos;</div><div class="line">      );</div><div class="line">    &#125;;</div><div class="line">  &#125;</div><div class="line">  Object.defineProperty(Vue, &apos;config&apos;, configDef);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p><a href="https://cn.vuejs.org/v2/api/#optionMergeStrategies" target="_blank" rel="external">Vue.config.optionMergeStrategies</a> 应用中<br>Vue.config可以get,得到的即内部的config，但如果进行Vue.config = xxxx set操作就会报错<br>通过Vue.config可以获得内部config，从而可以修改内部config对象上的属性，从而修改到全局配置</p>
-<h1 id="关于3-0的思考"><a href="#关于3-0的思考" class="headerlink" title="关于3.0的思考"></a>关于3.0的思考</h1><p>如何更快<br>Object.defineProperty–&gt;Proxy<br>Virtual Dom重构<br>更多编译优化：<br>Slot默认编译为函数<br>重构vnode factory，统一输入参数，进一步优化编译处理函数(Monomorphic vnode factory)<br>编译时增加vnode/children 类型信息标识，从而做进一步优化（Compiler-generated flags for vnode/children types）</p>
-<p>Function based API 对比Class API 好处<br>更好的TS类型推导支持<br>更灵活的逻辑复用能力<br>Tree-shaking 友好<br>代码更容易压缩</p>
-<p>现有逻辑复用模式<br>Mixins<br>高阶组件<br>基于scoped slots/作用域插槽封装逻辑的组件<br>存在问题<br>数据来源不清晰 （Function based API 数据来源清晰）<br>命名冲突（Function based API 没有命名冲突）<br>无谓的额外组件的性能消耗 （Function based API 没有额外组件性能消耗）</p>
-<p>对比React Hooks<br>同样的逻辑组合，复用能力更强<br>只调用一次<br>符合JS直觉<br>没有闭包变量问题<br>没有内存/GC压力<br>不存在内联回调导致子组件永远更新问题</p>
-<p>2.0<br>mergeOption 选项策略处理<br>插件开发：以默认配置优先；以用户配置为覆盖<br>策略：听过JS 增强配置选项的表达力<br>{}==&gt;function(){}  el===根实例</p>
-<p>数据劫持vue3.0改用proxy原因<br>defineProperty只能监听某个属性，不能对全对象监听，使用proxy可以省去for in提升效率<br>可以监听数组，不用再去单独的对数组做特异性操作</p>
-<p>vue2.0 vdom性能瓶颈<br>虽然能够保证触发更新的组件最小化，但在单个组件内部依然需要遍历该组件的整个Vdom树<br>vdom的性能跟模板大小正相关，跟动态节点的数量无关。<br>在一些组件整个模板内只有少量动态节点的情况下，这些遍历都是性能的浪费</p>
-<h1 id="编译3步骤"><a href="#编译3步骤" class="headerlink" title="编译3步骤"></a>编译3步骤</h1><p>parse：AST<br>optimize:标记静态节点<br>generate 生成目标平台所需的代码 将AST转化成render function字符串</p>
-<h1 id="修饰符"><a href="#修饰符" class="headerlink" title="修饰符"></a>修饰符</h1><p>v-model.lazy 从input事件中转变为在change事件中同步数据<br>v-model.number 可以将输入转换为Number类型<br>v-model.trim 可以自动过滤输入的首尾空格</p>
-<p>v-for 循环时，key尽量赋值为不变的值，即静态值，如item.id ,否则列表增删时，会更新每一项</p>
-<p>当子组件需要向父组件传递数据时，就要用到自定义事件<br>子组件用$emit来触发事件，父组件用$on()来监听子组件的事件<br>自定义组件的v-model ：一个组件上的v-model 默认会利用名为value的prop和名为input的事件<br>将原生事件绑定到组件： 使用v-on的.native修饰符监听原生事件<br>.sync修饰符：父组件监听自定义事件按需更新数据</p>
-<h1 id="组件"><a href="#组件" class="headerlink" title="组件"></a>组件</h1><p>动态组件：VUE 提供了一个特殊的元素&lt;component&gt;用来动态的挂载不同的组件，使用is特性来选择要挂载的组件， 还可以使用&lt;keep-alive&gt;标签使组件进行缓存</p>
-<p>异步组件：VUE允许将组件定义为一个工厂函数，动态地解析组件。VUE只在组件需要渲染时触发工厂函数，并且把结果缓存起来用于后面地再次渲染</p>
-<h2 id="组件创建方式"><a href="#组件创建方式" class="headerlink" title="组件创建方式"></a>组件创建方式</h2><p>1.调用Vue.extend(),创建名为xx的组件，template定义模板的标签，模板的内容需要写在该标签下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">var xx = Vue.extend(&#123;</div><div class="line">    template:&apos;&lt;div&gt;this is a component&lt;/div&gt;&apos;</div><div class="line">&#125;)</div></pre></td></tr></table></figure></p>
-<p>2.使用&lt;template&gt;标签创建，需要加上id属性<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&lt;template id = &apos;mycom&apos;&gt;</div><div class="line">  &lt;div&gt;this is a component&lt;/div&gt;</div><div class="line">&lt;/template&gt;</div></pre></td></tr></table></figure></p>
-<p>3.使用&lt;script&gt;标签创建，需要加id属性，同时还得加type=’text/x-template’ 不执行编译里面的代码<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&lt;script type=&apos;text/x-template&apos; id = &apos;mycom&apos;&gt;</div><div class="line">  &lt;div&gt;this is a component&lt;/div&gt;</div><div class="line">&lt;/script&gt;</div></pre></td></tr></table></figure></p>
-<h2 id="组件全局注册方式"><a href="#组件全局注册方式" class="headerlink" title="组件全局注册方式"></a>组件全局注册方式</h2><p>1.调用Vue.extend(),创建名为myCom的组件全局注册<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Vue.component(&apos;my-com&apos;,myCom)</div></pre></td></tr></table></figure></p>
-<p>2.template及script标签构建的组件全局注册<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">Vue.component(&apos;my-comp&apos;,&#123;</div><div class="line">    template:&apos;#mycom&apos;</div><div class="line">&#125;)</div></pre></td></tr></table></figure></p>
-<h2 id="组件局部注册"><a href="#组件局部注册" class="headerlink" title="组件局部注册"></a>组件局部注册</h2><p>1.调用Vue.extend(),创建名为myCom的组件局部注册（只能在注册该组件的实例中使用，一处注册，一处使用）<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">var app = new Vue(&#123;</div><div class="line">    el:&apos;#app&apos;,</div><div class="line">    components:&#123;</div><div class="line">        &apos;my-com&apos;:myCom</div><div class="line">    &#125;</div><div class="line">&#125;)</div></pre></td></tr></table></figure></p>
-<p>2.template及script构建的组件局部注册<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">var app = new Vue(&#123;</div><div class="line">    el:&apos;#app&apos;</div><div class="line">    componnets:&#123;</div><div class="line">        &apos;my-com&apos;:&#123;</div><div class="line">            template:&apos;#myCom&apos;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;)</div></pre></td></tr></table></figure></p>
-<h2 id="组件化处理边界情况"><a href="#组件化处理边界情况" class="headerlink" title="组件化处理边界情况"></a>组件化处理边界情况</h2><p>1.访问根实例 this.$root.xxx<br>2.访问父组件实例：this.$parent.xxx<br>3.访问子组件实例或子元素：&lt;child ref=’xxx’&gt;&lt;/child &gt; =&gt;this.$refs.xxx<br>4.依赖注入：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">provide:function()&#123; //父组件</div><div class="line">    return&#123;</div><div class="line">        getMap:this.getMap</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line">inject:[getMap]//子组件</div></pre></td></tr></table></figure></p>
-<p>然而，依赖注入还是有负面影响的。它将你应用程序中的组件与它们当前的组织方式耦合起来，使重构变得更加困难。同时所提供的属性是非响应式的。这是出于设计的考虑，因为使用它们来创建一个中心化规模化的数据跟使用 $root做这件事都是不够好的。如果你想要共享的这个属性是你的应用特有的，而不是通用化的，或者如果你想在祖先组件中更新所提供的数据，那么这意味着你可能需要换用一个像 Vuex 这样真正的状态管理方案了</p>
-<p>5.统一处理事件侦听器时，在组件卸载前，统一清除监听器<br>6.组件循环引用，Vue.component注册的组件允许，但是模块化导入的不允许<br>7.模板定义的替代品：<br>A:内联模板：当inline-template这个特殊的特性出现在一个子组件上时，这个组件将会使用其里面的内容作为模板<br>而不是将其作为被分发的内容<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;myCom inline-template&gt;&lt;div&gt;&lt;p&gt;these are compiled as the component&apos;s own template&lt;/p&gt;&lt;/div&gt;&lt;/myCom&gt;</div></pre></td></tr></table></figure></p>
-<p>B:x-template<br>在script标签里使用text/x-template，并且指定id,将这个id赋值给template<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&lt;script type=&apos;text/x-template&apos; id = &apos;mycom&apos;&gt;</div><div class="line">  &lt;div&gt;this is a component&lt;/div&gt;</div><div class="line">&lt;/script&gt;</div><div class="line">Vue.component(&apos;my-comp&apos;,&#123;</div><div class="line">    template:&apos;#mycom&apos;</div><div class="line">&#125;)</div></pre></td></tr></table></figure></p>
-<p>8.强制更新<br>A：使用this.$forceUpdate<br>B：使用v-once创建低开销静态组件，组件包含大量静态内容可以在根元素上添加v-once特性以确保这些内容只计算一次然后缓存起来</p>
-<h2 id="组件通信类型"><a href="#组件通信类型" class="headerlink" title="组件通信类型"></a>组件通信类型</h2><p>父子组件通信<br>1.使用props和$emit父子组件相互通信<br>2.父组件用$children或者利用ref操作子组件<br>3.子组件$parent访问父组件</p>
-<p>非父子组件通信<br>1.使用中央事件总线(eventbus来处理非父子组件间的通信)<br>2.祖先元素通过provide提供数据，后代通过inject获取该数据<br>3.使用$attrs和$listeners实现祖孙组件通信<br>4.$root直接访问根组件</p>
-<h1 id="Vue-use"><a href="#Vue-use" class="headerlink" title="Vue.use"></a>Vue.use</h1><p>Vue.use(myPlugin)本质上是调用myPlugin.install(VUE)<br>使用插件必须在new vue()启动应用之前完成，实例化之前就要配置好<br>使用Vue.use多次注册相同插件，那只会注册成功一次<br>一个测试案例<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">import Vue from &apos;vue&apos;</div><div class="line">import &#123;expect&#125; from &apos;chai&apos;</div><div class="line">import Counter from &apos;@/counter.vue&apos;</div><div class="line"></div><div class="line">describe(&apos;测试Counter.vue&apos;,()=&gt;&#123;</div><div class="line">    const Constructor = Vue.extend(Counter)</div><div class="line">    const vm = new Constructor().$mount()</div><div class="line">    const button = vm.$el.querySelector(&apos;button&apos;)</div><div class="line">    const clickE = new window.Event(&apos;click&apos;)</div><div class="line">    button.dispatchEvent(clickE)</div><div class="line">    vm._watcher.run()</div><div class="line">    expect(Number(vm.$el.querySelector(&apos;span&apos;).textContent)).to.equal(1)</div><div class="line">&#125;)</div></pre></td></tr></table></figure></p>
-<h1 id="vuex"><a href="#vuex" class="headerlink" title="vuex"></a>vuex</h1><p>默认的五种基本对象<br>state:存储状态(对象)<br>getters:对数据获取之前的再次编译，可以理解为state的计算属性，对state的数据进行筛选，过滤<br>mutations:同步修改状态，并且是同步的。在组件中使用$store.commit(‘’,params)<br>actions:异步修改状态，在组件中使用是$store.dispatch(‘’)<br>modules:store的子模块，为了开发大型项目，方便状态管理而使用的</p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1616,7 +1597,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">188</span>
+              <span class="site-state-item-count">187</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
