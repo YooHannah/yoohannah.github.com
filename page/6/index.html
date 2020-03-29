@@ -259,7 +259,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="http://yoohannah.github.io/post/react/course/formList.html">
+  <link itemprop="mainEntityOfPage" href="http://yoohannah.github.io/post/react/course/rekit.html">
 
   <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
     <meta itemprop="name" content="YooHannah">
@@ -284,8 +284,8 @@
             
               
                 
-                <a class="post-title-link" href="/post/react/course/formList.html" itemprop="url">
-                  表单 & 列表
+                <a class="post-title-link" href="/post/react/course/rekit.html" itemprop="url">
+                  Rekit
                 </a>
               
             
@@ -337,40 +337,39 @@
       
         
           
-            <h1 id="表单功能点"><a href="#表单功能点" class="headerlink" title="表单功能点"></a>表单功能点</h1><ol>
-<li>初始数据，提交和跳转</li>
-</ol>
-<p>表单各项配置的优化，可以通过对UI框架的API进行封装成高阶组件，然后在使用时，通过配置高阶组件的属性，将需要的配置项传递给UI框架API，减少代码冗余，配置清晰</p>
-<p>提交后状态通过中间件返回promise判断接下来操作</p>
-<p>2.<br>错误处理（可依靠UI框架进行判断）<br>动态表单元素（在传入高阶组件属性时采用函数返回值形式动态加载表单元素，在函数中处理要不要显示表单元素）<br>内容动态加载（在componentDidMount中进行数据请求，以及初始状态处理）</p>
-<h1 id="列表页功能点"><a href="#列表页功能点" class="headerlink" title="列表页功能点"></a>列表页功能点</h1><h2 id="搜索，数据缓存和分页"><a href="#搜索，数据缓存和分页" class="headerlink" title="搜索，数据缓存和分页"></a>搜索，数据缓存和分页</h2><p>开发列表也要考虑的技术要点<br>1.如何翻页 (数据来自服务器还是客户端缓存)<br>2.如何进行内容搜索 （当前页面数据搜索还是服务器端数据搜索）<br>3.如何缓存数据<br>4.何时进行页面刷新</p>
-<p>列表页数据通过store拿数据渲染，翻页，查找，刷新通过触发action然后从服务器拿到数据后，更新store,从而组件重新渲染</p>
-<p>store 模型<br>listItems:当前页id集合数组[id1,id2]<br>byId:{id1:{id:id1,name:xxx},id2:{id:id2,name:xxx}}<br>keyword:关键字string<br>page:number 页数<br>fetchListPending:bool是否正在加载数据<br>FetchListError:OBJECT数据加载出错<br>listNeedReload:bool是否需要重新加载（做判断条件，例如编辑之后，设为true,在列表页拿到判断为true则重新获取列表数据）</p>
-<p>URL设计<br>将页数和关键字当做路由参数传递在componentDidupdated中获取参数判断是否重新获取数据</p>
-<h2 id="缓存更新，加载状态，错误处理"><a href="#缓存更新，加载状态，错误处理" class="headerlink" title="缓存更新，加载状态，错误处理"></a>缓存更新，加载状态，错误处理</h2><p>通过store模型中的相关数据进行判断展示</p>
-<h1 id="页面数据需要来源多个请求的处理"><a href="#页面数据需要来源多个请求的处理" class="headerlink" title="页面数据需要来源多个请求的处理"></a>页面数据需要来源多个请求的处理</h1><p>页面数据来自多个请求<br>1.请求之间无依赖关系，可以并发进行<br>2.请求有依赖，需要依次进行 （promise）<br>3.请求完成之前，页面显示 Loading 状态<br>loading数据状态由当前数据推导确定</p>
-<h1 id="内容页的加载和缓存"><a href="#内容页的加载和缓存" class="headerlink" title="内容页的加载和缓存"></a>内容页的加载和缓存</h1><p>内容页和列表页的数据关系<br>1.简单业务：列表页数据包含内容页的数据 （注意页面刷新情况数据的获取）<br>2.复杂业务：内容页数据需要额外获取 （每次进来都重新获取）<br>3.内容页数据的缓存（将数据放在store中，在store中拿数据）</p>
-<h1 id="基于React-Router-实现分步操作"><a href="#基于React-Router-实现分步操作" class="headerlink" title="基于React Router 实现分步操作"></a>基于React Router 实现分步操作</h1><p>向导页面需要考虑的技术要点<br>1.使用 URL进行导航的好处 （可以直接刷新其中一个步骤）</p>
+            <p>背景<br> 一个独立功能通常需要多个文件组成 （组件，reducer,action,路由等文件）<br> 代码模板很复杂 （reducer,action需要代码模板，实际上填写的逻辑只是一小部分）<br> 重构极为困难<br> （需要改动的地方很多）<br> 项目复杂后很难理解和维护（无法直观的看到他们之间的关系）</p>
+<h1 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h1><p>Rekit：更好的代码导航</p>
 <ol>
-<li>表单内容存放的位置 </li>
-<li>页面状态如何切换</li>
+<li>语义化的组织源代码文件 </li>
+<li>使用子 Tab来展示项目元素的各个部分 </li>
+<li>直观的显示和导航某个功能的所有依赖</li>
 </ol>
-<p>将表单元素放在一个统一的form中，通过路由判断第几步，进而显示不同的表单元素，需要注意的是，切换下一步时，当前组件消失，配置的数据也会消失，需要将当前所填数据进行保存，以便在返回上一步时有数据</p>
-<h1 id="集成第三方-JS-库的技术要点"><a href="#集成第三方-JS-库的技术要点" class="headerlink" title="集成第三方 JS 库的技术要点"></a>集成第三方 JS 库的技术要点</h1><p>1.使用 ref 获取原生 DOM 节点引用<br>2.手动将组件状态更新到 DOM 节点<br>(对于数据驱动UI展示的情况,第一次渲染和之后更新需要手动操作DOM的过程，将数据注入过程隔离出来，单独处理成一个函数，再当react 部分操作导致需要重新渲染时，再调用，将react状态映射到第三方DOM中)<br>3.组件销毁时移除原生节点 DOM 事件</p>
-<h1 id="基于路由实现菜单导航"><a href="#基于路由实现菜单导航" class="headerlink" title="基于路由实现菜单导航"></a>基于路由实现菜单导航</h1><p>1.菜单导航只是改变 URL 状态<br>2.根据当前 URL 显示菜单的当前状态(使用navLink标签实现，注意react-router和redux一起使用时，url发生变化，组建要重新render时，必须要让组件绑定到router的store上，即让react-router也一起渲染)</p>
-<h1 id="如何避免应用出现性能问题"><a href="#如何避免应用出现性能问题" class="headerlink" title="如何避免应用出现性能问题"></a>如何避免应用出现性能问题</h1><p>1.了解常见的性能问题场景 （键盘输入，鼠标移动是否卡顿）<br>2.时刻注意代码的潜在性能问题 （何时拆分组件，有优化空间；能否高效更新，组件拆分是否够细，足够细的话，组件越接近纯函数，就越可能减少参与到diff操作的可能性，从而提高渲染速度）<br>3.注重可重构的代码 （代码耦合性低，几乎不依赖外界，也不被外界依赖，对于有重构可能性的代码保留重构空间，当其他优先级较高的性能问题解决后，再进行代码重构）<br>4.了解如何使用工具定位性能问题</p>
-<h1 id="网络性能优化：自动化按需加载"><a href="#网络性能优化：自动化按需加载" class="headerlink" title="网络性能优化：自动化按需加载"></a>网络性能优化：自动化按需加载</h1><p>1.什么是按需加载 (切换页面时才加载相应页面，而不是一开始就将所有页面加载进来)<br>2.使用 Webpack 的 import API<br>3.使用 react-loadable 库实现 React 异步加载<br>利用分包加载,在配置路由时实现,在总路由中删除，防止打包到总包中<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">import loadable from &apos;react-loadable&apos;</div><div class="line">const listPage = loadable(&#123;</div><div class="line">    loader:()=&gt;import (&apos;./listPage&apos;),</div><div class="line">    loading:()=&gt;&lt;div&gt;loading...&lt;/div&gt;</div><div class="line">&#125;)</div></pre></td></tr></table></figure></p>
-<p>listPage页面在加载该页时，会自动加载listPage的独立打包文件</p>
-<p>使用 reselect 避免重复计算<br>reselect 可以创建自动缓存的数据处理流程，通过保存计算结果，避免重复计算</p>
-<h1 id="异步渲染的两个部分"><a href="#异步渲染的两个部分" class="headerlink" title="异步渲染的两个部分"></a>异步渲染的两个部分</h1><p>时间分片<br>DOM操作的优先级低于浏览器原生行为，例如键盘和鼠标输入，从而保证操作的流畅。<br>（setstate导致的重新render等页面行为（滚动，输入）结束后再执行）<br>1.虚拟 DOM 的 diff 操作可以分片进行 （对操作进行序列化，然后进行合并或者优先级处理）<br>2.React 新 API: unstatble_deferredUpdates（低级别的setstate）<br>3.Chrome 新 API:requestIdleCallback(浏览器级别的api,告诉代码内存空闲（不再滚动或敲击键盘），可以进行一些之前优先级低的UI更新操作，时间分片基础)</p>
-<p>渲染挂起<br>虚拟DOM节点可以等待某个异步操作的完成,并指定timeout后,才完成真正的渲染<br>（可以不再注意什么时候显示loading状态，取消loading状态，虚拟dom节点可以自己等待异步操作的完成，只要虚拟dom节点返回一个promise,渲染引擎就会等promise结束后再去render）</p>
+<p>Rekit： 一键生成项目元素（它是一个IDE）</p>
 <ol>
-<li><p>新内置组件：Timeout </p>
-</li>
-<li><p>unstatble_deferUpdate</p>
-</li>
+<li>直观的 UI 用于生成组件，action,reducer 等 </li>
+<li>模板代码遵循最佳实践（只需填入具体逻辑）</li>
+<li>支持命令行方式创建项目元素</li>
 </ol>
-<h1 id="借助工具发现性能问题"><a href="#借助工具发现性能问题" class="headerlink" title="借助工具发现性能问题"></a>借助工具发现性能问题</h1><p>1.使用 React DevTool 找到多余渲染<br>chrome 插件，可查看react应用的状态，帮助找到不必要的render，从而进行调优—&gt; [highlight update]<br>2.使用 Chrome DevTool 定位性能瓶颈<br>什么样的组件花了多长时间做了什么样的渲染—&gt;performance</p>
+<p>Rekit： 重构非常容易</p>
+<ol>
+<li>右键菜单重命名或者删除某个项目元素 </li>
+<li>所有相关代码都会一次性重构从而保证一致性 </li>
+<li>详细的 log信息显示重构的完整修改</li>
+</ol>
+<p>Rekit： 可视化的项目架构</p>
+<ol>
+<li>项目总体架构的可视化图表 </li>
+<li>项目依赖关系的图表</li>
+</ol>
+<p>Rekit 是如何工作的？</p>
+<ol>
+<li>定义了基于feature 的可扩展文件夹结构（文件夹结构有一定规则，可以进行解析）</li>
+<li>基于最佳实践生成代码和管理项目元素 </li>
+<li>提供工具和 IDE 确保代码和文件夹结构遵循最佳实践<br>（减少工作量）</li>
+</ol>
+<h1 id="遵循最佳实践"><a href="#遵循最佳实践" class="headerlink" title="遵循最佳实践"></a>遵循最佳实践</h1><p>1.以 feature 方式组织代码 （功能如果是必须的就放在已有模块底层实现，如果是原有功能增强的实现，则新拆分成功能模块）<br>2.拆分组件,action 和 reducer<br>3.拆分路由配置</p>
+<p>通过代码自动生成保持一致性<br>1.文件夹结构一致性<br>2.文件名一致性<br>3.变量名一致性<br>4.代码逻辑的一致性</p>
+<h1 id="使用-React-Router-管理路由授权"><a href="#使用-React-Router-管理路由授权" class="headerlink" title="使用 React Router 管理路由授权"></a>使用 React Router 管理路由授权</h1><p>1.实现基础:React Router 的动态路由机制 （<br> 不采用各个页面判断是否登录再redirect的方式跳转，路由配置（添加属性，那些可以在未登录下访问，或者哪些在未登录下不能访问）时就去动态监测当前用户是否登录，如果登录则全部路由生效；反之某些路由配置就不生效===&gt;不生效处理，在解析router JSON数据时根据store中登录状态和路由配置的属性判断,未登录则跳转403，其子路由清空<br>）<br>2.区分受保护路由和公开路由<br>3.访问未授权路由时重定向到登录页面 </p>
 
           
         
