@@ -259,6 +259,279 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://yoohannah.github.io/post/react/course/layout.html">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="YooHannah">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="/psb.jpg">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="My Little World">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="My Little World" src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/post/react/course/layout.html" itemprop="url">
+                  布局
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-12-04T21:17:37+08:00">
+                2018-12-04
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="实现布局的几种方式"><a href="#实现布局的几种方式" class="headerlink" title="实现布局的几种方式"></a>实现布局的几种方式</h1><p>1.从0开始用 CSS实现<br>2.使用 CSS Grid 系统 （通过class实现，无需关心布局如何实现,同时可以适应不同屏幕的尺寸）<br>3.使用组件库,例如 antd（通过组件标签实现）</p>
+<p>布局常见场景:侧边栏宽度可调整<br>1.手动实现拖放逻辑<br>2.使用 local storage 存储宽度位置</p>
+<h2 id="上中下结构-中间高度随父级高度自适应，头部和底部高度固定"><a href="#上中下结构-中间高度随父级高度自适应，头部和底部高度固定" class="headerlink" title="上中下结构,中间高度随父级高度自适应，头部和底部高度固定"></a>上中下结构,中间高度随父级高度自适应，头部和底部高度固定</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">&lt;div className=&quot;app-layout1&quot;&gt;</div><div class="line">    &lt;div className=&quot;header&quot;&gt;Header&lt;/div&gt;</div><div class="line">    &lt;div className=&quot;content&quot;&gt;content&lt;/div&gt;</div><div class="line">    &lt;div className=&quot;footer&quot;&gt;Footer&lt;/div&gt;</div><div class="line">&lt;/div&gt;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line">&lt;style&gt;</div><div class="line">.app-layout1 &#123;</div><div class="line">  width: 500px;</div><div class="line">  height: 400px;</div><div class="line">  position: relative;</div><div class="line">  background-color: #eee;</div><div class="line">  text-align: center;</div><div class="line">&#125;</div><div class="line"></div><div class="line">.app-layout1 .header &#123;</div><div class="line">  line-height: 60px;</div><div class="line">  border-bottom: 2px solid #fff;</div><div class="line">&#125;</div><div class="line">.app-layout1 .content &#123;</div><div class="line">  position: absolute;</div><div class="line">  bottom: 60px;</div><div class="line">  top: 60px;</div><div class="line">  left: 0;</div><div class="line">  right: 0;</div><div class="line">&#125;</div><div class="line">.app-layout1 .footer &#123;</div><div class="line">  border-top: 2px solid #fff;</div><div class="line">  line-height: 60px;</div><div class="line">  bottom: 0;</div><div class="line">  left: 0;</div><div class="line">  right: 0;</div><div class="line">  position: absolute;</div><div class="line">&#125;</div><div class="line">&lt;/style&gt;</div></pre></td></tr></table></figure>
+<h2 id="导航布局，左边是导航栏，右边上中下结构"><a href="#导航布局，左边是导航栏，右边上中下结构" class="headerlink" title="导航布局，左边是导航栏，右边上中下结构"></a>导航布局，左边是导航栏，右边上中下结构</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&lt;div className=&quot;app-layout2&quot;&gt;</div><div class="line">    &lt;div className=&quot;header&quot;&gt;Header&lt;/div&gt;</div><div class="line">    &lt;div className=&quot;sider&quot;&gt;Sider&lt;/div&gt;</div><div class="line">    &lt;div className=&quot;content&quot;&gt;Content&lt;/div&gt;</div><div class="line">    &lt;div className=&quot;footer&quot;&gt;Footer&lt;/div&gt;</div><div class="line">&lt;/div&gt;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div></pre></td><td class="code"><pre><div class="line">.app-layout2 &#123;</div><div class="line">  width: 500px;</div><div class="line">  height: 400px;</div><div class="line">  position: relative;</div><div class="line">  background-color: #eee;</div><div class="line">  text-align: center;</div><div class="line">  padding-left: 150px;</div><div class="line">  line-height: 60px;</div><div class="line">&#125;</div><div class="line"></div><div class="line">.app-layout2 .header &#123;</div><div class="line">  border-bottom: 2px solid #fff;</div><div class="line">&#125;</div><div class="line">.app-layout2 .content &#123;</div><div class="line">  position: absolute;</div><div class="line">  bottom: 60px;</div><div class="line">  top: 60px;</div><div class="line">  left: 150px;</div><div class="line">  right: 0;</div><div class="line">&#125;</div><div class="line">.app-layout2 .sider &#123;</div><div class="line">  width: 150px;</div><div class="line">  position: absolute;</div><div class="line">  border-right: 2px solid #fff;</div><div class="line">  top: 0;</div><div class="line">  left: 0;</div><div class="line">  bottom: 0;</div><div class="line">&#125;</div><div class="line">.app-layout2 .footer &#123;</div><div class="line">  border-top: 2px solid #fff;</div><div class="line">  bottom: 0;</div><div class="line">  left: 150px;</div><div class="line">  right: 0;</div><div class="line">  position: absolute;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="导航栏随鼠标滑动调整宽度"><a href="#导航栏随鼠标滑动调整宽度" class="headerlink" title="导航栏随鼠标滑动调整宽度"></a>导航栏随鼠标滑动调整宽度</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div></pre></td><td class="code"><pre><div class="line">import React from &quot;react&quot;;</div><div class="line">import &#123; Button &#125; from &quot;antd&quot;;</div><div class="line">import &quot;./LayoutResize.css&quot;;</div><div class="line"></div><div class="line">export default class LayoutResize extends React.PureComponent &#123;</div><div class="line">  state = &#123;</div><div class="line">    dragging: false,</div><div class="line">    startPageX: 0,</div><div class="line">    siderWidth: 150,</div><div class="line">  &#125;;</div><div class="line"></div><div class="line">  handleMouseDown = evt =&gt; &#123;</div><div class="line">    this.setState(&#123;</div><div class="line">      dragging: true,</div><div class="line">      startPageX: evt.pageX,</div><div class="line">    &#125;);</div><div class="line">  &#125;;</div><div class="line">  handleMouseUp = () =&gt; &#123;</div><div class="line">    this.setState(&#123;</div><div class="line">      dragging: false,</div><div class="line">    &#125;);</div><div class="line">  &#125;;</div><div class="line">  handleMouseMove = evt =&gt; &#123;</div><div class="line">    let siderWidth = this.state.siderWidth + evt.pageX - this.state.startPageX;</div><div class="line">    if (siderWidth &lt; 20 || siderWidth &gt; 300) return;</div><div class="line">    this.setState(&#123;</div><div class="line">      siderWidth,</div><div class="line">      startPageX: evt.pageX,</div><div class="line">    &#125;);</div><div class="line">  &#125;;</div><div class="line">  render() &#123;</div><div class="line">    const &#123; dragging, siderWidth &#125; = this.state;</div><div class="line">    const pxWidth = `$&#123;siderWidth&#125;px`;</div><div class="line">    return (</div><div class="line">      &lt;div className=&quot;app-layout-resize&quot; style=&#123;&#123; paddingLeft: pxWidth &#125;&#125;&gt;</div><div class="line">        &lt;div className=&quot;header&quot;&gt;Header&lt;/div&gt;</div><div class="line">        &lt;div className=&quot;sider&quot; style=&#123;&#123; width: pxWidth &#125;&#125;&gt;</div><div class="line">          Sider</div><div class="line">        &lt;/div&gt;</div><div class="line">        &lt;div className=&quot;content&quot; style=&#123;&#123; left: pxWidth &#125;&#125;&gt;</div><div class="line">          Content</div><div class="line">        &lt;/div&gt;</div><div class="line">        &lt;div className=&quot;footer&quot; style=&#123;&#123; left: pxWidth &#125;&#125;&gt;</div><div class="line">          Footer</div><div class="line">        &lt;/div&gt;</div><div class="line">        &lt;div</div><div class="line">          className=&quot;sider-resizer&quot;</div><div class="line">          style=&#123;&#123; left: pxWidth &#125;&#125;</div><div class="line">          onMouseDown=&#123;this.handleMouseDown&#125;</div><div class="line">        /&gt;</div><div class="line">        &#123;dragging &amp;&amp; (</div><div class="line">          &lt;div</div><div class="line">            className=&quot;resize-mask&quot;</div><div class="line">            onMouseMove=&#123;this.handleMouseMove&#125;</div><div class="line">            onMouseUp=&#123;this.handleMouseUp&#125;</div><div class="line">          /&gt;</div><div class="line">        )&#125;</div><div class="line">      &lt;/div&gt;</div><div class="line">    );</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div></pre></td><td class="code"><pre><div class="line">.app-layout-resize &#123;</div><div class="line">  width: 500px;</div><div class="line">  height: 400px;</div><div class="line">  position: relative;</div><div class="line">  background-color: #eee;</div><div class="line">  text-align: center;</div><div class="line">  padding-left: 150px;</div><div class="line">  line-height: 60px;</div><div class="line">&#125;</div><div class="line"></div><div class="line">.app-layout-resize .header &#123;</div><div class="line">  border-bottom: 2px solid #fff;</div><div class="line">&#125;</div><div class="line">.app-layout-resize .content &#123;</div><div class="line">  position: absolute;</div><div class="line">  bottom: 60px;</div><div class="line">  top: 60px;</div><div class="line">  left: 0;</div><div class="line">  right: 0;</div><div class="line">&#125;</div><div class="line">.app-layout-resize .sider &#123;</div><div class="line">  width: 150px;</div><div class="line">  position: absolute;</div><div class="line">  border-right: 2px solid #fff;</div><div class="line">  top: 0;</div><div class="line">  left: 0;</div><div class="line">  bottom: 0;</div><div class="line">&#125;</div><div class="line">.app-layout-resize .footer &#123;</div><div class="line">  border-top: 2px solid #fff;</div><div class="line">  bottom: 0;</div><div class="line">  left: 150px;</div><div class="line">  right: 0;</div><div class="line">  position: absolute;</div><div class="line">&#125;</div><div class="line"></div><div class="line">.app-layout-resize .sider-resizer &#123;</div><div class="line">  position: absolute;</div><div class="line">  left: 148px;</div><div class="line">  width: 6px;</div><div class="line">  top: 0;</div><div class="line">  bottom: 0;</div><div class="line">  cursor: col-resize;</div><div class="line">&#125;</div><div class="line">.app-layout-resize .resize-mask &#123;</div><div class="line">  background: rgba(0, 0, 0, 0);</div><div class="line">  position: fixed;</div><div class="line">  left: 0;</div><div class="line">  top: 0;</div><div class="line">  right: 0;</div><div class="line">  bottom: 0;</div><div class="line">  cursor: col-resize;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://yoohannah.github.io/post/react/course/rekit.html">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="YooHannah">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="/psb.jpg">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="My Little World">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="My Little World" src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/post/react/course/rekit.html" itemprop="url">
+                  Rekit
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-12-04T21:12:37+08:00">
+                2018-12-04
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>背景<br> 一个独立功能通常需要多个文件组成 （组件，reducer,action,路由等文件）<br> 代码模板很复杂 （reducer,action需要代码模板，实际上填写的逻辑只是一小部分）<br> 重构极为困难<br> （需要改动的地方很多）<br> 项目复杂后很难理解和维护（无法直观的看到他们之间的关系）</p>
+<h1 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h1><p>Rekit：更好的代码导航</p>
+<ol>
+<li>语义化的组织源代码文件 </li>
+<li>使用子 Tab来展示项目元素的各个部分 </li>
+<li>直观的显示和导航某个功能的所有依赖</li>
+</ol>
+<p>Rekit： 一键生成项目元素（它是一个IDE）</p>
+<ol>
+<li>直观的 UI 用于生成组件，action,reducer 等 </li>
+<li>模板代码遵循最佳实践（只需填入具体逻辑）</li>
+<li>支持命令行方式创建项目元素</li>
+</ol>
+<p>Rekit： 重构非常容易</p>
+<ol>
+<li>右键菜单重命名或者删除某个项目元素 </li>
+<li>所有相关代码都会一次性重构从而保证一致性 </li>
+<li>详细的 log信息显示重构的完整修改</li>
+</ol>
+<p>Rekit： 可视化的项目架构</p>
+<ol>
+<li>项目总体架构的可视化图表 </li>
+<li>项目依赖关系的图表</li>
+</ol>
+<p>Rekit 是如何工作的？</p>
+<ol>
+<li>定义了基于feature 的可扩展文件夹结构（文件夹结构有一定规则，可以进行解析）</li>
+<li>基于最佳实践生成代码和管理项目元素 </li>
+<li>提供工具和 IDE 确保代码和文件夹结构遵循最佳实践<br>（减少工作量）</li>
+</ol>
+<h1 id="遵循最佳实践"><a href="#遵循最佳实践" class="headerlink" title="遵循最佳实践"></a>遵循最佳实践</h1><p>1.以 feature 方式组织代码 （功能如果是必须的就放在已有模块底层实现，如果是原有功能增强的实现，则新拆分成功能模块）<br>2.拆分组件,action 和 reducer<br>3.拆分路由配置</p>
+<p>通过代码自动生成保持一致性<br>1.文件夹结构一致性<br>2.文件名一致性<br>3.变量名一致性<br>4.代码逻辑的一致性</p>
+<h1 id="使用-React-Router-管理路由授权"><a href="#使用-React-Router-管理路由授权" class="headerlink" title="使用 React Router 管理路由授权"></a>使用 React Router 管理路由授权</h1><p>1.实现基础:React Router 的动态路由机制 （<br> 不采用各个页面判断是否登录再redirect的方式跳转，路由配置（添加属性，那些可以在未登录下访问，或者哪些在未登录下不能访问）时就去动态监测当前用户是否登录，如果登录则全部路由生效；反之某些路由配置就不生效===&gt;不生效处理，在解析router JSON数据时根据store中登录状态和路由配置的属性判断,未登录则跳转403，其子路由清空<br>）<br>2.区分受保护路由和公开路由<br>3.访问未授权路由时重定向到登录页面 </p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
   <link itemprop="mainEntityOfPage" href="http://yoohannah.github.io/post/react/course/formList.html">
 
   <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1362,252 +1635,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="http://yoohannah.github.io/post/designMode/iterator.html">
-
-  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
-    <meta itemprop="name" content="YooHannah">
-    <meta itemprop="description" content="">
-    <meta itemprop="image" content="/psb.jpg">
-  </span>
-
-  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-    <meta itemprop="name" content="My Little World">
-    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
-      <img style="display:none;" itemprop="url image" alt="My Little World" src="">
-    </span>
-  </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/post/designMode/iterator.html" itemprop="url">
-                  迭代器模式
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-11-06T22:23:09+08:00">
-                2018-11-06
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h1><p>提供一种方法顺序访问一个聚合对象种的各个元素，而又不需要暴露该对象的内部表示<br>把迭代过程从业务逻辑中分离出来，不用关心对象的内部构造，可以按顺序访问其中的每个元素</p>
-<h1 id="用途-场景"><a href="#用途-场景" class="headerlink" title="用途/场景"></a>用途/场景</h1><p>查找可用组件，进行数据处理</p>
-<h1 id="主要思想"><a href="#主要思想" class="headerlink" title="主要思想"></a>主要思想</h1><p>内部迭代器<br>函数内部定义好迭代规则，完全接手整个迭代过程，外部只需要一次初始调用</p>
-<p>外部迭代器<br>需要调用进行下一轮迭代的函数，可以手工控制迭代的过程或者顺序</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div></pre></td><td class="code"><pre><div class="line">//使用内部迭代器实现</div><div class="line">var iteratorInner=(arr,fn)=&gt;&#123;</div><div class="line">	for(let i=0;i&lt;arr.length;i++)&#123;</div><div class="line">		fn(arr,i)</div><div class="line">	&#125;</div><div class="line">	return arr</div><div class="line">&#125;</div><div class="line">console.log(iteratorInner([1,2,3],(arr,i)=&gt;&#123;arr[i]++&#125;)) //[2,3,4] </div><div class="line"></div><div class="line">//使用外部迭代器</div><div class="line">let iteratorOuter = (arr,fn)=&gt;&#123;</div><div class="line">	let count = 0;</div><div class="line">    let nextFn =()=&gt;&#123;</div><div class="line">		if(count &lt;arr.length)&#123;</div><div class="line">			fn(arr,count)</div><div class="line">		&#125;</div><div class="line">		return &#123;</div><div class="line">			result:arr,</div><div class="line">			count:count === arr.length ? count:++count,,</div><div class="line">			done:count === arr.length</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line">	return &#123;</div><div class="line">		next:nextFn,</div><div class="line">		isdone:count === arr.length</div><div class="line">	&#125;</div><div class="line">&#125;</div><div class="line">var it = iteratorOuter([1,2,3],(arr,i)=&gt;&#123;</div><div class="line">	arr[i]++</div><div class="line">&#125;)</div><div class="line">console.log(it.next())</div><div class="line">//count: 1</div><div class="line">//done: false</div><div class="line">//result: (3) [2, 3, 4]</div><div class="line">console.log(it.next())</div><div class="line">//count: 2</div><div class="line">//done: false</div><div class="line">//result: (3) [2, 3, 4]</div><div class="line">console.log(it.next())</div><div class="line">//count: 3</div><div class="line">//done: true</div><div class="line">//result: (3) [2, 3, 4]</div></pre></td></tr></table></figure>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="http://yoohannah.github.io/post/designMode/adapter.html">
-
-  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
-    <meta itemprop="name" content="YooHannah">
-    <meta itemprop="description" content="">
-    <meta itemprop="image" content="/psb.jpg">
-  </span>
-
-  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-    <meta itemprop="name" content="My Little World">
-    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
-      <img style="display:none;" itemprop="url image" alt="My Little World" src="">
-    </span>
-  </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/post/designMode/adapter.html" itemprop="url">
-                  适配器模式
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-11-06T22:11:09+08:00">
-                2018-11-06
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>定义<br>解决俩个软件实体间接口不兼容的问题，使用适配器模式之后，原本由于接口不兼容而不能工作的两个软件实体，可以一起工作</p>
-<p>用途/场景<br>1.调用第三方（地图/支付）接口时，不同平台提供的相同功能的接口函数名不同，或者调用时需要进行的操作过程不同，<br>  将这些过程封装/分类，通过适配器决定如何使用</p>
-<p>2.处理数据,将不符合使用要求的数据结构转换成预期的样子</p>
-<p>主要思想<br>将处理过程封装在适配器函数中,直接在适配器函数中进行处理，或者让适配器返回处理后的可适用结果<br>调用适配器传入需要处理的数据/条件，适配器进行处理或返回处理结果</p>
-<p>注意事项<br>那些繁琐的处理代码始终是存在的，只不过在写业务的时候看不到它罢了</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div></pre></td><td class="code"><pre><div class="line">1.转换数据结构</div><div class="line">//将如下数据结构</div><div class="line">var guangdongCity = [&#123;             </div><div class="line">        name: &apos;shenzhen&apos;,             </div><div class="line">        id: 11,         </div><div class="line">    &#125;, &#123;             </div><div class="line">        name: &apos;guangzhou&apos;,             </div><div class="line">        id: 12,         </div><div class="line">    &#125;];</div><div class="line">//转换成如下数据结构</div><div class="line">var guangdongCity = &#123;     shenzhen: 11,      guangzhou: 12&#125;;</div><div class="line"></div><div class="line">var adapter = (data)=&gt;&#123;</div><div class="line">	let temp = &#123;&#125;;</div><div class="line">	for(let i=0;i&lt;data.length;i++)&#123;</div><div class="line">		temp[data[i].name] = data[i].id</div><div class="line">	&#125;</div><div class="line">	return temp</div><div class="line">&#125;</div><div class="line">console.log(adapter(guangdongCity))</div><div class="line"></div><div class="line">2.SDK适配例子1</div><div class="line">var googleMap = &#123;      </div><div class="line">    show: function()&#123;          </div><div class="line">        console.log( &apos;开始渲染谷歌地图&apos; );      </div><div class="line">        &#125;  </div><div class="line">    &#125;; </div><div class="line">var baiduMap = &#123;       </div><div class="line">        display: function()&#123;          </div><div class="line">            console.log( &apos;开始渲染百度地图&apos; );      </div><div class="line">        &#125;  </div><div class="line">    &#125;; </div><div class="line">var baiduMapAdapter = &#123;      </div><div class="line">        show: function()&#123;          </div><div class="line">            return baiduMap.display();    </div><div class="line">        &#125;  </div><div class="line">    &#125;;</div><div class="line">var renderMap = function( map )&#123;     </div><div class="line">    if ( map.show instanceof Function )&#123;         </div><div class="line">        map.show();     </div><div class="line">    &#125; </div><div class="line">&#125;; </div><div class="line">renderMap( googleMap );        // 输出：开始渲染谷歌地图 </div><div class="line">renderMap( baiduMapAdapter );    // 输出：开始渲染百度地图 </div><div class="line">3.SDK适配例子2</div><div class="line">function pay (&#123;</div><div class="line">  price,</div><div class="line">  goodsId</div><div class="line">&#125;) &#123;</div><div class="line">  return new Promise((resolve, reject) =&gt; &#123;</div><div class="line">    const config = &#123;&#125;</div><div class="line"> </div><div class="line">    switch (platform) &#123;</div><div class="line">      case &apos;wechat&apos;:</div><div class="line">        // 微信的处理逻辑</div><div class="line">        config.price = price</div><div class="line">        config.goodsId = goodsId</div><div class="line">        config.appId = &apos;XXX&apos;</div><div class="line">        config.secretKey = &apos;XXX&apos;</div><div class="line">        wx.pay(config).then((err, data) =&gt; &#123;</div><div class="line">          if (err) return reject(err)</div><div class="line"> </div><div class="line">          resolve(data)</div><div class="line">        &#125;)</div><div class="line">      break</div><div class="line">      case &apos;QQ&apos;:</div><div class="line">        // QQ的处理逻辑</div><div class="line">        config.price = price * 100</div><div class="line">        config.gid = goodsId</div><div class="line">        config.appId = &apos;XXX&apos;</div><div class="line">        config.secretKey = &apos;XXX&apos;</div><div class="line">        config.success = resolve</div><div class="line">        config.error = reject</div><div class="line">        qq.pay(config)</div><div class="line">      break</div><div class="line">      case &apos;alipay&apos;:</div><div class="line">        // 支付宝的处理逻辑</div><div class="line">        config.payment = price</div><div class="line">        config.id = goodsId</div><div class="line">        config.token = &apos;XXX&apos;</div><div class="line">        alipay.pay(config, resolve, reject)</div><div class="line">      break</div><div class="line">    &#125;</div><div class="line">  &#125;)</div><div class="line">&#125;</div><div class="line">// run anywhere</div><div class="line">await pay(&#123;</div><div class="line">  price: 10,</div><div class="line">  goodsId: 1</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
-<p>对于SDK提供方，仅仅需要知道自己所需要的一些参数，然后按照自己的方式进行数据返回。</p>
-<p>对于SDK调用方，仅仅需要我们约定好的通用的参数，以及按照约定的方式进行监听回调处理。</p>
-<p>整合多个第三方SDK的任务交由适配器来做，然后将适配器的代码压缩，混淆，放在一个看不见的角落里去，这样的代码逻辑就会变得很清晰了<br>参考资料:<a href="https://mp.weixin.qq.com/s/QRqeDCzD0APyj2g7BNqtpg" target="_blank" rel="external">适配器在JavaScript中的体现</a></p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1653,7 +1680,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">188</span>
+              <span class="site-state-item-count">190</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
