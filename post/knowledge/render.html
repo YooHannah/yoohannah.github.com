@@ -96,7 +96,7 @@
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://yoohannah.github.io/image/reactlife.png">
 <meta property="og:image" content="http://yoohannah.github.io/image/vuelife.png">
-<meta property="og:updated_time" content="2020-01-27T12:04:50.395Z">
+<meta property="og:updated_time" content="2020-07-18T14:18:32.807Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="各种框架框架的数据绑定机制">
 <meta name="twitter:description" content="angular js脏检查机制 react虚拟DOM:react 在初始化的时候会render一颗dom树，当state/props发生改变的时候，render函数会再渲染出另外一棵树与之前的dom树进行对比，新渲染的树就是虚拟dom树diff 算法:比较dom树时的算法， 只会对同层节点进行比较；父节点不同,不会再去比较子节点； 同层比较时，遇到结点类型不同,比如结点顺序发生变化时没有key属性">
@@ -348,6 +348,10 @@
 <h1 id="vue2-0"><a href="#vue2-0" class="headerlink" title="vue2.0"></a>vue2.0</h1><p>虚拟DOM和diff算法</p>
 <p><img src="/image/vuelife.png" alt="vuelife"></p>
 <h1 id="检测数据变更的4中方法"><a href="#检测数据变更的4中方法" class="headerlink" title="检测数据变更的4中方法"></a>检测数据变更的4中方法</h1><p>手动触发绑定<br>脏检查机制<br>数据对象劫持,使用Object.defineProperty<br>使用proxy</p>
+<h1 id="三大框架对比"><a href="#三大框架对比" class="headerlink" title="三大框架对比"></a>三大框架对比</h1><p>1.数据检查更新原理不同<br>angularjs用脏检查<br>vue和react 使用diff算法<br>后两者效率更高</p>
+<p>2.构建组件使用来说<br>angularjs更需要遵守框架规则，相对比较严谨<br>而vue次之，具备自己的响应式机制，所以要遵循一定的规则<br>最开放的是react,可以从更底层去定义自己想要的组件，<br>也可能跟react定位有关，一个用于构建UI的js库<br>它是一个库<br>库和框架的区别就是<br>库是，你调用库，作为开发者你有主动权<br>框架是你被框架调用，作为开发者你要听框架的<br>缺点就是数据改变自己要写监听逻辑</p>
+<p>3.从使用场景上<br>angularjs和react都比较适合应用于大型网站开发<br>而vue小巧轻便，适合小项目开发</p>
+<p>4.从学习成本上<br>vue最低，从用人角度来说最好找人<br>然后由于angular的规范严谨，导致需要学习的文档较多，<br>学习成本显而易见<br>react的开发角度相对以上两个框架更加向下，<br>有点像写早期模板语言，加上JSX语言的引入，<br>所以学习成本自然也是不低的</p>
 
       
     </div>
@@ -519,7 +523,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#angular-js"><span class="nav-number">1.</span> <span class="nav-text">angular js</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#react"><span class="nav-number">2.</span> <span class="nav-text">react</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#vue1-0"><span class="nav-number">3.</span> <span class="nav-text">vue1.0</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#vue2-0"><span class="nav-number">4.</span> <span class="nav-text">vue2.0</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#检测数据变更的4中方法"><span class="nav-number">5.</span> <span class="nav-text">检测数据变更的4中方法</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#angular-js"><span class="nav-number">1.</span> <span class="nav-text">angular js</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#react"><span class="nav-number">2.</span> <span class="nav-text">react</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#vue1-0"><span class="nav-number">3.</span> <span class="nav-text">vue1.0</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#vue2-0"><span class="nav-number">4.</span> <span class="nav-text">vue2.0</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#检测数据变更的4中方法"><span class="nav-number">5.</span> <span class="nav-text">检测数据变更的4中方法</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#三大框架对比"><span class="nav-number">6.</span> <span class="nav-text">三大框架对比</span></a></li></ol></div>
             
 
           </div>
