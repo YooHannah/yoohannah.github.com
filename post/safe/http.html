@@ -103,7 +103,7 @@
 <meta property="og:image" content="http://yoohannah.github.io/image/header6.png">
 <meta property="og:image" content="http://yoohannah.github.io/image/header7.png">
 <meta property="og:image" content="http://yoohannah.github.io/image/header8.png">
-<meta property="og:updated_time" content="2020-01-28T13:28:22.313Z">
+<meta property="og:updated_time" content="2020-07-19T13:23:54.495Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="关于HTTP">
 <meta name="twitter:description" content="在浏览器的地址栏输入url后发生了什么 粗略的回答的话，就是浏览器向服务器发送该url,浏览器根据该url找到相应的资源，再把资源返回给浏览器，即使我们看到的页面内容 细致的回答的话，浏览器会在应用层利用DNS协议解析域名生成ip地址，利用http协议生成一个http请求然后传递给传输层，传输层将根据TCP协议将这个http请求报文进行分割并打上序号标记、端口号和三次握手标志后转发给网络层，网络层">
@@ -346,7 +346,7 @@
 
       
         <h1 id="在浏览器的地址栏输入url后发生了什么"><a href="#在浏览器的地址栏输入url后发生了什么" class="headerlink" title="在浏览器的地址栏输入url后发生了什么"></a>在浏览器的地址栏输入url后发生了什么</h1><p> 粗略的回答的话，就是浏览器向服务器发送该url,浏览器根据该url找到相应的资源，再把资源返回给浏览器，即使我们看到的页面内容<br> 细致的回答的话，浏览器会在应用层利用DNS协议解析域名生成ip地址，利用http协议生成一个http请求然后传递给传输层，传输层将根据TCP协议将这个http请求报文进行分割并打上序号标记、端口号和三次握手标志后转发给网络层，网络层会利用ARP协议根据ip地址查到MAC地址,IP协议对数据封装MAC地址等信息，将打包好的数据包发送给链路层再封装然后发送出去，经过一系列转发，忽略路由、CDN的缓存策略，中转到达服务器后,服务器再按链路层，网路层，传输层，应用层的顺序，从下到上依次解封数据信息，找到资源后，同样分割，封装打包再传给客户端浏览器。</p>
-<h2 id="重新看待这个问题"><a href="#重新看待这个问题" class="headerlink" title="重新看待这个问题"></a>重新看待这个问题</h2><p> <img src="/image/browerurl.png" alt="browerurl"></p>
+<h2 id="重新看待这个问题"><a href="#重新看待这个问题" class="headerlink" title="重新看待这个问题"></a>重新看待这个问题</h2><p> <a href="https://www.processon.com/view/link/5f14489ce401fd06f3e2fd4b" target="_blank" rel="external">流程图1</a><br> <a href="https://www.processon.com/view/link/5f1448cee0b34d44f052743c" target="_blank" rel="external">流程图2</a><br> <img src="/image/browerurl.png" alt="browerurl"></p>
 <h3 id="浏览器渲染过程"><a href="#浏览器渲染过程" class="headerlink" title="浏览器渲染过程"></a>浏览器渲染过程</h3><p> 解析HTML构建DOM树时，渲染引擎会先将HTML元素标签解析成<br> 由多个DOM元素对象节点组成且具有节点父子关系的DOM树结构，<br> 然后根据DOM树结构的每个节点顺序提取计算使用的CSS规则<br> 并重新计算DOM树结构的样式数据，<br> 生成一个带有样式描述的dom渲染树对象<br> DOM渲染树生成结束后进入渲染树的布局阶段<br> 即根据每个渲染树节点在页面中的大小和位置，将节点固定到页面对应位置上<br> 这个阶段主要是元素的布局属性（position，float,margin等属性）<br> 即在浏览器中绘制页面上元素节点的位置<br> 绘制阶段将渲染树节点的背景，颜色，文本等样式信息应用到每个节点上<br> 这个阶段主要是元素的内部显示样式（color,background,text-shadow等属性）生效<br> 最终完成整个DOM在页面上的绘制显示</p>
 <p> 不同浏览器内核渲染过程有区别<br> Webkit内核(google,safari)中HTML和css解析可以认为是并行的，生成的渲染对象被叫做渲染树（render tree）<br> Geoko内核（firefox）则是先解析html生成sink后再开始解析CSS，生成的渲染对象称为Frame树(Frame tree)</p>
 <p> 在渲染树生成阶段，DOM树中的结点会在CSS分析树中根据元素，类，id选择器来提取与之对应元素的一条或多条CSSRule,进行CSS规则的层叠和权重计算，<br> 得到最终生成的样式CSSRule并添加到DOM渲染树上，<br> 当每个Dom节点提取CSS样式完成时，用于页面布局和绘制的DOM渲染树便形成了<br> 在一个已经形成的DOM渲染树中，节点的CSS规则可通过<br> document.defaultView.getComputedStyle(element,null)<br> 方法获取</p>
