@@ -94,10 +94,12 @@
 <meta property="og:site_name" content="My Little World">
 <meta property="og:description" content="12345678910111213141516171819202122232425262728293031323334353637383940414243&amp;lt;body&amp;gt;  &amp;lt;div id = &amp;apos;app&amp;apos; class=&amp;apos;hello&amp;apos;&amp;gt;    &amp;lt;p&amp;gt;      &amp;lt;router-link to=&amp;quot;/foo&amp;quot">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2020-02-24T15:56:19.364Z">
+<meta property="og:image" content="http://yoohannah.github.io/image/vuerouter.jpg">
+<meta property="og:updated_time" content="2020-08-02T03:01:00.563Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="vueRouter 源码">
 <meta name="twitter:description" content="12345678910111213141516171819202122232425262728293031323334353637383940414243&amp;lt;body&amp;gt;  &amp;lt;div id = &amp;apos;app&amp;apos; class=&amp;apos;hello&amp;apos;&amp;gt;    &amp;lt;p&amp;gt;      &amp;lt;router-link to=&amp;quot;/foo&amp;quot">
+<meta name="twitter:image" content="http://yoohannah.github.io/image/vuerouter.jpg">
 
 
 
@@ -373,6 +375,7 @@
 <p>设置监听具体内容<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div></pre></td><td class="code"><pre><div class="line">HashHistory.prototype.setupListeners = function setupListeners () &#123;</div><div class="line">    var this$1 = this;</div><div class="line"></div><div class="line">    var router = this.router;</div><div class="line">    var expectScroll = router.options.scrollBehavior;</div><div class="line">    var supportsScroll = supportsPushState &amp;&amp; expectScroll;</div><div class="line"></div><div class="line">    if (supportsScroll) &#123;</div><div class="line">      setupScroll();</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    window.addEventListener(</div><div class="line">      supportsPushState ? &apos;popstate&apos; : &apos;hashchange&apos;,</div><div class="line">      function () &#123;</div><div class="line">        var current = this$1.current;</div><div class="line">        if (!ensureSlash()) &#123;</div><div class="line">          return</div><div class="line">      &#125;</div><div class="line">       //直接调用transitionTo进行路由更新</div><div class="line">      this$1.transitionTo(getHash(), function (route) &#123; //成功回调不用pushHash更新url</div><div class="line">        if (supportsScroll) &#123;</div><div class="line">          handleScroll(this$1.router, route, current, true);</div><div class="line">        &#125;</div><div class="line">        if (!supportsPushState) &#123;</div><div class="line">          replaceHash(route.fullPath);</div><div class="line">        &#125;</div><div class="line">      &#125;);</div><div class="line">    &#125;</div><div class="line">  );</div><div class="line">&#125;;</div></pre></td></tr></table></figure></p>
 <p>可见通过监听事件触发的路由改变会直接调用transitionTo函数进行跳转</p>
 <h1 id="两个收获"><a href="#两个收获" class="headerlink" title="两个收获"></a>两个收获</h1><p>1.normalizeLocation函数发挥的作用，根据第一参数location对象不同的属性状态进行不同的处理，用于在上游的不同情境(不同方式导致跳转)使用中统一调用<br>2.在transitionTo函数中调用comfirmTransition,为什么不直接在transitionTo函数中书写confirmTransition函数内容呢，为什么要单独摘出来呢？同样，comfirmTransition函数不止会在transition中调用,<br>还会在AbstractHistory的go函数中被直接调用，HashHistory和HTML5History的go方法会直接使用window.history.go(n);nodejs全局对象是global,不是windows,所以需要特殊处理</p>
+<p><img src="/image/vuerouter.jpg" alt="vuerouter"></p>
 
       
     </div>
@@ -405,8 +408,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/post/vue/src2.html" rel="next" title="vue 源码学习二【编译器】">
-                <i class="fa fa-chevron-left"></i> vue 源码学习二【编译器】
+              <a href="/post/vue/vuex1.html" rel="next" title="vuex 一些api使用规则">
+                <i class="fa fa-chevron-left"></i> vuex 一些api使用规则
               </a>
             
           </div>
@@ -485,7 +488,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">193</span>
+              <span class="site-state-item-count">195</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
