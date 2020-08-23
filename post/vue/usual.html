@@ -94,7 +94,7 @@
 <meta property="og:site_name" content="My Little World">
 <meta property="og:description" content="释放内部对象且能防止外部修改的方式通过创建中间对象挂载到实例上，通过中间对象的set方法进行拦截123456789101112function initGlobalAPI (Vue) &amp;#123;  var configDef = &amp;#123;&amp;#125;;  configDef.get = function () &amp;#123; return config; &amp;#125;; //config对象是">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2020-02-05T15:16:11.445Z">
+<meta property="og:updated_time" content="2020-08-23T03:20:35.565Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="一些关于vue的零散笔记">
 <meta name="twitter:description" content="释放内部对象且能防止外部修改的方式通过创建中间对象挂载到实例上，通过中间对象的set方法进行拦截123456789101112function initGlobalAPI (Vue) &amp;#123;  var configDef = &amp;#123;&amp;#125;;  configDef.get = function () &amp;#123; return config; &amp;#125;; //config对象是">
@@ -363,7 +363,7 @@
 <p>B:x-template<br>在script标签里使用text/x-template，并且指定id,将这个id赋值给template<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&lt;script type=&apos;text/x-template&apos; id = &apos;mycom&apos;&gt;</div><div class="line">  &lt;div&gt;this is a component&lt;/div&gt;</div><div class="line">&lt;/script&gt;</div><div class="line">Vue.component(&apos;my-comp&apos;,&#123;</div><div class="line">    template:&apos;#mycom&apos;</div><div class="line">&#125;)</div></pre></td></tr></table></figure></p>
 <p>8.强制更新<br>A：使用this.$forceUpdate<br>B：使用v-once创建低开销静态组件，组件包含大量静态内容可以在根元素上添加v-once特性以确保这些内容只计算一次然后缓存起来</p>
 <h2 id="组件通信类型"><a href="#组件通信类型" class="headerlink" title="组件通信类型"></a>组件通信类型</h2><p>父子组件通信<br>1.使用props和$emit父子组件相互通信<br>2.父组件用$children或者利用ref操作子组件<br>3.子组件$parent访问父组件</p>
-<p>非父子组件通信<br>1.使用中央事件总线(eventbus来处理非父子组件间的通信)<br>2.祖先元素通过provide提供数据，后代通过inject获取该数据<br>3.使用$attrs和$listeners实现祖孙组件通信<br>4.$root直接访问根组件</p>
+<p>非父子组件通信<br>1.使用中央事件总线(eventbus来处理非父子组件间的通信)<br>2.祖先元素通过provide提供数据，后代通过<a href="https://www.cnblogs.com/llcdxh/p/10330929.html" target="_blank" rel="external">inject</a>获取该数据<br>3.使用<a href="https://blog.csdn.net/songxiugongwang/article/details/84001967" target="_blank" rel="external">$attrs和$listeners</a>实现祖孙组件通信<br>4.$root直接访问根组件</p>
 <h1 id="Vue-use"><a href="#Vue-use" class="headerlink" title="Vue.use"></a>Vue.use</h1><p>Vue.use(myPlugin)本质上是调用myPlugin.install(VUE)<br>使用插件必须在new vue()启动应用之前完成，实例化之前就要配置好<br>使用Vue.use多次注册相同插件，那只会注册成功一次<br>一个测试案例<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">import Vue from &apos;vue&apos;</div><div class="line">import &#123;expect&#125; from &apos;chai&apos;</div><div class="line">import Counter from &apos;@/counter.vue&apos;</div><div class="line"></div><div class="line">describe(&apos;测试Counter.vue&apos;,()=&gt;&#123;</div><div class="line">    const Constructor = Vue.extend(Counter)</div><div class="line">    const vm = new Constructor().$mount()</div><div class="line">    const button = vm.$el.querySelector(&apos;button&apos;)</div><div class="line">    const clickE = new window.Event(&apos;click&apos;)</div><div class="line">    button.dispatchEvent(clickE)</div><div class="line">    vm._watcher.run()</div><div class="line">    expect(Number(vm.$el.querySelector(&apos;span&apos;).textContent)).to.equal(1)</div><div class="line">&#125;)</div></pre></td></tr></table></figure></p>
 <h1 id="vuex"><a href="#vuex" class="headerlink" title="vuex"></a>vuex</h1><p>默认的五种基本对象<br>state:存储状态(对象)<br>getters:对数据获取之前的再次编译，可以理解为state的计算属性，对state的数据进行筛选，过滤<br>mutations:同步修改状态，并且是同步的。在组件中使用$store.commit(‘’,params)<br>actions:异步修改状态，在组件中使用是$store.dispatch(‘’)<br>modules:store的子模块，为了开发大型项目，方便状态管理而使用的</p>
 
@@ -408,8 +408,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/post/vue/src3.html" rel="prev" title="vue 源码学习三">
-                vue 源码学习三 <i class="fa fa-chevron-right"></i>
+              <a href="/post/js/module.html" rel="prev" title="关于模块化">
+                关于模块化 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>

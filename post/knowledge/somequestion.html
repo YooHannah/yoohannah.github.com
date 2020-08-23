@@ -94,7 +94,7 @@
 <meta property="og:site_name" content="My Little World">
 <meta property="og:description" content="响应式两种方案 前后端通过判断userAgent来跳转不同站点  使用media query媒体查询让页面根据不同设备自动改变页面布局和显示 移动端端适配方案  zoom  vm/vh  rem (font-size Media Query)  flex  viewport（scale=1/dpr）  链接 1234567屏幕尺寸、屏幕分辨率--&amp;gt;对角线分辨率/屏幕尺寸--&amp;gt;屏幕像素密">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2020-08-02T04:05:22.955Z">
+<meta property="og:updated_time" content="2020-08-22T06:51:58.740Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="一些问题小结">
 <meta name="twitter:description" content="响应式两种方案 前后端通过判断userAgent来跳转不同站点  使用media query媒体查询让页面根据不同设备自动改变页面布局和显示 移动端端适配方案  zoom  vm/vh  rem (font-size Media Query)  flex  viewport（scale=1/dpr）  链接 1234567屏幕尺寸、屏幕分辨率--&amp;gt;对角线分辨率/屏幕尺寸--&amp;gt;屏幕像素密">
@@ -345,6 +345,13 @@
 <p>css 样式权重<br>!important<br>内联（1000）<br>id(100)<br>类（10）<br>元素（1）</p>
 <h1 id="根据浏览器设备屏幕宽度和分辨率加载不同大小的图片"><a href="#根据浏览器设备屏幕宽度和分辨率加载不同大小的图片" class="headerlink" title="根据浏览器设备屏幕宽度和分辨率加载不同大小的图片"></a>根据浏览器设备屏幕宽度和分辨率加载不同大小的图片</h1><p>使用Media Query 判断加载不同背景图<br>使用H5的Picture标签<br>使用模板语言进行判断，渲染不同图片<br>请求时带上相关参数，让服务器吐出不同大小图片</p>
 <h1 id="JS-可能出现内存泄露的常见场景"><a href="#JS-可能出现内存泄露的常见场景" class="headerlink" title="JS 可能出现内存泄露的常见场景"></a>JS 可能出现内存泄露的常见场景</h1><p>闭包函数<br>全局变量<br>对象属性循环引用<br>DOM结点删除时未解绑事件<br>Map和Set的属性直接删除</p>
+<h1 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h1><p>1.<br>数据类型在内存中分布<br>常量池：boolean,number,string<br>栈：undefined<br>堆：object<br>函数定义区：function(其实在堆里面)<br> === 比较变量地址；==会通过V8进行隐式转换</p>
+<p>2.<br> 把Object 看作普通类，Object 是Function的实例<br> Object.<strong>proto</strong> === Function.prototype<br> 把Object 看作构造函数，functionxxx 是 Object的派生<br> functionxxx.<strong>proto</strong> === Function.prototype<br> Function.prototype.<strong>proto</strong> === Object.prototype<br> Object.<strong>proto</strong>.<strong>proto</strong> === Object.prototype</p>
+<ol>
+<li>CommonJs AMD CMD NodeModules</li>
+</ol>
+<p>4.LESS/SASS存在价值，有什么作用<br>编程式CSS,可维护性，可扩展性，静态样式一定程度上可以实现动态化</p>
+<p>5.<br>前端基础：HTML/CSS/ECMAScript jQuery/bootStrap<br>新前端：React/VUE/Angular CommonJS/AMD/CMD/NodeModule<br>工具：npm/bowser 预编译（LESS\SASS\Babel）构建工具(webpack\gulp\grunt)<br>应用端服务器：Node Web应用\http协议\RPC\发布部署\微服务<br>跨平台开发：PC（window,mac）前端（web+h5）移动端(andorid,ios)（flutter\react-native）\小程序</p>
 
       
     </div>
@@ -516,7 +523,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#响应式两种方案"><span class="nav-number">1.</span> <span class="nav-text">响应式两种方案</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#移动端端适配方案"><span class="nav-number">2.</span> <span class="nav-text">移动端端适配方案</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#实现动画的6种方式"><span class="nav-number">3.</span> <span class="nav-text">实现动画的6种方式</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#处理浏览器css样式兼容"><span class="nav-number">4.</span> <span class="nav-text">处理浏览器css样式兼容</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#根据浏览器设备屏幕宽度和分辨率加载不同大小的图片"><span class="nav-number">5.</span> <span class="nav-text">根据浏览器设备屏幕宽度和分辨率加载不同大小的图片</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#JS-可能出现内存泄露的常见场景"><span class="nav-number">6.</span> <span class="nav-text">JS 可能出现内存泄露的常见场景</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#响应式两种方案"><span class="nav-number">1.</span> <span class="nav-text">响应式两种方案</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#移动端端适配方案"><span class="nav-number">2.</span> <span class="nav-text">移动端端适配方案</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#实现动画的6种方式"><span class="nav-number">3.</span> <span class="nav-text">实现动画的6种方式</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#处理浏览器css样式兼容"><span class="nav-number">4.</span> <span class="nav-text">处理浏览器css样式兼容</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#根据浏览器设备屏幕宽度和分辨率加载不同大小的图片"><span class="nav-number">5.</span> <span class="nav-text">根据浏览器设备屏幕宽度和分辨率加载不同大小的图片</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#JS-可能出现内存泄露的常见场景"><span class="nav-number">6.</span> <span class="nav-text">JS 可能出现内存泄露的常见场景</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#其他"><span class="nav-number">7.</span> <span class="nav-text">其他</span></a></li></ol></div>
             
 
           </div>
