@@ -259,6 +259,263 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://yoohannah.github.io/post/vue/src4.html">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="YooHannah">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="/psb.jpg">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="My Little World">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="My Little World" src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/post/vue/src4.html" itemprop="url">
+                  vue 源码学习四【数据双向绑定】
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-04-11T22:58:15+08:00">
+                2020-04-11
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>vue双向绑定原理，依赖收集是<br>在created声明周期之前，<br>render生成虚拟dom的时候<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">Vue.prototype._init = function (options) &#123;</div><div class="line">  vm.$options = mergeOptions(</div><div class="line">    resolveConstructorOptions(vm.constructor),</div><div class="line">    options || &#123;&#125;,</div><div class="line">    vm</div><div class="line">  );</div><div class="line">  callHook(vm, &apos;beforeCreate&apos;);//运行订阅了beforecreate钩子的相关方法</div><div class="line">  initState(vm);//处理数据</div><div class="line">  callHook(vm, &apos;created&apos;);</div></pre></td></tr></table></figure></p>
+<h1 id="转换"><a href="#转换" class="headerlink" title="转换"></a>转换</h1><p>转换成内置函数mergedInstanceDataFn<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div></pre></td><td class="code"><pre><div class="line">function mergeOptions (</div><div class="line">   parent,</div><div class="line">   child,</div><div class="line">   vm</div><div class="line"> ) &#123;</div><div class="line">   &#123;</div><div class="line">     checkComponents(child);</div><div class="line">   &#125;</div><div class="line">   </div><div class="line">   if (typeof child === &apos;function&apos;) &#123;</div><div class="line">     child = child.options;</div><div class="line">   &#125;</div><div class="line"></div><div class="line">   // ... normalizeProps, normalizeInject, normalizeDirectives</div><div class="line"></div><div class="line">   if (!child._base) &#123;</div><div class="line">     if (child.extends) &#123;</div><div class="line">       parent = mergeOptions(parent, child.extends, vm);</div><div class="line">     &#125;</div><div class="line">     if (child.mixins) &#123;</div><div class="line">       for (var i = 0, l = child.mixins.length; i &lt; l; i++) &#123;</div><div class="line">         parent = mergeOptions(parent, child.mixins[i], vm);</div><div class="line">       &#125;</div><div class="line">     &#125;</div><div class="line">   &#125;</div><div class="line"></div><div class="line">   var options = &#123;&#125;;</div><div class="line">   var key;</div><div class="line">   for (key in parent) &#123;</div><div class="line">     mergeField(key);</div><div class="line">   &#125;</div><div class="line">   for (key in child) &#123;</div><div class="line">     if (!hasOwn(parent, key)) &#123;</div><div class="line">       mergeField(key);</div><div class="line">     &#125;</div><div class="line">   &#125;</div><div class="line">   //在上面的循环中会遍历到配置的options参数里的data属性，则会调用到strats.data</div><div class="line">   function mergeField (key) &#123; </div><div class="line">     var strat = strats[key] || defaultStrat;</div><div class="line">     options[key] = strat(parent[key], child[key], vm, key);</div><div class="line">   &#125;</div><div class="line">   return options</div><div class="line"> &#125;</div><div class="line"> //</div><div class="line"> strats.data = function (</div><div class="line">   parentVal,</div><div class="line">   childVal,</div><div class="line">   vm</div><div class="line"> ) &#123;</div><div class="line">   if (!vm) &#123;</div><div class="line">     //...vm就是VUE实例，所以不会走这里</div><div class="line">     return mergeDataOrFn(parentVal, childVal)</div><div class="line">   &#125;</div><div class="line">   return mergeDataOrFn(parentVal, childVal, vm)</div><div class="line"> &#125;;</div><div class="line"></div><div class="line"> function mergeDataOrFn (</div><div class="line">   parentVal,</div><div class="line">   childVal,</div><div class="line">   vm</div><div class="line"> ) &#123;</div><div class="line">   if (!vm) &#123;</div><div class="line">     ...</div><div class="line">   &#125; else &#123;</div><div class="line">     return function mergedInstanceDataFn () &#123;</div><div class="line">       // instance merge</div><div class="line">       var instanceData = typeof childVal === &apos;function&apos;</div><div class="line">         ? childVal.call(vm, vm)</div><div class="line">         : childVal;</div><div class="line">       var defaultData = typeof parentVal === &apos;function&apos;</div><div class="line">         ? parentVal.call(vm, vm)</div><div class="line">         : parentVal;</div><div class="line">       if (instanceData) &#123;</div><div class="line">         return mergeData(instanceData, defaultData)</div><div class="line">       &#125; else &#123;</div><div class="line">         return defaultData</div><div class="line">       &#125;</div><div class="line">     &#125;</div><div class="line">   &#125;</div><div class="line"> &#125;</div></pre></td></tr></table></figure></p>
+<p>这一步结束后<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">vm.$options.data = function mergedInstanceDataFn () &#123;</div><div class="line">  //声明时传递进来的data属性值,是函数则执行拿到对象</div><div class="line">  var instanceData = typeof childVal === &apos;function&apos; </div><div class="line">    ? childVal.call(vm, vm)</div><div class="line">    : childVal;</div><div class="line">  //内部属性没有data属性，所以 defaultData 为undefined</div><div class="line">  var defaultData = typeof parentVal === &apos;function&apos;</div><div class="line">    ? parentVal.call(vm, vm)</div><div class="line">    : parentVal;</div><div class="line">  if (instanceData) &#123;</div><div class="line">    return mergeData(instanceData, defaultData)</div><div class="line">  &#125; else &#123;</div><div class="line">    return defaultData</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line">function mergeData (to, from) &#123;</div><div class="line">  if (!from) &#123; return to &#125;</div><div class="line">  ...//省略若干逻辑</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h1 id="数据劫持"><a href="#数据劫持" class="headerlink" title="数据劫持"></a>数据劫持</h1><p>开始进行真正初始化—数据劫持<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">function initState (vm) &#123;</div><div class="line">  vm._watchers = [];</div><div class="line">  var opts = vm.$options;</div><div class="line">  if (opts.data) &#123;</div><div class="line">    initData(vm);</div><div class="line">  &#125; else &#123;</div><div class="line">    observe(vm._data = &#123;&#125;, true /* asRootData */);</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">function initData (vm) &#123;</div><div class="line">    var data = vm.$options.data;</div><div class="line">    data = vm._data = typeof data === &apos;function&apos;</div><div class="line">      ? getData(data, vm)</div><div class="line">      : data || &#123;&#125;;</div><div class="line">    //得到的data不是object对象</div><div class="line">    if (!isPlainObject(data)) &#123;</div><div class="line">      data = &#123;&#125;;</div><div class="line">    &#125;</div><div class="line">    // proxy data on instance</div><div class="line">    var keys = Object.keys(data);</div><div class="line">    var props = vm.$options.props;</div><div class="line">    var methods = vm.$options.methods;</div><div class="line">    var i = keys.length;</div><div class="line">    while (i--) &#123;</div><div class="line">      var key = keys[i];</div><div class="line">      &#123;if (methods &amp;&amp; hasOwn(methods, key)) &#123;...与method同名警告&#125;&#125;</div><div class="line">      if (props &amp;&amp; hasOwn(props, key)) &#123;</div><div class="line">       ...与prop同名警告</div><div class="line">      &#125; else if (!isReserved(key)) &#123; //不是以$或者_开头的key</div><div class="line">        proxy(vm, &quot;_data&quot;, key); //将key值存一份到vm的&apos;_data&apos;属性上</div><div class="line">      &#125;</div><div class="line">    &#125;</div><div class="line">    // observe data</div><div class="line">    observe(data, true /* asRootData */);</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  function getData (data, vm) &#123;</div><div class="line">    // #7573 disable dep collection when invoking(调用) data getters</div><div class="line">    pushTarget();</div><div class="line">    try &#123;</div><div class="line">      return data.call(vm, vm)</div><div class="line">    &#125; catch (e) &#123;</div><div class="line">      handleError(e, vm, &quot;data()&quot;);</div><div class="line">      return &#123;&#125;</div><div class="line">    &#125; finally &#123;</div><div class="line">      popTarget();</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">  var sharedPropertyDefinition = &#123;</div><div class="line">    enumerable: true,</div><div class="line">    configurable: true,</div><div class="line">    get: noop,</div><div class="line">    set: noop</div><div class="line">  &#125;;</div><div class="line">  function proxy (target, sourceKey, key) &#123;</div><div class="line">    sharedPropertyDefinition.get = function proxyGetter () &#123;</div><div class="line">      return this[sourceKey][key]</div><div class="line">    &#125;;</div><div class="line">    sharedPropertyDefinition.set = function proxySetter (val) &#123;</div><div class="line">      this[sourceKey][key] = val;</div><div class="line">    &#125;;</div><div class="line">    Object.defineProperty(target, key, sharedPropertyDefinition);</div><div class="line">  &#125;</div></pre></td></tr></table></figure></p>
+<p>给data创建观察者实例，挂载‘<em>ob</em>’属性，指向一个Observer对象<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line">function observe (value, asRootData) &#123;</div><div class="line">  if (!isObject(value) || value instanceof VNode) &#123;</div><div class="line">    return</div><div class="line">  &#125;</div><div class="line">  var ob;</div><div class="line">  if (hasOwn(value, &apos;__ob__&apos;) &amp;&amp; value.__ob__ instanceof Observer) &#123;</div><div class="line">    ob = value.__ob__;</div><div class="line">  &#125; else if (</div><div class="line">    shouldObserve &amp;&amp;</div><div class="line">    !isServerRendering() &amp;&amp;</div><div class="line">    (Array.isArray(value) || isPlainObject(value)) &amp;&amp;</div><div class="line">    Object.isExtensible(value) &amp;&amp;</div><div class="line">    !value._isVue</div><div class="line">  ) &#123;</div><div class="line">    ob = new Observer(value);</div><div class="line">  &#125;</div><div class="line">  if (asRootData &amp;&amp; ob) &#123;</div><div class="line">    ob.vmCount++;</div><div class="line">  &#125;</div><div class="line">  return ob</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>Observer对象有三个属性,‘<strong>ob</strong>’属性相同<br>{<br>  value:data,<br>  dep : new Dep();<br>  vmCount :0<br>}<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div></pre></td><td class="code"><pre><div class="line">var Observer = function Observer (value) &#123;</div><div class="line">  this.value = value;</div><div class="line">  this.dep = new Dep();</div><div class="line">  this.vmCount = 0;</div><div class="line">  def(value, &apos;__ob__&apos;, this);</div><div class="line">  if (Array.isArray(value)) &#123;</div><div class="line">    if (hasProto) &#123;</div><div class="line">      protoAugment(value, arrayMethods);</div><div class="line">    &#125; else &#123;</div><div class="line">      copyAugment(value, arrayMethods, arrayKeys);</div><div class="line">    &#125;</div><div class="line">    this.observeArray(value);</div><div class="line">  &#125; else &#123;</div><div class="line">    this.walk(value);</div><div class="line">  &#125;</div><div class="line">&#125;;</div><div class="line">function def (obj, key, val, enumerable) &#123;</div><div class="line">  Object.defineProperty(obj, key, &#123;</div><div class="line">    value: val,</div><div class="line">    enumerable: !!enumerable,</div><div class="line">    writable: true,</div><div class="line">    configurable: true</div><div class="line">  &#125;);</div><div class="line">&#125;</div><div class="line">//遍历所有属性并将它们转换为getter / setter。 </div><div class="line">//仅当值类型为Object时才应调用此方法。</div><div class="line">Observer.prototype.walk = function walk (obj) &#123;</div><div class="line">  var keys = Object.keys(obj);</div><div class="line">  for (var i = 0; i &lt; keys.length; i++) &#123;</div><div class="line">    defineReactive$$1(obj, keys[i]);</div><div class="line">  &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure></p>
+<p>真正进行劫持的方法defineReactive$$1<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div></pre></td><td class="code"><pre><div class="line">function defineReactive$$1 (</div><div class="line">    obj,</div><div class="line">    key,</div><div class="line">    val,</div><div class="line">    customSetter,</div><div class="line">    shallow</div><div class="line">  ) &#123;</div><div class="line">    var dep = new Dep();</div><div class="line"></div><div class="line">    var property = Object.getOwnPropertyDescriptor(obj, key);</div><div class="line">    if (property &amp;&amp; property.configurable === false) &#123;</div><div class="line">      return</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    // cater(迎合) for pre-defined getter/setters</div><div class="line">    var getter = property &amp;&amp; property.get;</div><div class="line">    var setter = property &amp;&amp; property.set;</div><div class="line">    if ((!getter || setter) &amp;&amp; arguments.length === 2) &#123;</div><div class="line">      val = obj[key];</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    var childOb = !shallow &amp;&amp; observe(val);//对值进行劫持处理 开始递归处理</div><div class="line">    Object.defineProperty(obj, key, &#123;</div><div class="line">      enumerable: true,</div><div class="line">      configurable: true,</div><div class="line">      get: function reactiveGetter () &#123;</div><div class="line">        var value = getter ? getter.call(obj) : val;</div><div class="line">        if (Dep.target) &#123; //new watch的时候，Dep.target指向Watcher对象,再运行render函数，访问具体变量就会调用这里</div><div class="line">          dep.depend();//对key的依赖进行依赖收集</div><div class="line">          if (childOb) &#123;//如果值是一个对象的情况下</div><div class="line">            childOb.dep.depend();//对对象值的依赖进行依赖收集 实现深度监听</div><div class="line">            if (Array.isArray(value)) &#123;</div><div class="line">              dependArray(value);</div><div class="line">            &#125;</div><div class="line">          &#125;</div><div class="line">        &#125;</div><div class="line">        return value</div><div class="line">      &#125;,</div><div class="line">      set: function reactiveSetter (newVal) &#123;</div><div class="line">        var value = getter ? getter.call(obj) : val;</div><div class="line">        //相同值，不更新</div><div class="line">        if (newVal === value || (newVal !== newVal &amp;&amp; value !== value)) &#123;</div><div class="line">          return</div><div class="line">        &#125;</div><div class="line">        //有setter方法直接用setter方法更新，没有直接赋值</div><div class="line">        if (getter &amp;&amp; !setter) &#123; return &#125;</div><div class="line">        if (setter) &#123;</div><div class="line">          setter.call(obj, newVal);</div><div class="line">        &#125; else &#123;</div><div class="line">          val = newVal;</div><div class="line">        &#125;</div><div class="line">        //对新值进行劫持处理 更新childOb</div><div class="line">        //如果新值是对象对新赋的值在更新时进行依赖收集</div><div class="line">        childOb = !shallow &amp;&amp; observe(newVal); </div><div class="line">        dep.notify();</div><div class="line">      &#125;</div><div class="line">    &#125;);</div><div class="line">  &#125;</div></pre></td></tr></table></figure></p>
+<p>每个被劫持过的数据的标识<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line">var Dep = function Dep () &#123;</div><div class="line">  this.id = uid++;</div><div class="line">  this.subs = [];</div><div class="line">&#125;;</div><div class="line">Dep.prototype.addSub = function addSub (sub) &#123;</div><div class="line">  this.subs.push(sub);</div><div class="line">&#125;;</div><div class="line"></div><div class="line">Dep.prototype.depend = function depend () &#123;</div><div class="line">  if (Dep.target) &#123;</div><div class="line">    Dep.target.addDep(this); //调用Watcher.addDep方法，this指dep</div><div class="line">  &#125;</div><div class="line">&#125;;</div><div class="line"></div><div class="line">Dep.prototype.notify = function notify () &#123;</div><div class="line">  // stabilize the subscriber list first</div><div class="line">  var subs = this.subs.slice();</div><div class="line">  if (!config.async) &#123;</div><div class="line">    // subs aren&apos;t sorted in scheduler if not running async</div><div class="line">    // we need to sort them now to make sure they fire in correct</div><div class="line">    // order</div><div class="line">    subs.sort(function (a, b) &#123; return a.id - b.id; &#125;);</div><div class="line">  &#125;</div><div class="line">  for (var i = 0, l = subs.length; i &lt; l; i++) &#123;</div><div class="line">    subs[i].update(); //执行watcher的update函数</div><div class="line">  &#125;</div><div class="line">&#125;;</div><div class="line">Dep.target = null;</div><div class="line">var targetStack = [];</div></pre></td></tr></table></figure></p>
+<h1 id="订阅发布"><a href="#订阅发布" class="headerlink" title="订阅发布"></a>订阅发布</h1><p>mountComponent函数会new Watcher一个对象,执行get方法【详见源码分析二】<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div></pre></td><td class="code"><pre><div class="line">var _Set;</div><div class="line">/* istanbul ignore if */ // $flow-disable-line</div><div class="line">if (typeof Set !== &apos;undefined&apos; &amp;&amp; isNative(Set)) &#123;</div><div class="line">  // use native Set when available.</div><div class="line">  _Set = Set;</div><div class="line">&#125; else &#123;</div><div class="line">  // a non-standard Set polyfill that only works with primitive keys.</div><div class="line">  _Set = /*@__PURE__*/(function () &#123;</div><div class="line">    function Set () &#123;</div><div class="line">      this.set = Object.create(null);</div><div class="line">    &#125;</div><div class="line">    Set.prototype.has = function has (key) &#123;</div><div class="line">      return this.set[key] === true</div><div class="line">    &#125;;</div><div class="line">    Set.prototype.add = function add (key) &#123;</div><div class="line">      this.set[key] = true;</div><div class="line">    &#125;;</div><div class="line">    Set.prototype.clear = function clear () &#123;</div><div class="line">      this.set = Object.create(null);</div><div class="line">    &#125;;</div><div class="line">    return Set;</div><div class="line">  &#125;());</div><div class="line">&#125;</div><div class="line">var Watcher = function Watcher (...args)&#123;</div><div class="line">  this.deps = [];</div><div class="line">  this.newDeps = [];</div><div class="line">  this.depIds = new _Set();</div><div class="line">  this.newDepIds = new _Set();</div><div class="line">&#125;</div><div class="line">Watcher.prototype.get = function get () &#123;</div><div class="line">    pushTarget(this); //将当前Watcher挂到第三方Dep.target上</div><div class="line">    var value;</div><div class="line">    var vm = this.vm;</div><div class="line">    try &#123;</div><div class="line">      //this.getter会执行render,触发数据的get方法，进行相互订阅</div><div class="line">      value = this.getter.call(vm, vm); </div><div class="line">    &#125; catch (e) &#123;</div><div class="line">      ...</div><div class="line">    &#125; finally &#123;</div><div class="line">      // &quot;touch&quot; every property so they are all tracked as</div><div class="line">      // dependencies for deep watching</div><div class="line">      if (this.deep) &#123;</div><div class="line">        traverse(value);</div><div class="line">      &#125;</div><div class="line">      popTarget();</div><div class="line">      this.cleanupDeps();</div><div class="line">    &#125;</div><div class="line">    return value</div><div class="line">  &#125;;</div><div class="line">function pushTarget (target) &#123;</div><div class="line">  targetStack.push(target);</div><div class="line">  Dep.target = target;</div><div class="line">&#125;</div><div class="line">//watcher和dep互相存id</div><div class="line">Watcher.prototype.addDep = function addDep (dep) &#123; </div><div class="line">  var id = dep.id;</div><div class="line">  if (!this.newDepIds.has(id)) &#123;</div><div class="line">    this.newDepIds.add(id);</div><div class="line">    this.newDeps.push(dep);</div><div class="line">    if (!this.depIds.has(id)) &#123;</div><div class="line">      dep.addSub(this); //将watcher加入到dep的sub属性中</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">&#125;;</div><div class="line">Watcher.prototype.update = function update () &#123;</div><div class="line">  /* istanbul ignore else */</div><div class="line">  if (this.lazy) &#123;</div><div class="line">    this.dirty = true;</div><div class="line">  &#125; else if (this.sync) &#123;</div><div class="line">    this.run();</div><div class="line">  &#125; else &#123;</div><div class="line">    queueWatcher(this);</div><div class="line">  &#125;</div><div class="line">&#125;;</div><div class="line">Watcher.prototype.run = function run () &#123;</div><div class="line">  if (this.active) &#123;</div><div class="line">    var value = this.get(); //重新调用render函数更新数据</div><div class="line">    if (</div><div class="line">      value !== this.value ||</div><div class="line">      //对于需要深度监听的数据类型，值没有变，也许值内容发生了变化 </div><div class="line">      isObject(value) ||</div><div class="line">      this.deep</div><div class="line">    ) &#123;</div><div class="line">      var oldValue = this.value;</div><div class="line">      this.value = value;</div><div class="line">      if (this.user) &#123;</div><div class="line">        try &#123;</div><div class="line">          this.cb.call(this.vm, value, oldValue);</div><div class="line">        &#125; catch (e) &#123;</div><div class="line">          handleError(e, this.vm, (&quot;callback for watcher \&quot;&quot; + (this.expression) + &quot;\&quot;&quot;));</div><div class="line">        &#125;</div><div class="line">      &#125; else &#123;</div><div class="line">        this.cb.call(this.vm, value, oldValue);</div><div class="line">      &#125;</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure></p>
+<p><a href="https://github.com/YooHannah/algorithm/blob/master/html/vuesrc/dataResponse.js" target="_blank" rel="external">vue3.0数据响应式原理</a></p>
+<h1 id="vue3-0的改进"><a href="#vue3-0的改进" class="headerlink" title="vue3.0的改进"></a>vue3.0的改进</h1><p>1.对源码进行优化<br>使用monorepo和TS管理和开发源码，提升自身代码的可维护性<br>2.性能优化<br>减少源码体积<br>移除冷门的feature(如filter,inline-template)<br>引入tree-shaking,减小打包体积</p>
+<p>数据劫持优化<br>原来缺点<br>无法判断对象属性删除新增<br>深度层次结点要递归遍历，也不知道会不会用到，都要劫持，不友好</p>
+<p>解决<br>使用proxy API 可以检测到删除还是新增<br>在用到时才劫持，避免无脑递归</p>
+<p>3.编译优化<br>判断更新的颗粒度变小，从原来的组件级，利用block tree的区块细化到动态节点级<br>引入 compositionAPI 优化逻辑关注点相关的代码，可以避免mixin的时候的命名冲突</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://yoohannah.github.io/post/knowledge/sso.html">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="YooHannah">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="/psb.jpg">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="My Little World">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="My Little World" src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/post/knowledge/sso.html" itemprop="url">
+                  sso单点登录实现
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-03-25T23:27:15+08:00">
+                2020-03-25
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h1><p>多项目想要实现统一登录，即登录一个系统后，在打开其他相关系统页面后，是已经登录的状态，不再进行登录</p>
+<h1 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h1><p>多个系统使用统一的顶级域名，利用cookie的domain属性，将登录后cookie保存在浏览器中，只要是该cookie的domain所包含的域名的站点，都可以拿到这个cookie</p>
+<h1 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h1><p>选择原来多个站点中其中一个站点的登录页，作为公共跳转页<br>在登录之后将token塞到浏览器中<br>这里设置统一token在cookie中的key值为_a<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line">根据运行环境设置domain,sit,dev均为测试环境</div><div class="line">function getDomain(name)&#123;</div><div class="line">  let testENVs = [&apos;localhost&apos;,&apos;sit&apos;,&apos;dev&apos;]</div><div class="line">  let testENV = &apos;&apos;</div><div class="line">  testENVs.forEach(env=&gt;&#123;</div><div class="line">    if(location.hostname.includes(env))&#123; //根据域名判断环境</div><div class="line">      testENV = env</div><div class="line">    &#125;</div><div class="line">  &#125;)</div><div class="line">  let temp = testENV?testENV +&apos;.xxxx.com&apos;:&apos;xxxx.com&apos;</div><div class="line">  //本地开发不加domain,默认localhost,否则本地没办法进行开发</div><div class="line">  let domain = testENV === &apos;localhost&apos; ? &apos;&apos;: (name === &apos;_a&apos;? temp:location.hostname)//个别cookie字段仅用于本站点，所以domain设置为站点域名</div><div class="line">  return domain</div><div class="line">&#125;</div><div class="line">setCookie=(name,value) =&gt; &#123;</div><div class="line">    const Days = 0.5</div><div class="line">    const exp = new Date()</div><div class="line">    exp.setTime(exp.getTime() + Days*24*60*60*1000)</div><div class="line">    let str =  name + &apos;=&apos; + escape(value) + &apos;;expires=&apos; + exp.toGMTString()</div><div class="line">    let domain = getDomain(name)</div><div class="line">    if(domain)&#123;</div><div class="line">      str +=&apos;;domain=&apos; + domain</div><div class="line">    &#125;</div><div class="line">    document.cookie = str</div><div class="line">  &#125;,</div></pre></td></tr></table></figure></p>
+<p>之所以要根据不同运行环境设置不同domain,是因为要在不同测试环境也要实现单点登录<br>比如测试环境在sit环境的a.sit.xxxx.com和b.sit.xxxx.com<br>a.sit.xxxx.com登录页作为公共登录页<br>在a.sit.xxxx.com登录后，token的cookie会被设置成<br>key是_a,domain是sit.xxxx.com(浏览器会自动在前面加一个点)，这样打开b.sit.xxxx.com的页面，浏览器中还会存在_a这个cookie,b.sit.xxxx.com就可以直接拿这个cookie向服务器发请求了</p>
+<p>以此类推，在dev环境，这两个站点域名会变成<br>a.dev.xxxx.com和b.dev.xxxx.com<br>_a的domain会被设置成dev.xxxx.com<br>这时如果去b.dev.xxxx.com,_a是会有的<br>但去a.sit.xxxx.com,是不会有的，因为_a此时仅限于dev.xxxx.com域名及其子域名</p>
+<p>等到了生产环境，二者域名变为<br>a.xxxx.com和b.xxxx.com<br>_a的domain会被设置成xxxx.com<br>此时就会出现一个问题，假如我先登录了线上环境<br>有了domain为xxxx.com的_a<br>再去测试环境登录，此时会加进去domain为sit/dev.xxx.com的_a<br>两个_a如何区分哪个才是当前环境的_a？</p>
+<p>遇到的问题一 ：测试环境_a加不进去，出现一闪而过<br>开始以为是浏览器机制问题，后来才发现，是代码逻辑问题<br>其实cookie是有写进浏览器的，跟cookie本身处理机制无关，可以写进去，问题出在了取cookie _a再给后台发请求的时候，以前是保存token的只有一个特殊key名，直接取那个key名就行，现在有两个_a，逻辑还是按照第一个来取，结果取错了，后台给发过来401，前端代码处理http状态码的逻辑又是401清cookie跳登录，所以domain为. sit/dev. xxxx. com的cookie就又消失了😅</p>
+<p>遇到问题二 ：两个_a如何区分哪个才是当前环境的_a？<br>因为后台实现分层，与前端直接对接的后台，无法访问后台的用户cookie表，能拿到cookie表的后台站在大局角度看问题，这个逻辑又觉得不是有必要加的，所以不能要求后台拿到报文中cookie后去表里面做判断<br>所以由前端通过读取document.cookie,整理拿到两个_a后，依次用每个_a去给后台发请求，如果成功了，说明当前_a是正确的，就可以用这个_a去发真正的请求，同时记录下这个_a,避免之后的重复探测</p>
+<h1 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h1><p>1.碰到问题一时，很无厘头，但分析出原因后，让人感觉很无语，正确的说是，让人很没面子，遇到问题应该善于分析，戒骄戒躁<br>2.问题二，有时候，你认为很恶心的做法，恰巧可能会被采纳</p>
+<h1 id="后记"><a href="#后记" class="headerlink" title="后记"></a>后记</h1><p>发版到线上后，发现部分同事登陆成功后又跳回登录页面，中间发起的请求报401</p>
+<p>经过查看同事浏览器的cookie发现,存在设置了httponly的_a，即我们所有系统统一使用的token标识，<br>cookie设置了httponly意味着js没有权限进行获取更改甚至不能删除，所以新登录的token是没有写进去的，拿到的token也就是错的<br>解决办法就是让后台同事强制写一个没有httponly的_a进去，让后台覆盖后台，<br>说明浏览器优先级是先处理set-cookie的cookie逻辑，再看是否有httponly,决定js是否有权限处理cookie</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
   <link itemprop="mainEntityOfPage" href="http://yoohannah.github.io/post/vue/vuepress.html">
 
   <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1377,261 +1634,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="http://yoohannah.github.io/post/js/module.html">
-
-  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
-    <meta itemprop="name" content="YooHannah">
-    <meta itemprop="description" content="">
-    <meta itemprop="image" content="/psb.jpg">
-  </span>
-
-  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-    <meta itemprop="name" content="My Little World">
-    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
-      <img style="display:none;" itemprop="url image" alt="My Little World" src="">
-    </span>
-  </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/post/js/module.html" itemprop="url">
-                  关于模块化
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-01-27T11:08:15+08:00">
-                2020-01-27
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="什么是模块化"><a href="#什么是模块化" class="headerlink" title="什么是模块化"></a>什么是模块化</h1><p>  模块化就是把系统分离成独立功能的方法，从而实现需要什么功能，就加载什么功能<br>  当一个项目开发得越来越复杂时，会出现问题：命名冲突；文件依赖<br>  使用模块化开发，可以避免以上问题，并且提高开发效率：可维护性；可复用性</p>
-<p>  模块化开发演变<br>  1.使用全局函数      ===&gt;早期开发就是将重复得代码封装到函数中，再将一系列的函数放到一个文件中<br>    存在的问题就是：污染全局变量；看不出相互的直接关系<br>  2.使用对象命名空间  ===&gt;通过对象命名空间的形式，从某种程度上解决了变量命名冲突的问题，但是并不能从根本上解决命名冲突<br>    存在的问题是：内部状态可被外部改写；命名空间越来越来长<br>  3.私有共有成员分离  ===&gt;利用此种方式将函数包装成一个独立的作用域，私有空间的变量和函数不会影响全局作用域<br>    存在问题：解决了变量命名冲突问题，但是没有解决降低开发复杂度的问题</p>
-<h1 id="Commonjs"><a href="#Commonjs" class="headerlink" title="Commonjs"></a>Commonjs</h1><p>  commomJS规范加载模块是【同步】的，也就是说，加载完成才执行后面的操作<br>  Node.js主要用于服务器编程，模块都是存在本地硬盘中加载比较快，所以Node.js采用CommonJS<br>  三个部分：<br>  module变量在每个模块内部，就代表当前模块<br>  exports属性是对外的接口，用于导出当前模块的方法或变量<br>  require()用来加载外部模块，读取并执行js文件，返回该模块的exports对象<br>  <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line">加载时执行：</div><div class="line">a.js</div><div class="line">exports.done = ture</div><div class="line">var b = require(&apos;b.js&apos;)</div><div class="line">console.log(&apos;a.js-done&apos;)</div><div class="line"></div><div class="line">b.js</div><div class="line">exports.done = false</div><div class="line">var a = require(&apos;a.js&apos;)</div><div class="line">console.log(a.done)</div><div class="line">console.log(&apos;b.js-done&apos;)</div><div class="line"></div><div class="line">App.js   执行App.js</div><div class="line">var a = require(&apos;a.js&apos;) // 因为引用b.js，执行b.js代码故打印出true b.js-done，引用完毕后接着执行打印出 a.js-done</div><div class="line">var b = require(&apos;b.js&apos;)// 已经被a引用过，不再执行 直接在缓存中找出 exports &#123;done：false&#125; 返回</div><div class="line">console.log(a.done)</div><div class="line">console.log(b.done) </div><div class="line"></div><div class="line">如果a.js改成如下</div><div class="line">var b = require(&apos;b.js&apos;)</div><div class="line">exports.done = ture</div><div class="line">console.log(&apos;a.js-done&apos;)</div><div class="line">执行App.js</div><div class="line">打印结果为undefined b.js-done a.js-done true false </div><div class="line">因为a依赖b时，执行b，b再依赖a时，exports.done = ture语句还未执行，故a 的 exports 为&#123;&#125; exports.done自然为undefined</div></pre></td></tr></table></figure></p>
-<p>  只有commonjs因为同步加载，加载时执行可实现循环依赖，其他模式均不可以处理循环依赖的用法</p>
-<h1 id="AMD-requirejs"><a href="#AMD-requirejs" class="headerlink" title="AMD(requirejs)"></a>AMD(requirejs)</h1><p>  AMD也就是【异步】模块定义，它采用异步方式加载模块，通过define方法去定义模块，require方法去加载模块<br>  定义：<br>  define([tools],function(){return {}}) //第一个参数为数组时，说明该模块还依赖其他模块,提前声明依赖，没有依赖时，只传入function即可<br>  加载：<br>  require([‘module’],callback) //第一个参数数组内成员即要加载的模块，callback是前面所有某块都加载成功之后的回调函数<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div></pre></td><td class="code"><pre><div class="line">/** a.js */</div><div class="line"></div><div class="line">define([&apos;b&apos;], function(b) &#123;</div><div class="line">  console.log(b)</div><div class="line">  var hello = function()&#123;</div><div class="line">    console.log(&apos;hello work&apos;)</div><div class="line">  &#125;</div><div class="line">  return &#123;</div><div class="line">    Hello:Hello</div><div class="line">  &#125;</div><div class="line">&#125;);</div><div class="line"></div><div class="line">/** b.js */</div><div class="line"></div><div class="line">define(function()&#123;</div><div class="line">  var name = &apos;max&apos;</div><div class="line">  return&#123;</div><div class="line">    name:name</div><div class="line">  &#125;</div><div class="line">&#125;)</div><div class="line"></div><div class="line">/** 使用a.js,b.js */</div><div class="line"></div><div class="line">/*</div><div class="line"> &lt;script type=&apos;text/javascript&apos; src=&apos;require.js&apos;&gt;&lt;/script&gt;</div><div class="line"> &lt;script type=&apos;text/javascript&apos;&gt;</div><div class="line">  require.config(&#123;</div><div class="line">    paths:&#123;</div><div class="line">      &apos;a&apos;:&apos;./a&apos;,</div><div class="line">      &apos;b&apos;:&apos;./b&apos;</div><div class="line">    &#125;</div><div class="line">  &#125;)</div><div class="line">  require([&apos;a&apos;,&apos;b&apos;],function(a,b)&#123; //启用模块加载器</div><div class="line">    console.log(a)</div><div class="line">    console.log(b)</div><div class="line">  &#125;)</div><div class="line"> &lt;/script&gt;</div><div class="line"> */</div></pre></td></tr></table></figure></p>
-<h1 id="CMD-seajs"><a href="#CMD-seajs" class="headerlink" title="CMD(seajs)"></a>CMD(seajs)</h1><p>  与AMD一样，只是定义和模块加载方式上不同<br>  一个模块一个文件<br>  define(function(require,exports,module){<br>   //require 是可以把其他模块导入进来的一个参数<br>   //exports可以把模块内的一些属性和方法导出<br>   //module是一个对象，上面存储了与当前模块相关联的一些属性和方法<br>  })<br>  CMD推崇依赖就近，延迟执行，文件是提前加载好的，只有在require的时候才去执行文件<br>  define(function(require,exports,module){<br>     var math = require(‘./math’)<br>     math.add()<br>  })<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line">/** a.js */</div><div class="line"></div><div class="line">define(function(require,exports,module) &#123;</div><div class="line">  var b = require(&apos;b&apos;)</div><div class="line">  console.log(b)</div><div class="line">  exports.hello = function()&#123;</div><div class="line">    console.log(&apos;hello work&apos;)</div><div class="line">  &#125;</div><div class="line">&#125;);</div><div class="line"></div><div class="line"> &lt;script type=&apos;text/javascript&apos; src=&apos;sea.js&apos;&gt;&lt;/script&gt;</div><div class="line"> &lt;script type=&apos;text/javascript&apos;&gt;</div><div class="line">  seajs.config(&#123;</div><div class="line">    alias:&#123;</div><div class="line">      &apos;a&apos;:&apos;./a&apos;,</div><div class="line">      &apos;b&apos;:&apos;./b&apos;</div><div class="line">    &#125;</div><div class="line">  &#125;)</div><div class="line">  seajs.use([&apos;a&apos;,&apos;b&apos;],function(a,b)&#123; //启用模块加载器</div><div class="line">    console.log(a)</div><div class="line">    console.log(b)</div><div class="line">  &#125;)</div><div class="line"> &lt;/script&gt;</div></pre></td></tr></table></figure></p>
-<h1 id="ES6模块化"><a href="#ES6模块化" class="headerlink" title="ES6模块化"></a>ES6模块化</h1><p>  汲取CommonJS和AMD优点，支持异步加载，未来可以成为浏览器和服务器通用的模块化解决方案<br>  export:用于把模块里的内容暴露出来， export default 为模块指定默认输出，一个模块只能有一个默认输出，所以export default 只能使用一次<br>  import： 用于引入模块提供的功能===&gt; import {x1,x2} form ‘./lib’; x1()</p>
-<p>  ES6模块运行机制：<br>  ES6模块是动态引用，如果使用import从一个模块加载变量，变量不会被缓存，<br>  而是成为一个指向被加载模块的引用。等脚本执行时，根据只读引用到被加载的那个模块中去取值</p>
-<p>  ES6与CommonJS模块差异<br>  CommonJS模块输出的是一个值的拷贝，ES6模块输出的是值得引用<br>  CommonJS模块运行时加载，ES6模块编译时输出接口</p>
-<h1 id="加载器结构"><a href="#加载器结构" class="headerlink" title="加载器结构"></a>加载器结构</h1><h2 id="模块部分"><a href="#模块部分" class="headerlink" title="模块部分"></a>模块部分</h2><p>   每个模块创建都先初始化数据，存储在缓存对象中<br>   <img src="/image/module1.png" alt="module1"></p>
-<h3 id="数据初始化"><a href="#数据初始化" class="headerlink" title="数据初始化"></a>数据初始化</h3><p>  <img src="/image/module2.png" alt="module2"><br>  加载器中设计了一个名为Module的构造函数，【每个模块都是此构造函数的实例对象】<br>  构造函数中给实例对象扩展了’未来’所需要用到的属性（uri:当前模块绝对路径地址，deps:模块的依赖列表….)及方法(load,resolve:获取当前模块绝对路径…)</p>
-<h3 id="模块存储"><a href="#模块存储" class="headerlink" title="模块存储"></a>模块存储</h3><p>  加载器中设计了一个名为cache的缓存对象，每个文件(模块)都会存储在cache对象中<br>  具体存储方式:{‘当前模块绝对路径’: new Module()} 注意：当前模块的绝对路径是通过资源部分，资源定位方法实现的</p>
-<h2 id="资源部分"><a href="#资源部分" class="headerlink" title="资源部分"></a>资源部分</h2><p>   资源定位和依赖管理是加载器涉及的两大核心</p>
-<h3 id="资源定位"><a href="#资源定位" class="headerlink" title="资源定位"></a>资源定位</h3><p>  <img src="/image/module3.png" alt="module3"><br>  加载器中设计了一个resolve()方法把模块名解析成绝对路径格式<br>  检测当前模块名称是否有路径短名称配置，是否有模块短名称配置，是否有后缀<br>  在加载器启动方法中会去调用传入数组列表中的模块，获取模块名称<br>  然后根据当前项目绝对路径和模块名称进行拼接</p>
-<h4 id="动态加载script文件"><a href="#动态加载script文件" class="headerlink" title="动态加载script文件"></a>动态加载script文件</h4><p>  动态创建script标签： document.create(‘script’)； src指向当前模块绝对路径地址<br>  加载文件同时，模块加载器解析当前模块所依赖的模块，以数组形式存储，更新到deps属性中</p>
-<h3 id="依赖管理"><a href="#依赖管理" class="headerlink" title="依赖管理"></a>依赖管理</h3><p>  已知当前模块在cache中的形态，{‘当前模块绝对路径’: new Module()}<br>  换算成：{‘当前模块绝对路径’: {uri:’当前模块绝对路径’,deps:[]}}<br>  <img src="/image/module4.png" alt="module4"><br>    deps存储当前模块的依赖列表，依赖列表通过动态加载script文件正则解析获取<br>    重点：解析依赖—&gt;获取依赖模块绝对路径地址—-&gt;动态加载—-&gt;提取依赖—-&gt;解析依赖<br>        递归方式加载所有模块，直至模块全部加载完毕（模块的deps属性集合中没有依赖的绝对路径，即长度为0）</p>
-<h2 id="如何实现一个文件一个作用域？"><a href="#如何实现一个文件一个作用域？" class="headerlink" title="如何实现一个文件一个作用域？"></a>如何实现一个文件一个作用域？</h2><p>  保证模块拥有独立作用域，采用对象命名空间的思想，即每个模块返回一个接口对象，这个独立作用域就是一个对象</p>
-<h2 id="如何拿到依赖模块的接口对象？"><a href="#如何拿到依赖模块的接口对象？" class="headerlink" title="如何拿到依赖模块的接口对象？"></a>如何拿到依赖模块的接口对象？</h2><p>  参数即define传入的函数，执行函数，返回函数返回的结果即对象</p>
-<h2 id="如何让寻找依赖？"><a href="#如何让寻找依赖？" class="headerlink" title="如何让寻找依赖？"></a>如何让寻找依赖？</h2><p>  拼接地址，缓存，然后递归<br>  图片：依赖加载策略 模块数据初始化 资源定位-动态加载 依赖管理解决方案</p>
-<h2 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div><div class="line">114</div><div class="line">115</div><div class="line">116</div><div class="line">117</div><div class="line">118</div><div class="line">119</div><div class="line">120</div><div class="line">121</div><div class="line">122</div><div class="line">123</div><div class="line">124</div><div class="line">125</div><div class="line">126</div><div class="line">127</div><div class="line">128</div><div class="line">129</div><div class="line">130</div><div class="line">131</div><div class="line">132</div><div class="line">133</div><div class="line">134</div><div class="line">135</div><div class="line">136</div><div class="line">137</div><div class="line">138</div><div class="line">139</div><div class="line">140</div><div class="line">141</div><div class="line">142</div><div class="line">143</div><div class="line">144</div><div class="line">145</div><div class="line">146</div><div class="line">147</div><div class="line">148</div><div class="line">149</div><div class="line">150</div><div class="line">151</div><div class="line">152</div><div class="line">153</div><div class="line">154</div><div class="line">155</div><div class="line">156</div><div class="line">157</div><div class="line">158</div><div class="line">159</div><div class="line">160</div><div class="line">161</div><div class="line">162</div><div class="line">163</div><div class="line">164</div><div class="line">165</div><div class="line">166</div><div class="line">167</div><div class="line">168</div><div class="line">169</div><div class="line">170</div><div class="line">171</div><div class="line">172</div><div class="line">173</div><div class="line">174</div><div class="line">175</div><div class="line">176</div><div class="line">177</div><div class="line">178</div><div class="line">179</div><div class="line">180</div><div class="line">181</div><div class="line">182</div><div class="line">183</div><div class="line">184</div><div class="line">185</div><div class="line">186</div><div class="line">187</div><div class="line">188</div><div class="line">189</div><div class="line">190</div><div class="line">191</div><div class="line">192</div><div class="line">193</div><div class="line">194</div><div class="line">195</div><div class="line">196</div><div class="line">197</div><div class="line">198</div><div class="line">199</div><div class="line">200</div><div class="line">201</div><div class="line">202</div><div class="line">203</div><div class="line">204</div><div class="line">205</div><div class="line">206</div><div class="line">207</div><div class="line">208</div><div class="line">209</div><div class="line">210</div><div class="line">211</div><div class="line">212</div><div class="line">213</div><div class="line">214</div><div class="line">215</div><div class="line">216</div><div class="line">217</div><div class="line">218</div><div class="line">219</div><div class="line">220</div><div class="line">221</div><div class="line">222</div><div class="line">223</div><div class="line">224</div><div class="line">225</div><div class="line">226</div><div class="line">227</div><div class="line">228</div><div class="line">229</div><div class="line">230</div><div class="line">231</div><div class="line">232</div><div class="line">233</div><div class="line">234</div><div class="line">235</div><div class="line">236</div><div class="line">237</div><div class="line">238</div><div class="line">239</div><div class="line">240</div><div class="line">241</div><div class="line">242</div><div class="line">243</div><div class="line">244</div><div class="line">245</div><div class="line">246</div><div class="line">247</div><div class="line">248</div><div class="line">249</div><div class="line">250</div><div class="line">251</div><div class="line">252</div><div class="line">253</div><div class="line">254</div><div class="line">255</div><div class="line">256</div><div class="line">257</div><div class="line">258</div><div class="line">259</div><div class="line">260</div><div class="line">261</div><div class="line">262</div><div class="line">263</div><div class="line">264</div><div class="line">265</div><div class="line">266</div><div class="line">267</div><div class="line">268</div><div class="line">269</div><div class="line">270</div><div class="line">271</div><div class="line">272</div><div class="line">273</div><div class="line">274</div><div class="line">275</div><div class="line">276</div><div class="line">277</div><div class="line">278</div><div class="line">279</div><div class="line">280</div><div class="line">281</div><div class="line">282</div><div class="line">283</div><div class="line">284</div><div class="line">285</div><div class="line">286</div><div class="line">287</div><div class="line">288</div><div class="line">289</div><div class="line">290</div><div class="line">291</div><div class="line">292</div><div class="line">293</div><div class="line">294</div><div class="line">295</div><div class="line">296</div><div class="line">297</div><div class="line">298</div><div class="line">299</div><div class="line">300</div><div class="line">301</div><div class="line">302</div><div class="line">303</div><div class="line">304</div><div class="line">305</div><div class="line">306</div><div class="line">307</div><div class="line">308</div><div class="line">309</div><div class="line">310</div><div class="line">311</div><div class="line">312</div><div class="line">313</div><div class="line">314</div><div class="line">315</div><div class="line">316</div><div class="line">317</div><div class="line">318</div><div class="line">319</div><div class="line">320</div><div class="line">321</div><div class="line">322</div><div class="line">323</div><div class="line">324</div><div class="line">325</div><div class="line">326</div><div class="line">327</div><div class="line">328</div><div class="line">329</div><div class="line">330</div><div class="line">331</div><div class="line">332</div><div class="line">333</div><div class="line">334</div><div class="line">335</div><div class="line">336</div><div class="line">337</div></pre></td><td class="code"><pre><div class="line">(function(global) &#123;</div><div class="line">  var startUp = global.startUp = &#123;</div><div class="line">    version:&apos;1.0.1&apos;</div><div class="line">  &#125;</div><div class="line">  </div><div class="line">  </div><div class="line">  var data = &#123;&#125; //配置信息</div><div class="line">  var cache = &#123;&#125;</div><div class="line">  var anonymousMeta = &#123;&#125;</div><div class="line">  //模块生命周期</div><div class="line"></div><div class="line">  var status = &#123;</div><div class="line">    FETCHED: 1,</div><div class="line">    SAVED:2,</div><div class="line">    LOADING:3,</div><div class="line">    LOADED:4,</div><div class="line">    EXECTING:5,</div><div class="line">    EXECTED:6</div><div class="line">  &#125;</div><div class="line">  var isArray = function (obj) &#123;</div><div class="line">    return toString.call(obj) === &quot;[object Array]&quot;</div><div class="line">  &#125;</div><div class="line">  var isFunction = function (obj) &#123;</div><div class="line">    return toString.call(obj) === &quot;[object Function]&quot;</div><div class="line">  &#125;</div><div class="line">  var isString = function (obj) &#123;</div><div class="line">    return toString.call(obj) === &quot;[object String]&quot;</div><div class="line">  &#125;</div><div class="line">  function scripts()&#123;</div><div class="line">    return document.getElementsByTagName(&apos;script&apos;)</div><div class="line">  &#125;</div><div class="line">  function getInteractiveScript()&#123; //支持data-main属性添加默认路径: &lt;script data-main = &apos;common/js&apos; src=&apos;module.js&apos;&gt;&lt;/script&gt;</div><div class="line">    var arrS = scripts()</div><div class="line">    var dataMain,src</div><div class="line">    var exp = /^.*\.js$/</div><div class="line">    arrS = [].slice.call(arrS)</div><div class="line">    arrS.forEach(function(script)&#123;</div><div class="line">      dataMain = script.getAttribute(&apos;data-main&apos;)</div><div class="line">      if(dataMain &amp;&amp; !data.baseUrl &amp;&amp; !(exp.test(dataMain)))&#123;</div><div class="line">        if(dataMain.substring(dataMain.length-1) !== &apos;/&apos;)&#123;</div><div class="line">          dataMain = (dataMain+&apos;/&apos;)</div><div class="line">        &#125;</div><div class="line">        data.baseUrl = dataMain</div><div class="line">      &#125;</div><div class="line">    &#125;)</div><div class="line">  &#125;</div><div class="line">  getInteractiveScript()</div><div class="line">  //是否使用了别名</div><div class="line">  function parseAlias(id)&#123;</div><div class="line">    var alias = data.alias //是否配置别名</div><div class="line">    return alias &amp;&amp; isString(alias[id]) ? alias[id] :id //没有配置别名，返回原来值，有配置别名，返回别名对应值</div><div class="line">  &#125;</div><div class="line">  //不能以&apos;/&apos;&apos;:&apos;开头，必须是一个&apos;/&apos;后面跟随任意字符至少一个</div><div class="line">  var PATH_RE = /^([^\/:]+)(\/.+)$/ //([^\/:]+) 路径的短名称配置</div><div class="line"></div><div class="line">  //检测是否 书写路径短名称</div><div class="line">  function parsePaths(id) &#123;</div><div class="line">    var paths = data.paths; //是否配置短路径</div><div class="line">    if(paths &amp;&amp; (m=id.match(PATH_RE)) &amp;&amp; isString(paths[m[1]]))&#123;</div><div class="line">      id = paths[m[1]]+m[2]</div><div class="line">    &#125;</div><div class="line">    return id</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  //检测是否添加后缀</div><div class="line">  function normalize(path)&#123;</div><div class="line">    var last = path.length-1</div><div class="line">    var lastC = path.charAt(last)</div><div class="line">    return (lastC === &apos;/&apos; || path.substring(last-2) === &apos;.js&apos;) ? path :path+&apos;.js&apos;</div><div class="line">  &#125;</div><div class="line">  //添加根目录</div><div class="line">  function addBase(id,uri)&#123;</div><div class="line">    // var result;</div><div class="line">    // //相对路径</div><div class="line">    // if(id.charAt(0) === &apos;.&apos;)&#123;</div><div class="line">    //   result = realpath( (uri ? uri.match(/[^?]*\//)[0] : data.cwd ) + id)</div><div class="line">    // &#125;else&#123;</div><div class="line">    //   result = data.cwd+id</div><div class="line">    // &#125;</div><div class="line">    var result = data.baseUrl ?data.cwd + data.baseUrl +id : data.cwd + id //支持data-main属性添加默认路径</div><div class="line">    return result</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  var DOT_RE = /\/.\//g //   /a/b/./c/./d ==&gt;/a/b/c/d     /./ ==&gt;/</div><div class="line">  var DOUBLE_DOT_RE = /\/[^/]+\/\.\.\//; // a/b/c/../../d ===&gt;a/b/../d ==&gt; a/d    /xxxxx/../==&gt; /</div><div class="line">  //规范路径</div><div class="line">  function realpath(path)&#123;</div><div class="line">    path = path.replace(DOT_RE,&apos;/&apos;)</div><div class="line">    while(path.match(DOUBLE_DOT_RE))&#123;</div><div class="line">      path= path.replace(DOUBLE_DOT_RE,&apos;/&apos;)</div><div class="line">    &#125;</div><div class="line">    return path</div><div class="line">  &#125;</div><div class="line">  //生成绝对路径 资源路径解析</div><div class="line">  startUp.resolve = function (child,parent) &#123;</div><div class="line">    if(!child) return &apos;&apos;</div><div class="line">    child = parseAlias(child) //检测是否有别名</div><div class="line">    child = parsePaths(child) //检测是否有路径别名，依赖模块中引包的模块路径地址 require(&apos;app/c)</div><div class="line">    child = normalize(child) //检测是否添加后缀</div><div class="line">    return addBase(child,parent) //添加根目录</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  startUp.request = function(url,callback)&#123;</div><div class="line">    var node = document.createElement(&apos;script&apos;)</div><div class="line">    node.src = url</div><div class="line">    document.body.appendChild(node)</div><div class="line">    node.onload = function()&#123;</div><div class="line">      node.onload = null</div><div class="line">      document.body.removeChild(node) //加载依赖结束后移除加载时的script标签</div><div class="line">      callback()</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">  //模块加载器启用</div><div class="line">  startUp.use = function(list,callback)&#123;</div><div class="line">    //检阅有没有预先加载的模块</div><div class="line">    Module.preload(function()&#123;</div><div class="line">      Module.use(list,callback,data.cwd+&quot;_use_&quot;+cid()) //虚拟的根目录</div><div class="line">    &#125;)</div><div class="line">  &#125;</div><div class="line">  //模块加载器配置</div><div class="line">  /**</div><div class="line">   * </div><div class="line">   * startUp.config(&#123;</div><div class="line">   *   alias:&#123;</div><div class="line">   *    a:&apos;common/js/a&apos;</div><div class="line">   *   &#125;,</div><div class="line">   *   preload:[c.js]</div><div class="line">   * &#125;)</div><div class="line">   */</div><div class="line">  startUp.config = function (options) &#123;</div><div class="line">    var key,curr</div><div class="line">    for(key in options)&#123;</div><div class="line">      curr = Option[key]</div><div class="line">      data[key] = curr</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  //构造函数 模块初始化数据</div><div class="line">  function Module(uri,deps)&#123;</div><div class="line">    this.uri = uri;</div><div class="line">    this.deps = deps || [] //依赖项</div><div class="line">    this.exports = null</div><div class="line">    this.status = 0</div><div class="line">    this._waitings = &#123;&#125;</div><div class="line">    this._remain = 0</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  //分析主干(左子树 | 右子树)上的依赖项</div><div class="line">  Module.prototype.load = function()&#123;</div><div class="line">    var m = this</div><div class="line">    m.status = status.LOADING//LOADING == 3 正在加载模块依赖项</div><div class="line">    var uris = m.resolve()//获取主干上的依赖项</div><div class="line">    var len = m.remain = uris.length</div><div class="line"></div><div class="line">    //加载主干上的依赖项(模块)</div><div class="line">    var seed</div><div class="line">    for(var i=0;i&lt;len;i++)&#123;</div><div class="line">      seed = Module.get(uris[i]) //创建缓存信息</div><div class="line">      if(seed.status &lt;status.LOADED)&#123; //LOADED == 4 准备加载执行当前模块</div><div class="line">        seed._waitings[m.uri] = seed._waitings[m.uri] || 1 //多少模块依赖于我，_waitings是依赖我的模块的路径集合</div><div class="line">      &#125;else&#123;</div><div class="line">        seed._remain--</div><div class="line">      &#125;</div><div class="line">    &#125;</div><div class="line">    //如果依赖列表模块全部加载完毕</div><div class="line">    if(m._remain == 0)&#123; //递归过程到此结束</div><div class="line">      //获取模块的接口对象</div><div class="line">      m.onload()</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    //准备执行根目录下的依赖列表中的模块</div><div class="line">    var requestCache = &#123;&#125;</div><div class="line">    for(var i=0;i&lt;len;i++)&#123;</div><div class="line">      seed = Module.get(uris[i])</div><div class="line">      if(seed.status &lt; status.FETCHED)&#123;</div><div class="line">        seed.fetch(requestCache)</div><div class="line">      &#125;</div><div class="line">    &#125;</div><div class="line">    for(uri in requestCache)&#123;</div><div class="line">      requestCache[uri]()</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  Module.prototype.fetch = function(requestCache)&#123;</div><div class="line">    var m =this</div><div class="line">    m.status = status.FETCHED</div><div class="line">    var uri = m.uri</div><div class="line">    requestCache[uri] = sendRequest; //Document.createElement(&apos;script)</div><div class="line">    </div><div class="line">    function sendRequest()&#123;</div><div class="line">      startUp.request(uri,onRequest) //动态加载script</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    function onRequest()&#123; //事件函数 script标签加载模块结束后，onload 函数中会被调用</div><div class="line">      if(anonymousMeta)&#123; //模块的数据更新</div><div class="line">        m.save(uri,anonymousMeta)</div><div class="line">      &#125;</div><div class="line">      m.load() //递归 模块加载策略</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  Module.prototype.onload = function()&#123;</div><div class="line">    var mod = this</div><div class="line">    mod.status = LOADED //4</div><div class="line">    if(mod.callback)&#123;//获取模块接口对象</div><div class="line">      mod.callback()</div><div class="line">    &#125;</div><div class="line">    var waitings = mod._waitings //依赖加载完，递归回调 被依赖模块(父)的callback</div><div class="line">    var key,m;</div><div class="line">    for(key in waitings)&#123;</div><div class="line">      var m = cache[key]</div><div class="line">      m._remain -= waitings[key]</div><div class="line">      if(m._remain == 0)&#123; //判断父模块依赖是否全部加载完</div><div class="line">        m.onload()</div><div class="line">      &#125;</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line"> </div><div class="line">  //资源定位 解析依赖项生成绝对路径</div><div class="line">  Module.prototype.resolve = function()&#123;</div><div class="line">    var mod = this</div><div class="line">    var ids = mod.deps</div><div class="line">    var uris = []</div><div class="line">    for(var i =0;i&lt;ids.length;i++)&#123;</div><div class="line">      uris[i] = startUp.resolve(ids[i],mod.uri) //依赖项（主干 | 子树）</div><div class="line">    &#125;</div><div class="line">    return uris;</div><div class="line">  &#125;</div><div class="line"></div><div class="line">   //更改初始化数据</div><div class="line">  Module.prototype.save = function(uri,meta)&#123;</div><div class="line">    var mod = Module.get(uri)</div><div class="line">    mod.uri = uri</div><div class="line">    mod.deps = meta.deps || []</div><div class="line">    mod.factory = meta.factory</div><div class="line">    mod.status = status.SAVED</div><div class="line">  &#125;</div><div class="line">  </div><div class="line">  //获取接口对象</div><div class="line">  Module.prototype.exec = function()&#123;</div><div class="line">    var module = this</div><div class="line">    //防止重复执行</div><div class="line">    if(module.status &gt;= status.EXECTING)&#123;</div><div class="line">      return module.exports</div><div class="line">    &#125;</div><div class="line">    module.status = status.EXECTING;</div><div class="line">    var uri = module.uri</div><div class="line">    function require(id)&#123; //作为参数传递到define参数的函数中</div><div class="line">      return Module.get(require.resolve(id)).exec() //获取接口对象</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    require.resolve = function(id)&#123;</div><div class="line">      return startUp.resolve(id,uri)</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    var factory = module.factory //define传入的函数</div><div class="line">    var exports = isFunction(factory) ? factory(require,module.exports= &#123;&#125;,module) :factory;</div><div class="line">    if(exports === undefined) &#123;</div><div class="line">      exports = module.exports</div><div class="line">    &#125;</div><div class="line">    module.exports = exports</div><div class="line">    module.status = status.EXECTED //6</div><div class="line">    return exports</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  //定义一个模块</div><div class="line">  Module.define = function(factory)&#123;</div><div class="line">    var deps</div><div class="line">    if(isFunction(factory))&#123;</div><div class="line">      //正则解析依赖项</div><div class="line">      deps = parseDependencies(factory.toString())</div><div class="line">    &#125;</div><div class="line">    //存储当前模块信息</div><div class="line">    var meta = &#123;</div><div class="line">      id:&apos;&apos;,</div><div class="line">      uri:&apos;&apos;,</div><div class="line">      deps:deps,</div><div class="line">      factory:factory</div><div class="line">    &#125;</div><div class="line">    anonymousMeta = meta</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  //检测缓存对象上是否有当前模块信息</div><div class="line">  Module.get = function(uri,deps)&#123;</div><div class="line">    //cache[&apos;xxxxx.js&apos;] = &#123;uri:&apos;xxxxx.js&apos;,deps:[]&#125; //module 实例对象</div><div class="line">    return cache[uri] || (cache[uri] = new Module(uri,deps))</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  Module.use = function(deps,callback,uri)&#123;</div><div class="line">    var m = Module.get(uri,isArray(deps)?dep:[deps])</div><div class="line">    console.log(module)</div><div class="line">    //所有模块都加载完毕</div><div class="line">    m.callback= function()&#123;</div><div class="line">      var exports = [] //所有依赖项模块的接口对象</div><div class="line">      var uris = m.resolve()</div><div class="line">      for(var i = 0;i&lt;uris.length;i++)&#123;</div><div class="line">        exports[i] = cache[uris[i]].exec() //获取模块对外定义的接口对象</div><div class="line">      &#125;</div><div class="line">      if(callback)&#123;</div><div class="line">        callback.apply(global,exports)</div><div class="line">      &#125;</div><div class="line">    &#125;</div><div class="line">    m.load()</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  var _cid = 0</div><div class="line"></div><div class="line">  function cid()&#123;</div><div class="line">    return _cid++</div><div class="line">  &#125;</div><div class="line">  // data.preload = []</div><div class="line">  //取消当前项目文档的URL</div><div class="line">  data.cwd = document.URL.match(/[^?]*\//)[0]</div><div class="line">  Module.preload = function(callback)&#123;</div><div class="line">    var preload = data.preload ||[]</div><div class="line">    var length = data.preload.length</div><div class="line">    if(length)&#123; //length !== 0 先加载预先设定模块</div><div class="line">      Module.use(preload,function () &#123;</div><div class="line">        preload.splice(0,length)</div><div class="line">        callback()</div><div class="line">      &#125;,data.cwd+&apos;_use_&apos;+cid())</div><div class="line">    &#125; else&#123;</div><div class="line">      callback() </div><div class="line">    &#125;</div><div class="line">    </div><div class="line">  &#125;</div><div class="line">  </div><div class="line">  var REQUIRE_RE = /\brequire\s*\(\s*([&quot;&apos;])(.+?)\1\s*\)/g</div><div class="line">  function parseDependencies(code)&#123;</div><div class="line">    var ret = []</div><div class="line">    code.replace(REQUIRE_RE,function(m,m1,m2)&#123;</div><div class="line">      if(m2) ret.push(m2)</div><div class="line">    &#125;)</div><div class="line">    return ret</div><div class="line">  &#125;</div><div class="line">  global.define = module.define</div><div class="line">&#125;)(this)</div></pre></td></tr></table></figure>
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="http://yoohannah.github.io/post/vue/src1.html">
-
-  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
-    <meta itemprop="name" content="YooHannah">
-    <meta itemprop="description" content="">
-    <meta itemprop="image" content="/psb.jpg">
-  </span>
-
-  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-    <meta itemprop="name" content="My Little World">
-    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
-      <img style="display:none;" itemprop="url image" alt="My Little World" src="">
-    </span>
-  </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/post/vue/src1.html" itemprop="url">
-                  vue 源码学习一【new vue】
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-01-27T10:48:15+08:00">
-                2020-01-27
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="new-vue时发生了什么"><a href="#new-vue时发生了什么" class="headerlink" title="new vue时发生了什么"></a>new vue时发生了什么</h1><p>平常练习时使用vue顺序是，将vue.js引入html,<br>new vue就可以开始使用vue框架写东西<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">&lt;body&gt;</div><div class="line">  &lt;div id = &apos;app&apos;&gt;</div><div class="line">    &lt;p&gt;&#123;&#123;a&#125;&#125;&lt;/p&gt;</div><div class="line">  &lt;/div&gt;</div><div class="line">  &lt;script type=&quot;text/javascript&quot; src=&quot;vue.js&quot;&gt;&lt;/script&gt;</div><div class="line">  &lt;script&gt;</div><div class="line">    let app = new Vue(&#123;</div><div class="line">      el:&apos;#app&apos;,</div><div class="line">      data:&#123;</div><div class="line">        a:&apos;hello world&apos;</div><div class="line">      &#125;,</div><div class="line">      method:&#123;&#125;,</div><div class="line">    &#125;)</div><div class="line">  &lt;/script&gt;</div><div class="line">&lt;/body&gt;</div></pre></td></tr></table></figure></p>
-<p>代码运行顺序是，当我们在script标签引入文件时，<br>引入的vuejs文件会先执行一遍，<br>执行的结果就是帮助我们生成一个挂载在全局的，vue对象的构造函数<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line">(function (global, factory) &#123;</div><div class="line">  typeof exports === &apos;object&apos; &amp;&amp; typeof module !== &apos;undefined&apos; ? module.exports = factory() :</div><div class="line">  typeof define === &apos;function&apos; &amp;&amp; define.amd ? define(factory) :</div><div class="line">  (global = global || self, global.Vue = factory());//将vue挂到全局上下文中</div><div class="line">&#125;(this, function () &#123; &apos;use strict&apos;;</div><div class="line">  function Vue (options) &#123;</div><div class="line">    if (!(this instanceof Vue)</div><div class="line">    ) &#123;</div><div class="line">      warn(&apos;Vue is a constructor and should be called with the `new` keyword&apos;);</div><div class="line">    &#125;</div><div class="line">    this._init(options);</div><div class="line">  &#125;</div><div class="line">  initMixin(Vue);</div><div class="line">  stateMixin(Vue);</div><div class="line">  eventsMixin(Vue);</div><div class="line">  lifecycleMixin(Vue);</div><div class="line">  renderMixin(Vue);</div><div class="line">  initGlobalAPI(Vue);</div><div class="line">  Vue.compile = compileToFunctions;</div><div class="line"></div><div class="line">  return Vue;</div><div class="line"></div><div class="line">&#125;));</div></pre></td></tr></table></figure></p>
-<p>当代码运行到new vue时，代码就会调用function Vue<br>function Vue 中会【调用】自己的_init()方法，<br>对即将生成的vue对象做初始化工作，即开始生成vue对象</p>
-<p>_init方法定义在initMixin函数中<br>在调用initMixin生成构造函数流程中被挂到vue上<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div></pre></td><td class="code"><pre><div class="line">Vue.prototype._init = function (options) &#123;</div><div class="line">  var vm = this;</div><div class="line">  vm._uid = uid$3++;</div><div class="line"></div><div class="line">  var startTag, endTag;</div><div class="line">  vm._isVue = true;// a flag to avoid this being observed</div><div class="line">  // 合并选项,将配置项以内置选项进行合并</div><div class="line">  if (options &amp;&amp; options._isComponent) &#123;</div><div class="line">    //优化内部组件实例化过程</div><div class="line">    // 由于动态选项合并非常慢，并且内部组件选项均不需要特殊处理。</div><div class="line">    initInternalComponent(vm, options);</div><div class="line">  &#125; else &#123;</div><div class="line">    vm.$options = mergeOptions(</div><div class="line">      resolveConstructorOptions(vm.constructor),</div><div class="line">      options || &#123;&#125;,</div><div class="line">      vm</div><div class="line">    );</div><div class="line">  &#125;</div><div class="line">  /* istanbul ignore else */</div><div class="line">  &#123;</div><div class="line">    initProxy(vm);</div><div class="line">  &#125;</div><div class="line">  // expose real self</div><div class="line">  vm._self = vm;</div><div class="line">  initLifecycle(vm);</div><div class="line">  initEvents(vm);</div><div class="line">  initRender(vm);</div><div class="line">  callHook(vm, &apos;beforeCreate&apos;);//运行订阅了beforecreate钩子的相关方法</div><div class="line">  initInjections(vm); // resolve injections before data/props</div><div class="line">  initState(vm);</div><div class="line">  initProvide(vm); // resolve provide after data/props</div><div class="line">  callHook(vm, &apos;created&apos;);</div><div class="line">  if (vm.$options.el) &#123;//如果配置了el,就进行挂载处理挂载</div><div class="line">    vm.$mount(vm.$options.el);//会给给option挂上render，staticRenderFns属性</div><div class="line">  &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure></p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1677,7 +1679,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">198</span>
+              <span class="site-state-item-count">199</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -1741,7 +1743,7 @@
         <div class="copyright" >
   
   &copy; 
-  <span itemprop="copyrightYear">2020</span>
+  <span itemprop="copyrightYear">2021</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
